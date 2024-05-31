@@ -207,6 +207,12 @@ header{
     font-weight: bold;
 }
 
+.send1{
+    padding-left: 200px;
+    padding-right: 200px;
+    margin-top: 20px;
+}
+
 #score3_1,#score3_2, #score3_3, #score3_4, #score3_5, #score3_6, #score3_7, #score3_8, #score3_9, #score3_10, 
 #score3_11, #score3_12, #score3_13, #score3_14, #score3_15, #score3_16,#score3_17, #score3_18, #score3_19 {
     white-space: nowrap;

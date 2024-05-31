@@ -94,8 +94,8 @@
           definiciones.</p>
           <p>5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
           formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.</p>
-          <center><button type="button" onclick="submitForm('form1')" class="btn btn-primary"
-            style="padding-left: 200px;padding-right: 200px;margin-top: 20px;">Enviar</button></center>
+          <center><button type="button" onclick="submitForm('form1')" class="btn btn-primary send1">Enviar</button>
+          </center>
         </div>
 
 
@@ -142,7 +142,7 @@
           </tr>
           </thead>
         </table>
-        <button type="button" onclick="submitForm('form2_2')">Enviar</button>
+        <button type="button" onclick="submitForm('form2_2')" class="btn btn-primary">Enviar</button>
         </form>
         <div>
         <!--Actividad 2: Dedicacion en el Desempeño docente	-->
@@ -193,13 +193,14 @@
 
           </tbody>
         </table>
-        <button type="button" onclick="submitForm('form2_2')">Enviar</button>
+        <button type="button" onclick="submitForm('form2_2')" class="btn btn-primary">Enviar</button>
         <table>
           <thead>
           <tr>
             <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditacion: </th>
             <th style="width:60px;padding-left: 100px;">DSE/DIIP</th>
-            <th style="font-weight: normal; padding-left: 100px;">8.5 puntos por cada hora/semana/año en cada caso
+            <th style="font-weight: normal; padding-left: 100px;">8.5 puntos por cada hora/semana/año en cada
+            caso
             </th>
           </tr>
           </thead>
@@ -241,7 +242,8 @@
                 <td scope="col">
                   <span class="actividades">Incisos</span>
                   <span class="actividades">&nbsp &nbsp &nbsp &nbsp Documento</span>
-                  <span class="actividades">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Actividad</span>
+                  <span class="actividades">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                  Actividad</span>
                   <span class="actividades"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                   &nbsp
                   Puntaje</span>
@@ -253,7 +255,8 @@
                 <td>a) <label for="">&nbsp</label><label for="">&nbsp</label><label
                   for="">&nbsp</label><label for="">&nbsp</label><label for="">&nbsp</label><label
                   for="">&nbsp</label><label for="">&nbsp</label><label for="">&nbsp</label>
-                  <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo
+                  <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado
+                  nuevo
                   o
                   actualización</label>
                   <label style="height:94px; width: 180px;">Responsable de la Comisión para la elaboración
@@ -538,8 +541,10 @@
               </tr>
               <tr>
               <td>c)</td>
-              <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio o instructivos, 3. Diseño y
-                construcción de equipo de laboratorio, 4. Elaboración de material audiovisual, 5. Elaboración
+              <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio o instructivos, 3. Diseño
+                y
+                construcción de equipo de laboratorio, 4. Elaboración de material audiovisual, 5.
+                Elaboración
                 de
                 software educativo, 6. Notas de curso, 7. Antología comentada, 8. Monografía.</td>
               <td>Autor(a)</td>
@@ -616,7 +621,8 @@
               <td><input type="value" id="cantInternacional" placeholder="0" oninput="onActv3SubTotal3_4()">
               </td>
               <td id="cantInternacional2"></td>
-              <td><input type="value" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
+              <td><input type="value" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()">
+              </td>
               <td><input id="obs3_4_1" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -627,7 +633,7 @@
               <td id="p30Nac"><b>30</b></td>
               <td><input type="value" id="cantNacional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
               <td id="cantNacional2""></td>
-      <td><input type=" value" id="comNacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
+        <td><input type=" value" id="comNacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
               <td><input id="obs3_4_2" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -652,7 +658,8 @@
               <td><input type="value" id="cantPreparacion" placeholder="0" oninput="onActv3SubTotal3_4()">
               </td>
               <td id="cantPreparacion2"></td>
-              <td><input type="value" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()"></td>
+              <td><input type="value" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()">
+              </td>
               <td><input id="obs3_4_4" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -703,7 +710,7 @@
               <td id="pCAAC40"><b>40</b></td>
               <td><input type="value" id="cantCAAC" placeholder="0" oninput="onActv3SubTotal3_5()"></td>
               <td id="cantCAAC2""></td>
-      <td><input type=" value" id="comNCAA" placeholder="0" oninput="onActv3Comision3_5()"></td>
+        <td><input type=" value" id="comNCAA" placeholder="0" oninput="onActv3Comision3_5()"></td>
               <td><input id="obs3_5_2" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -738,7 +745,8 @@
             <tbody>
             <thead>
               <tr>
-              <th colspan=1 class="punto3_6" scope=col style="padding:30px;">3.6 Capacitación y actualización
+              <th colspan=1 class="punto3_6" scope=col style="padding:30px;">3.6 Capacitación y
+                actualización
                 pedagógica recibida </th>
               <td class="punto3_6">Factor</td>
               <td class="punto3_6">Horas</td>
@@ -752,7 +760,8 @@
               <td id="pMedio">0.5</td>
               <td><input type="value" placeholder="0" id="puntaje3_6" oninput="onActv3SubTotal3_6()"></td>
               <td id="puntajeHoras3_6"></td>
-              <td><input type="text" placeholder="0" id="comisionDict3_6" oninput="onActv3Comision3_6()"></td>
+              <td><input type="text" placeholder="0" id="comisionDict3_6" oninput="onActv3Comision3_6()">
+              </td>
               <td><input id="obs3_6" id="obs3_6" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -802,7 +811,8 @@
               <td id="pMedio2">0.5</td>
               <td><input type="value" placeholder="0" id="puntaje3_7" oninput="onActv3SubTotal3_7()"></td>
               <td id="puntajeHoras3_7"></td>
-              <td><input type="text" placeholder="0" id="comisionDict3_7" oninput="onActv3Comision3_7()"></td>
+              <td><input type="text" placeholder="0" id="comisionDict3_7" oninput="onActv3Comision3_7()">
+              </td>
               <td><input id="obs3_7" class="table-header" type="text"></td>
               </tr>
             </thead>
@@ -853,7 +863,8 @@
               <td id="p3_8">1</td>
               <td><input type="value" placeholder="0" id="puntaje3_8" oninput="onActv3SubTotal3_8()"></td>
               <td id="puntajeHoras3_8"></td>
-              <td><input type="text" placeholder="0" id="comisionDict3_8" oninput="onActv3Comision3_8()"></td>
+              <td><input type="text" placeholder="0" id="comisionDict3_8" oninput="onActv3Comision3_8()">
+              </td>
               <td><input class="table-header" id="obs3_8" type="text"></td>
               </tr>
             </thead>
@@ -1196,7 +1207,8 @@
               <td>a)</td>
               <td>Por alumno(a) por semestre, grupales</td>
               <td id="puntajeGrupales">3</td>
-              <td><input type="value" id="grupalesCant" oninput="onActv3SubTotal3_10()" placeholder="0"></td>
+              <td><input type="value" id="grupalesCant" oninput="onActv3SubTotal3_10()" placeholder="0">
+              </td>
               <td></td>
               <td></td>
               <td></td>
@@ -1352,7 +1364,8 @@
           </thead>
           <thead>
             <tr>
-            <th class="acreditacion" colspan=7>3.12 Publicaciones de investigación relacionadas con el contenido
+            <th class="acreditacion" colspan=7>3.12 Publicaciones de investigación relacionadas con el
+              contenido
               de los PE que imparte el docente</th>
             <th></th>
             <th id="score3_12">0</th>
@@ -1423,7 +1436,8 @@
             <td>Con Arbitraje</td>
             <td>Internacional</td>
             <td id="puntajeArbitrajeInt">60</td>
-            <td><input type="value" placeholder="0" id="cantArbitrajeInt" oninput="onActv3SubTotal3_12()"></td>
+            <td><input type="value" placeholder="0" id="cantArbitrajeInt" oninput="onActv3SubTotal3_12()">
+            </td>
             <td></td>
             <td></td>
             <td id="subtotalArbitrajeInt"></td>
@@ -1437,7 +1451,8 @@
             <td>Con Arbitraje</td>
             <td>Nacional</td>
             <td id="puntajeArbitrajeNac">30</td>
-            <td><input type="value" placeholder="0" id="cantArbitrajeNac" oninput="onActv3SubTotal3_12()"></td>
+            <td><input type="value" placeholder="0" id="cantArbitrajeNac" oninput="onActv3SubTotal3_12()">
+            </td>
             <td></td>
             <td></td>
             <td id="subtotalArbitrajeNac"></td>
@@ -1590,7 +1605,8 @@
             </tr>
             <tr>
             <td>c)</td>
-            <td>Reporte cumplido del periodo anual del proyecto de investigación con financiamiento externo</td>
+            <td>Reporte cumplido del periodo anual del proyecto de investigación con financiamiento externo
+            </td>
             <td id="puntajeReporteFinanciamExt">100</td>
             <td><input type="value" placeholder="0" id="cantReporteFinanciamExt"
               oninput="onActv3SubTotal3_13()">
@@ -1605,9 +1621,11 @@
             </tr>
             <tr>
             <td>d)</td>
-            <td>Reporte cumplido del periodo anual del proyecto de investigación interno, aprobado por CAAC</td>
+            <td>Reporte cumplido del periodo anual del proyecto de investigación interno, aprobado por CAAC
+            </td>
             <td id="puntajeReporteInvInt">100</td>
-            <td><input type="value" placeholder="0" id="cantReporteInvInt" oninput="onActv3SubTotal3_13()"></td>
+            <td><input type="value" placeholder="0" id="cantReporteInvInt" oninput="onActv3SubTotal3_13()">
+            </td>
             <td></td>
             <td></td>
             <td></td>
@@ -1646,7 +1664,8 @@
           </thead>
           <thead>
             <tr>
-            <th class="acreditacion" colspan=7>3.14 Participación como ponente en congresos o eventos académicos
+            <th class="acreditacion" colspan=7>3.14 Participación como ponente en congresos o eventos
+              académicos
               del Área de Conocimiento o afines del docente</th>
             <th id="score3_14">0</th>
             <th id="comision3_14">0</th>
@@ -1982,7 +2001,8 @@
             <td>Inicio de proyectos de extensión y difusión con financiamiento externo</td>
             <td></td>
             <td id="puntajeDifusionExt"><b>15</b></td>
-            <td><input type="value" id="cantDifusionExt" placehoolder="0" oninput="onActv3SubTotal3_17()"></td>
+            <td><input type="value" id="cantDifusionExt" placehoolder="0" oninput="onActv3SubTotal3_17()">
+            </td>
             <td></td>
             <td id="subtotalDifusionExt"></td>
             <td><input type="value" id="comisionDifusionExt" placeholder="0" oninput="onActv3Comision3_17()">
@@ -1994,7 +2014,8 @@
             <td>Inicio de proyectos de extensión y difusión internos, aprobados por CAAC</td>
             <td></td>
             <td id="puntajeDifusionInt"><b>10</b></td>
-            <td><input type="value" id="cantDifusionInt" placehoolder="0" oninput="onActv3SubTotal3_17()"></td>
+            <td><input type="value" id="cantDifusionInt" placehoolder="0" oninput="onActv3SubTotal3_17()">
+            </td>
             <td></td>
             <td id="subtotalDifusionInt"></td>
             <td><input type="value" id="comisionDifusionInt" placeholder="0" oninput="onActv3Comision3_17()">
@@ -2092,7 +2113,8 @@
             <td><input type="value" id="cantComOrgInt" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
             <td></td>
             <td id="subtotalComOrgInt"></td>
-            <td><input type="value" id="comisionComOrgInt" placeholder="0" oninput="onActv3Comision3_18()"></td>
+            <td><input type="value" id="comisionComOrgInt" placeholder="0" oninput="onActv3Comision3_18()">
+            </td>
             <td><input class="table-header" type="text" id="obsComOrgInt"></td>
             </tr>
             <tr>
@@ -2104,7 +2126,8 @@
             <td><input type="value" id="cantComOrgNac" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
             <td></td>
             <td id="subtotalComOrgNac"></td>
-            <td><input type="value" id="comisionComOrgNac" placeholder="0" oninput="onActv3Comision3_18()"></td>
+            <td><input type="value" id="comisionComOrgNac" placeholder="0" oninput="onActv3Comision3_18()">
+            </td>
             <td><input class="table-header" type="text" id="obsComOrgNac"></td>
             </tr>
             <tr>
@@ -2116,7 +2139,8 @@
             <td><input type="value" id="cantComOrgReg" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
             <td></td>
             <td id="subtotalComOrgReg"></td>
-            <td><input type="value" id="comisionComOrgReg" placeholder="0" oninput="onActv3Comision3_18()"></td>
+            <td><input type="value" id="comisionComOrgReg" placeholder="0" oninput="onActv3Comision3_18()">
+            </td>
             <td><input class="table-header" type="text" id="obsComOrgReg"></td>
             </tr>
             <tr>
@@ -2125,7 +2149,8 @@
             <td></td>
             <td>Internacional</td>
             <td id="puntajeComApoyoInt"><b>40</b></td>
-            <td><input type="value" id="cantComApoyoInt" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
+            <td><input type="value" id="cantComApoyoInt" placehoolder="0" oninput="onActv3SubTotal3_18()">
+            </td>
             <td></td>
             <td id="subtotalComApoyoInt"></td>
             <td><input type="value" id="comisionComApoyoInt" placeholder="0" oninput="onActv3Comision3_18()">
@@ -2138,7 +2163,8 @@
             <td></td>
             <td>Nacional</td>
             <td id="puntajeComApoyoNac"><b>20</b></td>
-            <td><input type="value" id="cantComApoyoNac" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
+            <td><input type="value" id="cantComApoyoNac" placehoolder="0" oninput="onActv3SubTotal3_18()">
+            </td>
             <td></td>
             <td id="subtotalComApoyoNac"></td>
             <td><input type="value" id="comisionComApoyoNac" placeholder="0" oninput="onActv3Comision3_18()">
@@ -2151,7 +2177,8 @@
             <td></td>
             <td>Regional</td>
             <td id="puntajeComApoyoRegc"><b>10</b></td>
-            <td><input type="value" id="cantComApoyoReg" placehoolder="0" oninput="onActv3SubTotal3_18()"></td>
+            <td><input type="value" id="cantComApoyoReg" placehoolder="0" oninput="onActv3SubTotal3_18()">
+            </td>
             <td></td>
             <td id="subtotalComApoyoReg"></td>
             <td><input type="value" id="comisionComApoyoReg" placeholder="0" oninput="onActv3Comision3_18()">
@@ -2306,7 +2333,8 @@
               <td></td>
               <td>Titular o suplente</td>
               <td id="puntajeCGUtitular"><b>20</b></td>
-              <td><input type="value" id="cantCGUtitular" placeholder="0" oninput="onActv3SubTotal3_19()"></td>
+              <td><input type="value" id="cantCGUtitular" placeholder="0" oninput="onActv3SubTotal3_19()">
+              </td>
               <td></td>
               <td id="subtotalCGUtitular"></td>
               <td><input type="value" id="comCGUtitular" placeholder="0" oninput="onActv3Comision3_19()"></td>
@@ -2318,10 +2346,12 @@
               <td></td>
               <td>Participación como miembro de comisión especial</td>
               <td id="puntajeCGUespecial"><b>15</b></td>
-              <td><input type="value" id="cantCGUespecial" placeholder="0" oninput="onActv3SubTotal3_19()"></td>
+              <td><input type="value" id="cantCGUespecial" placeholder="0" oninput="onActv3SubTotal3_19()">
+              </td>
               <td></td>
               <td id="subtotalCGUespecial"></td>
-              <td><input type="value" id="comCGUespecial" placeholder="0" oninput="onActv3Comision3_19()"></td>
+              <td><input type="value" id="comCGUespecial" placeholder="0" oninput="onActv3Comision3_19()">
+              </td>
               <td><input class="table-header" type="text" id="obsCGUespecial"></td>
             </tr>
             <tr>
@@ -2344,10 +2374,12 @@
               <td></td>
               <td>Titular o suplente</td>
               <td id="puntajeCAACtitular"><b>10</b></td>
-              <td><input type="value" id="cantCAACtitular" placeholder="0" oninput="onActv3SubTotal3_19()"></td>
+              <td><input type="value" id="cantCAACtitular" placeholder="0" oninput="onActv3SubTotal3_19()">
+              </td>
               <td></td>
               <td id="subtotalCAACtitular"></td>
-              <td><input type="value" id="comCAACtitular" placeholder="0" oninput="onActv3Comision3_19()"></td>
+              <td><input type="value" id="comCAACtitular" placeholder="0" oninput="onActv3Comision3_19()">
+              </td>
               <td><input class="table-header" type="text" id="obsCAACtitular"></td>
             </tr>
             <tr>
@@ -2360,7 +2392,8 @@
               </td>
               <td></td>
               <td id="subtotalCAACintegCom"></td>
-              <td><input type="value" id="comCAACintegCom" placeholder="0" oninput="onActv3Comision3_19()"></td>
+              <td><input type="value" id="comCAACintegCom" placeholder="0" oninput="onActv3Comision3_19()">
+              </td>
               <td><input class="table-header" type="text" id="obsCAACintegCom"></td>
             </tr>
             <tr>
@@ -2393,7 +2426,8 @@
               <td></td>
               <td>Participación como integrante del Comité Académico de Posgrado</td>
               <td id="puntajeComPartPos"><b>5</b></td>
-              <td><input type="value" id="cantComPartPos" placeholder="0" oninput="onActv3SubTotal3_19()"></td>
+              <td><input type="value" id="cantComPartPos" placeholder="0" oninput="onActv3SubTotal3_19()">
+              </td>
               <td></td>
               <td id="subtotalComPartPos"></td>
               <td><input type="value" id="comComPartPos" placeholder="0" oninput="onActv3Comision3_19()"></td>
@@ -2417,10 +2451,12 @@
               <td></td>
               <td>De carrera</td>
               <td id="puntajeRespCarrera"><b>15</b></td>
-              <td><input type="value" id="cantRespCarrera" placeholder="0" oninput="onActv3SubTotal3_19()"></td>
+              <td><input type="value" id="cantRespCarrera" placeholder="0" oninput="onActv3SubTotal3_19()">
+              </td>
               <td></td>
               <td id="subtotalRespCarrera"></td>
-              <td><input type="value" id="comRespCarrera" placeholder="0" oninput="onActv3Comision3_19()"></td>
+              <td><input type="value" id="comRespCarrera" placeholder="0" oninput="onActv3Comision3_19()">
+              </td>
               <td><input class="table-header" type="text" id="obsRespCarrera"></td>
             </tr>
             <tr>
@@ -2571,7 +2607,7 @@
             </tr>
             </thead>
           </table><br>
-          <button type="button" onclick="submitForm('form3')">Enviar</button>
+          <button type="button" onclick="submitForm('form3')" class="btn btn-primary">Enviar</button>
         </form>
       @endif
     </div>
@@ -2934,6 +2970,7 @@
       function submitForm(formId) {
         // Get form data
         let formData = {};
+        let gridOptions = {};
         let form = document.getElementById(formId);
 
         //Recoge los datos dependiendo del formulario actual
