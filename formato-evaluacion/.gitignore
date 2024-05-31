@@ -18,7 +18,7 @@ yarn-error.log
 /.idea
 /.vscode
 ../example-app/*
-../Captura_primer_proyecto_laravel.png/*
+../Captura_primer_proyecto_laravel.png*
 ../crud-laravel/*
 ../google-sheets-evaluacion/*
  ../proyecto/*
