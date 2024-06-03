@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 Route::get('/', function () {
     return view('login');
 });
@@ -21,3 +24,9 @@ Route::get('rules', function () {
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
+
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+
