@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Interfaces\ResponseInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+
 abstract class BaseResponse extends Model implements ResponseInterface
 {
     // Implementa el método createResponse de la interfaz
@@ -30,7 +31,7 @@ abstract class BaseResponse extends Model implements ResponseInterface
 
         // Define the options for "area" and "departamento"
 
-        $areaOptions = ['Agropecuaria', 'Ciencias del Mar y Tierra', 'Ciencias Sociales y Humanidades','Otro'];
+        $areaOptions = ['Agropecuaria', 'Ciencias del Mar y Tierra', 'Ciencias Sociales y Humanidades', 'Otro'];
         $departamentoOptions = ['Agronomia', 'Ciencia animal y Conservación del habitat', 'Ciencias de la tierra', 'Ciencias Marinas y Costeras', 'Ciencias Sociales y Juridicas', 'Economia', 'Humanidades', 'Ingenieria en Pesquerias', 'Sistemas Computacionales'];
 
         //lógica de validación y limpieza de datos   
@@ -39,8 +40,11 @@ abstract class BaseResponse extends Model implements ResponseInterface
             'convocatoria' => 'string',
             'periodo' => 'string',
             'nombre' => 'string',
-            'area' => 'required|in:' . implode(',', $areaOptions), 
-            'departamento' => 'required|in:' . implode(',', $departamentoOptions), 
+            'area' => 'required|in:' . implode(',', $areaOptions),
+            'departamento' => 'required|in:' . implode(',', $departamentoOptions),
+            'horasActv2' => 'nullable|integer',
+            'puntajeEvaluar' => 'nullable|integer',
+            'obs1' => 'nullable|string',
             'horasPosgrado' => 'nullable|integer',
             'horasSemestre' => 'nullable|integer',
             'elaboracion' => 'nullable|integer',
@@ -48,7 +52,6 @@ abstract class BaseResponse extends Model implements ResponseInterface
             'comisionIncisoB' => 'nullable|integer',
             'comisionIncisoC' => 'nullable|integer',
             'comisionIncisoD' => 'nullable|integer',
-            'obs1' => 'nullable|string',
             'obs2' => 'nullable|string',
             'obs2_2' => 'nullable|string',
             'obs3_1_1' => 'nullable|string',
@@ -146,6 +149,7 @@ abstract class BaseResponse extends Model implements ResponseInterface
             'obsPRODEPenconsInteg' => 'nullable|string',
             'obsPRODEPconsResp' => 'nullable|string',
             'obsPRODEPconsInteg' => 'nullable|string',
+            'comision1' => 'nullable|integer',
             'score3_1' => 'nullable|integer',
             'score3_2' => 'nullable|integer',
             'comision3_2' => 'nullable|integer',
