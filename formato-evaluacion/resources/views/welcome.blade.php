@@ -128,7 +128,7 @@
               <td class="horasActv2">
               <input type="number" id="horasActv2" name="horasActv2" class="form-control">
               </td>
-              <td id="puntajeEvaluar" class="puntajeEvaluar text-white" name="puntajeEvaluar"></td>
+              <td id="puntajeEvaluar" class="puntajeEvaluar text-white"></td>
               <td class="table-header comision"><input type="number" id="comision1" name="comision1"
                 class="table-header comision"></td>
               <td><input id="obs1" name="obs1" class="table-header" type="text"></input></td>
@@ -2985,7 +2985,7 @@
 
           case 'form2':
             formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
-            formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').textContent;
+            formData['puntajeEvaluar'] = form.querySelector('#puntajeEvaluar').textContent;
             formData['comision1'] = form.querySelector('input[name="comision1"]').value;
             formData['obs1'] = form.querySelector('input[id="obs1"]').value;
             break;
