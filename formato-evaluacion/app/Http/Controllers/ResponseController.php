@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\UsersResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+
 class ResponseController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class ResponseController extends Controller
     {
         // Obtener todos los datos de la solicitud
         $data = $request->all();
-        
+
         $data['user_id'] = Auth::id();
 
         try {
