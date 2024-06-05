@@ -111,7 +111,9 @@
           </h4>
 
           </div>
-          <form id="form2" method="POST" action="{{ route('store') }}">
+          <form id="form2" method="POST" action="{{ route('store2') }}">
+          @csrf
+            
           <table class="table table-sm">
             <thead>
             <tr>

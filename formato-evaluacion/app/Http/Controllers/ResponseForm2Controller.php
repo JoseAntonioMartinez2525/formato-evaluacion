@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UsersResponseForm1;
+use App\Models\UsersResponseForm2;
 use Illuminate\Http\Request;
 use App\Models\UsersResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class ResponseController extends Controller
+
+class ResponseForm2Controller extends Controller
 {
     /**
      * Almacenar una nueva respuesta en la base de datos.
@@ -16,16 +17,17 @@ class ResponseController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store2(Request $request)
     {
         // Obtener todos los datos de la solicitud
         $data = $request->all();
 
         $data['user_id'] = Auth::id();
+        $data['email'] = Auth::email();
 
         try {
             // Llamar al método estático para crear la respuesta
-            $response = UsersResponseForm1::createResponse($data);
+            $response = UsersResponseForm2::createResponse($data);
 
             // Devolver una respuesta exitosa en formato JSON
             return response()->json(['success' => true, 'data' => $response], 201);
@@ -37,10 +39,10 @@ class ResponseController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
-    public function generateJson()
+    public function generateJsonTwo()
     {
         // Retrieve all responses from the database
-        $responses = UsersResponseForm1::all();
+        $responses = UsersResponseForm2::all();
         
 
         // Convert responses to JSON format
@@ -53,3 +55,4 @@ class ResponseController extends Controller
 
     
 }
+

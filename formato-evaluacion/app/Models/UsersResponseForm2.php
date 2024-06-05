@@ -3,16 +3,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class UsersResponseForm2 extends BaseResponse
+class UsersResponseForm2 extends RulesForm2
 {
     protected $fillable = [
         'user_id',
+        'email',
         'horasActv2',
         'puntajeEvaluar',
         'comision1',
         'obs1',
-        
+
     ];
 
     protected $table = 'users_responses_form2';
@@ -28,6 +30,8 @@ class UsersResponseForm2 extends BaseResponse
     {
         return $query->orderBy('created_at', 'desc')->first();
     }
+
+
 }
 
 
