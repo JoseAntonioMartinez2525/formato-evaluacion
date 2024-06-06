@@ -32,7 +32,22 @@ header{
     margin-left: 80px;
 }
 
+#form1, #form2, #form2_2, #pMax60{
+   margin-top: 70px; 
+}
 
+#form3{
+    margin-top: 50px;
+}
+
+#btn1{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+#btn3_1, #btn3_2, #btn3_3{
+    padding-left: 80px;
+    padding-right: 70px;
+}
 .input-header {
     background-color: #ced4da;
     margin-bottom: 3px;
@@ -305,10 +320,19 @@ text-align: right;
     font-weight: normal;
     font-size: 16px;
 }
-.descripcion{
+.descripcion, .descripcionCAAC{
     font-weight: normal;
     padding-left: 100px;
+    padding-right: 540px;
 }
+
+.descripcionDDIE{
+    font-weight: normal;
+        padding-left: 100px;
+        padding-right: 640px;
+}
+
+
 
 
 
