@@ -3,10 +3,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UsersResponseForm2 extends RulesForm2
 {
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'email',
