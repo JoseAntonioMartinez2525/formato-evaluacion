@@ -49,8 +49,6 @@ abstract class BaseResponse extends Model implements ResponseInterface
             'comisionIncisoB' => 'nullable|integer',
             'comisionIncisoC' => 'nullable|integer',
             'comisionIncisoD' => 'nullable|integer',
-            'obs2' => 'nullable|string',
-            'obs2_2' => 'nullable|string',
             'obs3_1_1' => 'nullable|string',
             'obs3_1_2' => 'nullable|string',
             'obs3_1_3' => 'nullable|string',
