@@ -44,7 +44,7 @@ $newLocale = str_replace('_', '-', $locale);
       <li class="nav-item">
       </li><br>
       <li>
-        <a href="{{ route('generate-json') }}" class="btn btn-primary">Get JSON Data</a>
+        <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
       </li>
       </nav>
     </form>@endif
@@ -162,9 +162,6 @@ $newLocale = str_replace('_', '-', $locale);
       </table>
 
       <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
-        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-      
         <div>
         <!--Actividad 2: Dedicacion en el Desempeño docente	-->
         <h4>Puntaje máximo
@@ -2740,8 +2737,8 @@ $newLocale = str_replace('_', '-', $locale);
       score3_19: score3_19,
       comision3_19: comision3_19,
       docencia: docencia,
-      hours: hoursText ? hoursText.innerText : '',
-      actv2Comision: actv2ComisionText ? actv2ComisionText.innerText : '',
+      hours: hoursText,
+      actv2Comision: actv2ComisionText,
     };
 
     const dse = document.querySelector("#DSE");
@@ -3042,23 +3039,23 @@ $newLocale = str_replace('_', '-', $locale);
             break;
 
           case 'form2_2':
-            let hoursTextLabel = form.querySelector('label[id="hoursText"]');
-            let actv2ComisionTextLabel = form.querySelector('label[id="actv2ComisionText"]');
+            let hoursLabel = form.querySelector('label[id="hoursText"]');
+            let actv2ComisionLabel = form.querySelector('label[id="actv2ComisionText"]');
 
-            if (hoursTextLabel) {
-              formData['hours'] = hoursTextLabel.innerText;
+            if (!hoursLabel) {
+              console.error('Label with id "hoursText" not found.');
             } else {
-              console.error(`Element with ID 'hoursText' not found.`);
+              formData['hours'] = hoursLabel.innerText;
             }
 
-            if (actv2ComisionTextLabel) {
-              formData['actv2Comision'] = actv2ComisionTextLabel.innerText;
+            if (!actv2ComisionLabel) {
+              console.error('Label with id "actv2ComisionText" not found.');
             } else {
-              console.error(`Element with ID 'actv2ComisionText' not found.`);
+              formData['actv2Comision'] = actv2ComisionLabel.innerText;
             }
 
-            formData['obs2'] = form.querySelector('input[name="obs2"]').textContent;
-            formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').textContent;
+            formData['obs2'] = form.querySelector('input[name="obs2"]').value;
+            formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
             break;
 
           case 'form3':

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\ResponseJson;
 use App\Http\Controllers\ResponseForm2Controller;
 use App\Http\Controllers\ResponseForm2_2Controller;
 use App\Http\Controllers\SessionsController;
@@ -29,7 +30,7 @@ Route::post('/store3', [ResponseForm2_2Controller::class, 'store3'])->name('stor
 
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
-
+Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
