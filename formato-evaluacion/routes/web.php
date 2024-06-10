@@ -20,9 +20,8 @@ Route::post('/login', [SessionsController::class, 'login'])->name('login.post');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/welcome', [HomeController::class, 'showWelcome'])->name('welcome');
 Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
-Route::get('rules', function () {
-    return view('rules');
-})->name('rules');
+Route::get('rules', function () {return view('rules'); })->name('rules');
+Route::get('docencia', function () {return view('docencia'); })->name('docencia');
 
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2');
