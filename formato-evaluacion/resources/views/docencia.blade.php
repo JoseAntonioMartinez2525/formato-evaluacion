@@ -73,7 +73,7 @@
                             <div class="flex lg:justify-center lg:col-start-2"></div>
 
                             <nav class="-mx-3 flex flex-1 justify-end"></nav>
-                            <form id="form3" method="POST" action="{{ route('store') }}">
+                            <form id="form3_1" method="POST" action="{{ route('store') }}">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -272,14 +272,13 @@
                                                             </tr>
                                                         </thead>
                                                     </tr>
-
                                         </tr>
                                         </tr>
 
                                         </thead>
-
                                     </tbody>
                                 </table>
+
                                 <!--Tabla informativa Acreditacion Actividad 3.1-->
                                 <table>
                                     <thead>
@@ -294,11 +293,18 @@
 
                                     </thead>
                                 </table>
+                            </form>
+
+                            <form id="form3_2" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
                                 <div>
                                     <!-- Actividad 3.2 Calidad del desempeño docente evaluada por el alumnado -->
                                     <h4>Puntaje máximo
                                         <label class="bg-black text-white px-4 mt-3" for="">50</label>
                                     </h4>
+                                </div>
                                     <table class="table table-sm">
                                         <thead>
                                             <tr>
@@ -374,10 +380,18 @@
 
                                             </thead>
                                         </table>
-                                        <!-- Actividad 3.3 Publicaciones relacionadas con la docencia -->
-                                        <h4>Puntaje máximo
-                                            <label class="bg-black text-white px-4 mt-3" for="">100</label>
-                                        </h4>
+                            </form>
+
+                            <form id="form3_3" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                <div>
+                                    <!-- Actividad 3.3 Publicaciones relacionadas con la docencia -->
+                                    <h4>Puntaje máximo
+                                        <label class="bg-black text-white px-4 mt-3" for="">100</label>
+                                    </h4>
+                                </div>
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -504,10 +518,16 @@
                                                 </tr>
                                             </thead>
                                         </table>
-                                        <!-- 3.4 Distinciones académicas recibidas por el docente  -->
+                            <form id="form3_4" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                    <div>
+                                    <!-- 3.4 Distinciones académicas recibidas por el docente  -->
                                         <h4>Puntaje máximo
                                             <label class="bg-black text-white px-4 mt-3" for="">60</label>
                                         </h4>
+                                    </div>
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -605,10 +625,17 @@
                                                 </tr>
                                             </thead>
                                         </table>
+                                        </form>
+                            <form id="form3_5" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                    <div>                                      
                                         <!-- 3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC  -->
                                         <h4>Puntaje máximo
                                             <label class="bg-black text-white px-4 mt-3" for="">75</label>
                                         </h4>
+                                    </div> 
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -673,10 +700,17 @@
                                                 </tr>
                                             </thead>
                                         </table>
+                            </form>
+                            <form id="form3_6" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                    <div>
                                         <!-- 3.6 Capacitación y actualización pedagógica recibida  -->
                                         <h4>Puntaje máximo
                                             <label class="bg-black text-white px-4 mt-3" for="">40</label>
                                         </h4>
+                                    </div>
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -724,15 +758,24 @@
                                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                                             <th class="descripcion"><b>DDIE</b>
+
+                                                            <th><button id="btn3_5" type="submit" class="btn btn-primary">Enviar</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
                                             </tbody>
                                         </table>
-                                        <!-- 3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento  -->
-                                        <h4>Puntaje máximo
-                                            <label class="bg-black text-white px-4 mt-3" for="">40</label>
-                                        </h4>
+                            </form>
+                            <form id="form3_7" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                <div>
+                                    <!-- 3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento  -->
+                                    <h4>Puntaje máximo
+                                        <label class="bg-black text-white px-4 mt-3" for="">40</label>
+                                    </h4>
+                                </div>
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -784,10 +827,17 @@
                                                 </table>
                                             </tbody>
                                         </table>
-                                        <!--3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente-->
-                                        <h4>Puntaje máximo
-                                            <label class="bg-black text-white px-4 mt-3" for="">40</label>
-                                        </h4>
+                            </form>
+                            <form id="form3_8" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                                <div>
+                                    <!--3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente-->
+                                    <h4>Puntaje máximo
+                                        <label class="bg-black text-white px-4 mt-3" for="">40</label>
+                                    </h4>
+                                </div>
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -846,329 +896,337 @@
                                                 </table>
                                             </tbody>
                                         </table>
-                                        <!--3.9 Trabajos dirigidos para la titulación de estudiantes-->
-                                        <h4>Puntaje máximo
-                                            <label class="bg-black text-white px-4 mt-3" for="">200</label>
-                                        </h4>
-                                        <table class="table table-sm tutorias">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <h3></h3>
-                                                    </th>
-                                                    <th>
-                                                        <h3></h3>
-                                                    </th>
-                                                    <th>
-                                                        <h3></h3>
-                                                    </th>
-                                                    <th>
-                                                        <h3></h3>
-                                                    </th>
-                                                    <th>
-                                                        <h3></h3>
-                                                    </th>
-                                                    <th>
-                                                        <h3>Tutorias</h3>
-                                                    </th>
+                            </form>
+                            <form id="form3_9" method="POST" action="{{ route('store') }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
+                            <div>
+                            <!--3.9 Trabajos dirigidos para la titulación de estudiantes-->
+                            <h4>Puntaje máximo
+                                <label class="bg-black text-white px-4 mt-3" for="">200</label>
+                            </h4>
+                            </div>
+                            <table class="table table-sm tutorias">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <h3></h3>
+                                        </th>
+                                        <th>
+                                            <h3></h3>
+                                        </th>
+                                        <th>
+                                            <h3></h3>
+                                        </th>
+                                        <th>
+                                            <h3></h3>
+                                        </th>
+                                        <th>
+                                            <h3></h3>
+                                        </th>
+                                        <th>
+                                            <h3>Tutorias</h3>
+                                        </th>
 
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Actividad</th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                                                    <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th id="seccion3_9" scope="col" class="p3_9" colspan=9>3.9 Trabajos dirigidos para la
-                                                        titulación de estudiantes
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th id="score3_9">0</th>
-                                                    <th id="comision3_9">0</th>
-                                                </tr>
-                                            </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th class="acreditacion">Incisos</th>
-                                                    <th class="acreditacion">Actividad</th>
-                                                    <th class="acreditacion">Obra</th>
-                                                    <th class="acreditacion">Nivel</th>
-                                                    <th class="acreditacion">Puntaje</th>
-                                                    <th class="acreditacion">Cantidad</th>
-                                                    <th class="acreditacion">Subtotal</th>
-                                                    <th class="table-ajust" scope="col"></th>
-                                                    <th class="acreditacion">Observaciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>a)</td>
-                                                    <td>Revisión de</td>
-                                                    <td>Tesis</td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias20_1">20</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_1"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias1">0</td>
-                                                    <td><input type="value" id="tutoriasComision1" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_1" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>b)</td>
-                                                    <td>Proyecto de</td>
-                                                    <td>Tesis</td>
-                                                    <td>Maestría</td>
-                                                    <td id="puntajeTutorias15_1">15</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_2"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias2">0</td>
-                                                    <td><input type="value" id="tutoriasComision2" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_2" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>c)</td>
-                                                    <td>Proyecto de</td>
-                                                    <td>Tesis y otras</td>
-                                                    <td>TSU, Lic y especialidad</td>
-                                                    <td id="puntajeTutorias10_1">10</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_3"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias3">0</td>
-                                                    <td><input type="value" id="tutoriasComision3" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_3" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>d)</td>
-                                                    <td>Dirección trabajo en realización</td>
-                                                    <td>Tesis</td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias55">55</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_4"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias4">0</td>
-                                                    <td><input type="value" id="tutoriasComision4" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_4" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>e)</td>
-                                                    <td>Dirección trabajo en realización</td>
-                                                    <td>Tesis</td>
-                                                    <td>Maestria</td>
-                                                    <td id="puntajeTutorias45">45</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_5"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias5">0</td>
-                                                    <td><input type="value" id="tutoriasComision5" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_5" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>f)</td>
-                                                    <td>Dirección trabajo en realización</td>
-                                                    <td>Tesis y otras</td>
-                                                    <td>TSU, Lic y especialidad</td>
-                                                    <td id="puntajeTutorias35">35</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_6"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias6">0</td>
-                                                    <td><input type="value" id="tutoriasComision6" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_6" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>g)</td>
-                                                    <td>Dirección trabajo terminado</td>
-                                                    <td>Tesis</td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias70">70</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_7"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias7">0</td>
-                                                    <td><input type="value" id="tutoriasComision7" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_7" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>h)</td>
-                                                    <td>Dirección trabajo terminado</td>
-                                                    <td>Tesis</td>
-                                                    <td>Maestría</td>
-                                                    <td id="puntajeTutorias60">60</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_8"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias8">0</td>
-                                                    <td><input type="value" id="tutoriasComision8" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_8" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>i)</td>
-                                                    <td>Dirección trabajo terminado</td>
-                                                    <td>Tesis y otras</td>
-                                                    <td>TSU, Lic y especialidad</td>
-                                                    <td id="puntajeTutorias50">50</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_9"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias9">0</td>
-                                                    <td><input type="value" id="tutoriasComision9" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_9" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>j)</td>
-                                                    <td>Revisión de trabajo terminado</td>
-                                                    <td>Tesis</td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias30_1">30</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_10"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias10">0</td>
-                                                    <td><input type="value" id="tutoriasComision10" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_10" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>k)</td>
-                                                    <td>Revisión de trabajo terminado</td>
-                                                    <td>Tesis</td>
-                                                    <td>Maestría</td>
-                                                    <td id="puntajeTutorias20_2">50</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_11"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias11">0</td>
-                                                    <td><input type="value" id="tutoriasComision11" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_11" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>l)</td>
-                                                    <td>Revisión de trabajo terminado</td>
-                                                    <td>Tesis y otras</td>
-                                                    <td>TSU, Lic y especialidad</td>
-                                                    <td id="puntajeTutorias15_2">15</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_12"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias12">0</td>
-                                                    <td><input type="value" id="tutoriasComision12" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_12" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>m)</td>
-                                                    <td>Sinodalía</td>
-                                                    <td>Examen</td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias30_2">30</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_13"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias13">0</td>
-                                                    <td><input type="value" id="tutoriasComision13" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_13" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>n)</td>
-                                                    <td>Sinodalía</td>
-                                                    <td>Examen</td>
-                                                    <td>Maestría</td>
-                                                    <td id="puntajeTutorias20_3">15</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_14"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias14">0</td>
-                                                    <td><input type="value" id="tutoriasComision14" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_14" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>o)</td>
-                                                    <td>Sinodalía</td>
-                                                    <td>Examen</td>
-                                                    <td>TSU, Lic y especialidad</td>
-                                                    <td id="puntajeTutorias15_3">15</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_15"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias15">0</td>
-                                                    <td><input type="value" id="tutoriasComision15" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_15" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>p)</td>
-                                                    <td>Distinciones</td>
-                                                    <td></td>
-                                                    <td>Doctorado</td>
-                                                    <td id="puntajeTutorias15_4">15</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_16"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias16">0</td>
-                                                    <td><input type="value" id="tutoriasComision16" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_16" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>q)</td>
-                                                    <td>Distinciones</td>
-                                                    <td></td>
-                                                    <td>Maestría</td>
-                                                    <td id="puntajeTutorias10_2">10</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_9_17"
-                                                            oninput="onActv3SubTotal3_9()"></td>
-                                                    <td id="tutorias17">0</td>
-                                                    <td><input type="value" id="tutoriasComision17" placeholder="0"
-                                                            oninput="onActv3Comision3_9()">
-                                                    </td>
-                                                    <td><input class="table-header" id="obs3_9_17" type="text"></td>
-                                                </tr>
-                                                <!--Tabla informativa Acreditacion Actividad 3.9-->
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="acreditacion" scope="col">Acreditacion: </th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Actividad</th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
+                                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <th id="seccion3_9" scope="col" class="p3_9" colspan=9>3.9 Trabajos dirigidos para la
+                                            titulación de estudiantes
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th id="score3_9">0</th>
+                                        <th id="comision3_9">0</th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <th class="acreditacion">Incisos</th>
+                                        <th class="acreditacion">Actividad</th>
+                                        <th class="acreditacion">Obra</th>
+                                        <th class="acreditacion">Nivel</th>
+                                        <th class="acreditacion">Puntaje</th>
+                                        <th class="acreditacion">Cantidad</th>
+                                        <th class="acreditacion">Subtotal</th>
+                                        <th class="table-ajust" scope="col"></th>
+                                        <th class="acreditacion">Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>a)</td>
+                                        <td>Revisión de</td>
+                                        <td>Tesis</td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias20_1">20</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_1"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias1">0</td>
+                                        <td><input type="value" id="tutoriasComision1" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_1" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>b)</td>
+                                        <td>Proyecto de</td>
+                                        <td>Tesis</td>
+                                        <td>Maestría</td>
+                                        <td id="puntajeTutorias15_1">15</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_2"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias2">0</td>
+                                        <td><input type="value" id="tutoriasComision2" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_2" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>c)</td>
+                                        <td>Proyecto de</td>
+                                        <td>Tesis y otras</td>
+                                        <td>TSU, Lic y especialidad</td>
+                                        <td id="puntajeTutorias10_1">10</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_3"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias3">0</td>
+                                        <td><input type="value" id="tutoriasComision3" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_3" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>d)</td>
+                                        <td>Dirección trabajo en realización</td>
+                                        <td>Tesis</td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias55">55</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_4"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias4">0</td>
+                                        <td><input type="value" id="tutoriasComision4" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_4" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>e)</td>
+                                        <td>Dirección trabajo en realización</td>
+                                        <td>Tesis</td>
+                                        <td>Maestria</td>
+                                        <td id="puntajeTutorias45">45</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_5"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias5">0</td>
+                                        <td><input type="value" id="tutoriasComision5" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_5" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>f)</td>
+                                        <td>Dirección trabajo en realización</td>
+                                        <td>Tesis y otras</td>
+                                        <td>TSU, Lic y especialidad</td>
+                                        <td id="puntajeTutorias35">35</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_6"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias6">0</td>
+                                        <td><input type="value" id="tutoriasComision6" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_6" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>g)</td>
+                                        <td>Dirección trabajo terminado</td>
+                                        <td>Tesis</td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias70">70</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_7"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias7">0</td>
+                                        <td><input type="value" id="tutoriasComision7" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_7" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>h)</td>
+                                        <td>Dirección trabajo terminado</td>
+                                        <td>Tesis</td>
+                                        <td>Maestría</td>
+                                        <td id="puntajeTutorias60">60</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_8"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias8">0</td>
+                                        <td><input type="value" id="tutoriasComision8" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_8" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>i)</td>
+                                        <td>Dirección trabajo terminado</td>
+                                        <td>Tesis y otras</td>
+                                        <td>TSU, Lic y especialidad</td>
+                                        <td id="puntajeTutorias50">50</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_9"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias9">0</td>
+                                        <td><input type="value" id="tutoriasComision9" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_9" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>j)</td>
+                                        <td>Revisión de trabajo terminado</td>
+                                        <td>Tesis</td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias30_1">30</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_10"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias10">0</td>
+                                        <td><input type="value" id="tutoriasComision10" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_10" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>k)</td>
+                                        <td>Revisión de trabajo terminado</td>
+                                        <td>Tesis</td>
+                                        <td>Maestría</td>
+                                        <td id="puntajeTutorias20_2">50</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_11"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias11">0</td>
+                                        <td><input type="value" id="tutoriasComision11" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_11" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>l)</td>
+                                        <td>Revisión de trabajo terminado</td>
+                                        <td>Tesis y otras</td>
+                                        <td>TSU, Lic y especialidad</td>
+                                        <td id="puntajeTutorias15_2">15</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_12"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias12">0</td>
+                                        <td><input type="value" id="tutoriasComision12" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_12" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>m)</td>
+                                        <td>Sinodalía</td>
+                                        <td>Examen</td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias30_2">30</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_13"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias13">0</td>
+                                        <td><input type="value" id="tutoriasComision13" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_13" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>n)</td>
+                                        <td>Sinodalía</td>
+                                        <td>Examen</td>
+                                        <td>Maestría</td>
+                                        <td id="puntajeTutorias20_3">15</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_14"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias14">0</td>
+                                        <td><input type="value" id="tutoriasComision14" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_14" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>o)</td>
+                                        <td>Sinodalía</td>
+                                        <td>Examen</td>
+                                        <td>TSU, Lic y especialidad</td>
+                                        <td id="puntajeTutorias15_3">15</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_15"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias15">0</td>
+                                        <td><input type="value" id="tutoriasComision15" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_15" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>p)</td>
+                                        <td>Distinciones</td>
+                                        <td></td>
+                                        <td>Doctorado</td>
+                                        <td id="puntajeTutorias15_4">15</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_16"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias16">0</td>
+                                        <td><input type="value" id="tutoriasComision16" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_16" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>q)</td>
+                                        <td>Distinciones</td>
+                                        <td></td>
+                                        <td>Maestría</td>
+                                        <td id="puntajeTutorias10_2">10</td>
+                                        <td><input type="value" placeholder="0" id="puntaje3_9_17"
+                                                oninput="onActv3SubTotal3_9()"></td>
+                                        <td id="tutorias17">0</td>
+                                        <td><input type="value" id="tutoriasComision17" placeholder="0"
+                                                oninput="onActv3Comision3_9()">
+                                        </td>
+                                        <td><input class="table-header" id="obs3_9_17" type="text"></td>
+                                    </tr>
+                                    <!--Tabla informativa Acreditacion Actividad 3.9-->
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="acreditacion" scope="col">Acreditacion: </th>
 
-                                                            <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                </table>
-                                            </tbody>
-                                        </table>
+                                                <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </tbody>
+                            </table>
+                            </form>
                                         <!--3.10 Trabajos dirigidos para la titulación de estudiantes-->
                                         <h4>Puntaje máximo
                                             <label class="bg-black text-white px-4 mt-3" for="">115</label>
@@ -2756,7 +2814,7 @@
                                             </thead>
                                         </table><br>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
-                            </form>
+
 
                             </main>
 
@@ -2791,6 +2849,23 @@
                 const comisionIncisoB = document.getElementById('comisionIncisoB').value;
                 const comisionIncisoC = document.getElementById('comisionIncisoC').value;
                 const comisionIncisoD = document.getElementById('comisionIncisoD').value;
+                const obs3_10 =['obsGrupal', 'obsIndividual'];
+                const obs3_11 = ['obsAsesoria', 'obsServicio', 'obsPracticas'];
+                const obs3_12 = ['obsCientificos','obsDivulgacion', 'obsTraduccion', 'obsArbitrajeInt', 'obsArbitrajeNac', 'obsSinInt', 'obsSinNac','obsAutor', 'obsEditor', 'obsWeb'];
+                const obs3_13 = ['obsInicioFinancimientoExt', 'obsInicioInvInterno', 'obsReporteFinanciamExt', 'obsReporteInvInt'];
+                const obs3_14 = ['obsCongresoInt', 'obsCongresoNac', 'obsCongresoLoc'];
+                const obs3_15 = ['obsPatentes', 'obsPrototipos'];
+                const obs3_16 = ['obsArbInt', 'obsArbNac', 'obsPubInt', 'obsPubNac', 'obsRevInt','obsRevNac', 'obsRevista'];
+                const obs3_17 = ['obsDifusionExt', 'obsDifusionInt','obsRepDifusionExt','obsRepDifusionInt'];
+                const obs3_18 = ['obsComOrgInt', 'obsComOrgNac', 'obsComOrgReg',
+                    'obsComApoyoInt', 'obsComApoyoNac', 'obsComApoyoReg','obsCicloComOrgInt','obsCicloComOrgNac','obsCicloComOrgReg','obsCicloComApoyoInt','obsCicloComApoyoNac','obsCicloComApoyoReg'];
+                const obs3_19 = ['obsCGUtitular', 'obsCGUespecial',
+                    'obsCGUpermanente', 'obsCAACtitular', 'obsCAACintegCom', 'obsComDepart', 'obsComPEDPD',
+                    'obsComPartPos', 'obsRespPos', 'obsRespCarrera', 'obsRespProd', 'obsRespLab', 'obsExamProf',
+                    'obsExamAcademicos', 'obsPRODEPformResp', 'obsPRODEPformInteg', 'obsPRODEPenconsResp',
+                    'obsPRODEPenconsInteg', 'obsPRODEPconsResp', 'obsPRODEPconsInteg'
+                ];
+
 
                 let data = {
 
@@ -2840,7 +2915,12 @@
                     score3_19: score3_19,
                     comision3_19: comision3_19,
                     docencia: docencia,
-                };
+                    obs3_1_1: obs3_1_1,
+                    obs3_1_2: obs3_1_2,
+                    obs3_1_3: obs3_1_3,
+                    obs3_1_4: obs3_1_4,
+                    obs3_1_5: obs3_1_5,
+                    };
 
                 const dse = document.querySelector("#DSE");
                 const puntajeAEvaluarPosgrado = document.querySelector("#horasPosgrado");
@@ -2983,69 +3063,249 @@
                             return;
                         }
                         //Recoge los datos dependiendo del formulario actual
+
+                //score3_1 a score3_19
+                for (let i = 1; i <= 19; i++) {
+                    window[`score3_${i}`] = form.querySelector(`input[id="score3_${i}"]`).value;
+                }
+
+                //comision3_1 a comision3_19
+                for (let i = 3; i <= 19; i++) {
+                    window[`comision3_${i}`] = form.querySelector(`input[id="comision3_${i}"]`).value;
+                }
+
+                //observaciones3_1_1 a observaciones3_1_5
+                for (let i = 1; i <= 5; i++) {
+                    window[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
+                }
+
+                //observaciones3_2_1 a observaciones3_2_3
+                for (let i = 1; i <= 3; i++) {
+                    window[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
+                }
+
+                //observaciones3_3_1 a observaciones3_3_4
+                for (let i = 1; i <= 4; i++) {
+                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
+                }
+
+                //observaciones3_4_1 a observaciones3_4_4
+                for (let i = 1; i <= 4; i++) {
+                    window[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
+                }
+
+
                         switch (formId) {
 
-                            case 'form3':
+                            case 'form3_1':
                                 formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                                 formData['email'] = form.querySelector('input[name="email"]').value;
-                                for (let i = 1; i <= 19; i++) {
-                                    formData[`score3_${i}`] = form.querySelector(`input[id="score3_${i}"]`).value;
-                                }
-
+                                formData['score3_1'] = form.querySelector('input[id="score3_1"]').value;
                                 formData['actv3Comision'] = form.querySelector('input[id="actv3Comision"]').value;
-                                formData['actv3Comision_2'] = form.querySelector('input[id="actv3Comision_2"]').value;
-
-                                for (let i = 3; i <= 19; i++) {
-                                    formData[`comision3_${i}`] = form.querySelector(`input[id="comision3_${i}"]`).value;
-                                }
 
                                 for (let i = 1; i <= 5; i++) {
                                     formData[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
                                 }
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_2':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_2'] = form.querySelector('input[id="score3_2"]').value;
+                                formData['comision3_2'] = form.querySelector('input[id="comision3_2"]').value;
 
                                 for (let i = 1; i <= 3; i++) {
                                     formData[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
                                 }
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_3':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_3'] = form.querySelector('input[id="score3_3"]').value;
+                                formData['comision3_3'] = form.querySelector('input[id="comision3_3"]').value;
 
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
                                 }
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
 
+                            case 'form3_4':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_4'] = form.querySelector('input[id="score3_4"]').value;                                
+                                formData['comision3_4'] = form.querySelector('input[id="comision3_4"]').value;
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
                                 }
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
 
-                                formData['obs3_4_1'] = form.querySelector('input[id="obs3_4_1"]').value;
-                                formData['obs3_4_2'] = form.querySelector('input[id="obs3_4_2"]').value;
+                            case 'form3_5':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_5'] = form.querySelector('input[id="score3_5"]').value;                                
+                                formData['comision3_5'] = form.querySelector('input[id="comision3_5"]').value; 
+                                formData['obs3_5_1'] = form.querySelector('input[id="obs3_5_1"]').value;   
+                                formData['obs3_5_2'] = form.querySelector('input[id="obs3_5_2"]').value;
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;                             
+                                break;
 
-                                for (let i = 6; i <= 8; i++) {
-                                    formData[`obs3_${i}`] = form.querySelector(`input[id="obs3_${i}"]`).value;
-                                }
+                            case 'form3_6':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_6'] = form.querySelector('input[id="score3_6"]').value;                                
+                                formData['comision3_6'] = form.querySelector('input[id="comision3_6"]').value;
+                                formData['obs3_6'] = form.querySelector('input[id="obs3_6"]').value;
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_7':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_7'] = form.querySelector('input[id="score3_7"]').value;                                
+                                formData['comision3_7'] = form.querySelector('input[id="comision3_7"]').value;
+                                formData['obs3_7'] = form.querySelector('input[id="obs3_7"]').value; 
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_8':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_8'] = form.querySelector('input[id="score3_8"]').value;                                
+                                formData['comision3_8'] = form.querySelector('input[id="comision3_8"]').value;
+                                formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_9':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_9'] = form.querySelector('input[id="score3_9"]').value;                                
+                                formData['comision3_9'] = form.querySelector('input[id="comision3_9"]').value;
 
                                 for (let i = 1; i <= 17; i++) {
                                     formData[`obs3_9_${i}`] = form.querySelector(`input[id="obs3_9_${i}"]`).value;
-                                }
+                                } 
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;                               
+                                break;
 
-                                const obsFields = [
-                                    'obsGrupal', 'obsIndividual', 'obsAsesoria', 'obsServicio', 'obsPracticas', 'obsCientificos',
-                                    'obsDivulgacion', 'obsTraduccion', 'obsArbitrajeInt', 'obsArbitrajeNac', 'obsSinInt', 'obsSinNac',
-                                    'obsAutor', 'obsEditor', 'obsWeb', 'obsInicioFinancimientoExt', 'obsInicioInvInterno',
-                                    'obsReporteFinanciamExt', 'obsReporteInvInt', 'obsCongresoInt', 'obsCongresoNac', 'obsCongresoLoc',
-                                    'obsPatentes', 'obsPrototipos', 'obsArbInt', 'obsArbNac', 'obsPubInt', 'obsPubNac', 'obsRevInt',
-                                    'obsRevNac', 'obsDifusionExt', 'obsDifusionInt', 'obsComOrgInt', 'obsComOrgNac', 'obsComOrgReg',
-                                    'obsComApoyoInt', 'obsComApoyoNac', 'obsComApoyoReg', 'obsCGUtitular', 'obsCGUespecial',
-                                    'obsCGUpermanente', 'obsCAACtitular', 'obsCAACintegCom', 'obsComDepart', 'obsComPEDPD',
-                                    'obsComPartPos', 'obsRespPos', 'obsRespCarrera', 'obsRespProd', 'obsRespLab', 'obsExamProf',
-                                    'obsExamAcademicos', 'obsPRODEPformResp', 'obsPRODEPformInteg', 'obsPRODEPenconsResp',
-                                    'obsPRODEPenconsInteg', 'obsPRODEPconsResp', 'obsPRODEPconsInteg'
-                                ];
-
-                                obsFields.forEach(field => {
+                            case 'form3_10':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_10'] = form.querySelector('input[id="score3_10"]').value;                                
+                                formData['comision3_10'] = form.querySelector('input[id="comision3_10"]').value;
+                                obs3_10.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
                                 formData['docencia'] = form.querySelector('input[id="docencia"]').value;
                                 break;
+
+                            case 'form3_11':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_11'] = form.querySelector('input[id="score3_11"]').value;
+                                formData['comision3_11'] = form.querySelector('input[id="comision3_11"]').value; 
+                                obs3_11.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value; 
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_12':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_12'] = form.querySelector('input[id="score3_12"]').value;
+                                formData['comision3_12'] = form.querySelector('input[id="comision3_12"]').value; 
+                                obs3_12.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_13':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_13'] = form.querySelector('input[id="score3_13"]').value;
+                                formData['comision3_13'] = form.querySelector('input[id="comision3_13"]').value;
+                                obs3_13.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_14':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_14'] = form.querySelector('input[id="score3_14"]').value;
+                                formData['comision3_14'] = form.querySelector('input[id="comision3_14"]').value;
+                                obs3_14.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_15':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_15'] = form.querySelector('input[id="score3_15"]').value;
+                                formData['comision3_15'] = form.querySelector('input[id="comision3_15"]').value;
+                                obs3_15.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_16':                                
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_16'] = form.querySelector('input[id="score3_16"]').value;
+                                formData['comision3_16'] = form.querySelector('input[id="comision3_16"]').value;
+                                obs3_16.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_17':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_17'] = form.querySelector('input[id="score3_17"]').value;
+                                formData['comision3_17'] = form.querySelector('input[id="comision3_17"]').value;
+                                obs3_17.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_18':
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_18'] = form.querySelector('input[id="score3_18"]').value;
+                                formData['comision3_18'] = form.querySelector('input[id="comision3_18"]').value;
+                                obs3_18.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;
+
+                            case 'form3_19':                                
+                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                                formData['email'] = form.querySelector('input[name="email"]').value;
+                                formData['score3_19'] = form.querySelector('input[id="score3_19"]').value;
+                                formData['comision3_19'] = form.querySelector('input[id="comision3_19"]').value;
+                                obs3_19.forEach(field => {
+                                    formData[field] = form.querySelector(`input[id="${field}"]`).value;
+                                });
+                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                break;                               
+
                         }
+                        formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                        console.log(docencia);
                         console.log('Form data:', formData); // Log form data to check values
                         //if (!formData.hasOwnProperty('score3_1')) {
                         // Si score3_1 no está en formData, proporciona un valor predeterminado

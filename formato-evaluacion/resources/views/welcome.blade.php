@@ -2677,6 +2677,7 @@ $newLocale = str_replace('_', '-', $locale);
     const hours = document.querySelector('#hoursText');
     const actv2Comision = document.querySelector('#actv2ComisionText');
 
+
     let data = {
       convocatoria: convocatoria,
       periodo: periodo,
@@ -2938,6 +2939,10 @@ $newLocale = str_replace('_', '-', $locale);
           console.error(`Form with id "${formId}" not found.`);
           return;
         }
+
+        for (let i = 1; i <= 19; i++) {
+          window[`score3_${i}`] = form.querySelector(`input[id="score3_${i}"]`).value;
+        }
         //Recoge los datos dependiendo del formulario actual
         switch (formId) {
           case 'form1':
@@ -3005,8 +3010,6 @@ $newLocale = str_replace('_', '-', $locale);
               formData[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
             }
 
-            formData['obs3_4_1'] = form.querySelector('input[id="obs3_4_1"]').value;
-            formData['obs3_4_2'] = form.querySelector('input[id="obs3_4_2"]').value;
 
             for (let i = 6; i <= 8; i++) {
               formData[`obs3_${i}`] = form.querySelector(`input[id="obs3_${i}"]`).value;
