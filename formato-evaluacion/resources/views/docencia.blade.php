@@ -14,59 +14,13 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-        body{
-            height: 100%;
-            
-        }
-
-        a{
-            text-decoration: none;
-            color:#555385;
-        }
-
-        .main-container {
-            min-height: 100vh;
-            padding-bottom: 100px; 
-        }
-
-        nav{
-            position:absolute;
-            background-color: #afc7ce;
-            overflow-y: auto;
-
-            
-        }
-        .actv3 ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .actv3 li {
-            margin-bottom: 50px;
-            margin-left: 10px;
-            list-style-type: none;
-  
-        }
-
-
-        .table-container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .table-container2 {
-            margin-bottom: 100px;
-            justify-content: space-between;
-            margin-left: 60px;
-        }
-    </style>
 
 </head>
 @if (Route::has('login'))
@@ -75,13 +29,13 @@
 
             <nav class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link disabled user" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                    <a class="nav-link disabled user" href="#"><i class="fa-solid fa-user"></i>&nbsp&nbsp{{ Auth::user()->email }}</a>
         </li>@endif
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('welcome') }}">Formato de Evaluación</a>
             </li>
-    <ul class="actv3">Actividades del apartado 3. Calidad en la docencia:
+    <ul class="actv3">Actividades del apartado 3.<br>Calidad en la docencia:
         <li><a href="#seccion3_1">3.1 Participación en actividades de diseño curricular</a></li>
         <li><a href="#seccion3_2">3.2 Calidad del desempeño docente evaluada por el alumnado</a></li>
         <li><a href="#seccion3_3">3.3 Publicaciones relacionadas con la docencia</a></li>
@@ -99,8 +53,8 @@
         <li><a href="#seccion3_12">3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte
                 el docente</a></li>
         <li><a href="#seccion3_13">3.13 Proyectos académicos de investigación</a></li>
-        <li><a href="#seccion3_14">3.14 Participación como ponente en congresos o eventos académicos del Área de
-                Conocimiento o afines del docente</a></li>
+        <li><a href="#seccion3_14">3.14 Participación como ponente en congresos o eventos académicos del 
+            Área de Conocimiento o afines del docente</a></li>
         <li><a href="#seccion3_15">3.15 Registro de patentes y productos de investigación tecnológica y educativa</a></li>
         <li><a href="#seccion3_16">3.16 Actividades de arbitraje, revisión, correción y edición </a></li>
         <li><a href="#seccion3_17">3.17 Proyectos académicos de extensión y difusión </a></li>

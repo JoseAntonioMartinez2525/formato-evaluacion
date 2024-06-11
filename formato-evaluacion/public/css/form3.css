@@ -1,0 +1,63 @@
+body {
+    height: 100%;
+    margin-left: 260px;
+
+}
+
+a {
+    text-decoration: none;
+    color: #555385;
+}
+
+.main-container {
+    min-height: 100vh;
+    padding-bottom: 100px;
+}
+
+nav {
+    position: fixed;
+    background-color: #afc7ce;
+    overflow-y: auto;
+    width: 295px;
+    
+
+}
+
+.actv3 {
+    margin-left: -15px;
+    height: 80vh;
+    overflow-y: auto;
+    background-color: #afc7ce;
+}
+
+.actv3 ul {
+    list-style-type: none;
+    padding: 0;
+
+
+}
+
+.actv3 li {
+    margin-bottom: 80px;
+    margin-left: 3px;
+    list-style-type: none;
+    margin-top: 20px;
+
+}
+
+.actv3::-webkit-scrollbar {
+    width: 10px;
+}
+
+.actv3::-webkit-scrollbar-track {
+    background: #afc7ce;
+}
+
+.actv3::-webkit-scrollbar-thumb {
+    background: #555385;
+    border-radius: 5px;
+}
+
+.actv3::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
