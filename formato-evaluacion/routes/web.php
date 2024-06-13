@@ -25,7 +25,7 @@ Route::get('docencia', function () {return view('docencia'); })->name('docencia'
 
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2');
-Route::post('/store3', [ResponseForm2_2Controller::class, 'store3'])->name('store3');
+Route::post('/store3', [ResponseForm2_2Controller::class, 'store3']);
 
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');

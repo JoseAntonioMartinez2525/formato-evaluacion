@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Models\UsersResponseForm2_2;
+
 class ResponseForm2_2Controller extends Controller
 {
     public function store3(Request $request)
@@ -21,12 +23,26 @@ class ResponseForm2_2Controller extends Controller
         if (!isset($validatedData['puntajeEvaluar'])) {
             $validatedData['puntajeEvaluar'] = 0;
         }
-        if (!isset($validatedData['obs1']) || ($validatedData['obs2_2']) ){
-            $validatedData['obs1'] = "sin comentarios";
+        if (!isset($validatedData['obs2'])) {
+            $validatedData['obs2'] = "sin comentarios";
+        }
+        if (!isset($validatedData['obs2_2'])) {
+            $validatedData['obs2_2'] = "sin comentarios";
         }
 
-        UsersResponseForm2_2::create($validatedData);
+        try {
+            UsersResponseForm2_2::create($validatedData);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
+            ], 500);
+        }
 
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Form submitted successfully!',
+        ]);
     }
 }
+
