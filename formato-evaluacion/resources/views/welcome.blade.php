@@ -462,7 +462,7 @@ $newLocale = str_replace('_', '-', $locale);
     });
     document.addEventListener('DOMContentLoaded', function () {
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      function submitForm(url, formId) {
+     async  function submitForm(url, formId) {
         // Get form data
         let formData = {};
         let gridOptions = {};
@@ -493,6 +493,8 @@ $newLocale = str_replace('_', '-', $locale);
             break;
 
           case 'form2_2':
+            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+            formData['email'] = form.querySelector('input[name="email"]').value;
             let hoursLabel = form.querySelector('label[id="hoursText"]');
             let actv2ComisionLabel = form.querySelector('td[id="actv2Comision"]');
 
@@ -520,26 +522,25 @@ $newLocale = str_replace('_', '-', $locale);
         //}
 
 
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Response received from server:', data);
-          })
-          .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-          });
+        try {
+         let response = await fetch(url, {
+           method: 'POST',
+           headers: {
+             'X-CSRF-TOKEN': csrfToken,
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(formData),
+         });
+
+         if (!response.ok) {
+           throw new Error('Network response was not ok');
+         }
+
+         let data = await response.json();
+         console.log('Response received from server:', data);
+       } catch (error) {
+         console.error('There was a problem with the fetch operation:', error);
+       }
       }
 
       window.submitForm = submitForm;
