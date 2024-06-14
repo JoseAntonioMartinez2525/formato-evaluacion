@@ -32,7 +32,7 @@ header{
     margin-left: 80px;
 }
 
-#form1, #form2, #form2_2, #pMax60{
+#form1, #form2, #form2_2, #pMax60, #form4{
    margin-top: 70px; 
 }
 
@@ -334,6 +334,15 @@ text-align: right;
     font-weight: normal;
         padding-left: 100px;
         padding-right: 880px;
+}
+
+#convocatoriaPeriodoLabel {
+   margin-top: 200px; 
+   margin-left: 100px;
+}
+
+#resumen h2{
+margin-bottom: 20px;
 }
 
 

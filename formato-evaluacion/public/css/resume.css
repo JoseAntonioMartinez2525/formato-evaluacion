@@ -1,0 +1,24 @@
+.resumenTabla th{
+    font-weight: lighter;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: larger;
+    padding-right: 100px;
+}
+
+ #pMaximo{
+padding-left: 200px;
+}
+
+#pComision {
+padding-left: 60px;
+}
+
+.p1{
+    padding-left: 250px
+}
+
+#a1{
+    margin-left: 60px;
+    width: 280px;
+    text-align: center;
+}

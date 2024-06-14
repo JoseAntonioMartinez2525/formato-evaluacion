@@ -43,13 +43,16 @@ $newLocale = str_replace('_', '-', $locale);
       </li>
       <li class="nav-item">
       <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3. Calidad en la docencia</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
       </li><br>
       <li>
       <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
       </li>
 
       </nav>
-      </form>@endif
+  </form>@endif
       </section>
 
       <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
@@ -171,8 +174,8 @@ $newLocale = str_replace('_', '-', $locale);
       </h4>
       </div>
       @csrf
-          <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-          <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+      <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+      <input type="hidden" name="email" value="{{ auth()->user()->email }}">
       <table class="table table-sm">
       <thead>
       <tr>
@@ -233,7 +236,16 @@ $newLocale = str_replace('_', '-', $locale);
   @endif
     </div>
     </main>
-    <footer></footer>
+
+    <div>
+
+<footer>
+  <div>
+ <label id="convocatoriaPeriodoLabel" style="color:black;"></label>
+  </div>
+</footer>
+
+  </div>
   </div>
   </div>
   </div>
@@ -546,6 +558,29 @@ $newLocale = str_replace('_', '-', $locale);
       window.submitForm = submitForm;
     });
 
+
+    // Función para actualizar el label en el footer con la convocatoria y periodo de evaluación
+      function actualizarLabelConvocatoriaPeriodo(convocatoria, periodo) {
+        const label = document.getElementById('convocatoriaPeriodoLabel');
+        label.textContent = `Convocatoria: ${convocatoria}, Período: ${periodo}`;
+      }
+
+      // Captura la convocatoria y periodo de evaluación al enviar el formulario form1
+      document.addEventListener('DOMContentLoaded', function () {
+        const form1 = document.getElementById('form1');
+        form1.addEventListener('submit', function (event) {
+          event.preventDefault(); // Evita el envío del formulario para manejarlo con JavaScript
+
+          // Captura los valores del formulario form1
+          const convocatoria = document.getElementById('convocatoria').value;
+          const periodo = document.getElementById('periodo').value;
+
+          // Actualiza el label en el footer con los valores capturados
+          actualizarLabelConvocatoriaPeriodo(convocatoria, periodo);
+          console.log (label);
+        });
+      });
+    
   </script>
 
 </body>
