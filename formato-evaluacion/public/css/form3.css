@@ -17,6 +17,7 @@ a {
 nav {
     position: fixed;
     background-color: #afc7ce;
+    padding-top: 0px;
     overflow-y: auto;
     width: 295px;
     

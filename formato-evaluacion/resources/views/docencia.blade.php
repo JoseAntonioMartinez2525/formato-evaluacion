@@ -17,6 +17,7 @@
     <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
+    <script src="{{ asset('js/minimos.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -74,9 +75,9 @@
 
                             <nav class="-mx-3 flex flex-1 justify-end"></nav>
                                 <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store31', 'form3_1');">
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
+                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">                               
                                 <div>
                                     <!-- Actividad 3.1 Participación en actividades de diseño curricular -->
                                     <h4>Puntaje máximo
@@ -2970,6 +2971,7 @@
                         // Solo ocultar la navegación si el desplazamiento es horizontal hacia la derecha
                         if (currentScrollLeft > lastScrollLeft) {
                             nav.style.display = 'none';
+                            
                         } else if (currentScrollLeft < lastScrollLeft) {
                             nav.style.display = 'block';
                         }
@@ -3003,10 +3005,6 @@
                     return Math.min(sum30, 30);
                 }
 
-                function subtotal(value1, value2) {
-                    const st = value1 * value2;
-                    return st;
-                }
 
                 function min60(...values) {
                     const sum60 = values.reduce((acc, val) => acc + val, 0);
@@ -3052,7 +3050,7 @@
                 }
                 document.addEventListener('DOMContentLoaded', function () {
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    function submitForm(url, formId) {
+                    async function submitForm(url, formId) {
                         // Get form data
                         let formData = {};
                         let gridOptions = {};
@@ -3065,14 +3063,26 @@
                         //Recoge los datos dependiendo del formulario actual
 
                 //score3_1 a score3_19
-                for (let i = 1; i <= 19; i++) {
-                    window[`score3_${i}`] = form.querySelector(`td[id="score3_${i}"]`).value;
-                }
+                        for (let i = 1; i <= 19; i++) {
+                            let tdElement = form.querySelector(`td[id="score3_${i}"]`);
+                            if (tdElement) {
+                                window[`score3_${i}`] = tdElement.textContent || tdElement.innerText;
+                            } else {
+                                console.warn(`Elemento con id "score3_${i}" no encontrado.`);
+                            }
+                        }
+
 
                 //comision3_1 a comision3_19
-                for (let i = 3; i <= 19; i++) {
-                    window[`comision3_${i}`] = form.querySelector(`td[id="comision3_${i}"]`).value;
-                }
+                        for (let i = 3; i <= 19; i++) {
+                            let tdElement2 = form.querySelector(`td[id="comision3_${i}"]`);
+                            if (tdElement2) {
+                                window[`comision3_${i}`] = tdElement2.textContent || tdElement2.innerText;
+                            } else {
+                                console.warn(`Elemento con id "comision3_${i}" no encontrado.`);
+                            }
+
+                        }
 
                 //observaciones3_1_1 a observaciones3_1_5
                 for (let i = 1; i <= 5; i++) {
@@ -3110,8 +3120,8 @@
                                     formData[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
                                 }
 
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
-                                break;
+                                /*formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                                */break;
 
                             case 'form3_2':
                                 formData['user_id'] = form.querySelector('input[name="user_id"]').value;
@@ -3317,26 +3327,25 @@
                         //}
 
 
-                        fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(formData),
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                console.log('Response received from server:', data);
-                            })
-                            .catch(error => {
-                                console.error('There was a problem with the fetch operation:', error);
+                        try {
+                            let response = await fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken,
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(formData),
                             });
+
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+
+                            let data = await response.json();
+                            console.log('Response received from server:', data);
+                        } catch (error) {
+                            console.error('There was a problem with the fetch operation:', error);
+                        }
                     }
 
                     window.submitForm = submitForm;
