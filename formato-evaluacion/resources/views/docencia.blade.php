@@ -73,7 +73,7 @@
                             <div class="flex lg:justify-center lg:col-start-2"></div>
 
                             <nav class="-mx-3 flex flex-1 justify-end"></nav>
-                            <form id="form3_1" method="POST" action="{{ route('store') }}">
+                                <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store31', 'form3_1');">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -3066,12 +3066,12 @@
 
                 //score3_1 a score3_19
                 for (let i = 1; i <= 19; i++) {
-                    window[`score3_${i}`] = form.querySelector(`input[id="score3_${i}"]`).value;
+                    window[`score3_${i}`] = form.querySelector(`td[id="score3_${i}"]`).value;
                 }
 
                 //comision3_1 a comision3_19
                 for (let i = 3; i <= 19; i++) {
-                    window[`comision3_${i}`] = form.querySelector(`input[id="comision3_${i}"]`).value;
+                    window[`comision3_${i}`] = form.querySelector(`td[id="comision3_${i}"]`).value;
                 }
 
                 //observaciones3_1_1 a observaciones3_1_5
@@ -3100,12 +3100,16 @@
                             case 'form3_1':
                                 formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                                 formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_1'] = form.querySelector('input[id="score3_1"]').value;
-                                formData['actv3Comision'] = form.querySelector('input[id="actv3Comision"]').value;
 
+                                let score3_1Label = form.querySelector('td[id="score3_1"]');
+                                let actv3ComisionLabel = form.querySelector('td[id="actv3Comision"]');
+
+                                formData['score3_1'] = score3_1Label.innerText;
+                                formData['actv3Comision'] = actv3ComisionLabel.innerText;
                                 for (let i = 1; i <= 5; i++) {
                                     formData[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
                                 }
+
                                 formData['docencia'] = form.querySelector('input[id="docencia"]').value;
                                 break;
 
