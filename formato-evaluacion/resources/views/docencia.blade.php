@@ -296,7 +296,7 @@
                                 </table>
                             </form>
 
-                            <form id="form3_2" method="POST">
+                            <form id="form3_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store32', 'form3_2');">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -324,7 +324,7 @@
                                                 </td>
                                                 <td>Puntaje</td>
                                                 <td style="text-align:left;">Cantidad</td>
-                                                <td id="score3_2">0</td>
+                                                <td id="score3_2" for="">0</td>
                                                 <td id="comision3_2">0</td>
                                             </tr>
                                         </thead>
@@ -2921,6 +2921,9 @@
                     obs3_1_3: obs3_1_3,
                     obs3_1_4: obs3_1_4,
                     obs3_1_5: obs3_1_5,
+                    obs3_2_1: obs3_2_1,
+                    obs3_2_2: obs3_2_2,
+                    obs3_2_3: obs3_2_3,
                     };
 
                 const dse = document.querySelector("#DSE");
@@ -3066,7 +3069,7 @@
                         for (let i = 1; i <= 19; i++) {
                             let tdElement = form.querySelector(`td[id="score3_${i}"]`);
                             if (tdElement) {
-                                window[`score3_${i}`] = tdElement.textContent || tdElement.innerText;
+                                window[`score3_${i}`] = tdElement.textContent || tdElement.innerText || tdElement.innerHTML;
                             } else {
                                 console.warn(`Elemento con id "score3_${i}" no encontrado.`);
                             }
@@ -3105,15 +3108,12 @@
                                 */break;
 
                             case 'form3_2':
-                                formData['score3_2'] = form.querySelector('input[id="score3_2"]').value;
-                                formData['comision3_2'] = form.querySelector('input[id="comision3_2"]').value;
+                                let score3_2Label = form.querySelector('td[id="score3_2"]').value;
+                                let comision3_2Label = form.querySelector('td[id="comision3_2"]').value;
+                                formData['score3_2'] = score3_2Label.innerText;
+                                formData['comision3_2'] = comision3_2Label.innerText;
 
-
-                                //observaciones3_3_1 a observaciones3_3_4
-                                for (let i = 1; i <= 4; i++) {
-                                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
-                                }
-                                                //observaciones3_2_1 a observaciones3_2_3
+                                                //observaciones3_2_1
                                 for (let i = 1; i <= 3; i++) {
                                     window[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
                                 }
@@ -3121,26 +3121,26 @@
                                 for (let i = 1; i <= 3; i++) {
                                     formData[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
                                 }
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_3':
-                                formData['score3_3'] = form.querySelector('input[id="score3_3"]').value;
-                                formData['comision3_3'] = form.querySelector('input[id="comision3_3"]').value;
+                                formData['score3_3'] = form.querySelector('td[id="score3_3"]').value;
+                                formData['comision3_3'] = form.querySelector('td[id="comision3_3"]').value;
 
-                                                //observaciones3_1_1 a observaciones3_1_5
-                                for (let i = 1; i <= 5; i++) {
-                                    window[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
+                                //observaciones3_3_1 a observaciones3_3_4
+                                for (let i = 1; i <= 4; i++) {
+                                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
                                 }
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
                                 }
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_4':
-                                formData['score3_4'] = form.querySelector('input[id="score3_4"]').value;                                
-                                formData['comision3_4'] = form.querySelector('input[id="comision3_4"]').value;
+                                formData['score3_4'] = form.querySelector('td[id="score3_4"]').value;                                
+                                formData['comision3_4'] = form.querySelector('td[id="comision3_4"]').value;
                                                //observaciones3_4_1 a observaciones3_4_4
                                 for (let i = 1; i <= 4; i++) {
                                     window[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
@@ -3148,163 +3148,137 @@
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
                                 }
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_5':
-                                formData['score3_5'] = form.querySelector('input[id="score3_5"]').value;                                
-                                formData['comision3_5'] = form.querySelector('input[id="comision3_5"]').value; 
+                                formData['score3_5'] = form.querySelector('td[id="score3_5"]').value;                                
+                                formData['comision3_5'] = form.querySelector('td[id="comision3_5"]').value; 
                                 formData['obs3_5_1'] = form.querySelector('input[id="obs3_5_1"]').value;   
                                 formData['obs3_5_2'] = form.querySelector('input[id="obs3_5_2"]').value;
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;                             
+
                                 break;
 
                             case 'form3_6':
-                                formData['score3_6'] = form.querySelector('input[id="score3_6"]').value;                                
-                                formData['comision3_6'] = form.querySelector('input[id="comision3_6"]').value;
+                                formData['score3_6'] = form.querySelector('td[id="score3_6"]').value;                                
+                                formData['comision3_6'] = form.querySelector('td[id="comision3_6"]').value;
                                 formData['obs3_6'] = form.querySelector('input[id="obs3_6"]').value;
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_7':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_7'] = form.querySelector('input[id="score3_7"]').value;                                
-                                formData['comision3_7'] = form.querySelector('input[id="comision3_7"]').value;
+                                formData['score3_7'] = form.querySelector('td[id="score3_7"]').value;                                
+                                formData['comision3_7'] = form.querySelector('td[id="comision3_7"]').value;
                                 formData['obs3_7'] = form.querySelector('input[id="obs3_7"]').value; 
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_8':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_8'] = form.querySelector('input[id="score3_8"]').value;                                
-                                formData['comision3_8'] = form.querySelector('input[id="comision3_8"]').value;
+                                formData['score3_8'] = form.querySelector('td[id="score3_8"]').value;                                
+                                formData['comision3_8'] = form.querySelector('td[id="comision3_8"]').value;
                                 formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_9':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_9'] = form.querySelector('input[id="score3_9"]').value;                                
-                                formData['comision3_9'] = form.querySelector('input[id="comision3_9"]').value;
+                                formData['score3_9'] = form.querySelector('td[id="score3_9"]').value;                                
+                                formData['comision3_9'] = form.querySelector('td[id="comision3_9"]').value;
 
                                 for (let i = 1; i <= 17; i++) {
                                     formData[`obs3_9_${i}`] = form.querySelector(`input[id="obs3_9_${i}"]`).value;
                                 } 
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;                               
+
                                 break;
 
                             case 'form3_10':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_10'] = form.querySelector('input[id="score3_10"]').value;                                
-                                formData['comision3_10'] = form.querySelector('input[id="comision3_10"]').value;
+                                formData['score3_10'] = form.querySelector('td[id="score3_10"]').value;                                
+                                formData['comision3_10'] = form.querySelector('td[id="comision3_10"]').value;
                                 obs3_10.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_11':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_11'] = form.querySelector('input[id="score3_11"]').value;
-                                formData['comision3_11'] = form.querySelector('input[id="comision3_11"]').value; 
+                                formData['score3_11'] = form.querySelector('td[id="score3_11"]').value;
+                                formData['comision3_11'] = form.querySelector('td[id="comision3_11"]').value; 
                                 obs3_11.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value; 
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_12':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_12'] = form.querySelector('input[id="score3_12"]').value;
-                                formData['comision3_12'] = form.querySelector('input[id="comision3_12"]').value; 
+                                formData['score3_12'] = form.querySelector('td[id="score3_12"]').value;
+                                formData['comision3_12'] = form.querySelector('td[id="comision3_12"]').value; 
                                 obs3_12.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_13':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_13'] = form.querySelector('input[id="score3_13"]').value;
-                                formData['comision3_13'] = form.querySelector('input[id="comision3_13"]').value;
+                                formData['score3_13'] = form.querySelector('td[id="score3_13"]').value;
+                                formData['comision3_13'] = form.querySelector('td[id="comision3_13"]').value;
                                 obs3_13.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_14':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_14'] = form.querySelector('input[id="score3_14"]').value;
-                                formData['comision3_14'] = form.querySelector('input[id="comision3_14"]').value;
+                                formData['score3_14'] = form.querySelector('td[id="score3_14"]').value;
+                                formData['comision3_14'] = form.querySelector('td[id="comision3_14"]').value;
                                 obs3_14.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_15':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_15'] = form.querySelector('input[id="score3_15"]').value;
-                                formData['comision3_15'] = form.querySelector('input[id="comision3_15"]').value;
+                                formData['score3_15'] = form.querySelector('td[id="score3_15"]').value;
+                                formData['comision3_15'] = form.querySelector('td[id="comision3_15"]').value;
                                 obs3_15.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_16':                                
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_16'] = form.querySelector('input[id="score3_16"]').value;
-                                formData['comision3_16'] = form.querySelector('input[id="comision3_16"]').value;
+                                formData['score3_16'] = form.querySelector('td[id="score3_16"]').value;
+                                formData['comision3_16'] = form.querySelector('td[id="comision3_16"]').value;
                                 obs3_16.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_17':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_17'] = form.querySelector('input[id="score3_17"]').value;
-                                formData['comision3_17'] = form.querySelector('input[id="comision3_17"]').value;
+                                formData['score3_17'] = form.querySelector('td[id="score3_17"]').value;
+                                formData['comision3_17'] = form.querySelector('td[id="comision3_17"]').value;
                                 obs3_17.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_18':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_18'] = form.querySelector('input[id="score3_18"]').value;
-                                formData['comision3_18'] = form.querySelector('input[id="comision3_18"]').value;
+                                formData['score3_18'] = form.querySelector('td[id="score3_18"]').value;
+                                formData['comision3_18'] = form.querySelector('td[id="comision3_18"]').value;
                                 obs3_18.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+
                                 break;
 
                             case 'form3_19':                                
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
-                                formData['score3_19'] = form.querySelector('input[id="score3_19"]').value;
-                                formData['comision3_19'] = form.querySelector('input[id="comision3_19"]').value;
+                                formData['score3_19'] = form.querySelector('td[id="score3_19"]').value;
+                                formData['comision3_19'] = form.querySelector('td[id="comision3_19"]').value;
                                 obs3_19.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
-                                formData['docencia'] = form.querySelector('input[id="docencia"]').value;
-                                break;                               
+
+                                break;                              
 
                         }
                         //formData['docencia'] = form.querySelector('input[id="docencia"]').value;
