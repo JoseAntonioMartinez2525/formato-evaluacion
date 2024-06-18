@@ -3108,10 +3108,11 @@
                                 */break;
 
                             case 'form3_2':
-                                let score3_2Label = form.querySelector('td[id="score3_2"]').value;
-                                let comision3_2Label = form.querySelector('td[id="comision3_2"]').value;
-                                formData['score3_2'] = score3_2Label.innerText;
-                                formData['comision3_2'] = comision3_2Label.innerText;
+                                let score3_2Label = form.querySelector('td[id="score3_2"]').innerText;
+                                let comision3_2Label = form.querySelector('td[id="comision3_2"]').innerText;
+                                formData['score3_2'] = score3_2Label;
+                                formData['comision3_2'] = comision3_2Label;
+
 
                                                 //observaciones3_2_1
                                 for (let i = 1; i <= 3; i++) {
