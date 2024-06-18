@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsersResponseForm3_1 extends Model
 {
     use HasFactory;
-    protected $filliable = [
+    protected $fillable = [
         'user_id',
         'email',
         'score3_1',
@@ -21,12 +21,12 @@ class UsersResponseForm3_1 extends Model
     ];
 
 
-    protected $table = 'users_responses_form3_1';
+    protected $table = 'users_response_form3_1';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'users_responses_form3_1';
+        $this->table = 'users_response_form3_1';
         $this->connection = 'mysql';
     }
 

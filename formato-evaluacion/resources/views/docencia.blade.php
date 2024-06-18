@@ -296,7 +296,7 @@
                                 </table>
                             </form>
 
-                            <form id="form3_2" method="POST" action="{{ route('store') }}">
+                            <form id="form3_2" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -383,7 +383,7 @@
                                         </table>
                             </form>
 
-                            <form id="form3_3" method="POST" action="{{ route('store') }}">
+                            <form id="form3_3" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -519,7 +519,7 @@
                                                 </tr>
                                             </thead>
                                         </table>
-                            <form id="form3_4" method="POST" action="{{ route('store') }}">
+                            <form id="form3_4" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -627,7 +627,7 @@
                                             </thead>
                                         </table>
                                         </form>
-                            <form id="form3_5" method="POST" action="{{ route('store') }}">
+                            <form id="form3_5" method="POST" >
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -702,7 +702,7 @@
                                             </thead>
                                         </table>
                             </form>
-                            <form id="form3_6" method="POST" action="{{ route('store') }}">
+                            <form id="form3_6" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -767,7 +767,7 @@
                                             </tbody>
                                         </table>
                             </form>
-                            <form id="form3_7" method="POST" action="{{ route('store') }}">
+                            <form id="form3_7" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -829,7 +829,7 @@
                                             </tbody>
                                         </table>
                             </form>
-                            <form id="form3_8" method="POST" action="{{ route('store') }}">
+                            <form id="form3_8" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -898,7 +898,7 @@
                                             </tbody>
                                         </table>
                             </form>
-                            <form id="form3_9" method="POST" action="{{ route('store') }}">
+                            <form id="form3_9" method="POST">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -2971,7 +2971,7 @@
                         // Solo ocultar la navegación si el desplazamiento es horizontal hacia la derecha
                         if (currentScrollLeft > lastScrollLeft) {
                             nav.style.display = 'none';
-                            
+
                         } else if (currentScrollLeft < lastScrollLeft) {
                             nav.style.display = 'block';
                         }
@@ -3084,32 +3084,13 @@
 
                         }
 
-                //observaciones3_1_1 a observaciones3_1_5
-                for (let i = 1; i <= 5; i++) {
-                    window[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
-                }
 
-                //observaciones3_2_1 a observaciones3_2_3
-                for (let i = 1; i <= 3; i++) {
-                    window[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
-                }
-
-                //observaciones3_3_1 a observaciones3_3_4
-                for (let i = 1; i <= 4; i++) {
-                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
-                }
-
-                //observaciones3_4_1 a observaciones3_4_4
-                for (let i = 1; i <= 4; i++) {
-                    window[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
-                }
-
-
+                        // Collect common form data (if any)
+                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                        formData['email'] = form.querySelector('input[name="email"]').value;
                         switch (formId) {
 
                             case 'form3_1':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
 
                                 let score3_1Label = form.querySelector('td[id="score3_1"]');
                                 let actv3ComisionLabel = form.querySelector('td[id="actv3Comision"]');
@@ -3124,10 +3105,18 @@
                                 */break;
 
                             case 'form3_2':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
                                 formData['score3_2'] = form.querySelector('input[id="score3_2"]').value;
                                 formData['comision3_2'] = form.querySelector('input[id="comision3_2"]').value;
+
+
+                                //observaciones3_3_1 a observaciones3_3_4
+                                for (let i = 1; i <= 4; i++) {
+                                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
+                                }
+                                                //observaciones3_2_1 a observaciones3_2_3
+                                for (let i = 1; i <= 3; i++) {
+                                    window[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
+                                }
 
                                 for (let i = 1; i <= 3; i++) {
                                     formData[`obs3_2_${i}`] = form.querySelector(`input[id="obs3_2_${i}"]`).value;
@@ -3136,11 +3125,13 @@
                                 break;
 
                             case 'form3_3':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
                                 formData['score3_3'] = form.querySelector('input[id="score3_3"]').value;
                                 formData['comision3_3'] = form.querySelector('input[id="comision3_3"]').value;
 
+                                                //observaciones3_1_1 a observaciones3_1_5
+                                for (let i = 1; i <= 5; i++) {
+                                    window[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
+                                }
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
                                 }
@@ -3148,10 +3139,12 @@
                                 break;
 
                             case 'form3_4':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
                                 formData['score3_4'] = form.querySelector('input[id="score3_4"]').value;                                
                                 formData['comision3_4'] = form.querySelector('input[id="comision3_4"]').value;
+                                               //observaciones3_4_1 a observaciones3_4_4
+                                for (let i = 1; i <= 4; i++) {
+                                    window[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
+                                }
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_4_${i}`] = form.querySelector(`input[id="obs3_4_${i}"]`).value;
                                 }
@@ -3159,8 +3152,6 @@
                                 break;
 
                             case 'form3_5':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
                                 formData['score3_5'] = form.querySelector('input[id="score3_5"]').value;                                
                                 formData['comision3_5'] = form.querySelector('input[id="comision3_5"]').value; 
                                 formData['obs3_5_1'] = form.querySelector('input[id="obs3_5_1"]').value;   
@@ -3169,8 +3160,6 @@
                                 break;
 
                             case 'form3_6':
-                                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                                formData['email'] = form.querySelector('input[name="email"]').value;
                                 formData['score3_6'] = form.querySelector('input[id="score3_6"]').value;                                
                                 formData['comision3_6'] = form.querySelector('input[id="comision3_6"]').value;
                                 formData['obs3_6'] = form.querySelector('input[id="obs3_6"]').value;
@@ -3318,7 +3307,7 @@
                                 break;                               
 
                         }
-                        formData['docencia'] = form.querySelector('input[id="docencia"]').value;
+                        //formData['docencia'] = form.querySelector('input[id="docencia"]').value;
                         console.log(docencia);
                         console.log('Form data:', formData); // Log form data to check values
                         //if (!formData.hasOwnProperty('score3_1')) {
