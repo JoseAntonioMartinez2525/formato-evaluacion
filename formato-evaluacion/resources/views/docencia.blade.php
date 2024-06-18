@@ -383,7 +383,7 @@
                                         </table>
                             </form>
 
-                            <form id="form3_3" method="POST">
+                            <form id="form3_3" method="POST" onsubmit="event.preventDefault(); submitForm('/store33', 'form3_3');">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
@@ -2885,6 +2885,8 @@
                     score3_1: score3_1,
                     score3_2: score3_2,
                     comision3_2: comision3_2,
+                    score3_3: score3_3,
+                    comision3_3: comision3_3,
                     score3_4: score3_4,
                     comision3_4: comision3_4,
                     score3_5: score3_5,
@@ -3126,10 +3128,12 @@
                                 break;
 
                             case 'form3_3':
-                                formData['score3_3'] = form.querySelector('td[id="score3_3"]').value;
-                                formData['comision3_3'] = form.querySelector('td[id="comision3_3"]').value;
+                                let score3_3Label = form.querySelector('td[id="score3_3"]');
+                                let comision3_3Label = form.querySelector('td[id="comision3_3"]');
+                                formData['score3_3'] = score3_3Label.value;
+                                formData['comision3_3'] = comision3_3Label.value;
 
-                                //observaciones3_3_1 a observaciones3_3_4
+                                //observaciones3_3_1
                                 for (let i = 1; i <= 4; i++) {
                                     window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
                                 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ResponseForm2Controller;
 use App\Http\Controllers\ResponseForm2_2Controller;
 use App\Http\Controllers\ResponseForm3_1Controller;
 use App\Http\Controllers\ResponseForm3_2Controller;
+use App\Http\Controllers\ResponseForm3_3Controller;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -32,6 +33,7 @@ Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2
 Route::post('/store3', [ResponseForm2_2Controller::class, 'store3']);
 Route::post('/store31', [ResponseForm3_1Controller::class, 'store31']);
 Route::post('/store32', [ResponseForm3_2Controller::class, 'store32']);
+Route::post('/store33', [ResponseForm3_3Controller::class, 'store33']);
 
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');

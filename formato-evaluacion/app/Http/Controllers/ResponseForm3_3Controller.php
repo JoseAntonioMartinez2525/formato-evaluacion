@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\UsersResponseForm3_3;
+use Illuminate\Http\Request;
+
+class ResponseForm3_3Controller extends Controller
+{
+    public function store33(Request $request)
+    {
+        // Validate request data
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'email' => 'required|exists:users,email',
+            'score3_3' => 'required|numeric',
+            'comision3_3' => 'required|numeric',
+            'obs3_3_1' => 'nullable|string',
+            'obs3_3_2' => 'nullable|string',
+            'obs3_3_3' => 'nullable|string',
+            'obs3_3_4' => 'nullable|string',
+
+        ]);
+
+        // Assign default value if not provided
+        $validatedData['obs3_3_1'] = $validatedData['obs3_3_1'] ?? 'sin comentarios';
+        $validatedData['obs3_3_2'] = $validatedData['obs3_3_2'] ?? 'sin comentarios';
+        $validatedData['obs3_3_3'] = $validatedData['obs3_3_3'] ?? 'sin comentarios';
+        $validatedData['obs3_3_4'] = $validatedData['obs3_3_4'] ?? 'sin comentarios';
+
+        try {
+            // Create a new record using Eloquent ORM
+            UsersResponseForm3_3::create($validatedData);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Form submitted successfully!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error submitting form: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+}
