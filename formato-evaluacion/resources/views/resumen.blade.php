@@ -135,6 +135,32 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td class="p1">100</td>
                                 <td class="tdResaltado"><span id="comision3_3" class="p2" for=""></span></td>
                             </tr>
+                            <tr>
+                                <td>3.4 Distinciones académicas recibidas por el docente</td>
+                                <td class="p1">60</td>
+                                <td class="tdResaltado"><span id="comision3_4" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</td>
+                                <td class="p1">75</td>
+                                <td class="tdResaltado"><span id="comision3_5" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.6 Capacitación y actualización pedagógica recibida</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><span id="comision3_6" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><span id="comision3_7" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
+                                capacitación docente</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><span id="comision3_8" class="p2" for=""></span></td>
+                            </tr>
                         </thead>
                         </table>
                         <!--<center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>-->
@@ -292,6 +318,12 @@ $newLocale = str_replace('_', '-', $locale);
                     let data31 = await fetchData('/get-data-31', { user_id: userId });
                     let data32 = await fetchData('/get-data-32', { user_id: userId });
                     let data33 = await fetchData('/get-data-33', { user_id: userId });
+                    let data34 = await fetchData('/get-data-34', { user_id: userId });
+                    let data35 = await fetchData('/get-data-35', { user_id: userId });
+                    let data36 = await fetchData('/get-data-36', { user_id: userId });
+                    let data37 = await fetchData('/get-data-37', { user_id: userId });
+                    let data38 = await fetchData('/get-data-38', { user_id: userId });
+
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -300,6 +332,12 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
                     document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
                     document.getElementById('comision3_3').innerText = data33 ? data33.comision3_3 : '';
+                    document.getElementById('comision3_4').innerText = data34 ? data34.comision3_4 : '';
+                    document.getElementById('comision3_5').innerText = data35 ? data35.comision3_5 : '';
+                    document.getElementById('comision3_6').innerText = data36 ? data36.comision3_6 : '';
+                    document.getElementById('comision3_7').innerText = data37 ? data37.comision3_7 : '';
+                    document.getElementById('comision3_8').innerText = data38 ? data38.comision3_8 : '';
+
                     // Calculate the total score
                     calculateTotalScore();
                 }
@@ -310,7 +348,12 @@ $newLocale = str_replace('_', '-', $locale);
                     let actv3Comision = parseFloat(document.getElementById('actv3Comision').value) || 0;
                     let comision3_2 = parseFloat(document.getElementById('comision3_2').value) || 0;
                     let comision3_3 = parseFloat(document.getElementById('comision3_3').value) || 0;
-
+                    let comision3_4 = parseFloat(document.getElementById('comision3_4').value) || 0;
+                    let comision3_5 = parseFloat(document.getElementById('comision3_5').value) || 0;
+                    let comision3_5 = parseFloat(document.getElementById('comision3_5').value) || 0;
+                    let comision3_6 = parseFloat(document.getElementById('comision3_6').value) || 0;
+                    let comision3_7 = parseFloat(document.getElementById('comision3_7').value) || 0;
+                    let comision3_8 = parseFloat(document.getElementById('comision3_8').value) || 0;
                     // Add more scores as needed
                 
                     let comision3_1To3_8 = actv3Comision + comision3_2 + comision3_3;
