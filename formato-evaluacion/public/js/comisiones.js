@@ -52,7 +52,7 @@ function onActv3Comision3(){
 
 
     const ms = minWithSumThree(comisionA,comisionB,comisionC,comisionD);
-    document.getElementById("comision3-3") .innerHTML= ms;
+    document.getElementById("comision3_3") .innerHTML= ms;
     console.log(ms);
 
 }

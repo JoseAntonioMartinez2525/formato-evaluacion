@@ -416,7 +416,7 @@
                                                         <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
                                                         <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
                                                         <td id="score3_3">0</td>
-                                                        <td id="comision3-3">0</td>
+                                                        <td id="comision3_3">0</td>
                                                     </tr>
                                                 </thead>
                                                 <thead>
