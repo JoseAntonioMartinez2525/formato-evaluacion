@@ -30,4 +30,12 @@ class ResponseForm2Controller extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully!');
     }
+
+
+    public function getData2(Request $request)
+    {
+
+        $data = UsersResponseForm2::where('user_id', $request->query('user_id'))->first();
+        return response()->json($data);
+    }
 }

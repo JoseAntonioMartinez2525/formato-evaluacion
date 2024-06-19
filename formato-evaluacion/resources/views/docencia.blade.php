@@ -36,6 +36,9 @@
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('welcome') }}">Formato de Evaluación</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ route('resumen') }}">Resumen</a>
+            </li>
     <ul class="actv3">Actividades del apartado 3.<br>Calidad en la docencia:
         <li><a href="#seccion3_1">3.1 Participación en actividades de diseño curricular</a></li>
         <li><a href="#seccion3_2">3.2 Calidad del desempeño docente evaluada por el alumnado</a></li>
@@ -63,7 +66,6 @@
                 el Docente </a></li>
         <li><a href="#seccion3_19">3.19 Participación en cuerpos colegiados</a></li>
     </ul>
-
         </nav>
 
         <body class="font-sans antialiased">
@@ -3128,17 +3130,14 @@
                                 break;
 
                             case 'form3_3':
-                                let score3_3Label = form.querySelector('td[id="score3_3"]').innerText;
-                                let comision3_3Label = form.querySelector('td[id="comision3_3"]').innerText;
-                                formData['score3_3'] = score3_3Label.value;
-                                formData['comision3_3'] = comision3_3Label.value;
+                                let score3_3Label = form.querySelector('td[id="score3_3"]');
+                                let comision3_3Label = form.querySelector('td[id="comision3_3"]');
+                                formData['score3_3'] = score3_3Label ? score3_3Label.innerText : '0';
+                                formData['comision3_3'] = comision3_3Label ? comision3_3Label.innerText : '0';
 
-                                //observaciones3_3_1
+                                // Retrieve observations for form 3.3
                                 for (let i = 1; i <= 4; i++) {
-                                    window[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
-                                }
-                                for (let i = 1; i <= 4; i++) {
-                                    formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value;
+                                    formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value || '';
                                 }
 
                                 break;

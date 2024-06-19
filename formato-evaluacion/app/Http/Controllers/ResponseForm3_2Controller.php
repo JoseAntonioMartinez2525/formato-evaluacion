@@ -41,4 +41,12 @@ class ResponseForm3_2Controller extends Controller
             ], 500);
         }
     }
+
+    public function getData32(Request $request)
+    {
+       
+        $data = UsersResponseForm3_2::where('user_id', $request->query('user_id'))->first();
+        return response()->json($data);
+    }
+
 }

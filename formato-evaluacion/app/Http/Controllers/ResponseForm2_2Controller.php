@@ -44,5 +44,12 @@ class ResponseForm2_2Controller extends Controller
             'message' => 'Form submitted successfully!',
         ]);
     }
+
+    public function getData22(Request $request)
+    {
+
+        $data = UsersResponseForm2_2::where('user_id', $request->query('user_id'))->first();
+        return response()->json($data);
+    }
 }
 

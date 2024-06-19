@@ -68,7 +68,6 @@ $newLocale = str_replace('_', '-', $locale);
                         @csrf
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-
                         <center>
                         <h2 id="resumen">Resumen</h2>
                         <h4>A ser llenado por la Comisión del PEDPD</h4></center>
@@ -85,27 +84,21 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b>1. Permanencia en las actividades de la docencia</b></td>
                                 <td  class="p1"><b>100</b></td>
                                 <td>
-                                    <input type="number" name="actividad1" id="a1" placeholder="0">
+                                    <label id="comisionRepeticion" for=""></label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>1.1 Años de experiencia docente en la institución</td>
                                 <td class="p1">100</td>
                                 <td>
-                                    <label for="">
-
-                             <!--get comision1 de welcome.blade.php-->    
-
-                                    </label>
-
+                                    <label id="comision1" for="" ></label>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>2. Dedicación en el desempeño docente</b></td>
                                 <td class="p1"><b>200</b></td>
                                 <td>
-                                    <b></b>
-                                <!--get actv2Comision de welcome.blade.php-->
+                                    <b><label id="actv2Comision" for=""></label></b>
                                 </td>
                             </tr>
                             <tr>
@@ -251,6 +244,68 @@ $newLocale = str_replace('_', '-', $locale);
 
             window.submitForm = submitForm;
         });
+
+         document.addEventListener('DOMContentLoaded', function () {
+                const userId = {{ auth()->user()->id }}; // Assuming you have user data
+
+                async function fetchData(url, params = {}) {
+                    const queryString = new URLSearchParams(params).toString();
+                    const fullUrl = `${url}?${queryString}`;
+
+                    try {
+                        let response = await fetch(fullUrl, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json',
+                            }
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        let data = await response.json();
+                        return data;
+                    } catch (error) {
+                        console.error('There was a problem with the fetch operation:', error);
+                    }
+                }
+
+                async function loadAllData() {
+                    let data2 = await fetchData('/get-data2', { user_id: userId });
+                    let data2_2 = await fetchData('/get-data22', { user_id: userId });
+                    //let data31 = await fetchData('/get-data-31', { user_id: userId });
+                    //let data32 = await fetchData('/get-data-32', { user_id: userId });
+
+                    // Populate labels with the retrieved data
+                    document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
+                    document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
+                    //document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
+                    //document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
+
+                    // Calculate the total score
+                    //calculateTotalScore();
+                }
+
+                /*
+                function calculateTotalScore() {
+                    let score3_1 = parseFloat(document.getElementById('score3_1').value) || 0;
+                    let actv3Comision = parseFloat(document.getElementById('actv3Comision').value) || 0;
+                    let score3_2 = parseFloat(document.getElementById('score3_2').value) || 0;
+                    let comision3_2 = parseFloat(document.getElementById('comision3_2').value) || 0;
+
+                    // Add more scores as needed
+                    //let subtotal3_1To3_8 = score3_1 + score3_2;
+                    let comision3_1To3_8 = actv3Comision + comision3_2;
+
+                    // Display the total score
+                    //document.getElementById('totalScore').innerText = totalScore;
+                    document.getElementById('comision3_1To3_8').innerText = totalComision;
+                }*/
+
+                loadAllData();
+            });
 
 
     </script>
