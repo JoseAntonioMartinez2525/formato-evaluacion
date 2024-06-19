@@ -90,22 +90,22 @@ $newLocale = str_replace('_', '-', $locale);
                             <tr>
                                 <td>1.1 Años de experiencia docente en la institución</td>
                                 <td class="p1">100</td>
-                                <td>
-                                    <label id="comision1" for="" ></label>
+                                <td class="tdResaltado">
+                                    <label class="p2" id="comision1" for="" ></label>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>2. Dedicación en el desempeño docente</b></td>
                                 <td class="p1"><b>200</b></td>
                                 <td>
-                                    <b><label id="actv2Comision" for=""></label></b>
+                                    <!--repeticion de 2.1--> 
                                 </td>
                             </tr>
                             <tr>
                                 <td>2.1 Carga de trabajo docente frente a grupo</td>
-                                <td>200</td>
-                                <td>
-                                    <!--get actv2Comision de welcome.blade.php-->
+                                <td class="p1">200</td>
+                                <td class="tdResaltado">
+                                <b><span class="p2" id="actv2Comision" for=""></span></b>
                                 </td>
                             </tr>
                             <tr>
@@ -119,7 +119,21 @@ $newLocale = str_replace('_', '-', $locale);
                                     (suma de comision totales de actvs 3.17 a 3.19)
                                     ))-->
                                 </td>
-
+                            </tr>
+                            <tr>
+                                <td>3.1 Participación en actividades de diseño curricular</td>
+                                <td class="p1">60</td>
+                                <td class="tdResaltado"><span id="actv3Comision" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.2 Calidad del desempeño docente evaluada por los estudiantes</td>
+                                <td class="p1">50</td>
+                                <td class="tdResaltado"><span id="comision3_2" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td>3.3 Publicaciones relacionadas con la docencia</td>
+                                <td class="p1">100</td>
+                                <td class="tdResaltado"><span id="comision3_3" class="p2" for=""></span></td>
                             </tr>
                         </thead>
                         </table>
@@ -223,7 +237,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                 try {
                     let response = await fetch(url, {
-                        method: 'GET',
+                        method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
                             'Content-Type': 'application/json',
@@ -275,34 +289,36 @@ $newLocale = str_replace('_', '-', $locale);
                 async function loadAllData() {
                     let data2 = await fetchData('/get-data2', { user_id: userId });
                     let data2_2 = await fetchData('/get-data22', { user_id: userId });
-                    //let data31 = await fetchData('/get-data-31', { user_id: userId });
-                    //let data32 = await fetchData('/get-data-32', { user_id: userId });
+                    let data31 = await fetchData('/get-data-31', { user_id: userId });
+                    let data32 = await fetchData('/get-data-32', { user_id: userId });
+                    let data33 = await fetchData('/get-data-33', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
                     document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
-                    //document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
-                    //document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
-
+                    
+                    document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
+                    document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
+                    document.getElementById('comision3_3').innerText = data33 ? data33.comision3_3 : '';
                     // Calculate the total score
-                    //calculateTotalScore();
+                    calculateTotalScore();
                 }
 
-                /*
+                
                 function calculateTotalScore() {
-                    let score3_1 = parseFloat(document.getElementById('score3_1').value) || 0;
+                   
                     let actv3Comision = parseFloat(document.getElementById('actv3Comision').value) || 0;
-                    let score3_2 = parseFloat(document.getElementById('score3_2').value) || 0;
                     let comision3_2 = parseFloat(document.getElementById('comision3_2').value) || 0;
+                    let comision3_3 = parseFloat(document.getElementById('comision3_3').value) || 0;
 
                     // Add more scores as needed
-                    //let subtotal3_1To3_8 = score3_1 + score3_2;
-                    let comision3_1To3_8 = actv3Comision + comision3_2;
+                
+                    let comision3_1To3_8 = actv3Comision + comision3_2 + comision3_3;
 
                     // Display the total score
-                    //document.getElementById('totalScore').innerText = totalScore;
-                    document.getElementById('comision3_1To3_8').innerText = totalComision;
-                }*/
+                
+                    //document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
+                }
 
                 loadAllData();
             });

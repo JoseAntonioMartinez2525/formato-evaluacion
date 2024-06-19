@@ -41,6 +41,7 @@ Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('ge
 Route::get('/get-data22', [ResponseForm2_2Controller::class, 'getData22'])->name('getData22');
 Route::get('/get-data-31', [ResponseForm3_1Controller::class, 'getData31'])->name('getData31');
 Route::get('/get-data-32', [ResponseForm3_2Controller::class, 'getData32'])->name('getData32');
+Route::get('/get-data-33', [ResponseForm3_3Controller::class, 'getData33'])->name('getData33');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
