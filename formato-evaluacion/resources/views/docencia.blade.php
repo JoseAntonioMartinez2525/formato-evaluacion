@@ -415,7 +415,7 @@
                                                         <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
                                                         <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
                                                         <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
-                                                        <td id="score3_3">0</td>
+                                                        <td id="score3_3" for="">0</td>
                                                         <td id="comision3_3">0</td>
                                                     </tr>
                                                 </thead>
@@ -551,7 +551,7 @@
                                                             recibidas por el docente </th>
                                                         <td class="punto3_4">Puntaje</td>
                                                         <td class="punto3_4">Cantidad</td>
-                                                        <td id="score3_4">0</td>
+                                                        <td id="score3_4" for="">0</td>
                                                         <td id="comision3_4">0</td>
                                                     </tr>
                                                 </thead>
@@ -660,7 +660,7 @@
                                                         </th>
                                                         <td class="punto3_5">Puntaje</td>
                                                         <td class="punto3_5">Cantidad</td>
-                                                        <td id="score3_5">0</td>
+                                                        <td id="score3_5" for="">0</td>
                                                         <td id="comision3_5">0</td>
                                                     </tr>
                                                 </thead>
@@ -734,7 +734,7 @@
                                                             pedagógica recibida </th>
                                                         <td class="punto3_6">Factor</td>
                                                         <td class="punto3_6">Horas</td>
-                                                        <td id="score3_6">0</td>
+                                                        <td id="score3_6" for="">0</td>
                                                         <td id="comision3_6">0</td>
                                                     </tr>
                                                 </thead>
@@ -798,7 +798,7 @@
                                                             disciplinaria recibidos dentro de su área de conocimiento </th>
                                                         <td class="punto3_7">Factor</td>
                                                         <td class="punto3_7">Horas</td>
-                                                        <td id="score3_7">0</td>
+                                                        <td id="score3_7" for="">0</td>
                                                         <td id="comision3_7">0</td>
 
                                                     </tr>
@@ -862,7 +862,7 @@
                                                             capacitación docente </th>
                                                         <td class="punto3_8">Factor</td>
                                                         <td class="punto3_8">Horas</td>
-                                                        <td id="score3_8">0</td>
+                                                        <td id="score3_8" for="">0</td>
                                                         <td id="comision3_8">0</td>
 
                                                     </tr>
@@ -3128,8 +3128,8 @@
                                 break;
 
                             case 'form3_3':
-                                let score3_3Label = form.querySelector('td[id="score3_3"]');
-                                let comision3_3Label = form.querySelector('td[id="comision3_3"]');
+                                let score3_3Label = form.querySelector('td[id="score3_3"]').innerText;
+                                let comision3_3Label = form.querySelector('td[id="comision3_3"]').innerText;
                                 formData['score3_3'] = score3_3Label.value;
                                 formData['comision3_3'] = comision3_3Label.value;
 
