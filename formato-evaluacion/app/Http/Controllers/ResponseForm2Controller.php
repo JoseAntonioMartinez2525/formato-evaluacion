@@ -15,7 +15,7 @@ class ResponseForm2Controller extends Controller
             'horasActv2' => 'required|numeric',
             'puntajeEvaluar' => 'required|numeric', // Allow nullable
             'comision1' => 'required|numeric',
-            'obs1' => 'string',
+            'obs1' => 'nullable|string',
         ]);
 
         // Assign a default value if puntajeEvaluar is not provided

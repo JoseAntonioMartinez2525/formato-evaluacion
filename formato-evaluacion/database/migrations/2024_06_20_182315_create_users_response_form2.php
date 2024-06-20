@@ -3,13 +3,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateUsersResponseForm2 extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('users_responses_form2', function (Blueprint $table) {
+        Schema::create('users_response_form2', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Add this line
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -20,9 +20,11 @@ return new class extends Migration {
             $table->decimal('puntajeEvaluar', 8, 2);
 
             $table->integer('comision1');
-            $table->string('obs1');
+            $table->string('obs1')->nullable();
             $table->timestamps();
         });
+        \DB::statement("ALTER TABLE users_response_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+
     }
 
     /**
@@ -30,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_responses_form2');
+        Schema::dropIfExists('users_response_form2');
     }
 };
