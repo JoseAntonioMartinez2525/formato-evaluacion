@@ -17,7 +17,6 @@ class CreateUsersResponseForm22 extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('hours', 8, 2);
-            // Change the data type of puntajeEvaluar to decimal with precision 8 and scale 2
             $table->integer('actv2Comision');
 
             $table->string('obs2')->nullable();
