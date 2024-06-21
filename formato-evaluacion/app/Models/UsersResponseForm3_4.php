@@ -11,8 +11,8 @@ class UsersResponseForm3_4 extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'score3_3',
-        'comision3_3',
+        'score3_4',
+        'comision3_4',
         'obs3_4_1',
         'obs3_4_2',
         'obs3_4_3',

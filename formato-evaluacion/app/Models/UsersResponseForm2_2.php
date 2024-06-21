@@ -18,12 +18,12 @@ class UsersResponseForm2_2 extends RulesForm2_2
 
     ];
 
-    protected $table = 'users_responses_form2_2';
+    protected $table = 'users_response_form2_2';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'users_responses_form2_2';
+        $this->table = 'users_response_form2_2';
         $this->connection = 'mysql';
     }
 
