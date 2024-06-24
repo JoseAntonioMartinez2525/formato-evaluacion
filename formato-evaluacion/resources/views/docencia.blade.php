@@ -1229,6 +1229,10 @@
                                         </tbody>
                                     </table>
                                 </form>
+                                <form id="form3_10" method="POST" onsubmit="event.preventDefault(); submitForm('/store310', 'form3_10');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    @csrf
                                 <!--3.10 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">115</label>
@@ -1306,11 +1310,15 @@
                                                     <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                                     <th class="descripcion"><b>DDIE</b> </th>
+
+                                                    <th><button id="btn3_10" type="submit" class="btn btn-primary">Enviar
+
                                                 </tr>
                                             </thead>
                                         </table>
                                     </tbody>
                                 </table>
+                                </form>
                                 <!--3.11 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">95</label>
@@ -2935,7 +2943,7 @@
                     obs3_2_1: obs3_2_1,
                     obs3_2_2: obs3_2_2,
                     obs3_2_3: obs3_2_3,
-                    
+
                 };
 
                 const dse = document.querySelector("#DSE");
@@ -3221,8 +3229,12 @@
                                 break;
 
                             case 'form3_10':
-                                formData['score3_10'] = form.querySelector('td[id="score3_10"]').value;
-                                formData['comision3_10'] = form.querySelector('td[id="comision3_10"]').value;
+                                let score3_10Label = form.querySelector('th[id="score3_10"]');
+                                let comision3_10Label = form.querySelector('th[id="comision3_10"]');
+
+                                formData['score3_10'] = parseInt(score3_10Label.innerText, 10) || 0;
+                                formData['comision3_10'] = parseInt(comision3_10Label.innerText, 10) || 0;
+
                                 obs3_10.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3230,8 +3242,11 @@
                                 break;
 
                             case 'form3_11':
-                                formData['score3_11'] = form.querySelector('td[id="score3_11"]').value;
-                                formData['comision3_11'] = form.querySelector('td[id="comision3_11"]').value;
+                                let score3_11Label = form.querySelector('th[id="score3_11"]');
+                                let comision3_11Label = form.querySelector('th[id="comision3_11"]');
+
+                                formData['score3_11'] = parseInt(score3_11Label.innerText, 10) || 0;
+                                formData['comision3_11'] = parseInt(comision3_11Label.innerText, 10) || 0;
                                 obs3_11.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });

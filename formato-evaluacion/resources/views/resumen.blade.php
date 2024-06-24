@@ -349,6 +349,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let data37 = await fetchData('/get-data-37', { user_id: userId });
                     let data38 = await fetchData('/get-data-38', { user_id: userId });
                     let data39 = await fetchData('/get-data-39', { user_id: userId });
+                    let data310 = await fetchData('/get-data-310', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -363,6 +364,7 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_7').innerText = data37 ? data37.comision3_7 : '';
                     document.getElementById('comision3_8').innerText = data38 ? data38.comision3_8 : '';
                     document.getElementById('comision3_9').innerText = data39 ? data39.comision3_9 : '';
+                    document.getElementById('comision3_10').innerText = data310 ? data310.comision3_10 : '';
                     // Calculate the total score
                     calculateTotalScore();
                 }
@@ -381,6 +383,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_8 = parseFloat(document.getElementById('comision3_8').textContent);
 
                     let comision3_9 = parseFloat(document.getElementById('comision3_9').textContent);
+                    let comision3_10 = parseFloat(document.getElementById('comision3_10').textContent);
                     // Add more scores as needed
                 
                     let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
