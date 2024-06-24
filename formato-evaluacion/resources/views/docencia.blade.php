@@ -1222,7 +1222,7 @@
 
                                                         <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
                                                         </th>
-                                                        <th><button id="btn3_9" type="submit" class="btn btn-primary">Enviar
+                                                        <th><button id="btn3_9" type="submit" class="btn btn-primary">Enviar</button></th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -1311,7 +1311,7 @@
 
                                                     <th class="descripcion"><b>DDIE</b> </th>
 
-                                                    <th><button id="btn3_10" type="submit" class="btn btn-primary">Enviar
+                                                    <th><button id="btn3_10" type="submit" class="btn btn-primary">Enviar</button></th>
 
                                                 </tr>
                                             </thead>
@@ -1319,6 +1319,10 @@
                                     </tbody>
                                 </table>
                                 </form>
+                                <form id="form3_11" method="POST" onsubmit="event.preventDefault(); submitForm('/store311', 'form3_11');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    @csrf
                                 <!--3.11 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">95</label>
@@ -1413,6 +1417,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                
                                 <!--Tabla informativa Acreditacion Actividad 3.11-->
                                 <table>
                                     <thead>
@@ -1420,9 +1425,11 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>JD, *DSEs</b> </th>
+                                            <th><button id="btn3_11" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
+                                </form>
                                 </tbody>
                                 </table>
                                 <!--3.12 Trabajos dirigidos para la titulación de estudiantes-->
@@ -1636,6 +1643,7 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>Instancia que la otorga</b> </th>
+
                                         </tr>
                                     </thead>
                                 </table>
