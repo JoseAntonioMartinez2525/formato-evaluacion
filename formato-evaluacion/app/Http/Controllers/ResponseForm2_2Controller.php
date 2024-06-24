@@ -19,9 +19,9 @@ class ResponseForm2_2Controller extends Controller
             'obs2_2' => 'string',
         ]);
 
-        // Assign a default value if puntajeEvaluar is not provided
-        if (!isset($validatedData['puntajeEvaluar'])) {
-            $validatedData['puntajeEvaluar'] = 0;
+        // Assign a default value if hours is not provided
+        if (!isset($validatedData['hours'])) {
+            $validatedData['hours'] = 0;
         }
         if (!isset($validatedData['obs2'])) {
             $validatedData['obs2'] = "sin comentarios";

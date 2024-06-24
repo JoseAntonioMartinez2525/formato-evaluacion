@@ -3167,8 +3167,8 @@
                                 let score3_5Label = form.querySelector('td[id="score3_5"]');
                                 let comision3_5Label = form.querySelector('td[id="comision3_5"]');
 
-                                formData['score3_5'] = score3_5Label ? score3_5Label.innerText : '0';
-                                formData['comision3_5'] = comision3_5Label ? comision3_5Label.innerText : '0';
+                                formData['score3_5'] = parseInt(score3_5Label.innerText, 10) || 0;
+                                formData['comision3_5'] = parseInt(comision3_5Label.innerText, 10) || 0;
 
                                 formData['obs3_5_1'] = form.querySelector('input[id="obs3_5_1"]').value;
                                 formData['obs3_5_2'] = form.querySelector('input[id="obs3_5_2"]').value;
@@ -3176,22 +3176,31 @@
                                 break;
 
                             case 'form3_6':
-                                formData['score3_6'] = form.querySelector('td[id="score3_6"]').value;
-                                formData['comision3_6'] = form.querySelector('td[id="comision3_6"]').value;
+                                let score3_6Label = form.querySelector('td[id="score3_6"]');
+                                let comision3_6Label = form.querySelector('td[id="comision3_6"]');
+
+                                formData['score3_6'] = parseFloat(score3_6Label.innerText, 10) || 0;
+                                formData['comision3_6'] = parseFloat(comision3_6Label.innerText, 10) || 0;
                                 formData['obs3_6'] = form.querySelector('input[id="obs3_6"]').value;
 
                                 break;
 
                             case 'form3_7':
-                                formData['score3_7'] = form.querySelector('td[id="score3_7"]').value;
-                                formData['comision3_7'] = form.querySelector('td[id="comision3_7"]').value;
+                                let score3_7Label = form.querySelector('td[id="score3_7"]');
+                                let comision3_7Label = form.querySelector('td[id="comision3_7"]');
+
+                                formData['score3_7'] = parseFloat(score3_7Label.innerText, 10) || 0;
+                                formData['comision3_7'] = parseFloat(comision3_7Label.innerText, 10) || 0;
                                 formData['obs3_7'] = form.querySelector('input[id="obs3_7"]').value;
 
                                 break;
 
                             case 'form3_8':
-                                formData['score3_8'] = form.querySelector('td[id="score3_8"]').value;
-                                formData['comision3_8'] = form.querySelector('td[id="comision3_8"]').value;
+                                let score3_8Label = form.querySelector('td[id="score3_8"]');
+                                let comision3_8Label = form.querySelector('td[id="comision3_8"]');
+
+                                formData['score3_8'] = parseInt(score3_8Label.innerText, 10) || 0;
+                                formData['comision3_8'] = parseInt(comision3_8Label.innerText, 10) || 0;
                                 formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
 
                                 break;

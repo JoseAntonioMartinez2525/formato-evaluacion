@@ -350,7 +350,6 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_3 = parseFloat(document.getElementById('comision3_3').value) || 0;
                     let comision3_4 = parseFloat(document.getElementById('comision3_4').value) || 0;
                     let comision3_5 = parseFloat(document.getElementById('comision3_5').value) || 0;
-                    let comision3_5 = parseFloat(document.getElementById('comision3_5').value) || 0;
                     let comision3_6 = parseFloat(document.getElementById('comision3_6').value) || 0;
                     let comision3_7 = parseFloat(document.getElementById('comision3_7').value) || 0;
                     let comision3_8 = parseFloat(document.getElementById('comision3_8').value) || 0;

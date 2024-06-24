@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class UsersResponseForm3_7 extends Model
+{
+    use HasFactory;    
+    protected $fillable = [
+        'user_id',
+        'email',
+        'score3_7',
+        'comision3_7',
+        'obs3_7_1',
+
+    ];
+    protected $table = 'users_response_form3_7';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->table = 'users_response_form3_7';
+        $this->connection = 'mysql';
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc')->first();
+    }
+}

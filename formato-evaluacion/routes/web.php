@@ -9,6 +9,10 @@ use App\Http\Controllers\ResponseForm3_1Controller;
 use App\Http\Controllers\ResponseForm3_2Controller;
 use App\Http\Controllers\ResponseForm3_3Controller;
 use App\Http\Controllers\ResponseForm3_4Controller;
+use App\Http\Controllers\ResponseForm3_5Controller;
+use App\Http\Controllers\ResponseForm3_6Controller;
+use App\Http\Controllers\ResponseForm3_7Controller;
+use App\Http\Controllers\ResponseForm3_8Controller;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -36,6 +40,10 @@ Route::post('/store31', [ResponseForm3_1Controller::class, 'store31']);
 Route::post('/store32', [ResponseForm3_2Controller::class, 'store32']);
 Route::post('/store33', [ResponseForm3_3Controller::class, 'store33']);
 Route::post('/store34', [ResponseForm3_4Controller::class, 'store34']);
+Route::post('/store35', [ResponseForm3_5Controller::class, 'store35']);
+Route::post('/store36', [ResponseForm3_6Controller::class, 'store36']);
+Route::post('/store37', [ResponseForm3_7Controller::class, 'store37']);
+Route::post('/store38', [ResponseForm3_8Controller::class, 'store38']);
 
 
 //GET formularios
@@ -45,6 +53,10 @@ Route::get('/get-data-31', [ResponseForm3_1Controller::class, 'getData31'])->nam
 Route::get('/get-data-32', [ResponseForm3_2Controller::class, 'getData32'])->name('getData32');
 Route::get('/get-data-33', [ResponseForm3_3Controller::class, 'getData33'])->name('getData33');
 Route::get('/get-data-34', [ResponseForm3_4Controller::class, 'getData34'])->name('getData34');
+Route::get('/get-data-35', [ResponseForm3_5Controller::class, 'getData35'])->name('getData35');
+Route::get('/get-data-36', [ResponseForm3_6Controller::class, 'getData36'])->name('getData36');
+Route::get('/get-data-37', [ResponseForm3_7Controller::class, 'getData37'])->name('getData37');
+Route::get('/get-data-38', [ResponseForm3_8Controller::class, 'getData38'])->name('getData38');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
