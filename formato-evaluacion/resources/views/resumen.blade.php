@@ -153,13 +153,38 @@ $newLocale = str_replace('_', '-', $locale);
                             <tr>
                                 <td>3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</td>
                                 <td class="p1">40</td>
-                                <td class="tdResaltado"><span id="comision3_7" class="p2" for=""></span></td>
+                                <td class="tdResaltado "><span id="comision3_7" class="p2" for=""></span></td>
                             </tr>
                             <tr>
                                 <td>3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
                                 capacitación docente</td>
                                 <td class="p1">40</td>
-                                <td class="tdResaltado"><span id="comision3_8" class="p2" for=""></span></td>
+                                <td class="tdResaltado "><span id="comision3_8" class="p2" for=""></span></td>
+                            </tr>
+                            <tr>
+                                <td><center><b>Subtotal</b></center></td>
+                                <td></td>
+                                <td><b><label id="comision3_1To3_8" for=""  class="p2"></label></b></td>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <h2>Tutorias</h2>
+                            </tr>
+                            <tr>
+                                <td>3.9 Trabajos dirigidos para la titulación de estudiantes</td>
+                                <td class="p1">200</td>
+                                <td class="tdResaltado"><label id="comision3_9" class="p2"for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.10 Tutorías a estudiantes</td>
+                                <td class="p1">115</td>
+                                <td class="tdResaltado"><label id="comision3_10" class= "p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.11 Asesoría a estudiantes</td>
+                                <td class="p1">95</td>
+                                <td class="tdResaltado"><label id="comision3_11" class= "p2" for=""></label></td>
                             </tr>
                         </thead>
                         </table>
@@ -323,7 +348,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let data36 = await fetchData('/get-data-36', { user_id: userId });
                     let data37 = await fetchData('/get-data-37', { user_id: userId });
                     let data38 = await fetchData('/get-data-38', { user_id: userId });
-
+                    let data39 = await fetchData('/get-data-39', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -337,7 +362,7 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_6').innerText = data36 ? data36.comision3_6 : '';
                     document.getElementById('comision3_7').innerText = data37 ? data37.comision3_7 : '';
                     document.getElementById('comision3_8').innerText = data38 ? data38.comision3_8 : '';
-
+                    document.getElementById('comision3_9').innerText = data39 ? data39.comision3_9 : '';
                     // Calculate the total score
                     calculateTotalScore();
                 }
@@ -345,21 +370,25 @@ $newLocale = str_replace('_', '-', $locale);
                 
                 function calculateTotalScore() {
                    
-                    let actv3Comision = parseFloat(document.getElementById('actv3Comision').value) || 0;
-                    let comision3_2 = parseFloat(document.getElementById('comision3_2').value) || 0;
-                    let comision3_3 = parseFloat(document.getElementById('comision3_3').value) || 0;
-                    let comision3_4 = parseFloat(document.getElementById('comision3_4').value) || 0;
-                    let comision3_5 = parseFloat(document.getElementById('comision3_5').value) || 0;
-                    let comision3_6 = parseFloat(document.getElementById('comision3_6').value) || 0;
-                    let comision3_7 = parseFloat(document.getElementById('comision3_7').value) || 0;
-                    let comision3_8 = parseFloat(document.getElementById('comision3_8').value) || 0;
+                    let actv3Comision = parseFloat(document.getElementById('actv3Comision').textContent);
+                    console.log(actv3Comision);
+                    let comision3_2 = parseFloat(document.getElementById('comision3_2').textContent);
+                    let comision3_3 = parseFloat(document.getElementById('comision3_3').textContent);
+                    let comision3_4 = parseFloat(document.getElementById('comision3_4').textContent);
+                    let comision3_5 = parseFloat(document.getElementById('comision3_5').textContent);
+                    let comision3_6 = parseFloat(document.getElementById('comision3_6').textContent);
+                    let comision3_7 = parseFloat(document.getElementById('comision3_7').textContent);
+                    let comision3_8 = parseFloat(document.getElementById('comision3_8').textContent);
+
+                    let comision3_9 = parseFloat(document.getElementById('comision3_9').textContent);
                     // Add more scores as needed
                 
-                    let comision3_1To3_8 = actv3Comision + comision3_2 + comision3_3;
+                    let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
+                    comision3_5 + comision3_6 + comision3_7 + comision3_8);
 
                     // Display the total score
                 
-                    //document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
+                    document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
                 }
 
                 loadAllData();

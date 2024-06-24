@@ -897,7 +897,7 @@
                                         </tbody>
                                     </table>
                                 </form>
-                                <form id="form3_9" method="POST">
+                                <form id="form3_9" method="POST"onsubmit="event.preventDefault(); submitForm('/store39', 'form3_9');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                     @csrf
@@ -1222,6 +1222,7 @@
 
                                                         <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
                                                         </th>
+                                                        <th><button id="btn3_9" type="submit" class="btn btn-primary">Enviar
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -2934,6 +2935,7 @@
                     obs3_2_1: obs3_2_1,
                     obs3_2_2: obs3_2_2,
                     obs3_2_3: obs3_2_3,
+                    
                 };
 
                 const dse = document.querySelector("#DSE");
@@ -3206,8 +3208,11 @@
                                 break;
 
                             case 'form3_9':
-                                formData['score3_9'] = form.querySelector('td[id="score3_9"]').value;
-                                formData['comision3_9'] = form.querySelector('td[id="comision3_9"]').value;
+                                let score3_9Label = form.querySelector('th[id="score3_9"]');
+                                let comision3_9Label = form.querySelector('th[id="comision3_9"]');
+
+                                formData['score3_9'] = parseInt(score3_9Label.innerText, 10) || 0;
+                                formData['comision3_9'] = parseInt(comision3_9Label.innerText, 10) || 0;
 
                                 for (let i = 1; i <= 17; i++) {
                                     formData[`obs3_9_${i}`] = form.querySelector(`input[id="obs3_9_${i}"]`).value;

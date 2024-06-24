@@ -13,6 +13,7 @@ use App\Models\UsersResponseForm3_5;
 use App\Models\UsersResponseForm3_6;
 use App\Models\UsersResponseForm3_7;
 use App\Models\UsersResponseForm3_8;
+use App\Models\UsersResponseForm3_9;
 use Illuminate\Http\Request;
 use App\Models\UsersResponse;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ class ResponseJson extends Controller
         $responses3_6 = UsersResponseForm3_6::all()->filter()->values();
         $responses3_7 = UsersResponseForm3_7::all()->filter()->values();
         $responses3_8 = UsersResponseForm3_8::all()->filter()->values();
+        $responses3_9 = UsersResponseForm3_9::all()->filter()->values();
 
         // Convert each collection of responses to JSON format
         $jsonResponses = json_encode([
@@ -49,6 +51,7 @@ class ResponseJson extends Controller
             'form3_6' => $responses3_6->toArray(),
             'form3_7' => $responses3_7->toArray(),
             'form3_8' => $responses3_8->toArray(),
+            'form3_9' => $responses3_9->toArray(),
             
         ], JSON_PRETTY_PRINT);
 

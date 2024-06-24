@@ -13,6 +13,7 @@ use App\Http\Controllers\ResponseForm3_5Controller;
 use App\Http\Controllers\ResponseForm3_6Controller;
 use App\Http\Controllers\ResponseForm3_7Controller;
 use App\Http\Controllers\ResponseForm3_8Controller;
+use App\Http\Controllers\ResponseForm3_9Controller;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -44,6 +45,7 @@ Route::post('/store35', [ResponseForm3_5Controller::class, 'store35']);
 Route::post('/store36', [ResponseForm3_6Controller::class, 'store36']);
 Route::post('/store37', [ResponseForm3_7Controller::class, 'store37']);
 Route::post('/store38', [ResponseForm3_8Controller::class, 'store38']);
+Route::post('/store39', [ResponseForm3_9Controller::class, 'store39']);
 
 
 //GET formularios
@@ -57,6 +59,7 @@ Route::get('/get-data-35', [ResponseForm3_5Controller::class, 'getData35'])->nam
 Route::get('/get-data-36', [ResponseForm3_6Controller::class, 'getData36'])->name('getData36');
 Route::get('/get-data-37', [ResponseForm3_7Controller::class, 'getData37'])->name('getData37');
 Route::get('/get-data-38', [ResponseForm3_8Controller::class, 'getData38'])->name('getData38');
+Route::get('/get-data-39', [ResponseForm3_9Controller::class, 'getData39'])->name('getData39');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
