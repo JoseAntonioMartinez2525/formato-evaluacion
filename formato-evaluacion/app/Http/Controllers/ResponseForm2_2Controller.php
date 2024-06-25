@@ -15,20 +15,16 @@ class ResponseForm2_2Controller extends Controller
             'email' => 'required|exists:users,email',
             'hours' => 'required|numeric',
             'actv2Comision' => 'required|numeric', 
-            'obs2' => 'string',
-            'obs2_2' => 'string',
+            'obs2' => 'nullable|string',
+            'obs2_2' => 'nullable|string',
         ]);
 
         // Assign a default value if hours is not provided
         if (!isset($validatedData['hours'])) {
             $validatedData['hours'] = 0;
         }
-        if (!isset($validatedData['obs2'])) {
-            $validatedData['obs2'] = "sin comentarios";
-        }
-        if (!isset($validatedData['obs2_2'])) {
-            $validatedData['obs2_2'] = "sin comentarios";
-        }
+        $validatedData['obs2'] = $validatedData['obs2'] ?? 'sin comentarios';
+        $validatedData['obs2_2'] = $validatedData['obs2_2'] ?? 'sin comentarios';
 
         try {
             UsersResponseForm2_2::create($validatedData);
