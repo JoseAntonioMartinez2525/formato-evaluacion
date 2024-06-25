@@ -194,6 +194,16 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b><label id="comision3_9To3_11" for="" class="p2"></label></b></td>
                             </tr>
                         </thead>
+                        <thead>
+                            <tr>
+                                <h2>Investigación</h2>
+                            </tr>
+                            <tr>
+                                <td>3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</td>
+                                <td class="p1">150</td>
+                                <td class="tdResaltado"><label id="comision3_12" class="p2" for=""></label></td>
+                            </tr>
+                        </thead>
                         </table>
                         <!--<center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>-->
                         </center>
@@ -358,6 +368,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let data39 = await fetchData('/get-data-39', { user_id: userId });
                     let data310 = await fetchData('/get-data-310', { user_id: userId });
                     let data311 = await fetchData('/get-data-311', { user_id: userId });
+                    let data312 = await fetchData('/get-data-312', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -377,7 +388,8 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_9').innerText = data39 ? data39.comision3_9 : '';
                     document.getElementById('comision3_10').innerText = data310 ? data310.comision3_10 : '';
                     document.getElementById('comision3_11').innerText = data311 ? data311.comision3_11 : '';
-                    
+                    document.getElementById('comision3_12').innerText = data312 ? data312.comision3_12 : '';
+
                     // Calculate the total score
                     calculateTotalScore();
                 }
@@ -400,6 +412,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
                     // Add more scores as needed
                 
+                    let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
                     let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
                     comision3_5 + comision3_6 + comision3_7 + comision3_8);
                     let comision3_9To3_11 = parseInt(comision3_9+ comision3_10+ comision3_11);
