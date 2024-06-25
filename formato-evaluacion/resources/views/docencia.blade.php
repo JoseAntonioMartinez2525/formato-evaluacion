@@ -381,6 +381,7 @@
                                             <td><input id="obs3_2_3" class="table-header" type="text"></td>
                                         </tr>
                                     </thead>
+                                    </table>
                                     <!--Tabla informativa Acreditacion Actividad 3.2-->
                                     <table>
                                         <thead>
@@ -1303,6 +1304,8 @@
                                                 <td><input class="table-header" type="text" id="obsIndividual"></td>
                                             </tr>
                                         </thead>
+                                        </tbody> 
+                                        </table>
                                         <!--Tabla informativa Acreditacion Actividad 3.10-->
                                         <table>
                                             <thead>
@@ -1315,9 +1318,8 @@
 
                                                 </tr>
                                             </thead>
+
                                         </table>
-                                    </tbody>
-                                </table>
                                 </form>
                                 <form id="form3_11" method="POST" onsubmit="event.preventDefault(); submitForm('/store311', 'form3_11');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -1417,7 +1419,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <!--Tabla informativa Acreditacion Actividad 3.11-->
                                 <table>
                                     <thead>
@@ -1432,6 +1434,8 @@
                                 </form>
                                 </tbody>
                                 </table>
+                        <form id="form3_12" method="POST" onsubmit="event.preventDefault(); submitForm('/store312', 'form3_12');">
+                            @csrf
                                 <!--3.12 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">150</label>
@@ -1643,10 +1647,13 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>Instancia que la otorga</b> </th>
-
+                                            <th><button id="btn3_12" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
+                                </form>
+                                <form id="form3_13" method="POST" onsubmit="event.preventDefault(); submitForm('/store313', 'form3_13');">
+                                    @csrf
                                 <!--3.13 Proyectos académicos de investigación-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">130</label>
@@ -1762,9 +1769,14 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>CAAC, DIIP</b> </th>
+
+                                            <th><button id="btn3_12" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
+                                </form>
+                                <form id="form3_14" method="POST" onsubmit="event.preventDefault(); submitForm('/store314', 'form3_14');">
+                                    @csrf
                                 <!--3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">40</label>
@@ -1860,9 +1872,14 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>Instancia que otorga</b> </th>
+
+                                            <th><button id="btn3_14" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
+                                </form>
+                                <form id="form3_15" method="POST" onsubmit="event.preventDefault(); submitForm('/store315', 'form3_15');">
+                                    @csrf
                                 <!--3.15 Registro de patentes y productos de investigación tecnológica y educativa -->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">60</label>
@@ -1936,9 +1953,15 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>IMPI</b></th>
+
+                                            <th><button id="btn3_15" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
-                                </table> <br>
+                                </table> 
+                                </form>
+                                <br>
+                                <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store316', 'form3_16');">
+                                @csrf
                                 <!--3.16 Actividades de arbitraje, revisión, correción y edición -->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">30</label>
@@ -2102,9 +2125,14 @@
                                                     DIIP, SG, CA,
                                                     JD.</b>
                                             </th>
+                                            <th><button id="btn3_16" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
-                                </table> <br>
+                                </table> 
+                                </form>
+                                <br>
+                                <form id="form3_17" method="POST" onsubmit="event.preventDefault(); submitForm('/store317', 'form3_17');">
+                                @csrf
                                 <!--3.17 Proyectos académicos de extensión y difusión-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">50</label>
@@ -2222,9 +2250,15 @@
                                         <tr>
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
                                             <th class="descripcion"><b>CAAC, DDCEU</b></th>
+                                            <th><button id="btn3_17" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
-                                </table><br>
+                                </table>
+                                </form>
+                                <br>
+
+                                <form id="form3_18" method="POST" onsubmit="event.preventDefault(); submitForm('/store318', 'form3_18');">
+                                @csrf
                                 <!--3.18 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente-->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">40</label>
@@ -2470,14 +2504,18 @@
                                                 de institución extranjera</th>
                                             <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                                             <th class="descripcion"><b>Instancia que lo otorga</b></th>
+                                            <th><button id="btn3_18" type="submit" class="btn btn-primary">Enviar</button></th>
                                         </tr>
                                     </thead>
-                                </table><br>
+                                </table>
+                                </form>
+                                <br>
+                                <form id="form3_19" method="POST" onsubmit="event.preventDefault(); submitForm('/store319', 'form3_19');">
+                                 @csrf
                                 <!--3.19 Participación en cuerpos colegiados-->
                                 <h4>Puntaje máximo
-                                    <label class="bg-black text-white px-4 mt-3" for="">40</label>
+                                        <label class="bg-black text-white px-4 mt-3" for="">40</label>
                                 </h4>
-                                <table>
                                     <table class="table table-sm tutorias">
                                         <thead>
                                             <tr>
@@ -2834,13 +2872,13 @@
                                                     y/o académica y/o
                                                     financiera de institución extranjera</th>
                                                 <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
-                                                <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b>
-                                                </th>
+                                                <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
+                                                <th><button id="btn3_19" type="submit" class="btn btn-primary">Enviar</button></th>
                                             </tr>
                                         </thead>
-                                    </table><br>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-
+                                    </table>
+                                    </form>
+                                    <br>
 
                                     </main>
 
@@ -3262,8 +3300,12 @@
                                 break;
 
                             case 'form3_12':
-                                formData['score3_12'] = form.querySelector('td[id="score3_12"]').value;
-                                formData['comision3_12'] = form.querySelector('td[id="comision3_12"]').value;
+                                let score3_12Label = form.querySelector('td[id="score3_12"]');
+                                let comision3_12Label = form.querySelector('td[id="comision3_12"]');
+
+                                formData['score3_12'] = parseInt(score3_12Label.innerText, 10) || 0;
+                                formData['comision3_12'] = parseInt(comision3_12Label.innerText, 10) || 0;
+
                                 obs3_12.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3271,8 +3313,11 @@
                                 break;
 
                             case 'form3_13':
-                                formData['score3_13'] = form.querySelector('td[id="score3_13"]').value;
-                                formData['comision3_13'] = form.querySelector('td[id="comision3_13"]').value;
+                                let score3_13Label = form.querySelector('th[id="score3_13"]');
+                                let comision3_13Label = form.querySelector('th[id="comision3_13"]');
+
+                                formData['score3_13'] = parseInt(score3_13Label.innerText, 10) || 0;
+                                formData['comision3_13'] = parseInt(comision3_13Label.innerText, 10) || 0;
                                 obs3_13.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3280,8 +3325,12 @@
                                 break;
 
                             case 'form3_14':
-                                formData['score3_14'] = form.querySelector('td[id="score3_14"]').value;
-                                formData['comision3_14'] = form.querySelector('td[id="comision3_14"]').value;
+                                let score3_14Label = form.querySelector('th[id="score3_14"]');
+                                let comision3_14Label = form.querySelector('th[id="comision3_14"]');
+
+                                formData['score3_14'] = parseInt(score3_14Label.innerText, 10) || 0;
+                                formData['comision3_14'] = parseInt(comision3_14Label.innerText, 10) || 0;
+
                                 obs3_14.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3289,8 +3338,11 @@
                                 break;
 
                             case 'form3_15':
-                                formData['score3_15'] = form.querySelector('td[id="score3_15"]').value;
-                                formData['comision3_15'] = form.querySelector('td[id="comision3_15"]').value;
+                                let score3_15Label = form.querySelector('td[id="score3_15"]');
+                                let comision3_15Label = form.querySelector('td[id="comision3_15"]');
+
+                                formData['score3_15'] = parseInt(score3_15Label.innerText, 10) || 0;
+                                formData['comision3_15'] = parseInt(comision3_15Label.innerText, 10) || 0;
                                 obs3_15.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3298,8 +3350,12 @@
                                 break;
 
                             case 'form3_16':
-                                formData['score3_16'] = form.querySelector('td[id="score3_16"]').value;
-                                formData['comision3_16'] = form.querySelector('td[id="comision3_16"]').value;
+                                let score3_16Label = form.querySelector('th[id="score3_16"]');
+                                let comision3_16Label = form.querySelector('th[id="comision3_16"]');
+
+                                formData['score3_16'] = parseInt(score3_16Label.innerText, 10) || 0;
+                                formData['comision3_16'] = parseInt(comision3_16Label.innerText, 10) || 0;
+
                                 obs3_16.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3307,8 +3363,12 @@
                                 break;
 
                             case 'form3_17':
-                                formData['score3_17'] = form.querySelector('td[id="score3_17"]').value;
-                                formData['comision3_17'] = form.querySelector('td[id="comision3_17"]').value;
+                                let score3_17Label = form.querySelector('th[id="score3_17"]');
+                                let comision3_17Label = form.querySelector('th[id="comision3_17"]');
+
+                                formData['score3_17'] = parseInt(score3_17Label.innerText, 10) || 0;
+                                formData['comision3_17'] = parseInt(comision3_17Label.innerText, 10) || 0;
+
                                 obs3_17.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3316,8 +3376,12 @@
                                 break;
 
                             case 'form3_18':
-                                formData['score3_18'] = form.querySelector('td[id="score3_18"]').value;
-                                formData['comision3_18'] = form.querySelector('td[id="comision3_18"]').value;
+                                let score3_18Label = form.querySelector('th[id="score3_18"]');
+                                let comision3_18Label = form.querySelector('th[id="comision3_18"]');
+
+                                formData['score3_18'] = parseInt(score3_18Label.innerText, 10) || 0;
+                                formData['comision3_18'] = parseInt(comision3_18Label.innerText, 10) || 0;
+
                                 obs3_18.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3325,8 +3389,12 @@
                                 break;
 
                             case 'form3_19':
-                                formData['score3_19'] = form.querySelector('td[id="score3_19"]').value;
-                                formData['comision3_19'] = form.querySelector('td[id="comision3_19"]').value;
+                                let score3_19Label = form.querySelector('th[id="score3_19"]');
+                                let comision3_19Label = form.querySelector('th[id="comision3_19"]');
+
+                                formData['score3_19'] = parseInt(score3_19Label.innerText, 10) || 0;
+                                formData['comision3_19'] = parseInt(comision3_19Label.innerText, 10) || 0;
+                               
                                 obs3_19.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });

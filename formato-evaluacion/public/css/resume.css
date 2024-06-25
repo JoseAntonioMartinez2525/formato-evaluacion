@@ -5,8 +5,18 @@
     padding-right: 100px;
 }
 
+.info{
+    background-color: #7fe0f3;
+}
+#actv2Comision{
+    font-weight: normal;
+}
  #pMaximo{
 padding-left: 200px;
+}
+
+#actv1Repetido, #actv2Repetido{
+    margin-left: 180px;
 }
 
 #pComision {
@@ -14,7 +24,8 @@ padding-left: 60px;
 }
 
 .p1{
-    padding-left: 250px
+    padding-left: 220px;
+    
 }
 
 .p2 {

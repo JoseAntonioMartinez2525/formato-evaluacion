@@ -84,11 +84,11 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b>1. Permanencia en las actividades de la docencia</b></td>
                                 <td  class="p1"><b>100</b></td>
                                 <td>
-                                    <label id="comisionRepeticion" for=""></label>
+                                    <b><span id="actv1Repetido"></span></b>
                                 </td>
                             </tr>
                             <tr>
-                                <td>1.1 Años de experiencia docente en la institución</td>
+                                <td class="info">1.1 Años de experiencia docente en la institución</td>
                                 <td class="p1">100</td>
                                 <td class="tdResaltado">
                                     <label class="p2" id="comision1" for="" ></label>
@@ -98,14 +98,14 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b>2. Dedicación en el desempeño docente</b></td>
                                 <td class="p1"><b>200</b></td>
                                 <td>
-                                    <!--repeticion de 2.1--> 
+                                    <b><span id="actv2Repetido"></span></b>
                                 </td>
                             </tr>
                             <tr>
-                                <td>2.1 Carga de trabajo docente frente a grupo</td>
+                                <td class="info">2.1 Carga de trabajo docente frente a grupo</td>
                                 <td class="p1">200</td>
                                 <td class="tdResaltado">
-                                <b><span class="p2" id="actv2Comision" for=""></span></b>
+                                <span class="p2" id="actv2Comision" for=""></span>
                                 </td>
                             </tr>
                             <tr>
@@ -363,6 +363,9 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
                     document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
                     
+                    document.getElementById('actv1Repetido').innerText = data2 ? data2.comision1 : '';
+                    document.getElementById('actv2Repetido').innerText = data2_2 ? data2_2.actv2Comision : '';
+
                     document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
                     document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
                     document.getElementById('comision3_3').innerText = data33 ? data33.comision3_3 : '';
@@ -374,6 +377,7 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_9').innerText = data39 ? data39.comision3_9 : '';
                     document.getElementById('comision3_10').innerText = data310 ? data310.comision3_10 : '';
                     document.getElementById('comision3_11').innerText = data311 ? data311.comision3_11 : '';
+                    
                     // Calculate the total score
                     calculateTotalScore();
                 }
