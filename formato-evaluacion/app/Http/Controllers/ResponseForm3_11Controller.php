@@ -15,17 +15,17 @@ class ResponseForm3_11Controller extends Controller
                 'email' => 'required|exists:users,email',
                 'score3_11' => 'required|numeric',
                 'comision3_11' => 'required|numeric',
-                'obs3_11_1' => 'nullable|string',
-                'obs3_11_2' => 'nullable|string',
-                'obs3_11_3' => 'nullable|string',
+                'obsAsesoria' => 'nullable|string',
+                'obsServicio' => 'nullable|string',
+                'obsPracticas' => 'nullable|string',
 
 
             ]);
 
             // Assign default value if not provided
-            $validatedData['obs3_11_1'] = $validatedData['obs3_11_1'] ?? 'sin comentarios';
-            $validatedData['obs3_11_2'] = $validatedData['obs3_11_2'] ?? 'sin comentarios';
-            $validatedData['obs3_11_3'] = $validatedData['obs3_11_3'] ?? 'sin comentarios';
+            $validatedData['obsAsesoria'] = $validatedData['obsAsesoria'] ?? 'sin comentarios';
+            $validatedData['obsServicio'] = $validatedData['obsServicio'] ?? 'sin comentarios';
+            $validatedData['obsPracticas'] = $validatedData['obsPracticas'] ?? 'sin comentarios';
 
 
             // Create a new record using Eloquent ORM

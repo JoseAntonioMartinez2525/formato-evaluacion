@@ -1435,6 +1435,8 @@
                                 </tbody>
                                 </table>
                         <form id="form3_12" method="POST" onsubmit="event.preventDefault(); submitForm('/store312', 'form3_12');">
+                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                             @csrf
                                 <!--3.12 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
@@ -1653,6 +1655,8 @@
                                 </table>
                                 </form>
                                 <form id="form3_13" method="POST" onsubmit="event.preventDefault(); submitForm('/store313', 'form3_13');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                     @csrf
                                 <!--3.13 Proyectos académicos de investigación-->
                                 <h4>Puntaje máximo
@@ -1776,6 +1780,8 @@
                                 </table>
                                 </form>
                                 <form id="form3_14" method="POST" onsubmit="event.preventDefault(); submitForm('/store314', 'form3_14');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                     @csrf
                                 <!--3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente-->
                                 <h4>Puntaje máximo
@@ -1879,7 +1885,9 @@
                                 </table>
                                 </form>
                                 <form id="form3_15" method="POST" onsubmit="event.preventDefault(); submitForm('/store315', 'form3_15');">
-                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
                                 <!--3.15 Registro de patentes y productos de investigación tecnológica y educativa -->
                                 <h4>Puntaje máximo
                                     <label class="bg-black text-white px-4 mt-3" for="">60</label>
@@ -1961,6 +1969,8 @@
                                 </form>
                                 <br>
                                 <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store316', 'form3_16');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
                                 <!--3.16 Actividades de arbitraje, revisión, correción y edición -->
                                 <h4>Puntaje máximo
@@ -2132,6 +2142,8 @@
                                 </form>
                                 <br>
                                 <form id="form3_17" method="POST" onsubmit="event.preventDefault(); submitForm('/store317', 'form3_17');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
                                 <!--3.17 Proyectos académicos de extensión y difusión-->
                                 <h4>Puntaje máximo
@@ -2258,6 +2270,8 @@
                                 <br>
 
                                 <form id="form3_18" method="POST" onsubmit="event.preventDefault(); submitForm('/store318', 'form3_18');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 @csrf
                                 <!--3.18 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente-->
                                 <h4>Puntaje máximo
@@ -2511,7 +2525,9 @@
                                 </form>
                                 <br>
                                 <form id="form3_19" method="POST" onsubmit="event.preventDefault(); submitForm('/store319', 'form3_19');">
-                                 @csrf
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                @csrf
                                 <!--3.19 Participación en cuerpos colegiados-->
                                 <h4>Puntaje máximo
                                         <label class="bg-black text-white px-4 mt-3" for="">40</label>
@@ -3300,8 +3316,8 @@
                                 break;
 
                             case 'form3_12':
-                                let score3_12Label = form.querySelector('td[id="score3_12"]');
-                                let comision3_12Label = form.querySelector('td[id="comision3_12"]');
+                                let score3_12Label = form.querySelector('th[id="score3_12"]');
+                                let comision3_12Label = form.querySelector('th[id="comision3_12"]');
 
                                 formData['score3_12'] = parseInt(score3_12Label.innerText, 10) || 0;
                                 formData['comision3_12'] = parseInt(comision3_12Label.innerText, 10) || 0;
@@ -3309,6 +3325,8 @@
                                 obs3_12.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
+
+                                
 
                                 break;
 
@@ -3394,7 +3412,7 @@
 
                                 formData['score3_19'] = parseInt(score3_19Label.innerText, 10) || 0;
                                 formData['comision3_19'] = parseInt(comision3_19Label.innerText, 10) || 0;
-                               
+
                                 obs3_19.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });

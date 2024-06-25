@@ -19,18 +19,18 @@ return new class extends Migration
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_11', 8, 2);
             $table->integer('comision3_11');
-            $table->string('obs3_11_1')->nullable();
-            $table->string('obs3_11_2')->nullable();
-            $table->string('obs3_11_3')->nullable();
+            $table->string('obsAsesoria')->nullable();
+            $table->string('obsServicio')->nullable();
+            $table->string('obsPracticas')->nullable();
 
             $table->timestamps();
         });
 
 
         // Set default values for existing rows using raw SQL statements
-        \DB::statement("ALTER TABLE users_response_form3_10 MODIFY obs3_11_1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
-        \DB::statement("ALTER TABLE users_response_form3_10 MODIFY obs3_11_2 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
-        \DB::statement("ALTER TABLE users_response_form3_10 MODIFY obs3_11_3 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_11 MODIFY obsAsesoria VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_11 MODIFY obsServicio VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_11 MODIFY obsPracticas VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
 
 
     }

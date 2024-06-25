@@ -13,8 +13,8 @@ class UsersResponseForm3_10 extends Model
         'email',
         'score3_10',
         'comision3_10',
-        'obs3_10_1',
-        'obs3_10_2',
+        'obsGrupal',
+        'obsIndividual',
 
     ];
     protected $table = 'users_response_form3_10';
