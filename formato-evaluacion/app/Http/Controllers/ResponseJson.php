@@ -9,6 +9,7 @@ use App\Models\UsersResponseForm3_1;
 use App\Models\UsersResponseForm3_11;
 use App\Models\UsersResponseForm3_12;
 use App\Models\UsersResponseForm3_13;
+use App\Models\UsersResponseForm3_14;
 use App\Models\UsersResponseForm3_2;
 use App\Models\UsersResponseForm3_3;
 use App\Models\UsersResponseForm3_4;
@@ -45,6 +46,7 @@ class ResponseJson extends Controller
         $responses3_11 = UsersResponseForm3_11::all()->filter()->values();
         $responses3_12 = UsersResponseForm3_12::all()->filter()->values();
         $responses3_13 = UsersResponseForm3_13::all()->filter()->values();
+        $responses3_14 = UsersResponseForm3_14::all()->filter()->values();
 
         // Convert each collection of responses to JSON format
         $jsonResponses = json_encode([
@@ -64,6 +66,7 @@ class ResponseJson extends Controller
             'form3_11' => $responses3_11->toArray(),
             'form3_12' => $responses3_12->toArray(),
             'form3_13' => $responses3_13->toArray(),
+            'form3_14' => $responses3_14->toArray(),
             
         ], JSON_PRETTY_PRINT);
 

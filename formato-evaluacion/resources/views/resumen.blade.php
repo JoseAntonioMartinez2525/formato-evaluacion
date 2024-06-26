@@ -397,7 +397,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let data311 = await fetchData('/get-data-311', { user_id: userId });
                     let data312 = await fetchData('/get-data-312', { user_id: userId });
                     let data313 = await fetchData('/get-data-313', { user_id: userId });
-                    //let data314 = await fetchData('/get-data-314', { user_id: userId });
+                    let data314 = await fetchData('/get-data-314', { user_id: userId });
                     //let data315 = await fetchData('/get-data-315', { user_id: userId });
                     //let data316 = await fetchData('/get-data-316', { user_id: userId });
 
@@ -421,9 +421,9 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_11').innerText = data311 ? data311.comision3_11 : '';
                     document.getElementById('comision3_12').innerText = data312 ? data312.comision3_12 : '';
                     document.getElementById('comision3_13').innerText = data313 ? data313.comision3_13 : '';
-                    //document.getElementById('comision3_14').innerText = data314 ? data312.comision3_14 : '';
-                    //document.getElementById('comision3_15').innerText = data315 ? data312.comision3_15 : '';
-                    //document.getElementById('comision3_16').innerText = data316 ? data312.comision3_16 : '';
+                    document.getElementById('comision3_14').innerText = data314 ? data314.comision3_14 : '';
+                    //document.getElementById('comision3_15').innerText = data315 ? data315.comision3_15 : '';
+                    //document.getElementById('comision3_16').innerText = data316 ? data316.comision3_16 : '';
 
 
                     // Calculate the total score
@@ -448,7 +448,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
                     let comision3_12 = parseFloat(document.getElementById('comision3_12').textContent);               
                     let comision3_13 = parseFloat(document.getElementById('comision3_13').textContent);
-                    //let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
+                    let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
                     //let comision3_15 = parseFloat(document.getElementById('comision3_15').textContent);
                     //let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
 

@@ -55,6 +55,7 @@ Route::post('/store310', [ResponseForm3_10Controller::class, 'store310']);
 Route::post('/store311', [ResponseForm3_11Controller::class, 'store311']);
 Route::post('/store312', [ResponseForm3_12Controller::class, 'store312']);
 Route::post('/store313', [ResponseForm3_13Controller::class, 'store313']);
+Route::post('/store314', [ResponseForm3_14Controller::class, 'store314']);
 
 //GET formularios
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
@@ -72,6 +73,7 @@ Route::get('/get-data-310', [ResponseForm3_10Controller::class, 'getData310'])->
 Route::get('/get-data-311', [ResponseForm3_11Controller::class, 'getData311'])->name('getData311');
 Route::get('/get-data-312', [ResponseForm3_12Controller::class, 'getData312'])->name('getData312');
 Route::get('/get-data-313', [ResponseForm3_13Controller::class, 'getData313'])->name('getData313');
+Route::get('/get-data-314', [ResponseForm3_14Controller::class, 'getData314'])->name('getData314');
 
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
