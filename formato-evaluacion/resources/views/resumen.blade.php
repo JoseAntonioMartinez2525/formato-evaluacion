@@ -112,12 +112,12 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b>3. Calidad en la docencia</b></td>
                                 <td class="p1"><b>700</b></td>
                                 <td>
-                                    <b></b>
+                                    <b id="actv3Total">
                                     <!--min(7000, suma((suma de comision totales de actvs 3.1 a 3.8)+
                                     (suma de comision totales de actvs 3.9 a 3.11)+
                                     (suma de comision totales de actvs 3.12 a 3.16)+
                                     (suma de comision totales de actvs 3.17 a 3.19)
-                                    ))-->
+                                    ))--></b>
                                 </td>
                             </tr>
                             <tr>
@@ -256,6 +256,37 @@ $newLocale = str_replace('_', '-', $locale);
                                 </td>
                                 <td></td>
                                 <td><b><label id="comision3_17To3_19" for="" class="p2"></label></b></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center><b>Total logrado en la evaluación</b></center>
+                                </td>
+                                <td></td>
+                                <td><b><label id="totalComision" for="" class="p2"></label></b></td>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <td>1. Permanencia en las actividades de la docencia</td>
+                                <td class="p1">100</td>
+                                <td class="tdResaltado"><label id="comision1Total" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>2. Dedicación en el desempeño docente</td>
+                                <td class="p1">200</td>
+                                <td class="tdResaltado"><label id="comision2Total" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3. Calidad en la docencia</td>
+                                <td class="p1">700</td>
+                                <td class="tdResaltado"><label id="comision3Total" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center><b>Total de puntaje obtenido en la evaluación</b></center>
+                                </td>
+                                <td></td>
+                                <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
                             </tr>
                         </thead>
                         </table>
@@ -437,7 +468,9 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
                     
                     document.getElementById('actv1Repetido').innerText = data2 ? data2.comision1 : '';
+                    document.getElementById('comision1Total').innerText = data2 ? data2.comision1 : '';
                     document.getElementById('actv2Repetido').innerText = data2_2 ? data2_2.actv2Comision : '';
+                    document.getElementById('comision2Total').innerText = data2_2 ? data2_2.actv2Comision : '';
 
                     document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
                     document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
@@ -467,7 +500,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                 
                 function calculateTotalScore() {
-                   
+                    
                     let actv3Comision = parseFloat(document.getElementById('actv3Comision').textContent);
                     console.log(actv3Comision);
                     let comision3_2 = parseFloat(document.getElementById('comision3_2').textContent);
@@ -501,11 +534,21 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
                     document.getElementById('comision3_17To3_19').innerText = comision3_17To3_19;
 
+                    const actv3Total = min700(comision3_1To3_8, comision3_9To3_11, comision3_12To3_16, comision3_17To3_19);
+                    document.getElementById('actv3Total').innerText = actv3Total;
+
+
                 }
 
                 loadAllData();
             });
 
+            function min700(...values){
+                const total = values.reduce((acc, val) => acc + val, 0);
+                return Math.min(total, 700);
+            }
+
+            
 
     </script>
 
