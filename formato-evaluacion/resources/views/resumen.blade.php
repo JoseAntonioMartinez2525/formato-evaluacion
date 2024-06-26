@@ -231,6 +231,33 @@ $newLocale = str_replace('_', '-', $locale);
                                 <td><b><label id="comision3_12To3_16" for="" class="p2"></label></b></td>
                             </tr>
                         </thead>
+                        <thead>
+                            <tr>
+                                <th class="subtitle">Cuerpos Colegiados</th>
+                            </tr>
+                            <tr>
+                                <td>3.17 Proyectos académicos de extensión y difusión</td>
+                                <td class="p1">50</td>
+                                <td class="tdResaltado"><label id="comision3_17" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><label id="comision3_18" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.19 Participación en cuerpos colegiados</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><label id="comision3_19" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center><b>Subtotal</b></center>
+                                </td>
+                                <td></td>
+                                <td><b><label id="comision3_17To3_19" for="" class="p2"></label></b></td>
+                            </tr>
+                        </thead>
                         </table>
                         <!--<center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>-->
                         </center>
@@ -400,7 +427,11 @@ $newLocale = str_replace('_', '-', $locale);
                     let data314 = await fetchData('/get-data-314', { user_id: userId });
                     let data315 = await fetchData('/get-data-315', { user_id: userId });
                     let data316 = await fetchData('/get-data-316', { user_id: userId });
-
+                    let data317 = await fetchData('/get-data-317', { user_id: userId });
+                    /*
+                    let data318 = await fetchData('/get-data-318', { user_id: userId });
+                    let data319 = await fetchData('/get-data-319', { user_id: userId });
+                    */
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
                     document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
@@ -424,7 +455,11 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_14').innerText = data314 ? data314.comision3_14 : '';
                     document.getElementById('comision3_15').innerText = data315 ? data315.comision3_15 : '';
                     document.getElementById('comision3_16').innerText = data316 ? data316.comision3_16 : '';
-
+                    
+                    document.getElementById('comision3_17').innerText = data317 ? data317.comision3_17 : '';
+                    /*document.getElementById('comision3_18').innerText = data318 ? data318.comision3_18 : '';
+                    document.getElementById('comision3_19').innerText = data319 ? data319.comision3_19 : '';
+                    */
 
                     // Calculate the total score
                     calculateTotalScore();
@@ -451,15 +486,20 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
                     let comision3_15 = parseFloat(document.getElementById('comision3_15').textContent);
                     let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
-
+                    let comision3_17 = parseFloat(document.getElementById('comision3_17').textContent);
+                    /*
+                    let comision3_18 = parseFloat(document.getElementById('comision3_18').textContent);
+                    let comision3_19 = parseFloat(document.getElementById('comision3_19').textContent);
+                    */
                     let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
                     comision3_5 + comision3_6 + comision3_7 + comision3_8);
                     let comision3_9To3_11 = parseInt(comision3_9+ comision3_10+ comision3_11);
                     let comision3_12To3_16 = parseInt(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16);
+                    //let comision3_17To3_19 = parseInt(comision3_17 + comision3_18 + comision3_19);
                     
                     document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
                     document.getElementById('comision3_9To3_11').innerText = comision3_9To3_11;
-                    document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
+                    //document.getElementById('comision3_17To3_19').innerText = comision3_17To3_19;
 
                 }
 
