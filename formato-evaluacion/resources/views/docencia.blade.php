@@ -3356,8 +3356,8 @@
                                 break;
 
                             case 'form3_15':
-                                let score3_15Label = form.querySelector('td[id="score3_15"]');
-                                let comision3_15Label = form.querySelector('td[id="comision3_15"]');
+                                let score3_15Label = form.querySelector('th[id="score3_15"]');
+                                let comision3_15Label = form.querySelector('th[id="comision3_15"]');
 
                                 formData['score3_15'] = parseInt(score3_15Label.innerText, 10) || 0;
                                 formData['comision3_15'] = parseInt(comision3_15Label.innerText, 10) || 0;
