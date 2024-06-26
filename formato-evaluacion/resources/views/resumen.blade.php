@@ -399,7 +399,7 @@ $newLocale = str_replace('_', '-', $locale);
                     let data313 = await fetchData('/get-data-313', { user_id: userId });
                     let data314 = await fetchData('/get-data-314', { user_id: userId });
                     let data315 = await fetchData('/get-data-315', { user_id: userId });
-                    //let data316 = await fetchData('/get-data-316', { user_id: userId });
+                    let data316 = await fetchData('/get-data-316', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -423,7 +423,7 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_13').innerText = data313 ? data313.comision3_13 : '';
                     document.getElementById('comision3_14').innerText = data314 ? data314.comision3_14 : '';
                     document.getElementById('comision3_15').innerText = data315 ? data315.comision3_15 : '';
-                    //document.getElementById('comision3_16').innerText = data316 ? data316.comision3_16 : '';
+                    document.getElementById('comision3_16').innerText = data316 ? data316.comision3_16 : '';
 
 
                     // Calculate the total score
@@ -450,16 +450,16 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_13 = parseFloat(document.getElementById('comision3_13').textContent);
                     let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
                     let comision3_15 = parseFloat(document.getElementById('comision3_15').textContent);
-                    //let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
+                    let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
 
                     let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
                     comision3_5 + comision3_6 + comision3_7 + comision3_8);
                     let comision3_9To3_11 = parseInt(comision3_9+ comision3_10+ comision3_11);
-                    //let comision3_12To3_16 = parseInt(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16);
+                    let comision3_12To3_16 = parseInt(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16);
                     
                     document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
                     document.getElementById('comision3_9To3_11').innerText = comision3_9To3_11;
-                    //document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
+                    document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
 
                 }
 
