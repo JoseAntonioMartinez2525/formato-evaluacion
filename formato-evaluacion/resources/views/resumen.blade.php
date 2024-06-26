@@ -537,7 +537,11 @@ $newLocale = str_replace('_', '-', $locale);
                     const actv3Total = min700(comision3_1To3_8, comision3_9To3_11, comision3_12To3_16, comision3_17To3_19);
                     document.getElementById('actv3Total').innerText = actv3Total;
 
+                    const comision3Total = actv3Total;
+                    document.getElementById('comision3Total').innerText = comision3Total;
+                    
 
+                
                 }
 
                 loadAllData();
