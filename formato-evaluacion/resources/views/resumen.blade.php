@@ -169,7 +169,7 @@ $newLocale = str_replace('_', '-', $locale);
                         </thead>
                         <thead>
                             <tr>
-                                <h2>Tutorias</h2>
+                                <th class="subtitle">Tutorias</th>
                             </tr>
                             <tr>
                                 <td>3.9 Trabajos dirigidos para la titulación de estudiantes</td>
@@ -196,12 +196,39 @@ $newLocale = str_replace('_', '-', $locale);
                         </thead>
                         <thead>
                             <tr>
-                                <h2>Investigación</h2>
+                                <th class="subtitle">Investigación</th>
                             </tr>
                             <tr>
                                 <td>3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</td>
                                 <td class="p1">150</td>
                                 <td class="tdResaltado"><label id="comision3_12" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.13 Proyectos académicos de investigación</td>
+                                <td class="p1">130</td>
+                                <td class="tdResaltado"><label id="comision3_13" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</td>
+                                <td class="p1">40</td>
+                                <td class="tdResaltado"><label id="comision3_14" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.15 Registro de patentes y productos de investigación tecnológica y educativa</td>
+                                <td class="p1">60</td>
+                                <td class="tdResaltado"><label id="comision3_15" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>3.16 Actividades de arbitraje, revisión, correción y edición</td>
+                                <td class="p1">30</td>
+                                <td class="tdResaltado"><label id="comision3_16" class="p2" for=""></label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <center><b>Subtotal</b></center>
+                                </td>
+                                <td></td>
+                                <td><b><label id="comision3_12To3_16" for="" class="p2"></label></b></td>
                             </tr>
                         </thead>
                         </table>
@@ -369,6 +396,10 @@ $newLocale = str_replace('_', '-', $locale);
                     let data310 = await fetchData('/get-data-310', { user_id: userId });
                     let data311 = await fetchData('/get-data-311', { user_id: userId });
                     let data312 = await fetchData('/get-data-312', { user_id: userId });
+                    let data313 = await fetchData('/get-data-313', { user_id: userId });
+                    //let data314 = await fetchData('/get-data-314', { user_id: userId });
+                    //let data315 = await fetchData('/get-data-315', { user_id: userId });
+                    //let data316 = await fetchData('/get-data-316', { user_id: userId });
 
                     // Populate labels with the retrieved data
                     document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
@@ -389,6 +420,11 @@ $newLocale = str_replace('_', '-', $locale);
                     document.getElementById('comision3_10').innerText = data310 ? data310.comision3_10 : '';
                     document.getElementById('comision3_11').innerText = data311 ? data311.comision3_11 : '';
                     document.getElementById('comision3_12').innerText = data312 ? data312.comision3_12 : '';
+                    document.getElementById('comision3_13').innerText = data313 ? data313.comision3_13 : '';
+                    //document.getElementById('comision3_14').innerText = data314 ? data312.comision3_14 : '';
+                    //document.getElementById('comision3_15').innerText = data315 ? data312.comision3_15 : '';
+                    //document.getElementById('comision3_16').innerText = data316 ? data312.comision3_16 : '';
+
 
                     // Calculate the total score
                     calculateTotalScore();
@@ -410,16 +446,20 @@ $newLocale = str_replace('_', '-', $locale);
                     let comision3_9 = parseFloat(document.getElementById('comision3_9').textContent);
                     let comision3_10 = parseFloat(document.getElementById('comision3_10').textContent);
                     let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
-                    // Add more scores as needed
-                
-                    let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
+                    let comision3_12 = parseFloat(document.getElementById('comision3_12').textContent);               
+                    let comision3_13 = parseFloat(document.getElementById('comision3_13').textContent);
+                    //let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
+                    //let comision3_15 = parseFloat(document.getElementById('comision3_15').textContent);
+                    //let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
+
                     let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
                     comision3_5 + comision3_6 + comision3_7 + comision3_8);
                     let comision3_9To3_11 = parseInt(comision3_9+ comision3_10+ comision3_11);
-                    // Display the total score
-
+                    //let comision3_12To3_16 = parseInt(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16);
+                    
                     document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
                     document.getElementById('comision3_9To3_11').innerText = comision3_9To3_11;
+                    //document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
 
                 }
 

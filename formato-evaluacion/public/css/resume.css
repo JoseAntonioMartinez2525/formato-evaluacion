@@ -15,12 +15,13 @@
 padding-left: 200px;
 }
 
-#actv1Repetido, #actv2Repetido{
-    margin-left: 180px;
+#actv1Repetido, #actv2Repetido, .p2{
+    margin-left: 120px;
 }
 
 #pComision {
 padding-left: 60px;
+width: 300px;
 }
 
 .p1{
@@ -28,11 +29,6 @@ padding-left: 60px;
     
 }
 
-.p2 {
-    margin-left: 180px;
-
-    
-}
 
 .tdResaltado{
     background-color: #ffcc6d;
@@ -68,4 +64,14 @@ padding-left: 60px;
     text-align: center;
     border: none;
     font-weight: normal;
+}
+tr .subtitle {
+
+    font-weight: 900;
+}
+
+.subtitle{
+    padding-left: 360px;
+    font-weight: 900;
+    font-family: Arial, sans-serif;
 }

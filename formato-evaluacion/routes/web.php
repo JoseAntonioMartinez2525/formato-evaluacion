@@ -17,6 +17,8 @@ use App\Http\Controllers\ResponseForm3_9Controller;
 use App\Http\Controllers\ResponseForm3_10Controller;
 use App\Http\Controllers\ResponseForm3_11Controller;
 use App\Http\Controllers\ResponseForm3_12Controller;
+use App\Http\Controllers\ResponseForm3_13Controller;
+use App\Http\Controllers\ResponseForm3_14Controller;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -52,6 +54,7 @@ Route::post('/store39', [ResponseForm3_9Controller::class, 'store39']);
 Route::post('/store310', [ResponseForm3_10Controller::class, 'store310']);
 Route::post('/store311', [ResponseForm3_11Controller::class, 'store311']);
 Route::post('/store312', [ResponseForm3_12Controller::class, 'store312']);
+Route::post('/store313', [ResponseForm3_13Controller::class, 'store313']);
 
 //GET formularios
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
@@ -68,7 +71,7 @@ Route::get('/get-data-39', [ResponseForm3_9Controller::class, 'getData39'])->nam
 Route::get('/get-data-310', [ResponseForm3_10Controller::class, 'getData310'])->name('getData310');
 Route::get('/get-data-311', [ResponseForm3_11Controller::class, 'getData311'])->name('getData311');
 Route::get('/get-data-312', [ResponseForm3_12Controller::class, 'getData312'])->name('getData312');
-
+Route::get('/get-data-313', [ResponseForm3_13Controller::class, 'getData313'])->name('getData313');
 
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
