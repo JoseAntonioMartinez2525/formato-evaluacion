@@ -262,7 +262,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     <center><b>Total logrado en la evaluación</b></center>
                                 </td>
                                 <td></td>
-                                <td><b><label id="totalComision" for="" class="p2"></label></b></td>
+                                <td><label id="totalComision" for="" class="p2"></label></td>
                             </tr>
                         </thead>
                         <thead>
@@ -287,6 +287,18 @@ $newLocale = str_replace('_', '-', $locale);
                                 </td>
                                 <td></td>
                                 <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
+                                <th>Mínima de Calidad</th>
+                                <th><b><span id="minimaCalidad"></span></b></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>Mínima Total</th>
+                                <th><b><span id="minimaTotal"></span></b></th>
                             </tr>
                         </thead>
                         </table>
@@ -540,7 +552,10 @@ $newLocale = str_replace('_', '-', $locale);
                     const comision3Total = actv3Total;
                     document.getElementById('comision3Total').innerText = comision3Total;
                     
-
+                    total();
+                    document.getElementById('totalComisionRepetido').innerText = total();
+                    document.getElementById('totalComision').innerText = total();
+                    condicionales();
                 
                 }
 
@@ -552,7 +567,48 @@ $newLocale = str_replace('_', '-', $locale);
                 return Math.min(total, 700);
             }
 
-            
+            function total(){
+                let suma = (parseFloat(document.getElementById('comision1Total').textContent))+(parseFloat(document.getElementById('comision2Total').textContent))+(parseFloat(document.getElementById('comision3Total').textContent));
+                suma = suma >= 700 ? 700 : suma;
+                return suma;
+            }
+
+            function condicionales(){
+                let actv3Total = parseFloat(document.getElementById('actv3Total').textContent);
+                let minimaCalidad;
+                switch (true) {
+                    case (actv3Total >= 210 && actv3Total <= 264):
+                        minimaCalidad = 'I';
+                        break;
+                    case (actv3Total >= 265 && actv3Total <= 319):
+                        minimaCalidad = 'II';
+                        break;
+                    case (actv3Total >= 320 && actv3Total <= 374):
+                        minimaCalidad = 'III';
+                        break;
+                    case (actv3Total >= 375 && actv3Total <= 429):
+                        minimaCalidad = 'IV';
+                        break;
+                    case (actv3Total >= 430 && actv3Total <= 484):
+                        minimaCalidad = 'V';
+                        break;
+                    case (actv3Total >= 485 && actv3Total <= 539):
+                        minimaCalidad = 'VI';
+                        break;
+                    case (actv3Total >= 540 && actv3Total <= 594):
+                        minimaCalidad = 'VII';
+                        break;
+                    case (actv3Total >= 595 && actv3Total <= 649):
+                        minimaCalidad = 'VIII';
+                        break;
+                    case (actv3Total >= 650 && actv3Total <= 700):
+                        minimaCalidad = 'IX';
+                        break;
+                    default:
+                        minimaCalidad = 'FALSE';
+                }
+                document.getElementById('minimaCalidad').innerText = minimaCalidad;
+            }
 
     </script>
 

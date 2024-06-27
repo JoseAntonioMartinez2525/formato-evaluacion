@@ -15,7 +15,7 @@
 padding-left: 200px;
 }
 
-#actv1Repetido, #actv2Repetido, .p2, #actv3Total{
+#actv1Repetido, #actv2Repetido, .p2, #actv3Total, #minimaCalidad{
     margin-left: 120px;
 }
 
@@ -75,3 +75,4 @@ tr .subtitle {
     font-weight: 900;
     font-family: Arial, sans-serif;
 }
+
