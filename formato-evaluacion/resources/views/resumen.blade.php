@@ -575,7 +575,10 @@ $newLocale = str_replace('_', '-', $locale);
 
             function condicionales(){
                 let actv3Total = parseFloat(document.getElementById('actv3Total').textContent);
+                let totalComision = parseFloat(document.getElementById('totalComision').textContent);
+                
                 let minimaCalidad;
+                let minimaTotal;
                 switch (true) {
                     case (actv3Total >= 210 && actv3Total <= 264):
                         minimaCalidad = 'I';
@@ -608,7 +611,42 @@ $newLocale = str_replace('_', '-', $locale);
                         minimaCalidad = 'FALSE';
                 }
                 document.getElementById('minimaCalidad').innerText = minimaCalidad;
+            
+
+            switch (true) {
+                case (totalComision >= 301 && totalComision <= 377):
+                    minimaTotal = 'I';
+                    break;
+                case (totalComision >= 378 && totalComision <= 455):
+                    minimaTotal = 'II';
+                    break;
+                case (totalComision >= 456 && totalComision <= 533):
+                    minimaTotal = 'III';
+                    break;
+                case (totalComision >= 534 && totalComision <= 611):
+                        minimaTotal = 'IV';
+                    break;
+                case (totalComision >= 612 && totalComision <= 689):
+                    minimaTotal = 'V';
+                    break;
+                case (totalComision >= 690 && totalComision <= 767):
+                    minimaTotal = 'VI';
+                    break;
+                case (totalComision >= 768 && totalComision <= 845):
+                    minimaTotal = 'VII';
+                    break;
+                case (totalComision >= 846 && totalComision <= 923):
+                        minimaTotal = 'VIII';
+                    break;
+                case (totalComision >= 924 && totalComision <= 1000):
+                    minimaTotal = 'IX';
+                    break;
+
+                default:
+                    minimaTotal = 'FALSE';
             }
+            document.getElementById('minimaTotal').innerText = minimaTotal; 
+        }
 
     </script>
 
