@@ -301,6 +301,32 @@ $newLocale = str_replace('_', '-', $locale);
                                 <th><b><span id="minimaTotal"></span></b></th>
                             </tr>
                         </thead>
+                        <thead>
+                            <tr>
+                                <th><input  class="personaEvaluadora" type="text"></th>
+                                <th><input class="firma" type="text"></th>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la persona evaluadora</td>
+                                <td>Firma</td>
+                            </tr>
+                            <tr>
+                                <th><input class="personaEvaluadora" type="text"></th>
+                                <th><input class="firma" type="text"></th>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la persona evaluadora</td>
+                                <td>Firma</td>
+                            </tr>
+                            <tr>
+                                <th><input class="personaEvaluadora" type="text"></th>
+                                <th><input class="firma" type="text"></th>
+                            </tr>
+                            <tr>
+                                <td>Nombre de la persona evaluadora</td>
+                                <td>Firma</td>
+                            </tr>
+                        </thead>
                         </table>
                         <!--<center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>-->
                         </center>

@@ -5,8 +5,17 @@
     padding-right: 100px;
 }
 
-.info{
+.info, .personaEvaluadora,.firma{
     background-color: #7fe0f3;
+}
+
+.personaEvaluadora,.firma{
+    padding-right: 400px;
+}
+
+.firma{
+    margin-right: -600px;
+    
 }
 #actv2Comision{
     font-weight: normal;
@@ -15,8 +24,13 @@
 padding-left: 200px;
 }
 
-#actv1Repetido, #actv2Repetido, .p2, #actv3Total, #minimaCalidad{
+#actv1Repetido, #actv2Repetido, .p2, #actv3Total, #minimaCalidad, #minimaTotal{
     margin-left: 120px;
+}
+
+#minimaCalidad,
+#minimaTotal{
+    font-weight: bolder;
 }
 
 #pComision {
