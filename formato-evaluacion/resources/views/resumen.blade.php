@@ -64,7 +64,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
                 </header>
                 <main class="container">
-                    <form id="form4" method="POST" onsubmit="event.preventDefault(); submitForm('/store', 'form4');">
+                    <form id="form4" method="POST" onsubmit="event.preventDefault(); submitForm('/store', 'form4');" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
@@ -320,7 +320,7 @@ $newLocale = str_replace('_', '-', $locale);
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
-                                <th><input class="firma" type="text"></th>
+                                <th><input type="file" class="form-control" id="firma" name="firma" accept="image/*"></th>
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
@@ -328,7 +328,8 @@ $newLocale = str_replace('_', '-', $locale);
                             </tr>
                         </thead>
                         </table>
-                        <!--<center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>-->
+                        <center>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </center>
                         </div>
 
