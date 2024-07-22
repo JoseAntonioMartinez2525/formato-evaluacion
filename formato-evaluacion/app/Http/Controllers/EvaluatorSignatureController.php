@@ -28,7 +28,7 @@ class EvaluatorSignatureController extends Controller
             'signature_path' => $signaturePath,
         ]);
 
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        return response()->json(['message' => 'Form submitted successfully!'], 200);
     }
 
     public function get(Request $request)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
 use App\Models\UsersResponseForm2;
@@ -59,7 +60,7 @@ class ResponseJson extends Controller
         $responses3_18 = UsersResponseForm3_18::all()->filter()->values();
         $responses3_19 = UsersResponseForm3_19::all()->filter()->values();
         $responsesFinal = UserResume::all()->filter()->values();
-        
+        $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
 
         // Convert each collection of responses to JSON format
         $jsonResponses = json_encode([
@@ -86,6 +87,7 @@ class ResponseJson extends Controller
             'form3_18' => $responses3_18->toArray(),
             'form3_19' => $responses3_19->toArray(),
             'formFinal' => $responsesFinal->toArray(),
+            'form5'=> $responsesEvaluator->toArray(),
 
             
         ], JSON_PRETTY_PRINT);

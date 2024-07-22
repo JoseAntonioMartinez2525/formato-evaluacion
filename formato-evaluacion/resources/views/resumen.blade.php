@@ -321,15 +321,15 @@ $newLocale = str_replace('_', '-', $locale);
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
-                                <!--<td>Firma</td>-->
+                                
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
-                               <!--<th><input class="firma" type="text"></th>-->
+                               
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
-                                <!--<td>Firma</td>-->
+                               
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
@@ -436,19 +436,23 @@ $newLocale = str_replace('_', '-', $locale);
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
-            }else if(form=='form5'){
-                
+            }else if(formId =='form5'){
+                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
+                formData.set('email', form.querySelector('input[name="email"]').value);
                 // Obtener valor del input con clase personaEvaluadora
                 let personaEvaluadora = form.querySelector('.personaEvaluadora');
                 if (personaEvaluadora) {
-                    formData.set('persona_evaluadora', personaEvaluadora.value);
+                    formData.set('evaluator_name', personaEvaluadora.value);
                 }
 
                 // Obtener archivo de la firma
                 let firma = form.querySelector('input[type="file"][name="firma"]');
                 if (firma && firma.files.length > 0) {
-                    formData.set('firma', firma.files[0]);
+                    formData.append('firma', firma.files[0]);
                 }
+
+                // Log form data to check values
+                console.log('Form5 data: ', formData);
             }
 
             try {
@@ -462,6 +466,12 @@ $newLocale = str_replace('_', '-', $locale);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
+                }
+
+                    // Verificar si la respuesta es un JSON válido
+                const contentType = response.headers.get('Content-Type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Invalid JSON response');
                 }
 
                 let data = await response.json();
