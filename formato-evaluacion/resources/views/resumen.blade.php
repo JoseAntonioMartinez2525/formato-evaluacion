@@ -66,6 +66,7 @@ $newLocale = str_replace('_', '-', $locale);
                 <main class="container">
                     <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
                         @csrf
+                        <div>
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                         <center>

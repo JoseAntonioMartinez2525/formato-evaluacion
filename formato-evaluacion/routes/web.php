@@ -67,7 +67,7 @@ Route::post('/store316', [ResponseForm3_16Controller::class, 'store316']);
 Route::post('/store317', [ResponseForm3_17Controller::class, 'store317']);
 Route::post('/store318', [ResponseForm3_18Controller::class, 'store318']);
 Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
-Route::post('/storeResume', [ResumeController::class, 'storeResume']);
+Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 
 //GET formularios
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
