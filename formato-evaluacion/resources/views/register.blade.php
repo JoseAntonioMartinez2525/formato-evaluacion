@@ -68,12 +68,18 @@
                         <div data-mdb-input-init class="form-outline mb-4">
                             <input type="password" id="registerPassword" name="registerPassword" class="form-control" />
                             <label class="form-label" for="registerPassword">Contraseña</label>
+                                @error('registerPassword')
+                                    <div class="alert alert-danger">{{ 'La contraseña debe de tener al menos 6 caracteres' }}</div>
+                                @enderror
                         </div>
                         <!-- Repeat Password input -->
                         <div data-mdb-input-init class="form-outline mb-4">
                             <input type="password" id="registerRepeatPassword" name="registerPassword_confirmation"
                                 class="form-control" />
                             <label class="form-label" for="registerRepeatPassword">Repetir contraseña</label>
+                                @error('registerRepeatPassword')
+                                    <div class="alert alert-danger">{{ 'La contraseña debe de tener al menos 6 caracteres' }}</div>
+                                @enderror
                         </div>
                         <!-- Checkbox -->
                         <div class="form-check d-flex justify-content-center mb-4">
@@ -91,6 +97,15 @@
 
     <!-- Scripts de MDB Bootstrap -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            console.log('Formulario enviado');
+            console.log('Nombre:', document.getElementById('registerName').value);
+            console.log('Usuario:', document.getElementById('registerUsername').value);
+            console.log('Email:', document.getElementById('registerEmail').value);
+            // Puedes agregar más campos según sea necesario
+        });
+    </script>
 </body>
 
 </html>

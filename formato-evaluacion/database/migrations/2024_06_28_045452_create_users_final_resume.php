@@ -23,8 +23,6 @@ return new class extends Migration
             $table->integer('total_puntaje');
             $table->string('minima_calidad');
             $table->string('minima_total');
-            $table->string('persona_evaluadora');
-            $table->binary('firma');
             $table->timestamps();
         });
     }

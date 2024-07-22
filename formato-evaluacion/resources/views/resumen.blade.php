@@ -64,7 +64,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
                 </header>
                 <main class="container">
-                    <form id="form4" method="POST" onsubmit="event.preventDefault(); submitForm('/store', 'form4');" enctype="multipart/form-data">
+                    <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
                         @csrf
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
@@ -301,22 +301,34 @@ $newLocale = str_replace('_', '-', $locale);
                                 <th><b><span id="minimaTotal"></span></b></th>
                             </tr>
                         </thead>
+                        </table>
+                        <center>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </center>
+                        </div>
+                    </form>
+                    <br>
+                    <form action="">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                        <table>
                         <thead>
                             <tr>
-                                <th><input  class="personaEvaluadora" type="text"></th>
-                                <th><input class="firma" type="text"></th>
+                                <th><input class="personaEvaluadora" type="text"></th>
+                                
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
-                                <td>Firma</td>
+                                <!--<td>Firma</td>-->
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
-                                <th><input class="firma" type="text"></th>
+                               <!--<th><input class="firma" type="text"></th>-->
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
-                                <td>Firma</td>
+                                <!--<td>Firma</td>-->
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
@@ -325,14 +337,14 @@ $newLocale = str_replace('_', '-', $locale);
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
                                 <td>Firma</td>
+
                             </tr>
+
+                        </thead>
+                        <thead>
+                            <td><button type="submit" class="btn btn-primary">Enviar</button></td>
                         </thead>
                         </table>
-                        <center>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </center>
-                        </div>
-
                     </form>
             @endif
         </div>
@@ -398,58 +410,68 @@ $newLocale = str_replace('_', '-', $locale);
         }
 
        
-        document.addEventListener('DOMContentLoaded', function () {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            async function submitForm(url, formId) {
-                // Get form data
-                let formData = {};
-                let gridOptions = {};
-                let form = document.getElementById(formId);
-                // Ensure the form element exists
-                if (!form) {
-                    console.error(`Form with id "${formId}" not found.`);
-                    return;
+    document.addEventListener('DOMContentLoaded', function () {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        async function submitForm(url, formId) {
+            // Get form data
+            let form = document.getElementById(formId);
+            let formData = new FormData(form);
+            formData.append('formId', formId);
+
+            // Recoge los datos dependiendo del formulario actual
+            if (formId == 'form4') {
+                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
+                formData.set('email', form.querySelector('input[name="email"]').value);
+
+                // Obtener valores de los labels y spans
+                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
+                formData.set('comision_actividad_2_total', document.getElementById('comision2Total').innerText);
+                formData.set('comision_actividad_3_total', document.getElementById('comision3Total').innerText);
+                formData.set('total_puntaje', document.getElementById('totalComisionRepetido').innerText);
+                formData.set('minima_calidad', document.getElementById('minimaCalidad').innerText);
+                formData.set('minima_total', document.getElementById('minimaTotal').innerText);
+
+                // Obtener valor del input con clase personaEvaluadora
+                let personaEvaluadora = form.querySelector('.personaEvaluadora');
+                if (personaEvaluadora) {
+                    formData.set('persona_evaluadora', personaEvaluadora.value);
                 }
 
-                //Recoge los datos dependiendo del formulario actual
-                if(formId=='form4') {
-                    
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-
-                        
-
+                // Obtener archivo de la firma
+                let firma = form.querySelector('input[type="file"][name="firma"]');
+                if (firma && firma.files.length > 0) {
+                    formData.set('firma', firma.files[0]);
                 }
-                console.log('Form data:', formData); // Log form data to check values
-                //if (!formData.hasOwnProperty('score3_1')) {
-                // Si score3_1 no está en formData, proporciona un valor predeterminado
-                //formData['score3_1'] = ''; // Aquí puedes proporcionar cualquier valor predeterminado que desees
-                //}
 
-
-                try {
-                    let response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    let data = await response.json();
-                    console.log('Response received from server:', data);
-                } catch (error) {
-                    console.error('There was a problem with the fetch operation:', error);
-                }
+                // Log form data to check values
+                console.log('Form data: ', formData);
             }
 
-            window.submitForm = submitForm;
-        });
+            try {
+                let response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let data = await response.json();
+                console.log('Response received from server:', data);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        window.submitForm = submitForm;
+    });
+
+
 
          document.addEventListener('DOMContentLoaded', function () {
                 const userId = {{ auth()->user()->id }}; // Assuming you have user data

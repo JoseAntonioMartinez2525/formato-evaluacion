@@ -2696,7 +2696,7 @@
                                             </tr>
                                             <tr>
                                                 <td>i)</td>
-                                                <td>Resonsable</td>
+                                                <td>Responsable</td>
                                                 <td></td>
                                                 <td>De posgrado</td>
                                                 <td id="puntajeRespPos"><b>25</b></td>
@@ -2710,7 +2710,7 @@
                                             </tr>
                                             <tr>
                                                 <td>j)</td>
-                                                <td>Resonsable</td>
+                                                <td>Responsable</td>
                                                 <td></td>
                                                 <td>De carrera</td>
                                                 <td id="puntajeRespCarrera"><b>15</b></td>
@@ -2726,7 +2726,7 @@
                                             </tr>
                                             <tr>
                                                 <td>k)</td>
-                                                <td>Resonsable</td>
+                                                <td>Responsable</td>
                                                 <td></td>
                                                 <td>De unidad de producción</td>
                                                 <td id="puntajeRespProd"><b>20</b></td>
@@ -2740,7 +2740,7 @@
                                             </tr>
                                             <tr>
                                                 <td>l)</td>
-                                                <td>Resonsable</td>
+                                                <td>Responsable</td>
                                                 <td></td>
                                                 <td>De laboratorio de docencia e investigación</td>
                                                 <td id="puntajeRespLab"><b>15</b></td>

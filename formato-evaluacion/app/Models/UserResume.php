@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserResume extends Model
 {
+    
     use HasFactory;
     protected $fillable = [
         'user_id',
@@ -17,8 +18,7 @@ class UserResume extends Model
         'total_puntaje',
         'minima_calidad',
         'minima_total',
-        'persona_evaluadora',
-        'firma',
+
 
     ];
     protected $table = 'users_final_resume';

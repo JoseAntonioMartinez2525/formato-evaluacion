@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserResume;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResumeController extends Controller
 {
@@ -18,25 +19,10 @@ class ResumeController extends Controller
             'total_puntaje'=> 'required|numeric',
             'minima_calidad'=>'required|string',
             'minima_total'=>'required|string',
-            'persona_evaluadora'=>'required|string',
-            'firma' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'persona_evaluadora'=>'required|string',
+            //'firma' => 'required|image|mimes:png|max:2048',
         ]);
 
-        if ($request->hasFile('firma')) {
-            $file = $request->file('firma');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('firmas', $fileName, 'public');
-
-            // Opcional: Guardar la ruta en la base de datos
-            // Firma::create(['ruta_firma' => $filePath]);
-
-            // Guardar como un BLOB en la base de datos
-            $imageBlob = file_get_contents($file->getRealPath());
-            DB::table('users_final_resume')->insert([
-                'firma' => $imageBlob,
-                // Otros campos...
-            ]);
-        }
 
          // Create a new record using Eloquent ORM
             UserResume::create($validatedData);

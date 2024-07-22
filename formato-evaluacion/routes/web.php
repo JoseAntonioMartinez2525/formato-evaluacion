@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -66,6 +67,7 @@ Route::post('/store316', [ResponseForm3_16Controller::class, 'store316']);
 Route::post('/store317', [ResponseForm3_17Controller::class, 'store317']);
 Route::post('/store318', [ResponseForm3_18Controller::class, 'store318']);
 Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
+Route::post('/storeResume', [ResumeController::class, 'storeResume']);
 
 //GET formularios
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
@@ -89,6 +91,7 @@ Route::get('/get-data-316', [ResponseForm3_16Controller::class, 'getData316'])->
 Route::get('/get-data-317', [ResponseForm3_17Controller::class, 'getData317'])->name('getData317');
 Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->name('getData318');
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
+Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
 use App\Models\UsersResponseForm2;
 use App\Models\UsersResponseForm2_2;
@@ -57,6 +58,7 @@ class ResponseJson extends Controller
         $responses3_17 = UsersResponseForm3_17::all()->filter()->values();
         $responses3_18 = UsersResponseForm3_18::all()->filter()->values();
         $responses3_19 = UsersResponseForm3_19::all()->filter()->values();
+        $responsesFinal = UserResume::all()->filter()->values();
         
 
         // Convert each collection of responses to JSON format
@@ -83,6 +85,7 @@ class ResponseJson extends Controller
             'form3_17' => $responses3_17->toArray(),
             'form3_18' => $responses3_18->toArray(),
             'form3_19' => $responses3_19->toArray(),
+            'formFinal' => $responsesFinal->toArray(),
 
             
         ], JSON_PRETTY_PRINT);
