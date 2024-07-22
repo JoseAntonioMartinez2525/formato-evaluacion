@@ -309,7 +309,7 @@ $newLocale = str_replace('_', '-', $locale);
                         </div>
                     </form>
                     <br>
-                    <form action="">
+                    <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
@@ -317,7 +317,7 @@ $newLocale = str_replace('_', '-', $locale);
                         <thead>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text"></th>
-                                
+
                             </tr>
                             <tr>
                                 <td>Nombre de la persona evaluadora</td>
@@ -433,6 +433,11 @@ $newLocale = str_replace('_', '-', $locale);
                 formData.set('minima_calidad', document.getElementById('minimaCalidad').innerText);
                 formData.set('minima_total', document.getElementById('minimaTotal').innerText);
 
+
+                // Log form data to check values
+                console.log('Form data: ', formData);
+            }else if(form=='form5'){
+                
                 // Obtener valor del input con clase personaEvaluadora
                 let personaEvaluadora = form.querySelector('.personaEvaluadora');
                 if (personaEvaluadora) {
@@ -444,9 +449,6 @@ $newLocale = str_replace('_', '-', $locale);
                 if (firma && firma.files.length > 0) {
                     formData.set('firma', firma.files[0]);
                 }
-
-                // Log form data to check values
-                console.log('Form data: ', formData);
             }
 
             try {

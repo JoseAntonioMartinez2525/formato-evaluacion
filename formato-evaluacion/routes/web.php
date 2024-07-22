@@ -29,6 +29,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EvaluatorSignatureController;
 
 Route::get('/', function () {
     return view('login');
@@ -68,6 +69,7 @@ Route::post('/store317', [ResponseForm3_17Controller::class, 'store317']);
 Route::post('/store318', [ResponseForm3_18Controller::class, 'store318']);
 Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
+Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
 
 //GET formularios
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
@@ -92,6 +94,8 @@ Route::get('/get-data-317', [ResponseForm3_17Controller::class, 'getData317'])->
 Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->name('getData318');
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
+Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'get'])->name('get-evaluator-signature');
+
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
