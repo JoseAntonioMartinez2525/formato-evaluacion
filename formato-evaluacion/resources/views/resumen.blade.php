@@ -432,23 +432,19 @@ $newLocale = str_replace('_', '-', $locale);
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
-            }else if(formId =='form5'){
+            }else if (formId === 'form5') {
                 formData.set('user_id', form.querySelector('input[name="user_id"]').value);
                 formData.set('email', form.querySelector('input[name="email"]').value);
-                // Obtener valor del input con clase personaEvaluadora
+
                 let personaEvaluadora = form.querySelector('.personaEvaluadora');
                 if (personaEvaluadora) {
                     formData.set('evaluator_name', personaEvaluadora.value);
                 }
 
-                // Obtener archivo de la firma
                 let firma = form.querySelector('input[type="file"][name="firma"]');
                 if (firma && firma.files.length > 0) {
                     formData.append('firma', firma.files[0]);
                 }
-
-                // Log form data to check values
-                console.log('Form5 data: ', formData);
             }
 
             try {
@@ -464,7 +460,6 @@ $newLocale = str_replace('_', '-', $locale);
                     throw new Error('Network response was not ok');
                 }
 
-                    // Verificar si la respuesta es un JSON válido
                 const contentType = response.headers.get('Content-Type');
                 if (!contentType || !contentType.includes('application/json')) {
                     throw new Error('Invalid JSON response');
@@ -472,6 +467,14 @@ $newLocale = str_replace('_', '-', $locale);
 
                 let data = await response.json();
                 console.log('Response received from server:', data);
+
+                if (data.signature_url) {
+                    const img = document.createElement('img');
+                    img.src = data.signature_url;
+                    img.alt = 'Signature';
+                    img.style.maxWidth = '300px'; // Adjust as needed
+                    document.body.appendChild(img);
+                }
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }

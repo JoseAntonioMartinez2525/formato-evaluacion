@@ -1,27 +1,30 @@
 <?php
+namespace App\Http\Controllers;
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Http\Request;
+use App\Models\EvaluatorSignature;
 
-class CreateEvaluatorSignaturesTable extends Migration
+class EvaluatorSignatureController extends Controller
 {
-    public function up()
+    public function store(Request $request)
     {
-        Schema::create('evaluator_signatures', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('email');
-            $table->string('evaluator_name');
-            $table->string('signature_path');
-            $table->timestamps();
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'email' => 'required|email',
+            'evaluator_name' => 'required|string',
+            'firma' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
+        ]);
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-    }
+        $file = $request->file('firma');
+        $filePath = $file->store('signatures', 'public'); // Store file in 'public/signatures'
 
-    public function down()
-    {
-        Schema::dropIfExists('evaluator_signatures');
+        EvaluatorSignature::create([
+            'user_id' => $request->user_id,
+            'email' => $request->email,
+            'evaluator_name' => $request->evaluator_name,
+            'signature_path' => $filePath,
+        ]);
+
+        return response()->json(['message' => 'Signature saved successfully.']);
     }
 }
