@@ -241,7 +241,8 @@ $newLocale = str_replace('_', '-', $locale);
 
 <footer>
   <div>
- <label id="convocatoriaPeriodoLabel" style="color:black;"></label>
+ 
+<canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
   </div>
 </footer>
 
@@ -580,7 +581,40 @@ $newLocale = str_replace('_', '-', $locale);
           console.log (label);
         });
       });
-    
+   
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get the canvas element
+    var canvas = document.getElementById('convocatoriaCanvas');
+    var context = canvas.getContext('2d');
+
+    // Function to update the canvas with 'Convocatoria' value
+    function updateCanvas(text) {
+      // Clear the canvas
+      context.clearRect(200, 100, canvas.width, canvas.height);
+
+      // Set text properties
+      context.font = '20px Arial';
+      context.fillStyle = 'black';
+      context.textAlign = 'right';
+      context.textBaseline = 'middle';
+
+      // Draw the text
+      context.fillText(text, canvas.width / 2, canvas.height / 2);
+    }
+
+    // Get the input element with id 'convocatoria'
+    var convocatoriaInput = document.getElementById('convocatoria');
+    if (convocatoriaInput) {
+      // Update the canvas initially with the placeholder value or empty
+      updateCanvas(convocatoriaInput.placeholder);
+
+      // Listen for input events to dynamically update the canvas
+      convocatoriaInput.addEventListener('input', function () {
+        var newValue = convocatoriaInput.value;
+        updateCanvas(newValue);
+      });
+    }
+  });
   </script>
 
 </body>
