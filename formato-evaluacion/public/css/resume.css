@@ -90,3 +90,23 @@ tr .subtitle {
     font-family: Arial, sans-serif;
 }
 
+.buttonSignature{
+    width: 300px;
+    margin-left: 1000px;
+}
+
+.buttonSignature2 {
+    width: 400px;
+    margin-left: 300px;;
+ 
+}
+
+#firma{
+    margin-left: -400px;
+    width: 400px;
+}
+
+#firmaTexto{
+    margin-left: -400px;
+}
+
