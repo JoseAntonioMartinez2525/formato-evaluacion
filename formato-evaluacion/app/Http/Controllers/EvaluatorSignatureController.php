@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Models\EvaluatorSignature;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,8 @@ class EvaluatorSignatureController extends Controller
     public function store(Request $request)
     {
         try {
+            // Log de entrada de solicitud
+            Log::info('Received request to store evaluator signature', $request->all());
             // Validate the request data
             $validatedData = $request->validate([
                 'user_id' => 'required|exists:users,id',
@@ -29,6 +32,8 @@ class EvaluatorSignatureController extends Controller
                 'signature_path' => $signaturePath,
             ]);
 
+            // Log de éxito
+            Log::info('Evaluator signature stored successfully', ['signature_path' => $signaturePath]);
             // Return response with the signature URL
             return response()->json([
                 'message' => 'Form submitted successfully!',
@@ -36,6 +41,9 @@ class EvaluatorSignatureController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
+            // Log de error
+            Log::error('Error storing evaluator signature', ['error' => $e->getMessage()]);
+
             return response()->json([
                 'message' => 'There was an error processing your request',
                 'error' => $e->getMessage(),
