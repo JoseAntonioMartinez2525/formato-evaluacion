@@ -30,6 +30,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvaluatorSignatureController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('login');
@@ -44,6 +45,8 @@ Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])
 Route::get('rules', function () {return view('rules'); })->name('rules');
 Route::get('docencia', function () {return view('docencia'); })->name('docencia');
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
+
+
 
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
@@ -95,12 +98,13 @@ Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'get'])->name('get-evaluator-signature');
-
+Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
 
 
