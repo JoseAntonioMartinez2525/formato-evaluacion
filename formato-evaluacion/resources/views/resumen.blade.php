@@ -450,12 +450,11 @@ $newLocale = str_replace('_', '-', $locale);
                     formData.append('firma', firma.files[0]);
                 }
             }
-
             try {
                 let response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': csrfToken,
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: formData,
                 });
