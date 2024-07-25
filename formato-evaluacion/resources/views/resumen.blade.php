@@ -18,6 +18,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
+    <script src="{{ asset('js/privileges.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -51,7 +52,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
                                         Calidad en la docencia</a>
                                 </li><br>
-                                <li>
+                                <li id="jsonDataLink" class="d-none">
                                     <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
                                 </li>
                                 <li id="reportLink" class="nav-item d-none">

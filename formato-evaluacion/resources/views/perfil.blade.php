@@ -18,6 +18,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
+    <script src="{{ asset('js/privileges.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -30,35 +31,35 @@ $newLocale = str_replace('_', '-', $locale);
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
                                                 @if (Auth::check())
-                                                                        <section role="region" aria-label="Response form">
-                                                                            <form>
-                                                                                @csrf
-                                                                                <nav class="nav flex-column">
-                                                                                    <li class="nav-item">
-                                                                                        <a class="nav-link disabled" href="#"><i
-                                                                                                class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                                                                            REGLAMENTO
-                                                                                            PEDPD</a>
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                                                                            Calidad en la docencia</a>
-                                                                                    </li><br>
-                                                                                    <li>
-                                                                                        <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                         <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                                                    <section role="region" aria-label="Response form">
+                                                        <form>
+                                                            @csrf
+                                                            <nav class="nav flex-column">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link disabled" href="#"><i
+                                                                            class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                                                        REGLAMENTO
+                                                                        PEDPD</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                                                        Calidad en la docencia</a>
+                                                                </li><br>
+                                                                <li id="jsonDataLink" class="d-none">
+                                                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+                                                                </li>
+                                                                <li>
+                                                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
 
-                                                                                    </li>
+                                                                </li>
 
-                                                                                </nav>
+                                                            </nav>
                                                 </form>@endif
                                                 </section>
 
@@ -110,10 +111,10 @@ $newLocale = str_replace('_', '-', $locale);
                                 <p>Nombre de la Persona Evaluadora:  <span id="evaluator_name"></span></p>    
                                 </tr>
                                 <tr>
-                                
+
                                 <td><img  id="signature_path" alt="Signature" style="max-width: 500px;"></td>    
                                 </tr>
-                                
+
                             </thead>
 
                         </table>
