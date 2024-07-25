@@ -351,6 +351,18 @@ text-align: right;
 margin-bottom: 20px;
 }
 
+#evaluator_name{
+    margin-left: 30px;
+}
+
+#signature_path{
+    margin-top: 50px;
+}
+
+.report-link {
+    display: none;
+}
+
 
 
 

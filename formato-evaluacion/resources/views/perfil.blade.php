@@ -110,6 +110,7 @@ $newLocale = str_replace('_', '-', $locale);
                                 <p>Nombre de la Persona Evaluadora:  <span id="evaluator_name"></span></p>    
                                 </tr>
                                 <tr>
+                                
                                 <td><img  id="signature_path" alt="Signature" style="max-width: 500px;"></td>    
                                 </tr>
                                 
