@@ -26,48 +26,135 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 
 <body>
-    <h1>Datos del Resumen</h1>
+<div class="bg-gray-50 text-black/50">
+        <div class="relative min-h-screen flex flex-col items-center justify-center">
+            @if (Route::has('login'))
+                                                @if (Auth::check())
+                                                                        <section role="region" aria-label="Response form">
+                                                                            <form>
+                                                                                @csrf
+                                                                                <nav class="nav flex-column">
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link disabled" href="#"><i
+                                                                                                class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                                                                            REGLAMENTO
+                                                                                            PEDPD</a>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                                                                            Calidad en la docencia</a>
+                                                                                    </li><br>
+                                                                                    <li>
+                                                                                        <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                         <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
 
-        <p>Email: 
-            <span id="email"></span>
-        </p>
-        <p>Comisión Actividad 1 Total: 
-            <span id="comision_actividad_1_total"></span>
-        </p>
-        <p>Comisión Actividad 2 Total: 
-            <span id="comision_actividad_2_total"></span>
-        </p>
-        <p>Comisión Actividad 3 Total: 
-            <span id="comision_actividad_3_total"></span>
-        </p>
-        <p>Total Puntaje: 
-            <span id="total_puntaje"></span>
-        </p>
-        <p>Mínima Calidad: 
-            <span id="minima_calidad"></span>
-        </p>
-        <p>Mínima Total: 
-            <span id="minima_total"></span>
-        </p>
-  
+                                                                                    </li>
 
-    <h1>Persona Evaluadora y Firma</h1>
+                                                                                </nav>
+                                                </form>@endif
+                                                </section>
 
-        <table>
-            <thead>
-                <td>Nombre de la Persona Evaluadora:  <span id="evaluator_name"></span></td>
-                <td><img  id="signature_path" alt="Signature" style="max-width: 300px;"></td>
-            </thead>
-        </table>
+                                                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                                                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                                                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                                                </header>
+                <form id="form6" method="GET" enctype="multipart/form-data"
+                    onsubmit="event.preventDefault(); submitForm('/show-profile', 'form6');">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                    <h1>Reporte del Perfil de Usuario</h1>
+
+                        <p>Email: 
+                            <span id="email"></span>
+                        </p>
+                        <p>Usuario:
+                            <span id="user"></span>
+                        </p>
+                        <p>Convocatoria:
+                            <span id="convocatoria"></span>
+                        </p>
+                        <p>Comisión Actividad 1 Total: 
+                            <span id="comision_actividad_1_total"></span>
+                        </p>
+                        <p>Comisión Actividad 2 Total: 
+                            <span id="comision_actividad_2_total"></span>
+                        </p>
+                        <p>Comisión Actividad 3 Total: 
+                            <span id="comision_actividad_3_total"></span>
+                        </p>
+                        <p>Total Puntaje: 
+                            <span id="total_puntaje"></span>
+                        </p>
+                        <p>Mínima Calidad: 
+                            <span id="minima_calidad"></span>
+                        </p>
+                        <p>Mínima Total: 
+                            <span id="minima_total"></span>
+                        </p>
+
+
+                    <h1>Persona Evaluadora y Firma</h1>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                <p>Nombre de la Persona Evaluadora:  <span id="evaluator_name"></span></p>    
+                                </tr>
+                                <tr>
+                                <td><img  id="signature_path" alt="Signature" style="max-width: 500px;"></td>    
+                                </tr>
+                                
+                            </thead>
+
+                        </table>
+                        </form>
+            @endif
 </body>
 <script>
-    
+             document.addEventListener('DOMContentLoaded', function () {
+                    const userId = {{ auth()->user()->id }}; // Assuming you have user data
+
+                async function fetchData(url, params = {}) {
+                    const queryString = new URLSearchParams(params).toString();
+                    const fullUrl = `${url}?${queryString}`;
+
+                    try {
+                        let response = await fetch(fullUrl, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json',
+                            }
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        let data = await response.json();
+                        return data;
+                    } catch (error) {
+                        console.error('There was a problem with the fetch operation:', error);
+                    }
+                }
         async function loadAllData() {
             let dataResume = await fetchData('/get-data-resume', { user_id: userId });
             let dataSignature = await fetchData('/get-evaluator-signature', { user_id: userId });
+            let dataUser = await fetchData('/get-data1', { user_id: userId });
 
             // Populate labels with the retrieved data
             document.getElementById('email').innerText = dataResume ? dataResume.email : '';
+            document.getElementById('user').innerText = dataUser ? dataUser.nombre : '';
+            document.getElementById('convocatoria').innerText = dataUser ? dataUser.convocatoria : '';
             document.getElementById('comision_actividad_1_total').innerText = dataResume ? dataResume.comision_actividad_1_total : '';
             document.getElementById('comision_actividad_2_total').innerText = dataResume ? dataResume.comision_actividad_2_total : '';
             document.getElementById('comision_actividad_3_total').innerText = dataResume ? dataResume.comision_actividad_3_total : '';
@@ -81,6 +168,9 @@ $newLocale = str_replace('_', '-', $locale);
 
 
         }
+
+        loadAllData();
+             });
 
     
 </script>

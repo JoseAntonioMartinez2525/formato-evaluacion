@@ -45,7 +45,8 @@ Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])
 Route::get('rules', function () {return view('rules'); })->name('rules');
 Route::get('docencia', function () {return view('docencia'); })->name('docencia');
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
-
+Route::get('perfil', function () {
+    return view('perfil'); })->name('perfil');
 
 
 //POST formularios
@@ -75,6 +76,7 @@ Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
 
 //GET formularios
+Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
 Route::get('/get-data22', [ResponseForm2_2Controller::class, 'getData22'])->name('getData22');
 Route::get('/get-data-31', [ResponseForm3_1Controller::class, 'getData31'])->name('getData31');
@@ -98,7 +100,7 @@ Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'get'])->name('get-evaluator-signature');
-Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
+//Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');

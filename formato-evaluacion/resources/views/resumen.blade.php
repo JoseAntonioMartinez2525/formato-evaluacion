@@ -55,7 +55,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                         <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
                                                                     </li>
                                                                     <li>
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil.show') }}">Mostrar Reporte</a>
+                                                                         <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
 
                                                                     </li>
 

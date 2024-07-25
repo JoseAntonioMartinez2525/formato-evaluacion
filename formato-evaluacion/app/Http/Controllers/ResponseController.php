@@ -51,5 +51,11 @@ class ResponseController extends Controller
             ->header('Content-Type', 'application/json');
     }
 
+    public function getData1(Request $request)
+    {
+
+        $data = UsersResponseForm1::where('user_id', $request->query('user_id'))->first();
+        return response()->json($data);
+    }
     
 }
