@@ -162,9 +162,10 @@ $newLocale = str_replace('_', '-', $locale);
             document.getElementById('minima_calidad').innerText = dataResume ? dataResume.minima_calidad : '';
             document.getElementById('minima_total').innerText = dataResume ? dataResume.minima_total : '';
 
-            document.getElementById('evaluator_name').innerText = dataSignature ? dataSignature.evaluator_name : '';
-            document.getElementById('signature_path').src = dataSignature ? '/storage/' + dataSignature.signature_path : '';
-           
+            if (dataSignature) {
+                document.getElementById('evaluator_name').innerText = dataSignature.evaluator_name;
+                document.getElementById('signature_path').src = '/storage/' + dataSignature.signature_path;
+            }
 
 
         }

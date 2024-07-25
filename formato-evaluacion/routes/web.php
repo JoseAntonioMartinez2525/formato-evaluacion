@@ -99,7 +99,7 @@ Route::get('/get-data-317', [ResponseForm3_17Controller::class, 'getData317'])->
 Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->name('getData318');
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
-Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'get'])->name('get-evaluator-signature');
+Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 //Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
