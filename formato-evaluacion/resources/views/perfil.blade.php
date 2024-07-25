@@ -136,6 +136,7 @@ $newLocale = str_replace('_', '-', $locale);
                             }
                         });
 
+                        console.log('Response from API:', response);
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
@@ -147,8 +148,12 @@ $newLocale = str_replace('_', '-', $locale);
                     }
                 }
         async function loadAllData() {
+
+            const userId = {{ auth()->user()->id }};
+            const userEmail = "{{ auth()->user()->email }}";
+            
             let dataResume = await fetchData('/get-data-resume', { user_id: userId });
-            let dataSignature = await fetchData('/get-evaluator-signature', { user_id: userId });
+            let dataSignature = await fetchData('/get-evaluator-signature', { user_id: userId , email: userEmail });
             let dataUser = await fetchData('/get-data1', { user_id: userId });
 
             // Populate labels with the retrieved data
@@ -161,12 +166,15 @@ $newLocale = str_replace('_', '-', $locale);
             document.getElementById('total_puntaje').innerText = dataResume ? dataResume.total_puntaje : '';
             document.getElementById('minima_calidad').innerText = dataResume ? dataResume.minima_calidad : '';
             document.getElementById('minima_total').innerText = dataResume ? dataResume.minima_total : '';
-
-            if (dataSignature) {
-                document.getElementById('evaluator_name').innerText = dataSignature.evaluator_name;
-                document.getElementById('signature_path').src = '/storage/' + dataSignature.signature_path;
+            
+            if (!dataSignature) {
+                console.error('No dataSignature returned');
+                return;
             }
-
+            
+            document.getElementById('evaluator_name').innerText = dataSignature.evaluator_name || 'No evaluator name found';
+            document.getElementById('signature_path').src = '/storage/' + (dataSignature.signature_path || 'default.png');
+            
 
         }
 

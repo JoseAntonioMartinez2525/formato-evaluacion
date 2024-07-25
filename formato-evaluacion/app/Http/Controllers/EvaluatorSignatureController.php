@@ -52,14 +52,17 @@ class EvaluatorSignatureController extends Controller
     }
 
     public function getEvaluatorSignature(Request $request){
+        Log::info('Received request for evaluator signature', $request->all());
         // Suponiendo que estás buscando por user_id o email
         $userId = $request->input('user_id');
         $email = $request->input('email');
+        
 
         // Valida los datos de entrada
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
+            
         ]);
 
         // Obtén los datos de la firma del evaluador
@@ -69,14 +72,15 @@ class EvaluatorSignatureController extends Controller
 
         // Maneja el caso en el que no se encuentra el registro
         if (!$evaluatorSignature) {
+            Log::warning('Evaluator signature not found', ['user_id' => $userId, 'email' => $email]);
             return response()->json([
                 'message' => 'Evaluator signature not found',
             ], 404);
         }
+        // Log data to check
+        Log::info('Evaluator signature data:', ($evaluatorSignature)->toArray());
+        // Devuelve los datos como JSON
+        return response()->json($evaluatorSignature);
 
-        // Devuelve los datos a la vista
-        return view('perfil', [
-            'form5Data' => [$evaluatorSignature],
-        ]);
     }
 }
