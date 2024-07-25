@@ -31,35 +31,35 @@ $newLocale = str_replace('_', '-', $locale);
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
                 @if (Auth::check())
-                                        <section role="region" aria-label="Response form">
-                                            <form>
-                                                @csrf
-                                                <nav class="nav flex-column">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link disabled" href="#"><i
-                                                                class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                                            REGLAMENTO
-                                                            PEDPD</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                                            Calidad en la docencia</a>
-                                                    </li><br>
-                                                    <li>
-                                                        <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
-                                                    </li>
-                                                    <li>
-                                                         <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                    <section role="region" aria-label="Response form">
+                        <form>
+                            @csrf
+                            <nav class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#"><i
+                                            class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                        REGLAMENTO
+                                        PEDPD</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                        Calidad en la docencia</a>
+                                </li><br>
+                                <li>
+                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+                                </li>
+                                <li id="reportLink" class="nav-item d-none">
+                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
 
-                                                    </li>
+                                </li>
 
-                                                </nav>
+                            </nav>
                 </form>@endif
                 </section>
 
@@ -326,14 +326,14 @@ $newLocale = str_replace('_', '-', $locale);
                             <tr>
                                 <td class="p-2">Nombre de la persona evaluadora</td>
                                 <td class="p-2"><span id="firmaTexto">Firma</span> </td>
-                                
+
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text" id="personaEvaluadora2"></th>
                             </tr>
                             <tr>
                                 <td class="p-2">Nombre de la persona evaluadora</td>
-                                
+
                             </tr>
                             <tr>
                                 <th><input class="personaEvaluadora" type="text" id="personaEvaluadora3"></th>
@@ -349,11 +349,11 @@ $newLocale = str_replace('_', '-', $locale);
                             <tr>
                              <td style="padding-left: 650px;"><button type="submit" class="btn btn-primary buttonSignature2">Enviar</button></td>   
                             </tr>
-                            
+
                         </thead>
                         </table>
                     </form>
-                   
+
 
             @endif
         </div>
@@ -478,6 +478,10 @@ $newLocale = str_replace('_', '-', $locale);
 
                 let data = await response.json();
                 console.log('Response received from server:', data);
+
+                if (formId === 'form5') {
+                document.getElementById('reportLink').classList.remove('d-none');
+                }
 
                 if (data.signature_url) {
                     const img = document.createElement('img');
