@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class SessionsController extends Controller
 {
+    protected $allowedEmails = [
+        'joma_18@alu.uabcs.mx',
+        'oa.campillo@uabcs.mx',
+        'rluna@uabcs.mx',
+        'v.andrade@uabcs.mx',
+    ];
     public function index()
     {
         return view('login');
@@ -16,6 +22,15 @@ class SessionsController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        // Check if the email is allowed to login without a password
+        if (in_array($credentials['email'], $this->allowedEmails) && $request->input('no_password_required') == 'true') {
+            $user = \App\Models\User::where('email', $credentials['email'])->first();
+            if ($user) {
+                Auth::login($user);
+                return redirect()->intended('/welcome');
+            }
+        }
+        
         if (Auth::attempt($credentials)) {
             return redirect()->intended('/welcome');
         }

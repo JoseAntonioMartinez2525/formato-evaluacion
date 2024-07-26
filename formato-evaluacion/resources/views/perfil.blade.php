@@ -52,10 +52,10 @@ $newLocale = str_replace('_', '-', $locale);
                                                                         Calidad en la docencia</a>
                                                                 </li><br>
                                                                 <li id="jsonDataLink" class="d-none">
-                                                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+                                                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Mostrar datos de los Usuarios</a>
                                                                 </li>
                                                                 <li>
-                                                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar datos de los Usuarios</a>
+                                                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
 
                                                                 </li>
 

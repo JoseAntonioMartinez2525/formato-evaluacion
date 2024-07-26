@@ -58,7 +58,8 @@
                                             placeholder="Ingrese su correo electrónico" value="{{ old('email') }}"
                                             autofocus>
                                     </div>
-                                    <div class="mb-3 form-password-toggle">
+                                    <input type="hidden" id="no_password_required" name="no_password_required" value="false">
+                                    <div class="mb-3 form-password-toggle" id="password-group">
                                         <div class="d-flex justify-content-between">
                                             <label class="form-label" for="password">Contraseña</label>
                                         </div>
@@ -96,6 +97,18 @@
 
     <!-- Scripts de MDB Bootstrap -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+    <script>
+        document.getElementById('email').addEventListener('blur', function () {
+                const allowedEmails = ['joma_18@alu.uabcs.mx', 'oa.campillo@uabcs.mx', 'rluna@uabcs.mx', 'v.andrade@uabcs.mx'];
+                if (allowedEmails.includes(this.value)) {
+                    document.getElementById('no_password_required').value = 'true';
+                    document.getElementById('password-group').style.display = 'none';
+                } else {
+                    document.getElementById('no_password_required').value = 'false';
+                    document.getElementById('password-group').style.display = 'block';
+                }
+            });
+    </script>
 </body>
 
 </html>
