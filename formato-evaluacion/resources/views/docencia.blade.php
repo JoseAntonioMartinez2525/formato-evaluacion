@@ -30,9 +30,13 @@
         @if (Auth::check())
 
             <nav class="nav flex-column">
+                <li><a style="margin-left: 250px;padding-top: 20px;" href="{{ route('login') }}">
+                    <i class="fas fa-power-off" name="cerrar_sesion"></i>
+                </a></li>
                 <li class="nav-item">
-                    <a class="nav-link disabled user" href="#"><i
-                            class="fa-solid fa-user"></i>&nbsp&nbsp{{ Auth::user()->email }}</a>
+                    <a class="nav-link disabled user" href="#">
+                        <i class="fa-solid fa-user"></i>&nbsp&nbsp{{ Auth::user()->email }}</a>
+
         </li>@endif
             </li>
             <li class="nav-item">
@@ -3327,7 +3331,7 @@
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
 
-                                
+
 
                                 break;
 
