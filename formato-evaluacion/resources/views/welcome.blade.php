@@ -529,11 +529,7 @@ $newLocale = str_replace('_', '-', $locale);
             break;
 
         }
-        console.log('Form data:', formData); // Log form data to check values
-        //if (!formData.hasOwnProperty('score3_1')) {
-        // Si score3_1 no está en formData, proporciona un valor predeterminado
-        //formData['score3_1'] = ''; // Aquí puedes proporcionar cualquier valor predeterminado que desees
-        //}
+        console.log('Form data:', formData); 
 
 
         try {
@@ -620,13 +616,20 @@ $newLocale = str_replace('_', '-', $locale);
   
     document.addEventListener('DOMContentLoaded', function () {
       const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+      
+     const allowedEmails = [
+        'joma_18@alu.uabcs.mx',
+        'oa.campillo@uabcs.mx',
+        'rluna@uabcs.mx',
+        'v.andrade@uabcs.mx'
+      ];
 
-      // Verifica si el email es el que esperas
-      if (userEmail === 'joma_18@alu.uabcs.mx') {
+      // Verifica si el email está en la lista de correos permitidos
+      if (allowedEmails.includes(userEmail)) {
         // Muestra el enlace
         document.getElementById('jsonDataLink').classList.remove('d-none');
       }
-    });
+      });
   </script>
 
 </body>
