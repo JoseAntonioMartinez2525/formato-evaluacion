@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class SessionsController extends Controller
 {
@@ -20,18 +22,31 @@ class SessionsController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $email = $request->input('email');
+        $password = $request->input('password');
+
 
         // Check if the email is allowed to login without a password
-        if (in_array($credentials['email'], $this->allowedEmails) && $request->input('no_password_required') == 'true') {
-            $user = \App\Models\User::where('email', $credentials['email'])->first();
-            if ($user) {
-                Auth::login($user);
-                return redirect()->intended('/welcome');
+        if (in_array($email, $this->allowedEmails) && $request->input('no_password_required') == 'true') {
+            $user = User::where('email', $email)->first();
+
+            // If user does not exist, create the user
+            if (!$user) {
+                $user = User::create([
+                    'name' => $email,
+                    'username'=> $email,
+                    'email' => $email,
+                    'password' => Hash::make('defaultpassword'), // You can set a default password or make it null
+                ]);
             }
+
+            // Log in the user
+            Auth::login($user);
+            return redirect()->intended('/welcome');
         }
-        
-        if (Auth::attempt($credentials)) {
+
+        // Regular login process
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return redirect()->intended('/welcome');
         }
 
