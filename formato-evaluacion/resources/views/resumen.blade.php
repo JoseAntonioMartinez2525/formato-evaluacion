@@ -53,7 +53,7 @@ $newLocale = str_replace('_', '-', $locale);
                                         Calidad en la docencia</a>
                                 </li><br>
                                 <li id="jsonDataLink" class="d-none">
-                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar datos de los Usuarios</a>
                                 </li>
                                 <li id="reportLink" class="nav-item d-none">
                                      <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
@@ -748,6 +748,16 @@ $newLocale = str_replace('_', '-', $locale);
                     });
                 });
             });
+
+    document.addEventListener('DOMContentLoaded', function () {
+            const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+
+            // Verifica si el email es el que esperas
+            if (userEmail === 'joma_18@alu.uabcs.mx') {
+                // Muestra el enlace
+                document.getElementById('jsonDataLink').classList.remove('d-none');
+            }
+        });
 
     </script>
 

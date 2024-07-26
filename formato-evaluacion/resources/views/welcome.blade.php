@@ -49,7 +49,7 @@ $newLocale = str_replace('_', '-', $locale);
         <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
         </li><br>
         <li id="jsonDataLink" class="d-none">
-        <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
+        <a href="{{ route('json-generator') }}" class="btn btn-primary">Mostrar datos de los Usuarios</a>
         </li>
 
         </nav>
@@ -616,6 +616,17 @@ $newLocale = str_replace('_', '-', $locale);
       });
     }
   });
+
+  
+    document.addEventListener('DOMContentLoaded', function () {
+      const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+
+      // Verifica si el email es el que esperas
+      if (userEmail === 'joma_18@alu.uabcs.mx') {
+        // Muestra el enlace
+        document.getElementById('jsonDataLink').classList.remove('d-none');
+      }
+    });
   </script>
 
 </body>

@@ -55,7 +55,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                     <a href="{{ route('json-generator') }}" class="btn btn-primary">Get JSON Data</a>
                                                                 </li>
                                                                 <li>
-                                                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                                                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar datos de los Usuarios</a>
 
                                                                 </li>
 
@@ -183,6 +183,16 @@ $newLocale = str_replace('_', '-', $locale);
         loadAllData();
              });
 
+             
+                document.addEventListener('DOMContentLoaded', function () {
+                    const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+
+                    // Verifica si el email es el que esperas
+                    if (userEmail === 'joma_18@alu.uabcs.mx') {
+                        // Muestra el enlace
+                        document.getElementById('jsonDataLink').classList.remove('d-none');
+                    }
+                });
     
 </script>
 
