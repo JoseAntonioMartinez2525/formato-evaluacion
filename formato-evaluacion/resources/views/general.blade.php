@@ -74,7 +74,7 @@ $newLocale = str_replace('_', '-', $locale);
             @endif
             </div>
             </div>
-
+            <section id="userReports">
             <h1>Seleccionar Usuarios</h1>
             
             <form id="filter-form">
@@ -90,6 +90,7 @@ $newLocale = str_replace('_', '-', $locale);
             <div id="user-data">
                 <!-- Aquí se mostrará la información del usuario -->
             </div>
+        </section>
             
 </body>
 <script>
@@ -123,8 +124,16 @@ $newLocale = str_replace('_', '-', $locale);
                 <h2>Datos del Usuario</h2>
                 <p>Email: ${data.user.email || 'No disponible'}</p>
                 <p>Nombre: ${data.user.name || 'No disponible'}</p>
-                <p>Convocatoria: ${data.user.convocatoria || 'No disponible'}</p>
-                <!-- Aquí añadir los demás datos -->
+                <p>Convocatoria: ${data.responseForm1.convocatoria || 'No disponible'}</p>
+                <p>Comisión Actividad 1 Total: ${data.resume.comision_actividad_1_total || 'No disponible'}</p>
+                <p>Comisión Actividad 2 Total: ${data.resume.comision_actividad_2_total || 'No disponible'}</p>
+                <p>Comisión Actividad 3 Total: ${data.resume.comision_actividad_3_total || 'No disponible'}</p>
+                <p>Total Puntaje: ${data.resume.total_puntaje || 'No disponible'}</p>
+                <p>Mínima Calidad: ${data.resume.minima_calidad || 'No disponible'}</p>
+                <p>Mínima Total: ${data.resume.minima_total || 'No disponible'}</p>
+                <h2>Persona Evaluadora y Firma: </h2>
+                <p>Persona Evaluadora: ${data.signature.evaluator_name || 'No disponible'}</p>
+                <p>Firma: ${data.signature.signature_path ? `<img src="/storage/${data.signature.signature_path}" alt="Firma" style="max-width: 300px;"/>` : 'No disponible'}</p>
             `;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);

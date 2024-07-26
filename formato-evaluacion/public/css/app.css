@@ -342,7 +342,7 @@ text-align: right;
         padding-right: 880px;
 }
 
-#convocatoriaPeriodoLabel {
+#convocatoriaPeriodoLabel{
    margin-top: 200px; 
    margin-left: 100px;
 }
@@ -361,6 +361,11 @@ margin-bottom: 20px;
 
 .d-none {
     display: none;
+}
+
+#userReports{
+    margin-top: 20px;
+    margin-left: 100px;
 }
 
 

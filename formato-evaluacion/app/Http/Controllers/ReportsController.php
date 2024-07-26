@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserResume;
+use App\Models\UsersResponseForm1;
 use App\Models\EvaluatorSignature;
 
 class ReportsController extends Controller
@@ -35,10 +36,12 @@ class ReportsController extends Controller
             }
 
             $resume = UserResume::where('user_id', $user->id)->first();
+            $responseForm1 = UsersResponseForm1::where('user_id', $user->id)->first();
             $signature = EvaluatorSignature::where('user_id', $user->id)->where('email', $email)->first();
 
             return response()->json([
                 'resume' => $resume,
+                'responseForm1' => $responseForm1,
                 'signature' => $signature,
                 'user' => $user
             ]);
