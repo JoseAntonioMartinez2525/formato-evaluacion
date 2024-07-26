@@ -57,7 +57,6 @@ $newLocale = str_replace('_', '-', $locale);
                                 </li>
                                 <li id="reportLink" class="nav-item d-none">
                                      <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-
                                 </li>
 
                             </nav>

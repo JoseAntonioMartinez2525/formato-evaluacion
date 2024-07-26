@@ -41,4 +41,16 @@ class ProfileController extends Controller
             'evaluatorSignature' => $evaluatorSignature,
         ]);
     }
+    public function showAllUsers()
+    {
+        // Obtener todos los registros de UserResume y EvaluatorSignature
+        $userResumes = UserResume::all();
+        $evaluatorSignatures = EvaluatorSignature::all();
+
+        // Pasar los datos a la vista
+        return view('general', [
+            'userResumes' => $userResumes,
+            'evaluatorSignatures' => $evaluatorSignatures,
+        ]);
+    }
 }

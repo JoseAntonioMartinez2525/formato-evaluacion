@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
@@ -45,9 +46,9 @@ Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])
 Route::get('rules', function () {return view('rules'); })->name('rules');
 Route::get('docencia', function () {return view('docencia'); })->name('docencia');
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
-Route::get('perfil', function () {
-    return view('perfil'); })->name('perfil');
-
+Route::get('perfil', function () {return view('perfil'); })->name('perfil');
+Route::get('general', function () {return view('general');})->name('general');
+Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
 
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
@@ -100,6 +101,9 @@ Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
+
+Route::get('/general', [ReportsController::class, 'index'])->name('general');
+Route::get('/show-profile', [ReportsController::class, 'showProfile'])->name('show-profile');
 //Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
 
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');

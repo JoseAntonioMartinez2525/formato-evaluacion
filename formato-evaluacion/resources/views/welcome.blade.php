@@ -51,6 +51,7 @@ $newLocale = str_replace('_', '-', $locale);
         <li id="jsonDataLink" class="d-none">
         <a href="{{ route('json-generator') }}" class="btn btn-primary">Mostrar datos de los Usuarios</a>
         </li>
+        
 
         </nav>
     </form>@endif
