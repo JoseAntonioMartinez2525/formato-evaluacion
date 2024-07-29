@@ -5,7 +5,7 @@
     padding-right: 100px;
 }
 
-.info, .personaEvaluadora,#firma{
+.info, .personaEvaluadora,#firma, #firma2, #firma3{
     background-color: #7fe0f3;
 }
 
@@ -101,12 +101,13 @@ tr .subtitle {
  
 }
 
-#firma{
+#firma, #firma2,
+#firma3{
     margin-left: -400px;
     width: 400px;
 }
 
-#firmaTexto{
+#firmaTexto, #firmaTexto2, #firmaTexto3 {
     margin-left: -400px;
 }
 
