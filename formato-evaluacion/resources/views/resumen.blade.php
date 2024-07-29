@@ -28,6 +28,7 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 
 <body class="font-sans antialiased">
+<x-general-header />
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))

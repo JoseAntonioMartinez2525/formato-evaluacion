@@ -6,6 +6,7 @@
 
 <body>
     <div class="layout-wrapper layout-content-navbar  ">
+        <x-general-header />
         <div class="layout-container">
             
             <div class="layout-page">

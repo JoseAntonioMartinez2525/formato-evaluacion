@@ -80,6 +80,7 @@
         </nav>
 
         <body class="font-sans antialiased">
+            <x-general-header />
             <div class="bg-gray-50 text-black/50">
                 <div class="relative min-h-screen flex flex-col items-center justify-center">
                     <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">

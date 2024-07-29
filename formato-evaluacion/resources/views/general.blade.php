@@ -67,10 +67,11 @@ $newLocale = str_replace('_', '-', $locale);
                 </section>
 
                 <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                        <x-general-header />
                     <div class="flex lg:justify-center lg:col-start-2"></div>
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
                 </header>
-               
+
             @endif
             </div>
             </div>
