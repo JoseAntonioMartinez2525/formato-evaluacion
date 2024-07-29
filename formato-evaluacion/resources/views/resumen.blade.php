@@ -320,32 +320,42 @@ $newLocale = str_replace('_', '-', $locale);
                         <table>
                         <thead>
                             <tr>
-                                <th><input class="personaEvaluadora" type="text" id="personaEvaluadora1"></th>
-                                <th><input type="file" class="form-control" id="firma" name="firma" accept="image/*" style="margin-left: -400px;"></th>
+                                <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
+                                <th>
+                                    <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
+                                </th>
                             </tr>
                             <tr>
                                 <td class="p-2">Nombre de la persona evaluadora</td>
-                                <td class="p-2"><span id="firmaTexto">Firma (solo formato .png es aceptable)</span> </td>
+                                <td class="p-2"><span id="firmaTexto">Firma</span> 
+                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+
 
                             </tr>
                             <tr>
-                                <th><input class="personaEvaluadora" type="text" id="personaEvaluadora2"></th>
-                                <th><input type="file" class="form-control" id="firma2" name="firma" accept="image/*" style="margin-left: -400px;"></th>
+                                <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
+                                <th>
+                                    <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
+                                </th>
                             </tr>
                             <tr>
                                 <td class="p-2">Nombre de la persona evaluadora</td>
-                                <td class="p-2"><span id="firmaTexto2">Firma (solo formato .png es aceptable)</span> </td>
+                                <td class="p-2"><span id="firmaTexto2">Firma</span> 
+                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
 
 
                             </tr>
                             <tr>
-                                <th><input class="personaEvaluadora" type="text" id="personaEvaluadora3"></th>
-                                <th><input type="file" class="form-control" id="firma3" name="firma" accept="image/*" style="margin-left: -400px;"></th>
+                                <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
+                                <th>
+                                    <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
+                                </th>
 
                             </tr>
                             <tr>
                                 <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
-                                <td class="p-2"><span id="firmaTexto3">Firma (solo formato .png es aceptable)</span> </td>
+                                <td class="p-2"><span id="firmaTexto3">Firma</span>
+                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
 
 
                             </tr>
@@ -453,15 +463,30 @@ $newLocale = str_replace('_', '-', $locale);
             }else if (formId === 'form5') {
                 formData.set('user_id', form.querySelector('input[name="user_id"]').value);
                 formData.set('email', form.querySelector('input[name="email"]').value);
-
-                formData.set('personaEvaluadora1', form.querySelector('#personaEvaluadora1').value);
-                formData.set('personaEvaluadora2', form.querySelector('#personaEvaluadora2').value);
-                formData.set('personaEvaluadora3', form.querySelector('#personaEvaluadora3').value);
                 
-          
-                let firma = form.querySelector('input[type="file"][name="firma"]');
-                if (firma && firma.files.length > 0) {
-                    formData.append('firma', firma.files[0]);
+                // evaluator names
+                let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;
+                let evaluatorName2 = form.querySelector('#personaEvaluadora2').value;
+                let evaluatorName3 = form.querySelector('#personaEvaluadora3').value;
+
+                formData.set('evaluator_name_1', evaluatorName1);
+                formData.set('evaluator_name_2', evaluatorName2);
+                formData.set('evaluator_name_3', evaluatorName3);
+
+                // Add files to formData
+                let firma1 = form.querySelector('#firma1');
+                if (firma1.files.length > 0) {
+                    formData.append('firma1', firma1.files[0]);
+                }
+
+                let firma2 = form.querySelector('#firma2');
+                if (firma2.files.length > 0) {
+                    formData.append('firma2', firma2.files[0]);
+                }
+
+                let firma3 = form.querySelector('#firma3');
+                if (firma3.files.length > 0) {
+                    formData.append('firma3', firma3.files[0]);
                 }
             }
             try {

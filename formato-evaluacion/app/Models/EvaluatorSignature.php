@@ -13,8 +13,12 @@ class EvaluatorSignature extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'evaluator_name',
-        'signature_path',
+        'evaluator_name_1',
+        'evaluator_name_2',
+        'evaluator_name_3',
+        'signature_path_1',
+        'signature_path_2',
+        'signature_path_3',
     ];
 
 

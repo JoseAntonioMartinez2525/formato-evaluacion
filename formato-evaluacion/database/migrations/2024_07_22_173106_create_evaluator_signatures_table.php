@@ -12,8 +12,12 @@ class CreateEvaluatorSignaturesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('email');
-            $table->string('evaluator_name');
-            $table->string('signature_path');
+            $table->string('evaluator_name_1');
+            $table->string('evaluator_name_2');
+            $table->string('evaluator_name_3');
+            $table->string('signature_path_1');
+            $table->string('signature_path_2');
+            $table->string('signature_path_3');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

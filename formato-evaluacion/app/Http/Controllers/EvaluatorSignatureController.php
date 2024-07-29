@@ -17,33 +17,39 @@ class EvaluatorSignatureController extends Controller
             $validatedData = $request->validate([
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
-                'evaluator_name' => 'required|string|max:255',
-                'firma' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'evaluator_name_1' => 'required|string|max:255',
+                'evaluator_name_2' => 'required|string|max:255',
+                'evaluator_name_3' => 'required|string|max:255',
+                'firma1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'firma2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'firma3' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            // Store the signature file
-            $signaturePath = $request->file('firma')->store('signatures', 'public');
+            $signaturePaths = [];
+            foreach (['firma1', 'firma2', 'firma3'] as $fileKey) {
+                if ($request->hasFile($fileKey)) {
+                    $signaturePaths[$fileKey] = $request->file($fileKey)->store('signatures', 'public');
+                }
+            }
 
-            // Create a new record
-            $evaluatorSignature = EvaluatorSignature::create([
+            EvaluatorSignature::create([
                 'user_id' => $validatedData['user_id'],
                 'email' => $validatedData['email'],
-                'evaluator_name' => $validatedData['evaluator_name'],
-                'signature_path' => $signaturePath,
+                'evaluator_name_1' => $validatedData['evaluator_name_1'],
+                'evaluator_name_2' => $validatedData['evaluator_name_2'],
+                'evaluator_name_3' => $validatedData['evaluator_name_3'],
+                'signature_path_1' => $signaturePaths['firma1'] ?? null,
+                'signature_path_2' => $signaturePaths['firma2'] ?? null,
+                'signature_path_3' => $signaturePaths['firma3'] ?? null,
             ]);
 
-            // Log de éxito
-            Log::info('Evaluator signature stored successfully', ['signature_path' => $signaturePath]);
-            // Return response with the signature URL
             return response()->json([
                 'message' => 'Form submitted successfully!',
-                'signature_url' => asset('storage/' . $signaturePath),
+                'signature_urls' => array_map(fn($path) => asset('storage/' . $path), $signaturePaths),
             ], 200);
-
+            
         } catch (\Exception $e) {
-            // Log de error
             Log::error('Error storing evaluator signature', ['error' => $e->getMessage()]);
-
             return response()->json([
                 'message' => 'There was an error processing your request',
                 'error' => $e->getMessage(),
