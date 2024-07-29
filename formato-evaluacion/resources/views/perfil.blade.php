@@ -103,18 +103,26 @@ $newLocale = str_replace('_', '-', $locale);
                         </p>
 
 
-                    <h1>Persona Evaluadora y Firma</h1>
+                    <h1>Personas Evaluadoras y Firmas</h1>
 
                         <table>
                             <thead>
                                 <tr>
-                                <p>Nombre de la Persona Evaluadora:  <span id="evaluator_name"></span></p>    
-                                </tr>
+                                <td>Nombre de la Persona Evaluadora:  <span id="evaluator_name_1"></span></td>    
+                                <td><img id="signature_path_1" alt="Signature" style="max-width: 500px;"></td>
+                            </tr>
+                            </thead>
+                            <thead>
                                 <tr>
-
-                                <td><img  id="signature_path" alt="Signature" style="max-width: 500px;"></td>    
+                                    <td>Nombre de la Persona Evaluadora: <span id="evaluator_name_2"></span></td>
+                                    <td><img id="signature_path_2" alt="Signature" style="max-width: 500px;"></td>
                                 </tr>
-
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <td>Nombre de la Persona Evaluadora: <span id="evaluator_name_3"></span></td>
+                                    <td><img id="signature_path_3" alt="Signature" style="max-width: 500px;"></td>
+                                </tr>
                             </thead>
 
                         </table>
@@ -174,8 +182,14 @@ $newLocale = str_replace('_', '-', $locale);
                 return;
             }
             
-            document.getElementById('evaluator_name').innerText = dataSignature.evaluator_name || 'No evaluator name found';
-            document.getElementById('signature_path').src = '/storage/' + (dataSignature.signature_path || 'default.png');
+            document.getElementById('evaluator_name_1').innerText = dataSignature.evaluator_name_1 || 'No evaluator name found';
+            document.getElementById('signature_path_1').src = '/storage/' + (dataSignature.signature_path_1 || 'default.png');
+            
+            document.getElementById('evaluator_name_2').innerText = dataSignature.evaluator_name_2 || 'No evaluator name found';
+            document.getElementById('signature_path_2').src = '/storage/' + (dataSignature.signature_path_2 || 'default.png');
+
+            document.getElementById('evaluator_name_3').innerText = dataSignature.evaluator_name_3 || 'No evaluator name found';
+            document.getElementById('signature_path_3').src = '/storage/' + (dataSignature.signature_path_3 || 'default.png');
             
 
         }

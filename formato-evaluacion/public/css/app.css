@@ -351,11 +351,13 @@ text-align: right;
 margin-bottom: 20px;
 }
 
-#evaluator_name{
+#evaluator_name_1, #evaluator_name_2, #evaluator_name_3, #signature_path_1,
+#signature_path_2,
+#signature_path_3{
     margin-left: 30px;
 }
 
-#signature_path{
+#signature_path_1, #signature_path_2, #signature_path_3{
     margin-top: 50px;
 }
 
