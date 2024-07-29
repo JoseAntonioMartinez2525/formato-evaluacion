@@ -22,7 +22,13 @@ $newLocale = str_replace('_', '-', $locale);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<style>
+  @media print {
+    .footer-number::after {
+      content: "1";
+    }
+  }
+</style>
 
 </head>
 
@@ -250,6 +256,8 @@ $newLocale = str_replace('_', '-', $locale);
  
 <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
   </div>
+@component('components.pie-pag', ['number' => '1'])
+@endcomponent
 </footer>
 
   </div>

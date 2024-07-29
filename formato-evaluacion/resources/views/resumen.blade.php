@@ -382,6 +382,8 @@ $newLocale = str_replace('_', '-', $locale);
                 <div>
                     <label id="convocatoriaPeriodoLabel" style="color:black;"></label>
                 </div>
+                @component('components.pie-pag', ['number' => '3'])
+                @endcomponent
             </footer>
 
         </div>

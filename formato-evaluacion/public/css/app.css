@@ -370,6 +370,35 @@ margin-bottom: 20px;
     margin-left: 100px;
 }
 
+.footer-number {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Print-specific styles */
+@media print {
+    .footer-number {
+        position: absolute;
+        /* Make sure it stays at the bottom-right corner of the printed page */
+        bottom: 0;
+        right: 0;
+        background-color: white;
+        padding: 10px;
+        margin: 0;
+        border: none;
+        /* Remove border for print, if desired */
+    }
+}
+
+form[id^="form3_"] {
+    margin-bottom: 400px;
+}
+
 
 
 

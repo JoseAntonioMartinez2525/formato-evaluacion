@@ -2904,7 +2904,9 @@
 
                                     </main>
 
-                                    <footer></footer>
+                                    <footer>
+                                        @component('components.pie-pag', ['number' => '2'])@endcomponent
+                                    </footer>
                     </div>
                 </div>
             </div>
