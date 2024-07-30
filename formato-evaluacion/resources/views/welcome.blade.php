@@ -64,7 +64,7 @@ $newLocale = str_replace('_', '-', $locale);
 
 
       </nav>
-  </form>@endif
+      </form>@endif
       </section>
 
       <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
@@ -99,23 +99,21 @@ $newLocale = str_replace('_', '-', $locale);
       </select>
 
       <h3>Instrucciones</h3>
-      <div class="container flex lg:justify-center">
-      <p>1 La persona a ser evaluada deberá completar la información en cantidades u horas en los campos
-      marcados en color gris.</p>
-      <p>2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
-      subtotales, según sea el caso).</p>
-      <p>3 No se deberán modificar fórmulas, ni agregar o quitar renglones.</p>
-      <p>4 Este formato deberá presentarse en forma independiente de la documentación que acrediten las
+      <div class="container flex">
+      <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la información en cantidades u horas en los campos
+      marcados en color gris. <br>
+      2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
+      subtotales, según sea el caso). <br>
+      3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
+      4 Este formato deberá presentarse en forma independiente de la documentación que acrediten las
       actividades realizadas. Para la evaluación no es necesario entregar las obras completas-libros,
       manuales, publicaciones,etc., sino entregar el documento probatorio que se indique en la Guía de
-      definiciones.</p>
-      <p>5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
-      formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.</p>
+      definiciones. <br>
+      5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
+      formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
       <center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>
       </center>
       </div>
-
-
 
       </form>
       </header>
@@ -147,7 +145,7 @@ $newLocale = str_replace('_', '-', $locale);
       </thead>
       <tbody>
       <tr>
-      <td><b>1. Permanencia en las actividades de la docencia</b></td>
+      <td style="margin-right: auto;"><b>1. Permanencia en las actividades de la docencia</b></td>
       <td class="horasActv2">
       <input type="number" id="horasActv2" name="horasActv2" class="form-control">
       </td>
@@ -166,7 +164,6 @@ $newLocale = str_replace('_', '-', $locale);
       </tr>
       </tbody>
       </table>
-      </form>
       <table>
       <thead>
       <tr>
@@ -176,7 +173,8 @@ $newLocale = str_replace('_', '-', $locale);
       cumplido. A partir de los 16 años de experiencia docente se otorgarán los 100 puntos</th>
       </tr>
       </thead>
-      </table>
+      </table>      
+      </form>
 
       <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
       @csrf
@@ -226,13 +224,9 @@ $newLocale = str_replace('_', '-', $locale);
       <td class="comision actv"><input id="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>
       </td>
       <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
-      <td>
-      <button type="submit" class="btn btn-primary">Enviar</button>
-      </td>
       </tr>
       </tbody>
       </table>
-      </form>
       <table>
       <thead>
       <tr>
@@ -241,9 +235,14 @@ $newLocale = str_replace('_', '-', $locale);
       <th style="font-weight: normal; padding-left: 100px;">8.5 puntos por cada hora/semana/año en cada
       caso
       </th>
+      <th>
+      <button type="submit" class="btn btn-primary" id="form2_2Button">Enviar</button>
+      </th>
       </tr>
       </thead>
-      </table>
+      </table>      
+      </form>
+
 
   @endif
     </div>

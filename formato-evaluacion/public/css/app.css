@@ -399,6 +399,15 @@ form[id^="form3_"] {
     margin-bottom: 400px;
 }
 
+#form2, #form2_2{
+    margin-bottom: 200px;
+}
+
+#form2_2Button{
+    margin-left: 260px;
+    width: 200px;
+}
+
 
 
 
