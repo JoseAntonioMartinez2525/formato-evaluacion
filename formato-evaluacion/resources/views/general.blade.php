@@ -133,9 +133,16 @@ $newLocale = str_replace('_', '-', $locale);
                 <p>Mínima Calidad: ${data.resume.minima_calidad || 'No disponible'}</p>
                 <p>Mínima Total: ${data.resume.minima_total || 'No disponible'}</p>
                 <h2>Persona Evaluadora y Firma: </h2>
-                <p>Persona Evaluadora: ${data.signature.evaluator_name || 'No disponible'}</p>
-                <p>Firma: ${data.signature.signature_path ? `<img src="/storage/${data.signature.signature_path}" alt="Firma" style="max-width: 300px;"/>` : 'No disponible'}</p>
+                <p>Persona Evaluadora: ${data.signature.evaluator_name_1 || 'No disponible'} 
+                <span style="margin-left: 50px;">Firma:</span> ${data.signature.signature_path_1 ? `<img src="/storage/${data.signature.signature_path_1}" alt="Firma" style="max-width: 200px;"/>` : 'No disponible'}</p>
+                <p>Persona Evaluadora: ${data.signature.evaluator_name_2 || 'No disponible'}
+                <span style="margin-left: 50px;">Firma:</span> ${data.signature.signature_path_2 ? `<img src="/storage/${data.signature.signature_path_2}" alt="Firma" style="max-width: 200px;"/>` : 'No disponible'}
+                </p>
+                <p>Persona Evaluadora: ${data.signature.evaluator_name_3 || 'No disponible'}
+                <span style="margin-left: 50px;">Firma:</span> ${data.signature.signature_path_3 ? `<img src="/storage/${data.signature.signature_path_3}" alt="Firma" style="max-width: 200px;"/>` : 'No disponible'}
+                </p>
             `;
+
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
                 document.getElementById('user-data').innerHTML = `<p>Error al obtener datos del usuario.</p>`;
