@@ -27,7 +27,7 @@ class WelcomeController extends Controller
         $departamentoOptions = ['Agronomia', 'Ciencia animal y Conservación del habitat', 'Ciencias de la tierra', 'Ciencias Marinas y Costeras', 'Ciencias Sociales y Juridicas', 'Economia', 'Humanidades', 'Ingenieria en Pesquerias', 'Sistemas Computacionales'];
 
         // Other data retrieval logic if needed
-
+        
         return view('welcome', ['areaOptions' => $areaOptions, 'departamentoOptions' => $departamentoOptions]);
     }
 }

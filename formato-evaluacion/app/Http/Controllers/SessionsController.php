@@ -42,6 +42,9 @@ class SessionsController extends Controller
 
             // Log in the user
             Auth::login($user);
+            if ($user->username === 'dictaminador') {
+                return redirect()->route('comision_dictaminadora');
+            }
             return redirect()->intended('/welcome');
         }
 

@@ -48,6 +48,7 @@ Route::get('docencia', function () {return view('docencia'); })->name('docencia'
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
 Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
+Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
 
 //POST formularios
