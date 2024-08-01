@@ -34,7 +34,7 @@ class SessionsController extends Controller
             if (!$user) {
                 $user = User::create([
                     'name' => $email,
-                    'username'=> $email,
+                    'username'=> '', // Empty string for special users
                     'email' => $email,
                     'password' => Hash::make('defaultpassword'), // You can set a default password or make it null
                 ]);

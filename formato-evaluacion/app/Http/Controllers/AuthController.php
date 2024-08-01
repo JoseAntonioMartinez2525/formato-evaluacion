@@ -19,7 +19,7 @@ class AuthController extends Controller
         //dd($request->all());
         $request->validate([
             'registerName' => 'required|string|max:255',
-            'registerUsername' => 'required|string|max:255|unique:users,username',
+            'registerUsername' => 'required|in:dictaminador,docente',
             'registerEmail' => 'required|string|email|max:255|unique:users,email',
             'registerPassword' => 'required|string|min:6|confirmed',
         ]);

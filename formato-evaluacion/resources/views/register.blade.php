@@ -56,7 +56,11 @@
                         </div>
                         <!-- Username input -->
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <input type="text" id="registerUsername" name="registerUsername" class="form-control" />
+                            <select  id="registerUsername" name="registerUsername" class="form-control" >
+                                <option value=""></option>
+                                <option value="dictaminador">Dictaminador</option>
+                                <option value="docente">Docente</option>
+                            </select>
                             <label class="form-label" for="registerUsername">Usuario</label>
                         </div>
                         <!-- Email input -->
