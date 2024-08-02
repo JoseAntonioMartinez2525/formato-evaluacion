@@ -50,6 +50,10 @@ class SessionsController extends Controller
 
         // Regular login process
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $user = Auth::user();
+            if ($user->username === 'dictaminador') {
+                return redirect()->route('comision_dictaminadora');
+            }
             return redirect()->intended('/welcome');
         }
 
