@@ -37,7 +37,7 @@ $newLocale = str_replace('_', '-', $locale);
   <div class="bg-gray-50 text-black/50">
     <div class="relative min-h-screen flex flex-col items-center justify-center">
       @if (Route::has('login'))
-      @if (Auth::check() && Auth::user()->username === 'docente')
+      @if (Auth::check() && Auth::user()->username === 'docente' || Auth::user()->username === '')
       <section role="region" aria-label="Response form">
       <form>
       @csrf
@@ -244,7 +244,7 @@ $newLocale = str_replace('_', '-', $locale);
       </form>
 
 
-    @endif
+  @endif
     </div>
     </main>
 
