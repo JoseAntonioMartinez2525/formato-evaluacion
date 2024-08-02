@@ -34,7 +34,7 @@ class SessionsController extends Controller
             if (!$user) {
                 $user = User::create([
                     'name' => $email,
-                    'role'=> '', // Empty string for special users
+                    'username'=> '', // Empty string for special users
                     'email' => $email,
                     'password' => Hash::make('defaultpassword'), // You can set a default password or make it null
                 ]);
@@ -42,7 +42,7 @@ class SessionsController extends Controller
 
             // Log in the user
             Auth::login($user);
-            if ($user->role === 'dictaminador') {
+            if ($user->username === 'dictaminador') {
                 return redirect()->route('comision_dictaminadora');
             }
             return redirect()->intended('/welcome');
@@ -51,7 +51,7 @@ class SessionsController extends Controller
         // Regular login process
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
-            if ($user->role === 'dictaminador') {
+            if ($user->username === 'dictaminador') {
                 return redirect()->route('comision_dictaminadora');
             }
             return redirect()->intended('/welcome');

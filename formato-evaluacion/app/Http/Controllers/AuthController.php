@@ -19,7 +19,7 @@ class AuthController extends Controller
         //dd($request->all());
         $request->validate([
             'registerName' => 'required|string|max:255',
-            'registerRole' => 'required|in:dictaminador,docente',
+            'registerUsername' => 'required|in:dictaminador,docente',
             'registerEmail' => 'required|string|email|max:255|unique:users,email',
             'registerPassword' => 'required|string|min:6|confirmed',
         ]);
@@ -28,7 +28,7 @@ class AuthController extends Controller
         // Create the new user
         $user = new User();
         $user->name = $request->registerName;
-        $user->role = $request->registerUsername;
+        $user->username = $request->registerUsername;
         $user->email = $request->registerEmail;
         $user->password = Hash::make($request->registerPassword);
         // Use Hash to encrypt the password
