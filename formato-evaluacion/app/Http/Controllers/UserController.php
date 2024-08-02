@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User; // Import the User model
-use App\Models\UsersResponseForm2;
-use App\Models\UsersResponseForm2_2;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash; // Import Hash facade
@@ -69,28 +67,4 @@ class UserController extends Controller
             return back()->with("incorrecto", "Error al eliminar un usuario, por favor verifique la información.");
         }
     }
-
-    // UserController.php
-
-    /*public function showDocenteProfile(Request $request)
-    {
-        $email = $request->input('email');
-
-        // Obtener datos del usuario 'docente' y sus formularios
-        $user = User::where('email', $email)->where('username', 'docente')->first();
-
-        if (!$user) {
-            return response()->json(['error' => 'Usuario no encontrado o no es un docente.'], 404);
-        }
-
-        $responseForm2 = UsersResponseForm2::where('user_id', $user->id)->first();
-        $responseForm22 = UsersResponseForm2_2::where('user_id', $user->id)->first();
-
-        return response()->json([
-            'user' => $user,
-            'form2' => $responseForm2,
-            'form22' => $responseForm22
-        ]);
-    }*/
-
 }
