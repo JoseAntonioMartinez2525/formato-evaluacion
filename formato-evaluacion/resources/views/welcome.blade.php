@@ -15,6 +15,7 @@ $newLocale = str_replace('_', '-', $locale);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
   <script src="{{ asset('js/subtotales.js') }}"></script>
   <script src="{{ asset('js/comisiones.js') }}"></script>
   <script src="{{ asset('js/privileges.js') }}"></script>
@@ -22,6 +23,7 @@ $newLocale = str_replace('_', '-', $locale);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
 <style>
   @media print {
     .footer-number::after {
@@ -41,8 +43,12 @@ $newLocale = str_replace('_', '-', $locale);
       <section role="region" aria-label="Response form">
       <form>
       @csrf
-      <nav class="nav flex-column">
+      <nav class="nav flex-column menu">
       <li class="nav-item">
+      <a style="margin-left: 210px;" href="{{ route('login') }}">
+      <i class="fas fa-power-off" name="cerrar_sesion"></i>
+      </a></li>
+      <li>
       <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
       </li>
       <li class="nav-item">
@@ -64,7 +70,7 @@ $newLocale = str_replace('_', '-', $locale);
 
 
       </nav>
-      </form>@endif
+    </form>@endif
       </section>
 
       <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
@@ -244,7 +250,7 @@ $newLocale = str_replace('_', '-', $locale);
       </form>
 
 
-  @endif
+    @endif
     </div>
     </main>
 
@@ -255,8 +261,9 @@ $newLocale = str_replace('_', '-', $locale);
  
 <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
   </div>
-@component('components.pie-pag', ['number' => '1'])
-@endcomponent
+  <!--
+@component('components.pie-pag', ['number' => '0'])
+@endcomponent -->
 </footer>
 
   </div>
