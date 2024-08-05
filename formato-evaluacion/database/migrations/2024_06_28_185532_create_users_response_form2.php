@@ -19,8 +19,6 @@ class CreateUsersResponseForm2 extends Migration
             $table->integer('horasActv2');
             // Change the data type of puntajeEvaluar to decimal with precision 8 and scale 2
             $table->decimal('puntajeEvaluar', 8, 2);
-
-            $table->decimal('comision1', 8, 2);
             $table->string('obs1')->nullable();
             $table->timestamps();
         });

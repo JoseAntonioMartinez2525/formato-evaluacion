@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_19', 8, 2);
-            $table->integer('comision3_19');
             $table->string('obsCGUtitular')->nullable();
             $table->string('obsCGUespecial')->nullable();
             $table->string('obsCGUpermanente')->nullable();

@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_17', 8, 2);
-            $table->integer('comision3_17');
             $table->string('obsDifusionExt')->nullable();
             $table->string('obsDifusionInt')->nullable();
             $table->string('obsRepDifusionExt')->nullable();

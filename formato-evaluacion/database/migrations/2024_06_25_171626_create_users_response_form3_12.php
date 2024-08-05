@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_12', 8, 2);
-            $table->integer('comision3_12');
             $table->string('obsCientificos')->nullable();
             $table->string('obsDivulgacion')->nullable();
             $table->string('obsTraduccion')->nullable();
