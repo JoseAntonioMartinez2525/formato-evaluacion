@@ -1,28 +1,27 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class UsersResponseForm2 extends RulesForm2
+class DictaminatorsResponseForm2 extends RulesForm2
 {
     use HasFactory;
     protected $fillable = [
         'user_id',
         'email',
-        'horasActv2',
-        'puntajeEvaluar',
+        'comision1',
         'obs1',
 
     ];
 
-    protected $table = 'users_response_form2';
+    protected $table = 'dictaminators_response_form2';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'users_response_form2';
+        $this->table = 'dictaminators_response_form2';
         $this->connection = 'mysql';
     }
 

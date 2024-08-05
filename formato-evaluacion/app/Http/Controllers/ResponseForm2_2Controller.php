@@ -17,6 +17,7 @@ class ResponseForm2_2Controller extends Controller
             'actv2Comision' => 'required|numeric', 
             'obs2' => 'nullable|string',
             'obs2_2' => 'nullable|string',
+            'user_type' => 'required|in:user,dictaminator',
         ]);
 
         // Assign a default value if hours is not provided
