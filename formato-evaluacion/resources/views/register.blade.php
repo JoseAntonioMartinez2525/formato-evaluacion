@@ -51,25 +51,26 @@
                         </div>
                         <!-- Name input -->
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <input type="text" id="registerName" name="registerName" class="form-control" />
+                            <input type="text" id="registerName" name="registerName" class="form-control" style="padding-right: 300px;"/>
                             <label class="form-label" for="registerName">Nombre</label>
                         </div>
-                        <!-- Username input -->
+                        <!-- Usertype input -->
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <select  id="registerUsername" name="registerUsername" class="form-control" >
+                            <select  id="registerUsertype" name="registerUsertype" class="form-control" >
                                 <option value=""></option>
                                 <option value="dictaminador">Dictaminador</option>
                                 <option value="docente">Docente</option>
                             </select>
-                            <label class="form-label" for="registerUsername">Usuario</label>
+                            <label class="form-label" for="registerUsertype">Usuario (Haz click aquí y selecciona)</label>
+                            
                         </div>
                         <!-- Email input -->
-                        <div data-mdb-input-init class="form-outline mb-4">
+                        <div data-mdb-input-init class="mb-4">
                             <input type="email" id="registerEmail" name="registerEmail" class="form-control" />
                             <label class="form-label" for="registerEmail">Correo electrónico</label>
                         </div>
                         <!-- Password input -->
-                        <div data-mdb-input-init class="form-outline mb-4">
+                        <div data-mdb-input-init class="mb-4">
                             <input type="password" id="registerPassword" name="registerPassword" class="form-control" />
                             <label class="form-label" for="registerPassword">Contraseña</label>
                                 @error('registerPassword')
@@ -105,7 +106,7 @@
         document.getElementById('registerForm').addEventListener('submit', function (event) {
             console.log('Formulario enviado');
             console.log('Nombre:', document.getElementById('registerName').value);
-            console.log('Usuario:', document.getElementById('registerUsername').value);
+            console.log('Usuario:', document.getElementById('registerUsertype').value);
             console.log('Email:', document.getElementById('registerEmail').value);
             // Puedes agregar más campos según sea necesario
         });

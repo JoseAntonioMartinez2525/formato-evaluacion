@@ -28,7 +28,7 @@ class AuthController extends Controller
         // Create the new user
         $user = new User();
         $user->name = $request->registerName;
-        $user->usertype = $request->registerUsertype;
+        $user->user_type = $request->registerUsertype;
         $user->email = $request->registerEmail;
         $user->password = Hash::make($request->registerPassword);
         // Use Hash to encrypt the password

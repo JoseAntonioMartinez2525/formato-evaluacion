@@ -34,7 +34,7 @@ $newLocale = str_replace('_', '-', $locale);
 
 <body class="font-sans antialiased">
     @auth
-        @if(Auth::user()->username === 'dictaminador')
+        @if(Auth::user()->user_type === 'dictaminador')
              
                 <nav class="nav flex-column">
                     <li class="nav-item">
