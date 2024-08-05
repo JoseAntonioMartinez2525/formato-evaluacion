@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\UsersResponseForm2_2;
+use App\Models\DictaminatorsResponseForm2_2;
 
 class ResponseForm2_2Controller extends Controller
 {
@@ -27,6 +28,10 @@ class ResponseForm2_2Controller extends Controller
         $validatedData['obs2'] = $validatedData['obs2'] ?? 'sin comentarios';
         $validatedData['obs2_2'] = $validatedData['obs2_2'] ?? 'sin comentarios';
 
+        // Guardar en la tabla correspondiente según el tipo de usuario
+        if ($validatedData['user_type'] == 'dictaminator') {
+            DictaminatorsResponseForm2_2::create($validatedData);
+        }else{
         try {
             UsersResponseForm2_2::create($validatedData);
         } catch (QueryException $e) {
@@ -34,7 +39,7 @@ class ResponseForm2_2Controller extends Controller
                 'success' => false,
                 'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
             ], 500);
-        }
+        }}
 
         return response()->json([
             'success' => true,
@@ -45,7 +50,17 @@ class ResponseForm2_2Controller extends Controller
     public function getData22(Request $request)
     {
 
-        $data = UsersResponseForm2_2::where('user_id', $request->query('user_id'))->first();
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'user_type' => 'required|in:user,dictaminator', // Nuevo campo para distinguir entre usuarios
+        ]);
+
+        // Obtener datos de la tabla correspondiente según el tipo de usuario
+        if ($validatedData['user_type'] == 'user') {
+            $data = UsersResponseForm2_2::where('user_id', $request->query('user_id'))->first();
+        } elseif ($validatedData['user_type'] == 'dictaminator') {
+            $data = DictaminatorsResponseForm2_2::where('user_id', $request->query('user_id'))->first();
+        }
         return response()->json($data);
     }
 }

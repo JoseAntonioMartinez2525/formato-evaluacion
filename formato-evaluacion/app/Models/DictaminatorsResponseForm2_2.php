@@ -5,24 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UsersResponseForm2_2 extends RulesForm2_2
+class DictaminatorsResponseForm2_2 extends RulesForm2_2
 {
     use HasFactory;
     protected $fillable = [
         'user_id',
         'email',
-        'hours',
+        'actv2Comision',
         'obs2',
         'obs2_2',
 
     ];
 
-    protected $table = 'users_response_form2_2';
+    protected $table = 'dictaminators_response_form2_2';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'users_response_form2_2';
+        $this->table = 'dictaminators_response_form2_2';
         $this->connection = 'mysql';
     }
 
