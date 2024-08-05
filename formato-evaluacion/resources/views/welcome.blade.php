@@ -263,7 +263,7 @@ $newLocale = str_replace('_', '-', $locale);
   </div>
   <!--
 @component('components.pie-pag', ['number' => '0'])
-@endcomponent -->
+@endcomponent-->
 </footer>
 
   </div>
