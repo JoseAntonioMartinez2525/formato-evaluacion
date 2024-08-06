@@ -563,11 +563,13 @@ $newLocale = str_replace('_', '-', $locale);
            body: JSON.stringify(formData),
          });
 
+                     let responseText = await response.text(); // Obtener el texto de la respuesta
+          console.log('Raw response from server:', responseText);
          if (!response.ok) {
            throw new Error('Network response was not ok');
          }
 
-         let data = await response.json();
+         let data = JSON.parse(responseText); 
          console.log('Response received from server:', data);
        } catch (error) {
          console.error('There was a problem with the fetch operation:', error);

@@ -51,7 +51,7 @@ class ResponseForm2Controller extends Controller
         // Obtener datos de la tabla correspondiente según el tipo de usuario
         if ($validatedData['user_type'] == 'user') {
             $data = UsersResponseForm2::where('user_id', $request->query('user_id'))->first();
-        } elseif ($validatedData['user_type'] == 'dictaminator') {
+        } else if ($validatedData['user_type'] == 'dictaminator') {
             $data = DictaminatorsResponseForm2::where('user_id', $request->query('user_id'))->first();
         }
 
