@@ -56,16 +56,18 @@ $newLocale = str_replace('_', '-', $locale);
                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                 </li>
             </nav>
-            <!-- Agregar menú para seleccionar docentes -->
-            <div class="container mt-4">
-                <label for="docenteSelect" class="form-label">Selecciona un Docente</label>
-                <select id="docenteSelect" class="form-select">
-                    <!-- Opciones de docentes se agregarán aquí dinámicamente -->
-                </select>
-            </div>
+
             <!-- Incluye tus formularios aquí -->
             @include('form2')
             @include('form2_2')
+
+                        <!-- Agregar menú para seleccionar docentes -->
+                        <div class="container mt-4">
+                            <label for="docenteSelect" class="form-label">Selecciona un Docente</label>
+                            <select id="docenteSelect" class="form-select">
+                                <!-- Opciones de docentes se agregarán aquí dinámicamente -->
+                            </select>
+                        </div>
 
         @else
             <p>No tienes permisos para ver esta página.</p>
@@ -82,9 +84,6 @@ $newLocale = str_replace('_', '-', $locale);
 
                     <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
                 </div>
-                <!--
-                @component('components.pie-pag', ['number' => '1'])
-                @endcomponent-->
             </footer>
 
         </div>
@@ -113,32 +112,6 @@ $newLocale = str_replace('_', '-', $locale);
             console.log('Button clicked: ' + currentTarget.getAttribute('data-id'));
         } document.addEventListener('DOMContentLoaded', onload);
         
-        function onChange() {
-            // Obtener los valores de los inputs
-            const puntajePosgrado = parseFloat(document.getElementById("horasPosgrado").value);
-            const puntajeSemestre = parseFloat(document.getElementById("horasSemestre").value);
-            const h = parseFloat(document.querySelector('#hoursText'));
-
-            // Realizar los cálculos
-            const dsePosgrado = puntajePosgrado * 8.5;
-            const dseSemestre = puntajeSemestre * 8.5;
-            const hora = (dsePosgrado + dseSemestre);
-
-            // Actualizar el contenido de las etiquetas <label>
-            document.getElementById("DSE").innerText = dsePosgrado;
-            document.getElementById("DSE2").innerText = dseSemestre;
-
-            // Mostrar los valores actualizados en la consola
-            console.log(dsePosgrado);
-            console.log(dseSemestre);
-
-            const minimo = minWithSum(dsePosgrado, dseSemestre);
-
-            document.getElementById("hoursText").innerText = minimo;
-            console.log(minimo);
-
-
-        }
 
 
         function hayObservacion(indiceActividad) {
@@ -248,42 +221,6 @@ $newLocale = str_replace('_', '-', $locale);
         function actualizarData() {
             data[this.id] = this.value;
         }
-
-        document.querySelector('input[name="horasActv2"]').addEventListener('input', function () {
-            let horasActv2 = parseFloat(this.value) || 0;
-            let puntajeEvaluar = 0;
-
-            const A40 = 6.25;
-            const B56 = 17;
-            const B57 = 50;
-            const variables = {};
-            const variablesMultiplicadas = {};
-
-            for (let i = 40; i <= 55; i++) {
-                variables[`B${i}`] = i - 39;
-
-                variablesMultiplicadas[`C${i}`] = A40 * variables[`B${i}`]; // Calculate and store in variablesMultiplicated object
-
-                if (horasActv2 === variables[`B${i}`]) {
-                    puntajeEvaluar = variablesMultiplicadas[`C${i}`];
-                    break;
-                }
-            }
-
-            const C56 = B56 * A40;
-            const C57 = B57 * A40;
-
-            if (horasActv2 >= 16) {
-                puntajeEvaluar = 100;
-            }
-
-            // Obtiene una referencia a la etiqueta <td id="puntajeEvaluar">
-            let puntajeEvaluarElement = document.getElementById('puntajeEvaluar');
-
-            // Actualiza el valor de la etiqueta <td id="puntajeEvaluar">
-            puntajeEvaluarElement.innerText = puntajeEvaluar.toFixed(2);
-            document.getElementById('puntajeEvaluarInput').value = puntajeEvaluar.toFixed(2);
-        });
 
      document.addEventListener('DOMContentLoaded', async () => {
             const docenteSelect = document.getElementById('docenteSelect');
