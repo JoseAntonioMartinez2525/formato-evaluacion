@@ -80,7 +80,7 @@ $newLocale = str_replace('_', '-', $locale);
 <main class="container">
     <!--Actividad 1: Permanencia en las actividades de la docencia	-->
 
-<form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store2', 'form2');">
+<form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeform2', 'getfFormData22');">
     <div>
         <h4>Puntaje máximo
             <label class="bg-black text-white px-4" for="">100</label>
@@ -136,64 +136,22 @@ $newLocale = str_replace('_', '-', $locale);
 
     </body>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const userId = {{ auth()->user()->id }}; // Assuming you have user data
+   document.addEventListener('DOMContentLoaded', () => {
+        // Leer los datos de localStorage
+        const data = JSON.parse(localStorage.getItem('docenteData'));
 
-
-
-        async function fetchData(url, params = {}) {
-            const queryString = new URLSearchParams(params).toString();
-            const fullUrl = `${url}?${queryString}`;
-
-            try {
-                let response = await fetch(fullUrl, {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    }
-                });
-
-                console.log('Response from API:', response);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                let data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-        async function loadAllData() {
-
-            const userId = {{ auth()->user()->id }};
-            const userEmail = "{{ auth()->user()->email }}";
-            const userType = {{ auth()->user()->user_type }};
-
-            let dataUser = await fetchData('/get-data1', { user_id: userId });
-            let data2 = await fetchData('/get-data2', { user_id: userId });
-            let data2_2 = await fetchData('/get-data22', { user_id: userId });
-
-            // Populate labels with the retrieved data
-            document.getElementById('email').innerText = dataUser ? dataUser.email : '';
-            document.getElementById('user').innerText = dataUser ? dataUser.nombre : '';
-            document.getElementById('convocatoria').innerText = dataUser ? dataUser.convocatoria : '';
-
-            document.getElementById('puntajeEvaluarText').innerText = data2 ? data2.puntajeEvaluar : '';
-            document.getElementById('horasActv2').innerText = data2 ? data2.horasActv2 : '';
-
-    
-            document.getElementById('horasPosgrado').innerText = data2_2 ? data2_2.horasPosgrado : '';
-            document.getElementById('DSE').innerText = data2_2 ? data2_2.dse: '';
-            document.getElementById('horasSemestre').innerText = data2_2 ? data2_2.horasSemestre : '';
-            document.getElementById('DSE2').innerText = data2_2 ? data2_2.dse2 : '';
-
-
-
+        if (data) {
+            // Actualizar los spans con los datos
+            document.getElementById('horasActv2').textContent = data.horasActv2 || '';
+            document.getElementById('puntajeEvaluarText').textContent = data.puntajeEvaluar || '';
         }
 
-        loadAllData();
+        // Limpiar los datos de localStorage si ya no son necesarios
+        // localStorage.removeItem('docenteData'); // Puedes hacerlo después de redirigir
+
+        document.getElementById('nextForm2_2').addEventListener('click', () => {
+            window.location.href = "{{ route('form2_2') }}";
+        });
     });
 
     </script>

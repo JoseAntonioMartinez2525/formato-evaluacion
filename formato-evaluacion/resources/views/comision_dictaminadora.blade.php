@@ -35,30 +35,37 @@ $newLocale = str_replace('_', '-', $locale);
 <body class="font-sans antialiased">
     @auth
         @if(Auth::user()->user_type === 'dictaminador')
-             
-                <nav class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
-                    </li><br>
-                    <li id="jsonDataLink" class="d-none">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                    </li>
-                    <li id="reportLink" class="nav-item d-none">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                    </li>
-                </nav>
-                <!-- Incluye tus formularios aquí -->
-                @include('form2')
-                @include('form2_2')
+
+            <nav class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                </li><br>
+                <li id="jsonDataLink" class="d-none">
+                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                </li>
+                <li id="reportLink" class="nav-item d-none">
+                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                </li>
+            </nav>
+            <!-- Agregar menú para seleccionar docentes -->
+            <div class="container mt-4">
+                <label for="docenteSelect" class="form-label">Selecciona un Docente</label>
+                <select id="docenteSelect" class="form-select">
+                    <!-- Opciones de docentes se agregarán aquí dinámicamente -->
+                </select>
+            </div>
+            <!-- Incluye tus formularios aquí -->
+            @include('form2')
+            @include('form2_2')
 
         @else
             <p>No tienes permisos para ver esta página.</p>
@@ -277,6 +284,34 @@ $newLocale = str_replace('_', '-', $locale);
             puntajeEvaluarElement.innerText = puntajeEvaluar.toFixed(2);
             document.getElementById('puntajeEvaluarInput').value = puntajeEvaluar.toFixed(2);
         });
+
+     document.addEventListener('DOMContentLoaded', async () => {
+            const docenteSelect = document.getElementById('docenteSelect');
+
+            // Cargar la lista de docentes
+            const response = await fetch('{{ route('getDocentes') }}');
+            const docentes = await response.json();
+
+            docentes.forEach(docente => {
+                const option = document.createElement('option');
+                option.value = docente.email;
+                option.textContent = docente.email;
+                docenteSelect.appendChild(option);
+            });
+
+            docenteSelect.addEventListener('change', async (event) => {
+                const email = event.target.value;
+                const response = await fetch(`{{ route('getDocenteData') }}?email=${email}`);
+                const data = await response.json();
+
+                // Guardar los datos en localStorage
+                localStorage.setItem('docenteData', JSON.stringify(data));
+
+                // Redirigir a la vista que contiene form2
+                window.location.href = "{{ route('form2') }}";
+            });
+        }); 
+            
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {

@@ -33,6 +33,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvaluatorSignatureController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DictaminatorController;
 
 Route::get('/', function () {
     return view('login');
@@ -49,10 +50,16 @@ Route::get('docencia', function () {return view('docencia'); })->name('docencia'
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
 Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
+Route::get('form2', function () {
+    return view('form2'); })->name('form2');
+Route::get('form2_2', function () {
+    return view('form2_2'); })->name('form2_2');
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
 
 Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
+Route::get('/get-docentes', [DictaminatorController::class, 'getDocentes'])->name('getDocentes');
+Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'])->name('getDocenteData');
 
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');

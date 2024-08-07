@@ -149,43 +149,20 @@ $newLocale = str_replace('_', '-', $locale);
             
 </body>
 <script>
-    document.getElementById('filter-form').addEventListener('submit', async function (event) {
-        event.preventDefault();
+    document.addEventListener('DOMContentLoaded', () => {
+        // Leer los datos de localStorage
+        const data = JSON.parse(localStorage.getItem('docenteData'));
 
-        const email = document.getElementById('user-email').value;
-
-        try {
-            // Solicita datos del servidor
-            const response = await fetch(`/show-profile?email=${email}`, {
-                method: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json',
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-
-            if (data.error) {
-                document.getElementById('user-data').innerHTML = `<p>${data.error}</p>`;
-                return;
-            }
-
-            // Muestra datos de form2
-            document.getElementById('horasActv2').innerText = data.form2.horasActv2 || 'No disponible';
-
-            // Muestra datos de form2_2
-            document.getElementById('horasPosgrado').innerText = data.form2_2.horasPosgrado || 'No disponible';
-            document.getElementById('horasSemestre').innerText = data.form2_2.horasSemestre || 'No disponible';
-
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            document.getElementById('user-data').innerHTML = `<p>Error al obtener datos del usuario.</p>`;
+        if (data) {
+            // Actualizar los spans con los datos
+            document.getElementById('horasPosgrado').textContent = data.horasPosgrado || '';
+            document.getElementById('horasSemestre').textContent = data.horasSemestre || '';
+            document.getElementById('dse').textContent = data.dse || '';
+            document.getElementById('dse2').textContent = data.dse2 || '';
         }
+
+        // Limpiar los datos de localStorage si ya no son necesarios
+        //localStorage.removeItem('docenteData');
     });
 
     </script>

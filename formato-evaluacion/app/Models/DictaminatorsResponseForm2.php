@@ -11,8 +11,11 @@ class DictaminatorsResponseForm2 extends RulesForm2
     protected $fillable = [
         'user_id',
         'email',
+        'horasActv2',
+        'puntajeEvaluar',
         'comision1',
         'obs1',
+        'user_type',
 
     ];
 
