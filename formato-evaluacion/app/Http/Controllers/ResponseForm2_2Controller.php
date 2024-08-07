@@ -11,7 +11,7 @@ class ResponseForm2_2Controller extends Controller
 {
     public function store3(Request $request)
     {
-        
+        try {
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
@@ -22,7 +22,7 @@ class ResponseForm2_2Controller extends Controller
             'dse2' => 'required|numeric',
             'obs2' => 'nullable|string',
             'obs2_2' => 'nullable|string',
-            'user_type' => 'required|in:user,dictaminator',
+            'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
         // Assign a default value if hours is not provided
@@ -34,19 +34,17 @@ class ResponseForm2_2Controller extends Controller
 
         // Guardar en la tabla correspondiente según el tipo de usuario
 
-        try {
-            UsersResponseForm2_2::create($validatedData);
-        } catch (QueryException $e) {
+        UsersResponseForm2_2::create($validatedData);
+            return response()->json([
+                'success' => true,
+                'message' => 'Form submitted successfully!',
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
+                'message' => 'Error: ' . $e->getMessage(),
             ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Form submitted successfully!',
-        ]);
     }
 
     public function getData22(Request $request)

@@ -80,7 +80,7 @@ $newLocale = str_replace('_', '-', $locale);
 
 
       <form id="form1" method="POST" onsubmit="event.preventDefault(); submitForm('/store', 'form1');">
-  
+
       <label for="convocatoria" class="label">Convocatoria</label>
       <input name="convocatoria" type="text" class="input-header mb-3" id="convocatoria"></input>
 
@@ -216,9 +216,9 @@ $newLocale = str_replace('_', '-', $locale);
       <td><label for="">a) Posgrado</label>
       <label for="">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Semestre </label>
       </td>
-      <td><input id="horasPosgrado" class="horasActv2" placeholder="0" type="text" oninput="onChange()">
+      <td><input id="horasPosgrado" name="horasPosgrado" class="horasActv2" placeholder="0" type="text" oninput="onChange()">
       </td>
-      <td class="puntajeEvaluar2"><label id="DSE" class="puntajeEvaluar" type="text"></label></td>
+      <td class="puntajeEvaluar2"><label id="DSE" name="dse"class="puntajeEvaluar" type="text"></label></td>
       <td class="comision actv"><input id="comisionPosgrado" placeholder="0" for=""
       oninput="onActv2Comision()"></input></td>
       <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
@@ -227,9 +227,9 @@ $newLocale = str_replace('_', '-', $locale);
       <td>b) Licenciatura y TSU
       <label for="">&nbsp &nbsp &nbsp &nbsp Horas </label>
       </td>
-      <td><input id="horasSemestre" class="horasActv2" placeholder="0" type="text" oninput="onChange()">
+      <td><input id="horasSemestre" name="horasSemestre" class="horasActv2" placeholder="0" type="text" oninput="onChange()">
       </td>
-      <td class="puntajeEvaluar2"><label id="DSE2" class="puntajeEvaluar" type="text"></label></td>
+      <td class="puntajeEvaluar2"><label id="DSE2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
       <td class="comision actv"><input id="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>
       </td>
       <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
@@ -331,7 +331,7 @@ $newLocale = str_replace('_', '-', $locale);
 
       // Realizar los cálculos
       const dsePosgrado = puntajePosgrado * 8.5;
-      const dseSemestre = puntajeSemestre * 8.5;
+      const dseSemestre = puntajeSemestre * 8;
       const hora = (dsePosgrado + dseSemestre);
 
       // Actualizar el contenido de las etiquetas <label>
@@ -530,6 +530,12 @@ $newLocale = str_replace('_', '-', $locale);
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+            console.log('User Type:', formData['user_type']);
+            formData['horasPosgrado'] = form.querySelector('input[name="horasPosgrado"]').value;
+            formData['horasSemestre'] = form.querySelector('input[name="horasSemestre"]').value;
+            formData['dse'] = form.querySelector('label[name="dse"]').textContent;
+            formData['dse2'] = form.querySelector('label[name="dse2"]').textContent;
+            
             let hoursLabel = form.querySelector('label[id="hoursText"]');
 
             if (!hoursLabel) {
@@ -537,7 +543,6 @@ $newLocale = str_replace('_', '-', $locale);
             } else {
               formData['hours'] = hoursLabel.innerText;
             }
-
             formData['obs2'] = form.querySelector('input[name="obs2"]').value;
             formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
             break;
