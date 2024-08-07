@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserResume;
 use App\Models\EvaluatorSignature;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -12,12 +13,23 @@ class ProfileController extends Controller
     {
         $userId = $request->input('user_id');
         $email = $request->input('email');
+        $userType = $request->query('user_type');
 
         // Validar los datos de entrada
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
+            'user_type' => 'required|exists:users,user_type',
         ]);
+
+        // Obtener el usuario
+        $user = Users::where('email', $email)
+            ->where('user_type', $userType)
+            ->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado.'], 404);
+        }
 
         // Obtener datos del formulario 4 (UserResume)
         $userResume = UserResume::where('user_id', $userId)
@@ -37,6 +49,7 @@ class ProfileController extends Controller
 
         // Pasar los datos a la vista
         return view('perfil', [
+            'user' => $user,
             'userResume' => $userResume,
             'evaluatorSignature' => $evaluatorSignature,
         ]);

@@ -89,6 +89,7 @@ $newLocale = str_replace('_', '-', $locale);
     @csrf
     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
     <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
     <table class="table table-sm">
         <thead>
@@ -107,7 +108,7 @@ $newLocale = str_replace('_', '-', $locale);
                      <span id="horasActv2"></span></p>
                 </td>
                 <td id="puntajeEvaluar" class="puntajeEvaluar text-white">
-                    <label id="puntajeEvaluarText">0</label>
+                    <span id="puntajeEvaluarText">0</span>
                 </td>
                 <td class="table-header comision">
                     <input type="number" id="comision1" name="comision1" class="table-header comision" step="any">
@@ -135,8 +136,66 @@ $newLocale = str_replace('_', '-', $locale);
 
     </body>
     <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userId = {{ auth()->user()->id }}; // Assuming you have user data
 
-    </script>
+
+
+        async function fetchData(url, params = {}) {
+            const queryString = new URLSearchParams(params).toString();
+            const fullUrl = `${url}?${queryString}`;
+
+            try {
+                let response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                console.log('Response from API:', response);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+        async function loadAllData() {
+
+            const userId = {{ auth()->user()->id }};
+            const userEmail = "{{ auth()->user()->email }}";
+            const userType = {{ auth()->user()->user_type }};
+
+            let dataUser = await fetchData('/get-data1', { user_id: userId });
+            let data2 = await fetchData('/get-data2', { user_id: userId });
+            let data2_2 = await fetchData('/get-data22', { user_id: userId });
+
+            // Populate labels with the retrieved data
+            document.getElementById('email').innerText = dataUser ? dataUser.email : '';
+            document.getElementById('user').innerText = dataUser ? dataUser.nombre : '';
+            document.getElementById('convocatoria').innerText = dataUser ? dataUser.convocatoria : '';
+
+            document.getElementById('puntajeEvaluarText').innerText = data2 ? data2.puntajeEvaluar : '';
+            document.getElementById('horasActv2').innerText = data2 ? data2.horasActv2 : '';
+
+    
+            document.getElementById('horasPosgrado').innerText = data2_2 ? data2_2.horasPosgrado : '';
+            document.getElementById('DSE').innerText = data2_2 ? data2_2.dse: '';
+            document.getElementById('horasSemestre').innerText = data2_2 ? data2_2.horasSemestre : '';
+            document.getElementById('DSE2').innerText = data2_2 ? data2_2.dse2 : '';
+
+
+
+        }
+
+        loadAllData();
+    });
+
     </script>
 
 </html>

@@ -39,7 +39,7 @@ $newLocale = str_replace('_', '-', $locale);
   <div class="bg-gray-50 text-black/50">
     <div class="relative min-h-screen flex flex-col items-center justify-center">
       @if (Route::has('login'))
-      @if (Auth::check() && Auth::user()->user_type === 'docente' || Auth::user()->user_type === '')
+      @if (Auth::check() && Auth::user()->user_type === 'docente')
       <section role="region" aria-label="Response form">
       <form>
       @csrf
@@ -80,7 +80,7 @@ $newLocale = str_replace('_', '-', $locale);
 
 
       <form id="form1" method="POST" onsubmit="event.preventDefault(); submitForm('/store', 'form1');">
-
+  
       <label for="convocatoria" class="label">Convocatoria</label>
       <input name="convocatoria" type="text" class="input-header mb-3" id="convocatoria"></input>
 
@@ -138,7 +138,8 @@ $newLocale = str_replace('_', '-', $locale);
       <!-- Add hidden fields for user_id and email -->
       <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
       <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+      <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+      
       <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
       <table class="table table-sm">
       <thead>
@@ -263,9 +264,7 @@ $newLocale = str_replace('_', '-', $locale);
  
 <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
   </div>
-  <!--
-@component('components.pie-pag', ['number' => '0'])
-@endcomponent-->
+
 </footer>
 
   </div>
@@ -523,7 +522,6 @@ $newLocale = str_replace('_', '-', $locale);
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
             formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
-            //formData['comision1'] = form.querySelector('input[name="comision1"]').value;
             formData['obs1'] = form.querySelector('input[name="obs1"]').value;
             break;
 
@@ -531,19 +529,12 @@ $newLocale = str_replace('_', '-', $locale);
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             let hoursLabel = form.querySelector('label[id="hoursText"]');
-            //let actv2ComisionLabel = form.querySelector('td[id="actv2Comision"]');
 
             if (!hoursLabel) {
               console.error('Label with id "hoursText" not found.');
             } else {
               formData['hours'] = hoursLabel.innerText;
             }
-
-            /*if (!actv2ComisionLabel) {
-              console.error('Label with id "actv2Comision" not found.');
-            } else {
-              formData['actv2Comision'] = actv2ComisionLabel.innerText;
-            }*/
 
             formData['obs2'] = form.querySelector('input[name="obs2"]').value;
             formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;

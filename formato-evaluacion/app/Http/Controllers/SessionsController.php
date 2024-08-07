@@ -42,21 +42,25 @@ class SessionsController extends Controller
 
             // Log in the user
             Auth::login($user);
-            if ($user->usertype === 'dictaminador') {
+            if ($user->user_type === 'dictaminador') {
                 return redirect()->route('comision_dictaminadora');
+            }else if ($user->user_type === ''){
+                return redirect()->route('secretaria');
             }
-            return redirect()->intended('/welcome');
+                return redirect()->intended('/welcome');
         }
 
         // Regular login process
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
-            if ($user->usertype === 'dictaminador') {
-                return redirect()->route('comision_dictaminadora');
-            }
+            if ($user->user_type === 'dictaminador') {
+                return view('comision_dictaminadora');
+            }else if ($user->user_type === '') {
+                return view('secretaria');
+            }else{
             return redirect()->intended('/welcome');
         }
-
+    }
         return back()->withErrors([
             'email' => 'Credenciales incorrectas, por favor intente de nuevo',
             'password' => 'Credenciales incorrectas, por favor intente de nuevo',

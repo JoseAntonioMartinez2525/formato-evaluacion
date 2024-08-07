@@ -17,7 +17,10 @@ class CreateUsersResponseForm22 extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('hours', 8, 2);
-
+            $table->decimal('horasPosgrado', 8, 2);
+            $table->decimal('horasSemestre', 8, 2);
+            $table->decimal('dse', 8, 2);
+            $table->decimal('dse2', 8, 2);
             $table->string('obs2')->nullable();
             $table->string('obs2_2')->nullable();
             $table->timestamps();

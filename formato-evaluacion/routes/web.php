@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\SecretariaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -49,6 +50,8 @@ Route::get('resumen', function () {return view('resumen'); })->name('resumen');
 Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
+Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
+
 Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
 
 //POST formularios

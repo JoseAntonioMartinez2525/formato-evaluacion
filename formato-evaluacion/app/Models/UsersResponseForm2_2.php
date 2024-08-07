@@ -12,6 +12,10 @@ class UsersResponseForm2_2 extends RulesForm2_2
         'user_id',
         'email',
         'hours',
+        'horasPosgrado',
+        'horasSemestre',
+        'dse',
+        'dse2',
         'obs2',
         'obs2_2',
 

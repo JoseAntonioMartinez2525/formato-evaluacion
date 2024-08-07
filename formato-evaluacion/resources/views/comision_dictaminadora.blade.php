@@ -75,11 +75,13 @@ $newLocale = str_replace('_', '-', $locale);
 
                     <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
                 </div>
+                <!--
                 @component('components.pie-pag', ['number' => '1'])
-                @endcomponent
+                @endcomponent-->
             </footer>
 
         </div>
+        
         
     </div>
     </div>
@@ -88,42 +90,9 @@ $newLocale = str_replace('_', '-', $locale);
     <script>
 
         const convocatoria = document.querySelector('nav a').textContent.trim();
-        const periodo = document.getElementById('periodo').textContent;
-        const nombre = document.querySelector('input[name="nombre"]').value;
-        const area = document.querySelector('select[name="area"]').value;
-        const departamento = document.querySelector('select[name="departamento"]').value;
-        const horasPosgrado = document.getElementById('horasPosgrado').value;
-        const horasSemestre = document.getElementById('horasSemestre').value;
 
-        const obs1 = document.getElementById('obs1').textContent;
-        const obs2 = document.getElementById('obs2').textContent;
-        const obs2_2 = document.getElementById('obs2_2').textContent;
-        const hours = document.querySelector('#hoursText');
         //const actv2Comision = document.querySelector('#actv2ComisionText');
 
-
-        let data = {
-            convocatoria: convocatoria,
-            periodo: periodo,
-            nombre: nombre,
-            area: area,
-            departamento: departamento,
-            horasPosgrado: horasPosgrado,
-            horasSemestre: horasSemestre,
-            obs1: obs1,
-            obs2: obs2,
-            obs2_2: obs2_2,
-            docencia: docencia,
-            hours: hoursText,
-            actv2Comision: actv2Comision,
-        };
-
-        const dse = document.querySelector("#DSE");
-        const puntajeAEvaluarPosgrado = document.querySelector("#horasPosgrado");
-
-        const dse2 = document.querySelector("#DSE2");
-        const puntajeAEvaluarSemestre = document.querySelector("#horasSemestre");
-        const puntajePosgrado = 0, puntajeSemestre = 0, dsePosgrado = "", dseSemestre = "";
         function onload() {
             // Setup some event handlers. 
             var buttons = document.getElementsByClassName('button');

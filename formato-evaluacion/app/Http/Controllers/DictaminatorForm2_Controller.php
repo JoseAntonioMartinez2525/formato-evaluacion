@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UsersResponseForm2;
 use App\Models\DictaminatorsResponseForm2;
-
-class ResponseForm2Controller extends Controller
+use Illuminate\Database\QueryException;
+class DictaminatorForm2_Controller extends Controller
 {
-    public function store2(Request $request)
+    public function storeform2(Request $request)
     {
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
             'horasActv2' => 'required|numeric',
             'puntajeEvaluar' => 'required|numeric', // Allow nullable
+            'comision1' => 'required|numeric',
             'obs1' => 'nullable|string',
             'user_type' => 'required|in:user,dictaminator',
         ]);
@@ -27,19 +27,25 @@ class ResponseForm2Controller extends Controller
             $validatedData['obs1'] = "sin comentarios";
         }
 
+        try {
+            DictaminatorsResponseForm2::create($validatedData);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
+            ], 500);
+        }
 
-        UsersResponseForm2::create($validatedData);
-
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Form submitted successfully!',
+        ]);
     }
 
-
-    public function getData2(Request $request)
+    public function getFormData22(Request $request)
     {
-        $data = UsersResponseForm2::where('user_id', $request->query('user_id'))->first();
 
-
+        $data = DictaminatorsResponseForm2::where('user_id', $request->query('user_id'))->first();
         return response()->json($data);
     }
-    }
-
+}
