@@ -139,7 +139,7 @@ $newLocale = str_replace('_', '-', $locale);
       <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
       <input type="hidden" name="email" value="{{ auth()->user()->email }}">
       <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-      
+
       <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
       <table class="table table-sm">
       <thead>
@@ -494,12 +494,12 @@ $newLocale = str_replace('_', '-', $locale);
       puntajeEvaluarElement.innerText = puntajeEvaluar.toFixed(2);
       document.getElementById('puntajeEvaluarInput').value = puntajeEvaluar.toFixed(2);
     });
-    document.addEventListener('DOMContentLoaded', function () {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-     async  function submitForm(url, formId) {
+    // Definir la función submitForm fuera de DOMContentLoaded
+      async function submitForm(url, formId) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         // Get form data
         let formData = {};
-        let gridOptions = {};
         let form = document.getElementById(formId);
         // Ensure the form element exists
         if (!form) {
@@ -507,7 +507,7 @@ $newLocale = str_replace('_', '-', $locale);
           return;
         }
 
-        //Recoge los datos dependiendo del formulario actual
+        // Recoge los datos dependiendo del formulario actual
         switch (formId) {
           case 'form1':
             formData['convocatoria'] = form.querySelector('input[name="convocatoria"]').value;
@@ -520,6 +520,7 @@ $newLocale = str_replace('_', '-', $locale);
           case 'form2':
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
+            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
             formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
             formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
             formData['obs1'] = form.querySelector('input[name="obs1"]').value;
@@ -528,6 +529,7 @@ $newLocale = str_replace('_', '-', $locale);
           case 'form2_2':
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
+            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
             let hoursLabel = form.querySelector('label[id="hoursText"]');
 
             if (!hoursLabel) {
@@ -539,36 +541,55 @@ $newLocale = str_replace('_', '-', $locale);
             formData['obs2'] = form.querySelector('input[name="obs2"]').value;
             formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
             break;
-
         }
-        console.log('Form data:', formData); 
 
+        console.log('Form data:', formData);
 
+        // Enviar datos al servidor
         try {
-         let response = await fetch(url, {
-           method: 'POST',
-           headers: {
-             'X-CSRF-TOKEN': csrfToken,
-             'Content-Type': 'application/json',
-           },
-           body: JSON.stringify(formData),
-         });
+          let response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': csrfToken,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
 
-                     let responseText = await response.text(); // Obtener el texto de la respuesta
-          console.log('Raw response from server:', responseText);
-         if (!response.ok) {
-           throw new Error('Network response was not ok');
-         }
+          const responseText = await response.text(); // Obtener la respuesta como texto
+          console.log('Raw response from server:', responseText); // Ver qué se devuelve
 
-         let data = JSON.parse(responseText); 
-         console.log('Response received from server:', data);
-       } catch (error) {
-         console.error('There was a problem with the fetch operation:', error);
-       }
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+
+          let data = await response.json(); // Esto será seguro de usar si estás seguro de que la respuesta es JSON
+          console.log('Response received from server:', data);
+        } catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+        }
       }
 
-      window.submitForm = submitForm;
-    });
+      // Cuando el DOM se ha cargado completamente, puedes agregar los controladores de eventos
+      document.addEventListener('DOMContentLoaded', function () {
+        // Asociar la función a los formularios
+        const form2 = document.getElementById('form2');
+        if (form2) {
+          form2.onsubmit = function (event) {
+            event.preventDefault(); // Previene el envío por defecto
+            submitForm('/store2', 'form2'); // Llama a la función submitForm
+          };
+        }
+
+        const form2_2 = document.getElementById('form2_2');
+        if (form2_2) {
+          form2_2.onsubmit = function (event) {
+            event.preventDefault(); // Previene el envío por defecto
+            submitForm('/store3', 'form2_2'); // Llama a la función submitForm
+          };
+        }
+      });
+
 
 
     // Función para actualizar el label en el footer con la convocatoria y periodo de evaluación

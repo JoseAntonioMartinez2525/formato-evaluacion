@@ -11,6 +11,7 @@ class ResponseForm2_2Controller extends Controller
 {
     public function store3(Request $request)
     {
+        
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
