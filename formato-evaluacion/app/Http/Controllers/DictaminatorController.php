@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsersResponseForm2;
+use App\Models\UsersResponseForm2_2;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
 
@@ -18,23 +20,18 @@ class DictaminatorController extends Controller
         $email = $request->query('email');
         $docente = User::where('email', $email)->first();
 
-        if ($docente) {
-            // Aquí deberás devolver los datos específicos del docente.
-            // Esto puede requerir que consultes otras tablas o modelos.
-            $data = [
-                'horasActv2' => $docente->horasActv2,
-                'puntajeEvaluar' => $docente->puntajeEvaluar,
-                'hours' => $docente->hours,
-                'horasPosgrado' => $docente->horasPosgrado,
-                'horasSemestre' => $docente->horasSemestre,
-                'dse' => $docente->dse,
-                'dse2' => $docente->dse2,
-            ];
-
-            return response()->json($data);
+        if (!$docente) {
+            return response()->json(['error' => 'Docente not found'], 404);
         }
 
-        return response()->json(['error' => 'Docente no encontrado'], 404);
+        // Aquí deberás ajustar la lógica según cómo almacenas los datos de `form2` y `form2_2`
+        $form2Data = UsersResponseForm2::where('user_id', $docente->id)->first();
+        $form2_2Data = UsersResponseForm2_2::where('user_id', $docente->id)->first();
+
+        return response()->json([
+            'form2' => $form2Data,
+            'form2_2' => $form2_2Data,
+        ]);
     }
 }
 

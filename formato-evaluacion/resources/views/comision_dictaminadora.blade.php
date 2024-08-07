@@ -57,14 +57,12 @@ $newLocale = str_replace('_', '-', $locale);
                 </li>
             </nav>
 
-            <!-- Incluye tus formularios aquí -->
-            @include('form2')
-            @include('form2_2')
 
                         <!-- Agregar menú para seleccionar docentes -->
                         <div class="container mt-4">
                             <label for="docenteSelect" class="form-label">Selecciona un Docente</label>
                             <select id="docenteSelect" class="form-select">
+                                <option value=""></option>
                                 <!-- Opciones de docentes se agregarán aquí dinámicamente -->
                             </select>
                         </div>
