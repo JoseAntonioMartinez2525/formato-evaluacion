@@ -45,7 +45,7 @@ class ResponseForm2Controller extends Controller
 
     public function getData2(Request $request)
     {
-        $data = UsersResponseForm2::where('user_id', $request->query('user_id'))->first();
+        $data = UsersResponseForm2::where('email', $request->query('email'))->first();
 
 
         return response()->json($data);

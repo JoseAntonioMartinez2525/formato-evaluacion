@@ -120,7 +120,7 @@ $newLocale = str_replace('_', '-', $locale);
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Attempt to retrieve data from localStorage
-        const dataString = localStorage.getItem('docenteData');
+        const dataString = localStorage.getItem('getDocenteData');
         console.log('Data string from localStorage:', dataString); // Log what we retrieved
 
         // Check if the retrieved dataString is actually present
