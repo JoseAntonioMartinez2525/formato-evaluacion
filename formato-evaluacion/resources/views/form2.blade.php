@@ -126,21 +126,19 @@ $newLocale = str_replace('_', '-', $locale);
     </main>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-            // Cargar docentes al cargar la página
-            axios.get('/get-docentes')
-                .then(response => {
-                    const select = document.getElementById('docenteSelect');
-                    response.data.forEach(docente => {
-                        const option = document.createElement('option');
-                        option.value = docente.email;
-                        option.textContent = docente.email;
-                        select.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching docentes:', error);
-                });
+        document.addEventListener('DOMContentLoaded', async () => {
+            const docenteSelect = document.getElementById('docenteSelect');
+
+            // Step 1: Load the list of docentes
+            const response = await fetch('/get-docentes'); // URL to fetch docentes, adjust as necessary
+            const docentes = await response.json();
+
+            docentes.forEach(docente => {
+                const option = document.createElement('option');
+                option.value = docente.email;
+                option.textContent = docente.email;
+                docenteSelect.appendChild(option);
+            });
 
             // Manejar el cambio en la selección de docentes
             document.getElementById('docenteSelect').addEventListener('change', (event) => {

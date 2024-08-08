@@ -34,42 +34,47 @@ $newLocale = str_replace('_', '-', $locale);
 
 <body class="font-sans antialiased">
     @auth
-        @if(Auth::user()->user_type === 'dictaminador')
+            @if(Auth::user()->user_type === 'dictaminador')
 
-            <nav class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
-                </li><br>
-                <li id="jsonDataLink" class="d-none">
-                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                </li>
-                <li id="reportLink" class="nav-item d-none">
-                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                </li>
-            </nav>
+                                <nav class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                                    </li><br>
+                                    <li id="jsonDataLink" class="d-none">
+                                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                                    </li>
+                                    <li id="reportLink" class="nav-item d-none">
+                                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                                    </li>
+                                </nav>
+                <x-general-header />
 
-
-                        <!-- Agregar menú para seleccionar docentes -->
                         <div class="container mt-4">
-                            <label for="docenteSelect" class="form-label">Selecciona un Docente</label>
-                            <select id="docenteSelect" class="form-select">
+                            <!-- Selector para elegir el formulario -->
+                            <label for="formSelect">Seleccionar Formulario:</label>
+                            <select id="formSelect" class="form-select">
                                 <option value=""></option>
-                                <!-- Opciones de docentes se agregarán aquí dinámicamente -->
+                                <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                                <option value="form2_2">2. Dedicación en el desempeño docente</option>
                             </select>
                         </div>
 
-        @else
-            <p>No tienes permisos para ver esta página.</p>
-        @endif
+                        <div id="formContainer">
+                            <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                            </div>
+
+            @else
+                <p>No tienes permisos para ver esta página.</p>
+            @endif
     @else
         <p>Por favor, inicia sesión.</p>
     @endauth
@@ -149,61 +154,24 @@ $newLocale = str_replace('_', '-', $locale);
 
 
 
-    document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
+    document.getElementById('formSelect').addEventListener('change', (event) => {
+            const selectedForm = event.target.value;
+            const formContainer = document.getElementById('formContainer');
 
-            // Step 1: Load the list of docentes
-            const response = await fetch('/get-docentes'); // URL to fetch docentes, adjust as necessary
-            const docentes = await response.json();
-
-            docentes.forEach(docente => {
-                const option = document.createElement('option');
-                option.value = docente.email;
-                option.textContent = docente.email;
-                docenteSelect.appendChild(option);
-            });
-
-            // Step 2: Add event listener for when a docente is selected
-            docenteSelect.addEventListener('change', async (event) => {
-                const email = event.target.value; 
-
-                if (email) {
-                    const data = await fetchData(`/get-data`, { email: email }); // Adjust the URL as necessary
-
-                    // Store fetched data in localStorage
-                    localStorage.setItem('docenteData', JSON.stringify(data));
-                    
-                    // Redirect to the target view with form2
-                    window.location.href = '/form2'; // Adjust to the correct URL for form2
-                }
-            });
+            if (selectedForm) {
+                axios.get(`/get-form-content/${selectedForm}`)
+                    .then(response => {
+                        formContainer.innerHTML = response.data;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching form content:', error);
+                        formContainer.innerHTML = '<p>Error loading form content.</p>';
+                    });
+            } else {
+                formContainer.innerHTML = '';
+            }
         });
 
-        // Function definition to fetch data
-        async function fetchData(url, params = {}) {
-            const queryString = new URLSearchParams(params).toString();
-            const fullUrl = `${url}?${queryString}`;
-
-            try {
-                let response = await fetch(fullUrl, {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                let data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-            
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {
