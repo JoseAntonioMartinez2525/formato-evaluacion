@@ -268,12 +268,21 @@ $newLocale = str_replace('_', '-', $locale);
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
                         formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
+                        formData['horasActv2'] = form.querySelector('span[id=horasActv2]').textContent;
+                        formData['puntajeEvaluarText'] = form.querySelector('span[id=puntajeEvaluarText]').textContent;
                         formData['comision1'] = form.querySelector('input[name="comision1"]').value;
                         break;
 
                     case 'form2_2':
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
+                       formData['horasPosgrado'] = form.querySelector('span[id="horasPosgrado]').textContent;
+                       formData['horasSemestre'] = form.querySelector('span[id="horasSemestre]').textContent;
+                       formData['dse'] = form.querySelector('span[id="dse]').textContent;
+                       formData['dse2'] = form.querySelector('span[id="dse2]').textContent;
+
+
+                        
                         let actv2ComisionLabel = form.querySelector('td[id="actv2Comision"]');
 
                         if (!actv2ComisionLabel) {
