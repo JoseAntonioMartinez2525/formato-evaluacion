@@ -31,33 +31,41 @@ $newLocale = str_replace('_', '-', $locale);
                 <section role="region" aria-label="Response form">
                     <form>
                         @csrf
-                        <nav class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="">Formato Evaluación, apartados 1 y 2</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="">Artículo 10 REGLAMENTO PEDPD</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="">Actividades 3. Calidad en la
-                                    docencia</a>
-                            </li><br>
-                            <li id="jsonDataLink" class="d-none">
-                                <a href="" class="btn btn-primary">Mostrar datos de los Usuarios</a>
-                            </li>
-                            <li>
-                                <a class="nav-link active" style="width: 200px;" href="">Mostrar Reporte</a>
-                            </li>
-                        </nav>
+                    <nav class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la
+                                docencia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la
+                                Comisión del PEDPD)</a>
+                        </li><br>
+                        <li id="jsonDataLink" class="d-none">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                        </li>
+                        <li id="reportLink" class="nav-item d-none">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                        </li>
+                    </nav>
                     </form>
                 </section>
             @endif
         @endif
     </div>
-    <x-general-header />
+
+    <div class="container mt-4">
+        <label for="docenteSelect">Seleccionar Docente:</label>
+        <select id="docenteSelect" class="form-select">
+            <option value="">Seleccionar un docente</option>
+            <!-- Aquí se llenarán los docentes con JavaScript -->
+        </select>
+    </div>
     <main class="container">
         <!-- Form for Part 2 -->
         <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeform2', 'form2');">
@@ -118,30 +126,41 @@ $newLocale = str_replace('_', '-', $locale);
     </main>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Attempt to retrieve data from localStorage
-        const dataString = localStorage.getItem('getDocenteData');
-        console.log('Data string from localStorage:', dataString); // Log what we retrieved
+      document.addEventListener('DOMContentLoaded', () => {
+            // Cargar docentes al cargar la página
+            axios.get('/get-docentes')
+                .then(response => {
+                    const select = document.getElementById('docenteSelect');
+                    response.data.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching docentes:', error);
+                });
 
-        // Check if the retrieved dataString is actually present
-        if (dataString) {
-            try {
-                const data = JSON.parse(dataString);
-                console.log('Parsed data:', data); // Log the parsed data
-                // Populate fields if data exists
-                document.getElementById('horasActv2').textContent = data.horasActv2 || '0';
-                document.getElementById('puntajeEvaluarText').textContent = data.puntajeEvaluar || '0';
+            // Manejar el cambio en la selección de docentes
+            document.getElementById('docenteSelect').addEventListener('change', (event) => {
+                const email = event.target.value;
+                if (email) {
+                    axios.get('/get-docente-data', { params: { email } })
+                        .then(response => {
+                            const data = response.data;
+                            document.getElementById('horasActv2').textContent = data.form2.horasActv2 || '0';
+                            document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
+                            document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                            document.querySelector('input[name="email"]').value = data.form2.email || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching docente data:', error);
+                        });
+                }
+            });
+        });
 
-                // Populate hidden input fields
-                document.querySelector('input[name="user_id"]').value = data.user_id || '';
-                document.querySelector('input[name="email"]').value = data.email || '';
-            } catch (error) {
-                console.error('Error parsing JSON from localStorage:', error);
-            }
-        } else {
-            console.warn('No data found in localStorage for key "docenteData".');
-        }
-    });
 
     async function submitForm(url, formId) {
         let formData = {};

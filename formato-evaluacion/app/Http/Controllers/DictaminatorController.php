@@ -12,6 +12,7 @@ class DictaminatorController extends Controller
     public function getDocentes()
     {
         $docentes = User::where('user_type', 'docente')->get(['email']);
+        \Log::info('Docentes:', $docentes->toArray());
         return response()->json($docentes);
     }
 
