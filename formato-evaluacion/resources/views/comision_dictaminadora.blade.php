@@ -220,11 +220,11 @@ $newLocale = str_replace('_', '-', $locale);
             data[this.id] = this.value;
         }
 
-     document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', async () => {
             const docenteSelect = document.getElementById('docenteSelect');
 
-            // Cargar la lista de docentes
-            const response = await fetch('{{ route('getDocentes') }}');
+            // Step 1: Load the list of docentes
+            const response = await fetch('/get-docentes'); // URL to fetch docentes, adjust as necessary
             const docentes = await response.json();
 
             docentes.forEach(docente => {
@@ -234,18 +234,46 @@ $newLocale = str_replace('_', '-', $locale);
                 docenteSelect.appendChild(option);
             });
 
+            // Step 2: Add event listener for when a docente is selected
             docenteSelect.addEventListener('change', async (event) => {
-                const email = event.target.value;
-                const response = await fetch(`{{ route('getDocenteData') }}?email=${email}`);
-                const data = await response.json();
+                const email = event.target.value; 
 
-                // Guardar los datos en localStorage
-                localStorage.setItem('docenteData', JSON.stringify(data));
+                if (email) {
+                    const data = await fetchData(`/get-data`, { email: email }); // Adjust the URL as necessary
 
-                // Redirigir a la vista que contiene form2
-                window.location.href = "{{ route('form2') }}";
+                    // Store fetched data in localStorage
+                    localStorage.setItem('docenteData', JSON.stringify(data));
+                    
+                    // Redirect to the target view with form2
+                    window.location.href = '/form2'; // Adjust to the correct URL for form2
+                }
             });
-        }); 
+        });
+
+        // Function definition to fetch data
+        async function fetchData(url, params = {}) {
+            const queryString = new URLSearchParams(params).toString();
+            const fullUrl = `${url}?${queryString}`;
+
+            try {
+                let response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
             
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
