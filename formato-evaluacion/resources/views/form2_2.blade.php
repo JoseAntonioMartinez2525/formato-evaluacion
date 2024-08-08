@@ -104,7 +104,7 @@ $newLocale = str_replace('_', '-', $locale);
       <tr>
       <td><b>2. Dedicacion en el Desempeño docente</b></td>
       <td for=""></td>
-      <td id="hours" name="hours" for=""><label id="hoursText" for="">0</label></td>
+      <td name="hours" for=""><label id="hours" for="">0</label></td>
       <td id="actv2Comision" name="actv2Comision" for=""></td>
       </tr>
       <tr>
@@ -155,6 +155,7 @@ $newLocale = str_replace('_', '-', $locale);
 
         if (data) {
             // Actualizar los spans con los datos
+            document.getElementById('hours').textContent = data.hours || '';
             document.getElementById('horasPosgrado').textContent = data.horasPosgrado || '';
             document.getElementById('horasSemestre').textContent = data.horasSemestre || '';
             document.getElementById('dse').textContent = data.dse || '';
