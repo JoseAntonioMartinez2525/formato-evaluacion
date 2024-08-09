@@ -211,6 +211,18 @@ $newLocale = str_replace('_', '-', $locale);
         }
 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Asociar la función a los formularios
+        const form2 = document.getElementById('form2');
+        if (form2) {
+            form2.onsubmit = function (event) {
+                event.preventDefault(); // Previene el envío por defecto
+                submitForm('/store-form2', 'form2'); // Llama a la función submitForm
+            };
+        }
+        });
+
     </script>
 </body>
 
