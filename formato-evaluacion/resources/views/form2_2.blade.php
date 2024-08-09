@@ -9,7 +9,7 @@ $newLocale = str_replace('_', '-', $locale);
     <title>Perfil</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -75,7 +75,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 2_2 -->
-        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeForm22', 'form2_2');">
+        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeform22', 'form2_2');">
             @csrf
             <div>
                 <!-- Activity 2: Commitment in Teaching Performance -->

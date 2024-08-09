@@ -42,7 +42,7 @@ class DictaminatorForm2_Controller extends Controller
         ]);
     }
 
-    public function getFormData22(Request $request)
+    public function getFormData2(Request $request)
     {
 
         $data = DictaminatorsResponseForm2::where('user_id', $request->query('user_id'))->first();

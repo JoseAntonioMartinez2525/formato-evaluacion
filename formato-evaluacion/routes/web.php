@@ -4,6 +4,8 @@ use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SecretariaController;
+use App\Models\DictaminatorsResponseForm2;
+use App\Models\DictaminatorsResponseForm2_2;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -89,6 +91,9 @@ Route::post('/store318', [ResponseForm3_18Controller::class, 'store318']);
 Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
+
+Route::post('/storeform2', [DictaminatorsResponseForm2::class, 'storeform2']);
+Route::post('/storeform22', [DictaminatorsResponseForm2_2::class, 'storeform22']);
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
