@@ -159,6 +159,7 @@ $newLocale = str_replace('_', '-', $locale);
             const formContainer = document.getElementById('formContainer');
 
             if (selectedForm) {
+                 window.location.href = `/${selectedForm}`;
                 axios.get(`/get-form-content/${selectedForm}`)
                     .then(response => {
                         formContainer.innerHTML = response.data;
@@ -239,6 +240,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                     let data = await response.json();
                     console.log('Response received from server:', data);
+                    
                 } catch (error) {
                     console.error('There was a problem with the fetch operation:', error);
                 }
