@@ -168,6 +168,7 @@ $newLocale = str_replace('_', '-', $locale);
                         formContainer.innerHTML = '<p>Error loading form content.</p>';
                     });
             } else {
+                
                 formContainer.innerHTML = '';
             }
         });
@@ -196,6 +197,7 @@ $newLocale = str_replace('_', '-', $locale);
                         formData['horasActv2'] = form.querySelector('span[id=horasActv2]').textContent;
                         formData['puntajeEvaluarText'] = form.querySelector('span[id=puntajeEvaluarText]').textContent;
                         formData['comision1'] = form.querySelector('input[name="comision1"]').value;
+                        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
                         break;
 
                     case 'form2_2':

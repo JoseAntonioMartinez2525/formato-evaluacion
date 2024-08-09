@@ -156,6 +156,9 @@ $newLocale = str_replace('_', '-', $locale);
                             console.error('Error fetching docente data:', error);
                         });
                 }
+
+                
+
             });
         });
 
@@ -175,6 +178,7 @@ $newLocale = str_replace('_', '-', $locale);
         formData['horasActv2'] = document.getElementById('horasActv2').textContent;
         formData['puntajeEvaluarText'] = document.getElementById('puntajeEvaluarText').textContent;
         formData['comision1'] = form.querySelector('input[name="comision1"]').value;
+        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
 
         console.log('Form data:', formData);
 
