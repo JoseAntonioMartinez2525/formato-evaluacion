@@ -72,7 +72,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 2 -->
-        <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeform2', 'form2');">
+        <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
             @csrf
             <div>
                 <h4>Puntaje máximo
