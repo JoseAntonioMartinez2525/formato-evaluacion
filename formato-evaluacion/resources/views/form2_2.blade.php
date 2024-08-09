@@ -75,7 +75,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 2_2 -->
-        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
+        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeForm22', 'form2_2');">
             @csrf
             <div>
                 <!-- Activity 2: Commitment in Teaching Performance -->
@@ -120,7 +120,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <td><span id="horasSemestre" name="horasSemestre" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="DSE2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
-                            <td class="comision actv"><span id="comisionLic"></span>
+                            <td class="comision actv"><input id="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>
                             </td>
                             <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
                         </tr>
@@ -165,44 +165,37 @@ $newLocale = str_replace('_', '-', $locale);
                 axios.get('/get-docente-data', { params: { email } })
                     .then(response => {
                         const data = response.data;
+                        console.log(data);  // Inspect the structure returned
+
                         const hoursElement = document.getElementById('hoursText');
                         if (hoursElement) {
-                            hoursElement.textContent = data.hours || '0';
+                            hoursElement.textContent = data.form2_2 ? data.form2_2.hours || '0' : '0';
                         }
 
                         const horasPosgradoElement = document.getElementById('horasPosgrado');
                         if (horasPosgradoElement) {
-                            horasPosgradoElement.textContent = data.horasPosgrado || '0';
+                            horasPosgradoElement.textContent = data.form2_2 ? data.form2_2.horasPosgrado || '0' : '0';
                         }
 
                         const horasSemestreElement = document.getElementById('horasSemestre');
                         if (horasSemestreElement) {
-                            horasSemestreElement.textContent = data.horasSemestre || '0';
+                            horasSemestreElement.textContent = data.form2_2 ? data.form2_2.horasSemestre || '0' : '0';
                         }
 
-                        const dseElement = document.getElementById('dse');
+                        const dseElement = document.getElementById('DSE');
                         if (dseElement) {
-                            dseElement.textContent = data.dse || '0';
+                            dseElement.textContent = data.form2_2 ? data.form2_2.dse || '0' : '0';
                         }
 
-                        const dse2Element = document.getElementById('dse2');
+                        const dse2Element = document.getElementById('DSE2');
                         if (dse2Element) {
-                            dse2Element.textContent = data.dse2 || '0';
+                            dse2Element.textContent = data.form2_2 ? data.form2_2.dse2 || '0' : '0';
                         }
-
-                        // Optional: Populate hidden fields if necessary
-                        document.querySelector('input[name="user_id"]').value = data.user_id || '';
-                        document.querySelector('input[name="email"]').value = data.email || '';
-
-                        console.log('hoursElement:', hoursElement);
-                        console.log('horasPosgradoElement:', horasPosgradoElement);
-                        console.log('horasSemestreElement:', horasSemestreElement);
-                        console.log('dseElement:', dseElement);
-                        console.log('dse2Element:', dse2Element);
                     })
                     .catch(error => {
                         console.error('Error fetching docente data:', error);
                     });
+
             }
 
 
@@ -256,7 +249,16 @@ $newLocale = str_replace('_', '-', $locale);
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-</script>
+
+    
+        function minWithSum(value1, value2) {
+            const sum = value1 + value2;
+            return Math.min(sum, 200);
+
+
+        }
+
+    
     </script>
 </body>
 

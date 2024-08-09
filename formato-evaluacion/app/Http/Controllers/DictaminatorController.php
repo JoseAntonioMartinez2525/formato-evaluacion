@@ -29,9 +29,14 @@ class DictaminatorController extends Controller
         $form2Data = UsersResponseForm2::where('user_id', $docente->id)->first();
         $form2_2Data = UsersResponseForm2_2::where('user_id', $docente->id)->first();
 
+        // Return a structured response which includes both form data
         return response()->json([
-            'form2' => $form2Data,
-            'form2_2' => $form2_2Data,
+            'docente' => [
+                'id' => $docente->id,
+                'email' => $docente->email,
+            ],
+            'form2' => $form2Data,    // existing fields can still be accessed
+            'form2_2' => $form2_2Data  // potentially useful for this view
         ]);
     }
 }
