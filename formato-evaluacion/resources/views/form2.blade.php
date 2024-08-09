@@ -52,13 +52,16 @@ $newLocale = str_replace('_', '-', $locale);
                         <li id="reportLink" class="nav-item d-none">
                             <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Apartados 1 y 2</a>
+                        </li>
                     </nav>
                     </form>
                 </section>
             @endif
         @endif
     </div>
-
+    <x-general-header />
     <div class="container mt-4">
         <label for="docenteSelect">Seleccionar Docente:</label>
         <select id="docenteSelect" class="form-select">
