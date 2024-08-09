@@ -413,6 +413,43 @@ padding-top: 50px;
 height: 800px;
 }
 
+/* Estilos para diseño responsivo */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+        padding: 0 20px;
+    }
+
+    .nav-link {
+        display: inline-block;
+        width: auto;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 30px;
+    }
+
+    .nav-link {
+        margin-right: 20px;
+    }
+}
+
+/* Estilos para diseño móvil */
+@media (max-width: 767px) {
+    .container {
+        padding: 0 10px; /* Menos padding para pantallas más pequeñas */
+    }
+
+    .nav-link {
+        display: block; /* Mostrar los enlaces de navegación en bloque para una mejor legibilidad en móviles */
+        width: 100%;
+        margin-bottom: 10px; /* Espacio entre los enlaces de navegación */
+    }
+}
 
 
 
