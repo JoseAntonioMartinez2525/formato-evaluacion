@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DictaminatorForm2_2Controller;
+use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
@@ -92,8 +94,8 @@ Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
 
-Route::post('/storeform2', [DictaminatorsResponseForm2::class, 'storeform2']);
-Route::post('/storeform22', [DictaminatorsResponseForm2_2::class, 'storeform22']);
+Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2']);
+Route::post('/store-form-22', [DictaminatorForm2_2Controller::class, 'storeform22']);
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
