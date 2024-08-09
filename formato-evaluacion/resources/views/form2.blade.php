@@ -196,15 +196,20 @@ $newLocale = str_replace('_', '-', $locale);
                 body: JSON.stringify(formData),
             });
 
+            const text = await response.text(); // Obten la respuesta como texto
+            console.log('Status Code:', response.status); // Agrega el código de estado
+            console.log('Raw response:', text); // Muestra la respuesta sin parsear
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
 
-            let responseData = await response.json();
+            let responseData = JSON.parse(text);
             console.log('Response received from server:', responseData);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
+
     }
     </script>
 </body>

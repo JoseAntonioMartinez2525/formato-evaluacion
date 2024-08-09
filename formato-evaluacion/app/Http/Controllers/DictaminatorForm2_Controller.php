@@ -36,10 +36,7 @@ class DictaminatorForm2_Controller extends Controller
             ], 500);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Form submitted successfully!',
-        ]);
+        return response()->json(['success' => true, 'message' => 'Received data', 'data' => $request->all()]);
     }
 
     public function getFormData2(Request $request)

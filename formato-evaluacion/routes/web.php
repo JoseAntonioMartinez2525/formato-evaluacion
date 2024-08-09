@@ -94,7 +94,9 @@ Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
 
-Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2']);
+// En tu web.php
+Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
+
 Route::post('/store-form-22', [DictaminatorForm2_2Controller::class, 'storeform22']);
 
 //GET formularios
