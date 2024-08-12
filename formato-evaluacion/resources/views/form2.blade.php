@@ -81,7 +81,7 @@ $newLocale = str_replace('_', '-', $locale);
             </div>
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
-            <input type="hidden" name="user_type" value="">
+            <input type="hidden" name="user_type" value="docente">
             <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
             <table class="table table-sm">
                 <thead>
@@ -155,6 +155,7 @@ $newLocale = str_replace('_', '-', $locale);
                             document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
                             document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
                             document.querySelector('input[name="email"]').value = data.form2.email || '';
+                            document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
                         })
                         .catch(error => {
                             console.error('Error fetching docente data:', error);
@@ -178,9 +179,10 @@ $newLocale = str_replace('_', '-', $locale);
 
         // Gather relevant information from the form
         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
         formData['email'] = form.querySelector('input[name="email"]').value;
         formData['horasActv2'] = document.getElementById('horasActv2').textContent;
-        formData['puntajeEvaluarText'] = document.getElementById('puntajeEvaluarText').textContent;
+        formData['puntajeEvaluar'] = document.getElementById('puntajeEvaluarText').textContent;
         formData['comision1'] = form.querySelector('input[name="comision1"]').value;
         formData['obs1'] = form.querySelector('input[name="obs1"]').value;
 

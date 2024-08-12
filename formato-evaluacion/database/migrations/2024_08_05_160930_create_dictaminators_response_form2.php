@@ -14,6 +14,7 @@ class CreateDictaminatorsResponseForm2 extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('email');
+            $table->string('user_type');
             $table->decimal('horasActv2', 8, 2);
             $table->decimal('puntajeEvaluar', 8, 2);
             $table->decimal('comision1', 8, 2);
