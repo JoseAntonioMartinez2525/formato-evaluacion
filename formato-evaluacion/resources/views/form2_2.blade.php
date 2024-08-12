@@ -75,7 +75,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 2_2 -->
-        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/storeform22', 'form2_2');">
+        <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form22', 'form2_2');">
             @csrf
             <div>
                 <!-- Activity 2: Commitment in Teaching Performance -->

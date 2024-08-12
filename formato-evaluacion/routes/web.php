@@ -6,8 +6,6 @@ use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SecretariaController;
-use App\Models\DictaminatorsResponseForm2;
-use App\Models\DictaminatorsResponseForm2_2;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -96,8 +94,7 @@ Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 
 
 // En tu web.php
 Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
-
-Route::post('/store-form-22', [DictaminatorForm2_2Controller::class, 'storeform22']);
+Route::post('/store-form22', [DictaminatorForm2_2Controller::class, 'storeform22'])->withoutMiddleware('auth');;
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
