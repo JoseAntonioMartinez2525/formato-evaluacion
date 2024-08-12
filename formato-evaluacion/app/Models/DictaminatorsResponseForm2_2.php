@@ -19,6 +19,7 @@ class DictaminatorsResponseForm2_2 extends RulesForm2_2
         'actv2Comision',
         'obs2',
         'obs2_2',
+        'user_type',
 
     ];
 

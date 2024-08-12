@@ -23,6 +23,8 @@ class CreateUsersResponseForm22 extends Migration {
             $table->decimal('dse2', 8, 2);
             $table->string('obs2')->nullable();
             $table->string('obs2_2')->nullable();
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
+            
             $table->timestamps();
         });
         \DB::statement("ALTER TABLE users_response_form2_2 MODIFY obs2 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");

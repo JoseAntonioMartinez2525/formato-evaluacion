@@ -524,7 +524,6 @@ $newLocale = str_replace('_', '-', $locale);
             formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
             formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
             formData['obs1'] = form.querySelector('input[name="obs1"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
             break;
 
           case 'form2_2':
@@ -546,7 +545,6 @@ $newLocale = str_replace('_', '-', $locale);
             }
             formData['obs2'] = form.querySelector('input[name="obs2"]').value;
             formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
             break;
         }
 

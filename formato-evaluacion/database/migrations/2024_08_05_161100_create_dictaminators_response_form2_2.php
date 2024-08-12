@@ -17,6 +17,7 @@ class CreateDictaminatorsResponseForm22 extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->decimal('hours', 8, 2);
             $table->decimal('horasPosgrado', 8, 2);
             $table->decimal('horasSemestre', 8, 2);

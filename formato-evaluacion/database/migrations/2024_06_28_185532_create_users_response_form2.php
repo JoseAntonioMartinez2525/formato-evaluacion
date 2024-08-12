@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersResponseForm2 extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users_response_form2', function (Blueprint $table) {
@@ -19,21 +16,17 @@ class CreateUsersResponseForm2 extends Migration
             $table->integer('horasActv2');
             $table->decimal('puntajeEvaluar', 8, 2);
             $table->string('obs1')->nullable();
-            $table->string('user_type')->nullable();  // Asegúrate de que sea un string
-            $table->index('user_type');  // Agrega un índice
-            $table->foreign('user_type')->references('user_type')->on('users')->onDelete('cascade');
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
-
+        
         \DB::statement("ALTER TABLE users_response_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users_response_form2');
     }
 }
+
 
