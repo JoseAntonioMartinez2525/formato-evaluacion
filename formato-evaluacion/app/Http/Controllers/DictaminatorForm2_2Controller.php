@@ -21,7 +21,7 @@ class DictaminatorForm2_2Controller extends Controller
             'comision1' => 'required|numeric',
             'obs2' => 'nullable|string',
             'obs2_2' => 'nullable|string',
-            'user_type' => 'required|in:user,dictaminator',
+            'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
         if (!isset($validatedData['hours'])) {

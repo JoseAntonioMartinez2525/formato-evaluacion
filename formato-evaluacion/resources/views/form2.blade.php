@@ -179,12 +179,12 @@ $newLocale = str_replace('_', '-', $locale);
 
         // Gather relevant information from the form
         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
         formData['email'] = form.querySelector('input[name="email"]').value;
         formData['horasActv2'] = document.getElementById('horasActv2').textContent;
         formData['puntajeEvaluar'] = document.getElementById('puntajeEvaluarText').textContent;
         formData['comision1'] = form.querySelector('input[name="comision1"]').value;
         formData['obs1'] = form.querySelector('input[name="obs1"]').value;
+        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
         console.log('Form data:', formData);
 

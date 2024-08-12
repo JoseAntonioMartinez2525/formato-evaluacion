@@ -19,7 +19,7 @@ class DictaminatorForm2_Controller extends Controller
                 'puntajeEvaluar' => 'required|numeric', 
                 'comision1' => 'required|numeric',
                 'obs1' => 'nullable|string',
-                'user_type' => 'required|in:user,dictaminator',
+                'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
             // Default values for optional fields
