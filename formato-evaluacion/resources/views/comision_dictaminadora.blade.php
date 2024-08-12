@@ -210,7 +210,8 @@ $newLocale = str_replace('_', '-', $locale);
                        formData['horasSemestre'] = form.querySelector('span[id="horasSemestre]').textContent;
                        formData['dse'] = form.querySelector('span[id="dse]').textContent;
                        formData['dse2'] = form.querySelector('span[id="dse2]').textContent;
-
+                        formData['comisionPosgrado'] = form.querySelector('input[name="comisionPosgrado"]').value;
+                        formData['comisionLic'] = form.querySelector('input[name="comisionLic"]').value;
 
                         
                         let actv2ComisionLabel = form.querySelector('td[id="actv2Comision"]');

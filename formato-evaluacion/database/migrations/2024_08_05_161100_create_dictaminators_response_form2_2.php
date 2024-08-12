@@ -23,7 +23,9 @@ class CreateDictaminatorsResponseForm22 extends Migration
             $table->decimal('horasSemestre', 8, 2);
             $table->decimal('dse', 8, 2);
             $table->decimal('dse2', 8, 2);
-            $table->integer('actv2Comision');
+            $table->decimal('comisionPosgrado', 8, 2);
+            $table->decimal('comisionLic', 8, 2);
+            $table->decimal('actv2Comision', 8, 2);
             $table->string('obs2')->nullable();
             $table->string('obs2_2')->nullable();
             $table->timestamps();

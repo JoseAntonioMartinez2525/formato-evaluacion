@@ -16,6 +16,8 @@ class DictaminatorsResponseForm2_2 extends RulesForm2_2
         'horasSemestre',
         'dse',
         'dse2',
+        'comisionPosgrado',
+        'comisionLic',
         'actv2Comision',
         'obs2',
         'obs2_2',

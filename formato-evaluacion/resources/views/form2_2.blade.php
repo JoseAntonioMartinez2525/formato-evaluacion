@@ -85,6 +85,7 @@ $newLocale = str_replace('_', '-', $locale);
             </div>
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
+            <input type="hidden" name="user_type" value="">
             <table class="table table-sm">
                 <thead>
                     <tr>
@@ -100,7 +101,7 @@ $newLocale = str_replace('_', '-', $locale);
                         <td><b>2. Dedicación en el Desempeño docente</b></td>
                         <td for=""></td>
                         <td id="hours" name="hours" for=""><label id="hoursText" for="">0</label></td>
-                        <td id="actv2Comision" name="actv2Comision" for=""></td>
+                        <td id="actv2Comision" for=""></td>
                         </tr>
                         <tr>
                             <td><label for="">a) Posgrado</label>
@@ -109,7 +110,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <td><span id="horasPosgrado" name="horasPosgrado" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="DSE" name="dse" class="puntajeEvaluar" type="text"></label></td>
-                            <td class="comision actv"><input id="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()"></input>
+                            <td class="comision actv"><input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()"></input>
                             </td>
                             <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
                         </tr>
@@ -120,7 +121,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <td><span id="horasSemestre" name="horasSemestre" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="DSE2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
-                            <td class="comision actv"><input id="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>
+                            <td class="comision actv"><input id="comisionLic" name="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>
                             </td>
                             <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
                         </tr>
@@ -191,6 +192,7 @@ $newLocale = str_replace('_', '-', $locale);
                         if (dse2Element) {
                             dse2Element.textContent = data.form2_2 ? data.form2_2.dse2 || '0' : '0';
                         }
+
                     })
                     .catch(error => {
                         console.error('Error fetching docente data:', error);
@@ -219,13 +221,14 @@ $newLocale = str_replace('_', '-', $locale);
         formData['hours'] = document.getElementById('hoursText').textContent;
         formData['horasPosgrado'] = document.getElementById('horasPosgrado').textContent;
         formData['horasSemestre'] = document.getElementById('horasSemestre').textContent;
-        formData['dse'] = document.getElementById('dse').textContent;
-        formData['dse2'] = document.getElementById('dse2').textContent;
+        formData['dse'] = document.getElementById('DSE').textContent;
+        formData['dse2'] = document.getElementById('DSE2').textContent;
         formData['comisionPosgrado'] = form.querySelector('input[name="comisionPosgrado"]').value;
         formData['comisionLic'] = form.querySelector('input[name="comisionLic"]').value;
-        formData['actv2Comision'] = form.querySelector('input[name="actv2Comision"]').value;
+        formData['actv2Comision'] = document.getElementById('actv2Comision').textContent;
         formData['obs2'] = form.querySelector('input[name="obs2"]').value;
         formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
+        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
         console.log('Form data:', formData);
 
