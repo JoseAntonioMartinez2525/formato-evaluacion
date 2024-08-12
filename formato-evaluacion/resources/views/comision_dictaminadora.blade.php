@@ -194,6 +194,7 @@ $newLocale = str_replace('_', '-', $locale);
                     case 'form2':
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
                         formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
                         formData['horasActv2'] = form.querySelector('span[id=horasActv2]').textContent;
                         formData['puntajeEvaluarText'] = form.querySelector('span[id=puntajeEvaluarText]').textContent;
@@ -204,6 +205,7 @@ $newLocale = str_replace('_', '-', $locale);
                     case 'form2_2':
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
                        formData['horasPosgrado'] = form.querySelector('span[id="horasPosgrado]').textContent;
                        formData['horasSemestre'] = form.querySelector('span[id="horasSemestre]').textContent;
                        formData['dse'] = form.querySelector('span[id="dse]').textContent;

@@ -11,6 +11,7 @@ class UsersResponseForm2 extends RulesForm2
     protected $fillable = [
         'user_id',
         'email',
+        'user_type',
         'horasActv2',
         'puntajeEvaluar',
         'obs1',

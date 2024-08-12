@@ -81,7 +81,7 @@ $newLocale = str_replace('_', '-', $locale);
             </div>
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
-            <input type="hidden" name="user_type" value="docente">
+            <input type="hidden" name="user_type" value="">
             <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
             <table class="table table-sm">
                 <thead>

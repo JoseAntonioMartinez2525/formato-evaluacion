@@ -12,18 +12,20 @@ class CreateUsersResponseForm2 extends Migration
     {
         Schema::create('users_response_form2', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Add this line
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->integer('horasActv2');
-            // Change the data type of puntajeEvaluar to decimal with precision 8 and scale 2
             $table->decimal('puntajeEvaluar', 8, 2);
             $table->string('obs1')->nullable();
+            $table->string('user_type')->nullable();  // Asegúrate de que sea un string
+            $table->index('user_type');  // Agrega un índice
+            $table->foreign('user_type')->references('user_type')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
-        \DB::statement("ALTER TABLE users_response_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
 
+        \DB::statement("ALTER TABLE users_response_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
     }
 
     /**
@@ -34,4 +36,4 @@ class CreateUsersResponseForm2 extends Migration
         Schema::dropIfExists('users_response_form2');
     }
 }
-;
+
