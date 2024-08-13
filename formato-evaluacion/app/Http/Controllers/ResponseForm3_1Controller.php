@@ -15,8 +15,12 @@ class ResponseForm3_1Controller extends Controller
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
+            'elaboracionSubTotal3' => 'required|numeric',
+            'elaboracion4' => 'required|numeric',
+            'elaboracionSubTotal4' => 'required|numeric',
+            'elaboracion5' => 'required|numeric',
+            'elaboracionSubTotal5' => 'required|numeric',
             'score3_1' => 'required|numeric',
-            'actv3Comision' => 'required|numeric',
             'obs3_1_1' => 'nullable|string',
             'obs3_1_2' => 'nullable|string',
             'obs3_1_3' => 'nullable|string',

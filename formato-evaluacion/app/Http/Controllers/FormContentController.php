@@ -11,7 +11,9 @@ class FormContentController extends Controller
             return view('form2')->render();
         } elseif ($form === 'form2_2') {
             return view('form2_2')->render();
-        } else {
+        } else if($form === 'form3_1'){
+            return view('form3_1')->render();
+        }else {
             return response()->json(['error' => 'Formulario no encontrado'], 404);
         }
     }

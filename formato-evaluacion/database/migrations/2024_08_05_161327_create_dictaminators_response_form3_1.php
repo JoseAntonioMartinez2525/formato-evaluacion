@@ -16,12 +16,29 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
-            $table->integer('actv3Comision');
+            $table->decimal('elaboracion', 8, 2);
+            $table->decimal('elaboracionSubTotal1', 8, 2);
+            $table->decimal('elaboracion2', 8, 2);
+            $table->decimal('elaboracionSubTotal2', 8, 2);
+            $table->decimal('elaboracion3', 8, 2);
+            $table->decimal('elaboracionSubTotal3', 8, 2);
+            $table->decimal('elaboracion4', 8, 2);
+            $table->decimal('elaboracionSubTotal4', 8, 2);
+            $table->decimal('elaboracion5', 8, 2);
+            $table->decimal('elaboracionSubTotal5', 8, 2);
+            $table->decimal('comisionIncisoA', 8, 2);
+            $table->decimal('comisionIncisoB', 8, 2);
+            $table->decimal('comisionIncisoC', 8, 2);
+            $table->decimal('comisionIncisoD', 8, 2);
+            $table->decimal('comisionIncisoE', 8, 2);
+            $table->decimal('score3_1', 8, 2);
+            $table->decimal('actv3Comision', 8, 2);
             $table->string('obs3_1_1')->nullable(); // Allow null values
             $table->string('obs3_1_2')->nullable(); // Allow null values
             $table->string('obs3_1_3')->nullable(); // Allow null values
             $table->string('obs3_1_4')->nullable(); // Allow null values
             $table->string('obs3_1_5')->nullable(); // Allow null values
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

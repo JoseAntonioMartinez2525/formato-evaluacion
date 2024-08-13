@@ -17,6 +17,16 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_1', 8, 2);
+            $table->decimal('elaboracion', 8, 2);
+            $table->decimal('elaboracionSubTotal1', 8, 2);
+            $table->decimal('elaboracion2', 8, 2);
+            $table->decimal('elaboracionSubTotal2', 8, 2);
+            $table->decimal('elaboracion3', 8, 2);
+            $table->decimal('elaboracionSubTotal3', 8, 2);
+            $table->decimal('elaboracion4', 8, 2);
+            $table->decimal('elaboracionSubTotal4', 8, 2);
+            $table->decimal('elaboracion5', 8, 2);
+            $table->decimal('elaboracionSubTotal5', 8, 2);
             $table->string('obs3_1_1')->nullable(); // Allow null values
             $table->string('obs3_1_2')->nullable(); // Allow null values
             $table->string('obs3_1_3')->nullable(); // Allow null values
