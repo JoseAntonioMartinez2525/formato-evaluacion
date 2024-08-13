@@ -12,6 +12,7 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
   <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+  <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
   
   <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
   <style>
@@ -132,23 +133,23 @@
       <td>I</td>
       </tr>
       <?php
-    $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
-    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-    for ($i = 0; $i < count($minima); $i += 2) {
+  $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
+  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-    }
+  }
       ?>
 
       </tbody>
       <?php
-    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-    $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
-    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+  $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
+  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">

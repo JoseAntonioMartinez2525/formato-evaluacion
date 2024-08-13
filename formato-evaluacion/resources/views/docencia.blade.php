@@ -15,6 +15,7 @@
     <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="{{ asset('js/minimos.js') }}"></script>

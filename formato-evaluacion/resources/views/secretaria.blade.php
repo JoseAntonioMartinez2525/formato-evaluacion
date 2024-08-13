@@ -1,6 +1,6 @@
 @php
-    $locale = app()->getLocale() ?: 'en';
-    $newLocale = str_replace('_', '-', $locale);
+$locale = app()->getLocale() ?: 'en';
+$newLocale = str_replace('_', '-', $locale);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -16,6 +16,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="{{ asset('js/privileges.js') }}"></script>

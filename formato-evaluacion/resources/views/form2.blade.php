@@ -16,6 +16,7 @@ $newLocale = str_replace('_', '-', $locale);
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="{{ asset('js/privileges.js') }}"></script>
@@ -32,7 +33,7 @@ $newLocale = str_replace('_', '-', $locale);
                 <section role="region" aria-label="Response form">
                     <form>
                         @csrf
-                    <nav class="nav flex-column">
+                    <nav class="nav flex-column printButtonClass">
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
                         </li>
@@ -110,7 +111,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <input id="obs1" name="obs1" class="table-header" type="text">
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="submit" class="btn btn-primary printButtonClass">Enviar</button>
                         </td>
                     </tr>
                 </tbody>

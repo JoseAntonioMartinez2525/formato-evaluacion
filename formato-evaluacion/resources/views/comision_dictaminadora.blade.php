@@ -15,6 +15,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="{{ asset('js/privileges.js') }}"></script>
@@ -34,47 +35,47 @@ $newLocale = str_replace('_', '-', $locale);
 
 <body class="font-sans antialiased">
     @auth
-            @if(Auth::user()->user_type === 'dictaminador')
+        @if(Auth::user()->user_type === 'dictaminador')
 
-                                <nav class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
-                                    </li><br>
-                                    <li id="jsonDataLink" class="d-none">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                                    </li>
-                                    <li id="reportLink" class="nav-item d-none">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                                    </li>
-                                </nav>
-                <x-general-header />
+                            <nav class="nav flex-column printButtonClass">
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                                </li><br>
+                                <li id="jsonDataLink" class="d-none">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                                </li>
+                                <li id="reportLink" class="nav-item d-none">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                                </li>
+                            </nav>
+            <x-general-header />
 
-                        <div class="container mt-4">
-                            <!-- Selector para elegir el formulario -->
-                            <label for="formSelect">Seleccionar Formulario:</label>
-                            <select id="formSelect" class="form-select">
-                                <option value=""></option>
-                                <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                                <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                            </select>
+                    <div class="container mt-4">
+                        <!-- Selector para elegir el formulario -->
+                        <label for="formSelect">Seleccionar Formulario:</label>
+                        <select id="formSelect" class="form-select">
+                            <option value=""></option>
+                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                        </select>
+                    </div>
+
+                    <div id="formContainer">
+                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
                         </div>
 
-                        <div id="formContainer">
-                            <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                            </div>
-
-            @else
-                <p>No tienes permisos para ver esta página.</p>
-            @endif
+        @else
+            <p>No tienes permisos para ver esta página.</p>
+        @endif
     @else
         <p>Por favor, inicia sesión.</p>
     @endauth
