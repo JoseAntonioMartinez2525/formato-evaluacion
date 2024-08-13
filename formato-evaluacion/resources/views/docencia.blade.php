@@ -305,7 +305,7 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>H.CGU</b> puntos a,b y e; <b>CAAC</b> puntos d y e</th>
-                                            <th> <button id="btn3_1" type="submit" class="btn btn-primary">Enviar</th>
+                                            <th> <button id="btn3_1" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
                                         </tr>
 
 
@@ -396,7 +396,7 @@
                                                 <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                                 <th class="descripcionDDIE"><b>DDIE</b>
-                                                <th> <button id="btn3_2" type="submit" class="btn btn-primary">Enviar</th>
+                                                <th> <button id="btn3_2" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
                                             </tr>
 
                                         </thead>
@@ -535,7 +535,7 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-                                            <th><button id="btn3_3" type="submit" class="btn btn-primary">Enviar</th>
+                                            <th><button id="btn3_3" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -615,7 +615,7 @@
                 <tr><br>
                     <th class="acreditacion" scope="col">Acreditacion: </th>
                     <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-                    <th><button id="btn3_4" type="submit" class="btn btn-primary">Enviar</button></th>
+                    <th><button id="btn3_4" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                 </tr>
             </thead>
         </table>
@@ -694,7 +694,7 @@
                                                 <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                                 <th class="descripcion"><b>JDA y CAAC</b>
-                                                <th><button id="btn3_5" type="submit" class="btn btn-primary">Enviar</th>
+                                                <th><button id="btn3_5" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -759,7 +759,7 @@
 
                                                         <th class="descripcion"><b>DDIE</b>
 
-                                                        <th><button id="btn3_6" type="submit" class="btn btn-primary">Enviar
+                                                        <th><button id="btn3_6" type="submit" class="btn btn-primary printButtonClass">Enviar
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -824,7 +824,7 @@
                                                     <tr>
                                                         <th class="acreditacion" scope="col">Acreditacion: </th>
                                                         <th class="descripcion"><b>JD,CAAC, instancia que organiza</b></th>
-                                                        <th><button id="btn3_7" type="submit" class="btn btn-primary">Enviar
+                                                        <th><button id="btn3_7" type="submit" class="btn btn-primary printButtonClass">Enviar
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -897,7 +897,7 @@
                                                                 institución y el convenio acuerdo con
                                                                 la
                                                                 UABCS.</b> </th>
-                                                        <th><button id="btn3_8" type="submit" class="btn btn-primary">Enviar
+                                                        <th><button id="btn3_8" type="submit" class="btn btn-primary printButtonClass">Enviar
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -1230,7 +1230,7 @@
 
                                                         <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
                                                         </th>
-                                                        <th><button id="btn3_9" type="submit" class="btn btn-primary">Enviar</button></th>
+                                                        <th><button id="btn3_9" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -1321,7 +1321,7 @@
 
                                                     <th class="descripcion"><b>DDIE</b> </th>
 
-                                                    <th><button id="btn3_10" type="submit" class="btn btn-primary">Enviar</button></th>
+                                                    <th><button id="btn3_10" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
 
                                                 </tr>
                                             </thead>
@@ -1434,7 +1434,7 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>JD, *DSEs</b> </th>
-                                            <th><button id="btn3_11" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_11" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -1656,7 +1656,7 @@
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
 
                                             <th class="descripcion"><b>Instancia que la otorga</b> </th>
-                                            <th><button id="btn3_12" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_12" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -1781,7 +1781,7 @@
 
                                             <th class="descripcion"><b>CAAC, DIIP</b> </th>
 
-                                            <th><button id="btn3_12" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_12" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -1886,7 +1886,7 @@
 
                                             <th class="descripcion"><b>Instancia que otorga</b> </th>
 
-                                            <th><button id="btn3_14" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_14" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -1969,7 +1969,7 @@
 
                                             <th class="descripcion"><b>IMPI</b></th>
 
-                                            <th><button id="btn3_15" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_15" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table> 
@@ -2142,7 +2142,7 @@
                                                     DIIP, SG, CA,
                                                     JD.</b>
                                             </th>
-                                            <th><button id="btn3_16" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_16" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table> 
@@ -2269,7 +2269,7 @@
                                         <tr>
                                             <th class="acreditacion" scope="col">Acreditacion: </th>
                                             <th class="descripcion"><b>CAAC, DDCEU</b></th>
-                                            <th><button id="btn3_17" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_17" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -2525,7 +2525,7 @@
                                                 de institución extranjera</th>
                                             <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                                             <th class="descripcion"><b>Instancia que lo otorga</b></th>
-                                            <th><button id="btn3_18" type="submit" class="btn btn-primary">Enviar</button></th>
+                                            <th><button id="btn3_18" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -2896,7 +2896,7 @@
                                                     financiera de institución extranjera</th>
                                                 <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                                                 <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
-                                                <th><button id="btn3_19" type="submit" class="btn btn-primary">Enviar</button></th>
+                                                <th><button id="btn3_19" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
                                             </tr>
                                         </thead>
                                     </table>
