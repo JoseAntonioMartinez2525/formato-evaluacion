@@ -66,6 +66,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <option value=""></option>
                             <option value="form2">1. Permanencia en las actividades de la docencia</option>
                             <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                            <option value="form3_1">3.1 Participación en actividades de diseño curricular</option>
                         </select>
                     </div>
 

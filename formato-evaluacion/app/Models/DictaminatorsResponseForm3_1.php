@@ -11,13 +11,32 @@ class DictaminatorsResponseForm3_1 extends Model
     protected $fillable = [
         'user_id',
         'email',
+        'elaboracion',
+        'elaboracionSubTotal1',
+        'comisionIncisoA',
+        'elaboracion2',
+        'elaboracionSubTotal2',
+        'comisionIncisoB',
+        'elaboracion3',
+        'elaboracionSubTotal3',
+        'comisionIncisoC',
+        'elaboracion4',
+        'elaboracionSubTotal4',
+        'comisionIncisoD',
+        'elaboracion5',
+        'elaboracionSubTotal5',
+        'comisionIncisoE',        
+        'score3_1',
         'actv3Comision',
         'obs3_1_1',
         'obs3_1_2',
         'obs3_1_3',
         'obs3_1_4',
         'obs3_1_5',
+        'user_type',
     ];
+
+    
 
 
     protected $table = 'dictaminators_response_form3_1';

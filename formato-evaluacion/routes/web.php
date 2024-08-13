@@ -53,10 +53,10 @@ Route::get('docencia', function () {return view('docencia'); })->name('docencia'
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
 Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
-Route::get('form2', function () {
-    return view('form2'); })->name('form2');
-Route::get('form2_2', function () {
-    return view('form2_2'); })->name('form2_2');
+Route::get('form2', function () {return view('form2'); })->name('form2');
+Route::get('form2_2', function () {return view('form2_2'); })->name('form2_2');
+Route::get('form3_1', function () {return view('form3_1'); })->name('form3_1');
+
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
 

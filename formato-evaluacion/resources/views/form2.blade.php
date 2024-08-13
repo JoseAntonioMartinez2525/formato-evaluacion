@@ -40,10 +40,12 @@ $newLocale = str_replace('_', '-', $locale);
                         <li class="nav-item">
                             <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la
                                 docencia</a>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la
                                 Comisión del PEDPD)</a>
@@ -55,7 +57,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Apartados 1 y 2</a>
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Apartados 1, 2, 3</a>
                         </li>
                     </nav>
                     </form>
