@@ -94,6 +94,7 @@
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 <div>
                                     <!-- Actividad 3.1 Participación en actividades de diseño curricular -->
                                     <h4>Puntaje máximo
@@ -164,7 +165,7 @@
 
                                                         </td>
 
-                                                        <td class="elabInput"><input id="elaboracion" type="text"
+                                                        <td class="elabInput"><input id="elaboracion" name="elaboracion" type="number"
                                                                 oninput="onActv3Subtotal()" placeholder="0"></td>
                                                         <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
                                                         <td class="comision actv"><input id="comisionIncisoA" placeholder="0"
@@ -190,7 +191,7 @@
                                                                     <label for=""></label>
                                                                     <label id="puntaje40" for=""><b>40</b></label>
                                                                 </td>
-                                                                <td class="elabInput"><input id="elaboracion2" type="text"
+                                                                <td class="elabInput"><input id="elaboracion2" name="elaboracion2" type="number"
                                                                         oninput="onActv3Subtotal()" placeholder="0"></td>
                                                                 <td><label id="elaboracionSubTotal2" for="" type="text"></label>
                                                                 </td>
@@ -219,7 +220,7 @@
                                                                     <label for=""></label>
                                                                     <label id="puntaje10" for=""><b>10</b></label>
                                                                 </td>
-                                                                <td class="elabInput"><input id="elaboracion3" type="text"
+                                                                <td class="elabInput"><input id="elaboracion3" name="elaboracion3" type="number"
                                                                         oninput="onActv3Subtotal()" placeholder="0"></td>
                                                                 <td><label id="elaboracionSubTotal3" for="" type="text"></label>
                                                                 </td>
@@ -249,7 +250,7 @@
 
                                                                     <label id="puntaje20" for=""><b>20</b></label>
                                                                 </td>
-                                                                <td class="elabInput"><input id="elaboracion4" type="text"
+                                                                <td class="elabInput"><input id="elaboracion4" name="elaboracion4" type="number"
                                                                         oninput="onActv3Subtotal()" placeholder="0"></td>
                                                                 <td><label id="elaboracionSubTotal4" for="" type="text"></label>
                                                                 </td>
@@ -279,7 +280,7 @@
                                                                     <label for=""></label>
                                                                     <label id="p10" for=""><b>10</b></label>
                                                                 </td>
-                                                                <td class="elabInput"><input id="elaboracion5" type="text"
+                                                                <td class="elabInput"><input id="elaboracion5" name="elaboracion5" type="number"
                                                                         oninput="onActv3Subtotal()" placeholder="0"></td>
                                                                 <td><label id="elaboracionSubTotal5" for="" type="text"></label>
                                                                 </td>
@@ -317,6 +318,7 @@
                                 onsubmit="event.preventDefault(); submitForm('/store32', 'form3_2');">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <div>
                                     <!-- Actividad 3.2 Calidad del desempeño docente evaluada por el alumnado -->
@@ -3142,9 +3144,9 @@
                 function actualizarData() {
                     data[this.id] = this.value;
                 }
-                document.addEventListener('DOMContentLoaded', function () {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
                     async function submitForm(url, formId) {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                         // Get form data
                         let formData = {};
                         let gridOptions = {};
@@ -3182,15 +3184,27 @@
                         // Collect common form data (if any)
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
                         switch (formId) {
 
                             case 'form3_1':
 
                                 let score3_1Label = form.querySelector('td[id="score3_1"]');
-                                let actv3ComisionLabel = form.querySelector('td[id="actv3Comision"]');
+                                //let actv3ComisionLabel = form.querySelector('td[id="actv3Comision"]');
+                               formData['elaboracion'] =  form.querySelector('input[name="elaboracion"]').value; 
+                               formData['elaboracion2'] = form.querySelector('input[name="elaboracion2"]').value; 
+                               formData['elaboracion3'] = form.querySelector('input[name="elaboracion3"]').value;
+                                formData['elaboracion4'] = form.querySelector('input[name="elaboracion4"]').value;
+                                formData['elaboracion5'] = form.querySelector('input[name="elaboracion5"]').value;   
+                                formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
+                                formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
+                                formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
+                                formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
+                                formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
+
 
                                 formData['score3_1'] = score3_1Label.innerText;
-                                formData['actv3Comision'] = actv3ComisionLabel.innerText;
+                                //formData['actv3Comision'] = actv3ComisionLabel.innerText;
                                 for (let i = 1; i <= 5; i++) {
                                     formData[`obs3_1_${i}`] = form.querySelector(`input[id="obs3_1_${i}"]`).value;
                                 }
@@ -3432,12 +3446,8 @@
                         //formData['docencia'] = form.querySelector('input[id="docencia"]').value;
                         console.log(docencia);
                         console.log('Form data:', formData); // Log form data to check values
-                        //if (!formData.hasOwnProperty('score3_1')) {
-                        // Si score3_1 no está en formData, proporciona un valor predeterminado
-                        //formData['score3_1'] = ''; // Aquí puedes proporcionar cualquier valor predeterminado que desees
-                        //}
 
-
+                        // Enviar datos al servidor
                         try {
                             let response = await fetch(url, {
                                 method: 'POST',
@@ -3448,19 +3458,118 @@
                                 body: JSON.stringify(formData),
                             });
 
+                            const responseText = await response.text(); // Obtener la respuesta como texto
+                            console.log('Raw response from server:', responseText); // Ver qué se devuelve
+
                             if (!response.ok) {
-                                throw new Error('Network response was not ok');
+                                throw new Error('Network response was not ok ' + response.statusText);
                             }
 
-                            let data = await response.json();
+                            let data = await response.json(); // Esto será seguro de usar si estás seguro de que la respuesta es JSON
                             console.log('Response received from server:', data);
                         } catch (error) {
                             console.error('There was a problem with the fetch operation:', error);
                         }
                     }
 
-                    window.submitForm = submitForm;
+
+        // Cuando el DOM se ha cargado completamente, puedes agregar los controladores de eventos
+        document.addEventListener('DOMContentLoaded', function () {
+            // Asociar la función a los formularios
+            const form3_1 = document.getElementById('form3_1');
+            if (form3_1) {
+                form3_1.onsubmit = function (event) {
+                    event.preventDefault(); // Previene el envío por defecto
+                    submitForm('/store31', 'form3_1'); // Llama a la función submitForm
+                };
+            }
+
+            const form3_2 = document.getElementById('form3_2');
+            if (form3_2) {
+                form3_2.onsubmit = function (event) {
+                    event.preventDefault(); // Previene el envío por defecto
+                    submitForm('/store32', 'form3_2'); // Llama a la función submitForm
+                };
+            }
+        });
+
+
+
+        // Función para actualizar el label en el footer con la convocatoria y periodo de evaluación
+        function actualizarLabelConvocatoriaPeriodo(convocatoria, periodo) {
+            const label = document.getElementById('convocatoriaPeriodoLabel');
+            label.textContent = `Convocatoria: ${convocatoria}, Período: ${periodo}`;
+        }
+
+        // Captura la convocatoria y periodo de evaluación al enviar el formulario form1
+        document.addEventListener('DOMContentLoaded', function () {
+            const form1 = document.getElementById('form1');
+            form1.addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita el envío del formulario para manejarlo con JavaScript
+
+                // Captura los valores del formulario form1
+                const convocatoria = document.getElementById('convocatoria').value;
+                const periodo = document.getElementById('periodo').value;
+
+                // Actualiza el label en el footer con los valores capturados
+                actualizarLabelConvocatoriaPeriodo(convocatoria, periodo);
+                console.log(label);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the canvas element
+            var canvas = document.getElementById('convocatoriaCanvas');
+            var context = canvas.getContext('2d');
+
+            // Function to update the canvas with 'Convocatoria' value
+            function updateCanvas(text) {
+                // Clear the canvas
+                context.clearRect(200, 100, canvas.width, canvas.height);
+
+                // Set text properties
+                context.font = '20px Arial';
+                context.fillStyle = 'black';
+                context.textAlign = 'right';
+                context.textBaseline = 'middle';
+
+                // Draw the text
+                context.fillText(text, canvas.width / 2, canvas.height / 2);
+            }
+
+            // Get the input element with id 'convocatoria'
+            var convocatoriaInput = document.getElementById('convocatoria');
+            if (convocatoriaInput) {
+                // Update the canvas initially with the placeholder value or empty
+                updateCanvas(convocatoriaInput.placeholder);
+
+                // Listen for input events to dynamically update the canvas
+                convocatoriaInput.addEventListener('input', function () {
+                    var newValue = convocatoriaInput.value;
+                    updateCanvas(newValue);
                 });
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+
+            const allowedEmails = [
+                'joma_18@alu.uabcs.mx',
+                'oa.campillo@uabcs.mx',
+                'rluna@uabcs.mx',
+                'v.andrade@uabcs.mx'
+            ];
+
+            // Verifica si el email está en la lista de correos permitidos
+            if (allowedEmails.includes(userEmail)) {
+                // Muestra el enlace
+                document.getElementById('jsonDataLink').classList.remove('d-none');
+            }
+        });
+
+
 
 
             </script>

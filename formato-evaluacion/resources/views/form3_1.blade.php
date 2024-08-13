@@ -328,32 +328,39 @@ $newLocale = str_replace('_', '-', $locale);
 
                             const score3_1 = document.getElementById('score3_1');
                             if (score3_1) {
-                                score3_1.textContent = data.form2_2 ? data.form2_2.hours || '0' : '0';
+                                score3_1.textContent = data.form3_1 ? data.form3_1.score3_1 || '0' : '0';
                             }
 
-                            const horasPosgradoElement = document.getElementById('horasPosgrado');
-                            if (horasPosgradoElement) {
-                                horasPosgradoElement.textContent = data.form2_2 ? data.form2_2.horasPosgrado || '0' : '0';
+                            const elaboracion = document.getElementById('elaboracion');
+                            if (elaboracion) {
+                                elaboracion.textContent = data.form3_1 ? data.form3_1.elaboracion || '0' : '0';
                             }
 
-                            const horasSemestreElement = document.getElementById('horasSemestre');
-                            if (horasSemestreElement) {
-                                horasSemestreElement.textContent = data.form2_2 ? data.form2_2.horasSemestre || '0' : '0';
+                            const elaboracionSubTotal1 = document.getElementById('elaboracionSubTotal1');
+                            if (elaboracionSubTotal1) {
+                                elaboracionSubTotal1.textContent = data.form3_1 ? data.form3_1.elaboracionSubTotal1 || '0' : '0';
                             }
 
-                            const dseElement = document.getElementById('DSE');
-                            if (dseElement) {
-                                dseElement.textContent = data.form2_2 ? data.form2_2.dse || '0' : '0';
+                            const elaboracion2 = document.getElementById('elaboracion2');
+                            if (elaboracion2) {
+                                elaboracion2.textContent = data.form3_1 ? data.form3_1.elaboracion2 || '0' : '0';
                             }
 
-                            const dse2Element = document.getElementById('DSE2');
-                            if (dse2Element) {
-                                dse2Element.textContent = data.form2_2 ? data.form2_2.dse2 || '0' : '0';
+                            const elaboracionSubTotal2 = document.getElementById('elaboracionSubTotal2');
+                            if (elaboracionSubTotal2) {
+                                elaboracionSubTotal2.textContent = data.form3_1 ? data.form3_1.elaboracionSubTotal2 || '0' : '0';
                             }
 
-                            document.querySelector('input[name="user_id"]').value = data.form2_2.user_id || '';
-                            document.querySelector('input[name="email"]').value = data.form2_2.email || '';
-                            document.querySelector('input[name="user_type"]').value = data.form2_2.user_type || '';
+                            document.getElementById('elaboracion3').textContent = data.form2.elaboracion3 || '0';
+                            document.getElementById('elaboracionSubTotal3').textContent = data.form2.elaboracionSubTotal3 || '0';
+                            document.getElementById('elaboracion4').textContent = data.form2.elaboracion4 || '0';
+                            document.getElementById('elaboracionSubTotal4').textContent = data.form2.elaboracionSubTotal4 || '0';
+                            document.getElementById('elaboracion5').textContent = data.form2.elaboracion5 || '0';
+                            document.getElementById('elaboracionSubTotal5').textContent = data.form2.elaboracionSubTotal5 || '0';
+
+                            document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
+                            document.querySelector('input[name="email"]').value = data.form3_1.email || '';
+                            document.querySelector('input[name="user_type"]').value = data.form3_1.user_type || '';
 
                         })
                         .catch(error => {
