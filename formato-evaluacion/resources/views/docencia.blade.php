@@ -3484,13 +3484,6 @@
                 };
             }
 
-            const form3_2 = document.getElementById('form3_2');
-            if (form3_2) {
-                form3_2.onsubmit = function (event) {
-                    event.preventDefault(); // Previene el envío por defecto
-                    submitForm('/store32', 'form3_2'); // Llama a la función submitForm
-                };
-            }
         });
 
 

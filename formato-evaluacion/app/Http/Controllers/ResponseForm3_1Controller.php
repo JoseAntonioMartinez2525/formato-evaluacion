@@ -11,10 +11,16 @@ class ResponseForm3_1Controller extends Controller
 {
     public function store31(Request $request)
     {
+        try {
         // Validate request data
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
+            'elaboracionSubTotal1' => 'required|numeric',
+            'elaboracion' => 'required|numeric',
+            'elaboracion2' => 'required|numeric',
+            'elaboracion3' => 'required|numeric',
+            'elaboracionSubTotal2' => 'required|numeric',
             'elaboracionSubTotal3' => 'required|numeric',
             'elaboracion4' => 'required|numeric',
             'elaboracionSubTotal4' => 'required|numeric',
@@ -26,9 +32,12 @@ class ResponseForm3_1Controller extends Controller
             'obs3_1_3' => 'nullable|string',
             'obs3_1_4' => 'nullable|string',
             'obs3_1_5' => 'nullable|string',
-            'user_type' => 'required|in:user,dictaminator',
+            'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
+            if (!isset($validatedData['score3_1'])) {
+                $validatedData['score3_1'] = 0;
+            }
         // Assign default value if not provided
         $validatedData['obs3_1_1'] = $validatedData['obs3_1_1'] ?? 'sin comentarios';
         $validatedData['obs3_1_2'] = $validatedData['obs3_1_2'] ?? 'sin comentarios';
@@ -36,11 +45,8 @@ class ResponseForm3_1Controller extends Controller
         $validatedData['obs3_1_4'] = $validatedData['obs3_1_4'] ?? 'sin comentarios';
         $validatedData['obs3_1_5'] = $validatedData['obs3_1_5'] ?? 'sin comentarios';
 
-        if ($validatedData['user_type'] == 'dictaminator') {
-            DictaminatorsResponseForm3_1::create($validatedData);
-        }
-        else{
-        try {
+
+
             // Create a new record using Eloquent ORM
             UsersResponseForm3_1::create($validatedData);
 
@@ -51,9 +57,9 @@ class ResponseForm3_1Controller extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error submitting form: ' . $e->getMessage(),
+                'message' => 'Error: ' . $e->getMessage(),
             ], 500);
-        }}
+        }
     }
 
     public function getData31(Request $request)
@@ -61,11 +67,11 @@ class ResponseForm3_1Controller extends Controller
 
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'user_type' => 'required|in:user,dictaminator', // Nuevo campo para distinguir entre usuarios
+            'user_type' => 'required|in:user,docente,dictaminator', // Nuevo campo para distinguir entre usuarios
         ]);
 
         // Obtener datos de la tabla correspondiente según el tipo de usuario
-        if ($validatedData['user_type'] == 'user') {
+        if ($validatedData['user_type'] == 'docente') {
             $data = UsersResponseForm3_1::where('user_id', $request->query('user_id'))->first();
         } elseif ($validatedData['user_type'] == 'dictaminator') {
             $data = DictaminatorsResponseForm3_1::where('user_id', $request->query('user_id'))->first();
