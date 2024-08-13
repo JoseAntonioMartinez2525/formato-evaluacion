@@ -206,6 +206,7 @@ $newLocale = str_replace('_', '-', $locale);
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
                         formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+                        formData['hours'] = document.querySelector('label[id=hoursText]').textContent;
                        formData['horasPosgrado'] = form.querySelector('span[id="horasPosgrado]').textContent;
                        formData['horasSemestre'] = form.querySelector('span[id="horasSemestre]').textContent;
                        formData['dse'] = form.querySelector('span[id="dse]').textContent;
@@ -222,6 +223,8 @@ $newLocale = str_replace('_', '-', $locale);
                             formData['actv2Comision'] = actv2ComisionLabel.innerText;
                         }
                         break;
+                        formData['obs2'] = form.querySelector('input[name="obs2"]').value;
+                        formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
 
                 }
                 console.log('Form data:', formData);

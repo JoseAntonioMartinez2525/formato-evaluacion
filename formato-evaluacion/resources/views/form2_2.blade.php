@@ -193,6 +193,10 @@ $newLocale = str_replace('_', '-', $locale);
                             dse2Element.textContent = data.form2_2 ? data.form2_2.dse2 || '0' : '0';
                         }
 
+                        document.querySelector('input[name="user_id"]').value = data.form2_2.user_id || '';
+                        document.querySelector('input[name="email"]').value = data.form2_2.email || '';
+                        document.querySelector('input[name="user_type"]').value = data.form2_2.user_type || '';
+
                     })
                     .catch(error => {
                         console.error('Error fetching docente data:', error);
