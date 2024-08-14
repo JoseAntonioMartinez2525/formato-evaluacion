@@ -11,6 +11,7 @@ class DictaminatorForm3_1Controller extends Controller
 {
     public function storeform31(Request $request)
     {
+        \Log::info('Request data:', $request->all()); // Ver los datos que se están haciendo
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required|exists:users,id',
@@ -39,6 +40,8 @@ class DictaminatorForm3_1Controller extends Controller
                 'obs3_1_5' => 'nullable|string',
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
+
+            \Log::info('Validated Data:', $validatedData);
 
             if (!isset($validatedData['score3_1'])) {
                 $validatedData['score3_1'] = 0;
