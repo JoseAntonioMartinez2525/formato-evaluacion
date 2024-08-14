@@ -19,6 +19,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
+    <script src="{{ asset('js/minimos.js') }}"></script>
     <script src="{{ asset('js/privileges.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
@@ -160,7 +161,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
                                     <td class="comision actv"><input id="comisionIncisoA" placeholder="0" for=""
                                             oninput="onActv3Comision()"></input></td>
-                                    <td><input id="obs3_1_1" class="table-header" type="text"></td>
+                                    <td><input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text"></td>
                                     <thead>
                                         <tr>
                                             <td>b)
@@ -186,7 +187,7 @@ $newLocale = str_replace('_', '-', $locale);
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoB" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_2" class="table-header" type="text"></td>
+                                            <td><input id="obs3_1_2" name="obs3_1_2" class="table-header" type="text"></td>
                                         </tr>
                                     </thead>
                                     <thead>
@@ -213,7 +214,7 @@ $newLocale = str_replace('_', '-', $locale);
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoC" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_3" class="table-header" type="text"></td>
+                                            <td><input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text"></td>
                                         </tr>
                                     </thead>
                                     <thead>
@@ -241,7 +242,7 @@ $newLocale = str_replace('_', '-', $locale);
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoD" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_4" class="table-header" type="text"></td>
+                                            <td><input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text"></td>
                                         </tr>
                                     </thead>
                                     <thead>
@@ -269,7 +270,7 @@ $newLocale = str_replace('_', '-', $locale);
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoE" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_5" class="table-header" type="text"></td>
+                                            <td><input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text"></td>
                                         </tr>
                                     </thead>
                                 </tr>
@@ -402,16 +403,30 @@ $newLocale = str_replace('_', '-', $locale);
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-            formData['hours'] = document.getElementById('hoursText').textContent;
-            formData['horasPosgrado'] = document.getElementById('horasPosgrado').textContent;
-            formData['horasSemestre'] = document.getElementById('horasSemestre').textContent;
-            formData['dse'] = document.getElementById('DSE').textContent;
-            formData['dse2'] = document.getElementById('DSE2').textContent;
-            formData['comisionPosgrado'] = form.querySelector('input[name="comisionPosgrado"]').value;
-            formData['comisionLic'] = form.querySelector('input[name="comisionLic"]').value;
-            formData['actv2Comision'] = document.getElementById('actv2Comision').textContent;
-            formData['obs2'] = form.querySelector('input[name="obs2"]').value;
-            formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
+
+            formData['elaboracion'] = document.getElementById('elaboracion').textContent;
+            formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
+            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').textContent;
+            formData['elaboracion2'] = document.getElementById('elaboracion2').textContent;
+            formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
+            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').textContent;
+            formData['elaboracion3'] = document.getElementById('elaboracion3').textContent;
+            formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
+            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').textContent;
+            formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
+            formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
+            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').textContent;
+            formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
+            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
+            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').textContent;
+            formData['score3_1'] = document.getElementById('score3_1').textContent;
+            formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
+
+            formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;
+            formData['obs3_1_2'] = form.querySelector('input[name="obs3_1_2"]').value;
+            formData['obs3_1_3'] = form.querySelector('input[name="obs3_1_3"]').value;
+            formData['obs3_1_4'] = form.querySelector('input[name="obs3_1_4"]').value;
+            formData['obs3_1_5'] = form.querySelector('input[name="obs3_1_5"]').value;
 
 
             console.log('Form data:', formData);
@@ -453,45 +468,25 @@ $newLocale = str_replace('_', '-', $locale);
         // Function to update the canvas with 'Convocatoria' value
         function updateCanvas(text) {
             // Clear the canvas
-            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.clearRect(200, 100, canvas.width, canvas.height);
 
             // Set text properties
             context.font = '20px Arial';
             context.fillStyle = 'black';
-            context.textAlign = 'center';
+            context.textAlign = 'right';
             context.textBaseline = 'middle';
 
             // Draw the text
             context.fillText(text, canvas.width / 2, canvas.height / 2);
         }
 
-        // Function to load the 'Convocatoria' data using GET
-        async function loadConvocatoria() {
-            try {
-                // Fetch the data using GET
-                let response = await fetch(`/get-data1?user_id=${user_id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+        // Get the input element with id 'convocatoria'
+        var convocatoria = document.getElementById('convocatoria');
 
-                if (response.ok) {
-                    let data = await response.json();
-                    // Update the canvas with the 'convocatoria' text
-                    updateCanvas(data.convocatoria || 'No se encontró la convocatoria');
-                } else {
-                    updateCanvas('Error al cargar la convocatoria');
-                }
-            } catch (error) {
-                updateCanvas('Error al cargar la convocatoria');
-            }
-        }
-
-        // Call the function to load the 'Convocatoria' data
-        loadConvocatoria();
     });
-</script>
+
+
+    </script>
 
     <section>
         <div>
