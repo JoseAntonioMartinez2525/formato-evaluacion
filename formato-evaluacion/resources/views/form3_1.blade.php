@@ -83,7 +83,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form-31', 'form3_1');">
+        <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form31', 'form3_1');">
             @csrf
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
@@ -406,19 +406,16 @@ $newLocale = str_replace('_', '-', $locale);
 
             formData['elaboracion'] = document.getElementById('elaboracion').textContent;
             formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
-            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').textContent;
+            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').value;
             formData['elaboracion2'] = document.getElementById('elaboracion2').textContent;
             formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
-            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').textContent;
+            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').value;
             formData['elaboracion3'] = document.getElementById('elaboracion3').textContent;
             formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
-            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').textContent;
+            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').value;
             formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
             formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
-            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').textContent;
-            formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
-            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
-            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').textContent;
+            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value;
             formData['score3_1'] = document.getElementById('score3_1').textContent;
             formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
 

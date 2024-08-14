@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
@@ -40,16 +41,8 @@ class ResponseJson extends Controller
         $responses = UsersResponseForm1::all()->filter()->values();
         $responses2 = UsersResponseForm2::all()->filter()->values();
         $responses2_2 = UsersResponseForm2_2::all()->filter()->values();
-
-        $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
-        $dictaminators_responses2_2 = DictaminatorsResponseForm2::all()->filter()->values();
-
-        // Combine user and dictaminator responses for form2
-        $combinedForm2Responses = $responses2->merge($dictaminators_responses2);
-        $combinedForm2_2Responses = $responses2_2->merge($dictaminators_responses2_2);
-
-        //responses 3.1 -> 3.19
         $responses3_1 = UsersResponseForm3_1::all()->filter()->values();
+
         $responses3_2 = UsersResponseForm3_2::all()->filter()->values();
         $responses3_3 = UsersResponseForm3_3::all()->filter()->values();
         $responses3_4 = UsersResponseForm3_4::all()->filter()->values();
@@ -68,6 +61,17 @@ class ResponseJson extends Controller
         $responses3_17 = UsersResponseForm3_17::all()->filter()->values();
         $responses3_18 = UsersResponseForm3_18::all()->filter()->values();
         $responses3_19 = UsersResponseForm3_19::all()->filter()->values();
+
+        $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
+        $dictaminators_responses2_2 = DictaminatorsResponseForm2::all()->filter()->values();
+        $dictaminators_responses3_1 = DictaminatorsResponseForm3_1::all()->filter()->values();
+       // $dictaminators_responses3_2 = DictaminatorsResponseForm3_2::all()->filter()->values();
+
+        // Combine user and dictaminator responses for form2
+        $combinedForm2Responses = $responses2->merge($dictaminators_responses2);
+        $combinedForm2_2Responses = $responses2_2->merge($dictaminators_responses2_2);
+        $combinedForm3_1Responses = $responses3_1->merge($dictaminators_responses3_1);
+
         $responsesFinal = UserResume::all()->filter()->values();
         $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
 
@@ -76,7 +80,7 @@ class ResponseJson extends Controller
             'form1' => $responses->toArray(),
             'form2' => $combinedForm2Responses->toArray(),
             'form2_2' => $combinedForm2_2Responses->toArray(),
-            'form3_1' => $responses3_1->toArray(),
+            'form3_1' => $combinedForm3_1Responses->toArray(),
             'form3_2' => $responses3_2->toArray(),
             'form3_3' => $responses3_3->toArray(),
             'form3_4' => $responses3_4->toArray(),
