@@ -96,7 +96,7 @@ Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 
 // En tu web.php
 Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
 Route::post('/store-form22', [DictaminatorForm2_2Controller::class, 'storeform22'])->withoutMiddleware('auth');
-Route::post('/store-form-31', [DictaminatorForm3_1Controller::class, 'storeform31'])->withoutMiddleware('auth');
+Route::post('/store-form31', [DictaminatorForm3_1Controller::class, 'storeform31'])->withoutMiddleware('auth');
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');

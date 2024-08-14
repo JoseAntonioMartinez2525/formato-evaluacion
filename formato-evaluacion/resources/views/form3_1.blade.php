@@ -83,7 +83,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form-31', 'form3_1');">
+        <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form31', 'form3_1');">
             @csrf
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
