@@ -157,7 +157,7 @@ $newLocale = str_replace('_', '-', $locale);
         
                                     </td>
         
-                                    <td class="elabInput"><label id="elaboracion">0</label></td>
+                                    <td class="elabInput"><span id="elaboracion">0</span></td>
                                     <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
                                     <td class="comision actv"><input id="comisionIncisoA" placeholder="0" for=""
                                             oninput="onActv3Comision()"></input></td>
@@ -182,7 +182,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="puntaje40" for=""><b>40</b></label>
                                             </td>
-                                            <td class="elabInput"><label id="elaboracion2">0</label></td>
+                                            <td class="elabInput"><span id="elaboracion2">0</span></td>
                                             <td><label id="elaboracionSubTotal2" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoB" placeholder="0" for=""
@@ -209,7 +209,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="puntaje10" for=""><b>10</b></label>
                                             </td>
-                                            <td class="elabInput"><label id="elaboracion3">0</label></td>
+                                            <td class="elabInput"><span id="elaboracion3">0</span></td>
                                             <td><label id="elaboracionSubTotal3" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoC" placeholder="0" for=""
@@ -237,7 +237,7 @@ $newLocale = str_replace('_', '-', $locale);
         
                                                 <label id="puntaje20" for=""><b>20</b></label>
                                             </td>
-                                            <td class="elabInput"><label id="elaboracion4">0</label></td>
+                                            <td class="elabInput"><span id="elaboracion4">0</span></td>
                                             <td><label id="elaboracionSubTotal4" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoD" placeholder="0" for=""
@@ -265,7 +265,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="p10" for=""><b>10</b></label>
                                             </td>
-                                            <td class="elabInput"><label id="elaboracion5">0</label></td>
+                                            <td class="elabInput"><span id="elaboracion5">0</span></td>
                                             <td><label id="elaboracionSubTotal5" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoE" placeholder="0" for=""
