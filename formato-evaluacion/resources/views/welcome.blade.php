@@ -257,7 +257,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     </main>
 
-    <div>
+
 
 <footer>
   <div>

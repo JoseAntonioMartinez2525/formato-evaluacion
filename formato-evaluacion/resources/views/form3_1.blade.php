@@ -45,9 +45,6 @@ $newLocale = str_replace('_', '-', $locale);
                                     PEDPD</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
                                     llenado
                                     por la
@@ -65,6 +62,9 @@ $newLocale = str_replace('_', '-', $locale);
                             <li class="nav-item">
                                 <a class="nav-link active" style="width: 200px;"
                                     href="{{ route('comision_dictaminadora') }}">Apartados 1 y 2</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
                             </li>
                         </nav>
                     </form>
@@ -156,8 +156,7 @@ $newLocale = str_replace('_', '-', $locale);
         
                                     </td>
         
-                                    <td class="elabInput"><input id="elaboracion" type="text" oninput="onActv3Subtotal()"
-                                            placeholder="0"></td>
+                                    <td class="elabInput"><label id="elaboracion">0</label></td>
                                     <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
                                     <td class="comision actv"><input id="comisionIncisoA" placeholder="0" for=""
                                             oninput="onActv3Comision()"></input></td>
@@ -182,8 +181,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="puntaje40" for=""><b>40</b></label>
                                             </td>
-                                            <td class="elabInput"><input id="elaboracion2" type="text"
-                                                    oninput="onActv3Subtotal()" placeholder="0"></td>
+                                            <td class="elabInput"><label id="elaboracion2">0</label></td>
                                             <td><label id="elaboracionSubTotal2" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoB" placeholder="0" for=""
@@ -210,8 +208,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="puntaje10" for=""><b>10</b></label>
                                             </td>
-                                            <td class="elabInput"><input id="elaboracion3" type="text"
-                                                    oninput="onActv3Subtotal()" placeholder="0"></td>
+                                            <td class="elabInput"><label id="elaboracion3">0</label></td>
                                             <td><label id="elaboracionSubTotal3" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoC" placeholder="0" for=""
@@ -239,8 +236,7 @@ $newLocale = str_replace('_', '-', $locale);
         
                                                 <label id="puntaje20" for=""><b>20</b></label>
                                             </td>
-                                            <td class="elabInput"><input id="elaboracion4" type="text"
-                                                    oninput="onActv3Subtotal()" placeholder="0"></td>
+                                            <td class="elabInput"><label id="elaboracion4">0</label></td>
                                             <td><label id="elaboracionSubTotal4" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoD" placeholder="0" for=""
@@ -268,8 +264,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label for=""></label>
                                                 <label id="p10" for=""><b>10</b></label>
                                             </td>
-                                            <td class="elabInput"><input id="elaboracion5" type="text"
-                                                    oninput="onActv3Subtotal()" placeholder="0"></td>
+                                            <td class="elabInput"><label id="elaboracion5">0</label></td>
                                             <td><label id="elaboracionSubTotal5" for="" type="text"></label>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoE" placeholder="0" for=""
@@ -351,16 +346,36 @@ $newLocale = str_replace('_', '-', $locale);
                                 elaboracionSubTotal2.textContent = data.form3_1 ? data.form3_1.elaboracionSubTotal2 || '0' : '0';
                             }
 
-                            document.getElementById('elaboracion3').textContent = data.form2.elaboracion3 || '0';
-                            document.getElementById('elaboracionSubTotal3').textContent = data.form2.elaboracionSubTotal3 || '0';
-                            document.getElementById('elaboracion4').textContent = data.form2.elaboracion4 || '0';
-                            document.getElementById('elaboracionSubTotal4').textContent = data.form2.elaboracionSubTotal4 || '0';
-                            document.getElementById('elaboracion5').textContent = data.form2.elaboracion5 || '0';
-                            document.getElementById('elaboracionSubTotal5').textContent = data.form2.elaboracionSubTotal5 || '0';
+                            const elaboracion3 = document.getElementById('elaboracion3');
+                            if(elaboracion3){
+                                elaboracion3.textContent = data.form3_1.elaboracion3 || '0';
+                            }
+                            const elaboracionSubTotal3 = document.getElementById('elaboracionSubTotal3');
+                            if(elaboracionSubTotal3){
+                                elaboracionSubTotal3.textContent = data.form3_1.elaboracionSubTotal3 || '0';
+                            }
+                            const elaboracion4 = document.getElementById('elaboracion4');
+                            if(elaboracion4){
+                                elaboracion4.textContent = data.form3_1.elaboracion4 || '0';
+                            }
+                            const elaboracionSubTotal4 = document.getElementById('elaboracionSubTotal4');
+                            if(elaboracionSubTotal4){
+                                elaboracionSubTotal4.textContent = data.form3_1.elaboracionSubTotal4 || '0';
+                            }
+                            const elaboracion5 = document.getElementById('elaboracion5');
+                            if(elaboracion5){
+                                elaboracion5.textContent = data.form3_1.elaboracion5 || '0';
+                            }
+                            const elaboracionSubTotal5 = document.getElementById('elaboracionSubTotal5');
+                            if(elaboracionSubTotal5){
+                                elaboracionSubTotal5.textContent = data.form3_1.elaboracionSubTotal5 || '0';
+                            }
+
 
                             document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
                             document.querySelector('input[name="email"]').value = data.form3_1.email || '';
                             document.querySelector('input[name="user_type"]').value = data.form3_1.user_type || '';
+                            
 
                         })
                         .catch(error => {
@@ -368,7 +383,6 @@ $newLocale = str_replace('_', '-', $locale);
                         });
 
                 }
-
 
 
             });
@@ -387,6 +401,7 @@ $newLocale = str_replace('_', '-', $locale);
             // Gather relevant information from the form
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
+            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
             formData['hours'] = document.getElementById('hoursText').textContent;
             formData['horasPosgrado'] = document.getElementById('horasPosgrado').textContent;
             formData['horasSemestre'] = document.getElementById('horasSemestre').textContent;
@@ -397,7 +412,7 @@ $newLocale = str_replace('_', '-', $locale);
             formData['actv2Comision'] = document.getElementById('actv2Comision').textContent;
             formData['obs2'] = form.querySelector('input[name="obs2"]').value;
             formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
 
             console.log('Form data:', formData);
 
@@ -430,8 +445,61 @@ $newLocale = str_replace('_', '-', $locale);
 
         }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the canvas element
+        var canvas = document.getElementById('convocatoria');
+        var context = canvas.getContext('2d');
 
-    </script>
+        // Function to update the canvas with 'Convocatoria' value
+        function updateCanvas(text) {
+            // Clear the canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set text properties
+            context.font = '20px Arial';
+            context.fillStyle = 'black';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+
+            // Draw the text
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+        }
+
+        // Function to load the 'Convocatoria' data using GET
+        async function loadConvocatoria() {
+            try {
+                // Fetch the data using GET
+                let response = await fetch(`/get-data1?user_id=${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    let data = await response.json();
+                    // Update the canvas with the 'convocatoria' text
+                    updateCanvas(data.convocatoria || 'No se encontró la convocatoria');
+                } else {
+                    updateCanvas('Error al cargar la convocatoria');
+                }
+            } catch (error) {
+                updateCanvas('Error al cargar la convocatoria');
+            }
+        }
+
+        // Call the function to load the 'Convocatoria' data
+        loadConvocatoria();
+    });
+</script>
+
+    <section>
+        <div>
+    
+            <canvas id="convocatoria" width="1500" height="500"></canvas>
+        </div>
+    
+    </section>
 </body>
 
 </html>

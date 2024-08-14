@@ -274,6 +274,7 @@ border-right: black;
 text-align: right;
 background-color: #e2e2e2;
 border: none;
+padding: 0 30px;
 
 
 }
@@ -449,6 +450,9 @@ height: 800px;
         width: 100%;
         margin-bottom: 10px; /* Espacio entre los enlaces de navegación */
     }
+}
+#obs3_1_1, #obs3_1_2, #obs3_1_3, #obs3_1_4, #obs3_1_5{
+    width: 140px;
 }
 
 
