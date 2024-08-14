@@ -459,42 +459,8 @@ $newLocale = str_replace('_', '-', $locale);
 
 
         }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get the canvas element
-        var canvas = document.getElementById('convocatoria');
-        var context = canvas.getContext('2d');
-
-        // Function to update the canvas with 'Convocatoria' value
-        function updateCanvas(text) {
-            // Clear the canvas
-            context.clearRect(200, 100, canvas.width, canvas.height);
-
-            // Set text properties
-            context.font = '20px Arial';
-            context.fillStyle = 'black';
-            context.textAlign = 'right';
-            context.textBaseline = 'middle';
-
-            // Draw the text
-            context.fillText(text, canvas.width / 2, canvas.height / 2);
-        }
-
-        // Get the input element with id 'convocatoria'
-        var convocatoria = document.getElementById('convocatoria');
-
-    });
-
-
     </script>
 
-    <section>
-        <div>
-    
-            <canvas id="convocatoria" width="1500" height="500"></canvas>
-        </div>
-    
-    </section>
 </body>
 
 </html>
