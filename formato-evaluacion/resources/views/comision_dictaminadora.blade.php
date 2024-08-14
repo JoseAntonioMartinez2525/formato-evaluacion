@@ -224,9 +224,40 @@ $newLocale = str_replace('_', '-', $locale);
                         } else {
                             formData['actv2Comision'] = actv2ComisionLabel.innerText;
                         }
-                        break;
                         formData['obs2'] = form.querySelector('input[name="obs2"]').value;
-                        formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
+                        formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value; 
+                        break;
+
+                    case 'form3_1':
+                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                        formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
+                        formData['elaboracion'] = document.getElementById('elaboracion').textContent;
+                        formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
+                        formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').value;
+                        formData['elaboracion2'] = document.getElementById('elaboracion2').textContent;
+                        formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
+                        formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').value;
+                        formData['elaboracion3'] = document.getElementById('elaboracion3').textContent;
+                        formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
+                        formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').value;
+                        formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
+                        formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
+                        formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value;
+                        formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
+                        formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5');
+                        formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value;                             
+                        formData['score3_1'] = document.getElementById('score3_1').textContent;
+                        formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
+
+                        formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;
+                        formData['obs3_1_2'] = form.querySelector('input[name="obs3_1_2"]').value;
+                        formData['obs3_1_3'] = form.querySelector('input[name="obs3_1_3"]').value;
+                        formData['obs3_1_4'] = form.querySelector('input[name="obs3_1_4"]').value;
+                        formData['obs3_1_5'] = form.querySelector('input[name="obs3_1_5"]').value;
+                        break;
+
 
                 }
                 console.log('Form data:', formData);

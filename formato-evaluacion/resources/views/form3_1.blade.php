@@ -416,6 +416,9 @@ $newLocale = str_replace('_', '-', $locale);
             formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
             formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
             formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value;
+            formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
+            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5');
+            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value;
             formData['score3_1'] = document.getElementById('score3_1').textContent;
             formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
 
