@@ -238,7 +238,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label id="puntaje20" for=""><b>20</b></label>
                                             </td>
                                             <td class="elabInput"><span id="elaboracion4">0</span></td>
-                                            <td><span id="elaboracionSubTotal4" for="" type="text"></span>
+                                            <td><span id="elaboracionSubTotal4"></span>
                                             </td>
                                             <td class="comision actv"><input id="comisionIncisoD" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
@@ -266,8 +266,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <label id="p10" for=""><b>10</b></label>
                                             </td>
                                             <td class="elabInput"><span id="elaboracion5">0</span></td>
-                                            <td><span id="elaboracionSubTotal5" for="" type="text"></span>
-                                            </td>
+                                            <td><span id="elaboracionSubTotal5"></span></td>
                                             <td class="comision actv"><input id="comisionIncisoE" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input></td>
                                             <td><input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text"></td>
@@ -322,7 +321,7 @@ $newLocale = str_replace('_', '-', $locale);
                             const data = response.data;
                             console.log(data);  // Inspect the structure returned
 
-                            const score3_1 = document.getElementById('score3_1');
+                            const score3_1 = document.querySelector('#score3_1');
                             if (score3_1) {
                                 score3_1.textContent = data.form3_1 ? data.form3_1.score3_1 || '0' : '0';
                             }
@@ -417,7 +416,7 @@ $newLocale = str_replace('_', '-', $locale);
             formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
             formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value;
             formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
-            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5');
+            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
             formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value;
             formData['score3_1'] = document.getElementById('score3_1').textContent;
             formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
@@ -442,11 +441,15 @@ $newLocale = str_replace('_', '-', $locale);
                 });
 
                 if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Error response:', errorData);
                     throw new Error('Network response was not ok');
+                    alert('There was an error submitting the form. Please try again.');
                 }
 
                 let responseData = await response.json();
                 console.log('Response received from server:', responseData);
+                
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }

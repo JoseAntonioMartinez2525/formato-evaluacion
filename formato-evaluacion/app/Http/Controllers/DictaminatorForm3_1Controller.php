@@ -12,6 +12,7 @@ class DictaminatorForm3_1Controller extends Controller
     public function storeform31(Request $request)
     {
         
+        
         try {
             $validatedData = $request->validate([
                 'user_id' => 'required|exists:users,id',
@@ -50,19 +51,12 @@ class DictaminatorForm3_1Controller extends Controller
             $validatedData['obs3_1_4'] = $validatedData['obs3_1_4'] ?? 'sin comentarios';
             $validatedData['obs3_1_5'] = $validatedData['obs3_1_5'] ?? 'sin comentarios';
 
-            try {
+            
                 DictaminatorsResponseForm3_1::create($validatedData);
-            } catch (QueryException $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Error al procesar la solicitud: ' . $e->getMessage(),
-                ], 500);
-            }
-
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',
-                'data' => $validatedData
+                'data' => $validatedData,
             ], 200);
         } catch (ValidationException $e) {
             return response()->json([
@@ -70,13 +64,11 @@ class DictaminatorForm3_1Controller extends Controller
                 'message' => 'Validation failed',
                 'errors' => $e->errors()
             ], 422);
-
         } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Database error: ' . $e->getMessage(),
             ], 500);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
