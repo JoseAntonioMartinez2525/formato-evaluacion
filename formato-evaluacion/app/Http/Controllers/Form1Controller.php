@@ -23,7 +23,7 @@ class Form1Controller extends Controller
     {
         $email = $request->query('email');
         $dictaminador = User::where('email', $email)->first();
-        $docentes = User::where('user_type', 'docente')->get(['email']);
+        //$docentes = User::where('user_type', 'docente')->get(['email']);
 
         if (!$dictaminador) {
             return response()->json(['error' => 'Dictaminador not found'], 404);

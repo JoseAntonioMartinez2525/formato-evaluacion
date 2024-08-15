@@ -222,7 +222,7 @@ $userType = Auth::user()->user_type;
                         .then(response => {
                             const data = response.data;
                             if (form) {
-                                form.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                                form.querySelector('input[name="user_id"]').value = data.form2.id || '';
                                 form.querySelector('input[name="email"]').value = data.form2.email || '';
                                 form.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
                                 document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
