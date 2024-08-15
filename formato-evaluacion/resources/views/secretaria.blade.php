@@ -86,26 +86,39 @@ $newLocale = str_replace('_', '-', $locale);
 
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-        
+                <div class="container mt-4">
+                    <!-- Selector para elegir el formulario -->
+                    <label for="formSelect">Seleccionar Formulario:</label>
+                    <select id="formSelect" class="form-select">
+                        <option value=""></option>
+                        <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                        <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                        <option value="form3_1">3.1 Participación en actividades de diseño curricular</option>
+                    </select>
+                </div>
+
+                <div id="formContainer">
+                    <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                </div>
+                <!--
                     <form id="form1">
 
                         <label for="convocatoria" class="label">Convocatoria</label>
-                        <span name="convocatoria" class="input-header mb-3" id="convocatoria"></span>
+                        <span name="convocatoria" class="input-header mb-3" id="convocatoria"></span><br>
 
                         <label for="periodo" class="label">Periodo de evaluación:</label>
-                        <span name="periodo" id="periodo" class="input-header mb-3"></span>
+                        <span name="periodo" id="periodo" class="input-header mb-3"></span><br>
 
-                        <label for="nombre" class="label">Nombre del personal académico:</label> 
+                        <label for="nombre" class="label">Nombre del personal académico:</label>
                             <span id="nombre"
-                           class="input-header mb-3"></span>
+                           class="input-header mb-3"></span><br>
 
                         <label for="area" class="label">Área de Conocimiento:</label>
-                        <span id="area" class="form-select input-header">
-                        </span>
+                        <span id="area" class="input-header"></span><br>
 
                         <label for="departamento" class="label">Departamento Académico:</label>
-                        <span id="departamento" class="input-header"></span>
-                        
+                        <span id="departamento" class="input-header"></span><br>
+
 
                         <h3>Instrucciones</h3>
                         <div class="container flex">
@@ -127,7 +140,7 @@ $newLocale = str_replace('_', '-', $locale);
                                 del
                                 formato de evaluación, asimismo no se aceptará documentación presentada de forma
                                 extemporánea.
-                                <center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>
+
                                 </center>
                         </div>
 
@@ -135,7 +148,7 @@ $newLocale = str_replace('_', '-', $locale);
                 </header>
 
                 <main class="container">
-                    <!--Actividad 1: Permanencia en las actividades de la docencia	-->
+                    Actividad 1: Permanencia en las actividades de la docencia	
 
                     <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store2', 'form2');">
                         <div>
@@ -145,7 +158,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                         </div>
                         @csrf
-                        <!-- Add hidden fields for user_id and email -->
+                         Add hidden fields for user_id and email 
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                         <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
@@ -200,7 +213,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
                         @csrf
                         <div>
-                            <!--Actividad 2: Dedicacion en el Desempeño docente	-->
+                            Actividad 2: Dedicacion en el Desempeño docente
                             <h4>Puntaje máximo
                                 <label class="bg-black text-white px-4 mt-3" for="">200</label>
                             </h4>
@@ -271,7 +284,7 @@ $newLocale = str_replace('_', '-', $locale);
                             </thead>
                         </table>
                     </form>
-
+    -->
 
             @endif
         </div>
@@ -296,7 +309,7 @@ $newLocale = str_replace('_', '-', $locale);
 
     <script>
 
-        const convocatoria = document.querySelector('nav a').textContent.trim();
+        /*const convocatoria = document.querySelector('nav a').textContent.trim();
         const periodo = document.getElementById('periodo').textContent;
         const nombre = document.querySelector('input[name="nombre"]').value;
         const area = document.querySelector('select[name="area"]').value;
@@ -339,7 +352,7 @@ $newLocale = str_replace('_', '-', $locale);
             for (var i = 0; i < buttons.length; i++) { buttons[i].addEventListener('click', handleClick); }
 
         }
-
+*/
         function handleClick(event) {
             var currentTarget = event.currentTarget;
             // Use the event data here. 
@@ -481,6 +494,7 @@ $newLocale = str_replace('_', '-', $locale);
             data[this.id] = this.value;
         }
 
+        /*
         document.querySelector('input[name="horasActv2"]').addEventListener('input', function () {
             let horasActv2 = parseFloat(this.value) || 0;
             let puntajeEvaluar = 0;
@@ -515,7 +529,7 @@ $newLocale = str_replace('_', '-', $locale);
             // Actualiza el valor de la etiqueta <td id="puntajeEvaluar">
             puntajeEvaluarElement.innerText = puntajeEvaluar.toFixed(2);
             document.getElementById('puntajeEvaluarInput').value = puntajeEvaluar.toFixed(2);
-        });
+        });*/
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {
@@ -674,6 +688,25 @@ $newLocale = str_replace('_', '-', $locale);
                 document.getElementById('jsonDataLink').classList.remove('d-none');
             }
         });
+        document.getElementById('formSelect').addEventListener('change', (event) => {
+                const selectedForm = event.target.value;
+                const formContainer = document.getElementById('formContainer');
+
+                if (selectedForm) {
+                    window.location.href = `/${selectedForm}`;
+                    axios.get(`/get-form-content/${selectedForm}`)
+                        .then(response => {
+                            formContainer.innerHTML = response.data;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching form content:', error);
+                            formContainer.innerHTML = '<p>Error loading form content.</p>';
+                        });
+                } else {
+
+                    formContainer.innerHTML = '';
+                }
+            });
     </script>
 
 </body>

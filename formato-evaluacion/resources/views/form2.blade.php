@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>Perfil</title>
+    <title>Permanencia en las actividades de la docencia</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -66,13 +66,37 @@ $newLocale = str_replace('_', '-', $locale);
         @endif
     </div>
     <x-general-header />
-    <div class="container mt-4">
+    
+@php
+$userType = Auth::user()->user_type;
+@endphp
+
+<div class="container mt-4">
+    @if($userType == 'dictaminador')
+        <!-- Select para dictaminador seleccionando docentes -->
         <label for="docenteSelect">Seleccionar Docente:</label>
         <select id="docenteSelect" class="form-select">
             <option value="">Seleccionar un docente</option>
             <!-- Aquí se llenarán los docentes con JavaScript -->
         </select>
-    </div>
+    @elseif($userType == '')
+        <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+        <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+        <select id="dictaminadorSelect" class="form-select">
+            <option value="">Seleccionar un dictaminador</option>
+            <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+        </select>
+    @else
+        <!-- Select por defecto para otros usuarios seleccionando docentes -->
+        <label for="docenteSelect">Seleccionar Docente:</label>
+        <select id="docenteSelect" class="form-select">
+            <option value="">Seleccionar un docente</option>
+            <!-- Aquí se llenarán los docentes con JavaScript -->
+        </select>
+    @endif
+</div>
+
+
     <main class="container">
         <!-- Form for Part 2 -->
         <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
@@ -106,11 +130,22 @@ $newLocale = str_replace('_', '-', $locale);
                             <span id="puntajeEvaluarText">0</span>
                         </td>
                         <td class="table-header comision">
-                            <input type="number" id="comision1" name="comision1" class="table-header comision"
-                                step="any">
+                        @if($userType == 'dictaminador')
+                            <!-- Mostrar input si es 'dictaminador' -->
+                            <input type="number" id="comision1" name="comision1" class="table-header comision" step="any">
+                        @else
+                            <!-- Mostrar span si es otro tipo de usuario -->
+                            <span id="comision1" class="table-header comision"></span>
+                        @endif
                         </td>
                         <td>
+                        @if($userType == 'dictaminador')
+                            <!-- Mostrar input si es 'dictaminador' -->
                             <input id="obs1" name="obs1" class="table-header" type="text">
+                        @else
+                            <!-- Mostrar span si es otro tipo de usuario -->
+                            <span id="obs1" class="table-header"></span>
+                        @endif
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary printButtonClass">Enviar</button>
@@ -133,11 +168,11 @@ $newLocale = str_replace('_', '-', $locale);
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
-
+    document.addEventListener('DOMContentLoaded', async () => {
+        const docenteSelect = document.getElementById('docenteSelect');
+        if (docenteSelect) {
             // Step 1: Load the list of docentes
-            const response = await fetch('/get-docentes'); // URL to fetch docentes, adjust as necessary
+            const response = await fetch('/get-docentes');
             const docentes = await response.json();
 
             docentes.forEach(docente => {
@@ -147,8 +182,7 @@ $newLocale = str_replace('_', '-', $locale);
                 docenteSelect.appendChild(option);
             });
 
-            // Manejar el cambio en la selección de docentes
-            document.getElementById('docenteSelect').addEventListener('change', (event) => {
+            docenteSelect.addEventListener('change', (event) => {
                 const email = event.target.value;
                 if (email) {
                     axios.get('/get-docente-data', { params: { email } })
@@ -164,11 +198,44 @@ $newLocale = str_replace('_', '-', $locale);
                             console.error('Error fetching docente data:', error);
                         });
                 }
-
-                
-
             });
-        });
+        }
+
+        const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+        if (dictaminadorSelect) {
+            // Step 1: Load the list of dictaminadores
+            const response = await fetch('/get-dictaminadores');
+            const dictaminadores = await response.json();
+
+            dictaminadores.forEach(dictaminador => {
+                const option = document.createElement('option');
+                option.value = dictaminador.email;
+                option.textContent = dictaminador.email;
+                dictaminadorSelect.appendChild(option);
+            });
+
+            dictaminadorSelect.addEventListener('change', (event) => {
+                const email = event.target.value;
+                if (email) {
+                    axios.get('/get-dictaminador-data', { params: { email } })
+                        .then(response => {
+                            const data = response.data;
+                            form.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                            form.querySelector('input[name="email"]').value = data.form2.email || '';
+                            form.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                            form.querySelector('input[name="puntajeEvaluar"]').value = data.form2.puntajeEvaluar || '0';
+                            document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
+                            document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
+                            document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
+                            document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching dictaminador data:', error);
+                        });
+                }
+            });
+        }
+    });
 
 
     async function submitForm(url, formId) {
