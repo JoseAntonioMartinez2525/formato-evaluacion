@@ -14,7 +14,7 @@ class ResponseForm3_6Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_6' => 'required|numeric',
-                'comision3_6' => 'required|numeric',
+                //'comision3_6' => 'required|numeric',
                 'obs3_6_1' => 'nullable|string',
 
             ]);

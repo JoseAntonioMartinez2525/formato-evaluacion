@@ -15,7 +15,7 @@ class ResponseForm3_4Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_4' => 'required|numeric',
-                'comision3_4' => 'required|numeric',
+                //'comision3_4' => 'required|numeric',
                 'obs3_4_1' => 'nullable|string',
                 'obs3_4_2' => 'nullable|string',
                 'obs3_4_3' => 'nullable|string',
