@@ -3,6 +3,7 @@
 use App\Http\Controllers\DictaminatorForm2_2Controller;
 use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\DictaminatorForm3_1Controller;
+use App\Http\Controllers\Form1Controller;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
@@ -65,6 +66,8 @@ Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name(
 Route::get('/get-docentes', [DictaminatorController::class, 'getDocentes'])->name('getDocentes');
 Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'])->name('getDocenteData');
 Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
+Route::get('/get-dictaminadores', [Form1Controller::class, 'getdictaminadores'])->name('getdictaminadores');
+Route::get('/get-dictaminador-data', [Form1Controller::class, 'getDictaminadorData'])->name('getDictaminadorData');
 
 
 //POST formularios

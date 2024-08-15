@@ -216,19 +216,23 @@ $userType = Auth::user()->user_type;
 
             dictaminadorSelect.addEventListener('change', (event) => {
                 const email = event.target.value;
+                let form = document.getElementById('form2');
                 if (email) {
                     axios.get('/get-dictaminador-data', { params: { email } })
                         .then(response => {
                             const data = response.data;
-                            form.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
-                            form.querySelector('input[name="email"]').value = data.form2.email || '';
-                            form.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
-                            form.querySelector('input[name="puntajeEvaluar"]').value = data.form2.puntajeEvaluar || '0';
-                            document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
-                            document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
-                            document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
-                            document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
-                        })
+                            if (form) {
+                                form.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                                form.querySelector('input[name="email"]').value = data.form2.email || '';
+                                form.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                                document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
+                                document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
+                                document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
+                                document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
+                            } else {
+                                console.error('Form with id "form2" not found.');
+                            }
+                               })
                         .catch(error => {
                             console.error('Error fetching dictaminador data:', error);
                         });
