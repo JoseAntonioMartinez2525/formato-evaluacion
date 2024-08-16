@@ -30,7 +30,7 @@ class Form1Controller extends Controller
         }
 
         // Almacenamiento de formularios
-       // $form1Data = UsersResponseForm1::where('user_id', $docentes->id)->first();
+ 
         $form2Data = DictaminatorsResponseForm2::where('user_id', $dictaminador->id)->first();
         $form2_2Data = DictaminatorsResponseForm2_2::where('user_id', $dictaminador->id)->first();
         $form3_1Data = DictaminatorsResponseForm3_1::where('user_id', $dictaminador->id)->first();
