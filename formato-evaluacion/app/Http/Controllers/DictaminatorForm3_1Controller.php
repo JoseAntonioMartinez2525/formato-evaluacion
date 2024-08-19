@@ -15,6 +15,7 @@ class DictaminatorForm3_1Controller extends Controller
         
         try {
             $validatedData = $request->validate([
+                'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'elaboracion' => 'required|numeric',

@@ -108,6 +108,7 @@ $userType = Auth::user()->user_type;
                     <label class="bg-black text-white px-4" for="">100</label>
                 </h4>
             </div>
+            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
@@ -206,39 +207,44 @@ $userType = Auth::user()->user_type;
         const dictaminadorSelect = document.getElementById('dictaminadorSelect');
         if (dictaminadorSelect) {
             // Step 1: Load the list of dictaminadores
-            const response = await fetch('/get-dictaminadores');
-            const dictaminadores = await response.json();
+            try {
+                const response = await fetch('/get-dictaminadores');
+                const dictaminadores = await response.json();
 
-            dictaminadores.forEach(dictaminador => {
-                const option = document.createElement('option');
-                option.value = dictaminador.email;
-                option.textContent = dictaminador.email;
-                dictaminadorSelect.appendChild(option);
-            });
+                const fragment = document.createDocumentFragment();
+                dictaminadores.forEach(dictaminador => {
+                    const option = document.createElement('option');
+                    option.value = dictaminador.email;
+                    option.textContent = dictaminador.email;
+                    fragment.appendChild(option);
+                });
+                dictaminadorSelect.appendChild(fragment);
+            } catch (error) {
+                console.error('Error fetching dictaminadores:', error);
+                alert('No se pudo cargar la lista de dictaminadores.');
+            }
 
-            dictaminadorSelect.addEventListener('change', (event) => {
+            dictaminadorSelect.addEventListener('change', async (event) => {
                 const email = event.target.value;
-                let form = document.getElementById('form2');
                 if (email) {
-                    axios.get('/get-dictaminador-data', { params: { email } })
-                        .then(response => {
-                            const data = response.data;
-                            if (data.form2) {
-                                document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form2.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
-                                document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
-                                document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
-                                document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
-                                document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
-                            } else {
-                                console.log('No form2 data found for the selected dictaminador.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching dictaminador data:', error);
-                        });
-
+                    let form = document.getElementById('form2');
+                    try {
+                        const response = await axios.get('/get-dictaminador-data', { params: { email } });
+                        const data = response.data;
+                        if (data.form2) {
+                            document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                            document.querySelector('input[name="email"]').value = data.form2.email || '';
+                            document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                            document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
+                            document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
+                            document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
+                            document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
+                        } else {
+                            console.log('No form2 data found for the selected dictaminador.');
+                        }
+                    } catch (error) {
+                        console.error('Error fetching dictaminador data:', error);
+                    }
                 }
             });
         }
@@ -255,6 +261,7 @@ $userType = Auth::user()->user_type;
         }
 
         // Gather relevant information from the form
+        formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
         formData['email'] = form.querySelector('input[name="email"]').value;
         formData['horasActv2'] = document.getElementById('horasActv2').textContent;

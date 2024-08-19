@@ -12,8 +12,9 @@ class CreateDictaminatorsResponseForm22 extends Migration
     public function up(): void
     {
         Schema::create('dictaminators_response_form2_2', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id'); // Add this line
+            $table->bigInteger('dictaminador_id')->unsigned();
+            $table->unsignedBigInteger('user_id'); 
+            $table->primary('dictaminador_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');

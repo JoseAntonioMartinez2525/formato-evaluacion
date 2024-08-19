@@ -85,6 +85,7 @@ $newLocale = str_replace('_', '-', $locale);
         <!-- Form for Part 3_1 -->
         <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form31', 'form3_1');">
             @csrf
+            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
@@ -399,6 +400,7 @@ $newLocale = str_replace('_', '-', $locale);
             }
 
             // Gather relevant information from the form
+            formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;

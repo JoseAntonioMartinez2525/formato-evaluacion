@@ -11,8 +11,9 @@ class CreateDictaminatorsResponseForm2 extends Migration
     public function up(): void
     {
         Schema::create('dictaminators_response_form2', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('dictaminador_id')->unsigned();
             $table->unsignedBigInteger('user_id');
+            $table->primary('dictaminador_id');
             $table->string('email');
             $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->decimal('horasActv2', 8, 2);

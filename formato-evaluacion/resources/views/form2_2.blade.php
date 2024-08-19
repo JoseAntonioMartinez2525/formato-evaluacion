@@ -84,6 +84,8 @@ $newLocale = str_replace('_', '-', $locale);
                     <label class="bg-black text-white px-4 mt-3" for="">200</label>
                 </h4>
             </div>
+            <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
+            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
@@ -221,6 +223,7 @@ $newLocale = str_replace('_', '-', $locale);
         }
 
         // Gather relevant information from the form
+        formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
         formData['email'] = form.querySelector('input[name="email"]').value;
         formData['hours'] = document.getElementById('hoursText').textContent;

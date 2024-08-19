@@ -22,36 +22,25 @@ class Form1Controller extends Controller
     public function getDictaminadorData(Request $request)
     {
         $email = $request->query('email');
-        $dictaminador = User::where('email', $email)->first();
-        //$docentes = User::where('user_type', 'docente')->get(['email']);
+        $dictaminador = User::with(['form2', 'form2_2', 'form3_1']) // Asegúrate de que estas relaciones estén definidas en tu modelo User
+        ->where('email', $email)
+        ->first();
 
-        if (!$dictaminador) {
-            return response()->json(['error' => 'Dictaminador not found'], 404);
-        }
-
-        // Almacenamiento de formularios
-       // $form1Data = UsersResponseForm1::where('user_id', $docentes->id)->first();
-        $form2Data = DictaminatorsResponseForm2::where('user_id', $dictaminador->id)->first();
-        $form2_2Data = DictaminatorsResponseForm2_2::where('user_id', $dictaminador->id)->first();
-        $form3_1Data = DictaminatorsResponseForm3_1::where('user_id', $dictaminador->id)->first();
-
-// Log the results being fetched
-    \Log::info('Dictaminador:', [$dictaminador]);
-    \Log::info('Form2 Data:', [$form2Data]);
-        // Return a structured response which includes both form data
-        return response()->json([
-            'dictaminador' => [
-                'id' => $dictaminador->id,
-                'email' => $dictaminador->email,
-                'horasActv2'=> $dictaminador->horasActv2,
-                'puntajeEvaluarText'=> $dictaminador->puntajeEvaluarText,
-                'comision1'=> $dictaminador->comision1,
-                'obs1'=> $dictaminador->obs1,
-            ],
-            //'form1'=>$form1Data,
-            'form2' => $form2Data,    // existing fields can still be accessed
-            'form2_2' => $form2_2Data,  // potentially useful for this view
-            'form3_1' => $form3_1Data
-        ]);
+    if (!$dictaminador) {
+        return response()->json(['error' => 'Dictaminador not found'], 404);
     }
+
+    // Log the results being fetched
+    \Log::info('Dictaminador:', [$dictaminador]);
+
+    return response()->json([
+        'dictaminador' => [
+            'id' => $dictaminador->id,
+            'email' => $dictaminador->email,
+        ],
+        'form2' => $dictaminador->form2, // Accediendo directamente a las relaciones
+        'form2_2' => $dictaminador->form2_2,
+        'form3_1' => $dictaminador->form3_1,
+    ]);
+}
 }
