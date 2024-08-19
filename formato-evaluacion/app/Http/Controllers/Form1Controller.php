@@ -32,10 +32,16 @@ class Form1Controller extends Controller
         }
 
         // Assuming you have related data or additional model to fetch
-        $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador->dictaminador_id)->first();
+        $form2Data = DictaminatorsResponseForm2::where('id', $dictaminador->id)->first();
 
         return response()->json([
-            'form2' => $form2Data
+            'form2' =>[
+             'id'=> $form2Data->id, 
+             'horasActv2' => $form2Data->horasActv2,
+             'puntajeEvaluar'=>$form2Data->puntajeEvaluar,
+             'comision1'=>$form2Data->comision1,
+             'obs1'=>$form2Data->obs1,
+            ] 
         ]);
     }
 

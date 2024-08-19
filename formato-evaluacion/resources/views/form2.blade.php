@@ -230,7 +230,7 @@ $userType = Auth::user()->user_type;
                 if (email) {
                     let form = document.getElementById('form2');
                     try {
-                        const response = await axios.get('/get-dictaminador-data', { params: { id } });
+                        const response = await axios.get('/get-dictaminador-data', { params: { email:dictaminadorSelect.value } });
                         const data = response.data;
                         if (data.form2) {
                             document.querySelector('input[name="dictaminador_id"]').value = data.form2.dictaminador_id || '0';
