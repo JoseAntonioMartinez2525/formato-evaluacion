@@ -30,16 +30,23 @@ class Form1Controller extends Controller
         }
 
         // Almacenamiento de formularios
- 
+       // $form1Data = UsersResponseForm1::where('user_id', $docentes->id)->first();
         $form2Data = DictaminatorsResponseForm2::where('user_id', $dictaminador->id)->first();
         $form2_2Data = DictaminatorsResponseForm2_2::where('user_id', $dictaminador->id)->first();
         $form3_1Data = DictaminatorsResponseForm3_1::where('user_id', $dictaminador->id)->first();
 
+// Log the results being fetched
+    \Log::info('Dictaminador:', [$dictaminador]);
+    \Log::info('Form2 Data:', [$form2Data]);
         // Return a structured response which includes both form data
         return response()->json([
             'dictaminador' => [
                 'id' => $dictaminador->id,
                 'email' => $dictaminador->email,
+                'horasActv2'=> $dictaminador->horasActv2,
+                'puntajeEvaluarText'=> $dictaminador->puntajeEvaluarText,
+                'comision1'=> $dictaminador->comision1,
+                'obs1'=> $dictaminador->obs1,
             ],
             //'form1'=>$form1Data,
             'form2' => $form2Data,    // existing fields can still be accessed

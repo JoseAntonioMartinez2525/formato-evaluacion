@@ -223,21 +223,22 @@ $userType = Auth::user()->user_type;
                     axios.get('/get-dictaminador-data', { params: { email } })
                         .then(response => {
                             const data = response.data;
-                            if (form) {
-                                form.querySelector('input[name="user_id"]').value = data.form2.id || '';
-                                form.querySelector('input[name="email"]').value = data.form2.email || '';
-                                form.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                            if (data.form2) {
+                                document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                                document.querySelector('input[name="email"]').value = data.form2.email || '';
+                                document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
                                 document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
                                 document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
                                 document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
                                 document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
                             } else {
-                                console.error('Form with id "form2" not found.');
+                                console.log('No form2 data found for the selected dictaminador.');
                             }
-                               })
+                        })
                         .catch(error => {
                             console.error('Error fetching dictaminador data:', error);
                         });
+
                 }
             });
         }
