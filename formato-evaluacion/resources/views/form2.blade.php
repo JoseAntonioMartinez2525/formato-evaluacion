@@ -186,7 +186,7 @@ $userType = Auth::user()->user_type;
             });
 
             docenteSelect.addEventListener('change', (event) => {
-                const email = event.target.value;
+                let email = event.target.value;
                 if (email) {
                     axios.get('/get-docente-data', { params: { email } })
                         .then(response => {
@@ -224,14 +224,16 @@ $userType = Auth::user()->user_type;
                 alert('No se pudo cargar la lista de dictaminadores.');
             }
 
+            // Handle dictaminador selection change
             dictaminadorSelect.addEventListener('change', async (event) => {
                 const email = event.target.value;
                 if (email) {
                     let form = document.getElementById('form2');
                     try {
-                        const response = await axios.get('/get-dictaminador-data', { params: { email } });
+                        const response = await axios.get('/get-dictaminador-data', { params: { id } });
                         const data = response.data;
                         if (data.form2) {
+                            document.querySelector('input[name="dictaminador_id"]').value = data.form2.dictaminador_id || '0';
                             document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
                             document.querySelector('input[name="email"]').value = data.form2.email || '';
                             document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';

@@ -14,33 +14,29 @@ class Form1Controller extends Controller
 
     public function getDictaminadores()
     {
-        $dictaminador = User::where('user_type', 'dictaminador')->get(['email']);
+        $dictaminador = User::where('user_type', 'dictaminador')->get(['id', 'email']);
         \Log::info('Dictaminador:', $dictaminador->toArray());
         return response()->json($dictaminador);
     }
 
     public function getDictaminadorData(Request $request)
     {
-        $email = $request->query('email');
-        $dictaminador = User::with(['form2', 'form2_2', 'form3_1']) // Asegúrate de que estas relaciones estén definidas en tu modelo User
-        ->where('email', $email)
-        ->first();
+        $dictaminator_id = $request->input('dictaminator_id');
+        if (!$dictaminator_id) {
+            return response()->json(['error' => 'ID is required'], 400);
+        }
 
-    if (!$dictaminador) {
-        return response()->json(['error' => 'Dictaminador not found'], 404);
+        $dictaminador = User::find($dictaminator_id);
+        if (!$dictaminador) {
+            return response()->json(['error' => 'Dictaminador not found'], 404);
+        }
+
+        // Assuming you have related data or additional model to fetch
+        $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador->dictaminador_id)->first();
+
+        return response()->json([
+            'form2' => $form2Data
+        ]);
     }
 
-    // Log the results being fetched
-    \Log::info('Dictaminador:', [$dictaminador]);
-
-    return response()->json([
-        'dictaminador' => [
-            'id' => $dictaminador->id,
-            'email' => $dictaminador->email,
-        ],
-        'form2' => $dictaminador->form2, // Accediendo directamente a las relaciones
-        'form2_2' => $dictaminador->form2_2,
-        'form3_1' => $dictaminador->form3_1,
-    ]);
-}
 }
