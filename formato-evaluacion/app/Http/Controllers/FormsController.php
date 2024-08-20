@@ -43,7 +43,7 @@ public function getDictaminadorData(Request $request)
                 'email' => $dictaminador->email,
             ],
             'form2' => $form2Data,    // existing fields can still be accessed
-            'form2_2' => $form2_2Data || null,  // potentially useful for this view
+            'form2_2' => $form2_2Data,  // potentially useful for this view
             'form3_1' => $form3_1Data || null,
         ]);
     }
