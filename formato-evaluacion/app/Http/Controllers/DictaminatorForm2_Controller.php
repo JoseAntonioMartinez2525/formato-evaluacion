@@ -63,8 +63,13 @@ class DictaminatorForm2_Controller extends Controller
     public function getFormData2(Request $request)
     {
         try {
-            $data = DictaminatorsResponseForm2::where('user_id', $request->query('user_id'))->first();
-
+ 
+            // Check if dictaminador_id is present in the request
+            if (!$request->has('dictaminador_id')) {
+                return response()->json(['error' => 'dictaminador_id is required'], 400);
+            }
+            
+            $data = DictaminatorsResponseForm2::where('dictaminador_id', $request->query('dictaminador_id'))->first();
             if (!$data) {
                 return response()->json([
                     'success' => false,

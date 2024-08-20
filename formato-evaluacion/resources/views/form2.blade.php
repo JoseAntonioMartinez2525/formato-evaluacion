@@ -226,11 +226,12 @@ $userType = Auth::user()->user_type;
 
             // Handle dictaminador selection change
             dictaminadorSelect.addEventListener('change', async (event) => {
-                const email = event.target.value;
-                if (email) {
+                const dictaminadorId = event.target.value; 
+                if (dictaminadorId) {
                     let form = document.getElementById('form2');
                     try {
-                        const response = await axios.get('/get-dictaminador-data', { params: { email:dictaminadorSelect.value } });
+                        const response = await axios.get('/get-dictaminador-data', {params: { dictaminador_id: dictaminadorId }
+                        });
                         const data = response.data;
                         if (data.form2) {
                             document.querySelector('input[name="dictaminador_id"]').value = data.form2.dictaminador_id || '0';
