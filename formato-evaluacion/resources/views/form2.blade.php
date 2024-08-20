@@ -172,145 +172,157 @@ $userType = Auth::user()->user_type;
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
-        const docenteSelect = document.getElementById('docenteSelect');
-        if (docenteSelect) {
-            // Step 1: Load the list of docentes
-            const response = await fetch('/get-docentes');
-            const docentes = await response.json();
+            const userType = @json($userType);  // Inject user type from backend to JS
 
-            docentes.forEach(docente => {
-                const option = document.createElement('option');
-                option.value = docente.email;
-                option.textContent = docente.email;
-                docenteSelect.appendChild(option);
-            });
+            const docenteSelect = document.getElementById('docenteSelect');
+            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
 
-            docenteSelect.addEventListener('change', (event) => {
-                let email = event.target.value;
-                if (email) {
-                    axios.get('/get-docente-data', { params: { email } })
-                        .then(response => {
-                            const data = response.data;
-                            document.getElementById('horasActv2').textContent = data.form2.horasActv2 || '0';
-                            document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
-                            document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
-                            document.querySelector('input[name="email"]').value = data.form2.email || '';
-                            document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
-                        })
-                        .catch(error => {
-                            console.error('Error fetching docente data:', error);
-                        });
-                }
-            });
-        }
+            if (docenteSelect && userType == 'dictaminador') {
+                try {
+                    const response = await fetch('/get-docentes');
+                    const docentes = await response.json();
 
-        const dictaminadorSelect = document.getElementById('dictaminadorSelect');
-        if (dictaminadorSelect) {
-            // Step 1: Load the list of dictaminadores
-            try {
-                const response = await fetch('/get-dictaminadores');
-                const dictaminadores = await response.json();
+                    docentes.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
+                    });
 
-                const fragment = document.createDocumentFragment();
-                dictaminadores.forEach(dictaminador => {
-                    const option = document.createElement('option');
-                    option.value = dictaminador.email;
-                    option.textContent = dictaminador.email;
-                    fragment.appendChild(option);
-                });
-                dictaminadorSelect.appendChild(fragment);
-            } catch (error) {
-                console.error('Error fetching dictaminadores:', error);
-                alert('No se pudo cargar la lista de dictaminadores.');
-            }
-
-            // Handle dictaminador selection change
-            dictaminadorSelect.addEventListener('change', async (event) => {
-                const dictaminadorId = event.target.value; 
-                if (dictaminadorId) {
-                    let form = document.getElementById('form2');
-                    try {
-                        const response = await axios.get('/get-dictaminador-data', {params: { dictaminador_id: dictaminadorId }
-                        });
-                        const data = response.data;
-                        if (data.form2) {
-                            document.querySelector('input[name="dictaminador_id"]').value = data.form2.dictaminador_id || '0';
-                            document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
-                            document.querySelector('input[name="email"]').value = data.form2.email || '';
-                            document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
-                            document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
-                            document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
-                            document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
-                            document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
-                        } else {
-                            console.log('No form2 data found for the selected dictaminador.');
+                    docenteSelect.addEventListener('change', (event) => {
+                        const email = event.target.value;
+                        if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+                                    document.getElementById('horasActv2').textContent = data.form2.horasActv2 || '0';
+                                    document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
+                                    document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.form2.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching docente data:', error);
+                                });
                         }
-                    } catch (error) {
-                        console.error('Error fetching dictaminador data:', error);
-                    }
+                    });
+                } catch (error) {
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
                 }
-            });
-        }
-    });
-
-
-    async function submitForm(url, formId) {
-        let formData = {};
-        let form = document.getElementById(formId);
-
-        if (!form) {
-            console.error(`Form with id "${formId}" not found.`);
-            return;
-        }
-
-        // Gather relevant information from the form
-        formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-        formData['email'] = form.querySelector('input[name="email"]').value;
-        formData['horasActv2'] = document.getElementById('horasActv2').textContent;
-        formData['puntajeEvaluar'] = document.getElementById('puntajeEvaluarText').textContent;
-        formData['comision1'] = form.querySelector('input[name="comision1"]').value;
-        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
-        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-
-        console.log('Form data:', formData);
-
-        try {
-            let response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const text = await response.text(); // Obten la respuesta como texto
-            console.log('Status Code:', response.status); // Agrega el código de estado
-            console.log('Raw response:', text); // Muestra la respuesta sin parsear
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
             }
 
-            let responseData = JSON.parse(text);
-            console.log('Response received from server:', responseData);
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
+            if (dictaminadorSelect && userType == '') {
+                try {
+                    const response = await fetch('/get-dictaminadores');
+                    const dictaminadores = await response.json();
 
-    }
+                    dictaminadores.forEach(dictaminador => {
+                        const option = document.createElement('option');
+                        option.value = dictaminador.id;  // Use dictaminador ID as the value
+                        option.dataset.email = dictaminador.email; // Store email in data attribute
+                        option.textContent = dictaminador.email;
+                        dictaminadorSelect.appendChild(option);
+                    });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Asociar la función a los formularios
-        const form2 = document.getElementById('form2');
-        if (form2) {
-            form2.onsubmit = function (event) {
-                event.preventDefault(); // Previene el envío por defecto
-                submitForm('/store-form2', 'form2'); // Llama a la función submitForm
-            };
-        }
+                    dictaminadorSelect.addEventListener('change', async (event) => {
+                        const dictaminadorId = event.target.value;
+                        const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+                        if (dictaminadorId) {
+                            try {
+                                console.log('Email:', email);
+                                console.log('Dictaminador ID:', dictaminadorId);
+                                const response = await axios.get('/get-dictaminador-data', {
+                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                                });
+                                const data = response.data;
+                                if (data.form2) {
+                                    document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
+                                    document.querySelector('span[id="horasActv2"]').textContent = data.form2.horasActv2 || '0';
+                                    document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
+                                    document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
+                                    document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
+                                } else {
+                                    console.log('No form2 data found for the selected dictaminador.');
+                                    document.querySelector('input[name="dictaminador_id"]').value = '0';
+                                    document.querySelector('input[name="user_id"]').value = '';
+                                    document.querySelector('input[name="email"]').value = '';
+                                    document.querySelector('input[name="user_type"]').value = '';
+                                    document.querySelector('span[id="horasActv2"]').textContent = '0';
+                                    document.querySelector('span[id="puntajeEvaluarText"]').textContent = '0';
+                                    document.querySelector('span[id="comision1"]').textContent = '';
+                                    document.querySelector('span[id="obs1"]').textContent = '';
+                                }
+                            } catch (error) {
+                                console.error('Error fetching dictaminador data:', error);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching dictaminadores:', error);
+                    alert('No se pudo cargar la lista de dictaminadores.');
+                }
+            }
         });
+
+        async function submitForm(url, formId) {
+            let formData = {};
+            let form = document.getElementById(formId);
+
+            if (!form) {
+                console.error(`Form with id "${formId}" not found.`);
+                return;
+            }
+
+            formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
+            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+            formData['email'] = form.querySelector('input[name="email"]').value;
+            formData['horasActv2'] = document.getElementById('horasActv2').textContent;
+            formData['puntajeEvaluar'] = document.getElementById('puntajeEvaluarText').textContent;
+            formData['comision1'] = form.querySelector('input[name="comision1"]').value;
+            formData['obs1'] = form.querySelector('input[name="obs1"]').value;
+            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
+            console.log('Form data:', formData);
+
+            try {
+                let response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const text = await response.text();
+                console.log('Status Code:', response.status);
+                console.log('Raw response:', text);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let responseData = JSON.parse(text);
+                console.log('Response received from server:', responseData);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form2 = document.getElementById('form2');
+            if (form2) {
+                form2.onsubmit = function (event) {
+                    event.preventDefault();
+                    submitForm('/store-form2', 'form2');
+                };
+            }
+        });
+
 
     </script>
 </body>
