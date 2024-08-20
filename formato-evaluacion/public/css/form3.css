@@ -62,3 +62,8 @@ nav {
 .actv3::-webkit-scrollbar-thumb:hover {
     background: #333;
 }
+
+.userMenu{
+        background-color: #afc7ce;
+        margin-top: 100px;
+}

@@ -16,6 +16,7 @@ $newLocale = str_replace('_', '-', $locale);
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
     <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
     <script src="{{ asset('js/subtotales.js') }}"></script>
@@ -31,11 +32,14 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
             @if (Auth::check())
-            
+
                 <section role="region" aria-label="Response form">
                     <form>
                         @csrf
                     <nav class="nav flex-column printButtonClass">
+                      <li><a href="{{ route('login') }}">
+                            <i class="fas fa-power-off" style="margin-left: 250px; padding-top: 50px;" name="cerrar_sesion"></i>
+                        </a></li>
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
                         </li>
@@ -47,7 +51,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la
                                 docencia</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la
                                 Comisión del PEDPD)</a>
@@ -64,6 +68,7 @@ $newLocale = str_replace('_', '-', $locale);
                     </nav>
                     </form>
                 </section>
+
             @endif
         @endif
     </div>
@@ -150,8 +155,11 @@ $userType = Auth::user()->user_type;
                             <span id="obs1" class="table-header"></span>
                         @endif
                         </td>
-                        <td>
+                        <td>@if($userType != '')
                             <button type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                        @else
+                            <span></span>
+                        @endif
                         </td>
                     </tr>
                 </tbody>
