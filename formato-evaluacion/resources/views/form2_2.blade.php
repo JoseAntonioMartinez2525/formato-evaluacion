@@ -15,6 +15,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
     <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print"/>
     <script src="{{ asset('js/subtotales.js') }}"></script>
@@ -35,6 +36,9 @@ $newLocale = str_replace('_', '-', $locale);
                         <form>
                             @csrf
                             <nav class="nav flex-column printButtonClass">
+                               <li><a href="{{ route('login') }}">
+                                    <i class="fas fa-power-off" style="margin-left: 250px; padding-top: 50px;" name="cerrar_sesion"></i>
+                                </a></li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
                                 </li>
@@ -67,12 +71,33 @@ $newLocale = str_replace('_', '-', $locale);
             @endif
     </div>
 <x-general-header />
+    @php
+$userType = Auth::user()->user_type;
+    @endphp
+    
     <div class="container mt-4">
-        <label for="docenteSelect">Seleccionar Docente:</label>
-        <select id="docenteSelect" class="form-select">
-            <option value="">Seleccionar un docente</option>
-            <!-- Aquí se llenarán los docentes con JavaScript -->
-        </select>
+        @if($userType == 'dictaminador')
+            <!-- Select para dictaminador seleccionando docentes -->
+            <label for="docenteSelect">Seleccionar Docente:</label>
+            <select id="docenteSelect" class="form-select">
+                <option value="">Seleccionar un docente</option>
+                <!-- Aquí se llenarán los docentes con JavaScript -->
+            </select>
+        @elseif($userType == '')
+            <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+            <select id="dictaminadorSelect" class="form-select">
+                <option value="">Seleccionar un dictaminador</option>
+                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+            </select>
+        @else
+            <!-- Select por defecto para otros usuarios seleccionando docentes -->
+            <label for="docenteSelect">Seleccionar Docente:</label>
+            <select id="docenteSelect" class="form-select">
+                <option value="">Seleccionar un docente</option>
+                <!-- Aquí se llenarán los docentes con JavaScript -->
+            </select>
+        @endif
     </div>
     <main class="container">
         <!-- Form for Part 2_2 -->
@@ -113,9 +138,15 @@ $newLocale = str_replace('_', '-', $locale);
                             <td><span id="horasPosgrado" name="horasPosgrado" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="DSE" name="dse" class="puntajeEvaluar" type="text"></label></td>
-                            <td class="comision actv"><input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()"></input>
-                            </td>
+                             @if($userType == 'dictaminador')
+                                <td class="comision actv"><input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()"></input>
+                                </td>
                             <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
+                            @else
+                                <td class="comision actv"><span id="comisionPosgrado" name="comisionPosgrado"></span></td>
+                                <td><span id="obs2" name="obs2" class="table-header"></span></td>
+                            @endif
+
                         </tr>
                         <tr>
                             <td>b) Licenciatura y TSU

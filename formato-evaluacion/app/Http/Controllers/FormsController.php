@@ -9,7 +9,7 @@ use App\Models\DictaminatorsResponseForm2;
 use App\Models\DictaminatorsResponseForm2_2;
 use App\Models\DictaminatorsResponseForm3_1;
 
-class Form1Controller extends Controller
+class FormsController extends Controller
 {
     
 
