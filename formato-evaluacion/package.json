@@ -9,6 +9,7 @@
         "@babel/core": "^7.24.4",
         "@babel/preset-env": "^7.24.4",
         "@babel/preset-react": "^7.24.1",
+        "@babel/traverse": "^7.25.3",
         "@popperjs/core": "^2.11.6",
         "@vitejs/plugin-react": "^4.2.0",
         "axios": "^1.7.2",
