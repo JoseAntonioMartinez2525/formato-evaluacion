@@ -74,17 +74,39 @@ $newLocale = str_replace('_', '-', $locale);
         @endif
     </div>
     <x-general-header />
+        @php
+$userType = Auth::user()->user_type;
+        @endphp
     <div class="container mt-4">
-        <label for="docenteSelect">Seleccionar Docente:</label>
-        <select id="docenteSelect" class="form-select">
-            <option value="">Seleccionar un docente</option>
-            <!-- Aquí se llenarán los docentes con JavaScript -->
-        </select>
+        @if($userType == 'dictaminador')
+            <!-- Select para dictaminador seleccionando docentes -->
+            <label for="docenteSelect">Seleccionar Docente:</label>
+            <select id="docenteSelect" class="form-select">
+                <option value="">Seleccionar un docente</option>
+                <!-- Aquí se llenarán los docentes con JavaScript -->
+            </select>
+        @elseif($userType == '')
+            <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+            <select id="dictaminadorSelect" class="form-select">
+                <option value="">Seleccionar un dictaminador</option>
+                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+            </select>
+        @else
+            <!-- Select por defecto para otros usuarios seleccionando docentes -->
+            <label for="docenteSelect">Seleccionar Docente:</label>
+            <select id="docenteSelect" class="form-select">
+                <option value="">Seleccionar un docente</option>
+                <!-- Aquí se llenarán los docentes con JavaScript -->
+            </select>
+        @endif
     </div>
+
     <main class="container">
         <!-- Form for Part 3_1 -->
         <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form31', 'form3_1');">
             @csrf
+            <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
@@ -160,9 +182,21 @@ $newLocale = str_replace('_', '-', $locale);
         
                                     <td class="elabInput"><span id="elaboracion">0</span></td>
                                     <td><span id="elaboracionSubTotal1" for="" type="text"></span></td>
-                                    <td class="comision actv"><input id="comisionIncisoA" placeholder="0" for=""
-                                            oninput="onActv3Comision()"></input></td>
-                                    <td><input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text"></td>
+                                    <td class="comision actv">
+                                    @if($userType == 'dictaminador')
+                                    <input id="comisionIncisoA" placeholder="0" for=""
+                                            oninput="onActv3Comision()"></input>
+                                    @else
+                                    <label id="comisionIncisoA"></label>
+                                    @endif                                    
+                                    </td>
+                                    <td>
+                                    @if($userType == 'dictaminador')
+                                    <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
+                                    @else
+                                    <label id="obs3_1_1"name="obs3_1_1" class="table-header"></label>
+                                    @endif
+                                    </td>
                                     <thead>
                                         <tr>
                                             <td>b)
@@ -186,9 +220,21 @@ $newLocale = str_replace('_', '-', $locale);
                                             <td class="elabInput"><span id="elaboracion2">0</span></td>
                                             <td><span id="elaboracionSubTotal2" for="" type="text"></span>
                                             </td>
-                                            <td class="comision actv"><input id="comisionIncisoB" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_2" name="obs3_1_2" class="table-header" type="text"></td>
+                                            <td class="comision actv">
+                                            @if($userType == 'dictaminador')
+                                            <input id="comisionIncisoB" placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input>
+                                            @else
+                                            <label id="comisionIncisoB"></label>                                            
+                                            @endif
+                                            </td>
+                                            <td>
+                                            @if($userType == 'dictaminador')
+                                            <input id="obs3_1_2" name="obs3_1_2" class="table-header" type="text">
+                                            @else
+                                            <label id="obs3_1_2"name="obs3_1_2" class="table-header"></label>
+                                            @endif
+                                            </td>
                                         </tr>
                                     </thead>
                                     <thead>
@@ -213,9 +259,22 @@ $newLocale = str_replace('_', '-', $locale);
                                             <td class="elabInput"><span id="elaboracion3">0</span></td>
                                             <td><span id="elaboracionSubTotal3" for="" type="text"></span>
                                             </td>
-                                            <td class="comision actv"><input id="comisionIncisoC" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text"></td>
+                                            <td class="comision actv">
+                                            @if($userType == 'dictaminador')
+                                            <input id="comisionIncisoC" placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input>
+                                            @else
+                                            <label id="comisionIncisoC"></label>
+                                            @endif
+                                            </td>
+                                            <td>
+                                            @if($userType == 'dictaminador')
+                                            <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">  
+                                            @else
+                                            <label id="obs3_1_3"name="obs3_1_3" class="table-header"></label>
+                                            @endif
+                                            </td>
+                                            
                                         </tr>
                                     </thead>
                                     <thead>
@@ -241,9 +300,22 @@ $newLocale = str_replace('_', '-', $locale);
                                             <td class="elabInput"><span id="elaboracion4">0</span></td>
                                             <td><span id="elaboracionSubTotal4"></span>
                                             </td>
-                                            <td class="comision actv"><input id="comisionIncisoD" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text"></td>
+                                            <td class="comision actv">
+                                            @if($userType == 'dictaminador')
+
+                                            <input id="comisionIncisoD" placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input>
+                                            @else
+                                            <label id="comisionIncisoD"></label>
+                                            @endif                                               
+                                            </td>
+                                            <td>
+                                            @if($userType == 'dictaminador')
+                                                <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
+                                            @else
+                                            <label id="obs3_1_4"name="obs3_1_4"class="table-header"></label>
+                                            @endif
+                                            </td>
                                         </tr>
                                     </thead>
                                     <thead>

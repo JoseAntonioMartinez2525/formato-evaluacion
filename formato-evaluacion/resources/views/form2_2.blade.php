@@ -141,11 +141,11 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td class="puntajeEvaluar2"><label id="dse" name="dse" class="puntajeEvaluar" type="text"></label></td>
                              @if($userType == 'dictaminador')
-                                    <td class="comision actv">
+                                    <td class="comision actv filled">
                                         <input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()">
                                     </input>
                                     </td>
-                                <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
+                                <td class="filled"><input id="obs2" name="obs2" class="table-header" type="text"></td>
                                 
                             @else
                                 <td class="comision actv"><span id="comisionPosgrado" name="comisionPosgrado"></span></td>
