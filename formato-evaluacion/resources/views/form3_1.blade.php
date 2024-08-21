@@ -371,107 +371,150 @@ $userType = Auth::user()->user_type;
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
+    document.addEventListener('DOMContentLoaded', async () => {
+        const docenteSelect = document.getElementById('docenteSelect');
+            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
 
-            // Step 1: Load the list of docentes
-            const response = await fetch('/get-docentes'); // URL to fetch docentes, adjust as necessary
-            const docentes = await response.json();
+            // Current user type from the backend
+            const userType = @json($userType);  // Get user type from backend
 
-            docentes.forEach(docente => {
+            // Fetch docente options if user is a dictaminador
+            if (docenteSelect && userType === 'dictaminador') {
+            try {
+                const response = await fetch('/get-docentes');
+                const docentes = await response.json();
+
+                docentes.forEach(docente => {
                 const option = document.createElement('option');
                 option.value = docente.email;
                 option.textContent = docente.email;
                 docenteSelect.appendChild(option);
-            });
+                });
 
-            // Manejar el cambio en la selección de docentes
-            document.getElementById('docenteSelect').addEventListener('change', (event) => {
-                const email = event.target.value;
-                if (email) {
-                    axios.get('/get-docente-data', { params: { email } })
-                        .then(response => {
-                            const data = response.data;
-                            console.log(data);  // Inspect the structure returned
+                // Handle docente selection change
+                docenteSelect.addEventListener('change', async (event) => {
+                    const email = event.target.value;
+            if (email) {
+                        try {
+                            const response = await axios.get('/get-docente-data', {params: {email} });
+            const data = response.data;
 
-                            const score3_1 = document.querySelector('#score3_1');
-                            if (score3_1) {
-                                score3_1.textContent = data.form3_1 ? data.form3_1.score3_1 || '0' : '0';
+            // Populate fields with fetched data
+            document.getElementById('score3_1').textContent = data.form3_1.score3_1 || '0';
+            document.getElementById('elaboracion').textContent = data.form3_1.elaboracion || '0';
+            document.getElementById('elaboracionSubTotal1').textContent = data.form3_1.elaboracionSubTotal1 || '0';
+            document.getElementById('elaboracion2').textContent = data.form3_1.elaboracion2 || '0';
+            document.getElementById('elaboracionSubTotal2').textContent = data.form3_1.elaboracionSubTotal2 || '0';
+            document.getElementById('elaboracion3').textContent = data.form3_1.elaboracion3 || '0';
+            document.getElementById('elaboracionSubTotal3').textContent = data.form3_1.elaboracionSubTotal3 || '0';
+            document.getElementById('elaboracion4').textContent = data.form3_1.elaboracion4 || '0';
+            document.getElementById('elaboracionSubTotal4').textContent = data.form3_1.elaboracionSubTotal4 || '0';
+            document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
+            document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
+            document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
+
+            // Populate hidden inputs
+            document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
+            document.querySelector('input[name="email"]').value = data.form3_1.email || '';
+            document.querySelector('input[name="user_type"]').value = data.form3_1.user_type || '';
+                        } catch (error) {
+                console.error('Error fetching docente data:', error);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching docentes:', error);
+            alert('No se pudo cargar la lista de docentes.');
+            }
+        }
+
+            // Fetch dictaminador options if user type is null or empty
+            if (dictaminadorSelect && userType === '') {
+            try {
+            const response = await fetch('/get-dictaminadores');
+            const dictaminadores = await response.json();
+
+                dictaminadores.forEach(dictaminador => {
+            const option = document.createElement('option');
+            option.value = dictaminador.id;  // Use dictaminador ID as value
+            option.dataset.email = dictaminador.email; // Store email in data attribute
+            option.textContent = dictaminador.email;
+            dictaminadorSelect.appendChild(option);
+                });
+
+                // Handle dictaminador selection change
+            dictaminadorSelect.addEventListener('change', async (event) => {
+            const dictaminadorId = event.target.value;
+            const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+            if (dictaminadorId) {
+                        try {
+                            const response = await axios.get('/get-dictaminador-data', {
+                params: {email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                            });
+            const data = response.data;
+
+            // Populate fields based on fetched data
+            if (data.form3_1) {
+            document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
+            document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
+            document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
+            document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
+
+            document.getElementById('score3_1').textContent = data.form3_1.score3_1 || '0';
+            document.getElementById('elaboracion').textContent = data.form3_1.elaboracion || '0';
+            document.getElementById('elaboracionSubTotal1').textContent = data.form3_1.elaboracionSubTotal1 || '0';
+            document.getElementById('elaboracion2').textContent = data.form3_1.elaboracion2 || '0';
+            document.getElementById('elaboracionSubTotal2').textContent = data.form3_1.elaboracionSubTotal2 || '0';
+            document.getElementById('elaboracion3').textContent = data.form3_1.elaboracion3 || '0';
+            document.getElementById('elaboracionSubTotal3').textContent = data.form3_1.elaboracionSubTotal3 || '0';
+            document.getElementById('elaboracion4').textContent = data.form3_1.elaboracion4 || '0';
+            document.getElementById('elaboracionSubTotal4').textContent = data.form3_1.elaboracionSubTotal4 || '0';
+            document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
+            document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
+            document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
+            document.querySelector('label=[id="comisionIncisoA"]').textContent = data.form3_1.comisionIncisoA || '0';
+            document.querySelector('label=[id="comisionIncisoB"]').textContent = data.form3_1.comisionIncisoB || '0';
+            document.querySelector('label=[id="comisionIncisoC"]').textContent = data.form3_1.comisionIncisoC || '0';
+            document.querySelector('label=[id="comisionIncisoD"]').textContent = data.form3_1.comisionIncisoD || '0';
+            document.querySelector('label=[id="comisionIncisoE"]').textContent = data.form3_1.comisionIncisoE || '0';
+
+
+                            } else {
+                console.error('No form3_1 data found for the selected dictaminador.');
+            // Reset input values if no data found
+            document.querySelector('input[name="dictaminador_id"]').value = '0';
+            document.querySelector('input[name="user_id"]').value = '0';
+            document.querySelector('input[name="email"]').value = '';
+            document.querySelector('input[name="user_type"]').value = '';
+            document.getElementById('score3_1').textContent = '0';
+            document.getElementById('elaboracion').textContent = '0';
+            document.getElementById('elaboracionSubTotal1').textContent = '0';
+                                // Reset additional fields accordingly
+                                // ...
                             }
+                        } catch (error) {
+                console.error('Error fetching dictaminador data:', error);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching dictaminadores:', error);
+            alert('No se pudo cargar la lista de dictaminadores.');
+            }
+        }
+    });
 
-                            const elaboracion = document.getElementById('elaboracion');
-                            if (elaboracion) {
-                                elaboracion.textContent = data.form3_1 ? data.form3_1.elaboracion || '0' : '0';
-                            }
-
-                            const elaboracionSubTotal1 = document.getElementById('elaboracionSubTotal1');
-                            if (elaboracionSubTotal1) {
-                                elaboracionSubTotal1.textContent = data.form3_1 ? data.form3_1.elaboracionSubTotal1 || '0' : '0';
-                            }
-
-                            const elaboracion2 = document.getElementById('elaboracion2');
-                            if (elaboracion2) {
-                                elaboracion2.textContent = data.form3_1 ? data.form3_1.elaboracion2 || '0' : '0';
-                            }
-
-                            const elaboracionSubTotal2 = document.getElementById('elaboracionSubTotal2');
-                            if (elaboracionSubTotal2) {
-                                elaboracionSubTotal2.textContent = data.form3_1 ? data.form3_1.elaboracionSubTotal2 || '0' : '0';
-                            }
-
-                            const elaboracion3 = document.getElementById('elaboracion3');
-                            if(elaboracion3){
-                                elaboracion3.textContent = data.form3_1.elaboracion3 || '0';
-                            }
-                            const elaboracionSubTotal3 = document.getElementById('elaboracionSubTotal3');
-                            if(elaboracionSubTotal3){
-                                elaboracionSubTotal3.textContent = data.form3_1.elaboracionSubTotal3 || '0';
-                            }
-                            const elaboracion4 = document.getElementById('elaboracion4');
-                            if(elaboracion4){
-                                elaboracion4.textContent = data.form3_1.elaboracion4 || '0';
-                            }
-                            const elaboracionSubTotal4 = document.getElementById('elaboracionSubTotal4');
-                            if(elaboracionSubTotal4){
-                                elaboracionSubTotal4.textContent = data.form3_1.elaboracionSubTotal4 || '0';
-                            }
-                            const elaboracion5 = document.getElementById('elaboracion5');
-                            if(elaboracion5){
-                                elaboracion5.textContent = data.form3_1.elaboracion5 || '0';
-                            }
-                            const elaboracionSubTotal5 = document.getElementById('elaboracionSubTotal5');
-                            if(elaboracionSubTotal5){
-                                elaboracionSubTotal5.textContent = data.form3_1.elaboracionSubTotal5 || '0';
-                            }
-
-
-                            document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
-                            document.querySelector('input[name="email"]').value = data.form3_1.email || '';
-                            document.querySelector('input[name="user_type"]').value = data.form3_1.user_type || '';
-                            
-
-                        })
-                        .catch(error => {
-                            console.error('Error fetching docente data:', error);
-                        });
-
-                }
-
-
-            });
-        });
-
-
-        async function submitForm(url, formId) {
-            let formData = {};
-            let form = document.getElementById(formId);
+            // Function to handle form submission
+            async function submitForm(url, formId) {
+            const formData = { };
+            const form = document.getElementById(formId);
 
             if (!form) {
                 console.error(`Form with id "${formId}" not found.`);
-                return;
-            }
+            return;
+        }
 
-            // Gather relevant information from the form
+            // Gather all related information from the form
             formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
@@ -479,57 +522,53 @@ $userType = Auth::user()->user_type;
 
             formData['elaboracion'] = document.getElementById('elaboracion').textContent;
             formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
-            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').value;
+            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').value; // Ensure input value is fetched
             formData['elaboracion2'] = document.getElementById('elaboracion2').textContent;
             formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
-            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').value;
+            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').value; // Ensure input value is fetched
             formData['elaboracion3'] = document.getElementById('elaboracion3').textContent;
             formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
-            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').value;
+            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').value; // Ensure input value is fetched
             formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
             formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
-            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value;
+            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value; // Ensure input value is fetched
             formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
             formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
-            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value;
+            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value; // Ensure input value is fetched
+            
+
             formData['score3_1'] = document.getElementById('score3_1').textContent;
             formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
 
+            // Observations
             formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;
             formData['obs3_1_2'] = form.querySelector('input[name="obs3_1_2"]').value;
             formData['obs3_1_3'] = form.querySelector('input[name="obs3_1_3"]').value;
             formData['obs3_1_4'] = form.querySelector('input[name="obs3_1_4"]').value;
             formData['obs3_1_5'] = form.querySelector('input[name="obs3_1_5"]').value;
 
-
             console.log('Form data:', formData);
 
             try {
-                let response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
+            const response = await fetch(url, {
+                method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(formData),
+            });
 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('Error response:', errorData);
-                    throw new Error('Network response was not ok');
-                    alert('There was an error submitting the form. Please try again.');
-                }
-
-                let responseData = await response.json();
-                console.log('Response received from server:', responseData);
-                
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+
+            const responseData = await response.json();
+            console.log('Response received from server:', responseData);
+        } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
         }
-
-
+    }
         function minWithSum(value1, value2) {
             const sum = value1 + value2;
             return Math.min(sum, 200);
