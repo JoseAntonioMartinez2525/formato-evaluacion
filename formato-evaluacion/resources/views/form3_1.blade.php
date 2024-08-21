@@ -187,7 +187,7 @@ $userType = Auth::user()->user_type;
                                     <input id="comisionIncisoA" placeholder="0" for=""
                                             oninput="onActv3Comision()"></input>
                                     @else
-                                    <label id="comisionIncisoA"></label>
+                                        <label id="comisionIncisoA" name="comisionIncisoA"></label>
                                     @endif                                    
                                     </td>
                                     <td>
@@ -225,7 +225,7 @@ $userType = Auth::user()->user_type;
                                             <input id="comisionIncisoB" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input>
                                             @else
-                                            <label id="comisionIncisoB"></label>                                            
+                                                <label id="comisionIncisoB" name="comisionIncisoB"></label>                                            
                                             @endif
                                             </td>
                                             <td>
@@ -264,7 +264,7 @@ $userType = Auth::user()->user_type;
                                             <input id="comisionIncisoC" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input>
                                             @else
-                                            <label id="comisionIncisoC"></label>
+                                                <label id="comisionIncisoC" name="comisionIncisoC"></label>
                                             @endif
                                             </td>
                                             <td>
@@ -306,7 +306,7 @@ $userType = Auth::user()->user_type;
                                             <input id="comisionIncisoD" placeholder="0" for=""
                                                     oninput="onActv3Comision()"></input>
                                             @else
-                                            <label id="comisionIncisoD"></label>
+                                                <label id="comisionIncisoD" name="comisionIncisoD"></label>
                                             @endif                                               
                                             </td>
                                             <td>
@@ -340,9 +340,21 @@ $userType = Auth::user()->user_type;
                                             </td>
                                             <td class="elabInput"><span id="elaboracion5">0</span></td>
                                             <td><span id="elaboracionSubTotal5"></span></td>
-                                            <td class="comision actv"><input id="comisionIncisoE" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input></td>
-                                            <td><input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text"></td>
+                                            <td class="comision actv">
+                                            @if($userType == 'dictaminador')
+                                            <input id="comisionIncisoE" placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input>
+                                            @else
+                                             <label id="comisionIncisoE" name="comisionIncisoE"></label>
+                                             @endif
+                                            </td>
+                                            <td>
+                                            @if($userType == 'dictaminador')
+                                            <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
+                                            @else
+                                            <label id="obs3_1_5"name="obs3_1_5"class="table-header"></label>
+                                            @endif
+                                            </td>
                                         </tr>
                                     </thead>
                                 </tr>
@@ -411,7 +423,7 @@ $userType = Auth::user()->user_type;
             document.getElementById('elaboracionSubTotal4').textContent = data.form3_1.elaboracionSubTotal4 || '0';
             document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
             document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
-            document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
+            //document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
 
             // Populate hidden inputs
             document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
@@ -430,28 +442,29 @@ $userType = Auth::user()->user_type;
 
             // Fetch dictaminador options if user type is null or empty
             if (dictaminadorSelect && userType === '') {
-            try {
-            const response = await fetch('/get-dictaminadores');
-            const dictaminadores = await response.json();
+                try {
+                    const response = await fetch('/get-dictaminadores');
+                    const dictaminadores = await response.json();
 
-                dictaminadores.forEach(dictaminador => {
-            const option = document.createElement('option');
-            option.value = dictaminador.id;  // Use dictaminador ID as value
-            option.dataset.email = dictaminador.email; // Store email in data attribute
-            option.textContent = dictaminador.email;
-            dictaminadorSelect.appendChild(option);
+                    dictaminadores.forEach(dictaminador => {
+                    const option = document.createElement('option');
+                    option.value = dictaminador.id;  // Use dictaminador ID as value
+                    option.dataset.email = dictaminador.email; // Store email in data attribute
+                    option.textContent = dictaminador.email;
+                    dictaminadorSelect.appendChild(option);
                 });
 
                 // Handle dictaminador selection change
             dictaminadorSelect.addEventListener('change', async (event) => {
-            const dictaminadorId = event.target.value;
-            const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-            if (dictaminadorId) {
-                        try {
-                            const response = await axios.get('/get-dictaminador-data', {
-                params: {email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                            });
-            const data = response.data;
+                const dictaminadorId = event.target.value;
+                const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+            
+                if (dictaminadorId) {
+                    try {
+                        const response = await axios.get('/get-dictaminador-data', {
+                        params: {email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                    });
+                const data = response.data;
 
             // Populate fields based on fetched data
             if (data.form3_1) {
@@ -472,14 +485,18 @@ $userType = Auth::user()->user_type;
             document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
             document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
             document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
-            document.querySelector('label=[id="comisionIncisoA"]').textContent = data.form3_1.comisionIncisoA || '0';
-            document.querySelector('label=[id="comisionIncisoB"]').textContent = data.form3_1.comisionIncisoB || '0';
-            document.querySelector('label=[id="comisionIncisoC"]').textContent = data.form3_1.comisionIncisoC || '0';
-            document.querySelector('label=[id="comisionIncisoD"]').textContent = data.form3_1.comisionIncisoD || '0';
-            document.querySelector('label=[id="comisionIncisoE"]').textContent = data.form3_1.comisionIncisoE || '0';
-
-
-                            } else {
+            document.querySelector('label[name="comisionIncisoA"]').textContent = data.form3_1.comisionIncisoA || '0';
+            document.querySelector('label[name="comisionIncisoB"]').textContent = data.form3_1.comisionIncisoB || '0';
+            document.querySelector('label[name="comisionIncisoC"]').textContent = data.form3_1.comisionIncisoC || '0';
+            document.querySelector('label[name="comisionIncisoD"]').textContent = data.form3_1.comisionIncisoD || '0';
+            document.querySelector('label[name="comisionIncisoE"]').textContent = data.form3_1.comisionIncisoE || '0';
+            document.querySelector('label[name="obs3_1_1"]').textContent || '';
+            document.querySelector('label[name="obs3_1_2"]').textContent || '';
+            document.querySelector('label[name="obs3_1_3"]').textContent || '';
+            document.querySelector('label[name="obs3_1_4"]').textContent || '';
+            document.querySelector('label[name="obs3_1_5"]').textContent || '';
+            } else {
+                
                 console.error('No form3_1 data found for the selected dictaminador.');
             // Reset input values if no data found
             document.querySelector('input[name="dictaminador_id"]').value = '0';
@@ -489,8 +506,25 @@ $userType = Auth::user()->user_type;
             document.getElementById('score3_1').textContent = '0';
             document.getElementById('elaboracion').textContent = '0';
             document.getElementById('elaboracionSubTotal1').textContent = '0';
-                                // Reset additional fields accordingly
-                                // ...
+            document.getElementById('elaboracion2').textContent = '0';
+            document.getElementById('elaboracionSubTotal2').textContent ='0';
+            document.getElementById('elaboracion3').textContent ='0';
+            document.getElementById('elaboracionSubTotal3').textContent ='0';
+            document.getElementById('elaboracion4').textContent = '0';
+            document.getElementById('elaboracionSubTotal4').textContent = '0';
+            document.getElementById('elaboracion5').textContent = '0';
+            document.getElementById('elaboracionSubTotal5').textContent = '0';
+            document.getElementById('actv3Comision').textContent = '0';
+            document.querySelector('label[name="comisionIncisoA"]').textContent = '0';
+            document.querySelector('label[name="comisionIncisoB"]').textContent = '0';
+            document.querySelector('label[name="comisionIncisoC"]').textContent = '0';
+            document.querySelector('label[name="comisionIncisoD"]').textContent = '0';
+            document.querySelector('label[name="comisionIncisoE"]').textContent = '0';
+            document.querySelector('label[name="obs3_1_1"]').textContent ='';
+            document.querySelector('label[name="obs3_1_2"]').textContent ='';
+            document.querySelector('label[name="obs3_1_3"]').textContent ='';
+            document.querySelector('label[name="obs3_1_4"]').textContent ='';
+            document.querySelector('label[name="obs3_1_5"]').textContent ='';
                             }
                         } catch (error) {
                 console.error('Error fetching dictaminador data:', error);
@@ -534,9 +568,11 @@ $userType = Auth::user()->user_type;
             formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value; // Ensure input value is fetched
             formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
             formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
-            formData['comisionIncisoE'] = document.getElementById('comisionIncisoE').value; // Ensure input value is fetched
-            
-
+            formData['comisionIncisoA'] = form.querySelector('input[id="comisionIncisoA"]').value; 
+            formData['comisionIncisoB'] = form.querySelector('input[id="comisionIncisoB"]').value;
+            formData['comisionIncisoC'] = form.querySelector('input[id="comisionIncisoC"]').value;
+            formData['comisionIncisoD'] = form.querySelector('input[id="comisionIncisoD"]').value;   
+            formData['comisionIncisoE'] = form.querySelector('input[id="comisionIncisoE"]').value;                      
             formData['score3_1'] = document.getElementById('score3_1').textContent;
             formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
 
