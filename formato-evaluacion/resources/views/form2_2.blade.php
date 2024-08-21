@@ -141,14 +141,16 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td class="puntajeEvaluar2"><label id="dse" name="dse" class="puntajeEvaluar" type="text"></label></td>
                              @if($userType == 'dictaminador')
-                                    <td class="comision actv"><input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()"></input>
+                                    <td class="comision actv">
+                                        <input id="comisionPosgrado" name="comisionPosgrado" placeholder="0" for="" oninput="onActv2Comision()">
+                                    </input>
                                     </td>
                                 <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
                                 
                             @else
                                 <td class="comision actv"><span id="comisionPosgrado" name="comisionPosgrado"></span></td>
                                 <td><span id="obs2" name="obs2" class="table-header"></span></td>
-                                <td><span id="obs2_2" name="obs2_2" class="table-header"></span></td>
+
                             @endif
 
                         </tr>
@@ -267,13 +269,13 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('label[id="hoursText"]').textContent = data.form2_2.hours || '';
                                     document.querySelector('span[id="horasPosgrado"]').textContent = data.form2_2.horasPosgrado || '';
                                     document.querySelector('span[id="horasSemestre"]').textContent = data.form2_2.horasSemestre || '';
-                                    document.querySelector('span[id="dse"]').textContent = data.form2_2.dse || '';
-                                    document.querySelector('span[id="dse2"]').textContent = data.form2_2.dse2 || '';
+                                    document.querySelector('label[id="dse"]').textContent = data.form2_2.dse || '';
+                                    document.querySelector('label[id="dse2"]').textContent = data.form2_2.dse2 || '';
                                     document.querySelector('span[id="comisionPosgrado"]').textContent = data.form2_2.comisionPosgrado || '';
                                     document.querySelector('span[id="comisionLic"]').textContent = data.form2_2.comisionLic || '';
-                                    document.querySelector('span[id="actv2Comision"]').textContent = data.form2_2.actv2Comision || '';
+                                    document.querySelector('td[id="actv2Comision"]').textContent = data.form2_2.actv2Comision || '';
                                     document.querySelector('span[id="obs2"]').textContent = data.form2_2.obs2 || '';
-                                    document.querySelector('span[id="obs2_2"]').textContent = data.form2_2.obs2 || '';
+                                    document.querySelector('span[id="obs2_2"]').textContent = data.form2_2.obs2_2 || '';
                                 } else {
 
                                     console.log('No form2_2 data found for the selected dictaminador.');
@@ -285,11 +287,11 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('label[id="hoursText"]').textContent = '0';
                                     document.querySelector('span[id="horasPosgrado"]').textContent = '';
                                     document.querySelector('span[id="horasSemestre"]').textContent = '';
-                                    document.querySelector('span[id="dse"]').textContent = '';
-                                    document.querySelector('span[id="dse2"]').textContent = '';
+                                    document.querySelector('label[id="dse"]').textContent = '';
+                                    document.querySelector('label[id="dse2"]').textContent = '';
                                     document.querySelector('span[id="comisionPosgrado"]').textContent = '';
                                     document.querySelector('span[id="comisionLic"]').textContent = '';
-                                    document.querySelector('span[id="actv2Comision"]').textContent = '';
+                                    document.querySelector('td[id="actv2Comision"]').textContent = '';
                                     document.querySelector('span[id="obs2"]').textContent = '';
                                     document.querySelector('span[id="obs2_2"]').textContent = '';
                                 }
