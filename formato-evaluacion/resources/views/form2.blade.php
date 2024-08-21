@@ -138,6 +138,7 @@ $userType = Auth::user()->user_type;
                             <span id="puntajeEvaluarText">0</span>
                         </td>
                         <td class="table-header comision">
+                            <div class="filled">
                         @if($userType == 'dictaminador')
                             <!-- Mostrar input si es 'dictaminador' -->
                             <input type="number" id="comision1" name="comision1" class="table-header comision" step="any">
@@ -145,8 +146,10 @@ $userType = Auth::user()->user_type;
                             <!-- Mostrar span si es otro tipo de usuario -->
                             <span id="comision1" class="table-header comision"></span>
                         @endif
+                             </div>
                         </td>
                         <td>
+                            <div class="filled">
                         @if($userType == 'dictaminador')
                             <!-- Mostrar input si es 'dictaminador' -->
                             <input id="obs1" name="obs1" class="table-header" type="text">
@@ -154,6 +157,7 @@ $userType = Auth::user()->user_type;
                             <!-- Mostrar span si es otro tipo de usuario -->
                             <span id="obs1" class="table-header"></span>
                         @endif
+                            </div>
                         </td>
                         <td>@if($userType != '')
                             <button type="submit" class="btn btn-primary printButtonClass">Enviar</button>
