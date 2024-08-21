@@ -18,6 +18,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
     <link href="{{ asset('css/resume.css') }}" rel="stylesheet">
     <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print"/>
+    <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/subtotales.js') }}"></script>
     <script src="{{ asset('js/comisiones.js') }}"></script>
     <script src="{{ asset('js/privileges.js') }}"></script>
@@ -36,7 +37,8 @@ $newLocale = str_replace('_', '-', $locale);
                         <form>
                             @csrf
                             <nav class="nav flex-column printButtonClass">
-                               <li><a href="{{ route('login') }}">
+                               <li class="nav-item">
+                                <a class="logout" href="{{ route('login') }}">
                                     <i class="fas fa-power-off" style="margin-left: 250px; padding-top: 50px;" name="cerrar_sesion"></i>
                                 </a></li>
                                 <li class="nav-item">
