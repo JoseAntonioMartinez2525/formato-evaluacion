@@ -36,7 +36,7 @@ $newLocale = str_replace('_', '-', $locale);
                 <section role="region" aria-label="Response form">
                     <form>
                         @csrf
-                    <nav class="nav flex-column printButtonClass">
+                    <nav class="nav flex-column printButtonClass menu">
                       <li><a href="{{ route('login') }}">
                             <i class="fas fa-power-off" style="margin-left: 250px; padding-top: 50px;" name="cerrar_sesion"></i>
                         </a></li>
@@ -63,7 +63,11 @@ $newLocale = str_replace('_', '-', $locale);
                             <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Apartados 1, 2, 3</a>
+                        @if(Auth::user()->user_type === 'dictaminador')
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                        @else
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos </a>
+                        @endif
                         </li>
                     </nav>
                     </form>

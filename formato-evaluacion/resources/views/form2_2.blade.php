@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>Perfil</title>
+    <title>Dedicación en el Desempeño docente</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -26,6 +26,7 @@ $newLocale = str_replace('_', '-', $locale);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -36,7 +37,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <section role="region" aria-label="Response form">
                         <form>
                             @csrf
-                            <nav class="nav flex-column printButtonClass">
+                            <nav class="nav flex-column printButtonClass menu">
                                <li class="nav-item">
                                 <a class="logout" href="{{ route('login') }}">
                                     <i class="fas fa-power-off" style="margin-left: 250px; padding-top: 50px;" name="cerrar_sesion"></i>
@@ -64,7 +65,11 @@ $newLocale = str_replace('_', '-', $locale);
                                     <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Apartados 1 y 2</a>
+                                @if(Auth::user()->user_type === 'dictaminador')
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                @else
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos</a>
+                                @endif
                                 </li>
                             </nav>
                         </form>
@@ -77,7 +82,7 @@ $newLocale = str_replace('_', '-', $locale);
 $userType = Auth::user()->user_type;
     @endphp
     
-    <div class="container mt-4">
+    <div class="container mt-4 printButtonClass">
         @if($userType == 'dictaminador')
             <!-- Select para dictaminador seleccionando docentes -->
             <label for="docenteSelect">Seleccionar Docente:</label>
