@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_6', 8, 2);
+            $table->decimal('puntaje3_6', 8, 2);
+            $table->decimal('puntajeHoras3_6', 8, 2); 
             $table->string('obs3_6_1')->nullable(); // Allow null values
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
 
             $table->timestamps();
         });

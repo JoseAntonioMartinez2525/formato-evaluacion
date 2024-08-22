@@ -37,7 +37,7 @@ return new class extends Migration {
             $table->string('obsPRODEPenconsInteg')->nullable();
             $table->string('obsPRODEPconsResp')->nullable();
             $table->string('obsPRODEPconsInteg')->nullable();
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

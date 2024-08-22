@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('obsCongresoInt')->nullable();
             $table->string('obsCongresoNac')->nullable();
             $table->string('obsCongresoLoc')->nullable();
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

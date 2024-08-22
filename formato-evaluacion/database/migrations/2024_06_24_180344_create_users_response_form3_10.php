@@ -18,9 +18,13 @@ return new class extends Migration
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_10', 8, 2);
+            $table->decimal('grupalesCant', 8, 2);
+            $table->decimal('evaluarGrupales', 8, 2);
+            $table->decimal('evaluarIndividual', 8, 2);
+            $table->decimal('individualCant', 8, 2);
             $table->string('obsGrupal')->nullable();
             $table->string('obsIndividual')->nullable();
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

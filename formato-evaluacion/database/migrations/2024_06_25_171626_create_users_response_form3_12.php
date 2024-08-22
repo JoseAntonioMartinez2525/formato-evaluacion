@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('obsAutor')->nullable();
             $table->string('obsEditor')->nullable();
             $table->string('obsWeb')->nullable();
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

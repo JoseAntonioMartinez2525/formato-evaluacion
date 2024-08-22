@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>Calidad del desempeño docente evaluada por el alumnado</title>
+    <title>Publicaciones relacionadas con la docencia</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -108,125 +108,181 @@ $userType = Auth::user()->user_type;
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
             <div>
-            <!-- Actividad 3.2 Calidad del desempeño docente evaluada por el alumnado -->
-            <h4>Puntaje máximo
-                <label class="bg-black text-white px-4 mt-3" for="">50</label>
-            </h4>
+                <!-- Actividad 3.3 Publicaciones relacionadas con la docencia -->
+                <h4>Puntaje máximo
+                    <label class="bg-black text-white px-4 mt-3" for="">100</label>
+                </h4>
             </div>
-                <table class="table table-sm">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Actividad</th>
+                        <th class="table-ajust" scope="col"></th>
+                        <th class="table-ajust" scope="col"></th>
+                        <th class="table-ajust" scope="col"></th>
+                        <th class="table-ajust" scope="col"></th>
+                        <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
+                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
+                        </th>
+                        <th class="table-ajust" scope="col">Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <thead>
                         <tr>
-                            <th scope="col">Actividad</th>
-                            <th class="table-ajust" scope="col"></th>
-                            <th class="table-ajust" scope="col"></th>
-                            <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                            <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                            <th class="table-ajust" scope="col">Observaciones</th>
+                            <td id="seccion3_3">3.3 Publicaciones relacionadas con la docencia</td>
+                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+                            <td id="score3_3" for="">0</td>
+                            <td id="comision3_3">0</td>
                         </tr>
                     </thead>
                     <thead>
                         <tr>
-                            <td id="seccion3_2" style="height: 80px; width: 200px;">3.2 Calidad del desempeño
-                                docente
-                                evaluada por el alumnado
+                            <td colspan=6>
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="incisos">Incisos</td>
+                            <td class="obra">Obra</td>
+                            <td>Actividad</td>
                             <td>Puntaje</td>
-                            <td style="text-align:left;">Cantidad</td>
-                            <td id="score3_2" for="">0</td>
-                            <td id="comision3_2">0</td>
+                            <td>Cantidad</td>
+                            <td>SubTotal</td>
+            
                         </tr>
                     </thead>
                     <thead>
-                        <!--prom90-100-->
                         <tr>
-                            <td class="ranges">
-                                <center>Promedio 90-100</center>
+                            <td>a)</td>
+                            <td>Libro de texto con editorial de reconocido prestigio</td>
+                            <td>Autor(a)</td>
+                            <td id="p100">
+                                <center><b>100</b></center>
                             </td>
-                            <td id="ran1"><b>50</b></td>
-                            <td class="elabInput"><label id="r1" name="r1"></label> </td>
-                            <td id="cant1" name="cant1">0</td>
-                            <td>
+                            <td class="elabInput"><span id="rc1"></span>
+                            </td>
+                            <td id="stotal1"></td>
+                            <td class="comision actv">
                             @if($userType == 'dictaminador')
-                                <input id="prom90_100" type="value" placeholder="0"
-                                    oninput="onActv3_2Comision()">
+                                <input id="comIncisoA" placeholder="0" for=""
+                                    oninput="onActv3Comision3()">
+                                </input>
                             @else
-                            <span id="prom90_100" name="prom90_100"></span>
+                            <span id="comIncisoA" name="comIncisoA"></span>
                             @endif
                             </td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="obs3_2_1" class="table-header" type="text">
-                            @else
-                                <span id="obs3_2_1" name="obs3_2_1" class="table-header"></span>
+                                <input id="obs3_3_1" class="table-header" type="text">
+                            @else 
+                            <span id="obs3_3_1" name="obs3_3_1"></span>
                             @endif
-
                             </td>
                         </tr>
-                        <!--prom80-90-->
                         <tr>
-                            <td class="ranges">
-                                <center>Promedio 80-90</center>
+                            <td>b)</td>
+                            <td>1. Paquete didáctico, 2. Manual de operaciones</td>
+                            <td>Autor(a)</td>
+                            <td id="p50">
+                                <center><b>50</b></center>
                             </td>
-                            <td id="ran2"><b>40</b></td>
-                            <td class="elabInput"><span id="r2" name="r2"></span></td>
-                            <td id="cant2" name="cant2">0</td>
-
-                            <td>
+                            <td class="elabInput"><span id="rc2" name="rc2"></span></td>
+                            <td id="stotal2"></td>
+                            <td class="comision actv">
                              @if($userType == 'dictaminador')   
-                                <input id="prom80_90" placeholder="0" type="value"
-                                    oninput="onActv3_2Comision()">
-                            @else
-                                <span id="prom80_90" name="prom80_90"></span>
+                                <input id="comIncisoB" placeholder="0" for=""
+                                    oninput="onActv3Comision3()"></input>
+                             @else    
+                             <span id="comIncisoB" name="comIncisoB"></span>
+                             @endif
+                            </td>
+                            <td>
+                            @if($userType == 'dictaminador')
+                                <input id="obs3_3_2" class="table-header" type="text">
+                            @else  
+                            <span id="obs3_3_2" name="obs3_3_2"></span>
+                            @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>c)</td>
+                            <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio o
+                                instructivos, 3. Diseño
+                                y
+                                construcción de equipo de laboratorio, 4. Elaboración de material
+                                audiovisual, 5.
+                                Elaboración
+                                de
+                                software educativo, 6. Notas de curso, 7. Antología comentada, 8.
+                                Monografía.</td>
+                            <td>Autor(a)</td>
+                            <td id="p30">
+                                <center><b>30</b></center>
+                            </td>
+                            <td class="elabInput"><span id="rc3"></span></td>
+                            <td id="stotal3"></td>
+                            <td class="comision actv">
+                            @if($userType == 'dictaminador')    
+                                <input id="comIncisoC" placeholder="0" for=""
+                                    oninput="onActv3Comision3()">
+                                </input>
+                            @else 
+                            <span id="comIncisoC" name="comIncisoC"></span>
                             @endif
                             </td>
                             <td>
                             @if($userType == 'dictaminador')    
-                                <input id="obs3_2_2" class="table-header" type="text">
-                            @else
-                            <span id="obs3_2_2" name="obs3_2_2"></span>
+                                <input id="obs3_3_3" class="table-header" type="text">
+                            @else 
+                                 <span id="obs3_3_3" name="obs3_3_3"></span>
                             @endif
                             </td>
                         </tr>
-                        <!--prom70-80-->
                         <tr>
-                            <td class="ranges">
-                                <center>Promedio 70-80</center>
+                            <td>d)</td>
+                            <td>1. Traducción de libro, 2.Traducción de material de apoyo didáctico,
+                                3. Traducciones
+                                publicadas de artículos.</td>
+                            <td>Autor(a)</td>
+                            <td id="p25">
+                                <center><b>25</b></center>
                             </td>
-                            <td id="ran3"><b>30</b></td>
-                            <td class="elabInput">
-                                <span id="r3" name="r3"></span>
+                            <td class="elabInput"><span id="rc4"></span>
                             </td>
-                            <td id="cant3">0</td>
-                            <td>
-                            @if($userType == 'dictaminador')  
-                            <input id="prom70_80" placeholder="0" type="value"
-                                    oninput="onActv3_2Comision()">
-                            @else
-                            <span id="prom70_80" name="prom70_80"></span>
+                            <td id="stotal4"></td>
+                            <td class="comision actv">
+                            @if($userType == 'dictaminador')
+                                <input id="comIncisoD" placeholder="0" for=""
+                                    oninput="onActv3Comision3()"></input>
+                            @else 
+                                <span id="comIncisoD" name="comIncisoD"></span>
                             @endif
                             </td>
                             <td>
-                            @if($userType == 'dictaminador')  
-                                <input id="obs3_2_3" class="table-header" type="text">
-                            @else
-                                <span id="obs3_2_3" name="obs3_2_3"></span>
+                            @if($userType == 'dictaminador')    
+                                <input id="obs3_3_4" class="table-header" type="text">
+                            @else 
+                                <span id="obs3_3_4" name="obs3_3_4"></span>
                             @endif
                             </td>
                         </tr>
                     </thead>
-                    </table>
-                    <!--Tabla informativa Acreditacion Actividad 3.2-->
-                <table>
-                    <thead>
-                        <tr><br>
-                            <th class="acreditacion" scope="col">Acreditacion: </th>
-
-                            <th class="descripcionDDIE"><b>DDIE</b>
-                            <th> <button id="btn3_2" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
-                        </tr>
-
-                    </thead>
-                </table>
+                </tbody>
+            </table>
+            <!--Tabla informativa Acreditacion Actividad 3.3-->
+            <table>
+                <thead>
+                    <tr><br>
+                        <th class="acreditacion" scope="col">Acreditacion: </th>
+            
+                        <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
+                        <th><button id="btn3_3" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
+                    </tr>
+                </thead>
+            </table>
         </form>
     </main>
 

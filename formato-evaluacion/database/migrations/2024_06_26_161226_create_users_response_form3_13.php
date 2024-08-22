@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('obsInicioInvInterno')->nullable();
             $table->string('obsReporteFinanciamExt')->nullable();
             $table->string('obsReporteInvInt')->nullable();
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->string('obsRepDifusionInt')->nullable();
 
 
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

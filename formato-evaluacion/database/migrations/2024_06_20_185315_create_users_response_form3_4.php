@@ -17,10 +17,19 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_4', 8, 2);
+            $table->decimal('cantInternacional', 8, 2);
+            $table->decimal('cantNacional', 8, 2);
+            $table->decimal('cantidadRegional', 8, 2);
+            $table->decimal('cantPreparacion', 8, 2);
+            $table->decimal('cantInternacional2', 8, 2);
+            $table->decimal('cantNacional2', 8, 2);
+            $table->decimal('cantidadRegional2', 8, 2);
+            $table->decimal('cantPreparacion2', 8, 2);
             $table->string('obs3_4_1')->nullable(); // Allow null values
             $table->string('obs3_4_2')->nullable(); // Allow null values
             $table->string('obs3_4_3')->nullable(); // Allow null values
             $table->string('obs3_4_4')->nullable(); // Allow null values
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

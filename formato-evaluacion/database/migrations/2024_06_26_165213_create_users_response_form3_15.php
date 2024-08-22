@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('obsPrototipos')->nullable();
 
 
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 

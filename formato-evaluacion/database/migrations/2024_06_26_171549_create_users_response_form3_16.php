@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->string('obsRevNac')->nullable();
             $table->string('obsRevista')->nullable();
 
-
+            $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });
 
