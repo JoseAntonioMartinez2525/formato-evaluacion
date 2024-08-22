@@ -11,19 +11,7 @@ $newLocale = str_replace('_', '-', $locale);
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Formato de Evaluación docente</title>
 
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
-  <script src="{{ asset('js/subtotales.js') }}"></script>
-  <script src="{{ asset('js/comisiones.js') }}"></script>
-  <script src="{{ asset('js/privileges.js') }}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
+  <x-head-resources />
 <style>
   @media print {
     .footer-number::after {
