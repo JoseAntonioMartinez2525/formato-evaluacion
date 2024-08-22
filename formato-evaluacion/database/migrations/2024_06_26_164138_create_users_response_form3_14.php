@@ -17,6 +17,12 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_14', 8, 2);
+            $table->decimal('cantCongresoInt', 8, 2);
+            $table->decimal('subtotalCongresoInt', 8, 2);
+            $table->decimal('cantCongresoNac', 8, 2);
+            $table->decimal('subtotalCongresoNac', 8, 2);
+            $table->decimal('cantCongresoLoc', 8, 2);
+            $table->decimal('subtotalCongresoLoc', 8, 2);
             $table->string('obsCongresoInt')->nullable();
             $table->string('obsCongresoNac')->nullable();
             $table->string('obsCongresoLoc')->nullable();

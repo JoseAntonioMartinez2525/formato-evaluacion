@@ -17,6 +17,10 @@ return new class extends Migration {
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
             $table->decimal('score3_15', 8, 2);
+            $table->decimal('cantPatentes', 8, 2);
+            $table->decimal('subtotalPatentes', 8, 2);
+            $table->decimal('cantPrototipos', 8, 2);
+            $table->decimal('subtotalPrototipos', 8, 2);            
             $table->string('obsPatentes')->nullable();
             $table->string('obsPrototipos')->nullable();
 
