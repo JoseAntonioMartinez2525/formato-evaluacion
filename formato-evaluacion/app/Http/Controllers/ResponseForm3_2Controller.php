@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\UsersResponseForm3_3;
+use App\Models\UsersResponseForm3_2;
 use Illuminate\Http\Request;
 
 class ResponseForm3_2Controller extends Controller
@@ -35,7 +35,7 @@ class ResponseForm3_2Controller extends Controller
         $validatedData['obs3_2_3'] = $validatedData['obs3_2_3'] ?? 'sin comentarios';
 
             // Create a new record using Eloquent ORM
-            UsersResponseForm3_3::create($validatedData);
+            UsersResponseForm3_2::create($validatedData);
 
             return response()->json([
                 'success' => true,
@@ -60,7 +60,7 @@ class ResponseForm3_2Controller extends Controller
 
         // Obtener datos de la tabla correspondiente según el tipo de usuario
         if ($validatedData['user_type'] == 'docente') {
-            $data = UsersResponseForm3_3::where('user_id', $request->query('user_id'))->first();
+            $data = UsersResponseForm3_2::where('user_id', $request->query('user_id'))->first();
         } elseif ($validatedData['user_type'] == 'dictaminator') {
             //$data = DictaminatorsResponseForm3_3::where('user_id', $request->query('user_id'))->first();
         }

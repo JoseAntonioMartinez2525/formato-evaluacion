@@ -59,6 +59,10 @@ header{
     padding-right: 70px;
 }
 
+#btn3_2{
+    margin-left: -230px;
+}
+
 .input-header {
     background-color: #ced4da;
     margin-bottom: 3px;

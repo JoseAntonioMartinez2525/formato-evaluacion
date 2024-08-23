@@ -3202,9 +3202,16 @@
 
                             case 'form3_2':
                                 let score3_2Label = form.querySelector('td[id="score3_2"]').innerText;
-                                let comision3_2Label = form.querySelector('td[id="comision3_2"]').innerText;
+                                //let comision3_2Label = form.querySelector('td[id="comision3_2"]').innerText;
                                 formData['score3_2'] = score3_2Label;
-                                formData['comision3_2'] = comision3_2Label;
+                                formData['r1'] = document.getElementById('r1').value;
+                                formData['r2'] = document.getElementById('r2').value;
+                                formData['r3'] = document.getElementById('r3').value;
+                                formData['cant1'] = document.getElementById('cant1').textContent;
+                                formData['cant2'] = document.getElementById('cant2').textContent;
+                                formData['cant3'] = document.getElementById('cant3').textContent;
+
+                                //formData['comision3_2'] = comision3_2Label;
 
 
                                 //observaciones3_2_1
