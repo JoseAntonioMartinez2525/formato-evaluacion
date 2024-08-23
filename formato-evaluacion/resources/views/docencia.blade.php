@@ -3318,20 +3318,17 @@
 
                             case 'form3_8':
                                 let score3_8Label = form.querySelector('td[id="score3_8"]');
-                                let comision3_8Label = form.querySelector('td[id="comision3_8"]');
-
                                 formData['score3_8'] = parseInt(score3_8Label.innerText, 10) || 0;
-                                formData['comision3_8'] = parseInt(comision3_8Label.innerText, 10) || 0;
+                                formData['puntaje3_8'] = document.getElementById('puntaje3_8').value;
+                                formData['puntajeHoras3_8'] = document.getElementById('puntajeHoras3_8').textContent;   
                                 formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
 
                                 break;
 
                             case 'form3_9':
                                 let score3_9Label = form.querySelector('th[id="score3_9"]');
-                                let comision3_9Label = form.querySelector('th[id="comision3_9"]');
-
                                 formData['score3_9'] = parseInt(score3_9Label.innerText, 10) || 0;
-                                formData['comision3_9'] = parseInt(comision3_9Label.innerText, 10) || 0;
+
 
                                 for (let i = 1; i <= 17; i++) {
                                     formData[`obs3_9_${i}`] = form.querySelector(`input[id="obs3_9_${i}"]`).value;
@@ -3341,10 +3338,8 @@
 
                             case 'form3_10':
                                 let score3_10Label = form.querySelector('th[id="score3_10"]');
-                                let comision3_10Label = form.querySelector('th[id="comision3_10"]');
-
                                 formData['score3_10'] = parseInt(score3_10Label.innerText, 10) || 0;
-                                formData['comision3_10'] = parseInt(comision3_10Label.innerText, 10) || 0;
+
 
                                 obs3_10.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
