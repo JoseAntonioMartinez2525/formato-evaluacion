@@ -3402,10 +3402,27 @@
 
                             case 'form3_12':
                                 let score3_12Label = form.querySelector('th[id="score3_12"]');
-                                let comision3_12Label = form.querySelector('th[id="comision3_12"]');
-
                                 formData['score3_12'] = parseInt(score3_12Label.innerText, 10) || 0;
-                                formData['comision3_12'] = parseInt(comision3_12Label.innerText, 10) || 0;
+                                formData['cantCientifico'] = document.getElementById('cantCientifico').value;
+                                formData['cantDivulgacion'] = document.getElementById('cantDivulgacion').value;
+                                formData['cantTraduccion'] = document.getElementById('cantTraduccion').value;
+                                formData['cantArbitrajeInt'] = document.getElementById('cantArbitrajeInt').value;
+                                formData['cantArbitrajeNac'] = document.getElementById('cantArbitrajeNac').value;
+                                formData['cantSinInt'] = document.getElementById('cantSinInt').value;
+                                formData['cantSinNac'] = document.getElementById('cantSinNac').value;
+                                formData['cantAutor'] = document.getElementById('cantAutor').value;
+                                formData['cantEditor'] = document.getElementById('cantEditor').value;
+                                formData['cantWeb'] = document.getElementById('cantWeb').value;
+                                formData['subtotalCientificos'] = document.getElementById('subtotalCientificos').textContent;
+                                formData['subtotalDivulgacion'] = document.getElementById('subtotalDivulgacion').textContent;
+                                formData['subtotalTraduccion'] = document.getElementById('subtotalTraduccion').textContent;
+                                formData['subtotalArbitrajeInt'] = document.getElementById('subtotalArbitrajeInt').textContent;
+                                formData['subtotalArbitrajeNac'] = document.getElementById('subtotalArbitrajeNac').textContent;
+                                formData['subtotalSinInt'] = document.getElementById('subtotalSinInt').textContent;
+                                formData['subtotalSinNac'] = document.getElementById('subtotalSinNac').textContent;
+                                formData['subtotalAutor'] = document.getElementById('subtotalAutor').textContent;
+                                formData['subtotalEditor'] = document.getElementById('subtotalEditor').textContent;
+                                formData['subtotalWeb'] = document.getElementById('subtotalWeb').textContent;                               
 
                                 obs3_12.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3417,10 +3434,8 @@
 
                             case 'form3_13':
                                 let score3_13Label = form.querySelector('th[id="score3_13"]');
-                                let comision3_13Label = form.querySelector('th[id="comision3_13"]');
-
                                 formData['score3_13'] = parseInt(score3_13Label.innerText, 10) || 0;
-                                formData['comision3_13'] = parseInt(comision3_13Label.innerText, 10) || 0;
+
                                 obs3_13.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3429,10 +3444,10 @@
 
                             case 'form3_14':
                                 let score3_14Label = form.querySelector('th[id="score3_14"]');
-                                let comision3_14Label = form.querySelector('th[id="comision3_14"]');
+
 
                                 formData['score3_14'] = parseInt(score3_14Label.innerText, 10) || 0;
-                                formData['comision3_14'] = parseInt(comision3_14Label.innerText, 10) || 0;
+
 
                                 obs3_14.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3442,10 +3457,10 @@
 
                             case 'form3_15':
                                 let score3_15Label = form.querySelector('th[id="score3_15"]');
-                                let comision3_15Label = form.querySelector('th[id="comision3_15"]');
+
 
                                 formData['score3_15'] = parseInt(score3_15Label.innerText, 10) || 0;
-                                formData['comision3_15'] = parseInt(comision3_15Label.innerText, 10) || 0;
+
                                 obs3_15.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
@@ -3454,10 +3469,9 @@
 
                             case 'form3_16':
                                 let score3_16Label = form.querySelector('th[id="score3_16"]');
-                                let comision3_16Label = form.querySelector('th[id="comision3_16"]');
 
                                 formData['score3_16'] = parseInt(score3_16Label.innerText, 10) || 0;
-                                formData['comision3_16'] = parseInt(comision3_16Label.innerText, 10) || 0;
+
 
                                 obs3_16.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3467,10 +3481,10 @@
 
                             case 'form3_17':
                                 let score3_17Label = form.querySelector('th[id="score3_17"]');
-                                let comision3_17Label = form.querySelector('th[id="comision3_17"]');
+
 
                                 formData['score3_17'] = parseInt(score3_17Label.innerText, 10) || 0;
-                                formData['comision3_17'] = parseInt(comision3_17Label.innerText, 10) || 0;
+
 
                                 obs3_17.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3480,10 +3494,10 @@
 
                             case 'form3_18':
                                 let score3_18Label = form.querySelector('th[id="score3_18"]');
-                                let comision3_18Label = form.querySelector('th[id="comision3_18"]');
+
 
                                 formData['score3_18'] = parseInt(score3_18Label.innerText, 10) || 0;
-                                formData['comision3_18'] = parseInt(comision3_18Label.innerText, 10) || 0;
+
 
                                 obs3_18.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3493,10 +3507,10 @@
 
                             case 'form3_19':
                                 let score3_19Label = form.querySelector('th[id="score3_19"]');
-                                let comision3_19Label = form.querySelector('th[id="comision3_19"]');
+
 
                                 formData['score3_19'] = parseInt(score3_19Label.innerText, 10) || 0;
-                                formData['comision3_19'] = parseInt(comision3_19Label.innerText, 10) || 0;
+
 
                                 obs3_19.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
