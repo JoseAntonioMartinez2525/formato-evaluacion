@@ -168,7 +168,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
                                 <input id="comIncisoA" placeholder="0" for=""
-                                    oninput="onActv3Comision3()">
+                                    oninput="oncomision3_33()">
                                 </input>
                             @else
                             <span id="comIncisoA" name="comIncisoA"></span>
@@ -194,7 +194,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                              @if($userType == 'dictaminador')   
                                 <input id="comIncisoB" placeholder="0" for=""
-                                    oninput="onActv3Comision3()"></input>
+                                    oninput="oncomision3_33()"></input>
                              @else    
                              <span id="comIncisoB" name="comIncisoB"></span>
                              @endif
@@ -227,7 +227,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')    
                                 <input id="comIncisoC" placeholder="0" for=""
-                                    oninput="onActv3Comision3()">
+                                    oninput="oncomision3_33()">
                                 </input>
                             @else 
                             <span id="comIncisoC" name="comIncisoC"></span>
@@ -256,7 +256,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
                                 <input id="comIncisoD" placeholder="0" for=""
-                                    oninput="onActv3Comision3()"></input>
+                                    oninput="oncomision3_33()"></input>
                             @else 
                                 <span id="comIncisoD" name="comIncisoD"></span>
                             @endif
@@ -316,23 +316,20 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields with fetched data
-                                document.getElementById('score3_1').textContent = data.form3_1.score3_1 || '0';
-                                document.getElementById('elaboracion').textContent = data.form3_1.elaboracion || '0';
-                                document.getElementById('elaboracionSubTotal1').textContent = data.form3_1.elaboracionSubTotal1 || '0';
-                                document.getElementById('elaboracion2').textContent = data.form3_1.elaboracion2 || '0';
-                                document.getElementById('elaboracionSubTotal2').textContent = data.form3_1.elaboracionSubTotal2 || '0';
-                                document.getElementById('elaboracion3').textContent = data.form3_1.elaboracion3 || '0';
-                                document.getElementById('elaboracionSubTotal3').textContent = data.form3_1.elaboracionSubTotal3 || '0';
-                                document.getElementById('elaboracion4').textContent = data.form3_1.elaboracion4 || '0';
-                                document.getElementById('elaboracionSubTotal4').textContent = data.form3_1.elaboracionSubTotal4 || '0';
-                                document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
-                                document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
-                                //document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
+                                document.getElementById('score3_3').textContent = data.form3_3.score3_1 || '0';
+                                document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
+                                document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
+                                document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
+                                document.getElementById('rc4').textContent = data.form3_3.rc4 || '0';
+                                document.getElementById('stotal1').textContent = data.form3_3.stotal1 || '0';
+                                document.getElementById('stotal2').textContent = data.form3_3.stotal2 || '0';
+                                document.getElementById('stotal3').textContent = data.form3_3.stotal3 || '0';
+                                document.getElementById('stotal4').textContent = data.form3_3.stotal4 || '0';
 
                                 // Populate hidden inputs
-                                document.querySelector('input[name="user_id"]').value = data.form3_1.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form3_1.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form3_1.user_type || '';
+                                document.querySelector('input[name="user_id"]').value = data.form3_3.user_id || '';
+                                document.querySelector('input[name="email"]').value = data.form3_3.email || '';
+                                document.querySelector('input[name="user_type"]').value = data.form3_3.user_type || '';
                             } catch (error) {
                                 console.error('Error fetching docente data:', error);
                             }
@@ -371,64 +368,58 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields based on fetched data
-                                if (data.form3_1) {
+                                if (data.form3_3) {
                                     document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
                                     document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
 
-                                    document.getElementById('score3_1').textContent = data.form3_1.score3_1 || '0';
-                                    document.getElementById('elaboracion').textContent = data.form3_1.elaboracion || '0';
-                                    document.getElementById('elaboracionSubTotal1').textContent = data.form3_1.elaboracionSubTotal1 || '0';
-                                    document.getElementById('elaboracion2').textContent = data.form3_1.elaboracion2 || '0';
-                                    document.getElementById('elaboracionSubTotal2').textContent = data.form3_1.elaboracionSubTotal2 || '0';
-                                    document.getElementById('elaboracion3').textContent = data.form3_1.elaboracion3 || '0';
-                                    document.getElementById('elaboracionSubTotal3').textContent = data.form3_1.elaboracionSubTotal3 || '0';
-                                    document.getElementById('elaboracion4').textContent = data.form3_1.elaboracion4 || '0';
-                                    document.getElementById('elaboracionSubTotal4').textContent = data.form3_1.elaboracionSubTotal4 || '0';
-                                    document.getElementById('elaboracion5').textContent = data.form3_1.elaboracion5 || '0';
-                                    document.getElementById('elaboracionSubTotal5').textContent = data.form3_1.elaboracionSubTotal5 || '0';
-                                    document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
-                                    document.querySelector('label[name="comisionIncisoA"]').textContent = data.form3_1.comisionIncisoA || '0';
-                                    document.querySelector('label[name="comisionIncisoB"]').textContent = data.form3_1.comisionIncisoB || '0';
-                                    document.querySelector('label[name="comisionIncisoC"]').textContent = data.form3_1.comisionIncisoC || '0';
-                                    document.querySelector('label[name="comisionIncisoD"]').textContent = data.form3_1.comisionIncisoD || '0';
-                                    document.querySelector('label[name="comisionIncisoE"]').textContent = data.form3_1.comisionIncisoE || '0';
-                                    document.querySelector('label[name="obs3_1_1"]').textContent = data.form3_1.obs3_1_1 || '';
-                                    document.querySelector('label[name="obs3_1_2"]').textContent = data.form3_1.obs3_1_2 || '';
-                                    document.querySelector('label[name="obs3_1_3"]').textContent = data.form3_1.obs3_1_3 || '';
-                                    document.querySelector('label[name="obs3_1_4"]').textContent = data.form3_1.obs3_1_4 || '';
-                                    document.querySelector('label[name="obs3_1_5"]').textContent = data.form3_1.obs3_1_5 || '';
+                                    document.getElementById('score3_3').textContent = data.form3_3.score3_1 || '0';
+                                    document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
+                                    document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
+                                    document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
+                                    document.getElementById('rc4').textContent = data.form3_3.rc4 || '0';
+                                    document.getElementById('stotal1').textContent = data.form3_3.stotal1 || '0';
+                                    document.getElementById('stotal2').textContent = data.form3_3.stotal2 || '0';
+                                    document.getElementById('stotal3').textContent = data.form3_3.stotal3 || '0';
+                                    document.getElementById('stotal4').textContent = data.form3_3.stotal4 || '0';
+                                    document.getElementById('comision3_3').textContent = data.form3_3.comision3_3 || '0';
+                                    document.querySelector('span[name="comIncisoA"]').textContent = data.form3_3.comIncisoA || '0';
+                                    document.querySelector('span[name="comIncisoB"]').textContent = data.form3_3.comIncisoB || '0';
+                                    document.querySelector('span[name="comIncisoC"]').textContent = data.form3_3.comIncisoC || '0';
+                                    document.querySelector('span[name="comIncisoD"]').textContent = data.form3_3.comIncisoD || '0';
+                                    document.querySelector('span[name="obs3_3_1"]').textContent = data.form3_3.obs3_3_1 || '';
+                                    document.querySelector('span[name="obs3_3_2"]').textContent = data.form3_3.obs3_3_2 || '';
+                                    document.querySelector('span[name="obs3_3_3"]').textContent = data.form3_3.obs3_3_3 || '';
+                                    document.querySelector('span[name="obs3_3_4"]').textContent = data.form3_3.obs3_3_4 || '';
+
                                 } else {
 
-                                    console.error('No form3_1 data found for the selected dictaminador.');
+                                    console.error('No form3_3 data found for the selected dictaminador.');
                                     // Reset input values if no data found
                                     document.querySelector('input[name="dictaminador_id"]').value = '0';
                                     document.querySelector('input[name="user_id"]').value = '0';
                                     document.querySelector('input[name="email"]').value = '';
                                     document.querySelector('input[name="user_type"]').value = '';
-                                    document.getElementById('score3_1').textContent = '0';
-                                    document.getElementById('elaboracion').textContent = '0';
-                                    document.getElementById('elaboracionSubTotal1').textContent = '0';
-                                    document.getElementById('elaboracion2').textContent = '0';
-                                    document.getElementById('elaboracionSubTotal2').textContent = '0';
-                                    document.getElementById('elaboracion3').textContent = '0';
-                                    document.getElementById('elaboracionSubTotal3').textContent = '0';
-                                    document.getElementById('elaboracion4').textContent = '0';
-                                    document.getElementById('elaboracionSubTotal4').textContent = '0';
-                                    document.getElementById('elaboracion5').textContent = '0';
-                                    document.getElementById('elaboracionSubTotal5').textContent = '0';
-                                    document.getElementById('actv3Comision').textContent = '0';
-                                    document.querySelector('label[name="comisionIncisoA"]').textContent = '0';
-                                    document.querySelector('label[name="comisionIncisoB"]').textContent = '0';
-                                    document.querySelector('label[name="comisionIncisoC"]').textContent = '0';
-                                    document.querySelector('label[name="comisionIncisoD"]').textContent = '0';
-                                    document.querySelector('label[name="comisionIncisoE"]').textContent = '0';
-                                    document.querySelector('label[name="obs3_1_1"]').textContent = '';
-                                    document.querySelector('label[name="obs3_1_2"]').textContent = '';
-                                    document.querySelector('label[name="obs3_1_3"]').textContent = '';
-                                    document.querySelector('label[name="obs3_1_4"]').textContent = '';
-                                    document.querySelector('label[name="obs3_1_5"]').textContent = '';
+
+                                    document.getElementById('score3_3').textContent ='0';
+                                    document.getElementById('rc1').textContent = '0';
+                                    document.getElementById('rc2').textContent = '0';
+                                    document.getElementById('rc3').textContent =  '0';
+                                    document.getElementById('rc4').textContent = '0';
+                                    document.getElementById('stotal1').textContent = '0';
+                                    document.getElementById('stotal2').textContent =  '0';
+                                    document.getElementById('stotal3').textContent = '0';
+                                    document.getElementById('stotal4').textContent = '0';
+                                    document.getElementById('comision3_3').textContent = '0';
+                                    document.querySelector('span[name="comIncisoA"]').textContent =  '0';
+                                    document.querySelector('span[name="comIncisoB"]').textContent =  '0';
+                                    document.querySelector('span[name="comIncisoC"]').textContent =  '0';
+                                    document.querySelector('span[name="comIncisoD"]').textContent =  '0';
+                                    document.querySelector('span[name="obs3_3_1"]').textContent = '';
+                                    document.querySelector('span[name="obs3_3_2"]').textContent = '';
+                                    document.querySelector('span[name="obs3_3_3"]').textContent = '';
+                                    document.querySelector('span[name="obs3_3_4"]').textContent =  '';
                                 }
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
@@ -457,35 +448,31 @@ $userType = Auth::user()->user_type;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-
-            formData['elaboracion'] = document.getElementById('elaboracion').textContent;
-            formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
-            formData['comisionIncisoA'] = document.getElementById('comisionIncisoA').value; // Ensure input value is fetched
-            formData['elaboracion2'] = document.getElementById('elaboracion2').textContent;
-            formData['elaboracionSubTotal2'] = document.getElementById('elaboracionSubTotal2').textContent;
-            formData['comisionIncisoB'] = document.getElementById('comisionIncisoB').value; // Ensure input value is fetched
-            formData['elaboracion3'] = document.getElementById('elaboracion3').textContent;
-            formData['elaboracionSubTotal3'] = document.getElementById('elaboracionSubTotal3').textContent;
-            formData['comisionIncisoC'] = document.getElementById('comisionIncisoC').value; // Ensure input value is fetched
-            formData['elaboracion4'] = document.getElementById('elaboracion4').textContent;
-            formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
-            formData['comisionIncisoD'] = document.getElementById('comisionIncisoD').value; // Ensure input value is fetched
-            formData['elaboracion5'] = document.getElementById('elaboracion5').textContent;
+            formData['rc1'] = document.getElementById('rc1').textContent;
+            formData['comIncisoA'] = document.getElementById('comIncisoA').value; // Ensure input value is fetched
+            formData['rc2'] = document.getElementById('rc2').textContent;
+            formData['rc3'] = document.getElementById('rc3').textContent;
+            formData['comIncisoB'] = document.getElementById('comIncisoB').value; // Ensure input value is fetched
+            formData['rc4'] = document.getElementById('rc4').textContent;
+            formData['stotal1'] = document.getElementById('stotal1').textContent;
+            formData['comIncisoC'] = document.getElementById('comIncisoC').value; // Ensure input value is fetched
+            formData['stotal2'] = document.getElementById('stotal2').textContent;
+            formData['stotal3'] = document.getElementById('stotal3').textContent;
+            formData['comIncisoD'] = document.getElementById('comIncisoD').value; // Ensure input value is fetched
+            formData['stotal4'] = document.getElementById('stotal4').textContent;
             formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
-            formData['comisionIncisoA'] = form.querySelector('input[id="comisionIncisoA"]').value;
-            formData['comisionIncisoB'] = form.querySelector('input[id="comisionIncisoB"]').value;
-            formData['comisionIncisoC'] = form.querySelector('input[id="comisionIncisoC"]').value;
-            formData['comisionIncisoD'] = form.querySelector('input[id="comisionIncisoD"]').value;
-            formData['comisionIncisoE'] = form.querySelector('input[id="comisionIncisoE"]').value;
-            formData['score3_1'] = document.getElementById('score3_1').textContent;
-            formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
+            formData['comIncisoA'] = form.querySelector('input[id="comIncisoA"]').value;
+            formData['comIncisoB'] = form.querySelector('input[id="comIncisoB"]').value;
+            formData['comIncisoC'] = form.querySelector('input[id="comIncisoC"]').value;
+            formData['comIncisoD'] = form.querySelector('input[id="comIncisoD"]').value;
+            formData['score3_3'] = document.getElementById('score3_3').textContent;
+            formData['comision3_3'] = document.getElementById('comision3_3').textContent;
 
             // Observations
-            formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;
-            formData['obs3_1_2'] = form.querySelector('input[name="obs3_1_2"]').value;
-            formData['obs3_1_3'] = form.querySelector('input[name="obs3_1_3"]').value;
-            formData['obs3_1_4'] = form.querySelector('input[name="obs3_1_4"]').value;
-            formData['obs3_1_5'] = form.querySelector('input[name="obs3_1_5"]').value;
+            formData['obs3_3_1'] = form.querySelector('input[name="obs3_3_1"]').value;
+            formData['obs3_3_2'] = form.querySelector('input[name="obs3_3_2"]').value;
+            formData['obs3_3_3'] = form.querySelector('input[name="obs3_3_3"]').value;
+            formData['obs3_3_4'] = form.querySelector('input[name="obs3_3_4"]').value;
 
             console.log('Form data:', formData);
 

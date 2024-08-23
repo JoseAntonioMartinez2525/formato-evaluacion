@@ -396,6 +396,7 @@
                             <form id="form3_3" method="POST" onsubmit="event.preventDefault(); submitForm('/store33', 'form3_3');">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <div>
                                     <!-- Actividad 3.3 Publicaciones relacionadas con la docencia -->
@@ -533,6 +534,7 @@
     <form id="form3_4" method="POST" onsubmit="event.preventDefault(); submitForm('/store34', 'form3_4');">
         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
         @csrf
         <div>
             <!-- 3.4 Distinciones académicas recibidas por el docente  -->
@@ -615,6 +617,7 @@
                                     onsubmit="event.preventDefault(); submitForm('/store35', 'form3_5');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                     <div>
                                         <!-- 3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC  -->
@@ -693,6 +696,7 @@
                                     onsubmit="event.preventDefault(); submitForm('/store36', 'form3_6');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                     <div>
                                         <!-- 3.6 Capacitación y actualización pedagógica recibida  -->
@@ -761,6 +765,7 @@
                                     onsubmit="event.preventDefault(); submitForm('/store37', 'form3_7');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                     <div>
                                         <!-- 3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento  -->
@@ -826,6 +831,7 @@
                                     onsubmit="event.preventDefault(); submitForm('/store38', 'form3_8');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                     <div>
                                         <!--3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente-->
@@ -898,6 +904,7 @@
                                 <form id="form3_9" method="POST"onsubmit="event.preventDefault(); submitForm('/store39', 'form3_9');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                     <div>
                                         <!--3.9 Trabajos dirigidos para la titulación de estudiantes-->
@@ -1230,6 +1237,7 @@
                                 <form id="form3_10" method="POST" onsubmit="event.preventDefault(); submitForm('/store310', 'form3_10');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                 <!--3.10 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
@@ -1321,6 +1329,7 @@
                                 <form id="form3_11" method="POST" onsubmit="event.preventDefault(); submitForm('/store311', 'form3_11');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                 <!--3.11 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
@@ -1434,6 +1443,7 @@
                         <form id="form3_12" method="POST" onsubmit="event.preventDefault(); submitForm('/store312', 'form3_12');">
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                             @csrf
                                 <!--3.12 Trabajos dirigidos para la titulación de estudiantes-->
                                 <h4>Puntaje máximo
@@ -1654,6 +1664,7 @@
                                 <form id="form3_13" method="POST" onsubmit="event.preventDefault(); submitForm('/store313', 'form3_13');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                 <!--3.13 Proyectos académicos de investigación-->
                                 <h4>Puntaje máximo
@@ -1779,6 +1790,7 @@
                                 <form id="form3_14" method="POST" onsubmit="event.preventDefault(); submitForm('/store314', 'form3_14');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                     @csrf
                                 <!--3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente-->
                                 <h4>Puntaje máximo
@@ -1884,6 +1896,7 @@
                                 <form id="form3_15" method="POST" onsubmit="event.preventDefault(); submitForm('/store315', 'form3_15');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <!--3.15 Registro de patentes y productos de investigación tecnológica y educativa -->
                                 <h4>Puntaje máximo
@@ -1968,6 +1981,7 @@
                                 <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store316', 'form3_16');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <!--3.16 Actividades de arbitraje, revisión, correción y edición -->
                                 <h4>Puntaje máximo
@@ -2141,6 +2155,7 @@
                                 <form id="form3_17" method="POST" onsubmit="event.preventDefault(); submitForm('/store317', 'form3_17');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <!--3.17 Proyectos académicos de extensión y difusión-->
                                 <h4>Puntaje máximo
@@ -2269,6 +2284,7 @@
                                 <form id="form3_18" method="POST" onsubmit="event.preventDefault(); submitForm('/store318', 'form3_18');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                                 @csrf
                                 <!--3.18 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente-->
                                 <h4>Puntaje máximo
@@ -2524,6 +2540,8 @@
                                 <form id="form3_19" method="POST" onsubmit="event.preventDefault(); submitForm('/store319', 'form3_19');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    
                                 @csrf
                                 <!--3.19 Participación en cuerpos colegiados-->
                                 <h4>Puntaje máximo
@@ -3229,8 +3247,15 @@
                                 let score3_3Label = form.querySelector('td[id="score3_3"]');
                                 let comision3_3Label = form.querySelector('td[id="comision3_3"]');
                                 formData['score3_3'] = score3_3Label ? score3_3Label.innerText : '0';
-                                formData['comision3_3'] = comision3_3Label ? comision3_3Label.innerText : '0';
-
+                                //formData['comision3_3'] = comision3_3Label ? comision3_3Label.innerText : '0';
+                                formData['rc1'] = document.getElementById('rc1').value;
+                                formData['rc2'] = document.getElementById('rc2').value;
+                                formData['rc3'] = document.getElementById('rc3').value;
+                                formData['rc4'] = document.getElementById('rc4').value;
+                                formData['stotal1'] = document.getElementById('stotal1').textContent;
+                                formData['stotal2'] = document.getElementById('stotal2').textContent;
+                                formData['stotal3'] = document.getElementById('stotal3').textContent;
+                                formData['stotal4'] = document.getElementById('stotal4').textContent;
                                 // Retrieve observations for form 3.3
                                 for (let i = 1; i <= 4; i++) {
                                     formData[`obs3_3_${i}`] = form.querySelector(`input[id="obs3_3_${i}"]`).value || '';
@@ -3240,10 +3265,18 @@
 
                             case 'form3_4':
                                 let score3_4Label = form.querySelector('td[id="score3_4"]');
-                                let comision3_4Label = form.querySelector('td[id="comision3_4"]');
+                                formData['cantInternacional'] = document.getElementById('cantInternacional').value;
+                                formData['cantNacional'] = document.getElementById('cantNacional').value;
+                                formData['cantidadRegional'] = document.getElementById('cantidadRegional').value;
+                                formData['cantPreparacion'] = document.getElementById('cantPreparacion').value;
+                                formData['cantInternacional2'] = document.getElementById('cantInternacional2').textContent;
+                                formData['cantNacional2'] = document.getElementById('cantNacional2').textContent;
+                                formData['cantidadRegional2'] = document.getElementById('cantidadRegional2').textContent;
+                                formData['cantPreparacion2'] = document.getElementById('cantPreparacion2').textContent;
 
-                                formData['score3_4'] = parseInt(score3_4Label.innerText, 10) || 0; // Provide a default value if not parsed correctly
-                                formData['comision3_4'] = parseInt(comision3_4Label.innerText, 10) || 0; // Provide a default value if not parsed correctly
+                                formData['score3_4'] = parseInt(score3_4Label.innerText, 10) || 0; 
+                                formData  
+
                                 //observaciones3_4_1 a observaciones3_4_4
 
 
