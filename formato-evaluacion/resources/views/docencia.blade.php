@@ -3328,7 +3328,40 @@
                             case 'form3_9':
                                 let score3_9Label = form.querySelector('th[id="score3_9"]');
                                 formData['score3_9'] = parseInt(score3_9Label.innerText, 10) || 0;
-
+                                formData['puntaje3_9_1'] = document.getElementById('puntaje3_9_1').value;
+                                formData['puntaje3_9_2'] = document.getElementById('puntaje3_9_2').value;
+                                formData['puntaje3_9_3'] = document.getElementById('puntaje3_9_3').value;
+                                formData['puntaje3_9_4'] = document.getElementById('puntaje3_9_4').value;
+                                formData['puntaje3_9_5'] = document.getElementById('puntaje3_9_5').value;
+                                formData['puntaje3_9_6'] = document.getElementById('puntaje3_9_6').value;
+                                formData['puntaje3_9_7'] = document.getElementById('puntaje3_9_7').value;
+                                formData['puntaje3_9_8'] = document.getElementById('puntaje3_9_8').value;
+                                formData['puntaje3_9_9'] = document.getElementById('puntaje3_9_9').value;
+                                formData['puntaje3_9_10'] = document.getElementById('puntaje3_9_10').value;
+                                formData['puntaje3_9_11'] = document.getElementById('puntaje3_9_11').value;
+                                formData['puntaje3_9_12'] = document.getElementById('puntaje3_9_12').value;
+                                formData['puntaje3_9_13'] = document.getElementById('puntaje3_9_13').value;
+                                formData['puntaje3_9_14'] = document.getElementById('puntaje3_9_14').value;
+                                formData['puntaje3_9_15'] = document.getElementById('puntaje3_9_15').value;
+                                formData['puntaje3_9_16'] = document.getElementById('puntaje3_9_16').value;
+                                formData['puntaje3_9_17'] = document.getElementById('puntaje3_9_17').value;
+                                formData['tutorias1'] = document.getElementById('tutorias1').textContent;
+                                formData['tutorias2'] = document.getElementById('tutorias2').textContent;
+                                formData['tutorias3'] = document.getElementById('tutorias3').textContent;
+                                formData['tutorias4'] = document.getElementById('tutorias4').textContent;
+                                formData['tutorias5'] = document.getElementById('tutorias5').textContent;
+                                formData['tutorias6'] = document.getElementById('tutorias6').textContent;
+                                formData['tutorias7'] = document.getElementById('tutorias7').textContent;
+                                formData['tutorias8'] = document.getElementById('tutorias8').textContent;
+                                formData['tutorias9'] = document.getElementById('tutorias9').textContent;
+                                formData['tutorias10'] = document.getElementById('tutorias10').textContent;
+                                formData['tutorias11'] = document.getElementById('tutorias11').textContent;
+                                formData['tutorias12'] = document.getElementById('tutorias12').textContent;
+                                formData['tutorias13'] = document.getElementById('tutorias13').textContent;
+                                formData['tutorias14'] = document.getElementById('tutorias14').textContent;
+                                formData['tutorias15'] = document.getElementById('tutorias15').textContent;
+                                formData['tutorias16'] = document.getElementById('tutorias16').textContent;
+                                formData['tutorias17'] = document.getElementById('tutorias17').textContent;
 
                                 for (let i = 1; i <= 17; i++) {
                                     formData[`obs3_9_${i}`] = form.querySelector(`input[id="obs3_9_${i}"]`).value;

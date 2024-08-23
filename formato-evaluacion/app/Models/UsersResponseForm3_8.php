@@ -13,6 +13,8 @@ class UsersResponseForm3_8 extends Model
         'email',
         'score3_8',
         //'comision3_8',
+        'puntaje3_8',
+        'puntajeHoras3_8',
         'obs3_8_1',
         'user_type',
 

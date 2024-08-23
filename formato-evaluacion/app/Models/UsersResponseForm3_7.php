@@ -13,7 +13,7 @@ class UsersResponseForm3_7 extends Model
         'email',
         'score3_7',
         //'comision3_7',
-        'puntaje3_',
+        'puntaje3_7',
         'puntajeHoras3_7',
         'obs3_7_1',
         'user_type',
