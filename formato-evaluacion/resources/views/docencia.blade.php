@@ -3436,14 +3436,14 @@
                                     let score3_13Label = form.querySelector('th[id="score3_13"]');
                                     formData['score3_13'] = parseInt(score3_13Label.innerText, 10) || 0;
     /**
-     *         'cantInicioFinanExt',
-            'subtotalInicioFinanExt',
-            'cantInicioInvInterno',
-            'subtotalInicioInvInterno',
-            'cantReporteFinanciamExt',
-            'subtotalReporteFinanciamExt',
-            'cantReporteInvInt',
-            'subtotalReporteInvInt',
+     *       'cantInicioFinanExt', value
+            'subtotalInicioFinanExt',textContent
+            'cantInicioInvInterno', value
+            'subtotalInicioInvInterno',textContent
+            'cantReporteFinanciamExt', value
+            'subtotalReporteFinanciamExt',textContent
+            'cantReporteInvInt', value
+            'subtotalReporteInvInt', textContent
      */
                                     obs3_13.forEach(field => {
                                         formData[field] = form.querySelector(`input[id="${field}"]`).value;
