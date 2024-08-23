@@ -35,14 +35,13 @@ class DictaminatorForm3_2Controller extends Controller
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
-            if (!isset($validatedData['score3_1'])) {
-                $validatedData['score3_1'] = 0;
+            if (!isset($validatedData['score3_2'])) {
+                $validatedData['score3_2'] = 0;
             }
-            $validatedData['obs3_1_1'] = $validatedData['obs3_1_1'] ?? 'sin comentarios';
-            $validatedData['obs3_1_2'] = $validatedData['obs3_1_2'] ?? 'sin comentarios';
-            $validatedData['obs3_1_3'] = $validatedData['obs3_1_3'] ?? 'sin comentarios';
-            $validatedData['obs3_1_4'] = $validatedData['obs3_1_4'] ?? 'sin comentarios';
-            $validatedData['obs3_1_5'] = $validatedData['obs3_1_5'] ?? 'sin comentarios';
+            $validatedData['obs3_2_1'] = $validatedData['obs3_1_1'] ?? 'sin comentarios';
+            $validatedData['obs3_2_2'] = $validatedData['obs3_1_2'] ?? 'sin comentarios';
+            $validatedData['obs3_2_3'] = $validatedData['obs3_1_3'] ?? 'sin comentarios';
+
 
             
                 DictaminatorsResponseForm3_2::create($validatedData);
