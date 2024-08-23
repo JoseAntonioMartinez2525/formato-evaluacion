@@ -3372,7 +3372,10 @@
                             case 'form3_10':
                                 let score3_10Label = form.querySelector('th[id="score3_10"]');
                                 formData['score3_10'] = parseInt(score3_10Label.innerText, 10) || 0;
-
+                                formData['grupalesCant'] = document.getElementById('grupalesCant').value;
+                                formData['evaluarGrupales'] = document.getElementById('evaluarGrupales').textContent;
+                                formData['evaluarIndividual'] = document.getElementById('evaluarIndividual').textContent;
+                                formData['individualCant'] = document.getElementById('individualCant').value;
 
                                 obs3_10.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
@@ -3382,10 +3385,15 @@
 
                             case 'form3_11':
                                 let score3_11Label = form.querySelector('th[id="score3_11"]');
-                                let comision3_11Label = form.querySelector('th[id="comision3_11"]');
+                                formData['cantAsesoria'] = document.getElementById('cantAsesoria').value;
+                                formData['cantServicio'] = document.getElementById('cantServicio').value;
+                                formData['cantPracticas'] = document.getElementById('cantPracticas').value;
+                                formData['subtotalAsesoria'] = document.getElementById('subtotalAsesoria').textContent;
+                                formData['subtotalServicio'] = document.getElementById('subtotalServicio').textContent;
+                                formData['subtotalPracticas'] = document.getElementById('subtotalPracticas').textContent;
 
                                 formData['score3_11'] = parseInt(score3_11Label.innerText, 10) || 0;
-                                formData['comision3_11'] = parseInt(comision3_11Label.innerText, 10) || 0;
+
                                 obs3_11.forEach(field => {
                                     formData[field] = form.querySelector(`input[id="${field}"]`).value;
                                 });
