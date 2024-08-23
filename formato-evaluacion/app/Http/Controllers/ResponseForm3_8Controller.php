@@ -16,6 +16,7 @@ class ResponseForm3_8Controller extends Controller
                 'score3_8' => 'required|numeric',
                 //'comision3_8' => 'required|numeric',
                 'obs3_8_1' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
             ]);
 

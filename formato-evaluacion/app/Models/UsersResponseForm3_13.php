@@ -12,11 +12,12 @@ class UsersResponseForm3_13 extends Model
         'user_id',
         'email',
         'score3_13',
-        'comision3_13',
+        //'comision3_13',
         'obsInicioFinancimientoExt',
         'obsInicioInvInterno',
         'obsReporteFinanciamExt',
         'obsReporteInvInt',
+        'user_type',
 
 
     ];

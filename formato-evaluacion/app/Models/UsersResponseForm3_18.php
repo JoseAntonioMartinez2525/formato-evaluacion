@@ -12,7 +12,7 @@ class UsersResponseForm3_18 extends Model
         'user_id',
         'email',
         'score3_18',
-        'comision3_18',
+        //'comision3_18',
         'obsComOrgInt',
         'obsComOrgNac',
         'obsComOrgReg',
@@ -25,6 +25,7 @@ class UsersResponseForm3_18 extends Model
         'obsCicloComApoyoInt',
         'obsCicloComApoyoNac',
         'obsCicloComApoyoReg',
+        'user_type',
 
 
     ];

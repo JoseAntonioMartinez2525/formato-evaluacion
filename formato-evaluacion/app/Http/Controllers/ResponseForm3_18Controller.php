@@ -15,7 +15,7 @@ class ResponseForm3_18Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_18' => 'required|numeric',
-                'comision3_18' => 'required|numeric',
+                //'comision3_18' => 'required|numeric',
                 'obsComOrgInt' => 'nullable|string',
                 'obsComOrgNac' => 'nullable|string',
                 'obsComOrgReg' => 'nullable|string',
@@ -28,6 +28,7 @@ class ResponseForm3_18Controller extends Controller
                 'obsCicloComApoyoInt' => 'nullable|string',
                 'obsCicloComApoyoNac' => 'nullable|string',
                 'obsCicloComApoyoReg' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
 
 

@@ -11,10 +11,11 @@ class UsersResponseForm3_10 extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'score3_10',
+        //'score3_10',
         'comision3_10',
         'obsGrupal',
         'obsIndividual',
+        'user_type',
 
     ];
     protected $table = 'users_response_form3_10';

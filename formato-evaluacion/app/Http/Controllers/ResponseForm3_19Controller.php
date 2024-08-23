@@ -15,7 +15,7 @@ class ResponseForm3_19Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_19' => 'required|numeric',
-                'comision3_19' => 'required|numeric',
+                //'comision3_19' => 'required|numeric',
                 'obsCGUtitular' => 'nullable|string',
                 'obsCGUespecial' => 'nullable|string',
                 'obsCGUpermanente' => 'nullable|string',
@@ -36,6 +36,7 @@ class ResponseForm3_19Controller extends Controller
                 'obsPRODEPenconsInteg' => 'nullable|string',
                 'obsPRODEPconsResp' => 'nullable|string',
                 'obsPRODEPconsInteg' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
 
 

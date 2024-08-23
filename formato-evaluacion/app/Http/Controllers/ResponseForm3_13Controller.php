@@ -15,11 +15,12 @@ class ResponseForm3_13Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_13' => 'required|numeric',
-                'comision3_13' => 'required|numeric',
+                //'comision3_13' => 'required|numeric',
                 'obsInicioFinancimientoExt' => 'nullable|string',
                 'obsInicioInvInterno' => 'nullable|string',
                 'obsReporteFinanciamExt' => 'nullable|string',
                 'obsReporteInvInt' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
             ]);
 

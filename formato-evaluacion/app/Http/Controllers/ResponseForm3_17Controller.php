@@ -15,11 +15,12 @@ class ResponseForm3_17Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_17' => 'required|numeric',
-                'comision3_17' => 'required|numeric',
+                //'comision3_17' => 'required|numeric',
                 'obsDifusionExt' => 'nullable|string',
                 'obsDifusionInt' => 'nullable|string',
                 'obsRepDifusionExt' => 'nullable|string',
                 'obsRepDifusionInt' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
 
             ]);

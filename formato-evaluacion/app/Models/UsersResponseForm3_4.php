@@ -24,6 +24,7 @@ class UsersResponseForm3_4 extends Model
         'obs3_4_2',
         'obs3_4_3',
         'obs3_4_4',
+        'user_type',
 
     ];
     protected $table = 'users_response_form3_4';

@@ -12,7 +12,7 @@ class UsersResponseForm3_12 extends Model
         'user_id',
         'email',
         'score3_12',
-        'comision3_12',
+        //'comision3_12',
         'obsCientificos',
         'obsDivulgacion',
         'obsTraduccion',
@@ -23,6 +23,7 @@ class UsersResponseForm3_12 extends Model
         'obsAutor',
         'obsEditor',
         'obsWeb',
+        'user_type',
 
     ];
     protected $table = 'users_response_form3_12';

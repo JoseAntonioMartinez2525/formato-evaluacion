@@ -12,7 +12,7 @@ class UsersResponseForm3_9 extends Model
         'user_id',
         'email',
         'score3_9',
-        'comision3_9',
+        //'comision3_9',
         'obs3_9_1',
         'obs3_9_2',
         'obs3_9_3',
@@ -30,6 +30,7 @@ class UsersResponseForm3_9 extends Model
         'obs3_9_15',
         'obs3_9_16',
         'obs3_9_17',
+        'user_type',
     ];
     protected $table = 'users_response_form3_9';
 

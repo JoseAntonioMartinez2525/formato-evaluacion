@@ -17,6 +17,7 @@ class ResponseForm3_5Controller extends Controller
                 //'comision3_5' => 'required|numeric',
                 'obs3_5_1' => 'nullable|string',
                 'obs3_5_2' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
             // Assign default value if not provided

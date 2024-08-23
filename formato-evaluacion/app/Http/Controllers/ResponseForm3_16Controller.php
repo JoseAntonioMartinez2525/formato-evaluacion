@@ -15,7 +15,7 @@ class ResponseForm3_16Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_16' => 'required|numeric',
-                'comision3_16' => 'required|numeric',
+                //'comision3_16' => 'required|numeric',
                 'obsArbInt' => 'nullable|string',
                 'obsArbNac' => 'nullable|string',
                 'obsPubInt' => 'nullable|string',
@@ -23,6 +23,7 @@ class ResponseForm3_16Controller extends Controller
                 'obsRevInt' => 'nullable|string',
                 'obsRevNac' => 'nullable|string',
                 'obsRevista' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
  
             ]);
 

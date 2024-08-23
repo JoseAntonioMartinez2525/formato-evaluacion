@@ -11,12 +11,13 @@ class UsersResponseForm3_17 extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'score3_17',
+        //'score3_17',
         'comision3_17',
         'obsDifusionExt',
         'obsDifusionInt',
         'obsRepDifusionExt',
         'obsRepDifusionInt',
+        'user_type',
 
 
     ];

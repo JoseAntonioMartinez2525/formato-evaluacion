@@ -27,6 +27,7 @@ class ResponseForm3_4Controller extends Controller
                 'obs3_4_2' => 'nullable|string',
                 'obs3_4_3' => 'nullable|string',
                 'obs3_4_4' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
             // Assign default value if not provided

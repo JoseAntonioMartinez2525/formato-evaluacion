@@ -26,6 +26,7 @@ class ResponseForm3_3Controller extends Controller
             'obs3_3_2' => 'nullable|string',
             'obs3_3_3' => 'nullable|string',
             'obs3_3_4' => 'nullable|string',
+            'user_type' => 'required|in:user,docente,dictaminator',
 
         ]);
 

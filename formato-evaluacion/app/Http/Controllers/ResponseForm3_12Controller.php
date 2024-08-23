@@ -15,7 +15,7 @@ class ResponseForm3_12Controller extends Controller
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_12' => 'required|numeric',
-                'comision3_12' => 'required|numeric',
+                //'comision3_12' => 'required|numeric',
                 'obsCientificos' => 'nullable|string',
                 'obsDivulgacion' => 'nullable|string',
                 'obsTraduccion' => 'nullable|string',
@@ -26,6 +26,7 @@ class ResponseForm3_12Controller extends Controller
                 'obsAutor' => 'nullable|string',
                 'obsEditor' => 'nullable|string',
                 'obsWeb' => 'nullable|string',
+                'user_type' => 'required|in:user,docente,dictaminator',
 
             ]);
 

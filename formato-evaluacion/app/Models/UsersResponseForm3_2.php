@@ -21,6 +21,7 @@ class UsersResponseForm3_2 extends Model
         'obs3_2_1',
         'obs3_2_2',
         'obs3_2_3',
+        'user_type',
 
     ];
 

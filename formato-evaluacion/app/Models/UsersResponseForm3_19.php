@@ -11,7 +11,7 @@ class UsersResponseForm3_19 extends Model
     protected $fillable = [
         'user_id',
         'email',
-        'score3_19',
+        //'score3_19',
         'comision3_19',
         'obsCGUtitular',
         'obsCGUespecial',
@@ -33,6 +33,7 @@ class UsersResponseForm3_19 extends Model
         'obsPRODEPenconsInteg',
         'obsPRODEPconsResp',
         'obsPRODEPconsInteg',
+        'user_type',
 
 
     ];

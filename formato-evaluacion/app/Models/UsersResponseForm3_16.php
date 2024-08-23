@@ -12,7 +12,7 @@ class UsersResponseForm3_16 extends Model
         'user_id',
         'email',
         'score3_16',
-        'comision3_16',
+        //'comision3_16',
         'obsArbInt',
         'obsArbNac',
         'obsPubInt',
@@ -20,6 +20,7 @@ class UsersResponseForm3_16 extends Model
         'obsRevInt',
         'obsRevNac',
         'obsRevista',
+        'user_type',
 
 
     ];
