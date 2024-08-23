@@ -3,6 +3,7 @@
 use App\Http\Controllers\DictaminatorForm2_2Controller;
 use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\DictaminatorForm3_1Controller;
+use App\Http\Controllers\DictaminatorForm3_2Controller;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
@@ -103,6 +104,7 @@ Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 
 Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
 Route::post('/store-form22', [DictaminatorForm2_2Controller::class, 'storeform22'])->withoutMiddleware('auth');
 Route::post('/store-form31', [DictaminatorForm3_1Controller::class, 'storeform31'])->withoutMiddleware('auth');
+Route::post('/store-form32', [DictaminatorForm3_2Controller::class, 'storeform32'])->withoutMiddleware('auth');
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');

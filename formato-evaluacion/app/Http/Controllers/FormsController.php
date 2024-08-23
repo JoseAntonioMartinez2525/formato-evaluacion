@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\DictaminatorsResponseForm2;
 use App\Models\DictaminatorsResponseForm2_2;
 use App\Models\DictaminatorsResponseForm3_1;
+use App\Models\DictaminatorsResponseForm3_2;
 
 class FormsController extends Controller
 {
@@ -35,6 +36,7 @@ public function getDictaminadorData(Request $request)
         $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador_id)->first();
         $form2_2Data = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
         $form3_1Data = DictaminatorsResponseForm3_1::where('dictaminador_id', $dictaminador_id)->first();
+        $form3_2Data = DictaminatorsResponseForm3_2::where('dictaminador_id', $dictaminador_id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -45,6 +47,7 @@ public function getDictaminadorData(Request $request)
             'form2' => $form2Data,    // existing fields can still be accessed
             'form2_2' => $form2_2Data,  // potentially useful for this view
             'form3_1' => $form3_1Data,
+            'form3_2' => $form3_2Data,
         ]);
     }
 

@@ -155,7 +155,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="obs3_2_1" class="table-header" type="text">
+                                <input id="obs3_2_1" name="obs3_2_1" class="table-header" type="text">
                             @else
                                 <span id="obs3_2_1" name="obs3_2_1" class="table-header"></span>
                             @endif
@@ -181,7 +181,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td>
                             @if($userType == 'dictaminador')    
-                                <input id="obs3_2_2" class="table-header" type="text">
+                                <input id="obs3_2_2" name="obs3_2_2" class="table-header" type="text">
                             @else
                             <span id="obs3_2_2" name="obs3_2_2"></span>
                             @endif
@@ -207,7 +207,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td>
                             @if($userType == 'dictaminador')  
-                                <input id="obs3_2_3" class="table-header" type="text">
+                                <input id="obs3_2_3"  name="obs3_2_3" class="table-header" type="text">
                             @else
                                 <span id="obs3_2_3" name="obs3_2_3"></span>
                             @endif
@@ -391,7 +391,6 @@ $userType = Auth::user()->user_type;
             formData['cant2'] = document.getElementById('cant2').textContent;
             formData['prom70_80'] = document.getElementById('prom70_80').value; // Ensure input value is fetched
             formData['cant3'] = document.getElementById('cant3').textContent;
-            formData['elaboracionSubTotal4'] = document.getElementById('elaboracionSubTotal4').textContent;
             formData['prom90_100'] = form.querySelector('input[id="prom90_100"]').value;
             formData['prom80_90'] = form.querySelector('input[id="prom80_90"]').value;
             formData['prom70_80'] = form.querySelector('input[id="prom70_80"]').value;
@@ -399,9 +398,9 @@ $userType = Auth::user()->user_type;
             formData['comision3_2'] = document.getElementById('comision3_2').textContent;
 
             // Observations
-            formData['obs3_2_1'] = form.querySelector('span[name="obs3_2_1"]').value;
-            formData['obs3_2_2'] = form.querySelector('span[name="obs3_2_2"]').value;
-            formData['obs3_2_3'] = form.querySelector('span[name="obs3_2_3"]').value;
+            formData['obs3_2_1'] = form.querySelector('input[name="obs3_2_1"]').value;
+            formData['obs3_2_2'] = form.querySelector('input[name="obs3_2_2"]').value;
+            formData['obs3_2_3'] = form.querySelector('input[name="obs3_2_3"]').value;
 
 
             console.log('Form data:', formData);
