@@ -2541,7 +2541,7 @@
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                     <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                                    
+
                                 @csrf
                                 <!--3.19 Participación en cuerpos colegiados-->
                                 <h4>Puntaje máximo
@@ -3288,32 +3288,30 @@
 
                             case 'form3_5':
                                 let score3_5Label = form.querySelector('td[id="score3_5"]');
-                                let comision3_5Label = form.querySelector('td[id="comision3_5"]');
-
-                                formData['score3_5'] = parseInt(score3_5Label.innerText, 10) || 0;
-                                formData['comision3_5'] = parseInt(comision3_5Label.innerText, 10) || 0;
-
+                                formData['cantDA'] = document.getElementById('cantDA').value;
+                                formData['cantCAAC'] = document.getElementById('cantCAAC').value;
+                                formData['cantDA2'] = document.getElementById('cantDA2').textContent;
+                                formData['cantCAAC2'] = document.getElementById('cantCAAC2').textContent;
                                 formData['obs3_5_1'] = form.querySelector('input[id="obs3_5_1"]').value;
                                 formData['obs3_5_2'] = form.querySelector('input[id="obs3_5_2"]').value;
+                                formData['score3_5'] = parseInt(score3_5Label.innerText, 10) || 0;
 
                                 break;
 
                             case 'form3_6':
                                 let score3_6Label = form.querySelector('td[id="score3_6"]');
-                                let comision3_6Label = form.querySelector('td[id="comision3_6"]');
-
                                 formData['score3_6'] = parseFloat(score3_6Label.innerText, 10) || 0;
-                                formData['comision3_6'] = parseFloat(comision3_6Label.innerText, 10) || 0;
+                                formData['puntaje3_6'] = document.getElementById('puntaje3_6').value;
+                                formData['puntajeHoras3_6'] = document.getElementById('puntajeHoras3_6').textContent;                                
                                 formData['obs3_6'] = form.querySelector('input[id="obs3_6"]').value;
 
                                 break;
 
                             case 'form3_7':
                                 let score3_7Label = form.querySelector('td[id="score3_7"]');
-                                let comision3_7Label = form.querySelector('td[id="comision3_7"]');
-
                                 formData['score3_7'] = parseFloat(score3_7Label.innerText, 10) || 0;
-                                formData['comision3_7'] = parseFloat(comision3_7Label.innerText, 10) || 0;
+                                formData['puntaje3_7'] = document.getElementById('puntaje3_7').value;
+                                formData['puntajeHoras3_7'] = document.getElementById('puntajeHoras3_7').textContent;     
                                 formData['obs3_7'] = form.querySelector('input[id="obs3_7"]').value;
 
                                 break;
