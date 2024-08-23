@@ -63,6 +63,7 @@ $newLocale = str_replace('_', '-', $locale);
                         <div>
                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                        <input type="hidden" name="email" value="{{ auth()->user()->user_type }}">
                         <center>
                         <h2 id="resumen">Resumen</h2>
                         <h4>A ser llenado por la Comisión del PEDPD</h4></center>
@@ -554,7 +555,7 @@ $newLocale = str_replace('_', '-', $locale);
                 }
 
                 async function loadAllData() {
-                    let data2 = await fetchData('/get-data2', { user_id: userId });
+                    let data2 = await fetchData('/get-form-data2', { dictaminador_id: userId });
                     let data2_2 = await fetchData('/get-data22', { user_id: userId });
                     let data31 = await fetchData('/get-data-31', { user_id: userId });
                     let data32 = await fetchData('/get-data-32', { user_id: userId });

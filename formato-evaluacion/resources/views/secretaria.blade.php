@@ -27,251 +27,252 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                    <section role="region" aria-label="Response form">
-                        <form>
-                            @csrf
-                            <nav class="nav flex-column menu">
-                                <li class="nav-item">
-                                    <a style="margin-left: 210px;" href="{{ route('login') }}">
-                                        <i class="fas fa-power-off" name="cerrar_sesion"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="nav-link disabled" href="#"><i
-                                            class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                        REGLAMENTO
-                                        PEDPD</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                        Calidad en la docencia</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser
-                                        llenado por la Comisión del PEDPD)</a>
-                                </li><br>
-                                <li id="jsonDataLink" class="d-none">
-                                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos
-                                        de los Usuarios</a>
-                                </li>
-                                <li id="reportLink" class="nav-item d-none">
-                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                        Reporte</a>
-                                </li>
+                            @if (Auth::check() && Auth::user()->user_type === '')
+                                <section role="region" aria-label="Response form">
+                                    <form>
+                                        @csrf
+                                        <nav class="nav flex-column menu">
+                                            <li class="nav-item">
+                                                <a style="margin-left: 210px;" href="{{ route('login') }}">
+                                                    <i class="fas fa-power-off" name="cerrar_sesion"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link disabled" href="#"><i
+                                                        class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                                    REGLAMENTO
+                                                    PEDPD</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                                    Calidad en la docencia</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser
+                                                    llenado por la Comisión del PEDPD)</a>
+                                            </li><br>
+                                            <li id="jsonDataLink" class="d-none">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos
+                                                    de los Usuarios</a>
+                                            </li>
+                                            <li id="reportLink" class="nav-item d-none">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                                    Reporte</a>
+                                            </li>
 
 
-                            </nav>
-                </form>@endif
-                </section>
+                                        </nav>
+                            </form>@endif
+                            </section>
 
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                            <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                                <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                                <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                <div class="container mt-4">
-                    <!-- Selector para elegir el formulario -->
-                    <label for="formSelect">Seleccionar Formulario:</label>
-                    <select id="formSelect" class="form-select">
-                        <option value=""></option>
-                        <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                        <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                        <option value="form3_1">3.1 Participación en actividades de diseño curricular</option>
-                    </select>
-                </div>
+                            <div class="container mt-4">
+                                <!-- Selector para elegir el formulario -->
+                                <label for="formSelect">Seleccionar Formulario:</label>
+                                <select id="formSelect" class="form-select">
+                                    <option value=""></option>
+                                    <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                                    <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                                    <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
+                                    <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                                </select>
+                            </div>
 
-                <div id="formContainer">
-                    <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                </div>
-                <!--
-                    <form id="form1">
+                            <div id="formContainer">
+                                <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                            </div>
+                            <!--
+                                <form id="form1">
 
-                        <label for="convocatoria" class="label">Convocatoria</label>
-                        <span name="convocatoria" class="input-header mb-3" id="convocatoria"></span><br>
+                                    <label for="convocatoria" class="label">Convocatoria</label>
+                                    <span name="convocatoria" class="input-header mb-3" id="convocatoria"></span><br>
 
-                        <label for="periodo" class="label">Periodo de evaluación:</label>
-                        <span name="periodo" id="periodo" class="input-header mb-3"></span><br>
+                                    <label for="periodo" class="label">Periodo de evaluación:</label>
+                                    <span name="periodo" id="periodo" class="input-header mb-3"></span><br>
 
-                        <label for="nombre" class="label">Nombre del personal académico:</label>
-                            <span id="nombre"
-                           class="input-header mb-3"></span><br>
+                                    <label for="nombre" class="label">Nombre del personal académico:</label>
+                                        <span id="nombre"
+                                       class="input-header mb-3"></span><br>
 
-                        <label for="area" class="label">Área de Conocimiento:</label>
-                        <span id="area" class="input-header"></span><br>
+                                    <label for="area" class="label">Área de Conocimiento:</label>
+                                    <span id="area" class="input-header"></span><br>
 
-                        <label for="departamento" class="label">Departamento Académico:</label>
-                        <span id="departamento" class="input-header"></span><br>
+                                    <label for="departamento" class="label">Departamento Académico:</label>
+                                    <span id="departamento" class="input-header"></span><br>
 
 
-                        <h3>Instrucciones</h3>
-                        <div class="container flex">
-                            <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la
-                                información en cantidades u horas en los campos
-                                marcados en color gris. <br>
-                                2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes
-                                totales o
-                                subtotales, según sea el caso). <br>
-                                3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
-                                4 Este formato deberá presentarse en forma independiente de la documentación que acrediten
-                                las
-                                actividades realizadas. Para la evaluación no es necesario entregar las obras
-                                completas-libros,
-                                manuales, publicaciones,etc., sino entregar el documento probatorio que se indique en la
-                                Guía de
-                                definiciones. <br>
-                                5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro
-                                del
-                                formato de evaluación, asimismo no se aceptará documentación presentada de forma
-                                extemporánea.
+                                    <h3>Instrucciones</h3>
+                                    <div class="container flex">
+                                        <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la
+                                            información en cantidades u horas en los campos
+                                            marcados en color gris. <br>
+                                            2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes
+                                            totales o
+                                            subtotales, según sea el caso). <br>
+                                            3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
+                                            4 Este formato deberá presentarse en forma independiente de la documentación que acrediten
+                                            las
+                                            actividades realizadas. Para la evaluación no es necesario entregar las obras
+                                            completas-libros,
+                                            manuales, publicaciones,etc., sino entregar el documento probatorio que se indique en la
+                                            Guía de
+                                            definiciones. <br>
+                                            5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro
+                                            del
+                                            formato de evaluación, asimismo no se aceptará documentación presentada de forma
+                                            extemporánea.
 
-                                </center>
-                        </div>
+                                            </center>
+                                    </div>
 
-                    </form>
-                </header>
+                                </form>
+                            </header>
 
-                <main class="container">
-                    Actividad 1: Permanencia en las actividades de la docencia	
+                            <main class="container">
+                                Actividad 1: Permanencia en las actividades de la docencia	
 
-                    <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store2', 'form2');">
-                        <div>
-                            <h4>Puntaje máximo
-                                <label class="bg-black text-white px-4" for="">100</label>
-                            </h4>
+                                <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store2', 'form2');">
+                                    <div>
+                                        <h4>Puntaje máximo
+                                            <label class="bg-black text-white px-4" for="">100</label>
+                                        </h4>
 
-                        </div>
-                        @csrf
-                         Add hidden fields for user_id and email 
-                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                        <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Actividad</th>
-                                    <th class="table-ajust" scope="col">Años</th>
-                                    <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                                    <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                                    <th class="table-ajust" scope="col">Observaciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="margin-right: auto;"><b>1. Permanencia en las actividades de la docencia</b>
-                                    </td>
-                                    <td class="horasActv2">
-                                        <input type="number" id="horasActv2" name="horasActv2" class="form-control">
-                                    </td>
-                                    <td id="puntajeEvaluar" class="puntajeEvaluar text-white">
-                                        <label id="puntajeEvaluarText">0</label>
-                                    </td>
-                                    <td class="table-header comision">
-                                        <input type="number" id="comision1" name="comision1" class="table-header comision"
-                                            step="any">
-                                    </td>
-                                    <td>
-                                        <input id="obs1" name="obs1" class="table-header" type="text"></input>
-                                    </td>
-                                    <td>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditacion: </th>
-                                    <th style="width:60px;padding-left: 100px;">SG</th>
-                                    <th style="font-weight: normal; padding-left: 100px;">6.25 puntos por cada año de
-                                        experiencia docente
-                                        cumplido. A partir de los 16 años de experiencia docente se otorgarán los 100 puntos
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </form>
+                                    </div>
+                                    @csrf
+                                     Add hidden fields for user_id and email 
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Actividad</th>
+                                                <th class="table-ajust" scope="col">Años</th>
+                                                <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
+                                                <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
+                                                <th class="table-ajust" scope="col">Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="margin-right: auto;"><b>1. Permanencia en las actividades de la docencia</b>
+                                                </td>
+                                                <td class="horasActv2">
+                                                    <input type="number" id="horasActv2" name="horasActv2" class="form-control">
+                                                </td>
+                                                <td id="puntajeEvaluar" class="puntajeEvaluar text-white">
+                                                    <label id="puntajeEvaluarText">0</label>
+                                                </td>
+                                                <td class="table-header comision">
+                                                    <input type="number" id="comision1" name="comision1" class="table-header comision"
+                                                        step="any">
+                                                </td>
+                                                <td>
+                                                    <input id="obs1" name="obs1" class="table-header" type="text"></input>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditacion: </th>
+                                                <th style="width:60px;padding-left: 100px;">SG</th>
+                                                <th style="font-weight: normal; padding-left: 100px;">6.25 puntos por cada año de
+                                                    experiencia docente
+                                                    cumplido. A partir de los 16 años de experiencia docente se otorgarán los 100 puntos
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </form>
 
-                    <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
-                        @csrf
-                        <div>
-                            Actividad 2: Dedicacion en el Desempeño docente
-                            <h4>Puntaje máximo
-                                <label class="bg-black text-white px-4 mt-3" for="">200</label>
-                            </h4>
-                        </div>
-                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Actividad</th>
-                                    <th class="table-ajust" scope="col">Horas</th>
-                                    <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                                    <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                                    <th class="table-ajust" scope="col">Observaciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><b>2. Dedicacion en el Desempeño docente</b></td>
-                                    <td for=""></td>
-                                    <td id="hours" name="hours" for=""><label id="hoursText" for="">0</label></td>
-                                    <td id="actv2Comision" name="actv2Comision" for=""></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">a) Posgrado</label>
-                                        <label for="">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                            Semestre </label>
-                                    </td>
-                                    <td><input id="horasPosgrado" class="horasActv2" placeholder="0" type="text"
-                                            oninput="onChange()">
-                                    </td>
-                                    <td class="puntajeEvaluar2"><label id="DSE" class="puntajeEvaluar" type="text"></label>
-                                    </td>
-                                    <td class="comision actv"><input id="comisionPosgrado" placeholder="0" for=""
-                                            oninput="onActv2Comision()"></input></td>
-                                    <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
-                                </tr>
-                                <tr>
-                                    <td>b) Licenciatura y TSU
-                                        <label for="">&nbsp &nbsp &nbsp &nbsp Horas </label>
-                                    </td>
-                                    <td><input id="horasSemestre" class="horasActv2" placeholder="0" type="text"
-                                            oninput="onChange()">
-                                    </td>
-                                    <td class="puntajeEvaluar2"><label id="DSE2" class="puntajeEvaluar" type="text"></label>
-                                    </td>
-                                    <td class="comision actv"><input id="comisionLic" placeholder="0"
-                                            oninput="onActv2Comision()"></input>
-                                    </td>
-                                    <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditacion: </th>
-                                    <th style="width:60px;padding-left: 100px;">DSE/DIIP</th>
-                                    <th style="font-weight: normal; padding-left: 100px;">8.5 puntos por cada
-                                        hora/semana/año en cada
-                                        caso
-                                    </th>
-                                    <th>
-                                        <button type="submit" class="btn btn-primary" id="form2_2Button">Enviar</button>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </form>
-    -->
+                                <form id="form2_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store3', 'form2_2');">
+                                    @csrf
+                                    <div>
+                                        Actividad 2: Dedicacion en el Desempeño docente
+                                        <h4>Puntaje máximo
+                                            <label class="bg-black text-white px-4 mt-3" for="">200</label>
+                                        </h4>
+                                    </div>
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Actividad</th>
+                                                <th class="table-ajust" scope="col">Horas</th>
+                                                <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
+                                                <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
+                                                <th class="table-ajust" scope="col">Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>2. Dedicacion en el Desempeño docente</b></td>
+                                                <td for=""></td>
+                                                <td id="hours" name="hours" for=""><label id="hoursText" for="">0</label></td>
+                                                <td id="actv2Comision" name="actv2Comision" for=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="">a) Posgrado</label>
+                                                    <label for="">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                                        Semestre </label>
+                                                </td>
+                                                <td><input id="horasPosgrado" class="horasActv2" placeholder="0" type="text"
+                                                        oninput="onChange()">
+                                                </td>
+                                                <td class="puntajeEvaluar2"><label id="DSE" class="puntajeEvaluar" type="text"></label>
+                                                </td>
+                                                <td class="comision actv"><input id="comisionPosgrado" placeholder="0" for=""
+                                                        oninput="onActv2Comision()"></input></td>
+                                                <td><input id="obs2" name="obs2" class="table-header" type="text"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>b) Licenciatura y TSU
+                                                    <label for="">&nbsp &nbsp &nbsp &nbsp Horas </label>
+                                                </td>
+                                                <td><input id="horasSemestre" class="horasActv2" placeholder="0" type="text"
+                                                        oninput="onChange()">
+                                                </td>
+                                                <td class="puntajeEvaluar2"><label id="DSE2" class="puntajeEvaluar" type="text"></label>
+                                                </td>
+                                                <td class="comision actv"><input id="comisionLic" placeholder="0"
+                                                        oninput="onActv2Comision()"></input>
+                                                </td>
+                                                <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditacion: </th>
+                                                <th style="width:60px;padding-left: 100px;">DSE/DIIP</th>
+                                                <th style="font-weight: normal; padding-left: 100px;">8.5 puntos por cada
+                                                    hora/semana/año en cada
+                                                    caso
+                                                </th>
+                                                <th>
+                                                    <button type="submit" class="btn btn-primary" id="form2_2Button">Enviar</button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </form>
+                -->
 
             @endif
         </div>
