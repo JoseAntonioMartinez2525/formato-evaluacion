@@ -61,6 +61,8 @@ $newLocale = str_replace('_', '-', $locale);
                             <option value="form2_2">2. Dedicación en el desempeño docente</option>
                             <option value="form3_1">  3.1 Participación en actividades de diseño curricular</option>
                             <option value="form3_2">  3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                            <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
+
                         </select>
                     </div>
 
@@ -184,13 +186,14 @@ $newLocale = str_replace('_', '-', $locale);
                 }
 
                 //Recoge los datos dependiendo del formulario actual
+                formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                formData['email'] = form.querySelector('input[name="email"]').value;
+                formData['user_type'] = form.querySelector('input[name="user_type"]').value;
                 switch (formId) {
 
 
                     case 'form2':
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
                         formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
                         formData['horasActv2'] = form.querySelector('span[id=horasActv2]').textContent;
                         formData['puntajeEvaluarText'] = form.querySelector('span[id=puntajeEvaluarText]').textContent;
@@ -199,9 +202,7 @@ $newLocale = str_replace('_', '-', $locale);
                         break;
 
                     case 'form2_2':
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
                         formData['hours'] = document.querySelector('label[id=hoursText]').textContent;
                        formData['horasPosgrado'] = form.querySelector('span[id="horasPosgrado]').textContent;
                        formData['horasSemestre'] = form.querySelector('span[id="horasSemestre]').textContent;
@@ -223,9 +224,6 @@ $newLocale = str_replace('_', '-', $locale);
                         break;
 
                     case 'form3_1':
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-                        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
                         formData['elaboracion'] = document.getElementById('elaboracion').textContent;
                         formData['elaboracionSubTotal1'] = document.getElementById('elaboracionSubTotal1').textContent;
@@ -252,7 +250,21 @@ $newLocale = str_replace('_', '-', $locale);
                         formData['obs3_1_5'] = form.querySelector('input[name="obs3_1_5"]').value;
                         break;
 
-
+                    case 'form3_2':
+                        formData['score3_1'] = document.getElementById('score3_2').textContent;
+                        formData['comision3_2'] = document.getElementById('comision3_2').textContent;
+                        formData['prom90_100'] = document.getElementById('prom90_100').textContent;
+                        formData['prom80_90'] = document.getElementById('prom80_90').textContent;
+                        formData['prom70_80'] = document.getElementById('prom70_80').textContent;                     
+                        formData['r1'] = document.getElementById('r1').value;
+                        formData['r2'] = document.getElementById('r2').value;
+                        formData['r3'] = document.getElementById('r3').value;
+                        formData['cant1'] = document.getElementById('cant1').textContent;
+                        formData['cant2'] = document.getElementById('cant2').textContent;
+                        formData['cant3'] = document.getElementById('cant3').textContent;
+                        formData['obs3_2_1'] = form.querySelector('input[name="obs3_2_1"]').value;
+                        formData['obs3_2_2'] = form.querySelector('input[name="obs3_2_2"]').value;
+                        formData['obs3_2_3'] = form.querySelector('input[name="obs3_2_3"]').value;
                 }
                 console.log('Form data:', formData);
 
