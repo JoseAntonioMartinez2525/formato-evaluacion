@@ -100,7 +100,7 @@ $userType = Auth::user()->user_type;
 
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form32', 'form3_2');">
+        <form id="form3_3" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form33', 'form3_3');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
@@ -168,7 +168,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
                                 <input id="comIncisoA" placeholder="0" for=""
-                                    oninput="oncomision3_33()">
+                                    oninput="onActv3Comision3()">
                                 </input>
                             @else
                             <span id="comIncisoA" name="comIncisoA"></span>
@@ -176,7 +176,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="obs3_3_1" class="table-header" type="text">
+                                <input id="obs3_3_1" name="obs3_3_1" class="table-header" type="text">
                             @else 
                             <span id="obs3_3_1" name="obs3_3_1"></span>
                             @endif
@@ -194,14 +194,14 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                              @if($userType == 'dictaminador')   
                                 <input id="comIncisoB" placeholder="0" for=""
-                                    oninput="oncomision3_33()"></input>
+                                    oninput="onActv3Comision3()"></input>
                              @else    
                              <span id="comIncisoB" name="comIncisoB"></span>
                              @endif
                             </td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="obs3_3_2" class="table-header" type="text">
+                                <input id="obs3_3_2" name="obs3_3_2" class="table-header" type="text">
                             @else  
                             <span id="obs3_3_2" name="obs3_3_2"></span>
                             @endif
@@ -227,7 +227,7 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')    
                                 <input id="comIncisoC" placeholder="0" for=""
-                                    oninput="oncomision3_33()">
+                                    oninput="onActv3Comision3()">
                                 </input>
                             @else 
                             <span id="comIncisoC" name="comIncisoC"></span>
@@ -235,7 +235,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td>
                             @if($userType == 'dictaminador')    
-                                <input id="obs3_3_3" class="table-header" type="text">
+                                <input id="obs3_3_3" name="obs3_3_3" class="table-header" type="text">
                             @else 
                                  <span id="obs3_3_3" name="obs3_3_3"></span>
                             @endif
@@ -256,14 +256,14 @@ $userType = Auth::user()->user_type;
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
                                 <input id="comIncisoD" placeholder="0" for=""
-                                    oninput="oncomision3_33()"></input>
+                                    oninput="onActv3Comision3()"></input>
                             @else 
                                 <span id="comIncisoD" name="comIncisoD"></span>
                             @endif
                             </td>
                             <td>
                             @if($userType == 'dictaminador')    
-                                <input id="obs3_3_4" class="table-header" type="text">
+                                <input id="obs3_3_4" name="obs3_3_4" class="table-header" type="text">
                             @else 
                                 <span id="obs3_3_4" name="obs3_3_4"></span>
                             @endif
@@ -316,7 +316,7 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields with fetched data
-                                document.getElementById('score3_3').textContent = data.form3_3.score3_1 || '0';
+                                document.getElementById('score3_3').textContent = data.form3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
@@ -460,7 +460,6 @@ $userType = Auth::user()->user_type;
             formData['stotal3'] = document.getElementById('stotal3').textContent;
             formData['comIncisoD'] = document.getElementById('comIncisoD').value; // Ensure input value is fetched
             formData['stotal4'] = document.getElementById('stotal4').textContent;
-            formData['elaboracionSubTotal5'] = document.getElementById('elaboracionSubTotal5').textContent;
             formData['comIncisoA'] = form.querySelector('input[id="comIncisoA"]').value;
             formData['comIncisoB'] = form.querySelector('input[id="comIncisoB"]').value;
             formData['comIncisoC'] = form.querySelector('input[id="comIncisoC"]').value;

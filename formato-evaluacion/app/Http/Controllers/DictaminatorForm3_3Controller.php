@@ -2,49 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DictaminatorsResponseForm3_2;
+use App\Models\DictaminatorsResponseForm3_3;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
-class DictaminatorForm3_2Controller extends Controller
+class DictaminatorForm3_3Controller extends Controller
 {
-    public function storeform32(Request $request)
+    public function storeform33(Request $request)
     {
-        
-        
+
+
         try {
             $validatedData = $request->validate([
                 'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
-                'score3_2' => 'required|numeric',
-                'comision3_2' => 'required|numeric',
-                'r1' => 'required|numeric',
-                'r2' => 'required|numeric',
-                'r3' => 'required|numeric',
-                'cant1' => 'required|numeric',
-                'cant2' => 'required|numeric',
-                'cant3' => 'required|numeric',
-                'prom90_100' => 'required|numeric',
-                'prom80_90' => 'required|numeric',
-                'prom70_80' => 'required|numeric',
-                'obs3_2_1' => 'nullable|string',
-                'obs3_2_2' => 'nullable|string',
-                'obs3_2_3' => 'nullable|string',
+                'score3_3' => 'required|numeric',
+                'comision3_3' => 'required|numeric',
+                'rc1' => 'required|numeric',
+                'rc2' => 'required|numeric',
+                'rc3' => 'required|numeric',
+                'rc4' => 'required|numeric',
+                'stotal1' => 'required|numeric',
+                'stotal2' => 'required|numeric',
+                'stotal3' => 'required|numeric',
+                'stotal4' => 'required|numeric',
+                'comIncisoA' => 'required|numeric',
+                'comIncisoB' => 'required|numeric',
+                'comIncisoC' => 'required|numeric',
+                'comIncisoD' => 'required|numeric',
+                'obs3_3_1' => 'nullable|string',
+                'obs3_3_2' => 'nullable|string',
+                'obs3_3_3' => 'nullable|string',
+                'obs3_3_4' => 'nullable|string',               
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
-            if (!isset($validatedData['score3_2'])) {
-                $validatedData['score3_2'] = 0;
+            if (!isset($validatedData['score3_3'])) {
+                $validatedData['score3_3'] = 0;
             }
-            $validatedData['obs3_2_1'] = $validatedData['obs3_2_1'] ?? 'sin comentarios';
-            $validatedData['obs3_2_2'] = $validatedData['obs3_2_2'] ?? 'sin comentarios';
-            $validatedData['obs3_2_3'] = $validatedData['obs3_2_3'] ?? 'sin comentarios';
+            $validatedData['obs3_3_1'] = $validatedData['obs3_3_1'] ?? 'sin comentarios';
+            $validatedData['obs3_3_2'] = $validatedData['obs3_3_2'] ?? 'sin comentarios';
+            $validatedData['obs3_3_3'] = $validatedData['obs3_3_3'] ?? 'sin comentarios';
+            $validatedData['obs3_3_4'] = $validatedData['obs3_3_4'] ?? 'sin comentarios';
 
 
-            
-                DictaminatorsResponseForm3_2::create($validatedData);
+            DictaminatorsResponseForm3_3::create($validatedData);
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',
@@ -69,10 +73,10 @@ class DictaminatorForm3_2Controller extends Controller
         }
     }
 
-    public function getFormData32(Request $request)
+    public function getFormData33(Request $request)
     {
         try {
-            $data = DictaminatorsResponseForm3_2::where('user_id', $request->query('user_id'))->first();
+            $data = DictaminatorsResponseForm3_3::where('user_id', $request->query('user_id'))->first();
             if (!$data) {
                 return response()->json([
                     'success' => false,

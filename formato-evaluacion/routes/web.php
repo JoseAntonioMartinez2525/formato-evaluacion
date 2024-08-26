@@ -4,6 +4,7 @@ use App\Http\Controllers\DictaminatorForm2_2Controller;
 use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\DictaminatorForm3_1Controller;
 use App\Http\Controllers\DictaminatorForm3_2Controller;
+use App\Http\Controllers\DictaminatorForm3_3Controller;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
@@ -62,6 +63,7 @@ Route::get('form2', function () {return view('form2'); })->name('form2');
 Route::get('form2_2', function () {return view('form2_2'); })->name('form2_2');
 Route::get('form3_1', function () {return view('form3_1'); })->name('form3_1');
 Route::get('form3_2', function () {return view('form3_2'); })->name('form3_2');
+Route::get('form3_3', function () {return view('form3_3'); })->name('form3_3');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
@@ -100,11 +102,12 @@ Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
 Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
 
-// En tu web.php
+// Dictaminadores
 Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
 Route::post('/store-form22', [DictaminatorForm2_2Controller::class, 'storeform22'])->withoutMiddleware('auth');
 Route::post('/store-form31', [DictaminatorForm3_1Controller::class, 'storeform31'])->withoutMiddleware('auth');
 Route::post('/store-form32', [DictaminatorForm3_2Controller::class, 'storeform32'])->withoutMiddleware('auth');
+Route::post('/store-form33', [DictaminatorForm3_3Controller::class, 'storeform33'])->withoutMiddleware('auth');
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
@@ -129,6 +132,7 @@ Route::get('/get-data-316', [ResponseForm3_16Controller::class, 'getData316'])->
 Route::get('/get-data-317', [ResponseForm3_17Controller::class, 'getData317'])->name('getData317');
 Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->name('getData318');
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
+
 Route::get('/get-form-data2', [DictaminatorForm2_Controller::class, 'getFormData2'])->name('getFormData2');
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
