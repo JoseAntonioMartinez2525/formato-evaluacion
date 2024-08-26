@@ -25,8 +25,8 @@ class UsersResponseForm3_19 extends Model
         'cantComDepart',
         'subtotalComDepart',
         'cantComPEDPD',
-        'subtotalComPEDPD
-        cantComPartPos',
+        'subtotalComPEDPD',
+        'cantComPartPos',
         'subtotalComPartPos',
         'cantRespPos',
         'subtotalRespPos',

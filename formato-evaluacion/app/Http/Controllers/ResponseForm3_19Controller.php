@@ -56,7 +56,6 @@ class ResponseForm3_19Controller extends Controller
                 'subtotalPRODEPconsResp' => 'required|numeric',
                 'cantPRODEPconsInteg' => 'required|numeric',
                 'subtotalPRODEPconsInteg' => 'required|numeric',
-
                 'obsCGUtitular' => 'nullable|string',
                 'obsCGUespecial' => 'nullable|string',
                 'obsCGUpermanente' => 'nullable|string',
