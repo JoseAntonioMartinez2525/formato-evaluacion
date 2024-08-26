@@ -374,7 +374,7 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
 
-                                    document.getElementById('score3_3').textContent = data.form3_3.score3_1 || '0';
+                                    document.getElementById('score3_3').textContent = data.form3_3.score3_3 || '0';
                                     document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
                                     document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
                                     document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';

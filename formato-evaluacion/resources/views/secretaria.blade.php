@@ -82,6 +82,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     <option value="form2_2">2. Dedicación en el desempeño docente</option>
                                     <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
                                     <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                                    <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
                                 </select>
                             </div>
 
