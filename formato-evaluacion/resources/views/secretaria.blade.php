@@ -473,7 +473,7 @@ $newLocale = str_replace('_', '-', $locale);
                         })
                         .catch(error => {
                             console.error('Error fetching form content:', error);
-                            formContainer.innerHTML = '<p>Error loading form content.</p>';
+                            formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
                         });
                 } else {
 

@@ -9,6 +9,7 @@ class DictaminatorsResponseForm3_5 extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'dictaminador_id',
         'user_id',
         'email',
         'score3_5',
