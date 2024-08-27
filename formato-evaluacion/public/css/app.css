@@ -465,6 +465,22 @@ height: 800px;
     width: 140px;
 }
 
+#puntajeHoras3_6{
+    background-color: #e2e2e2;
+    text-align: right;
+}
+
+#comisionDict3_6, #obs3_6_1{
+    background-color: #d6fff7;
+
+}
+#comisionDict3_6{
+    text-align: right;
+}
+
+#obs3_6_1{
+    text-align: center;
+}
 
 
 

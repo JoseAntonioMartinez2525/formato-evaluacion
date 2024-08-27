@@ -7,11 +7,13 @@ use App\Http\Controllers\DictaminatorForm3_2Controller;
 use App\Http\Controllers\DictaminatorForm3_3Controller;
 use App\Http\Controllers\DictaminatorForm3_4Controller;
 use App\Http\Controllers\DictaminatorForm3_5Controller;
+use App\Http\Controllers\DictaminatorForm3_6Controller;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SecretariaController;
+use App\Models\DictaminatorsResponseForm3_6;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -68,6 +70,7 @@ Route::get('form3_2', function () {return view('form3_2'); })->name('form3_2');
 Route::get('form3_3', function () {return view('form3_3'); })->name('form3_3');
 Route::get('form3_4', function () { return view('form3_4'); })->name('form3_4');
 Route::get('form3_5', function () {return view('form3_5'); })->name('form3_5');
+Route::get('form3_6', function () {return view('form3_6'); })->name('form3_6');
 
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
@@ -115,6 +118,7 @@ Route::post('/store-form32', [DictaminatorForm3_2Controller::class, 'storeform32
 Route::post('/store-form33', [DictaminatorForm3_3Controller::class, 'storeform33'])->withoutMiddleware('auth');
 Route::post('/store-form34', [DictaminatorForm3_4Controller::class, 'storeform34'])->withoutMiddleware('auth');
 Route::post('/store-form35', [DictaminatorForm3_5Controller::class, 'storeform35'])->withoutMiddleware('auth');
+Route::post('/store-form36', [DictaminatorForm3_6Controller ::class, 'storeform36'])->withoutMiddleware('auth');
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');

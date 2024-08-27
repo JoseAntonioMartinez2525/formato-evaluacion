@@ -64,6 +64,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
                             <option value="form3_4">  3.4 Distinciones académicas recibidas por el docente</option>
                             <option value="form3_5">  3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                            <option value="form3_6">  3.6 Capacitación y actualización pedagógica recibida</option>
 
                         </select>
                     </div>
