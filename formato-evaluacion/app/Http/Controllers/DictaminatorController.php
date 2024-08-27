@@ -7,6 +7,7 @@ use App\Models\UsersResponseForm2_2;
 use App\Models\UsersResponseForm3_1;
 use App\Models\UsersResponseForm3_2;
 use App\Models\UsersResponseForm3_3;
+use App\Models\UsersResponseForm3_4;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
 
@@ -34,6 +35,7 @@ class DictaminatorController extends Controller
         $form3_1Data = UsersResponseForm3_1::where('user_id', $docente->id)->first();
         $form3_2Data = UsersResponseForm3_2::where('user_id', $docente->id)->first();
         $form3_3Data = UsersResponseForm3_3::where('user_id', $docente->id)->first();
+        $form3_4Data = UsersResponseForm3_4::where('user_id', $docente->id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -46,6 +48,7 @@ class DictaminatorController extends Controller
             'form3_1' => $form3_1Data,
             'form3_2' => $form3_2Data,
             'form3_3' => $form3_3Data,
+            'form3_4' => $form3_4Data,
         ]);
     }
 }

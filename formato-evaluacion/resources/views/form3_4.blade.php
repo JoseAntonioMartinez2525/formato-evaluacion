@@ -138,37 +138,84 @@ $userType = Auth::user()->user_type;
                         <td class="punto3_4">a)</td>
                         <td>Internacional</td>
                         <td id="p60"><b>60</b></td>
-                        <td><input type="number" id="cantInternacional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                        <td>
+                            <span id="cantInternacional" name="cantInternacional"></span>
+                        </td>
                         <td id="cantInternacional2"></td>
-                        <td><input type="number" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
-                        <td><input id="obs3_4_1" class="table-header" type="text"></td>
+                        <td>@if($userType == 'dictaminador')
+                            <input type="number" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()">
+                            @else
+                            <span id="comInternacional" name="comInternacional"></span>
+                            @endif
+                        </td>
+                        <td>@if($userType == 'dictaminador')
+                            <input id="obs3_4_1" name="obs3_4_1" class="table-header" type="text">
+                        @else
+                            <span id="obs3_4_1" name="obs3_4_1" class="table-header"></span>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="punto3_4">b)</td>
                         <td>Nacional</td>
                         <td id="p30Nac"><b>30</b></td>
-                        <td><input type="number" id="cantNacional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                        <td><span type="number" id="cantNacional"></span></td>
                         <td id="cantNacional2"></td>
-                        <td><input type="number" id="comNacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
-                        <td><input id="obs3_4_2" class="table-header" type="text"></td>
+                        <td>@if($userType == 'dictaminador')
+                            <input type="number" id="comNacional"name="comNacional" placeholder="0" oninput="onActv3Comision3_4()">
+                            @else
+                            <span id="comNacional" name="comNacional"></span>
+                            @endif
+                        </td>
+                        <td>@if($userType == 'dictaminador')
+                            <input id="obs3_4_2" name="obs3_4_2" class="table-header" type="text">
+                            @else
+                                <span id="obs3_4_2" name="obs3_4_2" class="table-header"></span>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="punto3_4">c)</td>
                         <td>Regional o estatal</td>
                         <td id="p20"><b>20</b></td>
-                        <td><input type="number" id="cantidadRegional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                        <td>
+                            <span id="cantidadRegional"></span>
+                        </td>
                         <td id="cantidadRegional2"></td>
-                        <td><input type="number" id="comRegional" placeholder="0" oninput="onActv3Comision3_4()"></td>
-                        <td><input id="obs3_4_3" class="table-header" type="text"></td>
+                        <td>@if($userType == 'dictaminador')
+                            <input type="number" id="comRegional" name="comRegional" placeholder="0" oninput="onActv3Comision3_4()">
+                            @else
+                            <span id="comRegional" name="comRegional"></span>
+                            @endif
+                        </td>
+                        <td>@if($userType == 'dictaminador')
+                            <input id="obs3_4_3" name="obs3_4_3" class="table-header" type="text">
+                            @else
+                            <span id="obs3_4_3" name="obs3_4_3" class="table-header"></span>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="punto3_4">d)</td>
                         <td>Preparación de grupos de alumnado para olimpiadas competencias académicas o exámenes generales.</td>
                         <td id="p30Prep"><b>30</b></td>
-                        <td><input type="number" id="cantPreparacion" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                        <td>
+                            <span id="cantPreparacion"></span>
+                        </td>
                         <td id="cantPreparacion2"></td>
-                        <td><input type="number" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()"></td>
-                        <td><input id="obs3_4_4" class="table-header" type="text"></td>
+                        <td>@if($userType == 'dictaminador')
+                            <input type="number" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()">
+                            @else
+                            <span id="comPreparacion" name="comPreparacion"></span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($userType == 'dictaminador')
+                            <input id="obs3_4_4" name="obs3_4_4" class="table-header" type="text">
+                            @else
+                                <span id="obs3_4_4" name="obs3_4_4" class="table-header"></span>
+                            @endif
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -178,7 +225,10 @@ $userType = Auth::user()->user_type;
                     <tr><br>
                         <th class="acreditacion" scope="col">Acreditacion: </th>
                         <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-                        <th><button id="btn3_4" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
+                        <th>@if($userType != '')
+                            <button id="btn3_4" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                            @endif
+                        </th>
                     </tr>
                 </thead>
             </table>
@@ -283,7 +333,7 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('cantidadRegional2').textContent = data.form3_4.cantidadRegional2 || '0';
                                     document.getElementById('cantPreparacion2').textContent = data.form3_4.cantPreparacion2 || '0';
 
-                                    document.getElementById('comision3_4').textContent = data.form3_3.comision3_4 || '0';
+                                    document.getElementById('comision3_4').textContent = data.form3_4.comision3_4 || '0';
                                     document.querySelector('span[name="comInternacional"]').textContent = data.form3_4.comInternacional || '0';
                                     document.querySelector('span[name="comNacional"]').textContent = data.form3_4.comNacional || '0';
                                     document.querySelector('span[name="comRegional"]').textContent = data.form3_4.comRegional || '0';
@@ -360,8 +410,8 @@ $userType = Auth::user()->user_type;
             formData['comNacional'] = form.querySelector('input[id="comNacional"]').value;
             formData['comRegional'] = form.querySelector('input[id="comRegional"]').value;
             formData['comPreparacion'] = form.querySelector('input[id="comPreparacion"]').value;
-            formData['score3_4'] = document.getElementById('score3_3').textContent;
-            formData['comision3_4'] = document.getElementById('comision3_3').textContent;
+            formData['score3_4'] = document.getElementById('score3_4').textContent;
+            formData['comision3_4'] = document.getElementById('comision3_4').textContent;
 
             // Observations
             formData['obs3_4_1'] = form.querySelector('input[name="obs3_4_1"]').value;
