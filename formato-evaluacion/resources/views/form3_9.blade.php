@@ -575,7 +575,6 @@ $userType = Auth::user()->user_type;
                     </td>
                 </tr>
 
-
                     <!--Tabla informativa Acreditacion Actividad 3.9-->
                     <table>
                         <thead>
@@ -717,17 +716,15 @@ $userType = Auth::user()->user_type;
                                     // Para las observaciones
                                     for (let i = 1; i <= 17; i++) {
                                         const obs3_9_ = `obs3_9_${i}`;
-                                        const value =  data.form3_9[`obs3_9_${i}`] ||; 
+                                        const value =  data.form3_9[`obs3_9_${i}`] || ''; 
                                         const element = document.querySelector(`span[name="${obs3_9_}"]`);
                                         if (element) {
                                             element.textContent = value;
                                         }
                                     }
 
-
                                     document.getElementById('comision3_9').textContent = data.form3_9.comision3_9 || '0';
-                                    
-
+                                
 
 
                                 } else {

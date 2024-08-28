@@ -7,6 +7,10 @@ use App\Models\DictaminatorsResponseForm3_2;
 use App\Models\DictaminatorsResponseForm3_3;
 use App\Models\DictaminatorsResponseForm3_4;
 use App\Models\DictaminatorsResponseForm3_5;
+use App\Models\DictaminatorsResponseForm3_6;
+use App\Models\DictaminatorsResponseForm3_7;
+use App\Models\DictaminatorsResponseForm3_8;
+use App\Models\DictaminatorsResponseForm3_9;
 use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
@@ -73,6 +77,10 @@ class ResponseJson extends Controller
         $dictaminators_responses3_3 = DictaminatorsResponseForm3_3::all()->filter()->values();
         $dictaminators_responses3_4 = DictaminatorsResponseForm3_4::all()->filter()->values();
         $dictaminators_responses3_5 = DictaminatorsResponseForm3_5::all()->filter()->values();
+        $dictaminators_responses3_6 = DictaminatorsResponseForm3_6::all()->filter()->values();
+        $dictaminators_responses3_7 = DictaminatorsResponseForm3_7::all()->filter()->values();
+        $dictaminators_responses3_8 = DictaminatorsResponseForm3_8::all()->filter()->values();
+        $dictaminators_responses3_9 = DictaminatorsResponseForm3_9::all()->filter()->values();
 
         // Combine user and dictaminator responses for form2
         $combinedForm2Responses = $responses2->merge($dictaminators_responses2);
@@ -82,6 +90,10 @@ class ResponseJson extends Controller
         $combinedForm3_3Responses = $responses3_3->merge($dictaminators_responses3_3);
         $combinedForm3_4Responses = $responses3_4->merge($dictaminators_responses3_4);
         $combinedForm3_5Responses = $responses3_5->merge($dictaminators_responses3_5);
+        $combinedForm3_6Responses = $responses3_6->merge($dictaminators_responses3_6);
+        $combinedForm3_7Responses = $responses3_6->merge($dictaminators_responses3_7);
+        $combinedForm3_8Responses = $responses3_6->merge($dictaminators_responses3_8);
+        $combinedForm3_9Responses = $responses3_6->merge($dictaminators_responses3_9);
 
         $responsesFinal = UserResume::all()->filter()->values();
         $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
@@ -96,10 +108,10 @@ class ResponseJson extends Controller
             'form3_3' => $combinedForm3_3Responses->toArray(),
             'form3_4' => $combinedForm3_4Responses->toArray(),
             'form3_5' => $combinedForm3_5Responses->toArray(),
-            'form3_6' => $responses3_6->toArray(),
-            'form3_7' => $responses3_7->toArray(),
-            'form3_8' => $responses3_8->toArray(),
-            'form3_9' => $responses3_9->toArray(),
+            'form3_6' => $combinedForm3_6Responses->toArray(),
+            'form3_7' => $combinedForm3_7Responses->toArray(),
+            'form3_8' => $combinedForm3_8Responses->toArray(),
+            'form3_9' => $combinedForm3_9Responses->toArray(),
             'form3_10' => $responses3_10->toArray(),
             'form3_11' => $responses3_11->toArray(),
             'form3_12' => $responses3_12->toArray(),

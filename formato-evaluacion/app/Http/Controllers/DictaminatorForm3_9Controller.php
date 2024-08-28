@@ -94,7 +94,22 @@ class DictaminatorForm3_9Controller extends Controller
                 $validatedData['score3_9'] = 0;
             }
             $validatedData['obs3_9_1'] = $validatedData['obs3_9_1'] ?? 'sin comentarios';
-
+            $validatedData['obs3_9_2'] = $validatedData['obs3_9_2'] ?? 'sin comentarios';
+            $validatedData['obs3_9_3'] = $validatedData['obs3_9_3'] ?? 'sin comentarios';
+            $validatedData['obs3_9_4'] = $validatedData['obs3_9_4'] ?? 'sin comentarios';
+            $validatedData['obs3_9_5'] = $validatedData['obs3_9_5'] ?? 'sin comentarios';
+            $validatedData['obs3_9_6'] = $validatedData['obs3_9_6'] ?? 'sin comentarios';
+            $validatedData['obs3_9_7'] = $validatedData['obs3_9_7'] ?? 'sin comentarios';
+            $validatedData['obs3_9_8'] = $validatedData['obs3_9_8'] ?? 'sin comentarios';
+            $validatedData['obs3_9_9'] = $validatedData['obs3_9_9'] ?? 'sin comentarios';
+            $validatedData['obs3_9_10'] = $validatedData['obs3_9_10'] ?? 'sin comentarios';
+            $validatedData['obs3_9_11'] = $validatedData['obs3_9_11'] ?? 'sin comentarios';
+            $validatedData['obs3_9_12'] = $validatedData['obs3_9_12'] ?? 'sin comentarios';
+            $validatedData['obs3_9_13'] = $validatedData['obs3_9_13'] ?? 'sin comentarios';
+            $validatedData['obs3_9_14'] = $validatedData['obs3_9_14'] ?? 'sin comentarios';
+            $validatedData['obs3_9_15'] = $validatedData['obs3_9_15'] ?? 'sin comentarios';
+            $validatedData['obs3_9_16'] = $validatedData['obs3_9_16'] ?? 'sin comentarios';
+            $validatedData['obs3_9_17'] = $validatedData['obs3_9_17'] ?? 'sin comentarios';
 
 
 
