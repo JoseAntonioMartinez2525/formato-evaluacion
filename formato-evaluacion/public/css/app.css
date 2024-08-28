@@ -59,6 +59,11 @@ header{
     padding-right: 70px;
 }
 
+#btn3_8{
+    margin-right: -100px;
+    
+}
+
 #btn3_2{
     margin-left: -230px;
 }
@@ -330,8 +335,15 @@ text-align: right;
     width: 200px;
     /* Ancho deseado para la columna 'Obra' */
 }
-.incisos, .punto3_4, .punto3_5, .punto3_6, .punto3_7, .punto3_8, .p3_9{
+.incisos, .punto3_4, .punto3_5, .punto3_6, .punto3_7, .p3_9{
     white-space: nowrap;
+    width: 1%;
+    height: 20px;
+    font-weight: normal;
+}
+
+.punto3_8{
+    white-space: pre;
     width: 1%;
     height: 20px;
     font-weight: normal;
@@ -346,6 +358,7 @@ text-align: right;
     padding-left: 100px;
     padding-right: 560px;
 }
+
 
 .descripcionDDIE{
     font-weight: normal;

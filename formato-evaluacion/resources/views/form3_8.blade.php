@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</title>
+    <title>Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación capacitación docente</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -100,7 +100,7 @@ $userType = Auth::user()->user_type;
 
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_7" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form37', 'form3_7');">
+        <form id="form3_8" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form38', 'form3_8');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
@@ -108,7 +108,7 @@ $userType = Auth::user()->user_type;
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
             <div>
-                <!-- 3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento  -->
+                <!--3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente-->
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4 mt-3" for="">40</label>
                 </h4>
@@ -129,50 +129,58 @@ $userType = Auth::user()->user_type;
                 <tbody>
                     <thead>
                         <tr>
-                            <th id="seccion3_7" colspan=1 class="punto3_7" scope=col style="padding:30px;">3.7
-                                Cursos de actualización
-                                disciplinaria recibidos dentro de su área de conocimiento </th>
-                            <td class="punto3_7">Factor</td>
-                            <td class="punto3_7">Horas</td>
-                            <td id="score3_7" for="">0</td>
-                            <td id="comision3_7">0</td>
+                            <td id="seccion3_8" colspan=1 class="punto3_8" scope=col style="padding:20px;">3.8
+                                Impartición de cursos,
+                                diplomados, seminarios, talleres extracurriculares, de educación,
+                                continua o de formación y
+                                capacitación docente </td>
+                            <td class="punto3_8">Factor</td>
+                            <td class="punto3_8">Horas</td>
+                            <td id="score3_8" for="">0</td>
+                            <td id="comision3_8">0</td>
             
                         </tr>
                     </thead>
                     <thead>
                         <tr>
-                            <td>0.5 por cada hora</td>
-                            <td id="pMedio2">0.5</td>
-                            <td id="puntaje3_7" name="puntaje3_7"></td>
-                            <td id="puntajeHoras3_7"></td>
+                            <td>1 por cada hora</td>
+                            <td id="p3_8">1</td>
+                            <td id="puntaje3_8"></td>
+                            <td id="puntajeHoras3_8"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="text" placeholder="0" id="comisionDict3_7" name="comisionDict3_7" oninput="onActv3Comision3_7()">
+                                    <input type="text" placeholder="0" id="comisionDict3_8" name="comisionDict3_8" oninput="onActv3Comision3_8()">
                                 @else
-                                    <span id="comisionDict3_7" name="comisionDict3_7"></span>
+                                    <span id="comisionDict3_8" name="comisionDict3_8"></span>
                                 @endif
                                 
-
                             </td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input id="obs3_7_1" name="obs3_7_1" class="table-header" type="text">
+                                    <input class="table-header" id="obs3_8_1" name="obs3_8_1" type="text">
                                 @else
-                                    <span id="obs3_7_1" name="obs3_7_1" class="table-header"></span>
+                                    <span id="obs3_8_1" name="obs3_8_1"></span>
                                 @endif
                                 
                             </td>
                         </tr>
                     </thead>
-                    <!--Tabla informativa Acreditacion Actividad 3.7-->
+                    <!--Tabla informativa Acreditacion Actividad 3.8-->
                     <table>
                         <thead>
                             <tr>
                                 <th class="acreditacion" scope="col">Acreditacion: </th>
-                                <th class="descripcion"><b>JD,CAAC, instancia que organiza</b></th>
+            
+                                <th class="descripcion"><b>
+                                    *JD,CAAC, DDCE, DDIE, SA,DIIP, según
+                                        corresponda. Cuando sea en
+                                        instituciones externas, presentar constancia de la
+                                        institución y el convenio acuerdo con
+                                        la
+                                        UABCS.</b> </th>
                                 <th>
                                     @if ($userType != '')
-                                    <button id="btn3_7" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                                    <button id="btn3_8" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
                                     @endif
                                 </th>
                             </tr>
@@ -213,15 +221,15 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields with fetched data
-                                document.getElementById('score3_7').textContent = data.form3_7.score3_7 || '0';
-                                document.getElementById('puntaje3_7').textContent = data.form3_7.puntaje3_7 || '0';
-                                document.getElementById('puntajeHoras3_7').textContent = data.form3_7.puntajeHoras3_7 || '0';
+                                document.getElementById('score3_8').textContent = data.form3_8.score3_8 || '0';
+                                document.getElementById('puntaje3_8').textContent = data.form3_8.puntaje3_8 || '0';
+                                document.getElementById('puntajeHoras3_8').textContent = data.form3_8.puntajeHoras3_8 || '0';
 
 
                                 // Populate hidden inputs
-                                document.querySelector('input[name="user_id"]').value = data.form3_7.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form3_7.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form3_7.user_type || '';
+                                document.querySelector('input[name="user_id"]').value = data.form3_8.user_id || '';
+                                document.querySelector('input[name="email"]').value = data.form3_8.email || '';
+                                document.querySelector('input[name="user_type"]').value = data.form3_8.user_type || '';
                             } catch (error) {
                                 console.error('Error fetching docente data:', error);
                             }
@@ -260,36 +268,36 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields based on fetched data
-                                if (data.form3_7) {
+                                if (data.form3_8) {
                                     document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
                                     document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
 
-                                    document.getElementById('score3_7').textContent = data.form3_7.score3_7 || '0';
-                                    document.getElementById('puntaje3_7').textContent = data.form3_7.puntaje3_7 || '0';
-                                    document.getElementById('puntajeHoras3_7').textContent = data.form3_7.puntajeHoras3_7 || '0';
+                                    document.getElementById('score3_8').textContent = data.form3_8.score3_8 || '0';
+                                    document.getElementById('puntaje3_8').textContent = data.form3_8.puntaje3_8 || '0';
+                                    document.getElementById('puntajeHoras3_8').textContent = data.form3_8.puntajeHoras3_8 || '0';
 
-                                    document.getElementById('comision3_7').textContent = data.form3_7.comision3_7 || '0';
-                                    document.querySelector('span[name="comisionDict3_7"]').textContent = data.form3_7.comisionDict3_7 || '0';
-                                    document.querySelector('span[name="obs3_7_1"]').textContent = data.form3_7.obs3_7_1 || '';
+                                    document.getElementById('comision3_8').textContent = data.form3_8.comision3_8 || '0';
+                                    document.querySelector('span[name="comisionDict3_8"]').textContent = data.form3_8.comisionDict3_8 || '0';
+                                    document.querySelector('span[name="obs3_8_1"]').textContent = data.form3_8.obs3_8_1 || '';
 
 
                                 } else {
 
-                                    console.error('No form3_7 data found for the selected dictaminador.');
+                                    console.error('No form3_8 data found for the selected dictaminador.');
                                     // Reset input values if no data found
                                     document.querySelector('input[name="dictaminador_id"]').value = '0';
                                     document.querySelector('input[name="user_id"]').value = '0';
                                     document.querySelector('input[name="email"]').value = '';
                                     document.querySelector('input[name="user_type"]').value = '';
 
-                                    document.getElementById('score3_7').textContent = '0';
-                                    document.getElementById('puntaje3_7').textContent = '0';
-                                    document.getElementById('puntajeHoras3_7').textContent = '0';
-                                    document.getElementById('comision3_7').textContent = '0';
-                                    document.querySelector('span[name="comisionDict3_7"]').textContent = '0';
-                                    document.querySelector('span[name="obs3_7_1"]').textContent = '';
+                                    document.getElementById('score3_8').textContent = '0';
+                                    document.getElementById('puntaje3_8').textContent = '0';
+                                    document.getElementById('puntajeHoras3_8').textContent = '0';
+                                    document.getElementById('comision3_8').textContent = '0';
+                                    document.querySelector('span[name="comisionDict3_8"]').textContent = '0';
+                                    document.querySelector('span[name="obs3_8_1"]').textContent = '';
 
                                 }
                             } catch (error) {
@@ -319,14 +327,14 @@ $userType = Auth::user()->user_type;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-            formData['puntaje3_7'] = document.getElementById('puntaje3_7').textContent;
-            formData['puntajeHoras3_7'] = document.getElementById('puntajeHoras3_7').textContent;
-            formData['comisionDict3_7'] = form.querySelector('input[id="comisionDict3_7"]').value;
-            formData['score3_7'] = document.getElementById('score3_7').textContent;
-            formData['comision3_7'] = document.getElementById('comision3_7').textContent;
+            formData['puntaje3_8'] = document.getElementById('puntaje3_8').textContent;
+            formData['puntajeHoras3_8'] = document.getElementById('puntajeHoras3_8').textContent;
+            formData['comisionDict3_8'] = form.querySelector('input[id="comisionDict3_8"]').value;
+            formData['score3_8'] = document.getElementById('score3_8').textContent;
+            formData['comision3_8'] = document.getElementById('comision3_8').textContent;
 
             // Observations
-            formData['obs3_7_1'] = form.querySelector('input[name="obs3_7_1"]').value;
+            formData['obs3_8_1'] = form.querySelector('input[name="obs3_8_1"]').value;
 
             console.log('Form data:', formData);
 
