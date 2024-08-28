@@ -27,76 +27,76 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                            @if (Auth::check() && Auth::user()->user_type === '')
-                                <section role="region" aria-label="Response form">
-                                    <form>
-                                        @csrf
-                                        <nav class="nav flex-column menu">
-                                            <li class="nav-item">
-                                                <a style="margin-left: 210px;" href="{{ route('login') }}">
-                                                    <i class="fas fa-power-off" name="cerrar_sesion"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="nav-link disabled" href="#"><i
-                                                        class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                                    REGLAMENTO
-                                                    PEDPD</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                                    Calidad en la docencia</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser
-                                                    llenado por la Comisión del PEDPD)</a>
-                                            </li><br>
-                                            <li id="jsonDataLink" class="d-none">
-                                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos
-                                                    de los Usuarios</a>
-                                            </li>
-                                            <li id="reportLink" class="nav-item d-none">
-                                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                                    Reporte</a>
-                                            </li>
+                @if (Auth::check() && Auth::user()->user_type === '')
+                    <section role="region" aria-label="Response form">
+                        <form>
+                            @csrf
+                            <nav class="nav flex-column menu">
+                                <li class="nav-item">
+                                    <a style="margin-left: 210px;" href="{{ route('login') }}">
+                                        <i class="fas fa-power-off" name="cerrar_sesion"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link disabled" href="#"><i
+                                            class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                        REGLAMENTO
+                                        PEDPD</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                        Calidad en la docencia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('resumen')}}">Resumen (A ser
+                                        llenado por la Comisión del PEDPD)</a>
+                                </li><br>
+                                <li id="jsonDataLink" class="d-none">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos
+                                        de los Usuarios</a>
+                                </li>
+                                <li id="reportLink" class="nav-item d-none">
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                        Reporte</a>
+                                </li>
 
 
-                                        </nav>
-                            </form>@endif
-                            </section>
+                            </nav>
+                </form>@endif
+                </section>
 
-                            <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                <div class="flex lg:justify-center lg:col-start-2"></div>
+                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                    <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                                <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                            <div class="container mt-4">
-                                <!-- Selector para elegir el formulario -->
-                                <label for="formSelect">Seleccionar Formulario:</label>
-                                <select id="formSelect" class="form-select">
-                                    <option value=""></option>
-                                    <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                                    <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                                    <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
-                                    <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                                    <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
-                                    <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
-                                    <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                                    <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
-                                    <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                                    <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
-                                    
+                <div class="container mt-4">
+                    <!-- Selector para elegir el formulario -->
+                    <label for="formSelect">Seleccionar Formulario:</label>
+                    <select id="formSelect" class="form-select">
+                        <option value=""></option>
+                        <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                        <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                        <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
+                        <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                        <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
+                        <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
+                        <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                        <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
+                        <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
+                        <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
+                        <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
 
 
-                                </select>
-                            </div>
+                    </select>
+                </div>
 
-                            <div id="formContainer">
-                                <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                            </div>
+                <div id="formContainer">
+                    <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                </div>
 
 
             @endif

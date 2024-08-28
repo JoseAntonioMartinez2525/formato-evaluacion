@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DictaminatorsResponseForm3_9;
 use Illuminate\Http\Request;
-use App\Models\UsersResponseForm3_9;
-class ResponseForm3_9Controller extends Controller
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
+
+class DictaminatorForm3_9Controller extends Controller
 {
-    public function store39(Request $request)
+    public function storeform39(Request $request)
     {
+
+
         try {
-            // Validate request data
             $validatedData = $request->validate([
+                'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_9' => 'required|numeric',
-                //'comision3_9' => 'required|numeric',
+                'comision3_9' => 'required|numeric',
                 'puntaje3_9_1' => 'required|numeric',
                 'puntaje3_9_2' => 'required|numeric',
                 'puntaje3_9_3' => 'required|numeric',
@@ -49,7 +54,22 @@ class ResponseForm3_9Controller extends Controller
                 'tutorias15' => 'required|numeric',
                 'tutorias16' => 'required|numeric',
                 'tutorias17' => 'required|numeric',
-                'tutoriasComision1' => 'required|numeric',
+                'tutoriasComision2' => 'required|numeric',
+                'tutoriasComision3' => 'required|numeric',
+                'tutoriasComision4' => 'required|numeric',
+                'tutoriasComision5' => 'required|numeric',
+                'tutoriasComision6' => 'required|numeric',
+                'tutoriasComision7' => 'required|numeric',
+                'tutoriasComision8' => 'required|numeric',
+                'tutoriasComision9' => 'required|numeric',
+                'tutoriasComision10' => 'required|numeric',
+                'tutoriasComision11' => 'required|numeric',
+                'tutoriasComision12' => 'required|numeric',
+                'tutoriasComision13' => 'required|numeric',
+                'tutoriasComision14' => 'required|numeric',
+                'tutoriasComision15' => 'required|numeric',
+                'tutoriasComision16' => 'required|numeric',
+                'tutoriasComision17' => 'required|numeric',
                 'obs3_9_1' => 'nullable|string',
                 'obs3_9_2' => 'nullable|string',
                 'obs3_9_3' => 'nullable|string',
@@ -68,52 +88,64 @@ class ResponseForm3_9Controller extends Controller
                 'obs3_9_16' => 'nullable|string',
                 'obs3_9_17' => 'nullable|string',
                 'user_type' => 'required|in:user,docente,dictaminator',
-
-            
             ]);
 
-            // Assign default value if not provided
-            for ($i=1; $i <=17 ; $i++) {
-                $validatedData["obs3_9_$i"] = $validatedData["obs3_9_$i"] ?? 'sin comentarios';
+            if (!isset($validatedData['score3_9'])) {
+                $validatedData['score3_9'] = 0;
             }
-            
+            $validatedData['obs3_9_1'] = $validatedData['obs3_9_1'] ?? 'sin comentarios';
 
-            // Create a new record using Eloquent ORM
-            UsersResponseForm3_9::create($validatedData);
+
+
+
+            DictaminatorsResponseForm3_9::create($validatedData);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data successfully saved',
+                'data' => $validatedData,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Database error: ' . $e->getMessage(),
+            ], 900);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+            ], 900);
+        }
+    }
+
+    public function getFormData39(Request $request)
+    {
+        try {
+            $data = DictaminatorsResponseForm3_9::where('user_id', $request->query('user_id'))->first();
+            if (!$data) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data not found',
+                ], 404);
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => 'Form submitted successfully!',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Log validation errors
-            \Log::error('Validation error: ' . $e->getMessage(), ['errors' => $e->errors()]);
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation error: ' . $e->getMessage(),
-                'errors' => $e->errors(),
-            ], 422);
-        } catch (\Exception $e) {
-            // Log other errors
-            \Log::error('Error submitting form: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Error submitting form: ' . $e->getMessage(),
-            ], 500);
-        }
-    }
+                'data' => $data
+            ], 200);
 
-    public function getData39(Request $request)
-    {
-        try {
-            $data = UsersResponseForm3_9::where('user_id', $request->query('user_id'))->first();
-            return response()->json($data);
         } catch (\Exception $e) {
-            \Log::error('Error retrieving data: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Error retrieving data: ' . $e->getMessage(),
-            ], 500);
+                'message' => 'An error occurred while retrieving data: ' . $e->getMessage(),
+            ], 900);
         }
+
     }
 }
+
