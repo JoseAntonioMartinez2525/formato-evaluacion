@@ -198,7 +198,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision1" name="tutoriasComision1"></span>
                         @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_1">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_1" name="obs3_9_1" type="text">
                         @else
@@ -221,7 +221,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision2" name="tutoriasComision2"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_2">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_2" name="obs3_9_2" type="text">
                             @else
@@ -244,7 +244,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision3" name="tutoriasComision3"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_3">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_3" name="obs3_9_3" type="text">
                             @else
@@ -267,7 +267,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision4" name="tutoriasComision4"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_4"> 
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_4" name="obs3_9_4" type="text">
                             @else
@@ -290,7 +290,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision5" name="tutoriasComision5"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_5">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_5" name="obs3_9_5" type="text">
                             @else
@@ -313,7 +313,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision6" name="tutoriasComision6"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_6">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_6" name="obs3_9_6" type="text">
                             @else
@@ -336,7 +336,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision7" name="tutoriasComision7"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_7">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_7" name="obs3_9_7" type="text">
                             @else
@@ -359,7 +359,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision8" name="tutoriasComision8"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_8">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_8" name="obs3_9_8" type="text">
                             @else
@@ -382,7 +382,7 @@ $userType = Auth::user()->user_type;
                                 <span id="tutoriasComision9" name="tutoriasComision9"></span>
                             @endif
                         </td>
-                        <td>
+                        <td id="obs3_9_9">
                             @if ($userType == 'dictaminador')
                                 <input class="table-header" id="obs3_9_9" name="obs3_9_9" type="text">
                             @else
@@ -405,7 +405,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision10" name="tutoriasComision10"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_10">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_10" name="obs3_9_10" type="text">
                         @else
@@ -428,7 +428,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision11" name="tutoriasComision11"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_11">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_11" name="obs3_9_11" type="text">
                         @else
@@ -451,7 +451,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision12" name="tutoriasComision12"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_12">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_12" name="obs3_9_12" type="text">
                         @else
@@ -474,7 +474,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision13" name="tutoriasComision13"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_13">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_13" name="obs3_9_13" type="text">
                         @else
@@ -497,7 +497,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision14" name="tutoriasComision14"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_14">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_14" name="obs3_9_14" type="text">
                         @else
@@ -520,7 +520,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision15" name="tutoriasComision15"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_15">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_15" name="obs3_9_15" type="text">
                         @else
@@ -543,7 +543,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision16" name="tutoriasComision16"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_16">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_16" name="obs3_9_16" type="text">
                         @else
@@ -566,7 +566,7 @@ $userType = Auth::user()->user_type;
                             <span id="tutoriasComision17" name="tutoriasComision17"></span>
                         @endif
                     </td>
-                    <td>
+                    <td id="obs3_9_17">
                         @if ($userType == 'dictaminador')
                             <input class="table-header" id="obs3_9_17" name="obs3_9_17" type="text">
                         @else
@@ -706,7 +706,7 @@ $userType = Auth::user()->user_type;
                                     // Para las comisiones
                                     for (let i = 1; i <= 17; i++) {
                                         const tutoriasComision = `tutoriasComision${i}`;
-                                        const tutoriasComisionValue = data.form3_9[`puntaje3_9_${i}`] || '0';
+                                        const tutoriasComisionValue = data.form3_9[`tutoriasComision${i}`] || '0';
                                         const ComisionesElement = document.querySelector(`span[name="${tutoriasComision}"]`);
                                         if (ComisionesElement) {
                                             ComisionesElement.textContent = tutoriasComisionValue;
@@ -723,6 +723,7 @@ $userType = Auth::user()->user_type;
                                         }
                                     }
 
+                                    document.getElementById('score3_9').textContent = data.form3_9.score3_9 || '0';
                                     document.getElementById('comision3_9').textContent = data.form3_9.comision3_9 || '0';
                                 
 

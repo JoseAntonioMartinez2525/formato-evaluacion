@@ -54,6 +54,7 @@ class DictaminatorForm3_9Controller extends Controller
                 'tutorias15' => 'required|numeric',
                 'tutorias16' => 'required|numeric',
                 'tutorias17' => 'required|numeric',
+                'tutoriasComision1' => 'required|numeric',
                 'tutoriasComision2' => 'required|numeric',
                 'tutoriasComision3' => 'required|numeric',
                 'tutoriasComision4' => 'required|numeric',
@@ -129,13 +130,14 @@ class DictaminatorForm3_9Controller extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Database error: ' . $e->getMessage(),
-            ], 900);
+            ], 500); // Cambiado de 900 a 500
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'An unexpected error occurred: ' . $e->getMessage(),
-            ], 900);
+            ], 500); // Cambiado de 900 a 500
         }
+
     }
 
     public function getFormData39(Request $request)
