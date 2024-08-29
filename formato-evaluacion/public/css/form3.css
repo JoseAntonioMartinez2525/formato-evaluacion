@@ -75,15 +75,25 @@ nav {
 }
 
 #puntajeIndividual, #individualCant, #evaluarIndividual ,#comisionIndividual ,#obsIndividual,
-#puntajeGrupales ,#grupalesCant ,#evaluarGrupales ,#comisionGrupal ,#obsGrupal {
+#puntajeGrupales ,#grupalesCant ,#evaluarGrupales ,#comisionGrupal ,#obsGrupal,
+#cantAsesoria, #subtotalAsesoria, #comisionAsesoria, #obsAsesoria, #cantServicio, #subtotalServicio,
+#comisionServicio, #obsServicio, #cantPracticas, #subtotalPracticas, #comisionPracticas,
+#obsPracticas {
     text-align: right;
 }
 
-#individualCant, #grupalesCant{
+#individualCant, #grupalesCant, 
+#cantAsesoria, #cantServicio, #cantPracticas {
     background-color: #c1cfd3;
 }
 
-#comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual{
+#comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual, #comisionAsesoria,
+#obsAsesoria, #comisionServicio, #obsServicio, #comisionPracticas, #obsPracticas{
     background-color: #d6fff7;
     border-color: transparent;
+}
+
+#academica , #servicio , #practicas{
+    font-weight: bold;
+    text-align: center;
 }

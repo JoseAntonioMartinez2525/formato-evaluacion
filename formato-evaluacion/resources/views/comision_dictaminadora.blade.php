@@ -70,6 +70,7 @@ $newLocale = str_replace('_', '-', $locale);
                             capacitación docente</option>
                             <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
                             <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
+                            <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
 
 
 

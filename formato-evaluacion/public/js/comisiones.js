@@ -158,8 +158,8 @@ function onActv3Comision3_9() {
 
 function onActv3Comision3_10(){
   //comisiones valores
-  const comisionGrupal = parseFloat(document.getElementById("comisionGrupal").value);
-  const comisionIndividual = parseFloat(document.getElementById("comisionIndividual").value);
+  const comisionGrupal = parseFloat(document.querySelector('input[id^="comisionGrupal"]').value);
+  const comisionIndividual = parseFloat(document.querySelector('input[id^="comisionIndividual"]').value);
   const sumaCom3_10 =  comisionGrupal + comisionIndividual;
 
   //minimo resultante Comision
@@ -173,9 +173,9 @@ function onActv3Comision3_10(){
 
 function onActv3Comision3_11(){
   //comisiones valores
-  const comisionAsesoria = parseFloat(document.getElementById("comisionAsesoria").value);
-  const comisionServicio = parseFloat(document.getElementById("comisionServicio").value);
-  const comisionPracticas =  parseFloat(document.getElementById("comisionPracticas").value) ;
+  const comisionAsesoria = parseFloat(document.querySelector('input[id^="comisionAsesoria"]').value);
+  const comisionServicio = parseFloat(document.querySelector('input[id^="comisionServicio"]').value);
+  const comisionPracticas =  parseFloat(document.querySelector('input[id^="comisionPracticas"]').value);
   const sumaCom3_11 =  comisionAsesoria + comisionServicio +  comisionPracticas;
 
 

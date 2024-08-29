@@ -3,6 +3,7 @@
 use App\Http\Controllers\DictaminatorForm2_2Controller;
 use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\DictaminatorForm3_10Controller;
+use App\Http\Controllers\DictaminatorForm3_11Controller;
 use App\Http\Controllers\DictaminatorForm3_1Controller;
 use App\Http\Controllers\DictaminatorForm3_2Controller;
 use App\Http\Controllers\DictaminatorForm3_3Controller;
@@ -79,6 +80,7 @@ Route::get('form3_7', function () {return view('form3_7'); })->name('form3_7');
 Route::get('form3_8', function () {return view('form3_8'); })->name('form3_8');
 Route::get('form3_9', function () {return view('form3_9'); })->name('form3_9');
 Route::get('form3_10', function () {return view('form3_10'); })->name('form3_10');
+Route::get('form3_11', function () {return view('form3_11'); })->name('form3_11');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
@@ -130,6 +132,7 @@ Route::post('/store-form37', [DictaminatorForm3_7Controller::class, 'storeform37
 Route::post('/store-form38', [DictaminatorForm3_8Controller::class, 'storeform38'])->withoutMiddleware('auth');
 Route::post('/store-form39', [DictaminatorForm3_9Controller::class, 'storeform39'])->withoutMiddleware('auth');
 Route::post('/store-form310', [DictaminatorForm3_10Controller::class, 'storeform310'])->withoutMiddleware('auth');
+Route::post('/store-form311', [DictaminatorForm3_11Controller::class, 'storeform311'])->withoutMiddleware('auth');
 
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
