@@ -89,6 +89,16 @@ $newLocale = str_replace('_', '-', $locale);
                         <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
                         <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
                         <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
+                        <option value="form3_10">   3.10 Tutorías a estudiantes</option>
+                        <option value="form3_11">   3.11 Asesoría a estudiantes</option>
+                        <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                        <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
+                        <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
+                        <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
+                        <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
+                        <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
+                        <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
+                        <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
 
 
                     </select>

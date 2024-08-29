@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DictaminatorsResponseForm3_10;
 use App\Models\DictaminatorsResponseForm3_3;
 use App\Models\DictaminatorsResponseForm3_4;
 use App\Models\DictaminatorsResponseForm3_5;
@@ -51,6 +52,7 @@ public function getDictaminadorData(Request $request)
         $form3_7Data = DictaminatorsResponseForm3_7::where('dictaminador_id', $dictaminador_id)->first();
         $form3_8Data = DictaminatorsResponseForm3_8::where('dictaminador_id', $dictaminador_id)->first();
         $form3_9Data = DictaminatorsResponseForm3_9::where('dictaminador_id', $dictaminador_id)->first();
+        $form3_10Data = DictaminatorsResponseForm3_10::where('dictaminador_id', $dictaminador_id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -69,6 +71,7 @@ public function getDictaminadorData(Request $request)
             'form3_7' => $form3_7Data,
             'form3_8' => $form3_8Data,
             'form3_9' => $form3_9Data,
+            'form3_10' => $form3_10Data,
 
 
         ]);

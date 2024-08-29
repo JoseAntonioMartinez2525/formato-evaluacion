@@ -71,4 +71,19 @@ nav {
 #obs3_9_1, #obs3_9_2, #obs3_9_3, #obs3_9_4, #obs3_9_5, #obs3_9_6, #obs3_9_7, #obs3_9_8, #obs3_9_9, #obs3_9_10, #obs3_9_11, #obs3_9_12, #obs3_9_13,
 #obs3_9_14, #obs3_9_15, #obs3_9_16, #obs3_9_17{
     background-color: #d6fff7;
+    border-color: transparent;
+}
+
+#puntajeIndividual, #individualCant, #evaluarIndividual ,#comisionIndividual ,#obsIndividual,
+#puntajeGrupales ,#grupalesCant ,#evaluarGrupales ,#comisionGrupal ,#obsGrupal {
+    text-align: right;
+}
+
+#individualCant, #grupalesCant{
+    background-color: #c1cfd3;
+}
+
+#comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual{
+    background-color: #d6fff7;
+    border-color: transparent;
 }
