@@ -79,10 +79,20 @@
     @csrf
     @if (Auth::check())
 
-    <nav class="nav flex-column">
-    <li class="nav-item">
-    <a class="nav-link disabled" href="#"><i class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
-    </li>@endif
+    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+      <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+      <li class="nav-item">
+      <a class="nav-link disabled" href="#">
+      <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+      </a>
+      </li>
+      <li style="list-style: none; margin-right: 20px;">
+      <a href="{{ route('login') }}">
+      <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+      </a>
+      </li>
+    </div>
+    @endif
     </li>
     <li class="nav-item">
     <a class="nav-link active" href="{{ route('welcome') }}">FORMATO DE EVALUACIÓN</a>
@@ -133,23 +143,23 @@
       <td>I</td>
       </tr>
       <?php
-  $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
-  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-  for ($i = 0; $i < count($minima); $i += 2) {
+    $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
+    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-  }
+    }
       ?>
 
       </tbody>
       <?php
-  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-  $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
-  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+    $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
+    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">

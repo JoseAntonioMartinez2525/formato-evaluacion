@@ -29,18 +29,21 @@ $newLocale = str_replace('_', '-', $locale);
             @if (Route::has('login'))
                 @if (Auth::check() && Auth::user()->user_type === '')
                     <section role="region" aria-label="Response form">
-                        <form>
+                     <form>
                             @csrf
-                            <nav class="nav flex-column menu">
+                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                                 <li class="nav-item">
-                                    <a style="margin-left: 210px;" href="{{ route('login') }}">
-                                        <i class="fas fa-power-off" name="cerrar_sesion"></i>
+                                    <a class="nav-link disabled" href="#">
+                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="nav-link disabled" href="#"><i
-                                            class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                <li style="list-style: none; margin-right: 20px;">
+                                    <a href="{{ route('login') }}">
+                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                    </a>
                                 </li>
+                            </div>
                                 <li class="nav-item">
                                     <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
                                         REGLAMENTO
@@ -65,7 +68,8 @@ $newLocale = str_replace('_', '-', $locale);
 
 
                             </nav>
-                </form>@endif
+                </form>
+                @endif
                 </section>
 
                 <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">

@@ -191,16 +191,17 @@ function onActv3Comision3_11(){
 function onActv3Comision3_12(){
   //comisiones valores
 
-  const comisionCientificos = parseFloat(document.getElementById("comisionCientificos").value);
-  const comisionDivulgacion = parseFloat(document.getElementById("comisionDivulgacion").value);
-  const comisionTraduccion =  parseFloat(document.getElementById("comisionTraduccion").value) ;
-  const comisionArbitrajeInt = parseFloat (document.getElementById("comisionArbitrajeInt").value);
-  const comisionArbitrajeNac = parseFloat(document.getElementById("comisionArbitrajeNac").value);
-  const comisionSinInt = parseFloat(document.getElementById("comisionSinInt").value);
-  const comisionSinNac = parseFloat(document.getElementById("comisionSinNac").value);
-  const comisionAutor = parseFloat(document.getElementById("comisionAutor").value);
-  const comisionEditor = parseFloat(document.getElementById("comisionEditor").value);
-  const comisionWeb = parseFloat(document.getElementById("comisionWeb").value);
+const comisionCientificos = parseFloat(document.querySelector('input[id^="comisionCientificos"]').value);
+const comisionDivulgacion = parseFloat(document.querySelector('input[id^="comisionDivulgacion"]').value);
+const comisionTraduccion = parseFloat(document.querySelector('input[id^="comisionTraduccion"]').value);
+const comisionArbitrajeInt = parseFloat(document.querySelector('input[id^="comisionArbitrajeInt"]').value);
+const comisionArbitrajeNac = parseFloat(document.querySelector('input[id^="comisionArbitrajeNac"]').value);
+const comisionSinInt = parseFloat(document.querySelector('input[id^="comisionSinInt"]').value);
+const comisionSinNac = parseFloat(document.querySelector('input[id^="comisionSinNac"]').value);
+const comisionAutor = parseFloat(document.querySelector('input[id^="comisionAutor"]').value);
+const comisionEditor = parseFloat(document.querySelector('input[id^="comisionEditor"]').value);
+const comisionWeb = parseFloat(document.querySelector('input[id^="comisionWeb"]').value);
+
 
   const sumaCom3_12 =  comisionCientificos + comisionDivulgacion +  comisionTraduccion + comisionArbitrajeInt + 
   comisionArbitrajeNac + comisionSinInt + comisionSinNac + comisionAutor + comisionEditor + comisionWeb;

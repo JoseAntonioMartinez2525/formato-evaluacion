@@ -22,15 +22,19 @@ $newLocale = str_replace('_', '-', $locale);
                 <section role="region" aria-label="Response form">
                     <form class="printButtonClass">
                         @csrf
-                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                            <li><a href="{{ route('login') }}">
-                                    <i class="fas fa-power-off" style="margin-left: 170px; padding-top: 50px;"
-                                        name="cerrar_sesion"></i>
-                                </a></li>
+                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                        <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                             <li class="nav-item">
-                                <a class="nav-link disabled" href="#"><i
-                                        class="fa-solid fa-user"></i>{{ Auth::user()->email }}</a>
+                                <a class="nav-link disabled" href="#">
+                                    <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                </a>
                             </li>
+                            <li style="list-style: none; margin-right: 20px;">
+                                <a href="{{ route('login') }}">
+                                    <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                </a>
+                            </li>
+                        </div>
                             <li class="nav-item">
                                 <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
                                     REGLAMENTO
@@ -100,7 +104,7 @@ $userType = Auth::user()->user_type;
 
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_12" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form120', 'form3_12');">
+        <form id="form3_12" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form312', 'form3_12');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
@@ -424,11 +428,12 @@ $userType = Auth::user()->user_type;
     </main>
 
     <script>
-        let cant3_12 = [ 'cantCientifico', 'cantDivulgacion', 'cantTraduccion', 'cantArbitrajeInt', 'cantArbitrajeNac', 'cantSinInt', 'cantSinNac', 'cantAutor', 'cantEditor', 'cantWeb'];
+       
+       let cant3_12 = [ 'cantCientifico', 'cantDivulgacion', 'cantTraduccion', 'cantArbitrajeInt', 'cantArbitrajeNac', 'cantSinInt', 'cantSinNac', 'cantAutor', 'cantEditor', 'cantWeb'];
         let subtotal3_12 = [ 'subtotalCientificos', 'subtotalDivulgacion', 'subtotalTraduccion', 'subtotalArbitrajeInt', 'subtotalArbitrajeNac', 'subtotalSinInt', 'subtotalSinNac', 'subtotalAutor', 'subtotalEditor', 'subtotalWeb'];
         let comision3_12 = [ 'comisionCientificos', 'comisionDivulgacion', 'comisionTraduccion', 'comisionArbitrajeInt', 'comisionArbitrajeNac', 'comisionSinInt', 'comisionSinNac', 'comisionAutor', 'comisionEditor', 'comisionWeb'];
         let obs3_12 = [ 'obsCientificos', 'obsDivulgacion', 'obsTraduccion', 'obsArbitrajeInt', 'obsArbitrajeNac', 'obsSinInt', 'obsSinNac', 'obsAutor', 'obsEditor', 'obsWeb'];
-                                
+                        
         document.addEventListener('DOMContentLoaded', async () => {
             const docenteSelect = document.getElementById('docenteSelect');
             const dictaminadorSelect = document.getElementById('dictaminadorSelect');
@@ -460,17 +465,29 @@ $userType = Auth::user()->user_type;
                                 // Populate fields with fetched data
                                 document.getElementById('score3_12').textContent = data.form3_12.score3_12 || '0';
                                
-                                // Puntaje
-                                for (let i = 0; i < cant3_12.length; i++) {
-                                    const cantidad = data.form3_12[`cantidad3_12_${i + 1}`] || '0';
-                                    document.getElementById(cant3_12[i]).textContent = cantidad;
-                                }
+                                // Cantidades
+                                document.getElementById('cantCientifico').textContent = data.form3_12.cantCientifico || '0';
+                                document.getElementById('cantDivulgacion').textContent = data.form3_12.cantDivulgacion || '0';
+                                document.getElementById('cantTraduccion').textContent = data.form3_12.cantTraduccion || '0';
+                                document.getElementById('cantArbitrajeInt').textContent = data.form3_12.cantArbitrajeInt || '0';
+                                document.getElementById('cantArbitrajeNac').textContent = data.form3_12.cantArbitrajeNac || '0';
+                                document.getElementById('cantSinInt').textContent = data.form3_12.cantSinInt || '0';
+                                document.getElementById('cantSinNac').textContent = data.form3_12.cantSinNac || '0';
+                                document.getElementById('cantAutor').textContent = data.form3_12.cantAutor || '0';
+                                document.getElementById('cantEditor').textContent = data.form3_12.cantEditor || '0';
+                                document.getElementById('cantWeb').textContent = data.form3_12.cantWeb || '0';
 
-                                // subtotales
-                                for (let j = 0; j < subtotal3_12.length; j++) {
-                                    const subtotal = data.form3_12[`subtotal3_12_${j + 1}`] || '0';
-                                    document.getElementById(subtotal3_12[j]).textContent = subtotal;
-                                }
+                                // Subtotales
+                                document.getElementById('subtotalCientificos').textContent = data.form3_12.subtotalCientificos || '0';
+                                document.getElementById('subtotalDivulgacion').textContent = data.form3_12.subtotalDivulgacion || '0';
+                                document.getElementById('subtotalTraduccion').textContent = data.form3_12.subtotalTraduccion || '0';
+                                document.getElementById('subtotalArbitrajeInt').textContent = data.form3_12.subtotalArbitrajeInt || '0';
+                                document.getElementById('subtotalArbitrajeNac').textContent = data.form3_12.subtotalArbitrajeNac || '0';
+                                document.getElementById('subtotalSinInt').textContent = data.form3_12.subtotalSinInt || '0';
+                                document.getElementById('subtotalSinNac').textContent = data.form3_12.subtotalSinNac || '0';
+                                document.getElementById('subtotalAutor').textContent = data.form3_12.subtotalAutor || '0';
+                                document.getElementById('subtotalEditor').textContent = data.form3_12.subtotalEditor || '0';
+                                document.getElementById('subtotalWeb').textContent = data.form3_12.subtotalWeb || '0';
 
 
                                 // Populate hidden inputs
@@ -523,31 +540,55 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('score3_12').textContent = data.form3_12.score3_12 || '0';
                                     document.getElementById('comision3_12').textContent = data.form3_12.comision3_12 || '0';
                                     
-                                    // Puntaje
-                                    for (let i = 0; i < cant3_12.length; i++) {
-                                        const cantidad = data.form3_12[`cantidad3_12_${i + 1}`] || '0';
-                                        document.getElementById(cant3_12[i]).textContent = cantidad;
-                                    }
+                                    // Cantidades
+                                    document.getElementById('cantCientifico').textContent = data.form3_12.cantCientifico || '0';
+                                    document.getElementById('cantDivulgacion').textContent = data.form3_12.cantDivulgacion || '0';
+                                    document.getElementById('cantTraduccion').textContent = data.form3_12.cantTraduccion || '0';
+                                    document.getElementById('cantArbitrajeInt').textContent = data.form3_12.cantArbitrajeInt || '0';
+                                    document.getElementById('cantArbitrajeNac').textContent = data.form3_12.cantArbitrajeNac || '0';
+                                    document.getElementById('cantSinInt').textContent = data.form3_12.cantSinInt || '0';
+                                    document.getElementById('cantSinNac').textContent = data.form3_12.cantSinNac || '0';
+                                    document.getElementById('cantAutor').textContent = data.form3_12.cantAutor || '0';
+                                    document.getElementById('cantEditor').textContent = data.form3_12.cantEditor || '0';
+                                    document.getElementById('cantWeb').textContent = data.form3_12.cantWeb || '0';
 
-                                    // subtotales
-                                    for (let j = 0; j < subtotal3_12.length; j++) {
-                                        const subtotal = data.form3_12[`subtotal3_12_${j + 1}`] || '0';
-                                        document.getElementById(subtotal3_12[j]).textContent = subtotal;
-                                    }
+                                    // Subtotales
+                                    document.getElementById('subtotalCientificos').textContent = data.form3_12.subtotalCientificos || '0';
+                                    document.getElementById('subtotalDivulgacion').textContent = data.form3_12.subtotalDivulgacion || '0';
+                                    document.getElementById('subtotalTraduccion').textContent = data.form3_12.subtotalTraduccion || '0';
+                                    document.getElementById('subtotalArbitrajeInt').textContent = data.form3_12.subtotalArbitrajeInt || '0';
+                                    document.getElementById('subtotalArbitrajeNac').textContent = data.form3_12.subtotalArbitrajeNac || '0';
+                                    document.getElementById('subtotalSinInt').textContent = data.form3_12.subtotalSinInt || '0';
+                                    document.getElementById('subtotalSinNac').textContent = data.form3_12.subtotalSinNac || '0';
+                                    document.getElementById('subtotalAutor').textContent = data.form3_12.subtotalAutor || '0';
+                                    document.getElementById('subtotalEditor').textContent = data.form3_12.subtotalEditor || '0';
+                                    document.getElementById('subtotalWeb').textContent = data.form3_12.subtotalWeb || '0';
 
-                                  // Comisiones
-                                    for (let k = 0; k < comision3_12.length; k++) {
-                                        const comision = data.form3_12[comision3_12[k]] || '0';
-                                        document.querySelector(`input[name="${comision3_12[k]}"]`).value = comision;
-                                    }
+                                    // Comisiones
+                                    document.querySelector('#comisionCientificos').textContent = data.form3_12.comisionCientificos || '0';
+                                    document.querySelector('#comisionDivulgacion').textContent = data.form3_12.comisionDivulgacion || '0';
+                                    document.querySelector('#comisionTraduccion').textContent = data.form3_12.comisionTraduccion || '0';
+                                    document.querySelector('#comisionArbitrajeInt').textContent = data.form3_12.comisionArbitrajeInt || '0';
+                                    document.querySelector('#comisionArbitrajeNac').textContent = data.form3_12.comisionArbitrajeNac || '0';
+                                    document.querySelector('#comisionSinInt').textContent = data.form3_12.comisionSinInt || '0';
+                                    document.querySelector('#comisionSinNac').textContent = data.form3_12.comisionSinNac || '0';
+                                    document.querySelector('#comisionAutor').textContent = data.form3_12.comisionAutor || '0';
+                                    document.querySelector('#comisionEditor').textContent = data.form3_12.comisionEditor || '0';
+                                    document.querySelector('#comisionWeb').textContent = data.form3_12.comisionWeb || '0';
 
                                     // Observaciones
-                                    for (let index = 0; index < obs3_12.length; index++) {
-                                        const obs = data.form3_12[obs3_12[index]] || '0';
-                                        document.querySelector(`input[name="${obs3_12[index]}"]`).value = obs;
-                                    }
-                         
+                                    document.querySelector('#obsCientificos').textContent = data.form3_12.obsCientificos || '';
+                                    document.querySelector('#obsDivulgacion').textContent = data.form3_12.obsDivulgacion || '';
+                                    document.querySelector('#obsTraduccion').textContent = data.form3_12.obsTraduccion || '';
+                                    document.querySelector('#obsArbitrajeInt').textContent = data.form3_12.obsArbitrajeInt || '';
+                                    document.querySelector('#obsArbitrajeNac').textContent = data.form3_12.obsArbitrajeNac || '';
+                                    document.querySelector('#obsSinInt').textContent = data.form3_12.obsSinInt || '';
+                                    document.querySelector('#obsSinNac').textContent = data.form3_12.obsSinNac || '';
+                                    document.querySelector('#obsAutor').textContent = data.form3_12.obsAutor || '';
+                                    document.querySelector('#obsEditor').textContent = data.form3_12.obsEditor || '';
+                                    document.querySelector('#obsWeb').textContent = data.form3_12.obsWeb || '';
 
+                        
 
                                 } else {
                                     console.error('No form3_12 data found for the selected dictaminador.');
@@ -577,7 +618,7 @@ $userType = Auth::user()->user_type;
                                         const comision = comision3_12[k];
                                         const element = document.querySelector(`input[name="${comision}"]`);
                                         if (element) {
-                                            element.value = '0';
+                                            element.textContent = '0';
                                         }
                                     }
 
@@ -586,7 +627,7 @@ $userType = Auth::user()->user_type;
                                         const obs = obs3_12[l];
                                         const element = document.querySelector(`input[name="${obs}"]`);
                                         if (element) {
-                                            element.value = ''; // Asignar un valor vacío
+                                            element.textContent = ''; // Asignar un valor vacío
                                         }
                                     }
 
