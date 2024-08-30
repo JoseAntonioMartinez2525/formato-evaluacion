@@ -71,6 +71,8 @@ $newLocale = str_replace('_', '-', $locale);
                             <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
                             <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
                             <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
+                            <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                            <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
 
 
 

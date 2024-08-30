@@ -12,13 +12,13 @@ class DictaminatorForm3_12Controller extends Controller
     public function storeform312(Request $request)
     {
 
-
         try {
             $validatedData = $request->validate([
                 'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'score3_12' => 'required|numeric',
+                'comision3_12' => 'required|numeric',
                 'cantCientifico' => 'required|numeric',
                 'subtotalCientificos' => 'required|numeric',
                 'comisionCientificos' => 'required|numeric',
@@ -124,7 +124,7 @@ class DictaminatorForm3_12Controller extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while retrieving data: ' . $e->getMessage(),
-            ], 1200);
+            ], 500);
         }
 
     }

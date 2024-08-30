@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>Trabajos dirigidos para la titulación de estudiantes</title>
+    <title>Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</title>
     <meta charset="utf-9">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -424,6 +424,11 @@ $userType = Auth::user()->user_type;
     </main>
 
     <script>
+        let cant3_12 = [ 'cantCientifico', 'cantDivulgacion', 'cantTraduccion', 'cantArbitrajeInt', 'cantArbitrajeNac', 'cantSinInt', 'cantSinNac', 'cantAutor', 'cantEditor', 'cantWeb'];
+        let subtotal3_12 = [ 'subtotalCientificos', 'subtotalDivulgacion', 'subtotalTraduccion', 'subtotalArbitrajeInt', 'subtotalArbitrajeNac', 'subtotalSinInt', 'subtotalSinNac', 'subtotalAutor', 'subtotalEditor', 'subtotalWeb'];
+        let comision3_12 = [ 'comisionCientificos', 'comisionDivulgacion', 'comisionTraduccion', 'comisionArbitrajeInt', 'comisionArbitrajeNac', 'comisionSinInt', 'comisionSinNac', 'comisionAutor', 'comisionEditor', 'comisionWeb'];
+        let obs3_12 = [ 'obsCientificos', 'obsDivulgacion', 'obsTraduccion', 'obsArbitrajeInt', 'obsArbitrajeNac', 'obsSinInt', 'obsSinNac', 'obsAutor', 'obsEditor', 'obsWeb'];
+                                
         document.addEventListener('DOMContentLoaded', async () => {
             const docenteSelect = document.getElementById('docenteSelect');
             const dictaminadorSelect = document.getElementById('dictaminadorSelect');
@@ -453,20 +458,18 @@ $userType = Auth::user()->user_type;
                                 const data = response.data;
 
                                 // Populate fields with fetched data
-                                document.getElementById('score3_9').textContent = data.form3_12.score3_9 || '0';
-
-                                //puntaje
-                                for (let i = 1; i <= 17; i++) {
-                                    const elementId = `puntaje3_9_${i}`;
-                                    const value = data.form3_12[`puntaje3_9_${i}`] || '0';
-                                    document.getElementById(elementId).textContent = value;
+                                document.getElementById('score3_12').textContent = data.form3_12.score3_12 || '0';
+                               
+                                // Puntaje
+                                for (let i = 0; i < cant3_12.length; i++) {
+                                    const cantidad = data.form3_12[`cantidad3_12_${i + 1}`] || '0';
+                                    document.getElementById(cant3_12[i]).textContent = cantidad;
                                 }
 
-                                //tutorias
-                                for (let j = 1; j <= 17; j++) {
-                                    const elementId = `tutorias${j}`;
-                                    const value = data.form3_12[`tutorias${j}`] || '0';
-                                    document.getElementById(elementId).textContent = value;
+                                // subtotales
+                                for (let j = 0; j < subtotal3_12.length; j++) {
+                                    const subtotal = data.form3_12[`subtotal3_12_${j + 1}`] || '0';
+                                    document.getElementById(subtotal3_12[j]).textContent = subtotal;
                                 }
 
 
@@ -516,91 +519,78 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
                                     document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
-                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
-
-                                    for (let i = 1; i <= 17; i++) {
-                                        const puntaje3_9 = `puntaje3_9_${i}`;
-                                        const puntaje3_9Value = data.form3_12[`puntaje3_9_${i}`] || '0';
-                                        document.getElementById(puntaje3_9).textContent = puntaje3_9Value;
+                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';                               
+                                    document.getElementById('score3_12').textContent = data.form3_12.score3_12 || '0';
+                                    document.getElementById('comision3_12').textContent = data.form3_12.comision3_12 || '0';
+                                    
+                                    // Puntaje
+                                    for (let i = 0; i < cant3_12.length; i++) {
+                                        const cantidad = data.form3_12[`cantidad3_12_${i + 1}`] || '0';
+                                        document.getElementById(cant3_12[i]).textContent = cantidad;
                                     }
 
-                                    for (let j = 1; j <= 17; j++) {
-                                        const tutorias = `tutorias${j}`;
-                                        const tutoriasValue = data.form3_12[`tutorias${j}`] || '0';
-                                        document.getElementById(tutorias).textContent = tutoriasValue;
+                                    // subtotales
+                                    for (let j = 0; j < subtotal3_12.length; j++) {
+                                        const subtotal = data.form3_12[`subtotal3_12_${j + 1}`] || '0';
+                                        document.getElementById(subtotal3_12[j]).textContent = subtotal;
                                     }
 
-                                    // Para las comisiones
-                                    for (let i = 1; i <= 17; i++) {
-                                        const tutoriasComision = `tutoriasComision${i}`;
-                                        const tutoriasComisionValue = data.form3_12[`tutoriasComision${i}`] || '0';
-                                        const ComisionesElement = document.querySelector(`span[name="${tutoriasComision}"]`);
-                                        if (ComisionesElement) {
-                                            ComisionesElement.textContent = tutoriasComisionValue;
-                                        }
+                                  // Comisiones
+                                    for (let k = 0; k < comision3_12.length; k++) {
+                                        const comision = data.form3_12[comision3_12[k]] || '0';
+                                        document.querySelector(`input[name="${comision3_12[k]}"]`).value = comision;
                                     }
 
-                                    // Para las observaciones
-                                    for (let i = 1; i <= 17; i++) {
-                                        const obs3_9_ = `obs3_9_${i}`;
-                                        const value = data.form3_12[`obs3_9_${i}`] || '';
-                                        const element = document.querySelector(`span[name="${obs3_9_}"]`);
-                                        if (element) {
-                                            element.textContent = value;
-                                        }
+                                    // Observaciones
+                                    for (let index = 0; index < obs3_12.length; index++) {
+                                        const obs = data.form3_12[obs3_12[index]] || '0';
+                                        document.querySelector(`input[name="${obs3_12[index]}"]`).value = obs;
                                     }
-
-                                    document.getElementById('score3_9').textContent = data.form3_12.score3_9 || '0';
-                                    document.getElementById('comision3_9').textContent = data.form3_12.comision3_9 || '0';
-
+                         
 
 
                                 } else {
-
                                     console.error('No form3_12 data found for the selected dictaminador.');
+
                                     // Reset input values if no data found
                                     document.querySelector('input[name="dictaminador_id"]').value = '0';
                                     document.querySelector('input[name="user_id"]').value = '0';
                                     document.querySelector('input[name="email"]').value = '';
                                     document.querySelector('input[name="user_type"]').value = '';
 
-                                    document.getElementById('score3_9').textContent = '0';
+                                    document.getElementById('score3_12').textContent = '0';
 
-                                    for (let i = 1; i <= 17; i++) {
-                                        const elementId = `puntaje3_9_${i}`;
-                                        const value = '0';
-                                        document.getElementById(elementId).textContent = value;
+                                    // Reset cantidad values
+                                    for (let i = 0; i < cant3_12.length; i++) {
+                                        const cantidad = cant3_12[i];
+                                        document.querySelector(`input[name="${cantidad}"]`).value = '0';
                                     }
 
-                                    for (let j = 1; j <= 17; j++) {
-                                        const elementId = `tutorias${j}`;
-                                        const value = '0';
-                                        document.getElementById(elementId).textContent = value;
+                                    // Reset subtotal values
+                                    for (let j = 0; j < subtotal3_12.length; j++) {
+                                        const subtotal = subtotal3_12[j];
+                                        document.querySelector(`input[name="${subtotal}"]`).value = '0';
                                     }
 
-                                    // Para las comisiones
-                                    for (let i = 1; i <= 17; i++) {
-                                        const elementName = `tutoriasComision${i}`;
-                                        const value = '0';
-                                        const element = document.querySelector(`span[name="${elementName}"]`);
+                                    // Reset comision values
+                                    for (let k = 0; k < comision3_12.length; k++) {
+                                        const comision = comision3_12[k];
+                                        const element = document.querySelector(`input[name="${comision}"]`);
                                         if (element) {
-                                            element.textContent = value;
+                                            element.value = '0';
                                         }
                                     }
 
-                                    // Para las observaciones
-                                    for (let i = 1; i <= 17; i++) {
-                                        const elementName = `obs3_9_${i}`;
-                                        const value = ''; // Aquí puedes definir el valor según lo que necesites
-                                        const element = document.querySelector(`span[name="${elementName}"]`);
+                                    // Reset observation values
+                                    for (let l = 0; l < obs3_12.length; l++) {
+                                        const obs = obs3_12[l];
+                                        const element = document.querySelector(`input[name="${obs}"]`);
                                         if (element) {
-                                            element.textContent = value;
+                                            element.value = ''; // Asignar un valor vacío
                                         }
                                     }
 
-                                    document.getElementById('comision3_9').textContent = '0';
-
-
+                                    document.getElementById('comision3_12').textContent = '0';
                                 }
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
@@ -629,28 +619,28 @@ $userType = Auth::user()->user_type;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
-            //puntajes
-            for (let i = 1; i <= 17; i++) {
-                formData[`puntaje3_9_${i}`] = document.getElementById(`puntaje3_9_${i}`)?.textContent || '';
+            // Puntajes
+            for (let i = 0; i < cant3_12.length; i++) {
+                formData[cant3_12[i]] = document.getElementById(cant3_12[i])?.textContent || '';
             }
 
-            // tutorias
-            for (let j = 1; j <= 17; j++) {
-                formData[`tutorias${j}`] = document.getElementById(`tutorias${j}`)?.textContent || '';
+            // Subtotales
+            for (let j = 0; j < subtotal3_12.length; j++) {
+                formData[subtotal3_12[j]] = document.getElementById(subtotal3_12[j])?.textContent || '';
             }
 
-            // tutoriasComision
-            for (let i = 1; i <= 17; i++) {
-                formData[`tutoriasComision${i}`] = form.querySelector(`input[id="tutoriasComision${i}"]`)?.value || '';
+            // Comisiones
+            for (let k = 0; k < comision3_12.length; k++) {
+                formData[comision3_12[k]] = form.querySelector(`input[id="${comision3_12[k]}"]`)?.value || '';
             }
 
-            // observationes
-            for (let i = 1; i <= 17; i++) {
-                formData[`obs3_9_${i}`] = form.querySelector(`input[name="obs3_9_${i}"]`)?.value || '';
+            // Observaciones
+            for (let l = 0; l < obs3_12.length; l++) {
+                formData[obs3_12[l]] = form.querySelector(`input[id="${obs3_12[l]}"]`)?.value || '';
             }
 
-            formData['score3_9'] = document.getElementById('score3_9').textContent;
-            formData['comision3_9'] = document.getElementById('comision3_9').textContent;
+            formData['score3_12'] = document.getElementById('score3_12').textContent;
+            formData['comision3_12'] = document.getElementById('comision3_12').textContent;
 
             // Observations
 
