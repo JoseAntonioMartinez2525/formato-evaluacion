@@ -26,67 +26,67 @@ $newLocale = str_replace('_', '-', $locale);
     @auth
         @if(Auth::user()->user_type === 'dictaminador')
 
-                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                        <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">
-                                    <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                </a>
-                            </li>
-                            <li style="list-style: none; margin-right: 20px;">
-                                <a href="{{ route('login') }}">
-                                    <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                </a>
-                            </li>
-                        </div>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
-                            </li><br>
-                            <li id="jsonDataLink" class="d-none">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                            </li>
-                            <li id="reportLink" class="nav-item d-none">
-                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                            </li>
-                        </nav>
-                    <x-general-header />
+            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                        </a>
+                    </li>
+                    <li style="list-style: none; margin-right: 20px;">
+                        <a href="{{ route('login') }}">
+                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                        </a>
+                    </li>
+                </div>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                    </li><br>
+                    <li id="jsonDataLink" class="d-none">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                    </li>
+                    <li id="reportLink" class="nav-item d-none">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                    </li>
+                </nav>
+            <x-general-header />
 
-                    <div class="container mt-4">
-                        <!-- Selector para elegir el formulario -->
-                        <label for="formSelect">Seleccionar Formulario:</label>
-                        <select id="formSelect" class="form-select">
-                            <option value=""></option>
-                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                            <option value="form3_1">  3.1 Participación en actividades de diseño curricular</option>
-                            <option value="form3_2">  3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                            <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
-                            <option value="form3_4">  3.4 Distinciones académicas recibidas por el docente</option>
-                            <option value="form3_5">  3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                            <option value="form3_6">  3.6 Capacitación y actualización pedagógica recibida</option>
-                            <option value="form3_7">  3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                            <option value="form3_8">  3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
-                            capacitación docente</option>
-                            <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
-                            <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
-                            <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
-                            <option value="form3_12"> 3.12      </option>
-                            <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
+            <div class="container mt-4">
+                <!-- Selector para elegir el formulario -->
+                <label for="formSelect">Seleccionar Formulario:</label>
+                <select id="formSelect" class="form-select">
+                    <option value=""></option>
+                    <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                    <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                    <option value="form3_1">  3.1 Participación en actividades de diseño curricular</option>
+                    <option value="form3_2">  3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                    <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
+                    <option value="form3_4">  3.4 Distinciones académicas recibidas por el docente</option>
+                    <option value="form3_5">  3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                    <option value="form3_6">  3.6 Capacitación y actualización pedagógica recibida</option>
+                    <option value="form3_7">  3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
+                    <option value="form3_8">  3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
+                    capacitación docente</option>
+                    <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
+                    <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
+                    <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
+                    <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                    <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
 
 
 
-                        </select>
-                    </div>
+                </select>
+            </div>
 
-                    <div id="formContainer">
-                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                        </div>
+            <div id="formContainer">
+                <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                </div>
 
         @else
             <p>No tienes permisos para ver esta página.</p>

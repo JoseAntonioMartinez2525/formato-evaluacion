@@ -220,10 +220,10 @@ const comisionWeb = parseFloat(document.querySelector('input[id^="comisionWeb"]'
 function onActv3Comision3_13(){
   //comisiones valores
 
-  const comisionInicioFinancimientoExt = parseFloat(document.getElementById("comisionInicioFinancimientoExt").value);
-  const comisionInicioInvInterno = parseFloat(document.getElementById("comisionInicioInvInterno").value);
-  const comisionReporteFinanciamExt =  parseFloat(document.getElementById("comisionReporteFinanciamExt").value) ;
-  const comisionReporteInvInt = parseFloat (document.getElementById("comisionReporteInvInt").value);
+  const comisionInicioFinancimientoExt = parseFloat(document.querySelector('input[id^="comisionInicioFinancimientoExt"]').value);
+  const comisionInicioInvInterno = parseFloat(document.querySelector('input[id^="comisionInicioInvInterno"]').value);
+  const comisionReporteFinanciamExt =  parseFloat(document.querySelector('input[id^="comisionReporteFinanciamExt"]').value) ;
+  const comisionReporteInvInt = parseFloat (document.querySelector('input[id^="comisionReporteInvInt"]').value);
 
 
   const sumaCom3_13 =  comisionInicioFinancimientoExt + comisionInicioInvInterno +  comisionReporteFinanciamExt + comisionReporteInvInt;

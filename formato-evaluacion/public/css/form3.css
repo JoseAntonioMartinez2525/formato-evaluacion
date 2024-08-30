@@ -84,14 +84,14 @@ nav {
 
 #individualCant, #grupalesCant, 
 #cantAsesoria, #cantServicio, #cantPracticas,
-#cantCientifico, #cantDivulgacion, #cantTraduccion, #cantArbitrajeInt, #cantArbitrajeNac, #cantSinInt, #cantSinNac, #cantAutor, #cantEditor, #cantWeb{
+#cantCientifico, #cantDivulgacion, #cantTraduccion, #cantArbitrajeInt, #cantArbitrajeNac, #cantSinInt, #cantSinNac, #cantAutor, #cantEditor, #cantWeb, .cantidad{
     background-color: #c1cfd3;
 }
 
 #comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual, #comisionAsesoria,
 #obsAsesoria, #comisionServicio, #obsServicio, #comisionPracticas, #obsPracticas,
 #obsCientificos, #obsDivulgacion, #obsTraduccion, #obsArbitrajeInt, #obsArbitrajeNac, #obsSinInt, #obsSinNac, #obsAutor, #obsEditor, #obsWeb,
-#comisionCientificos, #comisionDivulgacion, #comisionTraduccion, #comisionArbitrajeInt, #comisionArbitrajeNac, #comisionSinInt, #comisionSinNac, #comisionAutor, #comisionEditor, #comisionWeb{
+#comisionCientificos, #comisionDivulgacion, #comisionTraduccion, #comisionArbitrajeInt, #comisionArbitrajeNac, #comisionSinInt, #comisionSinNac, #comisionAutor, #comisionEditor, #comisionWeb, .comision3_13{
     background-color: #d6fff7;
     border-color: transparent;
 }
