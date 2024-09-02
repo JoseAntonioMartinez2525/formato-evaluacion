@@ -84,7 +84,9 @@ nav {
 
 #individualCant, #grupalesCant, 
 #cantAsesoria, #cantServicio, #cantPracticas,
-#cantCientifico, #cantDivulgacion, #cantTraduccion, #cantArbitrajeInt, #cantArbitrajeNac, #cantSinInt, #cantSinNac, #cantAutor, #cantEditor, #cantWeb, .cantidad{
+#cantCientifico, #cantDivulgacion, #cantTraduccion, #cantArbitrajeInt, #cantArbitrajeNac, #cantSinInt, #cantSinNac, #cantAutor, #cantEditor, #cantWeb, .cantidad,
+#cantCongresoInt, #cantCongresoNac, #cantCongresoLoc{
+
     background-color: #c1cfd3;
 }
 
@@ -99,4 +101,9 @@ nav {
 #academica , #servicio , #practicas{
     font-weight: bold;
     text-align: center;
+}
+
+#comisionCongresoInt, #obsCongresoInt, #comisionCongresoNac, #obsCongresoNac, #comisionCongresoLoc, #obsCongresoLoc{
+    background-color: #d6fff7;
+    border-color: transparent;
 }

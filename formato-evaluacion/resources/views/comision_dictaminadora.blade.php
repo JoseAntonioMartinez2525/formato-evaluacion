@@ -78,6 +78,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
                     <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
                     <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
+                    <option value="form3_14"> 3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
 
 
 
