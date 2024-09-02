@@ -79,8 +79,11 @@ $newLocale = str_replace('_', '-', $locale);
                     <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
                     <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
                     <option value="form3_14"> 3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
-
-
+                    <option value="form3_15"> 3.15 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
+                    <option value="form3_16"> 3.16 Registro de patentes y productos de investigación tecnológica y educativa</option>
+                    <option value="form3_17"> 3.17 Actividades de arbitraje, revisión, correción y edición</option>
+                    <option value="form3_18"> 3.18 Proyectos académicos de extensión y difusión</option>
+                    <option value="form3_19"> 3.19 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente</option>
 
                 </select>
             </div>
