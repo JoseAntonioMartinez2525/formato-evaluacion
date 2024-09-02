@@ -12,8 +12,8 @@ class DictaminatorsResponseForm3_13 extends Model
         'dictaminador_id',
         'user_id',
         'email',
-        'score3_12',
-        'comision3_12',
+        'score3_13',
+        'comision3_13',
         'cantInicioFinanExt',
         'subtotalInicioFinanExt',
         'comisionInicioFinancimientoExt',
@@ -39,12 +39,12 @@ class DictaminatorsResponseForm3_13 extends Model
     protected $keyType = 'bigint'; // Specifies the key type
 
 
-    protected $table = 'dictaminators_response_form3_12';
+    protected $table = 'dictaminators_response_form3_13';
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'dictaminators_response_form3_12';
+        $this->table = 'dictaminators_response_form3_13';
         $this->connection = 'mysql';
     }
 

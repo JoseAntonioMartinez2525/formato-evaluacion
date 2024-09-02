@@ -460,10 +460,10 @@ $userType = Auth::user()->user_type;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
             // Cantidades
-            formData['cantInicioFinanExt'] = document.getElementById('cantInicioFinanExt').textContent;
-            formData['cantInicioInvInterno'] = document.getElementById('cantInicioInvInterno').textContent;
-            formData['cantReporteFinanciamExt'] = document.getElementById('cantReporteFinanciamExt').textContent;
-            formData['cantReporteInvInt'] = document.getElementById('cantReporteInvInt').textContent;
+            formData['cantInicioFinanExt'] = form.querySelector('td[id="cantInicioFinanExt"]').textContent;
+            formData['cantInicioInvInterno'] = form.querySelector('td[id="cantInicioInvInterno"]').textContent;
+            formData['cantReporteFinanciamExt'] = form.querySelector('td[id="cantReporteFinanciamExt"]').textContent;
+            formData['cantReporteInvInt'] = form.querySelector('td[id="cantReporteInvInt"]').textContent;
 
 
             // Subtotales
@@ -474,16 +474,16 @@ $userType = Auth::user()->user_type;
 
 
             // Comisiones
-            formData['comisionInicioFinancimientoExt'] = form.querySelector('input[id="comisionInicioFinancimientoExt"]').textContent;
-            formData['comisionInicioInvInterno'] = form.querySelector('input[id="comisionInicioInvInterno"]').textContent;
-            formData['comisionReporteFinanciamExt'] = form.querySelector('input[id="comisionReporteFinanciamExt"]').textContent;
-            formData['comisionReporteInvInt'] = form.querySelector('input[id="comisionReporteInvInt"]').textContent;
+            formData['comisionInicioFinancimientoExt'] = form.querySelector('input[id="comisionInicioFinancimientoExt"]').value;
+            formData['comisionInicioInvInterno'] = form.querySelector('input[id="comisionInicioInvInterno"]').value;
+            formData['comisionReporteFinanciamExt'] = form.querySelector('input[id="comisionReporteFinanciamExt"]').value;
+            formData['comisionReporteInvInt'] = form.querySelector('input[id="comisionReporteInvInt"]').value;
 
             // Observaciones
-            formData['obsInicioFinancimientoExt'] = form.querySelector('input[id="obsInicioFinancimientoExt"]').textContent;
-            formData['obsInicioInvInterno'] = form.querySelector('input[id="obsInicioInvInterno"]').textContent;
-            formData['obsReporteFinanciamExt'] = form.querySelector('input[id="obsReporteFinanciamExt"]').textContent;
-            formData['obsReporteInvInt'] = form.querySelector('input[id="obsReporteInvInt"]').textContent;
+            formData['obsInicioFinancimientoExt'] = form.querySelector('input[id="obsInicioFinancimientoExt"]').value;
+            formData['obsInicioInvInterno'] = form.querySelector('input[id="obsInicioInvInterno"]').value;
+            formData['obsReporteFinanciamExt'] = form.querySelector('input[id="obsReporteFinanciamExt"]').value;
+            formData['obsReporteInvInt'] = form.querySelector('input[id="obsReporteInvInt"]').value;
 
             formData['score3_13'] = document.getElementById('score3_13').textContent;
             formData['comision3_13'] = document.getElementById('comision3_13').textContent;
