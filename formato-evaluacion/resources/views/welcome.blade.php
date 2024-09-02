@@ -110,7 +110,7 @@ $newLocale = str_replace('_', '-', $locale);
       definiciones. <br>
       5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
       formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
-      <center><button type="submit" class="btn btn-primary" id="btn1">Enviar</button>
+      <center><button type="submit" class="btn custom-btn" id="btn1">Enviar</button>
       </center>
       </div>
 
@@ -160,7 +160,7 @@ $newLocale = str_replace('_', '-', $locale);
       <input id="obs1" name="obs1" class="table-header" type="text"></input>
       </td>
       <td>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <button type="submit" class="btn custom-btn">Enviar</button>
       </td>
       </tr>
       </tbody>
@@ -238,7 +238,7 @@ $newLocale = str_replace('_', '-', $locale);
       caso
       </th>
       <th>
-      <button type="submit" class="btn btn-primary" id="form2_2Button">Enviar</button>
+      <button type="submit" class="btn custom-btn" id="form2_2Button">Enviar</button>
       </th>
       </tr>
       </thead>

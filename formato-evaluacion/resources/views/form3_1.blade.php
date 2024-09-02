@@ -373,7 +373,7 @@ $userType = Auth::user()->user_type;
                         <th class="acreditacion" scope="col">Acreditacion: </th>
         
                         <th class="descripcion"><b>H.CGU</b> puntos a,b y e; <b>CAAC</b> puntos d y e</th>
-                        <th> <button id="btn3_1" type="submit" class="btn btn-primary printButtonClass">Enviar</th>
+                        <th> <button id="btn3_1" type="submit" class="btn custom-btn printButtonClass">Enviar</th>
                     </tr>
         
         

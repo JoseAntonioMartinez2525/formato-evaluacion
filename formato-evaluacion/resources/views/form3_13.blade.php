@@ -260,7 +260,11 @@ $userType = Auth::user()->user_type;
         
                     <th class="descripcion"><b>CAAC, DIIP</b> </th>
         
-                    <th><button id="btn3_12" type="submit" class="btn btn-primary printButtonClass">Enviar</button></th>
+                    <th>
+                    @if ($userType != '')
+                        <button id="btn3_13" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                    @endif
+                    </th>
                 </tr>
             </thead>
         </table>

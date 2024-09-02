@@ -52,21 +52,42 @@ header{
 #btn1{
     padding-left: 100px;
     padding-right: 100px;
+    border-radius: 90px 90px 90px 90px;
+
 }
 #btn3_1, #btn3_2, #btn3_3, #btn3_4, #btn3_5, #btn3_6, #btn3_7, #btn3_8, #btn3_9, #btn3_10, 
 #btn3_11, #btn3_12,#btn3_13, #btn3_14, #btn3_15, #btn3_16, #btn3_17, #btn3_18, #btn3_19 {
     padding-left: 80px;
     padding-right: 70px;
+    border-radius: 90px 90px 90px 90px;
+
 }
 
 #btn3_8{
     margin-right: -100px;
+    border-radius: 90px 90px 90px 90px;
+
     
 }
 
 #btn3_2{
     margin-left: -230px;
+    border-radius: 90px 90px 90px 90px;
+
 }
+
+.custom-btn{
+        background-color: #9ccbdd;
+        color: #0b3b67;
+}
+
+.custom-btn:hover {
+
+    background-color: #afc7ce;
+    color: floralwhite;
+    font-weight: 500;
+}
+
 
 .input-header {
     background-color: #ced4da;
@@ -430,6 +451,8 @@ form[id^="form3_"] {
 #form2_2Button{
     margin-left: 260px;
     width: 200px;
+    border-radius: 90px 90px 90px 90px;
+    
 }
 
 .menu{
@@ -448,6 +471,7 @@ height: 800px;
         display: inline-block;
         width: auto;
         margin-bottom: 0;
+        box-shadow: none;
     }
 }
 

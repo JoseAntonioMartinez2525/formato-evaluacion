@@ -230,7 +230,7 @@ $userType = Auth::user()->user_type;
                         <th class="acreditacion" scope="col">Acreditacion: </th>
                         <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
                         <th>@if($userType != '')
-                            <button id="btn3_4" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                            <button id="btn3_4" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                             @endif
                         </th>
                     </tr>

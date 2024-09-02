@@ -246,7 +246,7 @@ $userType = Auth::user()->user_type;
                         <th class="descripcion"><b>JD, *DSEs</b> </th>
                         <th>
                             @if ($userType != '') 
-                            <button id="btn3_11" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                            <button id="btn3_11" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                             @endif
                         </th>
                     </tr>

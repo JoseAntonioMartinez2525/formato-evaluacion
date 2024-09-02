@@ -180,7 +180,7 @@ $userType = Auth::user()->user_type;
                                     </th>
                                     <th>
                                         @if($userType != '')
-                                        <button type="submit" class="btn btn-primary printButtonClass" id="form2_2Button">Enviar</button>
+                                            <button type="submit" class="btn custom-btn printButtonClass" id="form2_2Button">Enviar</button>
                                         @endif
                                     </th>
                                 </tr>

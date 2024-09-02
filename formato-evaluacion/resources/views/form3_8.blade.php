@@ -184,7 +184,7 @@ $userType = Auth::user()->user_type;
                                         UABCS.</b> </th>
                                 <th>
                                     @if ($userType != '')
-                                    <button id="btn3_8" type="submit" class="btn btn-primary printButtonClass">Enviar</button>
+                                        <button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                                     @endif
                                 </th>
                             </tr>

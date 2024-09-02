@@ -307,7 +307,7 @@ $newLocale = str_replace('_', '-', $locale);
                         </thead>
                         </table>
                         <center>
-                            <button type="submit" class="btn btn-primary buttonSignature">Enviar</button>
+                            <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
                         </center>
                         </div>
                     </form>
@@ -362,7 +362,7 @@ $newLocale = str_replace('_', '-', $locale);
                         </thead>
                         <thead>
                             <tr>
-                             <td style="padding-left: 650px;"><button type="submit" class="btn btn-primary buttonSignature2">Enviar</button></td>   
+                             <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
                             </tr>
 
                         </thead>
