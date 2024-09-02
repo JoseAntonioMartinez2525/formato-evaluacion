@@ -187,7 +187,7 @@ $userType = Auth::user()->user_type;
                             @if($userType == 'dictaminador')    
                                 <input id="obs3_2_2" name="obs3_2_2" class="table-header" type="text">
                             @else
-                            <span id="obs3_2_2" name="obs3_2_2"></span>
+                                <span id="obs3_2_2" name="obs3_2_2" class="table-header"></span>
                             @endif
                             </td>
                         </tr>
@@ -213,7 +213,7 @@ $userType = Auth::user()->user_type;
                             @if($userType == 'dictaminador')  
                                 <input id="obs3_2_3"  name="obs3_2_3" class="table-header" type="text">
                             @else
-                                <span id="obs3_2_3" name="obs3_2_3"></span>
+                                <span id="obs3_2_3" name="obs3_2_3" class="table-header"></span>
                             @endif
                             </td>
                         </tr>

@@ -92,7 +92,7 @@ Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name
 Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
 Route::get('/get-docentes', [DictaminatorController::class, 'getDocentes'])->name('getDocentes');
 Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'])->name('getDocenteData');
-Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
+//Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
 Route::get('/get-dictaminadores', [FormsController::class, 'getdictaminadores'])->name('getdictaminadores');
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
 
