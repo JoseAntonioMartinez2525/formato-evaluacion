@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
-            $table->decimal('score3_13', 12, 2);
+            $table->decimal('score3_13', 8, 2);
 
             $table->decimal('cantInicioFinanExt', 8, 2);
             $table->decimal('subtotalInicioFinanExt', 8, 2);
@@ -40,7 +40,7 @@ return new class extends Migration {
             $table->decimal('comisionReporteInvInt', 8, 2);
             $table->string('obsReporteInvInt')->default('sin comentarios');
 
-            $table->decimal('comision3_13', 12, 2);
+            $table->decimal('comision3_13', 8, 2);
 
             $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
