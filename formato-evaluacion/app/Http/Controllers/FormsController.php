@@ -10,6 +10,7 @@ use App\Models\DictaminatorsResponseForm3_14;
 use App\Models\DictaminatorsResponseForm3_15;
 use App\Models\DictaminatorsResponseForm3_16;
 use App\Models\DictaminatorsResponseForm3_17;
+use App\Models\DictaminatorsResponseForm3_18;
 use App\Models\DictaminatorsResponseForm3_3;
 use App\Models\DictaminatorsResponseForm3_4;
 use App\Models\DictaminatorsResponseForm3_5;
@@ -67,6 +68,7 @@ public function getDictaminadorData(Request $request)
         $form3_15Data = DictaminatorsResponseForm3_15::where('dictaminador_id', $dictaminador_id)->first();
         $form3_16Data = DictaminatorsResponseForm3_16::where('dictaminador_id', $dictaminador_id)->first();
         $form3_17Data = DictaminatorsResponseForm3_17::where('dictaminador_id', $dictaminador_id)->first();
+        $form3_18Data = DictaminatorsResponseForm3_18::where('dictaminador_id', $dictaminador_id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -93,6 +95,7 @@ public function getDictaminadorData(Request $request)
             'form3_15' => $form3_15Data,
             'form3_16' => $form3_16Data,
             'form3_17' => $form3_17Data,
+            'form3_18' => $form3_18Data,
 
 
         ]);
