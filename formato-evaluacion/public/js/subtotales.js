@@ -993,17 +993,18 @@ console.log("Reporte cumplido del periodo anual de proyecto de extensión y difu
   document.getElementById( "score3_17" ).innerHTML= score3_17;
   console.log ("Puntaje de las Evaluaciones 3.17: "), score3_17;
 
-    if (!isNaN(score3_17)) {
+  /*  
+  if (!isNaN(score3_17)) {
     docencia += score3_17;
     if(docencia>=700){
 
-  document.getElementById("docencia").innerHTML = 700;
+  //document.getElementById("docencia").innerHTML = 700;
 } 
     
 }
  //document.getElementById("docencia").innerHTML = docencia;
   data.score3_17 = score3_17;
-
+*/
 }
 
 

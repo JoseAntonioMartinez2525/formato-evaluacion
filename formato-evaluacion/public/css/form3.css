@@ -85,7 +85,8 @@ nav {
 #individualCant, #grupalesCant, 
 #cantAsesoria, #cantServicio, #cantPracticas,
 #cantCientifico, #cantDivulgacion, #cantTraduccion, #cantArbitrajeInt, #cantArbitrajeNac, #cantSinInt, #cantSinNac, #cantAutor, #cantEditor, #cantWeb, .cantidad,
-#cantCongresoInt, #cantCongresoNac, #cantCongresoLoc{
+#cantCongresoInt, #cantCongresoNac, #cantCongresoLoc, 
+#cantDifusionExt, #cantDifusionInt, #cantRepDifusionExt, #cantRepDifusionInt{
 
     background-color: #c1cfd3;
 }
@@ -108,7 +109,8 @@ nav {
 #comisionArbNac, #comisionPubInt, #comisionPubNac,#comisionRevInt, #comisionRevNac,#comisionRevista, #comisionPatententes, #comisionPrototipos,
 #obsArbInt, #obsArbNac, #obsPubInt, #obsPubNac, #obsRevInt,#obsRevNac, #obsRevista, #obsPatentes, #obsPrototipos,
 #comisionInicioFinancimientoExt, #obsInicioFinancimientoExt, #comisionInicioInvInterno, #obsInicioInvInterno, #comisionReporteFinanciamExt, #obsReporteFinanciamExt, 
-#comisionReporteInvInt, #obsReporteInvInt{
+#comisionReporteInvInt, #obsReporteInvInt,  #obsDifusionExt, #obsDifusionInt, #obsRepDifusionExt, #obsRepDifusionInt, #comisionDifusionExt,
+#comisionDifusionInt, #comisionRepDifusionExt, #comisionRepDifusionInt{
     background-color: #d6fff7;
     border-color: transparent;
     text-align: right;
