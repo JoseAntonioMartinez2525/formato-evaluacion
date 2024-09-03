@@ -297,7 +297,7 @@ $userType = Auth::user()->user_type;
                             try {
                                 const response = await axios.get('/get-docente-data', { params: { email } });
                                 const data = response.data;
-
+                                console.log('Fetched data:', data); 
                                 // Populate fields with fetched data
                                 document.getElementById('score3_17').textContent = data.form3_17.score3_17 || '0';
 

@@ -12,6 +12,9 @@ use App\Models\UsersResponseForm3_13;
 use App\Models\UsersResponseForm3_14;
 use App\Models\UsersResponseForm3_15;
 use App\Models\UsersResponseForm3_16;
+use App\Models\UsersResponseForm3_17;
+use App\Models\UsersResponseForm3_18;
+use App\Models\UsersResponseForm3_19;
 use App\Models\UsersResponseForm3_2;
 use App\Models\UsersResponseForm3_3;
 use App\Models\UsersResponseForm3_4;
@@ -60,6 +63,9 @@ class DictaminatorController extends Controller
         $form3_14Data = UsersResponseForm3_14::where('user_id', $docente->id)->first();
         $form3_15Data = UsersResponseForm3_15::where('user_id', $docente->id)->first();
         $form3_16Data = UsersResponseForm3_16::where('user_id', $docente->id)->first();
+        $form3_17Data = UsersResponseForm3_17::where('user_id', $docente->id)->first();
+        $form3_18Data = UsersResponseForm3_18::where('user_id', $docente->id)->first();
+        $form3_19Data = UsersResponseForm3_19::where('user_id', $docente->id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -85,6 +91,9 @@ class DictaminatorController extends Controller
             'form3_14' => $form3_14Data,
             'form3_15' => $form3_15Data,
             'form3_16' => $form3_16Data,
+            'form3_17' => $form3_17Data,
+            'form3_18' => $form3_18Data,
+            'form3_19' => $form3_19Data,
 
         ]);
     }
