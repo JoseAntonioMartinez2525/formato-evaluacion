@@ -356,7 +356,7 @@ $userType = Auth::user()->user_type;
 
                                     // Comisiones
                                     document.querySelector('#comisionCongresoInt').textContent = data.form3_14.comisionCongresoInt || '0';
-                                    document.querySelector('#comisionCongresoNac').teContent = data.form3_14.comisionCongresoNac || '0';
+                                    document.querySelector('#comisionCongresoNac').textContent = data.form3_14.comisionCongresoNac || '0';
                                     document.querySelector('#comisionCongresoLoc').textContent = data.form3_14.comisionCongresoLoc || '0';
 
                                     // Observaciones

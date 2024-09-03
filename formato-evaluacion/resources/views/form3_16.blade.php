@@ -1,6 +1,6 @@
 @php
-    $locale = app()->getLocale() ?: 'en';
-    $newLocale = str_replace('_', '-', $locale);
+$locale = app()->getLocale() ?: 'en';
+$newLocale = str_replace('_', '-', $locale);
 @endphp
 <!DOCTYPE html>
 <html lang="">
@@ -75,7 +75,7 @@
     </div>
     <x-general-header />
     @php
-        $userType = Auth::user()->user_type;
+$userType = Auth::user()->user_type;
     @endphp
     <div class="container mt-4 printButtonClass">
         @if($userType == 'dictaminador')
@@ -104,7 +104,7 @@
 
     <main class="container">
         <!-- Form for Part 3_1 -->
-        <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form315', 'form3_16');">
+        <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form316', 'form3_16');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
@@ -178,15 +178,15 @@
                             <input type="value" id="comisionArbInt" placeholder="0"
                                 oninput="onActv3Comision3_16()">
                         @else
-
                             <span id="comisionArbInt"></span>
+                        @endif
                         </td>
                         <td>
                         @if($userType == 'dictaminador')
                             <input class="table-header" type="text" id="obsArbInt">
                         @else
-
                             <span id="obsArbInt"></span>
+                        @endif
                         </td>
                     </tr>
                     <tr>
@@ -204,12 +204,15 @@
                                 oninput="onActv3Comision3_16()">
                         @else
                             <span id="comisionArbNac"></span>
+                        @endif
+                        
                         </td>
                         <td>
                         @if($userType == 'dictaminador')
                             <input class="table-header" type="text" id="obsArbNac">
                         @else
                             <span id="obsArbNac"></span>
+                        @endif
                         </td>
                     </tr>
                     <tr>
@@ -316,7 +319,7 @@
                         <td>Consejo editorial de revista, edición de revista</td>
                         <td>----</td>
                         <td id="puntajeRevista"><b>10</b></td>
-                        <td id="cantPubNac"></td>
+                        <td id="cantRevista"></td>
                         <td></td>
                         <td></td>
                         <td id="subtotalRevista"></td>
@@ -480,11 +483,11 @@
 
                                     // Comisiones
                                     document.querySelector('#comisionArbInt').textContent = data.form3_16.comisionArbInt || '0';
-                                    document.querySelector('#comisionArbNac').teContent = data.form3_16.comisionArbNac || '0';
+                                    document.querySelector('#comisionArbNac').textContent = data.form3_16.comisionArbNac || '0';
                                     document.querySelector('#comisionPubInt').textContent = data.form3_16.comisionPubInt || '0';
-                                    document.querySelector('#comisionPubNac').teContent = data.form3_16.comisionPubNac || '0';
+                                    document.querySelector('#comisionPubNac').textContent = data.form3_16.comisionPubNac || '0';
                                     document.querySelector('#comisionRevInt').textContent = data.form3_16.comisionRevInt || '0';
-                                    document.querySelector('#comisionRevNac').teContent = data.form3_16.comisionRevNac || '0';
+                                    document.querySelector('#comisionRevNac').textContent = data.form3_16.comisionRevNac || '0';
                                     document.querySelector('#comisionRevista').textContent = data.form3_16.comisionRevista || '0';                                    
                                     // Observaciones
                                     document.querySelector('#obsArbInt').textContent = data.form3_16.obsArbInt || '';

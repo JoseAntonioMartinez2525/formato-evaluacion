@@ -17,6 +17,7 @@ nav {
     /* agrega un fondo blanco para que se vea bien */
     z-index: 1;
     /* asegura que el menú esté encima de otros elementos */
+    
 }
 
 nav::after{

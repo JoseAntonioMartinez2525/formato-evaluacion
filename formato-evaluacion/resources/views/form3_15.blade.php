@@ -189,7 +189,7 @@ $userType = Auth::user()->user_type;
                         @if($userType == 'dictaminador')
                             <input class="table-header" type="text" id="obsPrototipos">
                         @else
-                            <span id="comisionPrototipos"></span>
+                            <span id="obsPrototipos"></span>
                         @endif
                     </td>
                 </tr>
@@ -313,7 +313,7 @@ $userType = Auth::user()->user_type;
 
                                     // Comisiones
                                     document.querySelector('#comisionPatententes').textContent = data.form3_15.comisionPatententes || '0';
-                                    document.querySelector('#comisionPrototipos').teContent = data.form3_15.comisionPrototipos || '0';
+                                    document.querySelector('#comisionPrototipos').textContent = data.form3_15.comisionPrototipos || '0';
 
                                     // Observaciones
                                     document.querySelector('#obsPatentes').textContent = data.form3_15.obsPatentes || '';
