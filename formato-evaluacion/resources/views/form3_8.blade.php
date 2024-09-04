@@ -150,8 +150,8 @@ $userType = Auth::user()->user_type;
                             <td>1 por cada hora</td>
                             <td id="p3_8">1</td>
                             <td id="puntaje3_8"></td>
-                            <td id="puntajeHoras3_8"></td>
-                            <td>
+                            <td id="puntajeHoras3_8" class="rightSelect"></td>
+                            <td class="rightSelect">
                                 @if ($userType == 'dictaminador')
                                     <input type="text" placeholder="0" id="comisionDict3_8" name="comisionDict3_8" oninput="onActv3Comision3_8()">
                                 @else

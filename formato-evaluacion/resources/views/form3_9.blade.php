@@ -194,7 +194,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias20_1">20</td>
                         <td id="puntaje3_9_1"></td>
                         <td id="tutorias1">0</td>
-                        <td>
+                        <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision1" name="tutoriasComision1" placeholder="0"
                                 oninput="onActv3Comision3_9()">    
@@ -218,7 +218,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias15_1">15</td>
                         <td id="puntaje3_9_2"></td>
                         <td id="tutorias2">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision2" name="tutoriasComision2" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -241,7 +241,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias10_1">10</td>
                         <td id="puntaje3_9_3"></td>
                         <td id="tutorias3">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision3" name="tutoriasComision3" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -264,7 +264,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias55">55</td>
                         <td id="puntaje3_9_4"></td>
                         <td id="tutorias4">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision4" name="tutoriasComision4" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -287,7 +287,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias45">45</td>
                         <td id="puntaje3_9_5"></td>
                         <td id="tutorias5">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision5" name="tutoriasComision5" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -310,7 +310,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias35">35</td>
                         <td id="puntaje3_9_6"></td>
                         <td id="tutorias6">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision6" name="tutoriasComision6" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -333,7 +333,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias70">70</td>
                         <td id="puntaje3_9_7"></td>
                         <td id="tutorias7">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision7" name="tutoriasComision7" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -356,7 +356,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias60">60</td>
                         <td id="puntaje3_9_8"></td>
                         <td id="tutorias8">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision8" name="tutoriasComision8" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -379,7 +379,7 @@ $userType = Auth::user()->user_type;
                         <td id="puntajeTutorias50">50</td>
                         <td id="puntaje3_9_9"></td>
                         <td id="tutorias9">0</td>
-                        <td>
+                        <td class="rightSelect">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="tutoriasComision9" name="tutoriasComision9" placeholder="0" oninput="onActv3Comision3_9()">
                             @else
@@ -402,7 +402,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias30_1">30</td>
                     <td id="puntaje3_9_10">0</td>
                     <td id="tutorias10">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision10" name="tutoriasComision10" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -425,7 +425,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias20_2">50</td>
                     <td id="puntaje3_9_11">0</td>
                     <td id="tutorias11">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision11" name="tutoriasComision11" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -448,7 +448,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias15_2">15</td>
                     <td id="puntaje3_9_12">0</td>
                     <td id="tutorias12">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision12" name="tutoriasComision12" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -471,7 +471,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias30_2">30</td>
                     <td id="puntaje3_9_13">0</td>
                     <td id="tutorias13">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision13" name="tutoriasComision13" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -494,7 +494,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias20_3">15</td>
                     <td id="puntaje3_9_14">0</td>
                     <td id="tutorias14">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision14" name="tutoriasComision14" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -517,7 +517,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias15_3">15</td>
                     <td id="puntaje3_9_15">0</td>
                     <td id="tutorias15">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision15" name="tutoriasComision15" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -540,7 +540,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias15_4">15</td>
                     <td id="puntaje3_9_16">0</td>
                     <td id="tutorias16">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision16" name="tutoriasComision16" placeholder="0" oninput="onActv3Comision3_9()">
                         @else
@@ -563,7 +563,7 @@ $userType = Auth::user()->user_type;
                     <td id="puntajeTutorias10_2">10</td>
                     <td id="puntaje3_9_17">0</td>
                     <td id="tutorias17">0</td>
-                    <td>
+                    <td class="rightSelect">
                         @if ($userType == 'dictaminador')
                             <input type="value" id="tutoriasComision17" name="tutoriasComision17" placeholder="0" oninput="onActv3Comision3_9()">
                         @else

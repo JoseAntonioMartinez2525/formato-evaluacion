@@ -134,7 +134,7 @@ $userType = Auth::user()->user_type;
                             <td><label for="">a) Posgrado</label>
                                 <label for="">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Semestre </label>
                             </td>
-                            <td><span id="horasPosgrado" name="horasPosgrado" class="horasActv2"></span>
+                            <td class="cantidad"><span id="horasPosgrado" name="horasPosgrado" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="dse" name="dse" class="puntajeEvaluar" type="text"></label></td>
                              @if($userType == 'dictaminador')
@@ -155,7 +155,7 @@ $userType = Auth::user()->user_type;
                             <td>b) Licenciatura y TSU
                                 <label for="">&nbsp &nbsp &nbsp &nbsp Horas </label>
                             </td>
-                            <td><span id="horasSemestre" name="horasSemestre" class="horasActv2"></span>
+                            <td class="cantidad"><span id="horasSemestre" name="horasSemestre" class="horasActv2"></span>
                             </td>
                             <td class="puntajeEvaluar2"><label id="dse2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
                             @if($userType == 'dictaminador')

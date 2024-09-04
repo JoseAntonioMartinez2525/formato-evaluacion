@@ -149,7 +149,8 @@ $userType = Auth::user()->user_type;
                             <td id="pMedio">0.5</td>
                             <td id="puntaje3_6" ></td>
                             <td id="puntajeHoras3_6"></td>
-                            <td>@if($userType == 'dictaminador')
+                            <td style="text-align: right;">
+                                @if($userType == 'dictaminador')
                                 <input type="text" placeholder="0" id="comisionDict3_6" name="comisionDict3_6" oninput="onActv3Comision3_6()">
                                 @else
                                 <span id="comisionDict3_6" name="comisionDict3_6"></span>

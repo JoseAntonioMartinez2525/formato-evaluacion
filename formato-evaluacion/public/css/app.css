@@ -56,8 +56,7 @@ header{
     border-radius: 90px 90px 90px 90px;
 
 }
-#btn3_1, #btn3_2, #btn3_3, #btn3_4, #btn3_5, #btn3_6, #btn3_7, #btn3_8, #btn3_9, #btn3_10, 
-#btn3_11, #btn3_12,#btn3_13, #btn3_14, #btn3_15, #btn3_16, #btn3_17, #btn3_18, #btn3_19 {
+[id^="btn3_"] {
     padding-left: 80px;
     padding-right: 70px;
     border-radius: 90px 90px 90px 90px;
@@ -507,16 +506,17 @@ height: 800px;
     width: 140px;
 }
 
-#puntajeHoras3_6{
+#puntajeHoras3_6, #puntaje3_8{
     background-color: #e2e2e2;
     text-align: right;
 }
 
-#comisionDict3_6, #obs3_6_1{
+#comisionDict3_6, #comisionDict3_7, #obs3_6_1, #obs3_7_1, #comisionDict3_8, #obs3_8_1{
     background-color: #d6fff7;
+    
 
 }
-#comisionDict3_6{
+#comisionDict3_6, #comisionDict3_7, #comisionDict3_8, .rightSelect{
     text-align: right;
 }
 
@@ -529,6 +529,11 @@ height: 800px;
     border: none;
     box-shadow: none;
 }
+
+td[id^="puntaje3_9_"]{
+    background-color: #c1cfd3;
+}
+
 
 
 

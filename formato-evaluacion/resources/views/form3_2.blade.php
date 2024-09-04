@@ -147,7 +147,7 @@ $userType = Auth::user()->user_type;
                                 <center>Promedio 90-100</center>
                             </td>
                             <td id="ran1"><b>50</b></td>
-                            <td class="elabInput"><label id="r1" name="r1"></label> </td>
+                            <td><label id="r1" name="r1"></label> </td>
                             <td id="cant1" name="cant1">0</td>
                             <td>
                             @if($userType == 'dictaminador')
