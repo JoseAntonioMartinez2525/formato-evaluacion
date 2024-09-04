@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class DictaminatorForm3_18Controller extends Controller
 {
-    public function storeform312(Request $request)
+    public function storeform318(Request $request)
     {
 
         try {
@@ -114,7 +114,7 @@ class DictaminatorForm3_18Controller extends Controller
 
     }
 
-    public function getFormData312(Request $request)
+    public function getFormData318(Request $request)
     {
         try {
             $data = DictaminatorsResponseForm3_18::where('user_id', $request->query('user_id'))->first();

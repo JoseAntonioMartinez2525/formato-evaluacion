@@ -103,7 +103,7 @@ $userType = Auth::user()->user_type;
     </div>
 
     <main class="container">
-        <!-- Form for Part 3_1 -->
+        <!-- Form for Part 3_18 -->
         <form id="form3_18" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form318', 'form3_18');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
@@ -467,7 +467,12 @@ $userType = Auth::user()->user_type;
                         de institución extranjera</th>
                     <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                     <th class="descripcion"><b>Instancia que lo otorga</b></th>
-                    <th><button id="btn3_18" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
+                    <th>
+                    @if ($userType != '')
+                        <button id="btn3_18" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                    @endif
+                        
+                    </th>
                 </tr>
             </thead>
         </table>
