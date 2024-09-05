@@ -39,7 +39,10 @@ class DictaminatorsResponseForm3_3 extends Model
 
 
     protected $table = 'dictaminators_response_form3_3';
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

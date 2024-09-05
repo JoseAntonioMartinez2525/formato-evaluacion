@@ -13,58 +13,72 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
 
-
 </head>
 
-<body class="font-sans antialiased">
-<x-general-header />
-    <div class="bg-gray-50 text-black/50">
-        <div class="relative min-h-screen flex flex-col items-center justify-center">
-            @if (Route::has('login'))
-                @if (Auth::check())
-                                    <section role="region" aria-label="Response form">
-                                        <form>
-                                            @csrf
-                                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link disabled" href="#">
-                                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                        </a>
-                                                    </li>
-                                                    <li style="list-style: none; margin-right: 20px;">
-                                                        <a href="{{ route('login') }}">
-                                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                                        REGLAMENTO
-                                                        PEDPD</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                                        Calidad en la docencia</a>
-                                                </li><br>
-                                                <li id="jsonDataLink" class="d-none">
-                                                    <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                                                </li>
-                                                <li id="reportLink" class="nav-item d-none">
-                                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                                                </li>
+<body class="bg-gray-50 text-black/50">
 
-                                            </nav>
-                </form>@endif
+    <div class="relative min-h-screen flex flex-col items-center justify-center">
+        @if (Route::has('login'))
+            @if (Auth::check())
+                <section role="region" aria-label="Response form">
+                    <form class="printButtonClass">
+                        @csrf
+                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#">
+                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                    </a>
+                                </li>
+                                <li style="list-style: none; margin-right: 20px;">
+                                    <a href="{{ route('login') }}">
+                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                    </a>
+                                </li>
+                            </div>
+                            <li class="nav-item">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                    REGLAMENTO
+                                    PEDPD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
+                                    llenado
+                                    por la
+                                    Comisión del PEDPD)</a>
+                            </li><br>
+                            <li id="jsonDataLink" class="d-none">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
+                                    los
+                                    Usuarios</a>
+                            </li>
+                            <li id="reportLink" class="nav-item d-none">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                    Reporte</a>
+                            </li>
+                            <li class="nav-item">
+                                @if(Auth::user()->user_type === 'dictaminador')
+                                    <a class="nav-link active" style="width: 200px;"
+                                        href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                @else
+                                    <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                        Formatos</a>
+                                @endif
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
+                            </li>
+                        </nav>
+                    </form>
                 </section>
-
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2"></div>
-                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
-                </header>
+            @endif
+        
+    </div>
+    <x-general-header />
+        @php
+    $userType = Auth::user()->user_type;
+        @endphp
+       
                 <main class="container">
                     <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
                         @csrf
@@ -535,143 +549,77 @@ $newLocale = str_replace('_', '-', $locale);
 
 
 
-         document.addEventListener('DOMContentLoaded', function () {
-                const userId = {{ auth()->user()->id }}; // Assuming you have user data
+    document.addEventListener('DOMContentLoaded', function () {
+        const userId = {{ auth()->user()->id }};
 
-                async function fetchData(url, params = {}) {
-                    const queryString = new URLSearchParams(params).toString();
-                    const fullUrl = `${url}?${queryString}`;
+        async function fetchData(url, params = {}) {
+            const queryString = new URLSearchParams(params).toString();
+            const fullUrl = `${url}?${queryString}`;
 
-                    try {
-                        let response = await fetch(fullUrl, {
-                            method: 'GET',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Content-Type': 'application/json',
-                            }
-                        });
-
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-
-                        let data = await response.json();
-                        return data;
-                    } catch (error) {
-                        console.error('There was a problem with the fetch operation:', error);
+            try {
+                let response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
                     }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
 
-                async function loadAllData() {
-                    let data2 = await fetchData('/get-form-data2', { dictaminador_id: userId });
-                    let data2_2 = await fetchData('/get-data22', { user_id: userId });
-                    let data31 = await fetchData('/get-data-31', { user_id: userId });
-                    let data32 = await fetchData('/get-data-32', { user_id: userId });
-                    let data33 = await fetchData('/get-data-33', { user_id: userId });
-                    let data34 = await fetchData('/get-data-34', { user_id: userId });
-                    let data35 = await fetchData('/get-data-35', { user_id: userId });
-                    let data36 = await fetchData('/get-data-36', { user_id: userId });
-                    let data37 = await fetchData('/get-data-37', { user_id: userId });
-                    let data38 = await fetchData('/get-data-38', { user_id: userId });
-                    let data39 = await fetchData('/get-data-39', { user_id: userId });
-                    let data310 = await fetchData('/get-data-310', { user_id: userId });
-                    let data311 = await fetchData('/get-data-311', { user_id: userId });
-                    let data312 = await fetchData('/get-data-312', { user_id: userId });
-                    let data313 = await fetchData('/get-data-313', { user_id: userId });
-                    let data314 = await fetchData('/get-data-314', { user_id: userId });
-                    let data315 = await fetchData('/get-data-315', { user_id: userId });
-                    let data316 = await fetchData('/get-data-316', { user_id: userId });
-                    let data317 = await fetchData('/get-data-317', { user_id: userId });
-                    
-                    let data318 = await fetchData('/get-data-318', { user_id: userId });
-                    let data319 = await fetchData('/get-data-319', { user_id: userId });
-                    
-                    // Populate labels with the retrieved data
-                    document.getElementById('comision1').innerText = data2 ? data2.comision1 : '';
-                    document.getElementById('actv2Comision').innerText = data2_2 ? data2_2.actv2Comision : '';
-                    
-                    document.getElementById('actv1Repetido').innerText = data2 ? data2.comision1 : '';
-                    document.getElementById('comision1Total').innerText = data2 ? data2.comision1 : '';
-                    document.getElementById('actv2Repetido').innerText = data2_2 ? data2_2.actv2Comision : '';
-                    document.getElementById('comision2Total').innerText = data2_2 ? data2_2.actv2Comision : '';
+                let data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error.message);
+                alert(error.message);
+            }
+        }
 
-                    document.getElementById('actv3Comision').innerText = data31 ? data31.actv3Comision : '';
-                    document.getElementById('comision3_2').innerText = data32 ? data32.comision3_2 : '';
-                    document.getElementById('comision3_3').innerText = data33 ? data33.comision3_3 : '';
-                    document.getElementById('comision3_4').innerText = data34 ? data34.comision3_4 : '';
-                    document.getElementById('comision3_5').innerText = data35 ? data35.comision3_5 : '';
-                    document.getElementById('comision3_6').innerText = data36 ? data36.comision3_6 : '';
-                    document.getElementById('comision3_7').innerText = data37 ? data37.comision3_7 : '';
-                    document.getElementById('comision3_8').innerText = data38 ? data38.comision3_8 : '';
-                    document.getElementById('comision3_9').innerText = data39 ? data39.comision3_9 : '';
-                    document.getElementById('comision3_10').innerText = data310 ? data310.comision3_10 : '';
-                    document.getElementById('comision3_11').innerText = data311 ? data311.comision3_11 : '';
-                    document.getElementById('comision3_12').innerText = data312 ? data312.comision3_12 : '';
-                    document.getElementById('comision3_13').innerText = data313 ? data313.comision3_13 : '';
-                    document.getElementById('comision3_14').innerText = data314 ? data314.comision3_14 : '';
-                    document.getElementById('comision3_15').innerText = data315 ? data315.comision3_15 : '';
-                    document.getElementById('comision3_16').innerText = data316 ? data316.comision3_16 : '';
-                    
-                    document.getElementById('comision3_17').innerText = data317 ? data317.comision3_17 : '';
-                    document.getElementById('comision3_18').innerText = data318 ? data318.comision3_18 : '';
-                    document.getElementById('comision3_19').innerText = data319 ? data319.comision3_19 : '';
-                    
+        async function loadAllData() {
+            let data = await fetchData('/get-form-data', { dictaminador_id: userId });
 
-                    // Calculate the total score
+            if (data && data.dictaminador) {
+                // Asignar los valores de las comisiones automáticamente
+                if (data.form_data) {
+                    Object.keys(data.form_data).forEach(formKey => {
+                        const form = data.form_data[formKey];
+                        if (form) {
+                            // Asigna el valor de la comisión para cada formulario
+                            const comisionField = formKey.replace('DictaminatorsResponse', '').toLowerCase() + 'Comision';
+                            if (document.getElementById(comisionField)) {
+                                document.getElementById(comisionField).textContent = form.comision; // Asume que el campo se llama `comision`
+                            }
+                        }
+                    });
+
+                    // Calcular el puntaje total
                     calculateTotalScore();
                 }
+            } else {
+                console.error('Error: Dictaminador not found or user type is invalid.');
+            }
+        }
 
-                
-                function calculateTotalScore() {
-                    
-                    let actv3Comision = parseFloat(document.getElementById('actv3Comision').textContent);
-                    console.log(actv3Comision);
-                    let comision3_2 = parseFloat(document.getElementById('comision3_2').textContent);
-                    let comision3_3 = parseFloat(document.getElementById('comision3_3').textContent);
-                    let comision3_4 = parseFloat(document.getElementById('comision3_4').textContent);
-                    let comision3_5 = parseFloat(document.getElementById('comision3_5').textContent);
-                    let comision3_6 = parseFloat(document.getElementById('comision3_6').textContent);
-                    let comision3_7 = parseFloat(document.getElementById('comision3_7').textContent);
-                    let comision3_8 = parseFloat(document.getElementById('comision3_8').textContent);
 
-                    let comision3_9 = parseFloat(document.getElementById('comision3_9').textContent);
-                    let comision3_10 = parseFloat(document.getElementById('comision3_10').textContent);
-                    let comision3_11 = parseFloat(document.getElementById('comision3_11').textContent);
-                    let comision3_12 = parseFloat(document.getElementById('comision3_12').textContent);               
-                    let comision3_13 = parseFloat(document.getElementById('comision3_13').textContent);
-                    let comision3_14 = parseFloat(document.getElementById('comision3_14').textContent);
-                    let comision3_15 = parseFloat(document.getElementById('comision3_15').textContent);
-                    let comision3_16 = parseFloat(document.getElementById('comision3_16').textContent);
-                    let comision3_17 = parseFloat(document.getElementById('comision3_17').textContent);
-                    let comision3_18 = parseFloat(document.getElementById('comision3_18').textContent);
-                    let comision3_19 = parseFloat(document.getElementById('comision3_19').textContent);
-                    
-                    let comision3_1To3_8 = parseInt(actv3Comision + comision3_2 + comision3_3 + comision3_4 +
-                    comision3_5 + comision3_6 + comision3_7 + comision3_8);
-                    let comision3_9To3_11 = parseInt(comision3_9+ comision3_10+ comision3_11);
-                    let comision3_12To3_16 = parseInt(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16);
-                    let comision3_17To3_19 = parseInt(comision3_17 + comision3_18 + comision3_19);
-                    
-                    document.getElementById('comision3_1To3_8').innerText = comision3_1To3_8;
-                    document.getElementById('comision3_9To3_11').innerText = comision3_9To3_11;
-                    document.getElementById('comision3_12To3_16').innerText = comision3_12To3_16;
-                    document.getElementById('comision3_17To3_19').innerText = comision3_17To3_19;
+        function calculateTotalScore() {
+            let comisionTotal = 0;
+            for (let i = 2; i <= 19; i++) {
+                let comision = parseFloat(document.getElementById(`comision3_${i}`).textContent) || 0;
+                comisionTotal += comision;
+            }
 
-                    const actv3Total = min700(comision3_1To3_8, comision3_9To3_11, comision3_12To3_16, comision3_17To3_19);
-                    document.getElementById('actv3Total').innerText = actv3Total;
+            document.getElementById('comision3Total').innerText = comisionTotal;
+            total();
+            document.getElementById('totalComisionRepetido').innerText = total();
+            document.getElementById('totalComision').innerText = total();
+            condicionales();
+        }
 
-                    const comision3Total = actv3Total;
-                    document.getElementById('comision3Total').innerText = comision3Total;
-                    
-                    total();
-                    document.getElementById('totalComisionRepetido').innerText = total();
-                    document.getElementById('totalComision').innerText = total();
-                    condicionales();
-                
-                }
+        loadAllData();
+    });
 
-                loadAllData();
-            });
 
             function min700(...values){
                 const total = values.reduce((acc, val) => acc + val, 0);
@@ -775,6 +723,80 @@ $newLocale = str_replace('_', '-', $locale);
             document.getElementById('reportLink').classList.remove('d-none');
         }
     });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+           
+
+            // Current user type from the backend
+            const userType = @json($userType);  // Get user type from backend
+
+            // Fetch dictaminador options if user type is null or empty
+            if (userType != 'docente') {
+                try {
+                    const response = await fetch('/get-dictaminadores');
+                    const dictaminadores = await response.json();
+
+                    dictaminadores.forEach(dictaminador => {
+                        const option = document.createElement('option');
+                        option.value = dictaminador.id;  // Use dictaminador ID as value
+                        option.dataset.email = dictaminador.email; // Store email in data attribute
+                        option.textContent = dictaminador.email;
+                        dictaminadorSelect.appendChild(option);
+                    });
+
+                    // Handle dictaminador selection change
+                    dictaminadorSelect.addEventListener('change', async (event) => {
+                        const dictaminadorId = event.target.value;
+                        const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+
+                        if (dictaminadorId) {
+                            try {
+                                const response = await axios.get('/get-dictaminador-data', {
+                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                                });
+                                const data = response.data;
+
+                                document.getElementById('comision1').textContent = data.form2.comision1 || '0';
+                                document.getElementById('actv2Comision').textContent = data.form2_2.actv2Comision || '0';
+                                document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
+                                // Populate fields with fetched data
+                                for (let i = 2; i <= 19; i++) {
+                                    const elementId = 'comision3_' + i;
+                                    const formId = 'form3_' + i;
+
+                                    const scoreValue = data[formId]['comision3_' + i] || '0';
+
+                                    document.getElementById(elementId).textContent = scoreValue;
+                                }
+
+
+                                    console.error('No form data found for the selected dictaminador.');
+
+                                    // Reset input values if no data found
+                                    document.querySelector('input[name="dictaminador_id"]').value = '0';
+                                    document.querySelector('input[name="user_id"]').value = '0';
+                                    document.querySelector('input[name="email"]').value = '';
+                                    document.querySelector('input[name="user_type"]').value = '';
+
+
+                            } catch (error) {
+                                console.error('Error fetching dictaminador data:', error);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching dictaminadores:', error);
+                    alert('No se pudo cargar la lista de dictaminadores.');
+                }
+            }
+        });
+
+        function minWithSum(value1, value2) {
+            const sum = value1 + value2;
+            return Math.min(sum, 200);
+
+
+        }
 
     </script>
 

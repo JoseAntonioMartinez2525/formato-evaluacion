@@ -30,7 +30,10 @@ class DictaminatorsResponseForm2_2 extends RulesForm2_2
     protected $primaryKey = 'dictaminador_id'; // Specifies the primary key
     protected $keyType = 'bigint'; // Specifies the key type
     protected $table = 'dictaminators_response_form2_2';
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

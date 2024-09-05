@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\DictaminatorsResponseForm3_1;
+use App\Models\DictaminatorsResponseForm3_10;
+use App\Models\DictaminatorsResponseForm3_11;
+use App\Models\DictaminatorsResponseForm3_12;
+use App\Models\DictaminatorsResponseForm3_13;
+use App\Models\DictaminatorsResponseForm3_14;
+use App\Models\DictaminatorsResponseForm3_15;
+use App\Models\DictaminatorsResponseForm3_16;
+use App\Models\DictaminatorsResponseForm3_17;
+use App\Models\DictaminatorsResponseForm3_18;
+use App\Models\DictaminatorsResponseForm3_19;
 use App\Models\DictaminatorsResponseForm3_2;
 use App\Models\DictaminatorsResponseForm3_3;
 use App\Models\DictaminatorsResponseForm3_4;
@@ -81,6 +91,16 @@ class ResponseJson extends Controller
         $dictaminators_responses3_7 = DictaminatorsResponseForm3_7::all()->filter()->values();
         $dictaminators_responses3_8 = DictaminatorsResponseForm3_8::all()->filter()->values();
         $dictaminators_responses3_9 = DictaminatorsResponseForm3_9::all()->filter()->values();
+        $dictaminators_responses3_10 = DictaminatorsResponseForm3_10::all()->filter()->values();
+        $dictaminators_responses3_11 = DictaminatorsResponseForm3_11::all()->filter()->values();
+        $dictaminators_responses3_12 = DictaminatorsResponseForm3_12::all()->filter()->values();
+        $dictaminators_responses3_13 = DictaminatorsResponseForm3_13::all()->filter()->values();
+        $dictaminators_responses3_14 = DictaminatorsResponseForm3_14::all()->filter()->values();
+        $dictaminators_responses3_15 = DictaminatorsResponseForm3_15::all()->filter()->values();
+        $dictaminators_responses3_16 = DictaminatorsResponseForm3_16::all()->filter()->values();
+        $dictaminators_responses3_17 = DictaminatorsResponseForm3_17::all()->filter()->values();
+        $dictaminators_responses3_18 = DictaminatorsResponseForm3_18::all()->filter()->values();
+        $dictaminators_responses3_19 = DictaminatorsResponseForm3_19::all()->filter()->values();
 
         // Combine user and dictaminator responses for form2
         $combinedForm2Responses = $responses2->merge($dictaminators_responses2);
@@ -91,9 +111,22 @@ class ResponseJson extends Controller
         $combinedForm3_4Responses = $responses3_4->merge($dictaminators_responses3_4);
         $combinedForm3_5Responses = $responses3_5->merge($dictaminators_responses3_5);
         $combinedForm3_6Responses = $responses3_6->merge($dictaminators_responses3_6);
-        $combinedForm3_7Responses = $responses3_6->merge($dictaminators_responses3_7);
-        $combinedForm3_8Responses = $responses3_6->merge($dictaminators_responses3_8);
-        $combinedForm3_9Responses = $responses3_6->merge($dictaminators_responses3_9);
+        $combinedForm3_7Responses = $responses3_7->merge($dictaminators_responses3_7);
+        $combinedForm3_8Responses = $responses3_8->merge($dictaminators_responses3_8);
+        $combinedForm3_9Responses = $responses3_9->merge($dictaminators_responses3_9);
+        $combinedForm3_10Responses = $responses3_10->merge($dictaminators_responses3_10);
+        $combinedForm3_11Responses = $responses3_11->merge($dictaminators_responses3_11);
+        $combinedForm3_12Responses = $responses3_12->merge($dictaminators_responses3_12);
+        $combinedForm3_13Responses = $responses3_13->merge($dictaminators_responses3_13);
+        $combinedForm3_14Responses = $responses3_14->merge($dictaminators_responses3_14);
+        $combinedForm3_15Responses = $responses3_15->merge($dictaminators_responses3_15);
+        $combinedForm3_16Responses = $responses3_16->merge($dictaminators_responses3_16);
+        $combinedForm3_17Responses = $responses3_17->merge($dictaminators_responses3_17);
+        $combinedForm3_18Responses = $responses3_18->merge($dictaminators_responses3_19);
+        $combinedForm3_19Responses = $responses3_19->merge($dictaminators_responses3_14);
+        
+
+
 
         $responsesFinal = UserResume::all()->filter()->values();
         $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
@@ -112,16 +145,16 @@ class ResponseJson extends Controller
             'form3_7' => $combinedForm3_7Responses->toArray(),
             'form3_8' => $combinedForm3_8Responses->toArray(),
             'form3_9' => $combinedForm3_9Responses->toArray(),
-            'form3_10' => $responses3_10->toArray(),
-            'form3_11' => $responses3_11->toArray(),
-            'form3_12' => $responses3_12->toArray(),
-            'form3_13' => $responses3_13->toArray(),
-            'form3_14' => $responses3_14->toArray(),
-            'form3_15' => $responses3_15->toArray(),
-            'form3_16' => $responses3_16->toArray(),
-            'form3_17' => $responses3_17->toArray(),
-            'form3_18' => $responses3_18->toArray(),
-            'form3_19' => $responses3_19->toArray(),
+            'form3_10' => $combinedForm3_10Responses->toArray(),
+            'form3_11' => $combinedForm3_11Responses->toArray(),
+            'form3_12' => $combinedForm3_12Responses->toArray(),
+            'form3_13' => $combinedForm3_13Responses->toArray(),
+            'form3_14' => $combinedForm3_14Responses->toArray(),
+            'form3_15' => $combinedForm3_15Responses->toArray(),
+            'form3_16' => $combinedForm3_16Responses->toArray(),
+            'form3_17' => $combinedForm3_17Responses->toArray(),
+            'form3_18' => $combinedForm3_18Responses->toArray(),
+            'form3_19' => $combinedForm3_19Responses->toArray(),
             'formFinal' => $responsesFinal->toArray(),
             'form5'=> $responsesEvaluator->toArray(),
 

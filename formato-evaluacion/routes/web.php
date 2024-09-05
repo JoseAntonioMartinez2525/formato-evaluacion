@@ -21,6 +21,7 @@ use App\Http\Controllers\DictaminatorForm3_6Controller;
 use App\Http\Controllers\DictaminatorForm3_7Controller;
 use App\Http\Controllers\DictaminatorForm3_8Controller;
 use App\Http\Controllers\DictaminatorForm3_9Controller;
+use App\Http\Controllers\DictaminatorFormsGroupsController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
@@ -183,6 +184,7 @@ Route::get('/get-data-318', [ResponseForm3_18Controller::class, 'getData318'])->
 Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->name('getData319');
 
 Route::get('/get-form-data2', [DictaminatorForm2_Controller::class, 'getFormData2'])->name('getFormData2');
+Route::get('/get-form-data', [DictaminatorFormsGroupsController::class, 'getDictaminadorData']);
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
