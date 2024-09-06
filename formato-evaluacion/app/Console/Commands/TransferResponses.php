@@ -11,6 +11,10 @@ use App\Models\DictaminatorsResponseForm3_15;
 use App\Models\DictaminatorsResponseForm3_16;
 use App\Models\DictaminatorsResponseForm3_17;
 use App\Models\DictaminatorsResponseForm3_18;
+use App\Models\DictaminatorsResponseForm3_19;
+use App\Models\DictaminatorsResponseForm2;
+use App\Models\DictaminatorsResponseForm2_2;
+use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\DictaminatorsResponseForm3_2;
 use App\Models\DictaminatorsResponseForm3_3;
 use App\Models\DictaminatorsResponseForm3_4;
@@ -22,10 +26,6 @@ use App\Models\DictaminatorsResponseForm3_9;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use App\Models\DictaminatorsResponseForm2;
-use App\Models\DictaminatorsResponseForm2_2;
-use App\Models\DictaminatorsResponseForm3_1;
-use App\Models\DictaminatorsResponseForm3_19;
 
 class TransferResponses extends Command
 {
@@ -39,15 +39,11 @@ class TransferResponses extends Command
 
     public function handle()
     {
-        // Transfer docente responses
-        //$this->transferDocenteResponses();
-
         // Transfer dictaminador responses
         $this->transferDictaminadorResponses();
 
-        $this->info('Data transfer completed.');
+        $this->info('Data transfer and consolidation completed.');
     }
-
 
     private function transferDictaminadorResponses()
     {
@@ -75,47 +71,71 @@ class TransferResponses extends Command
             DictaminatorsResponseForm3_19::class,
         ];
 
+        $consolidatedData = [];
+
         foreach ($models as $model) {
-            $responses = $model::with('user')->get(); // Asegúrate de que el modelo tenga una relación `user`
+            $responses = $model::with('user')->get();
             foreach ($responses as $response) {
-                // Verifica si el modelo tiene la relación `user` antes de intentar acceder a `email`
-                $userEmail = $response->user ? $response->user->email : null;
+                if (!isset($consolidatedData[$response->user_id])) {
+                    $consolidatedData[$response->user_id] = [
+                        'user_id' => $response->user_id,
+                        'user_email' => $response->user ? $response->user->email : null,
+                        'user_type' => 'dictaminador',
+                        'comision1' => 0,
+                        'actv2Comision' => 0,
+                        'actv3Comision' => 0,
+                        // Inicializa otros campos de comisión
+                        'comision3_2' => 0,
+                        'comision3_3' => 0,
+                        'comision3_4' => 0,
+                        'comision3_5' => 0,
+                        'comision3_6' => 0,
+                        'comision3_7' => 0,
+                        'comision3_8' => 0,
+                        'comision3_9' => 0,
+                        'comision3_10' => 0,
+                        'comision3_11' => 0,
+                        'comision3_12' => 0,
+                        'comision3_13' => 0,
+                        'comision3_14' => 0,
+                        'comision3_15' => 0,
+                        'comision3_16' => 0,
+                        'comision3_17' => 0,
+                        'comision3_18' => 0,
+                        'comision3_19' => 0,
+                    ];
+                }
 
-                DB::table('consolidated_responses')->insert([
-                    'user_id' => $response->user_id,
-                    'user_email' => $userEmail, 
-                    'user_type' => 'dictaminador',
-                    'comision1' => $response->comision1 ?? '0',
-                    'actv2Comision' => $response->actv2Comision ?? '0',
-                    'actv3Comision' => $response->actv3Comision ?? '0',
-                    'comision3_2' => $response->comision3_2 ?? '0',
-                    'comision3_3' => $response->comision3_3 ?? '0',
-                    'comision3_4' => $response->comision3_4 ?? '0',
-                    'comision3_5' => $response->comision3_5 ?? '0',
-                    'comision3_6' => $response->comision3_6 ?? '0',
-                    'comision3_7' => $response->comision3_7 ?? '0',
-                    'comision3_8' => $response->comision3_8 ?? '0',
-                    'comision3_9' => $response->comision3_9 ?? '0',
-                    'comision3_10' => $response->comision3_10 ?? '0',
-                    'comision3_11' => $response->comision3_11 ?? '0',
-                    'comision3_12' => $response->comision3_12 ?? '0',
-                    'comision3_13' => $response->comision3_13 ?? '0',
-                    'comision3_14' => $response->comision3_14 ?? '0',
-                    'comision3_15' => $response->comision3_15 ?? '0',
-                    'comision3_16' => $response->comision3_16 ?? '0',
-                    'comision3_17' => $response->comision3_17 ?? '0',
-                    'comision3_18' => $response->comision3_18 ?? '0',
-                    'comision3_19' => $response->comision3_19 ?? '0',
-
-                    'response_data' => json_encode($response),
-                    'created_at' => $response->created_at,
-                    'updated_at' => $response->updated_at,
-                ]);
+                // Acumula los valores de las comisiones
+                $consolidatedData[$response->user_id]['comision1'] += $response->comision1 ?? 0;
+                $consolidatedData[$response->user_id]['actv2Comision'] += $response->actv2Comision ?? 0;
+                $consolidatedData[$response->user_id]['actv3Comision'] += $response->actv3Comision ?? 0;
+                $consolidatedData[$response->user_id]['comision3_2'] += $response->comision3_2 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_3'] += $response->comision3_3 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_4'] += $response->comision3_4 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_5'] += $response->comision3_5 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_6'] += $response->comision3_6 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_7'] += $response->comision3_7 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_8'] += $response->comision3_8 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_9'] += $response->comision3_9 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_10'] += $response->comision3_10 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_11'] += $response->comision3_11 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_12'] += $response->comision3_12 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_13'] += $response->comision3_13 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_14'] += $response->comision3_14 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_15'] += $response->comision3_15 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_16'] += $response->comision3_16 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_17'] += $response->comision3_17 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_18'] += $response->comision3_18 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_19'] += $response->comision3_19 ?? 0;
             }
         }
+
+        foreach ($consolidatedData as $data) {
+            DB::table('consolidated_responses')->updateOrInsert(
+                ['user_id' => $data['user_id']], // Condición para actualizar
+                $data // Datos para actualizar o insertar
+            );
+        }
     }
-
-
-
 }
-

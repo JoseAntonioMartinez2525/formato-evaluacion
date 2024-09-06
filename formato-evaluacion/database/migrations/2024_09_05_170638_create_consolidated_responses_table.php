@@ -23,7 +23,7 @@ class CreateConsolidatedResponsesTable extends Migration
             }
 
             // Campos genéricos para las respuestas
-            $table->json('response_data')->nullable(); // Almacena respuestas en formato JSON
+            //$table->json('response_data')->nullable(); // Almacena respuestas en formato JSON
 
             $table->timestamps();
         });
