@@ -19,371 +19,371 @@ $newLocale = str_replace('_', '-', $locale);
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-                                            @if (Auth::check())
-                                                <section role="region" aria-label="Response form">
-                                                    <form class="printButtonClass">
-                                                        @csrf
-                                                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link disabled" href="#">
-                                                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                                    </a>
-                                                                </li>
-                                                                <li style="list-style: none; margin-right: 20px;">
-                                                                    <a href="{{ route('login') }}">
-                                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </div>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                                                                    REGLAMENTO
-                                                                    PEDPD</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
-                                                                    llenado
-                                                                    por la
-                                                                    Comisión del PEDPD)</a>
-                                                            </li><br>
-                                                            <li id="jsonDataLink" class="d-none">
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
-                                                                    los
-                                                                    Usuarios</a>
-                                                            </li>
-                                                            <li id="reportLink" class="nav-item d-none">
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                                                    Reporte</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                @if(Auth::user()->user_type === 'dictaminador')
-                                                                    <a class="nav-link active" style="width: 200px;"
-                                                                        href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                                                @else
-                                                                    <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                                                        Formatos</a>
-                                                                @endif
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                                                            </li>
-                                                        </nav>
-                                                    </form>
-                                                </section>
-                                            @endif
+    @if (Auth::check())
+        <section role="region" aria-label="Response form">
+            <form class="printButtonClass">
+                @csrf
+                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">
+                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                            </a>
+                        </li>
+                        <li style="list-style: none; margin-right: 20px;">
+                            <a href="{{ route('login') }}">
+                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                            </a>
+                        </li>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                            REGLAMENTO
+                            PEDPD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
+                            llenado
+                            por la
+                            Comisión del PEDPD)</a>
+                    </li><br>
+                    <li id="jsonDataLink" class="d-none">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
+                            los
+                            Usuarios</a>
+                    </li>
+                    <li id="reportLink" class="nav-item d-none">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                            Reporte</a>
+                    </li>
+                    <li class="nav-item">
+                        @if(Auth::user()->user_type === 'dictaminador')
+                            <a class="nav-link active" style="width: 200px;"
+                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                        @else
+                            <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                Formatos</a>
+                        @endif
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
+                    </li>
+                </nav>
+            </form>
+        </section>
+    @endif
 
-                                    </div>
-                                    <x-general-header />
-                                        @php
+    </div>
+    <x-general-header />
+    @php
     $userType = Auth::user()->user_type;
-                                        @endphp
+    @endphp
 
-                                                <main class="container">
-                                                    <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
-                                                        @csrf
-                                                        <div>
-                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                                        <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                                                        <center>
-                                                        <h2 id="resumen">Resumen</h2>
-                                                        <h4>A ser llenado por la Comisión del PEDPD</h4></center>
-                                                        <table class="resumenTabla">
-                                                           <thead>
-                                                            <tr>
-                                                            <th id="actv">Actividad</th>
-                                                            <th id="pMaximo">Puntaje máximo</th>
-                                                            <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                                                           </tr>
-                                                        </thead> 
-                                                        <thead>
-                                                            <tr>
-                                                                <td><b>1. Permanencia en las actividades de la docencia</b></td>
-                                                                <td  class="p1"><b>100</b></td>
-                                                                <td>
-                                                                    <b><span id="actv1Repetido"></span></b>
-                                                                </td>
-                                                            </tr>
-                                                            @foreach($responses as $response)
-                                                                    <tr>
-                                                                        <td class="info">1.1 Años de experiencia docente en la institución</td>
-                                                                        <td class="p1">100</td>
-                                                                        <td class="tdResaltado">
-                                                                            <label class="p2" id="comision1" for="">{{ $response->comision1 }}</label>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><b>2. Dedicación en el desempeño docente</b></td>
-                                                                        <td class="p1"><b>200</b></td>
-                                                                        <td>
-                                                                            <b><span id="actv2Repetido"></span></b>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="info">2.1 Carga de trabajo docente frente a grupo</td>
-                                                                        <td class="p1">200</td>
-                                                                        <td class="tdResaltado">
-                                                                        <span class="p2" id="actv2Comision" for="">{{ $response->actv2Comision }}</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><b>3. Calidad en la docencia</b></td>
-                                                                        <td class="p1"><b>700</b></td>
-                                                                        <td>
-                                                                            <b id="actv3Total">
-                                                                            <!--min(7000, suma((suma de comision totales de actvs 3.1 a 3.8)+
-                                                                            (suma de comision totales de actvs 3.9 a 3.11)+
-                                                                            (suma de comision totales de actvs 3.12 a 3.16)+
-                                                                            (suma de comision totales de actvs 3.17 a 3.19)
-                                                                            ))--></b>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.1 Participación en actividades de diseño curricular</td>
-                                                                        <td class="p1">60</td>
-                                                                        <td class="tdResaltado"><span id="actv3Comision" class="p2" for="">{{ $response->actv3Comision }}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.2 Calidad del desempeño docente evaluada por los estudiantes</td>
-                                                                        <td class="p1">50</td>
-                                                                        <td class="tdResaltado"><span id="comision3_2" class="p2" for="">{{$response->comision3_2}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.3 Publicaciones relacionadas con la docencia</td>
-                                                                        <td class="p1">100</td>
-                                                                        <td class="tdResaltado"><span id="comision3_3" class="p2" for="">{{$response->comision3_3}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.4 Distinciones académicas recibidas por el docente</td>
-                                                                        <td class="p1">60</td>
-                                                                        <td class="tdResaltado"><span id="comision3_4" class="p2" for="">{{$response->comision3_4}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</td>
-                                                                        <td class="p1">75</td>
-                                                                        <td class="tdResaltado"><span id="comision3_5" class="p2" for="">{{$response->comision3_5}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.6 Capacitación y actualización pedagógica recibida</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado"><span id="comision3_6" class="p2" for="">{{$response->comision3_6}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado "><span id="comision3_7" class="p2" for="">{{$response->comision3_7}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
-                                                                        capacitación docente</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado "><span id="comision3_8" class="p2" for="">{{$response->comision3_8}}</span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><center><b>Subtotal</b></center></td>
-                                                                        <td></td>
-                                                                        <td><b><label id="comision3_1To3_8" for=""  class="p2"></label></b></td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="subtitle">Tutorias</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.9 Trabajos dirigidos para la titulación de estudiantes</td>
-                                                                        <td class="p1">200</td>
-                                                                        <td class="tdResaltado"><label id="comision3_9" class="p2"for="">{{$response->comision3_9}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.10 Tutorías a estudiantes</td>
-                                                                        <td class="p1">115</td>
-                                                                        <td class="tdResaltado"><label id="comision3_10" class= "p2" for="">{{$response->comision3_10}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.11 Asesoría a estudiantes</td>
-                                                                        <td class="p1">95</td>
-                                                                        <td class="tdResaltado"><label id="comision3_11" class= "p2" for="">{{$response->comision3_11}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <center><b>Subtotal</b></center>
-                                                                        </td>
-                                                                        <td></td>
-                                                                        <td><b><label id="comision3_9To3_11" for="" class="p2"></label></b></td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="subtitle">Investigación</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</td>
-                                                                        <td class="p1">150</td>
-                                                                        <td class="tdResaltado"><label id="comision3_12" class="p2" for="">{{$response->comision3_12}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.13 Proyectos académicos de investigación</td>
-                                                                        <td class="p1">130</td>
-                                                                        <td class="tdResaltado"><label id="comision3_13" class="p2" for="">{{$response->comision3_13}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado"><label id="comision3_14" class="p2" for="">{{$response->comision3_14}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.15 Registro de patentes y productos de investigación tecnológica y educativa</td>
-                                                                        <td class="p1">60</td>
-                                                                        <td class="tdResaltado"><label id="comision3_15" class="p2" for="">{{$response->comision3_15}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.16 Actividades de arbitraje, revisión, correción y edición</td>
-                                                                        <td class="p1">30</td>
-                                                                        <td class="tdResaltado"><label id="comision3_16" class="p2" for="">{{$response->comision3_16}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <center><b>Subtotal</b></center>
-                                                                        </td>
-                                                                        <td></td>
-                                                                        <td><b><label id="comision3_12To3_16" for="" class="p2"></label></b></td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="subtitle">Cuerpos Colegiados</th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.17 Proyectos académicos de extensión y difusión</td>
-                                                                        <td class="p1">50</td>
-                                                                        <td class="tdResaltado"><label id="comision3_17" class="p2" for="">{{$response->comision3_17}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado"><label id="comision3_18" class="p2" for="">{{$response->comision3_18}}</label></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3.19 Participación en cuerpos colegiados</td>
-                                                                        <td class="p1">40</td>
-                                                                        <td class="tdResaltado"><label id="comision3_19" class="p2" for="">{{$response->comision3_19}}</label></td>
-                                                                    </tr>
-                                                            @endforeach
-                                                            <tr>
-                                                                <td>
-                                                                    <center><b>Subtotal</b></center>
-                                                                </td>
-                                                                <td></td>
-                                                                <td><b><label id="comision3_17To3_19" for="" class="p2"></label></b></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <center><b>Total logrado en la evaluación</b></center>
-                                                                </td>
-                                                                <td></td>
-                                                                <td><label id="totalComision" for="" class="p2"></label></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                                <td>1. Permanencia en las actividades de la docencia</td>
-                                                                <td class="p1">100</td>
-                                                                <td class="tdResaltado"><label id="comision1Total" class="p2" for=""></label></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2. Dedicación en el desempeño docente</td>
-                                                                <td class="p1">200</td>
-                                                                <td class="tdResaltado"><label id="comision2Total" class="p2" for=""></label></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3. Calidad en la docencia</td>
-                                                                <td class="p1">700</td>
-                                                                <td class="tdResaltado"><label id="comision3Total" class="p2" for=""></label></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <center><b>Total de puntaje obtenido en la evaluación</b></center>
-                                                                </td>
-                                                                <td></td>
-                                                                <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
-                                                                <th>Mínima de Calidad</th>
-                                                                <th><b><span id="minimaCalidad"></span></b></th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>Mínima Total</th>
-                                                                <th><b><span id="minimaTotal"></span></b></th>
-                                                            </tr>
-                                                        </thead>
-                                                        </table>
-                                                        <center>
-                                                            <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                                                        </center>
-                                                        </div>
-                                                    </form>
-                                                    <br>
-                                                    <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
-                                                        @csrf
-                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                                        <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
-                                                                <th>
-                                                                    <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="p-2">Nombre de la persona evaluadora</td>
-                                                                <td class="p-2"><span id="firmaTexto">Firma</span> 
-                                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
-
-
-                                                            </tr>
-                                                            <tr>
-                                                                <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
-                                                                <th>
-                                                                    <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="p-2">Nombre de la persona evaluadora</td>
-                                                                <td class="p-2"><span id="firmaTexto2">Firma</span> 
-                                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+    <main class="container">
+        <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
+            @csrf
+            <div>
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+            <center>
+            <h2 id="resumen">Resumen</h2>
+            <h4>A ser llenado por la Comisión del PEDPD</h4></center>
+            <table class="resumenTabla">
+                <thead>
+                <tr>
+                <th id="actv">Actividad</th>
+                <th id="pMaximo">Puntaje máximo</th>
+                <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
+                </tr>
+            </thead> 
+            <thead>
+                <tr>
+                    <td><b>1. Permanencia en las actividades de la docencia</b></td>
+                    <td  class="p1"><b>100</b></td>
+                    <td>
+                        <b><span id="actv1Repetido"></span></b>
+                    </td>
+                </tr>
+                @foreach($responses as $response)
+                        <tr>
+                            <td class="info">1.1 Años de experiencia docente en la institución</td>
+                            <td class="p1">100</td>
+                            <td class="tdResaltado">
+                                <label class="p2" id="comision1" for="">{{ $response->comision1 }}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>2. Dedicación en el desempeño docente</b></td>
+                            <td class="p1"><b>200</b></td>
+                            <td>
+                                <b><span id="actv2Repetido"></span></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="info">2.1 Carga de trabajo docente frente a grupo</td>
+                            <td class="p1">200</td>
+                            <td class="tdResaltado">
+                            <span class="p2" id="actv2Comision" for="">{{ $response->actv2Comision }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>3. Calidad en la docencia</b></td>
+                            <td class="p1"><b>700</b></td>
+                            <td>
+                                <b id="actv3Total">
+                                <!--min(7000, suma((suma de comision totales de actvs 3.1 a 3.8)+
+                                (suma de comision totales de actvs 3.9 a 3.11)+
+                                (suma de comision totales de actvs 3.12 a 3.16)+
+                                (suma de comision totales de actvs 3.17 a 3.19)
+                                ))--></b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3.1 Participación en actividades de diseño curricular</td>
+                            <td class="p1">60</td>
+                            <td class="tdResaltado"><span id="actv3Comision" class="p2" for="">{{ $response->actv3Comision }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.2 Calidad del desempeño docente evaluada por los estudiantes</td>
+                            <td class="p1">50</td>
+                            <td class="tdResaltado"><span id="comision3_2" class="p2" for="">{{$response->comision3_2}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.3 Publicaciones relacionadas con la docencia</td>
+                            <td class="p1">100</td>
+                            <td class="tdResaltado"><span id="comision3_3" class="p2" for="">{{$response->comision3_3}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.4 Distinciones académicas recibidas por el docente</td>
+                            <td class="p1">60</td>
+                            <td class="tdResaltado"><span id="comision3_4" class="p2" for="">{{$response->comision3_4}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</td>
+                            <td class="p1">75</td>
+                            <td class="tdResaltado"><span id="comision3_5" class="p2" for="">{{$response->comision3_5}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.6 Capacitación y actualización pedagógica recibida</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado"><span id="comision3_6" class="p2" for="">{{$response->comision3_6}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado "><span id="comision3_7" class="p2" for="">{{$response->comision3_7}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
+                            capacitación docente</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado "><span id="comision3_8" class="p2" for="">{{$response->comision3_8}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><center><b>Subtotal</b></center></td>
+                            <td></td>
+                            <td><b><label id="comision3_1To3_8" for=""  class="p2"></label></b></td>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th class="subtitle">Tutorias</th>
+                        </tr>
+                        <tr>
+                            <td>3.9 Trabajos dirigidos para la titulación de estudiantes</td>
+                            <td class="p1">200</td>
+                            <td class="tdResaltado"><label id="comision3_9" class="p2"for="">{{$response->comision3_9}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.10 Tutorías a estudiantes</td>
+                            <td class="p1">115</td>
+                            <td class="tdResaltado"><label id="comision3_10" class= "p2" for="">{{$response->comision3_10}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.11 Asesoría a estudiantes</td>
+                            <td class="p1">95</td>
+                            <td class="tdResaltado"><label id="comision3_11" class= "p2" for="">{{$response->comision3_11}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <center><b>Subtotal</b></center>
+                            </td>
+                            <td></td>
+                            <td><b><label id="comision3_9To3_11" for="" class="p2"></label></b></td>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th class="subtitle">Investigación</th>
+                        </tr>
+                        <tr>
+                            <td>3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</td>
+                            <td class="p1">150</td>
+                            <td class="tdResaltado"><label id="comision3_12" class="p2" for="">{{$response->comision3_12}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.13 Proyectos académicos de investigación</td>
+                            <td class="p1">130</td>
+                            <td class="tdResaltado"><label id="comision3_13" class="p2" for="">{{$response->comision3_13}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado"><label id="comision3_14" class="p2" for="">{{$response->comision3_14}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.15 Registro de patentes y productos de investigación tecnológica y educativa</td>
+                            <td class="p1">60</td>
+                            <td class="tdResaltado"><label id="comision3_15" class="p2" for="">{{$response->comision3_15}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.16 Actividades de arbitraje, revisión, correción y edición</td>
+                            <td class="p1">30</td>
+                            <td class="tdResaltado"><label id="comision3_16" class="p2" for="">{{$response->comision3_16}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <center><b>Subtotal</b></center>
+                            </td>
+                            <td></td>
+                            <td><b><label id="comision3_12To3_16" for="" class="p2"></label></b></td>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th class="subtitle">Cuerpos Colegiados</th>
+                        </tr>
+                        <tr>
+                            <td>3.17 Proyectos académicos de extensión y difusión</td>
+                            <td class="p1">50</td>
+                            <td class="tdResaltado"><label id="comision3_17" class="p2" for="">{{$response->comision3_17}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado"><label id="comision3_18" class="p2" for="">{{$response->comision3_18}}</label></td>
+                        </tr>
+                        <tr>
+                            <td>3.19 Participación en cuerpos colegiados</td>
+                            <td class="p1">40</td>
+                            <td class="tdResaltado"><label id="comision3_19" class="p2" for="">{{$response->comision3_19}}</label></td>
+                        </tr>
+                @endforeach
+                <tr>
+                    <td>
+                        <center><b>Subtotal</b></center>
+                    </td>
+                    <td></td>
+                    <td><b><label id="comision3_17To3_19" for="" class="p2"></label></b></td>
+                </tr>
+                <tr>
+                    <td>
+                        <center><b>Total logrado en la evaluación</b></center>
+                    </td>
+                    <td></td>
+                    <td><label id="totalComision" for="" class="p2"></label></td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td>1. Permanencia en las actividades de la docencia</td>
+                    <td class="p1">100</td>
+                    <td class="tdResaltado"><label id="comision1Total" class="p2" for=""></label></td>
+                </tr>
+                <tr>
+                    <td>2. Dedicación en el desempeño docente</td>
+                    <td class="p1">200</td>
+                    <td class="tdResaltado"><label id="comision2Total" class="p2" for=""></label></td>
+                </tr>
+                <tr>
+                    <td>3. Calidad en la docencia</td>
+                    <td class="p1">700</td>
+                    <td class="tdResaltado"><label id="comision3Total" class="p2" for=""></label></td>
+                </tr>
+                <tr>
+                    <td>
+                        <center><b>Total de puntaje obtenido en la evaluación</b></center>
+                    </td>
+                    <td></td>
+                    <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
+                    <th>Mínima de Calidad</th>
+                    <th><b><span id="minimaCalidad"></span></b></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Mínima Total</th>
+                    <th><b><span id="minimaTotal"></span></b></th>
+                </tr>
+            </thead>
+            </table>
+            <center>
+                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+            </center>
+            </div>
+        </form>
+        <br>
+        <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+            <table>
+            <thead>
+                <tr>
+                    <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
+                    <th>
+                        <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
+                    </th>
+                </tr>
+                <tr>
+                    <td class="p-2">Nombre de la persona evaluadora</td>
+                    <td class="p-2"><span id="firmaTexto">Firma</span> 
+                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
 
 
-                                                            </tr>
-                                                            <tr>
-                                                                <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
-                                                                <th>
-                                                                    <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
-                                                                </th>
+                </tr>
+                <tr>
+                    <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
+                    <th>
+                        <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
+                    </th>
+                </tr>
+                <tr>
+                    <td class="p-2">Nombre de la persona evaluadora</td>
+                    <td class="p-2"><span id="firmaTexto2">Firma</span> 
+                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
 
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
-                                                                <td class="p-2"><span id="firmaTexto3">Firma</span>
-                                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+
+                </tr>
+                <tr>
+                    <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
+                    <th>
+                        <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
+                    </th>
+
+                </tr>
+                <tr>
+                    <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
+                    <td class="p-2"><span id="firmaTexto3">Firma</span>
+                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
 
 
-                                                            </tr>
+                </tr>
 
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                             <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
-                                                            </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
+                </tr>
 
-                                                        </thead>
-                                                        </table>
-                                                    </form>
+            </thead>
+            </table>
+        </form>
 
 
         @endif
@@ -636,48 +636,6 @@ $newLocale = str_replace('_', '-', $locale);
             }
 
 
-    const rangesCalidad = [
-        { min: 210, max: 264, label: 'I' },
-        { min: 265, max: 319, label: 'II' },
-        { min: 320, max: 374, label: 'III' },
-        { min: 375, max: 429, label: 'IV' },
-        { min: 430, max: 484, label: 'V' },
-        { min: 485, max: 539, label: 'VI' },
-        { min: 540, max: 594, label: 'VII' },
-        { min: 595, max: 649, label: 'VIII' },
-        { min: 650, max: 700, label: 'IX' },
-    ];
-
-    function findLabel(value, ranges) {
-        for (let range of ranges) {
-            if (value >= range.min && value <= range.max) {
-                return range.label;
-            }
-        }
-        return 'FALSE'; // En caso de que no esté en ningún rango
-    }
-
-    function condicionales() {
-            let actv3Total = parseFloat(document.getElementById('actv3Total').textContent);
-            let totalComision = parseFloat(document.getElementById('totalComision').textContent);
-
-            // Usamos findLabel para buscar el valor
-            let minimaCalidad = findLabel(actv3Total, rangesCalidad);
-            let minimaTotal = findLabel(totalComision, [
-                { min: 301, max: 377, label: 'I' },
-                { min: 378, max: 455, label: 'II' },
-                { min: 456, max: 533, label: 'III' },
-                { min: 534, max: 611, label: 'IV' },
-                { min: 612, max: 689, label: 'V' },
-                { min: 690, max: 767, label: 'VI' },
-                { min: 768, max: 845, label: 'VII' },
-                { min: 846, max: 923, label: 'VIII' },
-                { min: 924, max: 1000, label: 'IX' },
-            ]);
-
-            document.getElementById('minimaCalidad').innerText = minimaCalidad;
-            document.getElementById('minimaTotal').innerText = minimaTotal;
-        }
 
     document.addEventListener('DOMContentLoaded', function () {
         const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
