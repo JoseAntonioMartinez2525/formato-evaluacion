@@ -26,7 +26,7 @@ use App\Models\DictaminatorsResponseForm2;
 use App\Models\DictaminatorsResponseForm2_2;
 use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\DictaminatorsResponseForm3_2;
-
+use Illuminate\Support\Facades\DB;
 class FormsController extends Controller
 {
     
@@ -102,6 +102,9 @@ public function getDictaminadorData(Request $request)
 
 
         ]);
+
+        
     }
+
 
 }

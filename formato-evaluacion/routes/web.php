@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsolidatedResponseController;
 use App\Http\Controllers\DictaminatorForm2_2Controller;
 use App\Http\Controllers\DictaminatorForm2_Controller;
 use App\Http\Controllers\DictaminatorForm3_10Controller;
@@ -102,11 +103,14 @@ Route::get('form3_19', function () {return view('form3_19'); })->name('form3_19'
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
 
+
 Route::get('/show-all-users', [ProfileController::class, 'showAllUsers'])->name('show-all-users');
 Route::get('/get-docentes', [DictaminatorController::class, 'getDocentes'])->name('getDocentes');
 Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'])->name('getDocenteData');
 //Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
 Route::get('/get-dictaminadores', [FormsController::class, 'getdictaminadores'])->name('getdictaminadores');
+Route::get('/resumen', [ConsolidatedResponseController::class, 'showResumen'])->name('resumen');
+
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
 
 
