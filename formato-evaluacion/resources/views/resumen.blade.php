@@ -19,371 +19,78 @@ $newLocale = str_replace('_', '-', $locale);
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-                    @if (Auth::check())
-                        <section role="region" aria-label="Response form">
-                            <form class="printButtonClass">
-                                @csrf
-                                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                        <li class="nav-item">
-                                            <a class="nav-link disabled" href="#">
-                                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                            </a>
-                                        </li>
-                                        <li style="list-style: none; margin-right: 20px;">
-                                            <a href="{{ route('login') }}">
-                                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                            </a>
-                                        </li>
-                                    </div>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                                            REGLAMENTO
-                                            PEDPD</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
-                                            llenado
-                                            por la
-                                            Comisión del PEDPD)</a>
-                                    </li><br>
-                                    <li id="jsonDataLink" class="d-none">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
-                                            los
-                                            Usuarios</a>
-                                    </li>
-                                    <li id="reportLink" class="nav-item d-none">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                            Reporte</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        @if(Auth::user()->user_type === 'dictaminador')
-                                            <a class="nav-link active" style="width: 200px;"
-                                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                        @else
-                                            <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                                Formatos</a>
-                                        @endif
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                                    </li>
-                                </nav>
-                            </form>
-                        </section>
-                    @endif
+                            @if (Auth::check())
+                                <section role="region" aria-label="Response form">
+                                    <form class="printButtonClass">
+                                        @csrf
+                                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                                <li class="nav-item">
+                                                    <a class="nav-link disabled" href="#">
+                                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                                    </a>
+                                                </li>
+                                                <li style="list-style: none; margin-right: 20px;">
+                                                    <a href="{{ route('login') }}">
+                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                    </a>
+                                                </li>
+                                            </div>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                                    REGLAMENTO
+                                                    PEDPD</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
+                                                    llenado
+                                                    por la
+                                                    Comisión del PEDPD)</a>
+                                            </li><br>
+                                            <li id="jsonDataLink" class="d-none">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
+                                                    los
+                                                    Usuarios</a>
+                                            </li>
+                                            <li id="reportLink" class="nav-item d-none">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                                    Reporte</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                @if(Auth::user()->user_type === 'dictaminador')
+                                                    <a class="nav-link active" style="width: 200px;"
+                                                        href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                                @else
+                                                    <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                                        Formatos</a>
+                                                @endif
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
+                                            </li>
+                                        </nav>
+                                    </form>
+                                </section>
+                            @endif
 
-                    </div>
-                    <x-general-header />
-                    @php
-            $userType = Auth::user()->user_type;
-            $count = count($responses);
-                    @endphp
-
-                    <main class="container">
-                        <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
-                            @csrf
-                            <div>
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                            <center>
-                            <h2 id="resumen">Resumen</h2>
-                            <h4>A ser llenado por la Comisión del PEDPD</h4></center>
-                            <table class="resumenTabla">
-                            <thead>
-                                @foreach($responses as $response)
-                                    <tr>
-                                    <th id="actv">Actividad</th>
-                                    <th id="pMaximo">Puntaje máximo</th>
-                                    <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                                    </tr>
-                                    <tr>
-                                        <td><b>1. Permanencia en las actividades de la docencia</b></td>
-                                        <td  class="p1"><b>100</b></td>
-                                        <td>
-                                            <b><span id="actv1Repetido">{{ $response->comision1 }}</span></b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <td class="info">1.1 Años de experiencia docente en la institución</td>
-                                    <td class="p1">100</td>
-                                    <td class="tdResaltado">
-                                        <label class="p2" id="comision1" for="">{{ $response->comision1 }}</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>2. Dedicación en el desempeño docente</b></td>
-                                    <td class="p1"><b>200</b></td>
-                                    <td>
-                                        <b><span id="actv2Repetido">{{ $response->actv2Comision }}</span></b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="info">2.1 Carga de trabajo docente frente a grupo</td>
-                                    <td class="p1">200</td>
-                                    <td class="tdResaltado">
-                                    <span class="p2" id="actv2Comision" for="">{{ $response->actv2Comision }}</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>3. Calidad en la docencia</b></td>
-                                    <td class="p1"><b>700</b></td>
-                                    <td>
-                                        <b id="actv3Total">
-                                        <!--min(7000, suma((suma de comision totales de actvs 3.1 a 3.8)+
-                                        (suma de comision totales de actvs 3.9 a 3.11)+
-                                        (suma de comision totales de actvs 3.12 a 3.16)+
-                                        (suma de comision totales de actvs 3.17 a 3.19)
-                                        ))--></b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.1 Participación en actividades de diseño curricular</td>
-                                    <td class="p1">60</td>
-                                    <td class="tdResaltado"><span id="actv3Comision" class="p2" for="">{{ $response->actv3Comision }}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2 Calidad del desempeño docente evaluada por los estudiantes</td>
-                                    <td class="p1">50</td>
-                                    <td class="tdResaltado"><span id="comision3_2" class="p2" for="">{{$response->comision3_2}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.3 Publicaciones relacionadas con la docencia</td>
-                                    <td class="p1">100</td>
-                                    <td class="tdResaltado"><span id="comision3_3" class="p2" for="">{{$response->comision3_3}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.4 Distinciones académicas recibidas por el docente</td>
-                                    <td class="p1">60</td>
-                                    <td class="tdResaltado"><span id="comision3_4" class="p2" for="">{{$response->comision3_4}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</td>
-                                    <td class="p1">75</td>
-                                    <td class="tdResaltado"><span id="comision3_5" class="p2" for="">{{$response->comision3_5}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.6 Capacitación y actualización pedagógica recibida</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado"><span id="comision3_6" class="p2" for="">{{$response->comision3_6}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado "><span id="comision3_7" class="p2" for="">{{$response->comision3_7}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
-                                    capacitación docente</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado "><span id="comision3_8" class="p2" for="">{{$response->comision3_8}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td><center><b>Subtotal</b></center></td>
-                                    <td></td>
-                                    <td><b><label id="comision3_1To3_8" for=""  class="p2"></label></b></td>
-                                </tr>
-
-
-                                <tr>
-                                    <th class="subtitle">Tutorias</th>
-                                </tr>
-                                <tr>
-                                    <td>3.9 Trabajos dirigidos para la titulación de estudiantes</td>
-                                    <td class="p1">200</td>
-                                    <td class="tdResaltado"><label id="comision3_9" class="p2"for="">{{$response->comision3_9}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.10 Tutorías a estudiantes</td>
-                                    <td class="p1">115</td>
-                                    <td class="tdResaltado"><label id="comision3_10" class= "p2" for="">{{$response->comision3_10}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.11 Asesoría a estudiantes</td>
-                                    <td class="p1">95</td>
-                                    <td class="tdResaltado"><label id="comision3_11" class= "p2" for="">{{$response->comision3_11}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <center><b>Subtotal</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><b><label id="comision3_9To3_11" for="" class="p2"></label></b></td>
-                                </tr>
-
-
-                                <tr>
-                                    <th class="subtitle">Investigación</th>
-                                </tr>
-                                <tr>
-                                    <td>3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</td>
-                                    <td class="p1">150</td>
-                                    <td class="tdResaltado"><label id="comision3_12" class="p2" for="">{{$response->comision3_12}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.13 Proyectos académicos de investigación</td>
-                                    <td class="p1">130</td>
-                                    <td class="tdResaltado"><label id="comision3_13" class="p2" for="">{{$response->comision3_13}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado"><label id="comision3_14" class="p2" for="">{{$response->comision3_14}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.15 Registro de patentes y productos de investigación tecnológica y educativa</td>
-                                    <td class="p1">60</td>
-                                    <td class="tdResaltado"><label id="comision3_15" class="p2" for="">{{$response->comision3_15}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.16 Actividades de arbitraje, revisión, correción y edición</td>
-                                    <td class="p1">30</td>
-                                    <td class="tdResaltado"><label id="comision3_16" class="p2" for="">{{$response->comision3_16}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <center><b>Subtotal</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><b><label id="comision3_12To3_16" for="" class="p2"></label></b></td>
-                                </tr>
-                                <tr>
-                                    <th class="subtitle">Cuerpos Colegiados</th>
-                                </tr>
-                                <tr>
-                                    <td>3.17 Proyectos académicos de extensión y difusión</td>
-                                    <td class="p1">50</td>
-                                    <td class="tdResaltado"><label id="comision3_17" class="p2" for="">{{$response->comision3_17}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado"><label id="comision3_18" class="p2" for="">{{$response->comision3_18}}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3.19 Participación en cuerpos colegiados</td>
-                                    <td class="p1">40</td>
-                                    <td class="tdResaltado"><label id="comision3_19" class="p2" for="">{{$response->comision3_19}}</label></td>
-                                </tr>
-                                @if($response === $count - 2)
-                                @endif
-                                @endforeach
-                                </thead>
-                                <tr>
-                                    <td>
-                                        <center><b>Subtotal</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><b><label id="comision3_17To3_19" for="" class="p2"></label></b></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <center><b>Total logrado en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><label id="totalComision" for="" class="p2"></label></td>
-                                </tr>
-
-                            <thead>
-                                <tr>
-                                    <td>1. Permanencia en las actividades de la docencia</td>
-                                    <td class="p1">100</td>
-                                    <td class="tdResaltado"><label id="comision1Total" class="p2" for=""></label></td>
-                                </tr>
-                                <tr>
-                                    <td>2. Dedicación en el desempeño docente</td>
-                                    <td class="p1">200</td>
-                                    <td class="tdResaltado"><label id="comision2Total" class="p2" for=""></label></td>
-                                </tr>
-                                <tr>
-                                    <td>3. Calidad en la docencia</td>
-                                    <td class="p1">700</td>
-                                    <td class="tdResaltado"><label id="comision3Total" class="p2" for=""></label></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <center><b>Total de puntaje obtenido en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
-                                </tr>
-                            </thead>
-                            <thead>
-                                <tr>
-                                    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
-                                    <th>Mínima de Calidad</th>
-                                    <th><b><span id="minimaCalidad"></span></b></th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Mínima Total</th>
-                                    <th><b><span id="minimaTotal"></span></b></th>
-                                </tr>
-                            </thead>
-                            </table>
-                            <center>
-                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                            </center>
                             </div>
-                        </form>
-                        <br>
-                        <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <table>
-                            <thead>
-                                <tr>
-                                    <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
-                                    <th>
-                                        <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Nombre de la persona evaluadora</td>
-                                    <td class="p-2"><span id="firmaTexto">Firma</span> 
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+                            <x-general-header />
+                            @php
+    $userType = Auth::user()->user_type;
+                            @endphp
+                    <div class="container mt-4">
+                        <!-- Selector para elegir el formulario -->
+                        <label for="formSelect">Seleccionar Formulario:</label>
+                        <select id="formSelect" class="form-select">
+                            <option value=""></option>
+                            <option value="form4">Resumen general de las comisiones</option>
+                            <option value="form5">Resumen de la PEDPD(solo firmas)</option>
 
 
-                                </tr>
-                                <tr>
-                                    <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
-                                    <th>
-                                        <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">Nombre de la persona evaluadora</td>
-                                    <td class="p-2"><span id="firmaTexto2">Firma</span> 
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+                        </select>
+                    </div>
 
 
-                                </tr>
-                                <tr>
-                                    <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
-                                    <th>
-                                        <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
-                                    </th>
-
-                                </tr>
-                                <tr>
-                                    <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
-                                    <td class="p-2"><span id="firmaTexto3">Firma</span>
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
-
-
-                                </tr>
-
-                            </thead>
-                            <thead>
-                                <tr>
-                                    <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
-                                </tr>
-
-                            </thead>
-                            </table>
-                        </form>
         @endif
         </div>
         </main>
@@ -404,6 +111,12 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 
     <script>
+       function handleClick(event) {
+            var currentTarget = event.currentTarget;
+            // Use the event data here. 
+            console.log('Button clicked: ' + currentTarget.getAttribute('data-id'));
+        } document.addEventListener('DOMContentLoaded', onload);
+    
 
 
         function hayObservacion(indiceActividad) {
@@ -432,7 +145,6 @@ $newLocale = str_replace('_', '-', $locale);
             // Check if scrolling to the right
             if (currentScrollLeft > lastScrollLeft) {
                 // Scrolling to the right, hide the navigation
-                nav.style.transition = 'display 0.5s ease'; 
                 nav.style.display = 'none';
             } else {
                 // Scrolling to the left or not horizontally, show the navigation
@@ -450,268 +162,229 @@ $newLocale = str_replace('_', '-', $locale);
             return obs.trim() !== '';
         }
 
-       
-    document.addEventListener('DOMContentLoaded', function () {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        async function submitForm(url, formId) {
-            // Get form data
-            let form = document.getElementById(formId);
-            let formData = new FormData(form);
-            formData.append('formId', formId);
-
-            // Recoge los datos dependiendo del formulario actual
-            if (formId == 'form4') {
-                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
-                formData.set('email', form.querySelector('input[name="email"]').value);
-
-                // Obtener valores de los labels y spans
-                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
-                formData.set('comision_actividad_2_total', document.getElementById('comision2Total').innerText);
-                formData.set('comision_actividad_3_total', document.getElementById('comision3Total').innerText);
-                formData.set('total_puntaje', document.getElementById('totalComisionRepetido').innerText);
-                formData.set('minima_calidad', document.getElementById('minimaCalidad').innerText);
-                formData.set('minima_total', document.getElementById('minimaTotal').innerText);
-
-
-                // Log form data to check values
-                console.log('Form data: ', formData);
-            }else if (formId === 'form5') {
-                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
-                formData.set('email', form.querySelector('input[name="email"]').value);
-                
-                // evaluator names
-                let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;
-                let evaluatorName2 = form.querySelector('#personaEvaluadora2').value;
-                let evaluatorName3 = form.querySelector('#personaEvaluadora3').value;
-
-                formData.set('evaluator_name_1', evaluatorName1);
-                formData.set('evaluator_name_2', evaluatorName2);
-                formData.set('evaluator_name_3', evaluatorName3);
-
-                // Add files to formData
-                let firma1 = form.querySelector('#firma1');
-                if (firma1.files.length > 0) {
-                    formData.append('firma1', firma1.files[0]);
-                }
-
-                let firma2 = form.querySelector('#firma2');
-                if (firma2.files.length > 0) {
-                    formData.append('firma2', firma2.files[0]);
-                }
-
-                let firma3 = form.querySelector('#firma3');
-                if (firma3.files.length > 0) {
-                    formData.append('firma3', firma3.files[0]);
-                }
-            }
-            try {
-                let response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const contentType = response.headers.get('Content-Type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Invalid JSON response');
-                }
-
-                let data = await response.json();
-                console.log('Response received from server:', data);
-
-                if (formId === 'form5') {
-                document.getElementById('reportLink').classList.remove('d-none');
-                }
-
-                if (data.signature_url) {
-                    const img = document.createElement('img');
-                    img.src = data.signature_url;
-                    img.alt = 'Signature';
-                    img.style.maxWidth = '400px'; 
-                    img.style.maxHeight = '400px'; 
-                    img.style.marginLeft = '1000px'; 
-                    img.style.marginTop = '-150px'; 
-                    document.body.appendChild(img);
-                }
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-
-        window.submitForm = submitForm;
-    });
-
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const userId = {{ auth()->user()->id }};
-
-        async function fetchData(url, params = {}) {
-            const queryString = new URLSearchParams(params).toString();
-            const fullUrl = `${url}?${queryString}`;
-
-            try {
-                let response = await fetch(fullUrl, {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    }
-                });
-
-
-                let data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error.message);
-                alert(error.message);
-            }
-        }
-
-        async function loadAllData() {
-            let data = await fetchData('/get-form-data', { dictaminador_id: userId });
-
-            if (data && data.dictaminador.dictaminador_id) {
-                // Asignar los valores de las comisiones automáticamente
-                if (data.form_data) {
-                    Object.keys(data.form_data).forEach(formKey => {
-                        const form = data.form_data[formKey];
-                        const comisionField = formKey.replace('DictaminatorsResponse', '').toLowerCase() + 'Comision';
-                        if (form && document.getElementById(comisionField)) {
-                            document.getElementById(comisionField).textContent = form.comision || '0';
-                        }
-                    });
-
-                    // Calcular el puntaje total
-                    calculateTotalScore();
-                }
-            } else {
-                console.error('Error: Dictaminador not found or user type is invalid.');
-            }
-        }
-
-
-        function calculateTotalScore() {
-            let comisionTotal = 0;
-            for (let i = 2; i <= 19; i++) {
-                let comision = parseFloat(document.getElementById(`comision3_${i}`).textContent) || 0;
-                comisionTotal += comision;
-            }
-
-            document.getElementById('comision3Total').innerText = comisionTotal;
-            total();
-            document.getElementById('totalComisionRepetido').innerText = total();
-            document.getElementById('totalComision').innerText = total();
-            condicionales();
-        }
-
-        loadAllData();
-    });
-
-
-            function min700(...values){
-                const total = values.reduce((acc, val) => acc + val, 0);
-                return Math.min(total, 700);
-            }
-
-            function total() {
-                const comision1 = parseFloat(document.getElementById('comision1Total').textContent) || 0;
-                const comision2 = parseFloat(document.getElementById('comision2Total').textContent) || 0;
-                const comision3 = parseFloat(document.getElementById('comision3Total').textContent) || 0;
-
-                let suma = comision1 + comision2 + comision3;
-                return Math.min(suma, 700);
-            }
-
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
-
-        const allowedEmails = [
-            'joma_18@alu.uabcs.mx',
-            'oa.campillo@uabcs.mx',
-            'rluna@uabcs.mx',
-            'v.andrade@uabcs.mx'
-        ];
-
-        // Verifica si el email está en la lista de correos permitidos
-        if (allowedEmails.includes(userEmail)) {
-            // Muestra el enlace
-            document.getElementById('reportLink').classList.remove('d-none');
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', async () => {
-           
-
-            // Current user type from the backend
-            const userType = @json($userType);  // Get user type from backend
-
-            // Fetch dictaminador options if user type is null or empty
-            if (userType != 'docente') {
-                try {
-                    const response = await fetch('/get-dictaminadores');
-                    const dictaminadores = await response.json();
-
-                        const dictaminadorId = event.target.value;
-
-
-                        if (dictaminadorId) {
-                            try {
-                                const response = await axios.get('/get-dictaminador-data', {
-                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                                });
-                                const data = response.data;
-
-                                document.getElementById('comision1').textContent = data.form2.comision1 || '0';
-                                document.getElementById('actv2Comision').textContent = data.form2_2.actv2Comision || '0';
-                                document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
-                           
-                                // Populate fields with fetched data
-                                for (let i = 2; i <= 19; i++) {
-                                    const elementId = 'comision3_' + i;
-                                    const formId = 'form3_' + i;
-
-                                    const scoreValue = data[formId]['comision3_' + i] || '0';
-
-                                    document.getElementById(elementId).textContent = scoreValue;
-                                }
-
-                                    console.error('No form data found for the selected dictaminador.');
-
-                                    // Reset input values if no data found
-                                    document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                    document.querySelector('input[name="user_id"]').value = '0';
-                                    document.querySelector('input[name="email"]').value = '';
-                                    document.querySelector('input[name="user_type"]').value = '';
-
-
-                            } catch (error) {
-                                console.error('Error fetching dictaminador data:', error);
-                            }
-                        }
-                   
-                } catch (error) {
-                    console.error('Error fetching dictaminadores:', error);
-                    
-                }
-            }
-        });
-
         function minWithSum(value1, value2) {
             const sum = value1 + value2;
             return Math.min(sum, 200);
 
 
         }
+
+        function min40(...values) {
+            const sum40 = values.reduce((acc, val) => acc + val, 0);
+            return Math.min(sum40, 40);
+        }
+
+        function min30(...values) {
+            const sum30 = values.reduce((acc, val) => acc + val, 0);
+            return Math.min(sum30, 30);
+        }
+
+        function subtotal(value1, value2) {
+            const st = value1 * value2;
+            return st;
+        }
+
+        function min60(...values) {
+            const sum60 = values.reduce((acc, val) => acc + val, 0);
+            return Math.min(sum60, 60);
+        }
+
+        function minWithSumThree(value1, value2, value3, value4) {
+            const ms = value1 + value2 + value3 + value4;
+            return Math.min(ms, 100);
+        }
+
+        function min50(...values) {
+            const ms = values.reduce((acc, val) => acc + val, 0);
+            return Math.min(ms, 50);
+        }
+
+        function minWithSumThreeFive(value1, value2) {
+            const ms = value1 + value2;
+            return Math.min(ms, 75);
+        }
+
+        function minTutorias() {
+            // convert the arguments object to an array
+            const values = Array.from(arguments);
+
+            // use reduce to sum the values
+            const ms = values.reduce((acc, current) => {
+                return acc + current;
+            }, 0);
+
+            // return the minimum of ms and 200
+            return Math.min(ms, 200);
+        }
+
+        function min700(...values) {
+            const ms = values.reduce((acc, val) => acc + val, 0);
+            return Math.min(ms, 700);
+        }
+
+        // Función para actualizar el objeto data con los valores de los campos del formulario
+        function actualizarData() {
+            data[this.id] = this.value;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            async function submitForm(url, formId) {
+                // Get form data
+                let formData = {};
+                let gridOptions = {};
+                let form = document.getElementById(formId);
+                // Ensure the form element exists
+                if (!form) {
+                    console.error(`Form with id "${formId}" not found.`);
+                    return;
+                }
+
+                //Recoge los datos dependiendo del formulario actual
+                switch (formId) {
+                    case 'form4':
+                        formData['convocatoria'] = form.querySelector('input[name="convocatoria"]').value;
+                        formData['periodo'] = form.querySelector('input[name="periodo"]').value;
+                        formData['nombre'] = form.querySelector('input[name="nombre"]').value;
+                        formData['area'] = form.querySelector('select[name="area"]').selectedOptions[0].textContent;
+                        formData['departamento'] = form.querySelector('select[name="departamento"]').selectedOptions[0].textContent;
+                        break;
+
+                    case 'form5':
+                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                        formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
+                        formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
+                        //formData['comision1'] = form.querySelector('input[name="comision1"]').value;
+                        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
+                        break;
+
+                }
+                console.log('Form data:', formData);
+
+
+                try {
+                    let response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    let responseText = await response.text(); // Obtener el texto de la respuesta
+                    console.log('Raw response from server:', responseText);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    let data = JSON.parse(responseText);
+                    console.log('Response received from server:', data);
+                } catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
+                }
+            }
+
+            window.submitForm = submitForm;
+        });
+
+
+        // Función para actualizar el label en el footer con la convocatoria y periodo de evaluación
+        function actualizarLabelConvocatoriaPeriodo(convocatoria, periodo) {
+            const label = document.getElementById('convocatoriaPeriodoLabel');
+            label.textContent = `Convocatoria: ${convocatoria}, Período: ${periodo}`;
+        }
+
+        // Captura la convocatoria y periodo de evaluación al enviar el formulario form1
+        document.addEventListener('DOMContentLoaded', function () {
+            const form1 = document.getElementById('form1');
+            form1.addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita el envío del formulario para manejarlo con JavaScript
+
+                // Captura los valores del formulario form1
+                const convocatoria = document.getElementById('convocatoria').value;
+                const periodo = document.getElementById('periodo').value;
+
+                // Actualiza el label en el footer con los valores capturados
+                actualizarLabelConvocatoriaPeriodo(convocatoria, periodo);
+                console.log(label);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the canvas element
+            var canvas = document.getElementById('convocatoriaCanvas');
+            var context = canvas.getContext('2d');
+
+            // Function to update the canvas with 'Convocatoria' value
+            function updateCanvas(text) {
+                // Clear the canvas
+                context.clearRect(200, 100, canvas.width, canvas.height);
+
+                // Set text properties
+                context.font = '20px Arial';
+                context.fillStyle = 'black';
+                context.textAlign = 'right';
+                context.textBaseline = 'middle';
+
+                // Draw the text
+                context.fillText(text, canvas.width / 2, canvas.height / 2);
+            }
+
+            // Get the input element with id 'convocatoria'
+            var convocatoriaInput = document.getElementById('convocatoria');
+            if (convocatoriaInput) {
+                // Update the canvas initially with the placeholder value or empty
+                updateCanvas(convocatoriaInput.placeholder);
+
+                // Listen for input events to dynamically update the canvas
+                convocatoriaInput.addEventListener('input', function () {
+                    var newValue = convocatoriaInput.value;
+                    updateCanvas(newValue);
+                });
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
+
+            const allowedEmails = [
+                'joma_18@alu.uabcs.mx',
+                'oa.campillo@uabcs.mx',
+                'rluna@uabcs.mx',
+                'v.andrade@uabcs.mx'
+            ];
+
+            // Verifica si el email está en la lista de correos permitidos
+            if (allowedEmails.includes(userEmail)) {
+                // Muestra el enlace
+                document.getElementById('jsonDataLink').classList.remove('d-none');
+            }
+        });
+        document.getElementById('formSelect').addEventListener('change', (event) => {
+            const selectedForm = event.target.value;
+            const formContainer = document.getElementById('formContainer');
+
+            if (selectedForm) {
+                window.location.href = `/${selectedForm}`;
+                axios.get(`/get-form-content/${selectedForm}`)
+                    .then(response => {
+                        formContainer.innerHTML = response.data;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching form content:', error);
+                        formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
+                    });
+            } else {
+
+                formContainer.innerHTML = '';
+            }
+        });
+</script>
+
+        
 
     </script>
 

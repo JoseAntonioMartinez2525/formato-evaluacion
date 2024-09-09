@@ -11,10 +11,42 @@ class ConsolidatedResponseController extends Controller
     {
         // Recuperar los datos de comisiones
         $consolidatedResponses = DB::table('consolidated_responses')->get();
+        // Calcular subtotales para las secciones 3.1 a 3.8
+        $subtotal3_1To3_8 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry + $response->comision3_1 + $response->comision3_2 + $response->comision3_3 + $response->comision3_4 + $response->comision3_5 + $response->comision3_6 + $response->comision3_7 + $response->comision3_8;
+        }, 0);
+
+        $subtotal3_9To3_11 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry + $response->comision3_9 + $response->comision3_10 + $response->comision3_11;
+        }, 0);
+
+        $subtotal3_12To3_16 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry + $response->comision3_12 + $response->comision3_13 + $response->comision3_14 + $response->comision3_15 + $response->comision3_16;
+        }, 0);
+
+
+        $subtotal3_17To3_19 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry + $response->comision3_17 + $response->comision3_18 + $response->comision3_19;
+        }, 0);
+
+
 
 
         // Estructurar los datos en secciones
         $sections = [
+
+            '1.' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '1. Permanencia en las actividades de la docencia',
+                            'value' => 100,
+                            'comision' => $response->comision1,
+                        ],
+                        // Añadir más datos de la sección "Experiencia"
+                    ],
+                ];
+            }),
             '1.1' => $consolidatedResponses->map(function ($response) {
                 return [
                     'data' => [
@@ -27,6 +59,18 @@ class ConsolidatedResponseController extends Controller
                     ],
                 ];
             }),
+            '2.' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '2. Dedicación en el desempeño docente<',
+                            'value' => 200,
+                            'comision' => $response->actv2Comision,
+                        ],
+
+                    ],
+                ];
+            }),           
 
             '2.1' => $consolidatedResponses->map(function ($response) {
                 return [
@@ -136,12 +180,173 @@ class ConsolidatedResponseController extends Controller
                 ];
             }),
 
+            [
+                'label' => 'Subtotal 3.1 a 3.8',
+                'value' => '',
+                'comision' => $subtotal3_1To3_8,
+                'is_subtotal' => true,
+            ],
 
-            // Añadir más secciones según sea necesario
+            '3.9' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.9 Trabajos dirigidos para la titulación de estudiantes',
+                            'value' => 200,
+                            'comision' => $response->comision3_9,
+                        ],
+                    ],
+                ];
+            }),
+
+
+            '3.10' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.10 Tutorías a estudiantes',
+                            'value' => 115,
+                            'comision' => $response->comision3_10,
+                        ],
+                    ],
+                ];
+            }),
+
+
+            '3.11' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.11 Asesoría a estudiantes',
+                            'value' => 95,
+                            'comision' => $response->comision3_11,
+                        ],
+                    ],
+                ];
+            }),
+
+            [
+                'label' => 'Subtotal 3.9 a 3.11',
+                'value' => '',
+                'comision' => $subtotal3_9To3_11,
+                'is_subtotal' => true,
+            ],
+
+            '3.12' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente',
+                            'value' => 150,
+                            'comision' => $response->comision3_12,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.13' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.13 Proyectos académicos de investigación',
+                            'value' => 130,
+                            'comision' => $response->comision3_13,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.14' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente',
+                            'value' => 40,
+                            'comision' => $response->comision3_14,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.15' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.15 Registro de patentes y productos de investigación tecnológica y educativa',
+                            'value' => 60,
+                            'comision' => $response->comision3_15,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.16' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.16 Actividades de arbitraje, revisión, corrección y edición',
+                            'value' => 30,
+                            'comision' => $response->comision3_16,
+                        ],
+                    ],
+                ];
+            }),
+
+            [
+                'label' => 'Subtotal 3.12 a 3.16',
+                'value' => '',
+                'comision' => $subtotal3_12To3_16,
+                'is_subtotal' => true,
+            ],
+
+            '3.17' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.17 Proyectos académicos de extensión y difusión',
+                            'value' => 50,
+                            'comision' => $response->comision3_17,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.18' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente',
+                            'value' => 40,
+                            'comision' => $response->comision3_18,
+                        ],
+                    ],
+                ];
+            }),
+
+            '3.19' => $consolidatedResponses->map(function ($response) {
+                return [
+                    'data' => [
+                        [
+                            'label' => '3.19 Participación en cuerpos colegiados',
+                            'value' => 40,
+                            'comision' => $response->comision3_19,
+                        ],
+                    ],
+                ];
+            }),
+
+            [
+                'label' => 'Subtotal 3.17 a 3.19',
+                'value' => '',
+                'comision' => $subtotal3_17To3_19,
+                'is_subtotal' => true,
+            ],
         ];
 
+
+
         // Pasar los datos a la vista resumen.blade.php
-        return view('resumen', ['sections' => $sections, 'responses' => $consolidatedResponses]);
+        return view('form4', ['sections' => $sections, 'subtotal3_1To3_8' => $subtotal3_1To3_8, 'subtotal3_9To3_11'=> $subtotal3_9To3_11,'subtotal3_12To3_16'=> $subtotal3_12To3_16,'subtotal3_17To3_19'=> $subtotal3_17To3_19]);
 
     }
 

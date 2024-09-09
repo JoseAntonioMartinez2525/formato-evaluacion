@@ -99,6 +99,8 @@ Route::get('form3_16', function () {return view('form3_16'); })->name('form3_16'
 Route::get('form3_17', function () {return view('form3_17'); })->name('form3_17');
 Route::get('form3_18', function () {return view('form3_18'); })->name('form3_18');
 Route::get('form3_19', function () {return view('form3_19'); })->name('form3_19');
+Route::get('form4', function () {return view('form4'); })->name('form4');
+Route::get('form5', function () {return view('form5'); })->name('form5');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
