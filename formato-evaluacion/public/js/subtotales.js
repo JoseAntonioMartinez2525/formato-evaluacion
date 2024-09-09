@@ -1,6 +1,66 @@
 //Puntajes a Evaluar
 
 let docencia = 0;
+    function calculateSubtotal1() {
+        // Get the values of each span element, parse them as float and sum them up
+        const values = [
+            parseFloat(document.getElementById("actv3Comision").innerText) || 0,
+            parseFloat(document.getElementById("comision3_2").innerText) || 0,
+            parseFloat(document.getElementById("comision3_3").innerText) || 0,
+            parseFloat(document.getElementById("comision3_4").innerText) || 0,
+            parseFloat(document.getElementById("comision3_5").innerText) || 0,
+            parseFloat(document.getElementById("comision3_6").innerText) || 0,
+            parseFloat(document.getElementById("comision3_7").innerText) || 0,
+            parseFloat(document.getElementById("comision3_8").innerText) || 0,
+        ];
+
+        // Sum the values
+        const subtotal = values.reduce((acc, value) => acc + value, 0);
+        
+
+        // Update the label with the subtotal
+        document.getElementById("comision3_1To3_8").innerText = subtotal;
+    }
+
+    function calculateSubtotal2() {
+        // Get the values of each span element, parse them as float and sum them up
+        const values = [
+
+            parseFloat(document.getElementById("comision3_9").innerText) || 0,
+            parseFloat(document.getElementById("comision3_10").innerText) || 0,
+            parseFloat(document.getElementById("comision3_11").innerText) || 0,
+
+
+        ];
+
+        // Sum the values
+        const subtotal = values.reduce((acc, value) => acc + value, 0);
+        
+
+        // Update the label with the subtotal
+        document.getElementById("comision3_9To3_11").innerText = subtotal;
+    }
+
+        function calculateSubtotal3() {
+        // Get the values of each span element, parse them as float and sum them up
+        const values = [
+
+            parseFloat(document.getElementById("comision3_12").innerText) || 0,
+            parseFloat(document.getElementById("comision3_13").innerText) || 0,
+            parseFloat(document.getElementById("comision3_14").innerText) || 0,
+            parseFloat(document.getElementById("comision3_15").innerText) || 0,
+            parseFloat(document.getElementById("comision3_16").innerText) || 0,
+
+        ];
+
+        // Sum the values
+        const subtotal = values.reduce((acc, value) => acc + value, 0);
+        
+
+        // Update the label with the subtotal
+        document.getElementById("comision3_12To3_16").innerText = subtotal;
+    }
+
 function onActv3Subtotal(){
   const scoreOne =  parseFloat(document.getElementById("puntaje60").textContent);
   const quantityOne = parseFloat(document.getElementById("elaboracion").value);
