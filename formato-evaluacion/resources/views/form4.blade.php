@@ -18,6 +18,7 @@ $newLocale = str_replace('_', '-', $locale);
     .p2{
         font-weight: bold;
     }
+    
 
 </style>
 <body class="bg-gray-50 text-black/50">
@@ -133,8 +134,12 @@ $subtotalAdded = false;
                 <td class="tdResaltado">
                     @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
                         <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
-                    @else
+                    @elseif (in_array($index, $subtotalIndexes))
+                        {{-- Este bloque maneja los subtotales y no les aplica el fondo amarillo --}}
                         <span id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
+                    @else
+                        {{-- Aplicar fondo amarillo para todos los demás casos --}}
+                        <span style="background-color: #FFC72C;" id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
                     @endif
                 </td>
             </tr>
@@ -148,14 +153,14 @@ $subtotalAdded = false;
 
 
 
-                                <tfoot>
+                                <tr>
 
                                     <td>
                                         <center><b>Total logrado en la evaluación</b></center>
                                     </td>
                                     <td></td>
                                     <td><label id="totalComision" for="" class="p2"></label></td>
-                                </tfoot>
+                                </tr>
                                
                             
                                 <tr>
@@ -280,7 +285,7 @@ $subtotalAdded = false;
                 formData.set('email', form.querySelector('input[name="email"]').value);
 
                 // Obtener valores de los labels y spans
-                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
+             formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
                 formData.set('comision_actividad_2_total', document.getElementById('comision2Total').innerText);
                 formData.set('comision_actividad_3_total', document.getElementById('comision3Total').innerText);
                 formData.set('total_puntaje', document.getElementById('totalComisionRepetido').innerText);
