@@ -14,7 +14,12 @@ $newLocale = str_replace('_', '-', $locale);
 <x-head-resources />
     
 </head>
+<style>
+    .p2{
+        font-weight: bold;
+    }
 
+</style>
 <body class="bg-gray-50 text-black/50">
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
@@ -75,6 +80,7 @@ $userType = Auth::user()->user_type;
 $sections;
 $subtotalAdded = false;
 
+
                 @endphp
 
                     <main class="container">
@@ -95,28 +101,64 @@ $subtotalAdded = false;
                     <th id="pMaximo">Puntaje máximo</th>
                     <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
                     </tr>
-                @if (is_array($sections['data']))
-                    @foreach ($sections['data'] as $data)
-                        <tr>
-                            <td>{{ $data['label'] }}</td>
-                            <td class="p1">{{ $data['value'] }}</td>
-                            <td class="tdResaltado">
-                                <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
-                            </td>
-                        </tr>
+@if (isset($sections['data']) && is_array($sections['data']))
+        @php
+    $counter = 0; 
+        @endphp
+        @foreach ($sections['data'] as $data)
+                                <tr>
+                                <td 
+                                @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente']))
+                                    style="font-weight: bold"
+                                @elseif (in_array($data['label'], ['3. Calidad en la docencia']))
+                                style="font-weight: bold"
+                                @elseif(in_array($data['label'], ['1.1 Años de experiencia docente en la institución', '2.1 Carga de trabajo docente frente a grupo']))
+                                    style="background-color: #A4DDED;"
+                                @endif
+                                >
+                                {{ $data['label'] }}
+                                </td>
 
-                        {{-- Si es subtotal, lo manejamos de forma especial --}}
-                        @if (isset($data['is_subtotal']) && $data['is_subtotal'])
-                            <tr>
+                                <td 
+                                @if ($counter === 0 || $counter === 2 || $counter === 4) 
+                                style="font-weight: bold"
+                                @endif
+                                class="p1"
+                                >
+                                {{ $data['value'] }}
+                                </td>
+                                <td class="tdResaltado">
+                                @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
+                                <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
+                                @else
+                                <span id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
+                                @endif
+                                </td>
+                                </td>
+                                </tr>
+
+                                {{-- Si es subtotal, lo manejamos de forma especial --}}
+                                @if (isset($data['is_subtotal']) && $data['is_subtotal'])
+                                <tr>
                                 <td>
-                                    <center><b>{{ $data['label'] }}</b></center>
+                                <center><b>{{ $data['label'] }}</b></center>
                                 </td>
                                 <td></td>
-                                <td><b><label class="p2">{{ $data['comision'] }}</label></b></td>
-                            </tr>
-                        @endif
-                    @endforeach
-                @endif
+                                <td><b>
+                                    @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
+                                        <label class="p2">{{ $data['comision'] }}</label>
+                                    @else
+                                        <label>{{ $data['comision'] }}</label>
+                                    @endif
+                                </b></td>
+                                </tr>
+                                @endif
+                                @php
+            $counter++; // Incrementamos el contador en cada iteración
+                                @endphp
+        @endforeach
+
+@endif
 
                                 <tfoot>
 

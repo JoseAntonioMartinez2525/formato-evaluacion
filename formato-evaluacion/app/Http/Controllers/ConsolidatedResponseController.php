@@ -29,7 +29,8 @@ class ConsolidatedResponseController extends Controller
             return $carry + $response->comision3_17 + $response->comision3_18 + $response->comision3_19;
         }, 0);
 
-
+        $total = $subtotal3_1To3_8 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19;
+        $total = min($total, 700);
 
 
         // Estructurar los datos en secciones
@@ -41,6 +42,7 @@ class ConsolidatedResponseController extends Controller
                             'label' => '1. Permanencia en las actividades de la docencia',
                             'value' => 100,
                             'comision' => $response->comision1 ?? 0,
+                            
                         ],
                       
 
@@ -56,6 +58,7 @@ class ConsolidatedResponseController extends Controller
                             'label' => '2. Dedicación en el desempeño docente',
                             'value' => 200,
                             'comision' => $response->actv2Comision ?? 0,
+                            
                         ],
         
 
@@ -68,7 +71,8 @@ class ConsolidatedResponseController extends Controller
                         [
                             'label' => '3. Calidad en la docencia',
                             'value' => 60,
-                            'comision' => $response->actv3Comision ?? 0,
+                            'comision' => $total,
+                           
                         ],
 
                         [
@@ -134,7 +138,7 @@ class ConsolidatedResponseController extends Controller
 
 
             [
-                'label' => 'Subtotal 3.1 a 3.8',
+                'label' => 'Subtotal',
                 'value' => '',
                 'comision' => $subtotal3_1To3_8,
                 'is_subtotal' => true,
@@ -167,7 +171,7 @@ class ConsolidatedResponseController extends Controller
 
 
             [
-                'label' => 'Subtotal 3.9 a 3.11',
+                'label' => 'Subtotal',
                 'value' => '',
                 'comision' => $subtotal3_9To3_11,
                 'is_subtotal' => true,
@@ -214,7 +218,7 @@ class ConsolidatedResponseController extends Controller
 
 
             [
-                'label' => 'Subtotal 3.12 a 3.16',
+                'label' => 'Subtotal',
                 'value' => '',
                 'comision' => $subtotal3_12To3_16,
                 'is_subtotal' => true,
@@ -245,7 +249,7 @@ class ConsolidatedResponseController extends Controller
 
 
             [
-                'label' => 'Subtotal 3.17 a 3.19',
+                'label' => 'Subtotal',
                 'value' => '',
                 'comision' => $subtotal3_17To3_19,
                 'is_subtotal' => true,
