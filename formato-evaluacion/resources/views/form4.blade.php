@@ -166,25 +166,25 @@ $subtotalAdded = false;
                                 <tr>
                                     <td>1. Permanencia en las actividades de la docencia</td>
                                     <td class="p1">100</td>
-                                    <td class="tdResaltado"><label id="comision1Total" class="p2" for=""></label></td>
+                                    <td class="tdResaltado"><label id="comision1Total" class="p2">{{ $sections['data'][0]['comision'] }}</label></td>
                                 </tr>
                                 <tr>
                                     <td>2. Dedicación en el desempeño docente</td>
                                     <td class="p1">200</td>
-                                    <td class="tdResaltado"><label id="comision2Total" class="p2" for=""></label></td>
+                                     <td class="tdResaltado"><label id="comision2Total" class="p2">{{ $sections['data'][2]['comision'] }}</label></td>
                                 </tr>
                                 <tr>
                                     <td>3. Calidad en la docencia</td>
                                     <td class="p1">700</td>
-                                    <td class="tdResaltado"><label id="comision3Total" class="p2" for=""></label></td>
+                                    <td class="tdResaltado"><label id="comision3Total" class="p2">{{ $sections['data'][4]['comision'] }}</label></td>
+
                                 </tr>
                                 <tr>
                                     <td>
                                         <center><b>Total de puntaje obtenido en la evaluación</b></center>
                                     </td>
                                     <td></td>
-                                    <td><b><label id="totalComisionRepetido" for="" class="p2"></label></b></td>
-                              
+                                        <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
                             
                                 <tr>
                                     <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 

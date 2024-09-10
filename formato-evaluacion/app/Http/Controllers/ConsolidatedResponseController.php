@@ -34,6 +34,12 @@ class ConsolidatedResponseController extends Controller
             700
         );
 
+        $totalComision1 = $consolidatedResponses->first()->comision1 ?? 0;
+        $totalComision2 = $consolidatedResponses->first()->actv2Comision ?? 0;
+        $totalComision3 = $total; // Calculado anteriormente
+
+        $totalComisionRepetido = min($totalComision1 + $totalComision2 + $totalComision3,700);
+
         // Estructurar los datos en secciones
         $sections = [
             'data' => [
@@ -80,6 +86,7 @@ class ConsolidatedResponseController extends Controller
             'subtotal3_12To3_16' => $subtotal3_12To3_16,
             'subtotal3_17To3_19' => $subtotal3_17To3_19,
             'total' => $total,
+            'totalComisionRepetido' => $totalComisionRepetido,
         ]);
     }
 }
