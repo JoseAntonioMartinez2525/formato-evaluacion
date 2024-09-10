@@ -95,6 +95,7 @@ $subtotalAdded = false;
                     <th id="pMaximo">Puntaje máximo</th>
                     <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
                     </tr>
+
                     @foreach ($sections as $section)
                         @foreach ($section as $item)
                             @foreach ($item['data'] as $index => $data)
@@ -106,7 +107,7 @@ $subtotalAdded = false;
 
                                    @if (!$subtotalAdded && $data['label'] == '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente')
                                            @php
-                                            $subtotalAdded = true;
+                                        $subtotalAdded = true;
                                         @endphp
                                            <tr> 
                                                 <td><center><b>Subtotal 3.1 a 3.8</b></center></td>
