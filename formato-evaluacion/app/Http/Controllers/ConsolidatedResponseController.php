@@ -36,7 +36,7 @@ class ConsolidatedResponseController extends Controller
         $response = DB::table('consolidated_responses')->first();
         $sections = [
 
-
+                    'data'=>[
                         [
                             'label' => '1. Permanencia en las actividades de la docencia',
                             'value' => 100,
@@ -50,11 +50,10 @@ class ConsolidatedResponseController extends Controller
                             'value' => 100,
                             'comision' => $response->comision1 ?? 0,
                         ],
-                        // Añadir más datos de la sección "Experiencia"
 
 
                         [
-                            'label' => '2. Dedicación en el desempeño docente<',
+                            'label' => '2. Dedicación en el desempeño docente',
                             'value' => 200,
                             'comision' => $response->actv2Comision ?? 0,
                         ],
@@ -66,6 +65,11 @@ class ConsolidatedResponseController extends Controller
                             'comision' => $response->actv2Comision ?? 0,
                         ],
 
+                        [
+                            'label' => '3. Calidad en la docencia',
+                            'value' => 60,
+                            'comision' => $response->actv3Comision ?? 0,
+                        ],
 
                         [
                             'label' => '3.1 Participación en actividades de diseño curricular',
@@ -246,12 +250,27 @@ class ConsolidatedResponseController extends Controller
                 'comision' => $subtotal3_17To3_19,
                 'is_subtotal' => true,
             ],
+            ],
         ];
 
+        $totals = DB::table('consolidated_responses')
+            ->select([
+                DB::raw('SUM(actv3Comision + comision3_2 + comision3_3 + comision3_4 + comision3_5 + comision3_6 + comision3_7 + comision3_8) as subtotal3_1To3_8'),
+                DB::raw('SUM(comision3_9 + comision3_10 + comision3_11) as subtotal3_9To3_11'),
+                DB::raw('SUM(comision3_12 + comision3_13 + comision3_14 + comision3_15 + comision3_16) as subtotal3_12To3_16'),
+                DB::raw('SUM(comision3_17 + comision3_18 + comision3_19) as subtotal3_17To3_19'),
+            ])
+            ->first();
 
 
-        // Pasar los datos a la vista resumen.blade.php
-        return view('form4', ['sections' => $sections, 'subtotal3_1To3_8' => $subtotal3_1To3_8, 'subtotal3_9To3_11'=> $subtotal3_9To3_11,'subtotal3_12To3_16'=> $subtotal3_12To3_16,'subtotal3_17To3_19'=> $subtotal3_17To3_19]);
+
+        return view('form4', [
+            'sections' => $sections,
+            'subtotal3_1To3_8' => $totals->subtotal3_1To3_8,
+            'subtotal3_9To3_11' => $totals->subtotal3_9To3_11,
+            'subtotal3_12To3_16' => $totals->subtotal3_12To3_16,
+            'subtotal3_17To3_19' => $totals->subtotal3_17To3_19
+        ]);
 
     }
 

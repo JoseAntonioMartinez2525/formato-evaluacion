@@ -95,29 +95,29 @@ $subtotalAdded = false;
                     <th id="pMaximo">Puntaje máximo</th>
                     <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
                     </tr>
+                @if (is_array($sections['data']))
+                    @foreach ($sections['data'] as $data)
+                        <tr>
+                            <td>{{ $data['label'] }}</td>
+                            <td class="p1">{{ $data['value'] }}</td>
+                            <td class="tdResaltado">
+                                <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
+                            </td>
+                        </tr>
 
-                    @foreach ($sections as $section)
-                        @foreach ($section as $item)
-                            @foreach ($item['data'] as $index => $data)
-                                <tr>
-                                    <td>{{ $data['label'] }}</td>
-                                    <td class="p1">{{ $data['value'] }}</td>
-                                    <td class="tdResaltado"><span id="{{ $data['id'] }}" class="p2">{{ $data['comision'] }}</span></td>
-                                </tr>
+                        {{-- Si es subtotal, lo manejamos de forma especial --}}
+                        @if (isset($data['is_subtotal']) && $data['is_subtotal'])
+                            <tr>
+                                <td>
+                                    <center><b>{{ $data['label'] }}</b></center>
+                                </td>
+                                <td></td>
+                                <td><b><label class="p2">{{ $data['comision'] }}</label></b></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                @endif
 
-                                   @if (!$subtotalAdded && $data['label'] == '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente')
-                                           @php
-                                        $subtotalAdded = true;
-                                        @endphp
-                                           <tr> 
-                                                <td><center><b>Subtotal 3.1 a 3.8</b></center></td>
-                                                <td></td>
-                                                <td><b><label id="comision3_1To3_8" class="p2">{{ $subtotal3_1To3_8 }}</label></b></td>
-                                          </tr  >
-                                      @endif
-                                @endforeach
-                            @endforeach
-                          @endforeach
                                 <tfoot>
 
                                     <td>
