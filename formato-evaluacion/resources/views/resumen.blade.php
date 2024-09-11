@@ -76,7 +76,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     </div>
                                     <x-general-header />
                                     @php
-            $userType = Auth::user()->user_type;
+    $userType = Auth::user()->user_type;
                                     @endphp
             @if ($userType == 'dictaminador' || $userType == '')
 
@@ -246,20 +246,30 @@ $newLocale = str_replace('_', '-', $locale);
                 //Recoge los datos dependiendo del formulario actual
                 switch (formId) {
                     case 'form4':
-                        formData['convocatoria'] = form.querySelector('input[name="convocatoria"]').value;
-                        formData['periodo'] = form.querySelector('input[name="periodo"]').value;
-                        formData['nombre'] = form.querySelector('input[name="nombre"]').value;
-                        formData['area'] = form.querySelector('select[name="area"]').selectedOptions[0].textContent;
-                        formData['departamento'] = form.querySelector('select[name="departamento"]').selectedOptions[0].textContent;
+                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+                        formData['email'] = form.querySelector('input[name="email"]').value;
+                        formData['comision1Total'] = form.querySelector('label[id="comision1Total"]').textContent;
+                        formData['comision2Total'] = form.querySelector('label[id="comision2Total"]').textContent;
+                        formData['comision3Total'] = form.querySelector('label[id="comision3Total"]').textContent;
+                        formData['totalComisionRepetido'] = form.querySelector('label[id="totalComisionRepetido"]').textContent;
+                        //minimaCalidad
+                        formData['minimaCalidad'] = form.querySelector('input[name="minimaCalidad"]').textContent;
+                        //minimaTotal
+                        formData['minimaTotal'] = form.querySelector('input[name="minimaTotal"]').textContent;
                         break;
 
                     case 'form5':
                         formData['user_id'] = form.querySelector('input[name="user_id"]').value;
                         formData['email'] = form.querySelector('input[name="email"]').value;
-                        formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
-                        formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
-                        //formData['comision1'] = form.querySelector('input[name="comision1"]').value;
-                        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
+                        formData['comision1Total'] = form.querySelector('label[id="comision1Total"]').textContent;
+                        formData['comision2Total'] = form.querySelector('label[id="comision2Total"]').textContent;
+                        formData['comision3Total'] = form.querySelector('label[id="comision3Total"]').textContent;
+                        formData['totalComisionRepetido'] = form.querySelector('label[id="totalComisionRepetido"]').textContent;
+                        //minimaCalidad
+                        formData['minimaCalidad'] = form.querySelector('input[name="minimaCalidad"]').textContent;
+                        //minimaTotal
+                        formData['minimaTotal'] = form.querySelector('input[name="minimaTotal"]').textContent;
+                        
                         break;
 
                 }

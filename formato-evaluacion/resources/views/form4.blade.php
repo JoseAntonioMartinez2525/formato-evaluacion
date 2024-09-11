@@ -166,17 +166,17 @@ $subtotalAdded = false;
                                 <tr>
                                     <td>1. Permanencia en las actividades de la docencia</td>
                                     <td class="p1">100</td>
-                                    <td class="tdResaltado"><label id="comision1Total" class="p2">{{ $sections['data'][0]['comision'] }}</label></td>
+                                    <td class="tdResaltado"><label id="comision1Total" >{{ $sections['data'][0]['comision'] }}</label></td>
                                 </tr>
                                 <tr>
                                     <td>2. Dedicación en el desempeño docente</td>
                                     <td class="p1">200</td>
-                                     <td class="tdResaltado"><label id="comision2Total" class="p2">{{ $sections['data'][2]['comision'] }}</label></td>
+                                     <td class="tdResaltado"><label id="comision2Total" >{{ $sections['data'][2]['comision'] }}</label></td>
                                 </tr>
                                 <tr>
                                     <td>3. Calidad en la docencia</td>
                                     <td class="p1">700</td>
-                                    <td class="tdResaltado"><label id="comision3Total" class="p2">{{ $sections['data'][4]['comision'] }}</label></td>
+                                    <td class="tdResaltado"><label id="comision3Total" >{{ $sections['data'][4]['comision'] }}</label></td>
 
                                 </tr>
                                 <tr>
@@ -189,7 +189,7 @@ $subtotalAdded = false;
                                 <tr>
                                     <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
                                     <th>Mínima de Calidad</th>
-                                    <th><b><span id="minimaCalidad"></span></b></th>
+                                    <th><b><span id="minimaCalidad">$minimaCa</span></b></th>
                                 </tr>
                                 <tr>
                                     <th></th>
@@ -532,6 +532,42 @@ $subtotalAdded = false;
 
         }
 
+ function condicionales(){
+                let actv3Total = parseFloat(document.getElementById('actv3Total').textContent);
+                let minimaCalidad;
+                switch (true) {
+                    case (actv3Total >= 210 && actv3Total <= 264):
+                        minimaCalidad = 'I';
+                        break;
+                    case (actv3Total >= 265 && actv3Total <= 319):
+                        minimaCalidad = 'II';
+                        break;
+                    case (actv3Total >= 320 && actv3Total <= 374):
+                        minimaCalidad = 'III';
+                        break;
+                    case (actv3Total >= 375 && actv3Total <= 429):
+                        minimaCalidad = 'IV';
+                        break;
+                    case (actv3Total >= 430 && actv3Total <= 484):
+                        minimaCalidad = 'V';
+                        break;
+                    case (actv3Total >= 485 && actv3Total <= 539):
+                        minimaCalidad = 'VI';
+                        break;
+                    case (actv3Total >= 540 && actv3Total <= 594):
+                        minimaCalidad = 'VII';
+                        break;
+                    case (actv3Total >= 595 && actv3Total <= 649):
+                        minimaCalidad = 'VIII';
+                        break;
+                    case (actv3Total >= 650 && actv3Total <= 700):
+                        minimaCalidad = 'IX';
+                        break;
+                    default:
+                        minimaCalidad = 'FALSE';
+                }
+                document.getElementById('minimaCalidad').innerText = minimaCalidad;
+            }
     </script>
 
 </body>

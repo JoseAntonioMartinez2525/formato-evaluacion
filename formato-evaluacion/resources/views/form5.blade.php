@@ -132,7 +132,6 @@ $newLocale = str_replace('_', '-', $locale);
                             </table>
                         </form>
                         <br>
-        @endif
         </body>
 <script>
       document.getElementById('formSelect').addEventListener('change', (event) => {
