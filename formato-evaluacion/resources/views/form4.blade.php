@@ -151,8 +151,6 @@ $subtotalAdded = false;
     @endforeach
 @endif
 
-
-
                                 <tr>
 
                                     <td>
@@ -162,23 +160,6 @@ $subtotalAdded = false;
                                     <td><label id="totalComision" for="" class="p2"></label></td>
                                 </tr>
                                
-                            
-                                <tr>
-                                    <td>1. Permanencia en las actividades de la docencia</td>
-                                    <td class="p1">100</td>
-                                    <td class="tdResaltado"><label id="comision1Total" >{{ $sections['data'][0]['comision'] }}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>2. Dedicación en el desempeño docente</td>
-                                    <td class="p1">200</td>
-                                     <td class="tdResaltado"><label id="comision2Total" >{{ $sections['data'][2]['comision'] }}</label></td>
-                                </tr>
-                                <tr>
-                                    <td>3. Calidad en la docencia</td>
-                                    <td class="p1">700</td>
-                                    <td class="tdResaltado"><label id="comision3Total" >{{ $sections['data'][4]['comision'] }}</label></td>
-
-                                </tr>
                                 <tr>
                                     <td>
                                         <center><b>Total de puntaje obtenido en la evaluación</b></center>
@@ -189,12 +170,12 @@ $subtotalAdded = false;
                                 <tr>
                                     <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
                                     <th>Mínima de Calidad</th>
-                                    <th><b><span id="minimaCalidad">$minimaCa</span></b></th>
+                                    <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th>Mínima Total</th>
-                                    <th><b><span id="minimaTotal"></span></b></th>
+                                    <th><b><span id="minimaTotal">{{ $minimaTotal }}</span></b></th>
                                 </tr>
                             </thead>
                             </table>
@@ -203,6 +184,7 @@ $subtotalAdded = false;
                             </center>
                             </div>
                         </form>
+
                         <br>
         </div>
         </main>
@@ -295,34 +277,6 @@ $subtotalAdded = false;
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
-            }else if (formId === 'form5') {
-                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
-                formData.set('email', form.querySelector('input[name="email"]').value);
-                
-                // evaluator names
-                let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;
-                let evaluatorName2 = form.querySelector('#personaEvaluadora2').value;
-                let evaluatorName3 = form.querySelector('#personaEvaluadora3').value;
-
-                formData.set('evaluator_name_1', evaluatorName1);
-                formData.set('evaluator_name_2', evaluatorName2);
-                formData.set('evaluator_name_3', evaluatorName3);
-
-                // Add files to formData
-                let firma1 = form.querySelector('#firma1');
-                if (firma1.files.length > 0) {
-                    formData.append('firma1', firma1.files[0]);
-                }
-
-                let firma2 = form.querySelector('#firma2');
-                if (firma2.files.length > 0) {
-                    formData.append('firma2', firma2.files[0]);
-                }
-
-                let firma3 = form.querySelector('#firma3');
-                if (firma3.files.length > 0) {
-                    formData.append('firma3', firma3.files[0]);
-                }
             }
             try {
                 let response = await fetch(url, {
@@ -349,16 +303,7 @@ $subtotalAdded = false;
                 document.getElementById('reportLink').classList.remove('d-none');
                 }
 
-                if (data.signature_url) {
-                    const img = document.createElement('img');
-                    img.src = data.signature_url;
-                    img.alt = 'Signature';
-                    img.style.maxWidth = '400px'; 
-                    img.style.maxHeight = '400px'; 
-                    img.style.marginLeft = '1000px'; 
-                    img.style.marginTop = '-150px'; 
-                    document.body.appendChild(img);
-                }
+               
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
@@ -417,21 +362,7 @@ $subtotalAdded = false;
         }
 
 
-        function calculateTotalScore() {
-            let comisionTotal = 0;
-            for (let i = 2; i <= 19; i++) {
-                let comision = parseFloat(document.getElementById(`comision3_${i}`).textContent) || 0;
-                comisionTotal += comision;
-            }
-
-            document.getElementById('comision3Total').innerText = comisionTotal;
-            total();
-            document.getElementById('totalComisionRepetido').innerText = total();
-            document.getElementById('totalComision').innerText = total();
-            condicionales();
-        }
-
-        loadAllData();
+    
     });
 
 
@@ -485,6 +416,7 @@ $subtotalAdded = false;
 
                         if (dictaminadorId) {
                             try {
+
                                 const response = await axios.get('/get-dictaminador-data', {
                                     params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
                                 });
@@ -532,42 +464,7 @@ $subtotalAdded = false;
 
         }
 
- function condicionales(){
-                let actv3Total = parseFloat(document.getElementById('actv3Total').textContent);
-                let minimaCalidad;
-                switch (true) {
-                    case (actv3Total >= 210 && actv3Total <= 264):
-                        minimaCalidad = 'I';
-                        break;
-                    case (actv3Total >= 265 && actv3Total <= 319):
-                        minimaCalidad = 'II';
-                        break;
-                    case (actv3Total >= 320 && actv3Total <= 374):
-                        minimaCalidad = 'III';
-                        break;
-                    case (actv3Total >= 375 && actv3Total <= 429):
-                        minimaCalidad = 'IV';
-                        break;
-                    case (actv3Total >= 430 && actv3Total <= 484):
-                        minimaCalidad = 'V';
-                        break;
-                    case (actv3Total >= 485 && actv3Total <= 539):
-                        minimaCalidad = 'VI';
-                        break;
-                    case (actv3Total >= 540 && actv3Total <= 594):
-                        minimaCalidad = 'VII';
-                        break;
-                    case (actv3Total >= 595 && actv3Total <= 649):
-                        minimaCalidad = 'VIII';
-                        break;
-                    case (actv3Total >= 650 && actv3Total <= 700):
-                        minimaCalidad = 'IX';
-                        break;
-                    default:
-                        minimaCalidad = 'FALSE';
-                }
-                document.getElementById('minimaCalidad').innerText = minimaCalidad;
-            }
+
     </script>
 
 </body>
