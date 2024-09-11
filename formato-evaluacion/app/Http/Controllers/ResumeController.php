@@ -19,6 +19,7 @@ class ResumeController extends Controller
             'total_puntaje'=> 'required|numeric',
             'minima_calidad'=>'required|string',
             'minima_total'=>'required|string',
+            'user_type' => 'required|in:user,docente,dictaminator',
 
         ]);
 

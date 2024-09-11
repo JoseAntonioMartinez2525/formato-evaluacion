@@ -49,7 +49,6 @@ class ResponseForm3_9Controller extends Controller
                 'tutorias15' => 'required|numeric',
                 'tutorias16' => 'required|numeric',
                 'tutorias17' => 'required|numeric',
-                'tutoriasComision1' => 'required|numeric',
                 'obs3_9_1' => 'nullable|string',
                 'obs3_9_2' => 'nullable|string',
                 'obs3_9_3' => 'nullable|string',

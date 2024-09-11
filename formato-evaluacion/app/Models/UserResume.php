@@ -18,6 +18,7 @@ class UserResume extends Model
         'total_puntaje',
         'minima_calidad',
         'minima_total',
+        'user_type',
 
 
     ];

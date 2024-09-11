@@ -265,9 +265,10 @@ $subtotalAdded = false;
             if (formId == 'form4') {
                 formData.set('user_id', form.querySelector('input[name="user_id"]').value);
                 formData.set('email', form.querySelector('input[name="email"]').value);
+                 formData.set('user_type', form.querySelector('input[name="user_type"]').value);
 
                 // Obtener valores de los labels y spans
-             formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
+                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
                 formData.set('comision_actividad_2_total', document.getElementById('comision2Total').innerText);
                 formData.set('comision_actividad_3_total', document.getElementById('comision3Total').innerText);
                 formData.set('total_puntaje', document.getElementById('totalComisionRepetido').innerText);
