@@ -103,7 +103,6 @@ $subtotalAdded = false;
     @php
     $counter = 0;
     $subtotalIndexes = [13, 17, 23, 27];
-    $totalComisionRepetido = 0;
     @endphp
     @foreach ($sections['data'] as $index => $data)
         @if (in_array($index, $subtotalIndexes))
@@ -153,17 +152,17 @@ $subtotalAdded = false;
     <td></td>
     <td><label id="totalComision" for="" class="p2">{{ $totalComisionRepetido }}</label></td>
 </tr>
-                                </tr>
+</tr>
                                
-                                <tr>
-                                    <td>
-                                        <center><b>Total de puntaje obtenido en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
+<tr>
+    <td>
+        <center><b>Total de puntaje obtenido en la evaluación</b></center>
+    </td>
+    <td></td>
+    <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
 
-                            
-                                <tr>
+
+<tr>
                                     <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
                                     <th>Mínima de Calidad</th>
                                     <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
@@ -264,13 +263,12 @@ $subtotalAdded = false;
                  formData.set('user_type', form.querySelector('input[name="user_type"]').value);
 
                 // Obtener valores de los labels y spans
-                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').innerText);
-                formData.set('comision_actividad_2_total', document.getElementById('comision2Total').innerText);
-                formData.set('comision_actividad_3_total', document.getElementById('comision3Total').innerText);
-                formData.set('total_puntaje', document.getElementById('totalComisionRepetido').innerText);
-                formData.set('minima_calidad', document.getElementById('minimaCalidad').innerText);
-                formData.set('minima_total', document.getElementById('minimaTotal').innerText);
-
+                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').textContent);
+                formData.set('comision_actividad_2_total', document.getElementById('comision2Total').textContent);
+                formData.set('comision_actividad_3_total', document.getElementById('comision3Total').textContent);
+                formData.set('total_puntaje', document.getElementById('totalComisionRepetido').textContent);
+                formData.set('minima_total', document.getElementById('minimaTotal').textContent);
+                formData.set('minima_calidad', document.getElementById('minimaCalidad').textContent);
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
