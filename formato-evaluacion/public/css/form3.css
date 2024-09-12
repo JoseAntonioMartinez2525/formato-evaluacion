@@ -68,9 +68,10 @@ nav {
         margin-top: 100px;
 }
 
-[id^="obs3_9_"], [id^="obs3_3_"] {
+[id^="obs3_9_"], [id^="obs3_3_"] , [id^="tutoriasComision"]{
     background-color: #d6fff7;
     border-color: transparent;
+    text-align: right;
 }
 
 #puntajeIndividual, #individualCant, #evaluarIndividual ,#comisionIndividual ,#obsIndividual,
@@ -137,6 +138,6 @@ nav {
     text-align: right;
 }
 
-#actvCant{
+#actvCant, #cantidadTd{
     text-align: right;
 }

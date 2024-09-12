@@ -150,7 +150,7 @@ $userType = Auth::user()->user_type;
                             <td class="obra">Obra</td>
                             <td>Actividad</td>
                             <td>Puntaje</td>
-                            <td>Cantidad</td>
+                            <td id="cantidadTd">Cantidad</td>
                             <td>SubTotal</td>
             
                         </tr>
