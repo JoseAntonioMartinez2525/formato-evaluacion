@@ -42,9 +42,6 @@ $newLocale = str_replace('_', '-', $locale);
                                         PEDPD</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado
                                         por la
                                         Comisión del PEDPD)</a>
