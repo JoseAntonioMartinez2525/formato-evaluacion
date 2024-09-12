@@ -89,6 +89,7 @@ nav {
 #cantInicioFinanExt, #cantInicioInvInterno, #cantReporteFinanciamExt, #cantReporteInvInt{
 
     background-color: #c1cfd3;
+    text-align: right;
 }
 
 #comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual, #comisionAsesoria,
@@ -125,4 +126,17 @@ nav {
 
 .nav-item, .nav-link {
     border-style: none;
+}
+
+#cantCGUtitular, #cantCGUespecial, #cantCGUpermanente, #cantCAACtitular, #cantCAACintegCom, #cantComDepart, #cantComPEDPD, #cantComPartPos,
+#cantRespPos, #cantRespCarrera, #cantRespProd, #cantRespLab, #cantExamProf, #cantExamAcademicos, #cantPRODEPformResp, #cantPRODEPformInteg, #cantPRODEPenconsResp,
+#cantPRODEPenconsInteg, #cantPRODEPconsResp, #cantPRODEPconsInteg, #cantComOrgInt, #cantCicloComApoyoReg, #cantComOrgReg, #cantCicloComApoyoNac,
+#cantComOrgNac, #cantComOrgReg, #cantComApoyoInt, #cantComApoyoNac, #cantComApoyoReg, #cantCicloComOrgInt, #cantCicloComOrgNac, #cantCicloComOrgReg, #cantCicloComApoyoInt,
+#cantArbInt, #cantArbNac, #cantPubInt,#cantPubNac,#cantRevInt, #cantRevNac,#cantRevista, #cantPatentes, #cantPrototipos, #r1, #r2, #r3, .elabInput{
+    background-color: #c1cfd3;
+    text-align: right;
+}
+
+#actvCant{
+    text-align: right;
 }

@@ -308,20 +308,17 @@ border-right: black;
     /* Add some space between the labels */
 }
 
-#elaboracion, #elaboracion2, #elaboracion3, #elaboracion4, #elaboracion5,#r1, #r2, #r3, #rCant1, 
+#elaboracion, #elaboracion2, #elaboracion3, #elaboracion4, #elaboracion5, #rCant1, 
 #cantInternacional, #cantNacional, #cantidadRegional, #cantPreparacion, #rc1,
 #rc2, #rc3, #rc4{
 text-align: right;
-background-color: #e2e2e2;
+background-color: #c1cfd3;
 border: none;
 padding: 0 30px;
 
 
 }
 
-#r1{
-    width: 100px;
-}
 
 
 #elaboracionSubTotal1 label, #elaboracionSubTotal3 label, #elaboracionSubTotal4 label, #elaboracionSubTotal5 label{
@@ -343,6 +340,8 @@ text-align: center;
 
 .elabInput input{
     width: 100px;
+    background-color: #c1cfd3;
+    text-align: right;
 }
 
 .scoreRight td{
@@ -532,6 +531,7 @@ height: 800px;
 
 td[id^="puntaje3_9_"]{
     background-color: #c1cfd3;
+    text-align: right;
 }
 
 

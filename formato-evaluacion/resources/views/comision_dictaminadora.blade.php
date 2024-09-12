@@ -43,7 +43,9 @@ $newLocale = str_replace('_', '-', $locale);
                         <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Actividades 3. Calidad en la docencia</a>
+                    @if (Auth::user()->user_type === 'docente')
+                        <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3. Calidad en la docencia</a>
+                    @endif
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>

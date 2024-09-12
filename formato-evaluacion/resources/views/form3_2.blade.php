@@ -144,7 +144,7 @@ $userType = Auth::user()->user_type;
                                 <center>Promedio 90-100</center>
                             </td>
                             <td id="ran1"><b>50</b></td>
-                            <td><label id="r1" name="r1"></label> </td>
+                            <td class="elabinput" style="background-color: #c1cfd3;text-align:right;"><span id="r1" name="r1"></span></td>
                             <td id="cant1" name="cant1">0</td>
                             <td>
                             @if($userType == 'dictaminador')
@@ -169,7 +169,7 @@ $userType = Auth::user()->user_type;
                                 <center>Promedio 80-90</center>
                             </td>
                             <td id="ran2"><b>40</b></td>
-                            <td class="elabInput"><span id="r2" name="r2"></span></td>
+                            <td class="elabInput" style="background-color: #c1cfd3;"><span id="r2" name="r2"></span></td>
                             <td id="cant2" name="cant2">0</td>
 
                             <td>
@@ -194,7 +194,7 @@ $userType = Auth::user()->user_type;
                                 <center>Promedio 70-80</center>
                             </td>
                             <td id="ran3"><b>30</b></td>
-                            <td class="elabInput">
+                            <td class="elabInput" style="background-color: #c1cfd3;">
                                 <span id="r3" name="r3"></span>
                             </td>
                             <td id="cant3">0</td>

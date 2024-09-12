@@ -153,7 +153,7 @@ $userType = Auth::user()->user_type;
                                             &nbsp
                                             Puntaje</span>
                                     </td>
-                                    <td><label class="actividades">Cantidad</label></td>
+                                    <td id="actvCant"><label class="actividades">Cantidad</label></td>
                                     <td><label class="actividades">Subtotal</label></td>
                                 </tr>
                                 <tr>
