@@ -65,9 +65,6 @@ $newLocale = str_replace('_', '-', $locale);
                                                                 Formatos</a>
                                                         @endif
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                                                    </li>
                                                 </nav>
                                             </form>
                                         </section>

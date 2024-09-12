@@ -111,7 +111,7 @@ Route::get('/get-docentes', [DictaminatorController::class, 'getDocentes'])->nam
 Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'])->name('getDocenteData');
 //Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
 Route::get('/get-dictaminadores', [FormsController::class, 'getdictaminadores'])->name('getdictaminadores');
-Route::get('/form4', [ConsolidatedResponseController::class, 'showResumen'])->name('resumen');
+Route::get('/form4', [ConsolidatedResponseController::class, 'showResumen'])->name('form4');
 
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
 

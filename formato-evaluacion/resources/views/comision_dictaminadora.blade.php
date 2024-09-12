@@ -48,7 +48,9 @@ $newLocale = str_replace('_', '-', $locale);
                     @endif
                     </li>
                     <li class="nav-item">
+                    @if (Auth::user()->user_type != 'docente')
                         <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                    @endif
                     </li><br>
                     <li id="jsonDataLink" class="d-none">
                         <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
