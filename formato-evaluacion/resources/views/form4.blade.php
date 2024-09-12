@@ -103,6 +103,7 @@ $subtotalAdded = false;
     @php
     $counter = 0;
     $subtotalIndexes = [13, 17, 23, 27];
+    $totalComisionRepetido = 0;
     @endphp
     @foreach ($sections['data'] as $index => $data)
         @if (in_array($index, $subtotalIndexes))
@@ -147,14 +148,11 @@ $subtotalAdded = false;
         @endphp
     @endforeach
 @endif
-
-                                <tr>
-
-                                    <td>
-                                        <center><b>Total logrado en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><label id="totalComision" for="" class="p2"></label></td>
+<tr>
+    <td><center><b>Total logrado en la evaluación</b></center></td>
+    <td></td>
+    <td><label id="totalComision" for="" class="p2">{{ $totalComisionRepetido }}</label></td>
+</tr>
                                 </tr>
                                
                                 <tr>
@@ -162,7 +160,8 @@ $subtotalAdded = false;
                                         <center><b>Total de puntaje obtenido en la evaluación</b></center>
                                     </td>
                                     <td></td>
-                                        <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
+                                    <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
+
                             
                                 <tr>
                                     <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 

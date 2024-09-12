@@ -99,9 +99,9 @@ class ConsolidatedResponseController extends Controller
             'subtotal3_12To3_16' => $subtotal3_12To3_16,
             'subtotal3_17To3_19' => $subtotal3_17To3_19,
             'total' => $total,
-            'totalComisionRepetido' => $totalComisionRepetido,
             'minimaCalidad' => $minimaCalidad,
             'minimaTotal' => $minimaTotal,
+            'totalComisionRepetido' => $totalComisionRepetido,
         ]);
 
         
