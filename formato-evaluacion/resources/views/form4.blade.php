@@ -281,12 +281,12 @@ $subtotalAdded = false;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
                 // Obtener valores de los labels y spans
-                formData['comision_actividad_1_total'] =  document.getElementById('totalComision1').textContent;
-                formData['comision_actividad_2_total']= document.getElementById('totalComision2').textContent;
-                formData['comision_actividad_3_total']= document.getElementById('totalComision3').textContent;
-                formData['total_puntaje']= document.getElementById('totalComisionRepetido').textContent;
-                formData['minima_total']= document.getElementById('minimaTotal').textContent;
-                formData['minima_calidad']= document.getElementById('minimaCalidad').textContent;
+                formData['comision_actividad_1_total']  =  document.getElementById('totalComision1').textContent;
+                formData['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
+                formData['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
+                formData['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
+                formData['minima_total'] = document.getElementById('minimaTotal').textContent;
+                formData['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
