@@ -269,12 +269,14 @@ $subtotalAdded = false;
 
         async function submitForm(url, formId) {
             // Get form data
-            let form = document.getElementById(formId);
-            let formData = new FormData(form);
-            formData.append('formId', formId);
+            const formData = {};
+            const form = document.getElementById(formId);
 
-            // Recoge los datos dependiendo del formulario actual
-            if (formId == 'form4') {
+            if (!form) {
+                console.error(`Form with id "${formId}" not found.`);
+                return;
+            }
+
             formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
@@ -290,7 +292,7 @@ $subtotalAdded = false;
 
                 // Log form data to check values
                 console.log('Form data: ', formData);
-            }
+            
             try {
                 let response = await fetch(url, {
                     method: 'POST',

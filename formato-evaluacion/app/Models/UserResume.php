@@ -10,6 +10,7 @@ class UserResume extends Model
     
     use HasFactory;
     protected $fillable = [
+        'dictaminador_id',
         'user_id',
         'email',
         'comision_actividad_1_total',
