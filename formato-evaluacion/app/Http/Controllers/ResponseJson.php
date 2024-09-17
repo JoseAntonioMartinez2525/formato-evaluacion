@@ -155,7 +155,8 @@ class ResponseJson extends Controller
             'form3_17' => $combinedForm3_17Responses->toArray(),
             'form3_18' => $combinedForm3_18Responses->toArray(),
             'form3_19' => $combinedForm3_19Responses->toArray(),
-            'formFinal' => $responsesFinal->toArray(),
+            'form4' => $responsesFinal->toArray(),
+            //'formFinal' => $responsesFinal->toArray(),
             'form5'=> $responsesEvaluator->toArray(),
 
             

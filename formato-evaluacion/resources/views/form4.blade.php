@@ -88,7 +88,7 @@ $subtotalAdded = false;
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                              <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                            <input type="hidden" name="user_type" value="{{Auth()->user()->user_type}}">
                             <center>
                             <h2 id="resumen">Resumen</h2>
                             <h4>A ser llenado por la Comisión del PEDPD</h4></center>
@@ -281,6 +281,7 @@ $subtotalAdded = false;
             formData['user_id'] = form.querySelector('input[name="user_id"]').value;
             formData['email'] = form.querySelector('input[name="email"]').value;
             formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+            console.log('user_type value: ', formData['user_type']);
 
                 // Obtener valores de los labels y spans
                 formData['comision_actividad_1_total']  =  document.getElementById('totalComision1').textContent;

@@ -76,7 +76,7 @@ class ResponseForm3_19Controller extends Controller
                 'obsPRODEPenconsInteg' => 'nullable|string',
                 'obsPRODEPconsResp' => 'nullable|string',
                 'obsPRODEPconsInteg' => 'nullable|string',
-                'user_type' => 'required|in:user,docente,dictaminator',
+                'user_type' => 'required|in:user,docente,dictaminador',
 
 
 

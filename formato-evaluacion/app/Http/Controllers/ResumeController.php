@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\UserResume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\QueryException;
 
 class ResumeController extends Controller
 {
     public function storeResume(Request $request)
     {
+        //dd($request->input('user_type'));
+
         try{$validatedData = $request->validate([
             'dictaminador_id' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
@@ -20,9 +24,10 @@ class ResumeController extends Controller
             'total_puntaje'=> 'required|numeric',
             'minima_calidad'=>'required|string',
             'minima_total'=>'required|string',
-            'user_type' => 'required|in:user,docente,dictaminator',
+                'user_type' => ['required', 'in:user,docente,dictaminador', 'lowercase'],
 
         ]);
+
 
 
          // Create a new record using Eloquent ORM
@@ -30,30 +35,32 @@ class ResumeController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Form submitted successfully!',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Log validation errors
-            \Log::error('Validation error: ' . $e->getMessage(), ['errors' => $e->errors()]);
+                'message' => 'Data successfully saved',
+                'data' => $validatedData,
+            ], 200);
+        } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validation error: ' . $e->getMessage(),
-                'errors' => $e->errors(),
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
             ], 422);
-        } catch (\Exception $e) {
-            // Log other errors
-            \Log::error('Error submitting form: ' . $e->getMessage());
+        } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error submitting form: ' . $e->getMessage(),
-            ], 500);
+                'message' => 'Database error: ' . $e->getMessage(),
+            ], 500); // Cambiado de 1200 a 500
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred: ' . $e->getMessage(),
+            ], 500); // Cambiado de 1200 a 500
         }
     }
 
     public function getDataResume(Request $request)
     {
         try {
-            $data = UserResume::where('user_id', $request->query('user_id'))->first();
+            $data = UserResume::where('dictaminador_id', $request->query('dictaminador_id'))->first();
             if (!$data) {
                 return response()->json([
                     'success' => false,

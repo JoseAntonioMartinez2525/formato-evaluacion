@@ -53,7 +53,7 @@ class ResponseForm3_18Controller extends Controller
                 'obsCicloComApoyoInt' => 'nullable|string',
                 'obsCicloComApoyoNac' => 'nullable|string',
                 'obsCicloComApoyoReg' => 'nullable|string',
-                'user_type' => 'required|in:user,docente,dictaminator',
+                'user_type' => 'required|in:user,docente,dictaminador',
 
 
 
