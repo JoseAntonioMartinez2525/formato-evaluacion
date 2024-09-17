@@ -54,13 +54,24 @@ class ResumeController extends Controller
     {
         try {
             $data = UserResume::where('user_id', $request->query('user_id'))->first();
-            return response()->json($data);
+            if (!$data) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data not found',
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+
         } catch (\Exception $e) {
-            \Log::error('Error retrieving data: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Error retrieving data: ' . $e->getMessage(),
+                'message' => 'An error occurred while retrieving data: ' . $e->getMessage(),
             ], 500);
         }
+
     }
 }

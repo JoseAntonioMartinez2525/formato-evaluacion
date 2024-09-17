@@ -294,37 +294,26 @@ $subtotalAdded = false;
                 console.log('Form data: ', formData);
             
             try {
-                let response = await fetch(url, {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
                     },
-                    body: formData,
+                    body: JSON.stringify(formData),
                 });
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
 
-                const contentType = response.headers.get('Content-Type');
-                if (!contentType || !contentType.includes('application/json')) {
-                    throw new Error('Invalid JSON response');
-                }
-
-                let data = await response.json();
-                console.log('Response received from server:', data);
-
-                if (formId === 'form5') {
-                document.getElementById('reportLink').classList.remove('d-none');
-                }
-
-               
+                const responseData = await response.json();
+                console.log('Response received from server:', responseData);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
         }
-
-        window.submitForm = submitForm;
+                window.submitForm = submitForm;
     });
 
 
