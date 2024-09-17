@@ -150,10 +150,26 @@ $subtotalAdded = false;
 <tr>
     <td><center><b>Total logrado en la evaluación</b></center></td>
     <td></td>
-    <td><label id="totalComision" for="" class="p2">{{ $totalComisionRepetido }}</label></td>
+    <td><label id="totalComision" for="">{{ $totalComisionRepetido }}</label></td>
 </tr>
 </tr>
-                               
+
+<tr>
+    <td><b>1. Permanencia en las actividades de la docencia</b></td>
+    <td>100</td>
+    <td><label id="totalComision1" for="">{{ $totalComision1 }}</label></td>
+</tr>
+
+<tr>
+    <td><b>2. Dedicación en el desempeño docente</b></td>
+    <td>200</td>
+    <td><label id="totalComision2" for="">{{ $totalComision2 }}</label></td>
+</tr>
+<tr>
+    <td><b>3. Calidad en la docencia</b></td>
+    <td>700</td>
+    <td><label id="totalComision3" for="">{{ $total }}</label></td>
+</tr>                               
 <tr>
     <td>
         <center><b>Total de puntaje obtenido en la evaluación</b></center>
@@ -394,63 +410,58 @@ $subtotalAdded = false;
         }
     });
 
-    document.addEventListener('DOMContentLoaded', async () => {
-           
+   document.addEventListener('DOMContentLoaded', async () => {
+    // Current user type from the backend
+    const userType = @json($userType);  // Get user type from backend
 
-            // Current user type from the backend
-            const userType = @json($userType);  // Get user type from backend
+    // Only proceed if user type is not 'docente'
+    if (userType !== 'docente') {
+        // Add event listener to the appropriate input field or button
+        const inputField = document.getElementById('user_id'); // Replace with your actual input field ID
+        
+        inputField.addEventListener('input', async (event) => {
+            const dictaminadorId = event.target.value; // Assuming input field value is used as dictaminadorId
 
-            // Fetch dictaminador options if user type is null or empty
-            if (userType != 'docente') {
+            if (dictaminadorId) {
                 try {
-                    const response = await fetch('/get-dictaminadores');
-                    const dictaminadores = await response.json();
+                    const email = document.querySelector('input[name="email"]').value;
 
-                        const dictaminadorId = event.target.value;
+                    const response = await axios.get('/get-dictaminador-data', {
+                        params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                    });
+                    const data = response.data;
 
+                    document.getElementById('comision1').textContent = data.form2.comision1 || '0';
+                    document.getElementById('actv2Comision').textContent = data.form2_2.actv2Comision || '0';
+                    document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
 
-                        if (dictaminadorId) {
-                            try {
+                    // Populate fields with fetched data
+                    for (let i = 2; i <= 19; i++) {
+                        const elementId = 'comision3_' + i;
+                        const formId = 'form3_' + i;
 
-                                const response = await axios.get('/get-dictaminador-data', {
-                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                                });
-                                const data = response.data;
+                        const scoreValue = data[formId]['comision3_' + i] || '0';
 
-                                document.getElementById('comision1').textContent = data.form2.comision1 || '0';
-                                document.getElementById('actv2Comision').textContent = data.form2_2.actv2Comision || '0';
-                                document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
-                           
-                                // Populate fields with fetched data
-                                for (let i = 2; i <= 19; i++) {
-                                    const elementId = 'comision3_' + i;
-                                    const formId = 'form3_' + i;
+                        document.getElementById(elementId).textContent = scoreValue;
+                    }
 
-                                    const scoreValue = data[formId]['comision3_' + i] || '0';
+                    if (!data) {
+                        console.error('No form data found for the selected dictaminador.');
 
-                                    document.getElementById(elementId).textContent = scoreValue;
-                                }
-
-                                    console.error('No form data found for the selected dictaminador.');
-
-                                    // Reset input values if no data found
-                                    document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                    document.querySelector('input[name="user_id"]').value = '0';
-                                    document.querySelector('input[name="email"]').value = '';
-                                    document.querySelector('input[name="user_type"]').value = '';
-
-
-                            } catch (error) {
-                                console.error('Error fetching dictaminador data:', error);
-                            }
-                        }
-                   
+                        // Reset input values if no data found
+                        document.querySelector('input[name="dictaminador_id"]').value = '0';
+                        document.querySelector('input[name="user_id"]').value = '0';
+                        document.querySelector('input[name="email"]').value = '';
+                        document.querySelector('input[name="user_type"]').value = '';
+                    }
                 } catch (error) {
-                    console.error('Error fetching dictaminadores:', error);
-                    
+                    console.error('Error fetching dictaminador data:', error);
                 }
             }
         });
+    }
+});
+
 
         function minWithSum(value1, value2) {
             const sum = value1 + value2;
