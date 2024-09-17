@@ -11,6 +11,7 @@ class ResumeController extends Controller
     public function storeResume(Request $request)
     {
         try{$validatedData = $request->validate([
+            'dictaminador_id' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
             'comision_actividad_1_total' => 'required|numeric',

@@ -86,6 +86,7 @@ $subtotalAdded = false;
                             @csrf
                             <div>
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                             <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                             <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                             <center>
@@ -155,18 +156,18 @@ $subtotalAdded = false;
 </tr>
 
 <tr>
-    <td><b>1. Permanencia en las actividades de la docencia</b></td>
+    <td>1. Permanencia en las actividades de la docencia</td>
     <td>100</td>
     <td><label id="totalComision1" for="">{{ $totalComision1 }}</label></td>
 </tr>
 
 <tr>
-    <td><b>2. Dedicación en el desempeño docente</b></td>
+    <td>2. Dedicación en el desempeño docente</td>
     <td>200</td>
     <td><label id="totalComision2" for="">{{ $totalComision2 }}</label></td>
 </tr>
 <tr>
-    <td><b>3. Calidad en la docencia</b></td>
+    <td>3. Calidad en la docencia</td>
     <td>700</td>
     <td><label id="totalComision3" for="">{{ $total }}</label></td>
 </tr>                               
@@ -179,21 +180,21 @@ $subtotalAdded = false;
 
 
 <tr>
-                                    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
-                                    <th>Mínima de Calidad</th>
-                                    <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Mínima Total</th>
-                                    <th><b><span id="minimaTotal">{{ $minimaTotal }}</span></b></th>
-                                </tr>
-                            </thead>
-                            </table>
-                            <center>
-                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                            </center>
-                            </div>
+    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
+    <th>Mínima de Calidad</th>
+    <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
+</tr>
+<tr>
+    <th></th>
+    <th>Mínima Total</th>
+    <th><b><span id="minimaTotal">{{ $minimaTotal }}</span></b></th>
+</tr>
+</thead>
+</table>
+<center>
+<button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+</center>
+</div>
                         </form>
 
                         <br>
@@ -274,17 +275,18 @@ $subtotalAdded = false;
 
             // Recoge los datos dependiendo del formulario actual
             if (formId == 'form4') {
-                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
-                formData.set('email', form.querySelector('input[name="email"]').value);
-                 formData.set('user_type', form.querySelector('input[name="user_type"]').value);
+            formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
+            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+            formData['email'] = form.querySelector('input[name="email"]').value;
+            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
 
                 // Obtener valores de los labels y spans
-                formData.set('comision_actividad_1_total', document.getElementById('comision1Total').textContent);
-                formData.set('comision_actividad_2_total', document.getElementById('comision2Total').textContent);
-                formData.set('comision_actividad_3_total', document.getElementById('comision3Total').textContent);
-                formData.set('total_puntaje', document.getElementById('totalComisionRepetido').textContent);
-                formData.set('minima_total', document.getElementById('minimaTotal').textContent);
-                formData.set('minima_calidad', document.getElementById('minimaCalidad').textContent);
+                formData['comision_actividad_1_total'] =  document.getElementById('totalComision1').textContent;
+                formData['comision_actividad_2_total']= document.getElementById('totalComision2').textContent;
+                formData['comision_actividad_3_total']= document.getElementById('totalComision3').textContent;
+                formData['total_puntaje']= document.getElementById('totalComisionRepetido').textContent;
+                formData['minima_total']= document.getElementById('minimaTotal').textContent;
+                formData['minima_calidad']= document.getElementById('minimaCalidad').textContent;
 
                 // Log form data to check values
                 console.log('Form data: ', formData);

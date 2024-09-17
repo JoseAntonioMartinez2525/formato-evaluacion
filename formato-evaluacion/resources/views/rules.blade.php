@@ -95,7 +95,7 @@
     @endif
     </li>
     <li class="nav-item">
-    <a class="nav-link active" href="{{ route('welcome') }}">FORMATO DE EVALUACIÓN</a>
+    <a class="nav-link active" href="{{ route('comision_dictaminadora') }}">FORMATO DE EVALUACIÓN</a>
     </li>
     <ul class="deptos">Departamentos:
     <li>Agropecuarias</li>
