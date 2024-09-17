@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserResume;
 use App\Models\Users;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,7 @@ class DictaminatorFormsGroupsController extends Controller
         DictaminatorsResponseForm3_17::class,
         DictaminatorsResponseForm3_18::class,
         DictaminatorsResponseForm3_19::class,
+        UserResume::class,
     ];
 
     public function getDictaminadorData(Request $request)

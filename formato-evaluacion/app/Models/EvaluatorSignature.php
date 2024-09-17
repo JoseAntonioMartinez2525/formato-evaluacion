@@ -11,6 +11,7 @@ class EvaluatorSignature extends Model
 
     // Definir los campos que se pueden llenar masivamente
     protected $fillable = [
+        'dictaminador_id',
         'user_id',
         'email',
         'evaluator_name_1',
@@ -19,6 +20,7 @@ class EvaluatorSignature extends Model
         'signature_path_1',
         'signature_path_2',
         'signature_path_3',
+        'user_type',
     ];
 
 
