@@ -35,7 +35,11 @@
            </li>@endif
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('welcome') }}">Formato de Evaluación</a>
+            @if(Auth::user()->user_type === 'dictaminador')
+                <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+            @elseif(Auth::user()->user_type === '')
+                <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos</a>
+            @endif
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{{ route('resumen') }}">Resumen</a>
@@ -73,7 +77,9 @@
                 <li><a href="#seccion3_19">3.19 Participación en cuerpos colegiados</a></li>
             </ul>
         </nav>
-
+    @php
+    $userType = Auth::user()->user_type;
+    @endphp
         <body class="font-sans antialiased">
             <x-general-header />
             <div class="bg-gray-50 text-black/50">

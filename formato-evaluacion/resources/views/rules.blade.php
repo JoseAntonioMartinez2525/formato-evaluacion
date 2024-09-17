@@ -1,3 +1,6 @@
+@php
+$userType = Auth::user()->user_type;
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -91,11 +94,16 @@
       <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
       </a>
       </li>
+
     </div>
     @endif
     </li>
     <li class="nav-item">
-    <a class="nav-link active" href="{{ route('comision_dictaminadora') }}">FORMATO DE EVALUACIÓN</a>
+      @if(Auth::user()->user_type === 'dictaminador')
+      <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
+    @elseif(Auth::user()->user_type === '')
+      <a class="nav-link active" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
+    @endif
     </li>
     <ul class="deptos">Departamentos:
     <li>Agropecuarias</li>
