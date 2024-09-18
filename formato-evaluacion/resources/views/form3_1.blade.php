@@ -181,8 +181,8 @@ $userType = Auth::user()->user_type;
                                     <td><span id="elaboracionSubTotal1" for="" type="text"></span></td>
                                     <td class="comision actv">
                                     @if($userType == 'dictaminador')
-                                    <input id="comisionIncisoA" placeholder="0" for=""
-                                            oninput="onActv3Comision()"></input>
+                                        <input id="comisionIncisoA" for=""
+                                                oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoA') }}"></input>
                                     @else
                                         <label id="comisionIncisoA" name="comisionIncisoA"></label>
                                     @endif                                    
@@ -219,8 +219,8 @@ $userType = Auth::user()->user_type;
                                             </td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                            <input id="comisionIncisoB" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input>
+                                                <input id="comisionIncisoB" for=""
+                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoB') }}"></input>
                                             @else
                                                 <label id="comisionIncisoB" name="comisionIncisoB"></label>                                            
                                             @endif
@@ -258,8 +258,8 @@ $userType = Auth::user()->user_type;
                                             </td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                            <input id="comisionIncisoC" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input>
+                                                <input id="comisionIncisoC" for=""
+                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
                                             @else
                                                 <label id="comisionIncisoC" name="comisionIncisoC"></label>
                                             @endif
@@ -300,8 +300,8 @@ $userType = Auth::user()->user_type;
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
 
-                                            <input id="comisionIncisoD" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input>
+                                                <input id="comisionIncisoD" for=""
+                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}"></input>
                                             @else
                                                 <label id="comisionIncisoD" name="comisionIncisoD"></label>
                                             @endif                                               
@@ -339,8 +339,8 @@ $userType = Auth::user()->user_type;
                                             <td><span id="elaboracionSubTotal5"></span></td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                            <input id="comisionIncisoE" placeholder="0" for=""
-                                                    oninput="onActv3Comision()"></input>
+                                                <input id="comisionIncisoE" for=""
+                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
                                             @else
                                              <label id="comisionIncisoE" name="comisionIncisoE"></label>
                                              @endif

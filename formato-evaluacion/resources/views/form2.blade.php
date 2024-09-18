@@ -133,7 +133,8 @@ $userType = Auth::user()->user_type;
                             <div class="filled">
                         @if($userType == 'dictaminador')
                             <!-- Mostrar input si es 'dictaminador' -->
-                            <input type="number" id="comision1" name="comision1" class="table-header comision" step="any">
+                            <input type="number" id="comision1" name="comision1" class="table-header comision" step="any"
+                            value="{{ oldValueOrDefault('comision1') }}">
                         @else
                             <!-- Mostrar span si es otro tipo de usuario -->
                             <span id="comision1" class="table-header comision"></span>
