@@ -117,6 +117,10 @@ const subtotal5 = subtotal(s5,q5);
 if (!isNaN(score3_1)) {
     docencia += score3_1;
 }
+if(docencia>=60){
+
+  document.getElementById("docencia").innerHTML = 60;
+}
  console.log("docencia:", docencia);
  document.getElementById("docencia").innerHTML = docencia;
  data.score3_1=score3_1;

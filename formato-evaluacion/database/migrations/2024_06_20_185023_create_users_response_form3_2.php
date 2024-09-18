@@ -35,6 +35,10 @@ return new class extends Migration {
         \DB::statement("ALTER TABLE users_response_form3_2 MODIFY obs3_2_2 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form3_2 MODIFY obs3_2_3 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
 
+        \DB::statement("ALTER TABLE users_response_form3_2 MODIFY r1 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_2 MODIFY r2 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_2 MODIFY r3 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+
     }
 
     /**

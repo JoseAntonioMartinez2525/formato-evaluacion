@@ -32,6 +32,9 @@ return new class extends Migration
         // Set default values for existing rows using raw SQL statements
         \DB::statement("ALTER TABLE users_response_form3_10 MODIFY obsGrupal VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form3_10 MODIFY obsIndividual VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_10 MODIFY grupalesCant DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_10 MODIFY individualCant DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+
 
 
     }

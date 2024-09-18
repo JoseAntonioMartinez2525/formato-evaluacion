@@ -166,7 +166,7 @@
                                                         </td>
 
                                                         <td class="elabInput"><input id="elaboracion" name="elaboracion" type="number"
-                                                                oninput="onActv3Subtotal()" placeholder="0"></td>
+                                                                oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion') }}"></td>
                                                         <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
                                                         <td class="comision actv"><input id="comisionIncisoA" placeholder="0"
                                                                 for="" oninput="onActv3Comision()"></input></td>
@@ -192,7 +192,7 @@
                                                                     <label id="puntaje40" for=""><b>40</b></label>
                                                                 </td>
                                                                 <td class="elabInput"><input id="elaboracion2" name="elaboracion2" type="number"
-                                                                        oninput="onActv3Subtotal()" placeholder="0"></td>
+                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion2') }}"></td>
                                                                 <td><label id="elaboracionSubTotal2" for="" type="text"></label>
                                                                 </td>
                                                                 <td class="comision actv"><input id="comisionIncisoB"
@@ -221,7 +221,7 @@
                                                                     <label id="puntaje10" for=""><b>10</b></label>
                                                                 </td>
                                                                 <td class="elabInput"><input id="elaboracion3" name="elaboracion3" type="number"
-                                                                        oninput="onActv3Subtotal()" placeholder="0"></td>
+                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion3') }}"></td>
                                                                 <td><label id="elaboracionSubTotal3" for="" type="text"></label>
                                                                 </td>
                                                                 <td class="comision actv"><input id="comisionIncisoC"
@@ -251,7 +251,7 @@
                                                                     <label id="puntaje20" for=""><b>20</b></label>
                                                                 </td>
                                                                 <td class="elabInput"><input id="elaboracion4" name="elaboracion4" type="number"
-                                                                        oninput="onActv3Subtotal()" placeholder="0"></td>
+                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion4') }}"></td>
                                                                 <td><label id="elaboracionSubTotal4" for="" type="text"></label>
                                                                 </td>
                                                                 <td class="comision actv"><input id="comisionIncisoD"
@@ -281,7 +281,7 @@
                                                                     <label id="p10" for=""><b>10</b></label>
                                                                 </td>
                                                                 <td class="elabInput"><input id="elaboracion5" name="elaboracion5" type="number"
-                                                                        oninput="onActv3Subtotal()" placeholder="0"></td>
+                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion5') }}"></td>
                                                                 <td><label id="elaboracionSubTotal5" for="" type="text"></label>
                                                                 </td>
                                                                 <td class="comision actv"><input id="comisionIncisoE"
@@ -357,7 +357,7 @@
                                             </td>
                                             <td id="ran1"><b>50</b></td>
                                             <td class="elabInput"><input id="r1" type="value" placeholder="0"
-                                                    oninput="onActv3Puntaje()"></td>
+                                                    oninput="onActv3Puntaje()" value="{{ oldValueOrDefault('r1') }}"></td>
                                             <td id="cant1">0</td>
                                             <td><input id="prom90_100" type="value" placeholder="0"
                                                     oninput="onActv3_2Comision()"></td>
@@ -370,7 +370,7 @@
                                             </td>
                                             <td id="ran2"><b>40</b></td>
                                             <td class="elabInput"><input id="r2" type="value" placeholder="0"
-                                                    oninput="onActv3Puntaje()"></td>
+                                                    oninput="onActv3Puntaje()" value="{{ oldValueOrDefault('r2') }}"></td>
                                             <td id="cant2">0</td>
                                             <td><input id="prom80_90" placeholder="0" type="value"
                                                     oninput="onActv3_2Comision()"></td>
@@ -383,7 +383,7 @@
                                             </td>
                                             <td id="ran3"><b>30</b></td>
                                             <td class="elabInput"><input id="r3" type="value" placeholder="0"
-                                                    oninput="onActv3Puntaje()"></td>
+                                                    oninput="onActv3Puntaje()" value="{{ oldValueOrDefault('r3') }}"></td>
                                             <td id="cant3">0</td>
                                             <td><input id="prom70_80" placeholder="0" type="value"
                                                     oninput="onActv3_2Comision()"></td>
@@ -465,8 +465,7 @@
                                                 <td id="p100">
                                                     <center><b>100</b></center>
                                                 </td>
-                                                <td class="elabInput"><input id="rc1" type="text" placeholder="0"
-                                                        oninput="onActv3SubTotal3()">
+                                                <td class="elabInput"><input id="rc1" type="text" oninput="onActv3SubTotal3()" value="{{ oldValueOrDefault('rc1') }}">
                                                 </td>
                                                 <td id="stotal1"></td>
                                                 <td class="comision actv"><input id="comIncisoA" placeholder="0" for=""
@@ -480,8 +479,8 @@
                                                 <td id="p50">
                                                     <center><b>50</b></center>
                                                 </td>
-                                                <td class="elabInput"><input id="rc2" type="text" placeholder="0"
-                                                        oninput="onActv3SubTotal3()">
+                                                <td class="elabInput"><input id="rc2" type="text" 
+                                                        oninput="onActv3SubTotal3()" value="{{ oldValueOrDefault('rc2') }}">
                                                 </td>
                                                 <td id="stotal2"></td>
                                                 <td class="comision actv"><input id="comIncisoB" placeholder="0" for=""
@@ -503,8 +502,8 @@
                                                 <td id="p30">
                                                     <center><b>30</b></center>
                                                 </td>
-                                                <td class="elabInput"><input id="rc3" type="text" placeholder="0"
-                                                        oninput="onActv3SubTotal3()">
+                                                <td class="elabInput"><input id="rc3" type="text"
+                                                        oninput="onActv3SubTotal3()" value="{{ oldValueOrDefault('rc3') }}">
                                                 </td>
                                                 <td id="stotal3"></td>
                                                 <td class="comision actv"><input id="comIncisoC" placeholder="0" for=""
@@ -520,8 +519,8 @@
                                                 <td id="p25">
                                                     <center><b>25</b></center>
                                                 </td>
-                                                <td class="elabInput"><input id="rc4" type="text" placeholder="0"
-                                                        oninput="onActv3SubTotal3()">
+                                                <td class="elabInput"><input id="rc4" type="text"
+                                                        oninput="onActv3SubTotal3()" value="{{ oldValueOrDefault('rc4') }}">
                                                 </td>
                                                 <td id="stotal4"></td>
                                                 <td class="comision actv"><input id="comIncisoD" placeholder="0" for=""
@@ -579,7 +578,7 @@
                     <td class="punto3_4">a)</td>
                     <td>Internacional</td>
                     <td id="p60"><b>60</b></td>
-                    <td><input type="number" id="cantInternacional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                    <td><input type="number" id="cantInternacional" placeholder="0" oninput="onActv3SubTotal3_4()" value="{{ oldValueOrDefault('cantInternacional') }}"></td>
                     <td id="cantInternacional2"></td>
                     <td><input type="number" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
                     <td><input id="obs3_4_1" class="table-header" type="text"></td>
@@ -588,7 +587,7 @@
                     <td class="punto3_4">b)</td>
                     <td>Nacional</td>
                     <td id="p30Nac"><b>30</b></td>
-                    <td><input type="number" id="cantNacional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                    <td><input type="number" id="cantNacional" placeholder="0" oninput="onActv3SubTotal3_4()" value="{{ oldValueOrDefault('cantNacional') }}"></td>
                     <td id="cantNacional2"></td>
                     <td><input type="number" id="comNacional" placeholder="0" oninput="onActv3Comision3_4()"></td>
                     <td><input id="obs3_4_2" class="table-header" type="text"></td>
@@ -597,7 +596,7 @@
                     <td class="punto3_4">c)</td>
                     <td>Regional o estatal</td>
                     <td id="p20"><b>20</b></td>
-                    <td><input type="number" id="cantidadRegional" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                    <td><input type="number" id="cantidadRegional" placeholder="0" oninput="onActv3SubTotal3_4()" value="{{ oldValueOrDefault('cantidadRegional') }}"></td>
                     <td id="cantidadRegional2"></td>
                     <td><input type="number" id="comRegional" placeholder="0" oninput="onActv3Comision3_4()"></td>
                     <td><input id="obs3_4_3" class="table-header" type="text"></td>
@@ -606,7 +605,7 @@
                     <td class="punto3_4">d)</td>
                     <td>Preparación de grupos de alumnado para olimpiadas competencias académicas o exámenes generales.</td>
                     <td id="p30Prep"><b>30</b></td>
-                    <td><input type="number" id="cantPreparacion" placeholder="0" oninput="onActv3SubTotal3_4()"></td>
+                    <td><input type="number" id="cantPreparacion" placeholder="0" oninput="onActv3SubTotal3_4()" value="{{ oldValueOrDefault('cantPreparacion') }}"></td>
                     <td id="cantPreparacion2"></td>
                     <td><input type="number" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()"></td>
                     <td><input id="obs3_4_4" class="table-header" type="text"></td>
@@ -669,8 +668,8 @@
                                                 <td class="punto3_5">a)</td>
                                                 <td>Evaluado por la persona titular de DA</td>
                                                 <td id="p35"><b>35</b></td>
-                                                <td><input type="value" id="cantDA" placeholder="0"
-                                                        oninput="onActv3SubTotal3_5()"></td>
+                                                <td><input type="value" id="cantDA"
+                                                        oninput="onActv3SubTotal3_5()" value="{{ oldValueOrDefault('cantDA') }}"></td>
                                                 <td id="cantDA2"></td>
                                                 <td><input type="value" id="comDA" placeholder="0"
                                                         oninput="onActv3Comision3_5()"></td>
@@ -682,8 +681,8 @@
                                                     <td class="punto3_5">b)</td>
                                                     <td>Evaluado por CAAC</td>
                                                     <td id="pCAAC40"><b>40</b></td>
-                                                    <td><input type="value" id="cantCAAC" placeholder="0"
-                                                            oninput="onActv3SubTotal3_5()"></td>
+                                                    <td><input type="value" id="cantCAAC"
+                                                            oninput="onActv3SubTotal3_5()" value="{{ oldValueOrDefault('cantCAAC') }}"></td>
                                                     <td id="cantCAAC2""></td>
                                             <td><input type=" value" id="comNCAA" placeholder="0"
                                                         oninput="onActv3Comision3_5()"></td>
@@ -747,8 +746,8 @@
                                                 <tr>
                                                     <td>0.5 por cada hora</td>
                                                     <td id="pMedio">0.5</td>
-                                                    <td><input type="value" placeholder="0" id="puntaje3_6"
-                                                            oninput="onActv3SubTotal3_6()"></td>
+                                                    <td><input type="value" id="puntaje3_6"
+                                                            oninput="onActv3SubTotal3_6()" value="{{ oldValueOrDefault('puntaje3_6') }}"></td>
                                                     <td id="puntajeHoras3_6"></td>
                                                     <td><input type="text" placeholder="0" id="comisionDict3_6"
                                                             oninput="onActv3Comision3_6()">
@@ -817,7 +816,7 @@
                                                     <td>0.5 por cada hora</td>
                                                     <td id="pMedio2">0.5</td>
                                                     <td><input type="value" placeholder="0" id="puntaje3_7"
-                                                            oninput="onActv3SubTotal3_7()"></td>
+                                                            oninput="onActv3SubTotal3_7()" value="{{ oldValueOrDefault('puntaje3_7') }}"></td>
                                                     <td id="puntajeHoras3_7"></td>
                                                     <td><input type="text" placeholder="0" id="comisionDict3_7"
                                                             oninput="onActv3Comision3_7()">
@@ -885,7 +884,7 @@
                                                     <td>1 por cada hora</td>
                                                     <td id="p3_8">1</td>
                                                     <td><input type="value" placeholder="0" id="puntaje3_8"
-                                                            oninput="onActv3SubTotal3_8()"></td>
+                                                            oninput="onActv3SubTotal3_8()" value="{{ oldValueOrDefault('puntaje3_8') }}"></td>
                                                     <td id="puntajeHoras3_8"></td>
                                                     <td><input type="text" placeholder="0" id="comisionDict3_8"
                                                             oninput="onActv3Comision3_8()">
@@ -999,8 +998,8 @@
                                                 <td>Tesis</td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias20_1">20</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_1"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_1"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_1') }}"></td>
                                                 <td id="tutorias1">0</td>
                                                 <td><input type="value" id="tutoriasComision1" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1013,8 +1012,8 @@
                                                 <td>Tesis</td>
                                                 <td>Maestría</td>
                                                 <td id="puntajeTutorias15_1">15</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_2"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_2"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_2') }}"></td>
                                                 <td id="tutorias2">0</td>
                                                 <td><input type="value" id="tutoriasComision2" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1027,8 +1026,8 @@
                                                 <td>Tesis y otras</td>
                                                 <td>TSU, Lic y especialidad</td>
                                                 <td id="puntajeTutorias10_1">10</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_3"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_3"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_3') }}"></td>
                                                 <td id="tutorias3">0</td>
                                                 <td><input type="value" id="tutoriasComision3" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1041,8 +1040,8 @@
                                                 <td>Tesis</td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias55">55</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_4"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_4"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_4') }}"></td>
                                                 <td id="tutorias4">0</td>
                                                 <td><input type="value" id="tutoriasComision4" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1055,8 +1054,8 @@
                                                 <td>Tesis</td>
                                                 <td>Maestria</td>
                                                 <td id="puntajeTutorias45">45</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_5"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_5"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_5') }}"></td>
                                                 <td id="tutorias5">0</td>
                                                 <td><input type="value" id="tutoriasComision5" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1069,8 +1068,8 @@
                                                 <td>Tesis y otras</td>
                                                 <td>TSU, Lic y especialidad</td>
                                                 <td id="puntajeTutorias35">35</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_6"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_6"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_6') }}"></td>
                                                 <td id="tutorias6">0</td>
                                                 <td><input type="value" id="tutoriasComision6" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1083,8 +1082,8 @@
                                                 <td>Tesis</td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias70">70</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_7"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_7"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_7') }}"></td>
                                                 <td id="tutorias7">0</td>
                                                 <td><input type="value" id="tutoriasComision7" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1097,8 +1096,8 @@
                                                 <td>Tesis</td>
                                                 <td>Maestría</td>
                                                 <td id="puntajeTutorias60">60</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_8"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_8"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_8') }}"></td>
                                                 <td id="tutorias8">0</td>
                                                 <td><input type="value" id="tutoriasComision8" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1111,8 +1110,8 @@
                                                 <td>Tesis y otras</td>
                                                 <td>TSU, Lic y especialidad</td>
                                                 <td id="puntajeTutorias50">50</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_9"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_9"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_9') }}"></td>
                                                 <td id="tutorias9">0</td>
                                                 <td><input type="value" id="tutoriasComision9" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1125,8 +1124,8 @@
                                                 <td>Tesis</td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias30_1">30</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_10"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_10" 
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_10') }}"></td>
                                                 <td id="tutorias10">0</td>
                                                 <td><input type="value" id="tutoriasComision10" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1139,8 +1138,8 @@
                                                 <td>Tesis</td>
                                                 <td>Maestría</td>
                                                 <td id="puntajeTutorias20_2">50</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_11"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_11"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_11') }}"></td>
                                                 <td id="tutorias11">0</td>
                                                 <td><input type="value" id="tutoriasComision11" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1153,8 +1152,8 @@
                                                 <td>Tesis y otras</td>
                                                 <td>TSU, Lic y especialidad</td>
                                                 <td id="puntajeTutorias15_2">15</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_12"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_12"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_12') }}"></td>
                                                 <td id="tutorias12">0</td>
                                                 <td><input type="value" id="tutoriasComision12" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1167,8 +1166,8 @@
                                                 <td>Examen</td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias30_2">30</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_13"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_13"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_13') }}"></td>
                                                 <td id="tutorias13">0</td>
                                                 <td><input type="value" id="tutoriasComision13" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1181,8 +1180,8 @@
                                                 <td>Examen</td>
                                                 <td>Maestría</td>
                                                 <td id="puntajeTutorias20_3">15</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_14"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_14"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_14') }}"></td>
                                                 <td id="tutorias14">0</td>
                                                 <td><input type="value" id="tutoriasComision14" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1195,8 +1194,8 @@
                                                 <td>Examen</td>
                                                 <td>TSU, Lic y especialidad</td>
                                                 <td id="puntajeTutorias15_3">15</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_15"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_15"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_15') }}"></td>
                                                 <td id="tutorias15">0</td>
                                                 <td><input type="value" id="tutoriasComision15" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1209,8 +1208,8 @@
                                                 <td></td>
                                                 <td>Doctorado</td>
                                                 <td id="puntajeTutorias15_4">15</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_16"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_16"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_16') }}"></td>
                                                 <td id="tutorias16">0</td>
                                                 <td><input type="value" id="tutoriasComision16" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1223,8 +1222,8 @@
                                                 <td></td>
                                                 <td>Maestría</td>
                                                 <td id="puntajeTutorias10_2">10</td>
-                                                <td><input type="value" placeholder="0" id="puntaje3_9_17"
-                                                        oninput="onActv3SubTotal3_9()"></td>
+                                                <td><input type="value" id="puntaje3_9_17"
+                                                        oninput="onActv3SubTotal3_9()" value="{{ oldValueOrDefault('puntaje3_9_17') }}"></td>
                                                 <td id="tutorias17">0</td>
                                                 <td><input type="value" id="tutoriasComision17" placeholder="0"
                                                         oninput="onActv3Comision3_9()">
@@ -1291,7 +1290,7 @@
                                                 <td>Por alumno(a) por semestre, grupales</td>
                                                 <td id="puntajeGrupales">3</td>
                                                 <td><input type="value" id="grupalesCant" oninput="onActv3SubTotal3_10()"
-                                                        placeholder="0">
+                                                        value="{{ oldValueOrDefault('grupalesCant') }}">
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -1308,7 +1307,7 @@
                                                 <td>Por alumno(a) por semestre, individuales</td>
                                                 <td id="puntajeIndividual">6</td>
                                                 <td><input type="value" id="individualCant" oninput="onActv3SubTotal3_10()"
-                                                        placeholder="0">
+                                                        value="{{ oldValueOrDefault('individualCant') }}">
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -1392,8 +1391,8 @@
                                             <td>Asesorías académicas</td>
                                             <td>Por alumno(a), por semestre</td>
                                             <td id="academica">5</td>
-                                            <td><input type="value" placeholder="0" id="cantAsesoria"
-                                                    oninput="onActv3SubTotal3_11()"></td>
+                                            <td><input type="value" id="cantAsesoria"
+                                                    oninput="onActv3SubTotal3_11()" value="{{ oldValueOrDefault('cantAsesoria') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1409,7 +1408,7 @@
                                             <td>Por alumno(a), por semestre</td>
                                             <td id="servicio">20</td>
                                             <td><input type="value" placeholder="0" id="cantServicio"
-                                                    oninput="onActv3SubTotal3_11()"></td>
+                                                    oninput="onActv3SubTotal3_11()" value="{{ oldValueOrDefault('cantServicio') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1425,7 +1424,7 @@
                                             <td>Por alumno(a), por semestre</td>
                                             <td id="practicas">20</td>
                                             <td><input type="value" placeholder="0" id="cantPracticas"
-                                                    oninput="onActv3SubTotal3_11()"></td>
+                                                    oninput="onActv3SubTotal3_11()" value="{{ oldValueOrDefault('cantPracticas') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1508,8 +1507,8 @@
                                             <td>--</td>
                                             <td>--</td>
                                             <td id="puntajeCientificos">100</td>
-                                            <td><input type="value" placeholder="0" id="cantCientifico"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantCientifico"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantCientifico') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalCientificos"></td>
@@ -1524,8 +1523,8 @@
                                             <td>--</td>
                                             <td>--</td>
                                             <td id="puntajeDivulgacion">50</td>
-                                            <td><input type="value" placeholder="0" id="cantDivulgacion"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantDivulgacion"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantDivulgacion') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalDivulgacion"></td>
@@ -1540,8 +1539,8 @@
                                             <td>--</td>
                                             <td>--</td>
                                             <td id="puntajeTraduccion">40</td>
-                                            <td><input type="value" placeholder="0" id="cantTraduccion"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantTraduccion"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantTraduccion') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalTraduccion"></td>
@@ -1556,8 +1555,8 @@
                                             <td>Con Arbitraje</td>
                                             <td>Internacional</td>
                                             <td id="puntajeArbitrajeInt">60</td>
-                                            <td><input type="value" placeholder="0" id="cantArbitrajeInt"
-                                                    oninput="onActv3SubTotal3_12()">
+                                            <td><input type="value" id="cantArbitrajeInt"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantArbitrajeInt') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1573,8 +1572,8 @@
                                             <td>Con Arbitraje</td>
                                             <td>Nacional</td>
                                             <td id="puntajeArbitrajeNac">30</td>
-                                            <td><input type="value" placeholder="0" id="cantArbitrajeNac"
-                                                    oninput="onActv3SubTotal3_12()">
+                                            <td><input type="value" id="cantArbitrajeNac"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantArbitrajeNac') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1590,8 +1589,8 @@
                                             <td>Sin Arbitraje</td>
                                             <td>Internacional</td>
                                             <td id="puntajeSinInt">15</td>
-                                            <td><input type="value" placeholder="0" id="cantSinInt"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantSinInt"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantSinInt') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalSinInt"></td>
@@ -1605,8 +1604,8 @@
                                             <td>Sin Arbitraje</td>
                                             <td>Nacional</td>
                                             <td id="puntajeSinNac">10</td>
-                                            <td><input type="value" placeholder="0" id="cantSinNac"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantSinNac"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantSinNac') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalSinNac"></td>
@@ -1620,8 +1619,8 @@
                                             <td>Autor(a) o coautor (a) de capítulo de libro internacional o nacional</td>
                                             <td>--</td>
                                             <td id="puntajeAutor">25</td>
-                                            <td><input type="value" placeholder="0" id="cantAutor"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantAutor"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantAutor') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalAutor"></td>
@@ -1635,8 +1634,8 @@
                                             <td>Editor(a) o coeditor(a) de libro</td>
                                             <td>--</td>
                                             <td id="puntajeEditor">25</td>
-                                            <td><input type="value" placeholder="0" id="cantEditor"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantEditor"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantEditor') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalEditor"></td>
@@ -1650,8 +1649,8 @@
                                             <td>Diseño de sitio web</td>
                                             <td>--</td>
                                             <td id="puntajeWeb">20</td>
-                                            <td><input type="value" placeholder="0" id="cantWeb"
-                                                    oninput="onActv3SubTotal3_12()"></td>
+                                            <td><input type="value" id="cantWeb"
+                                                    oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantWeb') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalWeb"></td>
@@ -1720,8 +1719,8 @@
                                             <td>a)</td>
                                             <td>Inicio de proyecto de investigación con financiamiento externo</td>
                                             <td id="puntajeInicioFinanExt">50</td>
-                                            <td><input type="value" placeholder="0" id="cantInicioFinanExt"
-                                                    oninput="onActv3SubTotal3_13()">
+                                            <td><input type="value" id="cantInicioFinanExt"
+                                                    oninput="onActv3SubTotal3_13()" value="{{ oldValueOrDefault('cantInicioFinanExt') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1736,8 +1735,8 @@
                                             <td>b)</td>
                                             <td>Inicio de proyecto de investigación interno, aprobado por CAAC</td>
                                             <td id="puntajeInicioInvInterno">25</td>
-                                            <td><input type="value" placeholder="0" id="cantInicioInvInterno"
-                                                    oninput="onActv3SubTotal3_13()">
+                                            <td><input type="value" id="cantInicioInvInterno"
+                                                    oninput="onActv3SubTotal3_13()" value="{{ oldValueOrDefault('cantInicioInvInterno') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1754,8 +1753,8 @@
                                                 financiamiento externo
                                             </td>
                                             <td id="puntajeReporteFinanciamExt">100</td>
-                                            <td><input type="value" placeholder="0" id="cantReporteFinanciamExt"
-                                                    oninput="onActv3SubTotal3_13()">
+                                            <td><input type="value" id="cantReporteFinanciamExt"
+                                                    oninput="onActv3SubTotal3_13()" value="{{ oldValueOrDefault('cantReporteFinanciamExt') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1772,8 +1771,8 @@
                                                 aprobado por CAAC
                                             </td>
                                             <td id="puntajeReporteInvInt">100</td>
-                                            <td><input type="value" placeholder="0" id="cantReporteInvInt"
-                                                    oninput="onActv3SubTotal3_13()">
+                                            <td><input type="value" id="cantReporteInvInt"
+                                                    oninput="onActv3SubTotal3_13()" value="{{ oldValueOrDefault('cantReporteInvInt') }}">
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -1849,8 +1848,8 @@
                                             <td>a)</td>
                                             <td>Internacional</td>
                                             <td id="puntajeCongresoInt"><b>25</b></td>
-                                            <td><input type="value" placeholder="0" id="cantCongresoInt"
-                                                    oninput="onActv3SubTotal3_14()"></td>
+                                            <td><input type="value" id="cantCongresoInt"
+                                                    oninput="onActv3SubTotal3_14()" value="{{ oldValueOrDefault('cantCongresoInt') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1864,8 +1863,8 @@
                                             <td>b)</td>
                                             <td>Nacional</td>
                                             <td id="puntajeCongresoNac"><b>20</b></td>
-                                            <td><input type="value" placeholder="0" id="cantCongresoNac"
-                                                    oninput="onActv3SubTotal3_14()"></td>
+                                            <td><input type="value" id="cantCongresoNac"
+                                                    oninput="onActv3SubTotal3_14()" value="{{ oldValueOrDefault('cantCongresoNac') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1876,11 +1875,11 @@
                                             <td><input class="table-header" type="text" id="obsCongresoNac"></td>
                                         </tr>
                                         <tr>
-                                            <td>b)</td>
+                                            <td>c)</td>
                                             <td>Local</td>
                                             <td id="puntajeCongresoLoc"><b>10</b></td>
-                                            <td><input type="value" placeholder="0" id="cantCongresoLoc"
-                                                    oninput="onActv3SubTotal3_14()"></td>
+                                            <td><input type="value" id="cantCongresoLoc"
+                                                    oninput="onActv3SubTotal3_14()" value="{{ oldValueOrDefault('cantCongresoLoc') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1944,12 +1943,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <td>a)</td>
                                             <td>Registro de patentes</td>
                                             <td id="puntajePatentes"><b>60</b></td>
-                                            <td><input type="value" id="cantPatentes" placeholder="0"
-                                                    oninput="onActv3SubTotal3_15()"></td>
+                                            <td><input type="value" id="cantPatentes" 
+                                                    oninput="onActv3SubTotal3_15()" value="{{ oldValueOrDefault('puntajePatentes') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1959,12 +1959,14 @@
                                             </td>
                                             <td><input class="table-header" type="text" id="obsPatentes"></td>
                                         </tr>
+                                        </thead>
+                                        <thead>
                                         <tr>
                                             <td>b)</td>
                                             <td>Desarrollo de prototipos</td>
                                             <td id="puntajePrototipos"><b>30</b></td>
-                                            <td><input type="value" id="cantPrototipos" placeholder="0"
-                                                    oninput="onActv3SubTotal3_15()"></td>
+                                            <td><input type="value" id="cantPrototipos" 
+                                                    oninput="onActv3SubTotal3_15()" value="{{ oldValueOrDefault('cantPrototipos') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -1974,6 +1976,7 @@
                                             </td>
                                             <td><input class="table-header" type="text" id="obsPrototipos"></td>
                                         </tr>
+                                    </thead>
                                     </tbody>
                                 </table>
                                 <!--Tabla informativa Acreditacion Actividad 3.15-->
@@ -2053,8 +2056,8 @@
                                             <td>Arbitraje a proyectos de investigación</td>
                                             <td>Internacional</td>
                                             <td id="puntajeArbInt"><b>30</b></td>
-                                            <td><input type="value" id="cantArbInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantArbInt" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantArbInt') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalArbInt"></td>
@@ -2067,8 +2070,8 @@
                                             <td>Arbitraje a proyectos de investigación</td>
                                             <td>Nacional</td>
                                             <td id="puntajeArbINac"><b>25</b></td>
-                                            <td><input type="value" id="cantArbNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantArbNac" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantArbNac') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalArbNac"></td>
@@ -2081,8 +2084,8 @@
                                             <td>Arbitraje de publicaciones</td>
                                             <td>Internacional</td>
                                             <td id="puntajePubInt"><b>20</b></td>
-                                            <td><input type="value" id="cantPubInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantPubInt" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantPubInt') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalPubInt"></td>
@@ -2095,8 +2098,8 @@
                                             <td>Arbitraje de publicaciones</td>
                                             <td>Nacional</td>
                                             <td id="puntajePubINac"><b>10</b></td>
-                                            <td><input type="value" id="cantPubNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantPubNac" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantPubNac') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalPubNac"></td>
@@ -2109,8 +2112,8 @@
                                             <td>Revisor(a) de libros, corrector(a)</td>
                                             <td>Internacional</td>
                                             <td id="puntajeRevInt"><b>30</b></td>
-                                            <td><input type="value" id="cantRevInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantRevInt" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantRevInt') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalRevInt"></td>
@@ -2123,8 +2126,8 @@
                                             <td>Revisor(a) de libros, corrector(a)</td>
                                             <td>Nacional</td>
                                             <td id="puntajeRevINac"><b>25</b></td>
-                                            <td><input type="value" id="cantRevNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantRevNac" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantRevNac') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalRevNac"></td>
@@ -2137,8 +2140,8 @@
                                             <td>Consejo editorial de revista, edición de revista</td>
                                             <td>----</td>
                                             <td id="puntajeRevista"><b>10</b></td>
-                                            <td><input type="value" id="cantRevista" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_16()"></td>
+                                            <td><input type="value" id="cantRevista" 
+                                                    oninput="onActv3SubTotal3_16()" value="{{ oldValueOrDefault('cantRevista') }}"></td>
                                             <td></td>
                                             <td></td>
                                             <td id="subtotalRevista"></td>
@@ -2217,8 +2220,8 @@
                                             <td>Inicio de proyectos de extensión y difusión con financiamiento externo</td>
                                             <td></td>
                                             <td id="puntajeDifusionExt"><b>15</b></td>
-                                            <td><input type="value" id="cantDifusionExt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_17()">
+                                            <td><input type="value" id="cantDifusionExt" 
+                                                    oninput="onActv3SubTotal3_17()" value="{{ oldValueOrDefault('cantDifusionExt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalDifusionExt"></td>
@@ -2233,8 +2236,8 @@
                                             </td>
                                             <td></td>
                                             <td id="puntajeDifusionInt"><b>10</b></td>
-                                            <td><input type="value" id="cantDifusionInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_17()">
+                                            <td><input type="value" id="cantDifusionInt" 
+                                                    oninput="onActv3SubTotal3_17()" value="{{ oldValueOrDefault('cantDifusionInt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalDifusionInt"></td>
@@ -2251,8 +2254,8 @@
                                             </td>
                                             <td></td>
                                             <td id="puntajeRepDifusionExt"><b>35</b></td>
-                                            <td><input type="value" id="cantRepDifusionExt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_17()">
+                                            <td><input type="value" id="cantRepDifusionExt" 
+                                                    oninput="onActv3SubTotal3_17()" value="{{ oldValueOrDefault('cantRepDifusionExt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalRepDifusionExt"></td>
@@ -2268,8 +2271,8 @@
                                                 CAAC</td>
                                             <td></td>
                                             <td id="puntajeRepDifusionInt"><b>20</b></td>
-                                            <td><input type="value" id="cantRepDifusionInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_17()">
+                                            <td><input type="value" id="cantRepDifusionInt" 
+                                                    oninput="onActv3SubTotal3_17()" value="{{ oldValueOrDefault('cantRepDifusionInt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalRepDifusionInt"></td>
@@ -2348,8 +2351,8 @@
                                             <td></td>
                                             <td>Internacional**</td>
                                             <td id="puntajeComOrgInt"><b>40</b></td>
-                                            <td><input type="value" id="cantComOrgInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()"></td>
+                                            <td><input type="value" id="cantComOrgInt" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComOrgInt') }}"></td>
                                             <td></td>
                                             <td id="subtotalComOrgInt"></td>
                                             <td><input type="value" id="comisionComOrgInt" placeholder="0"
@@ -2363,8 +2366,8 @@
                                             <td></td>
                                             <td>Nacional</td>
                                             <td id="puntajeComOrgNac"><b>20</b></td>
-                                            <td><input type="value" id="cantComOrgNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()"></td>
+                                            <td><input type="value" id="cantComOrgNac"
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComOrgNac') }}"></td>
                                             <td></td>
                                             <td id="subtotalComOrgNac"></td>
                                             <td><input type="value" id="comisionComOrgNac" placeholder="0"
@@ -2378,8 +2381,8 @@
                                             <td></td>
                                             <td>Regional</td>
                                             <td id="puntajeComOrgRegc"><b>10</b></td>
-                                            <td><input type="value" id="cantComOrgReg" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()"></td>
+                                            <td><input type="value" id="cantComOrgReg"
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComOrgReg') }}"></td>
                                             <td></td>
                                             <td id="subtotalComOrgReg"></td>
                                             <td><input type="value" id="comisionComOrgReg" placeholder="0"
@@ -2393,8 +2396,8 @@
                                             <td></td>
                                             <td>Internacional</td>
                                             <td id="puntajeComApoyoInt"><b>40</b></td>
-                                            <td><input type="value" id="cantComApoyoInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantComApoyoInt" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComApoyoInt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalComApoyoInt"></td>
@@ -2409,8 +2412,8 @@
                                             <td></td>
                                             <td>Nacional</td>
                                             <td id="puntajeComApoyoNac"><b>20</b></td>
-                                            <td><input type="value" id="cantComApoyoNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantComApoyoNac" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComApoyoNac') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalComApoyoNac"></td>
@@ -2425,8 +2428,8 @@
                                             <td></td>
                                             <td>Regional</td>
                                             <td id="puntajeComApoyoRegc"><b>10</b></td>
-                                            <td><input type="value" id="cantComApoyoReg" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantComApoyoReg" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantComApoyoReg') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalComApoyoReg"></td>
@@ -2441,8 +2444,8 @@
                                             <td>Comité organizador</td>
                                             <td>Internacional</td>
                                             <td id="puntajeCicloComOrgInt"><b>20</b></td>
-                                            <td><input type="value" id="cantCicloComOrgInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComOrgInt" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComOrgInt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComOrgInt"></td>
@@ -2457,8 +2460,8 @@
                                             <td>Comité organizador</td>
                                             <td>Nacional</td>
                                             <td id="puntajeCicloComOrgNac"><b>15</b></td>
-                                            <td><input type="value" id="cantCicloComOrgNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComOrgNac" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComOrgNac') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComOrgNac"></td>
@@ -2473,8 +2476,8 @@
                                             <td>Comité organizador</td>
                                             <td>Regional/Institucional</td>
                                             <td id="puntajeCicloComOrgReg"><b>10</b></td>
-                                            <td><input type="value" id="cantCicloComOrgReg" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComOrgReg" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComOrgReg') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComOrgReg"></td>
@@ -2489,8 +2492,8 @@
                                             <td>Comisiones de apoyo</td>
                                             <td>Internacional</td>
                                             <td id="puntajeCicloComApoyoInt"><b>20</b></td>
-                                            <td><input type="value" id="cantCicloComApoyoInt" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComApoyoInt" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComApoyoInt') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComApoyoInt"></td>
@@ -2505,8 +2508,8 @@
                                             <td>Comisiones de apoyo</td>
                                             <td>Nacional</td>
                                             <td id="puntajeCicloComApoyoNac"><b>15</b></td>
-                                            <td><input type="value" id="cantCicloComApoyoNac" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComApoyoNac" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComApoyoNac') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComApoyoNac"></td>
@@ -2521,8 +2524,8 @@
                                             <td>Comisiones de apoyo</td>
                                             <td>Regional/Institucional</td>
                                             <td id="puntajeCicloComApoyoReg"><b>10</b></td>
-                                            <td><input type="value" id="cantCicloComApoyoReg" placehoolder="0"
-                                                    oninput="onActv3SubTotal3_18()">
+                                            <td><input type="value" id="cantCicloComApoyoReg" 
+                                                    oninput="onActv3SubTotal3_18()" value="{{ oldValueOrDefault('cantCicloComApoyoReg') }}">
                                             </td>
                                             <td></td>
                                             <td id="subtotalCicloComApoyoReg"></td>
@@ -2605,8 +2608,8 @@
                                                 <td></td>
                                                 <td>Titular o suplente</td>
                                                 <td id="puntajeCGUtitular"><b>20</b></td>
-                                                <td><input type="value" id="cantCGUtitular" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantCGUtitular" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUtitular') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalCGUtitular"></td>
@@ -2620,8 +2623,8 @@
                                                 <td></td>
                                                 <td>Participación como miembro de comisión especial</td>
                                                 <td id="puntajeCGUespecial"><b>15</b></td>
-                                                <td><input type="value" id="cantCGUespecial" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantCGUespecial" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUespecial') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalCGUespecial"></td>
@@ -2636,8 +2639,8 @@
                                                 <td></td>
                                                 <td>Participación como miembro en comisión permanente</td>
                                                 <td id="puntajeCGUpermanente"><b>10</b></td>
-                                                <td><input type="value" id="cantCGUpermanente" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantCGUpermanente" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUpermanente') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalCGUpermanente"></td>
@@ -2652,8 +2655,8 @@
                                                 <td></td>
                                                 <td>Titular o suplente</td>
                                                 <td id="puntajeCAACtitular"><b>10</b></td>
-                                                <td><input type="value" id="cantCAACtitular" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantCAACtitular" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCAACtitular') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalCAACtitular"></td>
@@ -2668,8 +2671,8 @@
                                                 <td></td>
                                                 <td>Participación como integrante de comisión</td>
                                                 <td id="puntajeCAACintegCom"><b>5</b></td>
-                                                <td><input type="value" id="cantCAACintegCom" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantCAACintegCom" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCAACintegCom') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalCAACintegCom"></td>
@@ -2684,8 +2687,8 @@
                                                 <td></td>
                                                 <td>Departamentales</td>
                                                 <td id="puntajeComDepart"><b>15</b></td>
-                                                <td><input type="value" id="cantComDepart" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantComDepart" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComDepart') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalComDepart"></td>
                                                 <td><input type="value" id="comComDepart" placeholder="0"
@@ -2698,8 +2701,8 @@
                                                 <td></td>
                                                 <td>Dictaminadora del PEDPD</td>
                                                 <td id="puntajeComPEDPD"><b>15</b></td>
-                                                <td><input type="value" id="cantComPEDPD" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantComPEDPD"
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComPEDPD') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalComPEDPD"></td>
                                                 <td><input type="value" id="comComPEDPD" placeholder="0"
@@ -2712,8 +2715,8 @@
                                                 <td></td>
                                                 <td>Participación como integrante del Comité Académico de Posgrado</td>
                                                 <td id="puntajeComPartPos"><b>5</b></td>
-                                                <td><input type="value" id="cantComPartPos" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantComPartPos" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComPartPos') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalComPartPos"></td>
@@ -2727,8 +2730,8 @@
                                                 <td></td>
                                                 <td>De posgrado</td>
                                                 <td id="puntajeRespPos"><b>25</b></td>
-                                                <td><input type="value" id="cantRespPos" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantRespPos" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespPos') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespPos"></td>
                                                 <td><input type="value" id="comRespPos" placeholder="0"
@@ -2741,8 +2744,8 @@
                                                 <td></td>
                                                 <td>De carrera</td>
                                                 <td id="puntajeRespCarrera"><b>15</b></td>
-                                                <td><input type="value" id="cantRespCarrera" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantRespCarrera" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespCarrera') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalRespCarrera"></td>
@@ -2757,8 +2760,8 @@
                                                 <td></td>
                                                 <td>De unidad de producción</td>
                                                 <td id="puntajeRespProd"><b>20</b></td>
-                                                <td><input type="value" id="cantRespProd" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantRespProd" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespProd') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespProd"></td>
                                                 <td><input type="value" id="comRespProd" placeholder="0"
@@ -2771,8 +2774,8 @@
                                                 <td></td>
                                                 <td>De laboratorio de docencia e investigación</td>
                                                 <td id="puntajeRespLab"><b>15</b></td>
-                                                <td><input type="value" id="cantRespLab" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantRespLab" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespLab') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespLab"></td>
                                                 <td><input type="value" id="comRespLab" placeholder="0"
@@ -2785,8 +2788,8 @@
                                                 <td></td>
                                                 <td>Profesorado</td>
                                                 <td id="puntajeExamProf"><b>15</b></td>
-                                                <td><input type="value" id="cantExamProf" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()"></td>
+                                                <td><input type="value" id="cantExamProf" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantExamProf') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalExamProf"></td>
                                                 <td><input type="value" id="comExamProf" placeholder="0"
@@ -2799,8 +2802,8 @@
                                                 <td></td>
                                                 <td>Ayudantes académicos</td>
                                                 <td id="puntajeExamAcademicos"><b>5</b></td>
-                                                <td><input type="value" id="cantExamAcademicos" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantExamAcademicos" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantExamAcademicos') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalExamAcademicos"></td>
@@ -2815,8 +2818,8 @@
                                                 <td>En formación</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPformResp"><b>15</b></td>
-                                                <td><input type="value" id="cantPRODEPformResp" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPformResp" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPformResp') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPformResp"></td>
@@ -2831,8 +2834,8 @@
                                                 <td>En formación</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPformInteg"><b>10</b></td>
-                                                <td><input type="value" id="cantPRODEPformInteg" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPformInteg" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPformInteg') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPformInteg"></td>
@@ -2847,8 +2850,8 @@
                                                 <td>En consolidación</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPenconsResp"><b>25</b></td>
-                                                <td><input type="value" id="cantPRODEPenconsResp" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPenconsResp"
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPenconsResp') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPenconsResp"></td>
@@ -2863,8 +2866,8 @@
                                                 <td>En consolidación</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPenconsInteg"><b>15</b></td>
-                                                <td><input type="value" id="cantPRODEPenconsInteg" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPenconsInteg" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPenconsInteg') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPenconsInteg"></td>
@@ -2879,8 +2882,8 @@
                                                 <td>Consolidado</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPconsResp"><b>35</b></td>
-                                                <td><input type="value" id="cantPRODEPconsResp" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPconsResp" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPconsResp') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPconsResp"></td>
@@ -2895,8 +2898,8 @@
                                                 <td>Consolidado</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPconsInteg"><b>25</b></td>
-                                                <td><input type="value" id="cantPRODEPconsInteg" placeholder="0"
-                                                        oninput="onActv3SubTotal3_19()">
+                                                <td><input type="value" id="cantPRODEPconsInteg" 
+                                                        oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPconsInteg') }}">
                                                 </td>
                                                 <td></td>
                                                 <td id="subtotalPRODEPconsInteg"></td>

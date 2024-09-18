@@ -92,6 +92,25 @@ return new class extends Migration
         \DB::statement("ALTER TABLE users_response_form3_9 MODIFY obs3_9_15 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form3_9 MODIFY obs3_9_16 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form3_9 MODIFY obs3_9_17 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_1 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_2 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_3 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_4 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_5 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_6 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_7 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_8 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_9 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_10 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_11 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_12 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_13 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_14 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_15 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_16 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_9 MODIFY puntaje3_9_17 DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+
     }
 
     /**

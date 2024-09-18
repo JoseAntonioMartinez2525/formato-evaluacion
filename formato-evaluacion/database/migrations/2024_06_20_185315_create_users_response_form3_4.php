@@ -39,6 +39,13 @@ return new class extends Migration {
         \DB::statement("ALTER TABLE users_response_form3_4 MODIFY obs3_4_3 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form3_4 MODIFY obs3_4_4 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
 
+        \DB::statement("ALTER TABLE users_response_form3_4 MODIFY cantInternacional DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_4 MODIFY cantNacional DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_4 MODIFY cantidadRegional DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_4 MODIFY cantPreparacion DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+
+
+
     }
     /**
      * Reverse the migrations.

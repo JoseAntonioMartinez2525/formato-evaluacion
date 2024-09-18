@@ -15,6 +15,7 @@ class EvaluatorSignatureController extends Controller
             Log::info('Received request to store evaluator signature', $request->all());
             // Validate the request data
             $validatedData = $request->validate([
+                'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'evaluator_name_1' => 'required|string|max:255',
@@ -23,6 +24,7 @@ class EvaluatorSignatureController extends Controller
                 'firma1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma3' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
             $signaturePaths = [];
@@ -33,6 +35,7 @@ class EvaluatorSignatureController extends Controller
             }
 
             EvaluatorSignature::create([
+                'dictaminador_id' => $validatedData['dictaminador_id'],
                 'user_id' => $validatedData['user_id'],
                 'email' => $validatedData['email'],
                 'evaluator_name_1' => $validatedData['evaluator_name_1'],
@@ -41,6 +44,8 @@ class EvaluatorSignatureController extends Controller
                 'signature_path_1' => $signaturePaths['firma1'] ?? null,
                 'signature_path_2' => $signaturePaths['firma2'] ?? null,
                 'signature_path_3' => $signaturePaths['firma3'] ?? null,
+                'user_type' => $validatedData['user_type'],
+                
             ]);
 
             return response()->json([

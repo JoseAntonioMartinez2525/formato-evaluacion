@@ -27,6 +27,8 @@ class ResponseForm2Controller extends Controller
             if (!isset($validatedData['obs1'])) {
                 $validatedData['obs1'] = "sin comentarios";
             }
+
+            $horasActv2 = $validatedData['horasActv2'] ?? 0.0;
             UsersResponseForm2::create($validatedData);
 
             return response()->json([
@@ -50,5 +52,7 @@ class ResponseForm2Controller extends Controller
 
         return response()->json($data);
     }
+
+    
     }
 

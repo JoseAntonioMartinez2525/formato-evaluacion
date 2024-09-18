@@ -68,14 +68,16 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 <x-general-header />               
                    @php
-            $userType = Auth::user()->user_type;
-            $count = count($responses);
+$userType = Auth::user()->user_type;
+
                     @endphp                  
                   <main class="container">
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                            <input type="hidden" name="user_type" value="{{Auth()->user()->user_type}}">
                             <table>
                             <thead>
                                 <tr>
@@ -209,6 +211,9 @@ $newLocale = str_replace('_', '-', $locale);
             if (formId === 'form5') {
                 formData.set('user_id', form.querySelector('input[name="user_id"]').value);
                 formData.set('email', form.querySelector('input[name="email"]').value);
+                formData.set('dictaminador_id', form.querySelector('input[name="dictaminador_id"]').value);
+                formData.set('user_type', form.querySelector('input[name="user_type"]').value);
+                console.log('user_type value: ', formData['user_type']);
 
                 // evaluator names
                 let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;

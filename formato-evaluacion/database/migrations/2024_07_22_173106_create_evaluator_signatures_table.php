@@ -9,10 +9,8 @@ class CreateEvaluatorSignaturesTable extends Migration
     public function up()
     {
         Schema::create('evaluator_signatures', function (Blueprint $table) {
-            $table->id();
             $table->bigInteger('dictaminador_id')->unsigned();
             $table->unsignedBigInteger('user_id');
-            $table->primary('dictaminador_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
@@ -25,6 +23,7 @@ class CreateEvaluatorSignaturesTable extends Migration
             $table->string('signature_path_3');
             $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
+
 
         
         });

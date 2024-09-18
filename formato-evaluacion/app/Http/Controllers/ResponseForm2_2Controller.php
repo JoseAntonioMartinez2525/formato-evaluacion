@@ -32,6 +32,9 @@ class ResponseForm2_2Controller extends Controller
         $validatedData['obs2'] = $validatedData['obs2'] ?? 'sin comentarios';
         $validatedData['obs2_2'] = $validatedData['obs2_2'] ?? 'sin comentarios';
 
+            $horasSemestre = $validatedData['horasSemestre'] ?? 0.0;
+            $horasPosgrado = $validatedData['horasPosgrado'] ?? 0.0;
+
         // Guardar en la tabla correspondiente según el tipo de usuario
 
         UsersResponseForm2_2::create($validatedData);

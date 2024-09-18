@@ -28,6 +28,8 @@ return new class extends Migration
 
         // Set default values for existing rows using raw SQL statements
         \DB::statement("ALTER TABLE users_response_form3_8 MODIFY obs3_8_1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form3_8 MODIFY puntaje3_8 DECIMAL(8,2) DEFAULT 0.0 NOT NULL");
+
     }
 
     /**

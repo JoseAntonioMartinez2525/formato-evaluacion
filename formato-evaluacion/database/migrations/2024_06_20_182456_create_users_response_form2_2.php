@@ -29,6 +29,9 @@ class CreateUsersResponseForm22 extends Migration {
         });
         \DB::statement("ALTER TABLE users_response_form2_2 MODIFY obs2 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
         \DB::statement("ALTER TABLE users_response_form2_2 MODIFY obs2_2 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form2_2 MODIFY horasPosgrado DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+        \DB::statement("ALTER TABLE users_response_form2_2 MODIFY horasSemestre DECIMAL(8, 2) DEFAULT 0.0 NOT NULL");
+
     }
 
     /**
