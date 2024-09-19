@@ -12,7 +12,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <x-head-resources />
-    
+<link href="{{ asset('css/resume.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -133,25 +133,7 @@ $userType = Auth::user()->user_type;
                         <br>
         </body>
 <script>
-      document.getElementById('formSelect').addEventListener('change', (event) => {
-            const selectedForm = event.target.value;
-            const formContainer = document.getElementById('formContainer');
 
-            if (selectedForm) {
-                window.location.href = `/${selectedForm}`;
-                axios.get(`/get-form-content/${selectedForm}`)
-                    .then(response => {
-                        formContainer.innerHTML = response.data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching form content:', error);
-                        formContainer.innerHTML = '<p style="margin-left: 150px;">Cargando formulario.....</p>';
-                    });
-            } else {
-
-                formContainer.innerHTML = '';
-            }
-        });
     const dictaminadorSelect = document.getElementById('dictaminadorSelect');
 
     function hayObservacion(indiceActividad) {
