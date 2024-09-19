@@ -163,7 +163,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalCGUtitular"></td>
                             <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comCGUtitular" name="comCGUtitular" placeholder="0" oninput="onActv3Comision3_19()">
+                                <input type="number" id="comCGUtitular" name="comCGUtitular" value="{{ oldValueOrDefault('comCGUtitular') }}" oninput="onActv3Comision3_19()">
                             @else
                                    <span id="comCGUtitular" name="comCGUtitular"></span> 
                             @endif
@@ -187,7 +187,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalCGUespecial"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comCGUespecial" name="comCGUespecial" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comCGUespecial" name="comCGUespecial" value="{{ oldValueOrDefault('comCGUespecial') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comCGUespecial" name="comCGUespecial"></span>
                                 @endif
@@ -211,7 +211,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalCGUpermanente"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comCGUpermanente" name="comCGUpermanente" placeholder="0"
+                                    <input type="number" id="comCGUpermanente" name="comCGUpermanente" value="{{ oldValueOrDefault('comCGUpermanente') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comCGUpermanente" name="comCGUpermanente"></span>
@@ -236,7 +236,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalCAACtitular"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comCAACtitular" name="comCAACtitular" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comCAACtitular" name="comCAACtitular" value="{{ oldValueOrDefault('comCAACtitular') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comCAACtitular" name="comCAACtitular"></span>
                                 @endif
@@ -260,7 +260,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalCAACintegCom"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comCAACintegCom" name="comCAACintegCom" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comCAACintegCom" name="comCAACintegCom" value="{{ oldValueOrDefault('comCAACintegCom') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comCAACintegCom" name="comCAACintegCom"></span>
                                 @endif
@@ -284,7 +284,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalComDepart"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comComDepart" name="comComDepart" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comComDepart" name="comComDepart" value="{{ oldValueOrDefault('comComDepart') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comComDepart" name="comComDepart"></span>
                                 @endif
@@ -308,7 +308,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalComPEDPD"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comComPEDPD" name="comComPEDPD" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comComPEDPD" name="comComPEDPD" value="{{ oldValueOrDefault('comComPEDPD') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comComPEDPD" name="comComPEDPD"></span>
                                 @endif
@@ -332,7 +332,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalComPartPos"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comComPartPos" name="comComPartPos" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comComPartPos" name="comComPartPos" value="{{ oldValueOrDefault('comComPartPos') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comComPartPos" name="comComPartPos"></span>
                                 @endif
@@ -356,7 +356,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalRespPos"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comRespPos" name="comRespPos" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comRespPos" name="comRespPos" value="{{ oldValueOrDefault('comRespPos') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comRespPos" name="comRespPos"></span>
                                 @endif
@@ -380,7 +380,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalRespCarrera"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comRespCarrera" name="comRespCarrera" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comRespCarrera" name="comRespCarrera" value="{{ oldValueOrDefault('comRespCarrera') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comRespCarrera" name="comRespCarrera"></span>
                                 @endif
@@ -404,7 +404,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalRespProd"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comRespProd" name="comRespProd" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comRespProd" name="comRespProd" value="{{ oldValueOrDefault('comRespProd') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comRespProd" name="comRespProd"></span>
                                 @endif
@@ -428,7 +428,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalRespLab"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comRespLab" name="comRespLab" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comRespLab" name="comRespLab" value="{{ oldValueOrDefault('comRespLab') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comRespLab" name="comRespLab"></span>
                                 @endif
@@ -452,7 +452,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalExamProf"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comExamProf" name="comExamProf" placeholder="0" oninput="onActv3Comision3_19()">
+                                    <input type="number" id="comExamProf" name="comExamProf" value="{{ oldValueOrDefault('comExamProf') }}" oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comExamProf" name="comExamProf"></span>
                                 @endif
@@ -476,7 +476,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalExamAcademicos"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comExamAcademicos" name="comExamAcademicos" placeholder="0"
+                                    <input type="number" id="comExamAcademicos" name="comExamAcademicos" value="{{ oldValueOrDefault('comExamAcademicos') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comExamAcademicos" name="comExamAcademicos"></span>
@@ -501,7 +501,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPformResp"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPformResp" name="comPRODEPformResp" placeholder="0"
+                                    <input type="number" id="comPRODEPformResp" name="comPRODEPformResp" value="{{ oldValueOrDefault('comPRODEPformResp') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPformResp" name="comPRODEPformResp"></span>
@@ -526,7 +526,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPformInteg"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPformInteg" name="comPRODEPformInteg" placeholder="0"
+                                    <input type="number" id="comPRODEPformInteg" name="comPRODEPformInteg" value="{{ oldValueOrDefault('comPRODEPformInteg') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPformInteg" name="comPRODEPformInteg"></span>
@@ -551,7 +551,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPenconsResp"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPenconsResp" name="comPRODEPenconsResp" placeholder="0"
+                                    <input type="number" id="comPRODEPenconsResp" name="comPRODEPenconsResp" value="{{ oldValueOrDefault('comPRODEPenconsResp') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPenconsResp" name="comPRODEPenconsResp"></span>
@@ -576,7 +576,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPenconsInteg"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" placeholder="0"
+                                    <input type="number" id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" value="{{ oldValueOrDefault('comPRODEPenconsInteg') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPenconsInteg" name="comPRODEPenconsInteg"></span>
@@ -601,7 +601,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPconsResp"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPconsResp" name="comPRODEPconsResp" placeholder="0"
+                                    <input type="number" id="comPRODEPconsResp" name="comPRODEPconsResp" value="{{ oldValueOrDefault('comPRODEPconsResp') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPconsResp" name="comPRODEPconsResp"></span>
@@ -626,7 +626,7 @@ $userType = Auth::user()->user_type;
                             <td id="subtotalPRODEPconsInteg"></td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input type="value" id="comPRODEPconsInteg" name="comPRODEPconsInteg" placeholder="0"
+                                    <input type="number" id="comPRODEPconsInteg" name="comPRODEPconsInteg" value="{{ oldValueOrDefault('comPRODEPconsInteg') }}"
                                         oninput="onActv3Comision3_19()">
                                 @else
                                     <span id="comPRODEPconsInteg" name="comPRODEPconsInteg"></span>

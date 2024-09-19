@@ -160,7 +160,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCongresoInt">0</td>
                         <td>
                         @if($userType == 'dictaminador')                                            
-                            <input type="value" id="comisionCongresoInt" placeholder="0"
+                            <input type="number" id="comisionCongresoInt" value="{{ oldValueOrDefault('comisionCongresoInt') }}"
                                 oninput="onActv3Comision3_14()">
                         @else
                             <span id="comisionCongresoInt"></span>
@@ -187,7 +187,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCongresoNac">0</td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="value" id="comisionCongresoNac" placeholder="0"
+                            <input type="number" id="comisionCongresoNac" value="{{ oldValueOrDefault('comisionCongresoNac') }}"
                                 oninput="onActv3Comision3_14()">
                         @else
                             <span id="comisionCongresoNac"></span>
@@ -203,7 +203,7 @@ $userType = Auth::user()->user_type;
                         </td>
                     </tr>
                     <tr>
-                        <td>b)</td>
+                        <td>c)</td>
                         <td>Local</td>
                         <td id="puntajeCongresoLoc"><b>10</b></td>
                         <td id="cantCongresoLoc"></td>
@@ -213,7 +213,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCongresoLoc">0</td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="value" id="comisionCongresoLoc" placeholder="0"
+                            <input type="number" id="comisionCongresoLoc" value="{{ oldValueOrDefault('comisionCongresoLoc') }}"
                                 oninput="onActv3Comision3_14()">
                         @else                                           
                         <span id="comisionCongresoLoc"></span>

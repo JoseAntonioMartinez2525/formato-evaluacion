@@ -161,7 +161,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalDifusionExt"></td>
                         <td>
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionDifusionExt" placeholder="0" oninput="onActv3Comision3_17()">
+                            <input type="number" id="comisionDifusionExt" value="{{ oldValueOrDefault('comisionDifusionExt') }}" oninput="onActv3Comision3_17()">
                         @else
                             <span id="comisionDifusionExt"></span>
                         @endif
@@ -185,7 +185,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalDifusionInt"></td>
                         <td>
                         @if ($userType == 'dictaminador')    
-                            <input type="value" id="comisionDifusionInt" placeholder="0" oninput="onActv3Comision3_17()">
+                            <input type="number" id="comisionDifusionInt" value="{{ oldValueOrDefault('comisionDifusionInt') }}" oninput="onActv3Comision3_17()">
                         @else
                              <span id="comisionDifusionInt"></span>
                         @endif
@@ -211,7 +211,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalRepDifusionExt"></td>
                         <td>
                         @if ($userType == 'dictaminador')  
-                            <input type="value" id="comisionRepDifusionExt" placeholder="0" oninput="onActv3Comision3_17()">
+                            <input type="number" id="comisionRepDifusionExt" value="{{ oldValueOrDefault('comisionRepDifusionExt') }}" oninput="onActv3Comision3_17()">
                         @else
                             <span id="comisionRepDifusionExt"></span>
                         @endif
@@ -237,7 +237,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalRepDifusionInt"></td>
                         <td>
                         @if ($userType == 'dictaminador')      
-                            <input type="value" id="comisionRepDifusionInt" placeholder="0" oninput="onActv3Comision3_17()">
+                            <input type="number" id="comisionRepDifusionInt" value="{{ oldValueOrDefault('comisionRepDifusionInt') }}" oninput="onActv3Comision3_17()">
                         @else
                             <span id="comisionRepDifusionInt"></span>
                         @endif

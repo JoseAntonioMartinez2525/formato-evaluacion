@@ -153,7 +153,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalPatentes">0</td>
                     <td>
                         @if($userType == 'dictaminador')
-                            <input type="value" id="comisionPatententes" placeholder="0" oninput="onActv3Comision3_15()">
+                            <input type="number" id="comisionPatententes" value="{{ oldValueOrDefault('comisionPatententes') }}" oninput="onActv3Comision3_15()">
                         @else
                             <span id="comisionPatententes"></span>
                         @endif               
@@ -177,7 +177,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalPrototipos">0</td>
                     <td>
                         @if($userType == 'dictaminador')
-                            <input type="value" id="comisionPrototipos" placeholder="0" oninput="onActv3Comision3_15()">
+                            <input type="number" id="comisionPrototipos" value="{{ oldValueOrDefault('comisionPrototipos') }}" oninput="onActv3Comision3_15()">
                         @else
                             <span id="comisionPrototipos"></span>
                         @endif

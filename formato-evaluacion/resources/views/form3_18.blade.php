@@ -163,7 +163,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalComOrgInt"></td>
                     <td>
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionComOrgInt" name="comisionComOrgInt" placeholder="0" oninput="onActv3Comision3_18()">
+                            <input type="number"  id="comisionComOrgInt" name="comisionComOrgInt" value="{{ oldValueOrDefault('comisionComOrgInt') }}" oninput="onActv3Comision3_18()">
                         @else
                             <span id="comisionComOrgInt" name="comisionComOrgInt"></span>
                         @endif
@@ -187,7 +187,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalComOrgNac"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionComOrgNac" name="comisionComOrgNac" placeholder="0"
+                                <input type="number"  id="comisionComOrgNac" name="comisionComOrgNac" value="{{ oldValueOrDefault('comisionComOrgNac') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionComOrgNac" name="comisionComOrgNac"></span>
@@ -212,7 +212,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalComOrgReg"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionComOrgReg" name="comisionComOrgReg" placeholder="0"
+                                <input type="number"  id="comisionComOrgReg" name="comisionComOrgReg" value="{{ oldValueOrDefault('comisionComOrgReg') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionComOrgReg" name="comisionComOrgReg"></span>
@@ -237,7 +237,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalComApoyoInt"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionComApoyoInt" name="comisionComApoyoInt" placeholder="0"
+                                <input type="number"  id="comisionComApoyoInt" name="comisionComApoyoInt" value="{{ oldValueOrDefault('comisionComApoyoInt') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionComApoyoInt" name="comisionComApoyoInt"></span>
@@ -262,7 +262,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalComApoyoNac"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionComApoyoNac" name="comisionComApoyoNac" placeholder="0"
+                                <input type="number"  id="comisionComApoyoNac" name="comisionComApoyoNac" value="{{ oldValueOrDefault('comisionComApoyoNac') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionComApoyoNac" name="comisionComApoyoNac"></span>
@@ -287,7 +287,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalComApoyoReg"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionComApoyoReg" name="comisionComApoyoReg" placeholder="0"
+                                <input type="number"  id="comisionComApoyoReg" name="comisionComApoyoReg" value="{{ oldValueOrDefault('comisionComApoyoReg') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionComApoyoReg" name="comisionComApoyoReg"></span>
@@ -312,7 +312,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComOrgInt"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComOrgInt" name="comisionCicloComOrgInt" placeholder="0"
+                                <input type="number"  id="comisionCicloComOrgInt" name="comisionCicloComOrgInt" value="{{ oldValueOrDefault('comisionCicloComOrgInt') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComOrgInt" name="comisionCicloComOrgInt"></span>
@@ -337,7 +337,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComOrgNac"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComOrgNac" name="comisionCicloComOrgNac" placeholder="0"
+                                <input type="number"  id="comisionCicloComOrgNac" name="comisionCicloComOrgNac" value="{{ oldValueOrDefault('comisionCicloComOrgNac') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComOrgNac" name="comisionCicloComOrgNac"></span>
@@ -362,7 +362,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComOrgReg"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComOrgReg" name="comisionCicloComOrgReg" placeholder="0"
+                                <input type="number"  id="comisionCicloComOrgReg" name="comisionCicloComOrgReg" value="{{ oldValueOrDefault('comisionCicloComOrgReg') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComOrgReg" name="comisionCicloComOrgReg"></span>
@@ -387,7 +387,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComApoyoInt"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComApoyoInt" name="comisionCicloComApoyoInt" placeholder="0"
+                                <input type="number"  id="comisionCicloComApoyoInt" name="comisionCicloComApoyoInt" value="{{ oldValueOrDefault('comisionCicloComApoyoInt') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComApoyoInt" name="comisionCicloComApoyoInt"></span>
@@ -412,7 +412,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComApoyoNac"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComApoyoNac" name="comisionCicloComApoyoNac" placeholder="0"
+                                <input type="number"  id="comisionCicloComApoyoNac" name="comisionCicloComApoyoNac" value="{{ oldValueOrDefault('comisionCicloComApoyoNac') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComApoyoNac" name="comisionCicloComApoyoNac"></span>
@@ -437,7 +437,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCicloComApoyoReg"></td>
                         <td>
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionCicloComApoyoReg" name="comisionCicloComApoyoReg" placeholder="0"
+                                <input type="number"  id="comisionCicloComApoyoReg" name="comisionCicloComApoyoReg" value="{{ oldValueOrDefault('comisionCicloComApoyoReg') }}"
                                     oninput="onActv3Comision3_18()">
                             @else
                                 <span id="comisionCicloComApoyoReg" name="comisionCicloComApoyoReg"></span>
