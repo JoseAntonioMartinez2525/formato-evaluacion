@@ -41,6 +41,10 @@ public function getDictaminadorData(Request $request)
 {
         $email = $request->query('email');
         $dictaminador_id = $request->query('dictaminador_id');
+
+        \Log::info('Email recibido:', ['email' => $email]);
+        \Log::info('Dictaminador ID recibido:', ['dictaminador_id' => $dictaminador_id]);
+        
         $dictaminador = User::where('email', $email)
             ->where('id', $dictaminador_id)
             ->first();

@@ -69,8 +69,10 @@ $newLocale = str_replace('_', '-', $locale);
 <x-general-header />               
                    @php
 $userType = Auth::user()->user_type;
+$dictaminadorResponse = auth()->user()->dictaminatorResponseForm3_1;
+$dictaminadorId = $dictaminadorResponse->dictaminador_id;
 
-                    @endphp 
+                @endphp 
                     
                     <br><br><br><br>               
                   <main class="container">
