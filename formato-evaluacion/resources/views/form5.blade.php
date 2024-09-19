@@ -71,6 +71,17 @@ $newLocale = str_replace('_', '-', $locale);
 $userType = Auth::user()->user_type;
 
                     @endphp 
+<div class="container mt-4 printButtonClass">
+
+    @if($userType != 'docente')
+        <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+        <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+        <select id="dictaminadorSelect" class="form-select">
+            <option value="">Seleccionar un dictaminador</option>
+            <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+        </select>
+    @endif
+</div>
                     <br><br><br><br>               
                   <main class="container">
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
@@ -136,6 +147,28 @@ $userType = Auth::user()->user_type;
 <script>
 
     const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+ // Fetch dictaminador options if user type is null or empty
+    if (dictaminadorSelect && userType != 'docente') {
+        try {
+            const response = await fetch('/get-dictaminadores');
+            const dictaminadores = await response.json();
+
+            dictaminadores.forEach(dictaminador => {
+                const option = document.createElement('option');
+                option.value = dictaminador.id;  // Use dictaminador ID as value
+                option.dataset.email = dictaminador.email; // Store email in data attribute
+                option.textContent = dictaminador.email;
+                dictaminadorSelect.appendChild(option);
+            });
+
+            // Handle dictaminador selection change
+            dictaminadorSelect.addEventListener('change', async (event) => {
+                const dictaminadorId = event.target.value;
+                const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+            })}catch (error) {
+            console.error('Error fetching dictaminador data:', error);
+            }
+            }
 
     function hayObservacion(indiceActividad) {
         var selectEscala = document.getElementById('selectEscala' + indiceActividad);
