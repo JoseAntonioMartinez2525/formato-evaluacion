@@ -332,7 +332,7 @@ $userType = Auth::user()->user_type;
 
     document.addEventListener('DOMContentLoaded', async () => {
         // Current user type from the backend
-        const userType = "dictaminador";  // Get user type from backend
+        const userType = @json($userType);  // Get user type from backend
 
         // Fetch dictaminador options if user type is null or empty
         try {
