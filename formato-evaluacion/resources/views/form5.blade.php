@@ -71,17 +71,7 @@ $newLocale = str_replace('_', '-', $locale);
 $userType = Auth::user()->user_type;
 
                     @endphp 
-<div class="container mt-4 printButtonClass">
-
-    @if($userType != 'docente')
-        <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-        <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-        <select id="dictaminadorSelect" class="form-select">
-            <option value="">Seleccionar un dictaminador</option>
-            <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-        </select>
-    @endif
-</div>
+                    
                     <br><br><br><br>               
                   <main class="container">
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
@@ -147,28 +137,6 @@ $userType = Auth::user()->user_type;
 <script>
 
     const dictaminadorSelect = document.getElementById('dictaminadorSelect');
- // Fetch dictaminador options if user type is null or empty
-    if (dictaminadorSelect && userType != 'docente') {
-        try {
-            const response = await fetch('/get-dictaminadores');
-            const dictaminadores = await response.json();
-
-            dictaminadores.forEach(dictaminador => {
-                const option = document.createElement('option');
-                option.value = dictaminador.id;  // Use dictaminador ID as value
-                option.dataset.email = dictaminador.email; // Store email in data attribute
-                option.textContent = dictaminador.email;
-                dictaminadorSelect.appendChild(option);
-            });
-
-            // Handle dictaminador selection change
-            dictaminadorSelect.addEventListener('change', async (event) => {
-                const dictaminadorId = event.target.value;
-                const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-            })}catch (error) {
-            console.error('Error fetching dictaminador data:', error);
-            }
-            }
 
     function hayObservacion(indiceActividad) {
         var selectEscala = document.getElementById('selectEscala' + indiceActividad);
@@ -326,44 +294,6 @@ $userType = Auth::user()->user_type;
         }
     }
 
-    async function loadAllData() {
-        let data = await fetchData('/get-form-data', { dictaminador_id: userId });
-
-        if (data && data.dictaminador.dictaminador_id) {
-            // Asignar los valores de las comisiones automáticamente
-            if (data.form_data) {
-                Object.keys(data.form_data).forEach(formKey => {
-                    const form = data.form_data[formKey];
-                    const comisionField = formKey.replace('DictaminatorsResponse', '').toLowerCase() + 'Comision';
-                    if (form && document.getElementById(comisionField)) {
-                        document.getElementById(comisionField).textContent = form.comision || '0';
-                    }
-                });
-
-                // Calcular el puntaje total
-                calculateTotalScore();
-            }
-        } else {
-            console.error('Error: Dictaminador not found or user type is invalid.');
-        }
-    }
-
-
-    function calculateTotalScore() {
-        let comisionTotal = 0;
-        for (let i = 2; i <= 19; i++) {
-            let comision = parseFloat(document.getElementById(`comision3_${i}`).textContent) || 0;
-            comisionTotal += comision;
-        }
-
-        document.getElementById('comision3Total').innerText = comisionTotal;
-        total();
-        document.getElementById('totalComisionRepetido').innerText = total();
-        document.getElementById('totalComision').innerText = total();
-        condicionales();
-    }
-
-    loadAllData();
     });
 
 
@@ -401,60 +331,71 @@ $userType = Auth::user()->user_type;
     });
 
     document.addEventListener('DOMContentLoaded', async () => {
-
-
         // Current user type from the backend
-        const userType = @json($userType);  // Get user type from backend
+        const userType = "dictaminador";  // Get user type from backend
 
         // Fetch dictaminador options if user type is null or empty
+        try {
+            const response = await fetch('/get-dictaminadores');
+            const dictaminadores = await response.json();
 
-            try {
-                const response = await fetch('/get-dictaminadores');
-                const dictaminadores = await response.json();
-                const dictaminadorId = event.target.value;
+            // Get the dictaminador ID from the hidden input field
+            const dictaminadorId = document.querySelector('input[name="dictaminador_id"]').value;
 
+            if (dictaminadorId) {
+                try {
+                    const response = await axios.get('/get-dictaminador-data', {
+                        params: { email: document.querySelector('input[name="email"]').value, dictaminador_id: dictaminadorId }
+                    });
+                    const data = response.data;
 
-                if (dictaminadorId) {
-                    try {
-                        const response = await axios.get('/get-dictaminador-data', {
-                            params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                        });
-                        const data = response.data;
+                    console.log('Fetched dictaminador data:', data);
 
-                        document.getElementById('comision1').textContent = data.form2.comision1 || '0';
-                        document.getElementById('actv2Comision').textContent = data.form2_2.actv2Comision || '0';
-                        document.getElementById('actv3Comision').textContent = data.form3_1.actv3Comision || '0';
-
-                        // Populate fields with fetched data
-                        for (let i = 2; i <= 19; i++) {
-                            const elementId = 'comision3_' + i;
-                            const formId = 'form3_' + i;
-
-                            const scoreValue = data[formId]['comision3_' + i] || '0';
-
-                            document.getElementById(elementId).textContent = scoreValue;
-                        }
-
-                        console.error('No form data found for the selected dictaminador.');
-
-                        // Reset input values if no data found
-                        document.querySelector('input[name="dictaminador_id"]').value = '0';
-                        document.querySelector('input[name="user_id"]').value = '0';
-                        document.querySelector('input[name="email"]').value = '';
-                        document.querySelector('input[name="user_type"]').value = '';
-
-
-                    } catch (error) {
-                        console.error('Error fetching dictaminador data:', error);
+                    // Check if the elements exist before setting their textContent
+                    const comision1Element = document.getElementById('comision1');
+                    if (comision1Element) {
+                        comision1Element.textContent = data.form2.comision1 || '0';
                     }
+
+                    const actv2ComisionElement = document.getElementById('actv2Comision');
+                    if (actv2ComisionElement) {
+                        actv2ComisionElement.textContent = data.form2_2.actv2Comision || '0';
+                    }
+
+                    const actv3ComisionElement = document.getElementById('actv3Comision');
+                    if (actv3ComisionElement) {
+                        actv3ComisionElement.textContent = data.form3_1.actv3Comision || '0';
+                    }
+
+                    // Populate fields with fetched data
+                    for (let i = 2; i <= 19; i++) {
+                        const elementId = 'comision3_' + i;
+                        const formId = 'form3_' + i;
+
+                        const scoreValue = data[formId]?.['comision3_' + i] || 0;
+
+                        const scoreElement = document.getElementById(elementId);
+                        if (scoreElement) {
+                            scoreElement.textContent = scoreValue;
+                        }
+                    }
+
+                    console.log('No form data found for the selected dictaminador.');
+
+                    // Reset input values if no data found
+                    document.querySelector('input[name="dictaminador_id"]').value = '0';
+                    document.querySelector('input[name="user_id"]').value = '0';
+                    document.querySelector('input[name="email"]').value = '';
+                    document.querySelector('input[name="user_type"]').value = '';
+                } catch (error) {
+                    console.error('Error fetching dictaminador data:', error);
                 }
-
-            } catch (error) {
-                console.error('Error fetching dictaminadores:', error);
-
             }
-        
+        } catch (error) {
+            console.error('Error fetching dictaminadores:', error);
+        }
     });
+
 
     function minWithSum(value1, value2) {
         const sum = value1 + value2;
