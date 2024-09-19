@@ -70,7 +70,8 @@ $newLocale = str_replace('_', '-', $locale);
                    @php
 $userType = Auth::user()->user_type;
 
-                    @endphp                  
+                    @endphp 
+                    <br><br><br><br>               
                   <main class="container">
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                             @csrf
@@ -373,18 +374,10 @@ $userType = Auth::user()->user_type;
         const userType = @json($userType);  // Get user type from backend
 
         // Fetch dictaminador options if user type is null or empty
-        if (dictaminadorSelect && userType != 'docente') {
+
             try {
                 const response = await fetch('/get-dictaminadores');
                 const dictaminadores = await response.json();
-
-                dictaminadores.forEach(dictaminador => {
-                    const option = document.createElement('option');
-                    option.value = dictaminador.id;  // Use dictaminador ID as the value
-                    option.dataset.email = dictaminador.email; // Store email in data attribute
-                    option.textContent = dictaminador.email;
-                    dictaminadorSelect.appendChild(option);
-                });
                 const dictaminadorId = event.target.value;
 
 
@@ -427,7 +420,7 @@ $userType = Auth::user()->user_type;
                 console.error('Error fetching dictaminadores:', error);
 
             }
-        }
+        
     });
 
     function minWithSum(value1, value2) {
