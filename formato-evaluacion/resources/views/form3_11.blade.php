@@ -164,7 +164,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalAsesoria"></td>
                         <td id="comisionAsesoria">
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionAsesoria" name="comisionAsesoria" placeholder="0" oninput="onActv3Comision3_11()">   
+                                <input type="number" id="comisionAsesoria" name="comisionAsesoria" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionAsesoria') }}">   
                             @else
                                 <span  id="comisionAsesoria" name="comisionAsesoria" ></span>                      
                             @endif
@@ -190,7 +190,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalServicio"></td>
                         <td id="comisionServicio">
                         @if ($userType == 'dictaminador')   
-                            <input type="value" id="comisionServicio" name="comisionServicio" placeholder="0" oninput="onActv3Comision3_11()">
+                            <input type="number" id="comisionServicio" name="comisionServicio" placeholder="0" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionServicio') }}">
                         @else
                             <span id="comisionServicio" name="comisionServicio"></span>
                         @endif
@@ -216,7 +216,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalPracticas"></td>
                         <td  id="comisionPracticas">
                         @if ($userType == 'dictaminador')  
-                            <input type="value" id="comisionPracticas"  name="comisionPracticas" placeholder="0" oninput="onActv3Comision3_11()">
+                            <input type="number" id="comisionPracticas"  name="comisionPracticas" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionPracticas') }}">
                         @else
                         <span id="comisionPracticas" name="comisionPracticas"></span
                         @endif  

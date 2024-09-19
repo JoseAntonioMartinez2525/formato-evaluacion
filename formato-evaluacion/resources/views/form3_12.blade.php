@@ -165,7 +165,7 @@ $userType = Auth::user()->user_type;
                         <td id="subtotalCientificos"></td>
                         <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionCientificos" name="comisionCientificos" placeholder="0"  oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionCientificos" name="comisionCientificos" value="{{ oldValueOrDefault('comisionCientificos') }}"  oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionCientificos" name="comisionCientificos"></span>
                         @endif 
@@ -190,7 +190,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalDivulgacion"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionDivulgacion" name="comisionDivulgacion" placeholder="0"
+                            <input type="number" id="comisionDivulgacion" name="comisionDivulgacion" value="{{ oldValueOrDefault('comisionDivulgacion') }}"
                                 oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionDivulgacion" name="comisionDivulgacion"></span>
@@ -216,7 +216,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalTraduccion"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionTraduccion" name="comisionTraduccion" placeholder="0"
+                            <input type="number" id="comisionTraduccion" name="comisionTraduccion" value="{{ oldValueOrDefault('comisionTraduccion') }}"
                                 oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionTraduccion" name="comisionTraduccion"></span>
@@ -242,7 +242,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalArbitrajeInt"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionArbitrajeInt" name="comisionArbitrajeInt" placeholder="0"
+                            <input type="number" id="comisionArbitrajeInt" name="comisionArbitrajeInt" value="{{ oldValueOrDefault('comisionArbitrajeInt') }}"
                                 oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionArbitrajeInt" name="comisionArbitrajeInt"></span>
@@ -268,7 +268,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalArbitrajeNac"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionArbitrajeNac" name="comisionArbitrajeNac" placeholder="0"
+                            <input type="number" id="comisionArbitrajeNac" name="comisionArbitrajeNac" value="{{ oldValueOrDefault('comisionArbitrajeNac') }}"
                                 oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionArbitrajeNac" name="comisionArbitrajeNac"></span>
@@ -294,7 +294,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalSinInt"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionSinInt" name="comisionSinInt" placeholder="0" oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionSinInt" name="comisionSinInt" value="{{ oldValueOrDefault('comisionSinInt') }}" oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionSinInt" name="comisionSinInt"></span>
                         @endif                    
@@ -319,7 +319,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalSinNac"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionSinNac" name="comisionSinNac" placeholder="0" oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionSinNac" name="comisionSinNac" value="{{ oldValueOrDefault('comisionSinNac') }}" oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionSinNac" name="comisionSinNac"></span>
                         @endif                     
@@ -344,7 +344,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalAutor"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionAutor" name="comisionAutor" placeholder="0" oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionAutor" name="comisionAutor" value="{{ oldValueOrDefault('comisionAutor') }}" oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionAutor" name="comisionAutor"></span>
                         @endif                     
@@ -369,7 +369,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalEditor"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionEditor" name="comisionEditor" placeholder="0" oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionEditor" name="comisionEditor" value="{{ oldValueOrDefault('comisionEditor') }}" oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionEditor" name="comisionEditor"></span>
                         @endif                     
@@ -394,7 +394,7 @@ $userType = Auth::user()->user_type;
                     <td id="subtotalWeb"></td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="value" id="comisionWeb" name="comisionWeb" placeholder="0" oninput="onActv3Comision3_12()">
+                            <input type="number" id="comisionWeb" name="comisionWeb" value="{{ oldValueOrDefault('comisionWeb') }}" oninput="onActv3Comision3_12()">
                         @else
                             <span id="comisionWeb" name="comisionWeb"></span>
                         @endif                     

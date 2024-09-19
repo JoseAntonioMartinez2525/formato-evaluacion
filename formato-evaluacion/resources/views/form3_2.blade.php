@@ -148,8 +148,8 @@ $userType = Auth::user()->user_type;
                             <td id="cant1" name="cant1">0</td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="prom90_100" type="value" placeholder="0"
-                                    oninput="onActv3_2Comision()">
+                                <input id="prom90_100" type="number" 
+                                    oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom90_100') }}">
                             @else
                             <span id="prom90_100" name="prom90_100"></span>
                             @endif
@@ -174,8 +174,8 @@ $userType = Auth::user()->user_type;
 
                             <td>
                              @if($userType == 'dictaminador')   
-                                <input id="prom80_90" placeholder="0" type="value"
-                                    oninput="onActv3_2Comision()">
+                                <input id="prom80_90" type="number"
+                                    oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom80_90') }}">
                             @else
                                 <span id="prom80_90" name="prom80_90"></span>
                             @endif
@@ -200,8 +200,8 @@ $userType = Auth::user()->user_type;
                             <td id="cant3">0</td>
                             <td>
                             @if($userType == 'dictaminador')  
-                            <input id="prom70_80" placeholder="0" type="value"
-                                    oninput="onActv3_2Comision()">
+                                <input id="prom70_80" placeholder="0" type="number"
+                                        oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom70_80') }}">
                             @else
                             <span id="prom70_80" name="prom70_80"></span>
                             @endif

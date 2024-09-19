@@ -118,7 +118,7 @@ nav {
 #comExamProf, #comExamAcademicos, #comPRODEPformResp, #comPRODEPformInteg, #comPRODEPenconsResp, #comPRODEPenconsInteg, #comPRODEPconsResp, #comPRODEPconsInteg, 
 #obsComOrgInt, #obsComOrgNac, #obsComOrgReg, #obsComApoyoInt, #obsComApoyoNac, #obsComApoyoReg, #obsCicloComOrgInt, #obsCicloComOrgNac, #obsCicloComOrgReg, #obsCicloComApoyoInt, #obsCicloComApoyoNac, #obsCicloComApoyoReg,
 #obsCGUtitular, #obsCGUespecial, #obsCGUpermanente, #obsCAACtitular, #obsCAACintegCom, #obsComDepart, #obsComPEDPD, #obsComPartPos, #obsRespPos, #obsRespCarrera, #obsRespProd, #obsRespLab,
-#obsExamProf, #obsExamAcademicos, #obsPRODEPformResp, #obsPRODEPformInteg, #obsPRODEPenconsResp, #obsPRODEPenconsInteg, #obsPRODEPconsResp, #obsPRODEPconsInteg
+#obsExamProf, #obsExamAcademicos, #obsPRODEPformResp, #obsPRODEPformInteg, #obsPRODEPenconsResp, #obsPRODEPenconsInteg, #obsPRODEPconsResp, #obsPRODEPconsInteg, #comDA, #comNCAA
 {
     background-color: #d6fff7;
     border-color: transparent;

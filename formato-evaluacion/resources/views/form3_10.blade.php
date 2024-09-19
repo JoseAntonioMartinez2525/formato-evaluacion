@@ -157,7 +157,7 @@ $userType = Auth::user()->user_type;
                             @if ($userType == 'dictaminador')
 
                                 <input type="value" id="comisionGrupal" name="comisionGrupal" oninput="onActv3Comision3_10()"
-                                    placeholder="0">                         
+                                    value="{{ oldValueOrDefault('comisionGrupal') }}">                         
                             @else
                                 <span id="comisionGrupal" name="comisionGrupal"></span>
                             @endif    
@@ -183,7 +183,7 @@ $userType = Auth::user()->user_type;
                             <td id="comisionIndividual">
                             @if ($userType == 'dictaminador')
                                 <input type="value" id="comisionIndividual" name="comisionIndividual" oninput="onActv3Comision3_10()"
-                                        placeholder="0"> 
+                                        value="{{ oldValueOrDefault('comisionIndividual') }}"> 
                             @else
                                 <span id="comisionIndividual"  name="comisionIndividual"></span>
                             @endif    

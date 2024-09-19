@@ -148,7 +148,7 @@ $userType = Auth::user()->user_type;
                             <td style="text-align: right;" id="puntajeHoras3_7"></td>
                             <td style="text-align: right;">
                                 @if ($userType == 'dictaminador')
-                                    <input type="text" placeholder="0" id="comisionDict3_7" name="comisionDict3_7" oninput="onActv3Comision3_7()">
+                                    <input type="number" id="comisionDict3_7" name="comisionDict3_7" oninput="onActv3Comision3_7()" value="{{ oldValueOrDefault('comisionDict3_7') }}">
                                 @else
                                     <span id="comisionDict3_7" name="comisionDict3_7"></span>
                                 @endif

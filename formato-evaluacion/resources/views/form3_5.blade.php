@@ -149,8 +149,8 @@ $userType = Auth::user()->user_type;
                         </td>
                         <td id="cantDA2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="value" id="comDA" placeholder="0" oninput="onActv3Comision3_5()">
-                            @else
+                            <input type="number" id="comDA" placeholder="0" oninput="onActv3Comision3_5()" value="{{ oldValueOrDefault('comDA') }}">
+                        @else
                             <span id="comDA" name="comDA"></span>
                             @endif
                         </td>
@@ -170,9 +170,9 @@ $userType = Auth::user()->user_type;
                             <td id="cantCAAC" name="cantCAAC"></td>
                             <td id="cantCAAC2" name="cantCAAC2"></td>
                             <td>@if($userType == 'dictaminador')
-                                <input type=" value" id="comNCAA" placeholder="0"
-                                oninput="onActv3Comision3_5()">
-                                @else
+                                <input type="number" id="comNCAA"
+                                oninput="onActv3Comision3_5()" value="{{ oldValueOrDefault('comNCAA') }}">
+                            @else
                                 <span id="comNCAA" name="comNCAA"></span>
                                 @endif
                             </td>

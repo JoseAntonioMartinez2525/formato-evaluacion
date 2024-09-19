@@ -168,8 +168,8 @@ $userType = Auth::user()->user_type;
                             <td id="stotal1"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
-                                <input id="comIncisoA" placeholder="0" for=""
-                                    oninput="onActv3Comision3()">
+                                <input  type="number" id="comIncisoA" for=""
+                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoA') }}">
                                 </input>
                             @else
                             <span id="comIncisoA" name="comIncisoA"></span>
@@ -194,8 +194,8 @@ $userType = Auth::user()->user_type;
                             <td id="stotal2"></td>
                             <td class="comision actv">
                              @if($userType == 'dictaminador')   
-                                <input id="comIncisoB" placeholder="0" for=""
-                                    oninput="onActv3Comision3()"></input>
+                                <input id="comIncisoB" for="" type="number"
+                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoB') }}"></input>
                              @else    
                              <span id="comIncisoB" name="comIncisoB"></span>
                              @endif
@@ -227,8 +227,8 @@ $userType = Auth::user()->user_type;
                             <td id="stotal3"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')    
-                                <input id="comIncisoC" placeholder="0" for=""
-                                    oninput="onActv3Comision3()">
+                                <input id="comIncisoC" for="" type="number"
+                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoC') }}">
                                 </input>
                             @else 
                             <span id="comIncisoC" name="comIncisoC"></span>
@@ -256,8 +256,8 @@ $userType = Auth::user()->user_type;
                             <td id="stotal4"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
-                                <input id="comIncisoD" placeholder="0" for=""
-                                    oninput="onActv3Comision3()"></input>
+                                <input id="comIncisoD"  for="" type="number"
+                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoD') }}"></input>
                             @else 
                                 <span id="comIncisoD" name="comIncisoD"></span>
                             @endif

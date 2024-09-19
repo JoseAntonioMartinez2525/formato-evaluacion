@@ -144,8 +144,8 @@ $userType = Auth::user()->user_type;
                         </td>
                         <td id="cantInternacional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comInternacional" placeholder="0" oninput="onActv3Comision3_4()">
-                            @else
+                            <input type="number" id="comInternacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comInternacional') }}">
+                        @else
                             <span id="comInternacional" name="comInternacional"></span>
                             @endif
                         </td>
@@ -163,8 +163,8 @@ $userType = Auth::user()->user_type;
                         <td><span type="number" id="cantNacional"></span></td>
                         <td id="cantNacional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comNacional"name="comNacional" placeholder="0" oninput="onActv3Comision3_4()">
-                            @else
+                            <input type="number" id="comNacional"name="comNacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comNacional') }}">
+                        @else
                             <span id="comNacional" name="comNacional"></span>
                             @endif
                         </td>
@@ -184,8 +184,8 @@ $userType = Auth::user()->user_type;
                         </td>
                         <td id="cantidadRegional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comRegional" name="comRegional" placeholder="0" oninput="onActv3Comision3_4()">
-                            @else
+                            <input type="number" id="comRegional" name="comRegional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comRegional') }}">
+                        @else
                             <span id="comRegional" name="comRegional"></span>
                             @endif
                         </td>
@@ -205,8 +205,8 @@ $userType = Auth::user()->user_type;
                         </td>
                         <td id="cantPreparacion2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comPreparacion" placeholder="0" oninput="onActv3Comision3_4()">
-                            @else
+                            <input type="number" id="comPreparacion"  oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comPreparacion') }}">
+                        @else
                             <span id="comPreparacion" name="comPreparacion"></span>
                             @endif
                         </td>

@@ -136,7 +136,7 @@ $userType = Auth::user()->user_type;
                             <td class="puntajeEvaluar2"><label id="dse" name="dse" class="puntajeEvaluar" type="text"></label></td>
                              @if($userType == 'dictaminador')
                                     <td class="comision actv filled">
-                                        <input id="comisionPosgrado" name="comisionPosgrado" for="" oninput="onActv2Comision()"
+                                        <input type="number" id="comisionPosgrado" name="comisionPosgrado" for="" oninput="onActv2Comision()"
                                         value="{{ oldValueOrDefault('comisionPosgrado') }}">
                                     </input>
                                     </td>
@@ -157,7 +157,7 @@ $userType = Auth::user()->user_type;
                             </td>
                             <td class="puntajeEvaluar2"><label id="dse2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
                             @if($userType == 'dictaminador')
-                                <td class="comision actv"><input id="comisionLic" name="comisionLic" oninput="onActv2Comision()" 
+                                <td class="comision actv"><input  type="number" id="comisionLic" name="comisionLic" oninput="onActv2Comision()" 
                                 value="{{ oldValueOrDefault('comisionLic') }}"></input>
                                 </td>
                                 <td><input id="obs2_2" name="obs2_2" class="table-header" type="text"></input></td>
