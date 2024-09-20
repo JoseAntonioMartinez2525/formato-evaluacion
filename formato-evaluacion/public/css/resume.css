@@ -101,15 +101,6 @@ tr .subtitle {
  
 }
 
-#firma1, #firma2,
-#firma3{
-    margin-left: -400px;
-    width: 400px;
-}
-
-#firmaTexto, #firmaTexto2, #firmaTexto3 {
-    margin-left: -400px;
-}
 
 .filled{
 background-color: #d6fff7;

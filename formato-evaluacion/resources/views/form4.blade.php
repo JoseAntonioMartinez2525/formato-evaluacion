@@ -192,7 +192,9 @@ $subtotalAdded = false;
 </thead>
 </table>
 <center>
+@if(Auth::user()->user_type === 'dictaminador')  
 <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+@endif
 </center>
 </div>
                         </form>
@@ -211,7 +213,7 @@ $subtotalAdded = false;
                                 <tr>
                                     <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
                                     <th>
-                                        <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
+                                        <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
                                     </th>
                                 </tr>
                                 <tr>
@@ -224,7 +226,7 @@ $subtotalAdded = false;
                                 <tr>
                                     <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
                                     <th>
-                                        <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
+                                        <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
                                     </th>
                                 </tr>
                                 <tr>
@@ -237,7 +239,7 @@ $subtotalAdded = false;
                                 <tr>
                                     <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
                                     <th>
-                                        <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
+                                        <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
                                     </th>
 
                                 </tr>
@@ -248,16 +250,17 @@ $subtotalAdded = false;
 
 
                                 </tr>
-
+                                <tr>
+                                    <td style="padding-left: 600px;">
+                                        @if(Auth::user()->user_type === 'dictaminador')  
+                                        <button type="submit" class="btn custom-btn buttonSignature2">Enviar</button>
+                                        @endif
+                                    </td>   
+                                </tr>
                             </thead>
                              
-                            <thead>
 
-                                <tr>
-                                    <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
-                                </tr>
-
-                            </thead>                              
+                                                        
                             </table>
                         </form>
         </div>

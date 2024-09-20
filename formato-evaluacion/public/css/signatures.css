@@ -1,0 +1,31 @@
+#firma1,
+#firma2,
+#firma3 {
+    margin-left: -400px;
+    width: 400px;
+}
+
+#firmaTexto,
+#firmaTexto2,
+#firmaTexto3 {
+    margin-left: -300px;
+}
+
+.personaEvaluadora1{
+    background-color: aquamarine;
+}
+
+[class^="personaEvaluadora"]{
+    background-color: aquamarine;
+    width: 300px;
+}
+#firma1, #firma2, #firma3{
+    background-color: aquamarine;
+    margin-left: -300px;
+}
+
+@media print{
+[id^="firma"] {
+        display: none;
+        width: fit-content;
+}}
