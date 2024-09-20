@@ -25,7 +25,7 @@
 }
 
 @media print{
-[id^="firma"] {
+[id^="firma"] ,.text-muted{
         display: none;
         width: fit-content;
 }}

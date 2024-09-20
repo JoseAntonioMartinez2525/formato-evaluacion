@@ -202,10 +202,9 @@ $subtotalAdded = false;
                         <br>
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                             @csrf
-<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
-<input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
-<input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
-
+                            <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                            <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
 
 
                             <table>
@@ -220,6 +219,7 @@ $subtotalAdded = false;
                                     <td class="p-2">Nombre de la persona evaluadora</td>
                                     <td class="p-2"><span id="firmaTexto">Firma</span> 
                                 <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+                                 <!--Generrar la image<td></td>-->
 
 
                                 </tr>
@@ -233,6 +233,7 @@ $subtotalAdded = false;
                                     <td class="p-2">Nombre de la persona evaluadora</td>
                                     <td class="p-2"><span id="firmaTexto2">Firma</span> 
                                 <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+                                 <!--Generrar la image<td></td>-->
 
 
                                 </tr>
@@ -247,7 +248,7 @@ $subtotalAdded = false;
                                     <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
                                     <td class="p-2"><span id="firmaTexto3">Firma</span>
                                 <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
-
+                                <!--Generrar la image<td></td>-->
 
                                 </tr>
                                 <tr>
