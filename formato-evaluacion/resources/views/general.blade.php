@@ -71,24 +71,33 @@ $newLocale = str_replace('_', '-', $locale);
 
             @endif
             </div>
+                @php
+$userType = Auth::user()->user_type;
+    @endphp
             </div>
-            <section id="userReports">
-            <h1>Seleccionar Usuarios</h1>
-            
-            <form id="filter-form">
-                <label for="user-email">Seleccionar Email:</label>
-                <select id="user-email" name="user-email">
-                    @foreach ($users as $user)
-                        <option value="{{ $user->email }}">{{ $user->email }}</option>
-                    @endforeach
+<div class="container mt-4 printButtonClass">
+
+              @if ($userType != 'docente')
+ <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+            <select id="dictaminadorSelect" class="form-select">
+                <option value="">Seleccionar un dictaminador</option>
+                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+            </select>
+            @endif
                 </select>
-                <button type="submit">Mostrar Datos</button>
+                                <button type="submit">Mostrar Datos</button>
+                    </div>
+
             </form>
-            
+                        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="user_id" value="">
+                        <input type="hidden" name="email" value="">
+                        <input type="hidden" name="user_type" value="">
             <div id="user-data">
                 <!-- Aquí se mostrará la información del usuario -->
             </div>
-        </section>
+
             
 </body>
 <script>
@@ -123,12 +132,12 @@ $newLocale = str_replace('_', '-', $locale);
                 <p>Email: ${data.user.email || 'No disponible'}</p>
                 <p>Nombre: ${data.user.name || 'No disponible'}</p>
                 <p>Convocatoria: ${data.responseForm1.convocatoria || 'No disponible'}</p>
-                <p>Comisión Actividad 1 Total: ${data.resume.comision_actividad_1_total || 'No disponible'}</p>
-                <p>Comisión Actividad 2 Total: ${data.resume.comision_actividad_2_total || 'No disponible'}</p>
-                <p>Comisión Actividad 3 Total: ${data.resume.comision_actividad_3_total || 'No disponible'}</p>
-                <p>Total Puntaje: ${data.resume.total_puntaje || 'No disponible'}</p>
-                <p>Mínima Calidad: ${data.resume.minima_calidad || 'No disponible'}</p>
-                <p>Mínima Total: ${data.resume.minima_total || 'No disponible'}</p>
+                <p>Comisión Actividad 1 Total: ${data.resumen_calidad_y_total.comision_actividad_1_total || 'No disponible'}</p>
+                <p>Comisión Actividad 2 Total: ${data.resumen_calidad_y_total.comision_actividad_2_total || 'No disponible'}</p>
+                <p>Comisión Actividad 3 Total: ${data.resumen_calidad_y_total.comision_actividad_3_total || 'No disponible'}</p>
+                <p>Total Puntaje: ${data.resumen_calidad_y_total.total_puntaje || 'No disponible'}</p>
+                <p>Mínima Calidad: ${data.resumen_calidad_y_total.minima_calidad || 'No disponible'}</p>
+                <p>Mínima Total: ${data.resumen_calidad_y_total.minima_total || 'No disponible'}</p>
                 <h2>Persona Evaluadora y Firma: </h2>
                 <p>Persona Evaluadora: ${data.signature.evaluator_name_1 || 'No disponible'} 
                 <span style="margin-left: 50px;">Firma:</span> ${data.signature.signature_path_1 ? `<img src="/storage/${data.signature.signature_path_1}" alt="Firma" style="max-width: 200px;"/>` : 'No disponible'}</p>
@@ -145,6 +154,74 @@ $newLocale = str_replace('_', '-', $locale);
                 document.getElementById('user-data').innerHTML = `<p>Error al obtener datos del usuario.</p>`;
             }
         });
+
+
+            document.addEventListener('DOMContentLoaded', async () => {
+
+                const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+
+                // Current user type from the backend
+                const userType = @json($userType);  // Get user type from backend
+                // Fetch dictaminador options if user type is null or empty
+                if (dictaminadorSelect && userType != 'docente') {
+                    try {
+                        const response = await fetch('/get-dictaminadores');
+                        const dictaminadores = await response.json();
+
+                        dictaminadores.forEach(dictaminador => {
+                            const option = document.createElement('option');
+                            option.value = dictaminador.id;  // Use dictaminador ID as value
+                            option.dataset.email = dictaminador.email; // Store email in data attribute
+                            option.textContent = dictaminador.email;
+                            dictaminadorSelect.appendChild(option);
+                        });
+
+                        // Handle dictaminador selection change
+                        dictaminadorSelect.addEventListener('change', async (event) => {
+                            const dictaminadorId = event.target.value;
+                            const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+
+                            if (dictaminadorId) {
+                                try {
+                                    const response = await axios.get('/get-dictaminador-data', {
+                                        params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                                    });
+                                    const data = response.data;
+
+                                    document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
+                                    // Populate fields based on fetched data
+                                    if (data.form4) {
+
+                                        
+
+
+                                    } else {
+                                        console.error('No form data found for the selected dictaminador.');
+
+                                        // Reset input values if no data found
+                                        document.querySelector('input[name="dictaminador_id"]').value = '0';
+                                        document.querySelector('input[name="user_id"]').value = '0';
+                                        document.querySelector('input[name="email"]').value = '';
+                                        document.querySelector('input[name="user_type"]').value = '';
+
+                                       
+
+                                    }
+                                } catch (error) {
+                                    console.error('Error fetching dictaminador data:', error);
+                                }
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error fetching dictaminadores:', error);
+                        alert('No se pudo cargar la lista de dictaminadores.');
+                    }
+                }
+            });
+
     </script>
 </script>
 

@@ -198,6 +198,71 @@ $subtotalAdded = false;
                         </form>
 
                         <br>
+                        <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+                            @csrf
+<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+<input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+<input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
+
+
+
+                            <table>
+                            <thead>
+                                <tr>
+                                    <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
+                                    <th>
+                                        <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*" style="margin-left: -400px;">
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">Nombre de la persona evaluadora</td>
+                                    <td class="p-2"><span id="firmaTexto">Firma</span> 
+                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+
+
+                                </tr>
+                                <tr>
+                                    <th><input class="personaEvaluadora2" type="text" id="personaEvaluadora2"></th>
+                                    <th>
+                                        <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*" style="margin-left: -400px;">
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">Nombre de la persona evaluadora</td>
+                                    <td class="p-2"><span id="firmaTexto2">Firma</span> 
+                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+
+
+                                </tr>
+                                <tr>
+                                    <th><input class="personaEvaluadora3" type="text" id="personaEvaluadora3"></th>
+                                    <th>
+                                        <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*" style="margin-left: -400px;">
+                                    </th>
+
+                                </tr>
+                                <tr>
+                                    <td class="p-2 mr-2">Nombre de la persona evaluadora</td>
+                                    <td class="p-2"><span id="firmaTexto3">Firma</span>
+                                <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
+
+
+                                </tr>
+
+                            </thead>
+                             
+                            <thead>
+
+                                <tr>
+                                    <td style="padding-left: 650px;"><button type="submit" class="btn custom-btn buttonSignature2">Enviar</button></td>   
+                                </tr>
+
+                            </thead>                              
+                            </table>
+                        </form>
+        </div>
+        <div>
+            <!--<a href="{{ route('form5') }}">Mostrar mas datos....</a>-->
         </div>
         </main>
 
@@ -268,7 +333,7 @@ $subtotalAdded = false;
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         async function submitForm(url, formId) {
-            // Get form data
+            if(formId == 'form4'){ 
             const formData = {};
             const form = document.getElementById(formId);
 
@@ -313,8 +378,85 @@ $subtotalAdded = false;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
+        }else if(formId==5){
+            let form = document.getElementById(formId);
+            let formData = new FormData(form);
+            formData.append('formId', formId);
+ // Recoge los datos dependiendo del formulario actual
+            if (formId === 'form5') {
+                formData.set('user_id', userId);
+                formData.set('email', email);
+                console.log('email value: ', formData['email']);
+                formData.set('user_type', userType);
+                console.log('user_type value: ', formData['user_type']);
+
+                // evaluator names
+                let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;
+                let evaluatorName2 = form.querySelector('#personaEvaluadora2').value;
+                let evaluatorName3 = form.querySelector('#personaEvaluadora3').value;
+
+                formData.set('evaluator_name_1', evaluatorName1);
+                formData.set('evaluator_name_2', evaluatorName2);
+                formData.set('evaluator_name_3', evaluatorName3);
+
+                // Add files to formData
+                let firma1 = form.querySelector('#firma1');
+                if (firma1.files.length > 0) {
+                    formData.append('firma1', firma1.files[0]);
+                }
+
+                let firma2 = form.querySelector('#firma2');
+                if (firma2.files.length > 0) {
+                    formData.append('firma2', firma2.files[0]);
+                }
+
+                let firma3 = form.querySelector('#firma3');
+                if (firma3.files.length > 0) {
+                    formData.append('firma3', firma3.files[0]);
+                }
+            }
+            try {
+                let response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const contentType = response.headers.get('Content-Type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Invalid JSON response');
+                }
+
+                let data = await response.json();
+                console.log('Response received from server:', data);
+
+                if (formId === 'form5') {
+                    document.getElementById('reportLink').classList.remove('d-none');
+                }
+
+                if (data.signature_url) {
+                    const img = document.createElement('img');
+                    img.src = data.signature_url;
+                    img.alt = 'Signature';
+                    img.style.maxWidth = '400px';
+                    img.style.maxHeight = '400px';
+                    img.style.marginLeft = '1000px';
+                    img.style.marginTop = '-150px';
+                    document.body.appendChild(img);
+                }
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
         }
-                window.submitForm = submitForm;
+        window.submitForm = submitForm;
+        }     
+                
     });
 
 

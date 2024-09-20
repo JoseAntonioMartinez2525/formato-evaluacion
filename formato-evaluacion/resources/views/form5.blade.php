@@ -192,6 +192,7 @@ $dictaminadorId = Auth::user()->dictaminador_id;
 
     document.addEventListener('DOMContentLoaded', function () {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         async function submitForm(url, formId) {
             // Get form data
             let form = document.getElementById(formId);
