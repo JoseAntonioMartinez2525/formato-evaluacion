@@ -24,7 +24,10 @@ class UserResume extends Model
 
     ];
     protected $table = 'users_final_resume';
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

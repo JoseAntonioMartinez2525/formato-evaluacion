@@ -37,9 +37,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(EvaluatorSignature::class, 'user_id', 'id');
     }
+
+    public function userResume()
+    {
+        return $this->hasOne(UserResume::class, 'user_id', 'id');
+    }
     public function __call($method, $parameters)
     {
-        if (preg_match('/^dictaminatorResponseForm3_(\d+)$/', $method, $matches)) {
+        if (preg_match('/^dictaminators_response_form3_(\d+)$/', $method, $matches)) {
             $formNumber = $matches[1];
             $modelClass = 'App\\Models\\DictaminatorsResponseForm3_' . $formNumber;
 

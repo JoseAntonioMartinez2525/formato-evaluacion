@@ -68,9 +68,9 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 <x-general-header />               
                    @php
-                    $userType = Auth::user()->user_type;
-                    //$dictaminadorResponse = auth()->user()->dictaminatorResponseForm3_1;
-                    $dictaminadorId = Auth::user()->dictaminador_id;
+$userType = Auth::user()->user_type;
+//$dictaminadorResponse = auth()->user()->dictaminatorResponseForm3_1;
+$dictaminadorId = Auth::user()->dictaminador_id;
 
                 @endphp 
                     
@@ -78,10 +78,12 @@ $newLocale = str_replace('_', '-', $locale);
                   <main class="container">
                         <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                             @csrf
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" name="user_type" value="{{Auth()->user()->user_type}}">
+<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+<input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+<input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
+
+
+
                             <table>
                             <thead>
                                 <tr>
@@ -137,6 +139,9 @@ $newLocale = str_replace('_', '-', $locale);
                         <br>
         </body>
 <script>
+    let userType = document.querySelector('#user_type').value; // Asegúrate de que #user_type exista en tu formulario
+    let userId = document.querySelector('#user_id').value; // Verifica que #user_id esté presente
+    let email = document.querySelector('#email').value; 
 
     const dictaminadorSelect = document.getElementById('dictaminadorSelect');
 
@@ -195,10 +200,10 @@ $newLocale = str_replace('_', '-', $locale);
 
             // Recoge los datos dependiendo del formulario actual
             if (formId === 'form5') {
-                formData.set('user_id', form.querySelector('input[name="user_id"]').value);
-                formData.set('email', form.querySelector('input[name="email"]').value);
-                formData.set('dictaminador_id', form.querySelector('input[name="dictaminador_id"]').value);
-                formData.set('user_type', form.querySelector('input[name="user_type"]').value);
+                formData.set('user_id', userId);
+                formData.set('email', email);
+                console.log('email value: ', formData['email']);
+                formData.set('user_type', userType);
                 console.log('user_type value: ', formData['user_type']);
 
                 // evaluator names
