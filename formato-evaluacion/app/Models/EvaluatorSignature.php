@@ -26,6 +26,10 @@ class EvaluatorSignature extends Model
 
     protected $table = 'evaluator_signatures';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

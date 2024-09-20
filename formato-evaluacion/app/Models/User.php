@@ -5,44 +5,49 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'user_type',
-        'email', 'password',
+        'email',
+        'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function dictaminatorResponseForm3_1()
+    /**
+     * Método mágico para manejar las relaciones de manera dinámica.
+     * 
+     * Esto permite generar automáticamente las relaciones con los formularios de dictaminador.
+     */
+
+    public function evaluatorSignatures()
     {
-        return $this->hasOne(DictaminatorsResponseForm3_1::class, 'user_id', 'id');
+        return $this->hasMany(EvaluatorSignature::class, 'user_id', 'id');
+    }
+    public function __call($method, $parameters)
+    {
+        if (preg_match('/^dictaminatorResponseForm3_(\d+)$/', $method, $matches)) {
+            $formNumber = $matches[1];
+            $modelClass = 'App\\Models\\DictaminatorsResponseForm3_' . $formNumber;
+
+            if (class_exists($modelClass)) {
+                return $this->hasOne($modelClass, 'user_id', 'id');
+            }
+        }
+
+        return parent::__call($method, $parameters);
     }
 }
