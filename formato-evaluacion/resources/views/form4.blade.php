@@ -418,6 +418,8 @@ $subtotalAdded = false;
                 if (firma3.files.length > 0) {
                     formData.append('firma3', firma3.files[0]);
                 }
+
+                console.log('Form data: ', formData);
             }
             try {
                 let response = await fetch(url, {
@@ -457,10 +459,11 @@ $subtotalAdded = false;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
+            
         }
 
-        }   
-                window.submitForm = submitForm;  
+        }   window.submitForm = submitForm;  
+                
                 
     });
 
@@ -493,7 +496,8 @@ $subtotalAdded = false;
 
         async function loadAllData() {
             let data = await fetchData('/get-form-data', { dictaminador_id: userId });
-
+            let formType = document.getElementById(`form${condition ? '4' : '5'}`);
+            if(formType=='form4'){
             if (data && data.dictaminador.dictaminador_id) {
                 // Asignar los valores de las comisiones automáticamente
                 if (data.form_data) {
@@ -510,10 +514,10 @@ $subtotalAdded = false;
                 }
             } else {
                 console.error('Error: Dictaminador not found or user type is invalid.');
-            }
+            }}
         }
 
-
+window.submitForm = submitForm;  
     
     });
 
