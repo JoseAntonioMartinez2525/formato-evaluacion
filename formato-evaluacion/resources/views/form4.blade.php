@@ -458,8 +458,9 @@ $subtotalAdded = false;
                 console.error('There was a problem with the fetch operation:', error);
             }
         }
-        window.submitForm = submitForm;
-        }     
+
+        }   
+                window.submitForm = submitForm;  
                 
     });
 
