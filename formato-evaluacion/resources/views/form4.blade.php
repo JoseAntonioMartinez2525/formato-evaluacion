@@ -216,9 +216,11 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
-                                        @if(isset($signature_path_1))  <!-- Suponiendo que $signature_path_1 tiene la ruta de la firma guardada -->
-                                        <img src="{{ asset($signature_path_1) }}" alt="Firma 1" id="imgFirma1">
-                                        @endif
+@if(isset($signature_path_1))  
+        <img src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:block;">
+    @else
+        <img src="" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:none;">
+    @endif
                                     </th>                                    
                                 </tr>
                                 <tr>
@@ -235,9 +237,11 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
-                                        @if(isset($signature_path_2))  <!-- Suponiendo que $signature_path_2 tiene la ruta de la firma guardada -->
-                                        <img src="{{ asset($signature_path_2) }}" alt="Firma 2" id="imgFirma2">
-                                        @endif
+    @if(isset($signature_path_2))  
+        <img src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:block;">
+    @else
+        <img src="" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:none;">
+    @endif
                                     </th>                                    
                                 </tr>
                                 <tr>
@@ -253,9 +257,11 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
-                                        @if(isset($signature_path_3))  <!-- Suponiendo que $signature_path_3 tiene la ruta de la firma guardada -->
-                                        <img src="{{ asset($signature_path_3) }}" alt="Firma 3" id="imgFirma3">
-                                        @endif
+    @if(isset($signature_path_3))  
+        <img src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:block;">
+    @else
+        <img src="" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:none;">
+    @endif
                                     </th>                                    
 
                                 </tr>
@@ -448,18 +454,19 @@ $subtotalAdded = false;
 
 
         // Mostrar todas las firmas
-        ['firma1', 'firma2', 'firma3'].forEach((firma, index) => {
-            if (data.signature_urls[firma]) {
-                const img = document.createElement('img');
-                img.src = data.signature_urls[firma];
-                img.alt = `Signature ${index + 1}`;
-                img.style.maxWidth = '100px';
-                img.style.maxHeight = '100px';
-                img.style.marginLeft = '50px'; // Ajusta el margen según sea necesario
-                //img.style.marginTop = '10px'; // Ajusta el margen según sea necesario
-                document.body.appendChild(img); // O agrega a un contenedor específico
-            }
-        });
+        if (data.signature_urls) { // Verifica que existan las URLs de las firmas
+            const firmas = ['firma1', 'firma2', 'firma3']; // Define tus firmas
+
+            firmas.forEach(firma => {
+                const img = document.querySelector(`img[data-firma="${firma}"]`); // Selecciona la imagen correspondiente
+                if (data.signature_urls[firma]) {
+                    img.src = data.signature_urls[firma]; // Establece la URL de la firma
+                    img.style.display = 'block'; // Muestra la imagen
+                } else {
+                    img.style.display = 'none'; // Oculta la imagen si no hay firma
+                }
+            });
+        }
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
