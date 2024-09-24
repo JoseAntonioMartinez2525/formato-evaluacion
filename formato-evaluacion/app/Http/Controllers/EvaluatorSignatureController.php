@@ -45,14 +45,14 @@ class EvaluatorSignatureController extends Controller
                 'signature_path_2' => $signaturePaths['firma2'] ?? null,
                 'signature_path_3' => $signaturePaths['firma3'] ?? null,
                 'user_type' => $validatedData['user_type'],
-
+                
             ]);
 
             return response()->json([
                 'message' => 'Form submitted successfully!',
                 'signature_urls' => array_map(fn($path) => asset('storage/' . $path), $signaturePaths),
             ], 200);
-
+            
         } catch (\Exception $e) {
             Log::error('Error storing evaluator signature', ['error' => $e->getMessage()]);
             return response()->json([
@@ -62,21 +62,20 @@ class EvaluatorSignatureController extends Controller
         }
     }
 
-    public function getEvaluatorSignature(Request $request)
-    {
+    public function getEvaluatorSignature(Request $request){
         Log::info('Received request for evaluator signature', $request->all());
         // Suponiendo que estás buscando por user_id o email
         $userId = $request->input('user_id');
         $email = $request->input('email');
         $userType = $request->input('user_type');
-
+        
 
         // Valida los datos de entrada
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
             'user_type' => 'required|in:users,user_type',
-
+            
         ]);
 
         // Obtén los datos de la firma del evaluador
@@ -92,15 +91,10 @@ class EvaluatorSignatureController extends Controller
                 'message' => 'Evaluator signature not found',
             ], 404);
         }
-
-
         // Log data to check
         Log::info('Evaluator signature data:', ($evaluatorSignature)->toArray());
-
         // Devuelve los datos como JSON
         return response()->json($evaluatorSignature);
 
     }
-
-
 }
