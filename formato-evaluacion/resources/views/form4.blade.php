@@ -335,33 +335,37 @@ $subtotalAdded = false;
        
     document.addEventListener('DOMContentLoaded', function () {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+       
+        function getCommonFormData(form) {
+        const formData = {};
+
+        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+        formData['email'] = form.querySelector('input[name="email"]').value;
+        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+        console.log('user_type value: ', formData['user_type']);
+        return formData;
+        }
 
         async function submitForm(url, formId) {
-            if(formId == 'form4'){ 
-            const formData = {};
-            const form = document.getElementById(formId);
+           const form = document.getElementById(formId);
+        if (!form) {
+            console.error(`Form with id "${formId}" not found.`);
+            return;
+        }
 
-            if (!form) {
-                console.error(`Form with id "${formId}" not found.`);
-                return;
-            }
-
+        if (formId === 'form4') {
+            let formData = getCommonFormData(form);
             formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-            formData['email'] = form.querySelector('input[name="email"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-            console.log('user_type value: ', formData['user_type']);
+            // Obtener valores de los labels y spans
+            formData['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
+            formData['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
+            formData['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
+            formData['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
+            formData['minima_total'] = document.getElementById('minimaTotal').textContent;
+            formData['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
 
-                // Obtener valores de los labels y spans
-                formData['comision_actividad_1_total']  =  document.getElementById('totalComision1').textContent;
-                formData['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
-                formData['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
-                formData['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
-                formData['minima_total'] = document.getElementById('minimaTotal').textContent;
-                formData['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
-
-                // Log form data to check values
-                console.log('Form data: ', formData);
+            // Log form data to check values
+            console.log('Form data for form4: ', formData);
             
             try {
                 const response = await fetch(url, {
@@ -382,43 +386,34 @@ $subtotalAdded = false;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
-        }else if(formId==5){
-            let form = document.getElementById(formId);
+        }else if(formId ==='form5'){
             let formData = new FormData(form);
-            formData.append('formId', formId);
+            document.getElementById('reportLink').classList.remove('d-none');
+
+            // Agregar los campos comunes
+            let commonData = getCommonFormData(form);
+            for (let key in commonData) {
+                formData.append(key, commonData[key]);
+            }
+
  // Recoge los datos dependiendo del formulario actual
-            if (formId === 'form5') {
-                formData.set('user_id', userId);
-                formData.set('email', email);
-                console.log('email value: ', formData['email']);
-                formData.set('user_type', userType);
-                console.log('user_type value: ', formData['user_type']);
+
+
+            //formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
 
                 // evaluator names
-                let evaluatorName1 = form.querySelector('#personaEvaluadora1').value;
-                let evaluatorName2 = form.querySelector('#personaEvaluadora2').value;
-                let evaluatorName3 = form.querySelector('#personaEvaluadora3').value;
+            formData.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
+            formData.set('evaluator_name_2', form.querySelector('#personaEvaluadora2').value);
+            formData.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
 
-                formData.set('evaluator_name_1', evaluatorName1);
-                formData.set('evaluator_name_2', evaluatorName2);
-                formData.set('evaluator_name_3', evaluatorName3);
-
-                // Add files to formData
-                let firma1 = form.querySelector('#firma1');
-                if (firma1.files.length > 0) {
-                    formData.append('firma1', firma1.files[0]);
+            // Add files to formData
+            ['firma1', 'firma2', 'firma3'].forEach((firma, index) => {
+                let fileInput = form.querySelector(`#${firma}`);
+                if (fileInput.files.length > 0) {
+                    formData.append(firma, fileInput.files[0]);
                 }
-
-                let firma2 = form.querySelector('#firma2');
-                if (firma2.files.length > 0) {
-                    formData.append('firma2', firma2.files[0]);
-                }
-
-                let firma3 = form.querySelector('#firma3');
-                if (firma3.files.length > 0) {
-                    formData.append('firma3', firma3.files[0]);
-                }
-            }
+            });
+            
             try {
                 let response = await fetch(url, {
                     method: 'POST',
@@ -440,9 +435,6 @@ $subtotalAdded = false;
                 let data = await response.json();
                 console.log('Response received from server:', data);
 
-                if (formId === 'form5') {
-                    document.getElementById('reportLink').classList.remove('d-none');
-                }
 
                 if (data.signature_url) {
                     const img = document.createElement('img');
@@ -457,7 +449,7 @@ $subtotalAdded = false;
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
-        }
+          }
 
         }   
                 window.submitForm = submitForm;  
