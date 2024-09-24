@@ -214,12 +214,17 @@ $subtotalAdded = false;
                                     <th>
                                         <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
                                     </th>
+                                    <th>
+                                        <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
+                                        @if(isset($signature_path_1))  <!-- Suponiendo que $signature_path_1 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_1) }}" alt="Firma 1" id="imgFirma1">
+                                        @endif
+                                    </th>                                    
                                 </tr>
                                 <tr>
                                     <td class="p-2">Nombre de la persona evaluadora</td>
                                     <td class="p-2"><span id="firmaTexto">Firma</span> 
                                 <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
-                                 <!--Generrar la image<td></td>-->
 
 
                                 </tr>
@@ -228,13 +233,17 @@ $subtotalAdded = false;
                                     <th>
                                         <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
                                     </th>
+                                    <th>
+                                        <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
+                                        @if(isset($signature_path_2))  <!-- Suponiendo que $signature_path_2 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_2) }}" alt="Firma 2" id="imgFirma2">
+                                        @endif
+                                    </th>                                    
                                 </tr>
                                 <tr>
                                     <td class="p-2">Nombre de la persona evaluadora</td>
                                     <td class="p-2"><span id="firmaTexto2">Firma</span> 
                                 <small class="text-muted">Tamaño máximo permitido: 2MB</small></td>
-                                 <!--Generrar la image<td></td>-->
-
 
                                 </tr>
                                 <tr>
@@ -242,6 +251,12 @@ $subtotalAdded = false;
                                     <th>
                                         <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
                                     </th>
+                                    <th>
+                                        <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
+                                        @if(isset($signature_path_3))  <!-- Suponiendo que $signature_path_3 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_3) }}" alt="Firma 3" id="imgFirma3">
+                                        @endif
+                                    </th>                                    
 
                                 </tr>
                                 <tr>
@@ -396,10 +411,6 @@ $subtotalAdded = false;
                 formData.append(key, commonData[key]);
             }
 
- // Recoge los datos dependiendo del formulario actual
-
-
-            //formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
 
                 // evaluator names
             formData.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
@@ -407,7 +418,7 @@ $subtotalAdded = false;
             formData.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
 
             // Add files to formData
-            ['firma1', 'firma2', 'firma3'].forEach((firma, index) => {
+            ['firma1', 'firma2', 'firma3'].forEach((firma) => {
                 let fileInput = form.querySelector(`#${firma}`);
                 if (fileInput.files.length > 0) {
                     formData.append(firma, fileInput.files[0]);
@@ -436,16 +447,19 @@ $subtotalAdded = false;
                 console.log('Response received from server:', data);
 
 
-                if (data.signature_url) {
-                    const img = document.createElement('img');
-                    img.src = data.signature_url;
-                    img.alt = 'Signature';
-                    img.style.maxWidth = '400px';
-                    img.style.maxHeight = '400px';
-                    img.style.marginLeft = '1000px';
-                    img.style.marginTop = '-150px';
-                    document.body.appendChild(img);
-                }
+        // Mostrar todas las firmas
+        ['firma1', 'firma2', 'firma3'].forEach((firma, index) => {
+            if (data.signature_urls[firma]) {
+                const img = document.createElement('img');
+                img.src = data.signature_urls[firma];
+                img.alt = `Signature ${index + 1}`;
+                img.style.maxWidth = '100px';
+                img.style.maxHeight = '100px';
+                img.style.marginLeft = '50px'; // Ajusta el margen según sea necesario
+                //img.style.marginTop = '10px'; // Ajusta el margen según sea necesario
+                document.body.appendChild(img); // O agrega a un contenedor específico
+            }
+        });
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
@@ -482,7 +496,35 @@ $subtotalAdded = false;
                 alert(error.message);
             }
         }
+ //
+     async function loadSignatures() {
+        let data = await fetchData('/get-evaluator-signature', { 
+            user_id: userId, 
+            email: email, 
+            user_type: userType 
+        });
 
+        if (data) {
+            // Si las URLs de las firmas están disponibles, las mostramos
+             console.log('Datos de firma recibidos:', data); 
+            if (data.signature_path_1) {
+                document.getElementById('imgFirma1').src = data.signature_path_1;
+                document.getElementById('imgFirma1').style.display = 'block';
+            }
+            if (data.signature_path_2) {
+                document.getElementById('imgFirma2').src = data.signature_path_2;
+                document.getElementById('imgFirma2').style.display = 'block';
+            }
+            if (data.signature_path_3) {
+                document.getElementById('imgFirma3').src = data.signature_path_3;
+                document.getElementById('imgFirma3').style.display = 'block';
+            }
+        } else {
+            console.error('Error: Signature data not found.');
+        }
+    }
+
+        //form4
         async function loadAllData() {
             let data = await fetchData('/get-form-data', { dictaminador_id: userId });
 
@@ -500,12 +542,13 @@ $subtotalAdded = false;
                     // Calcular el puntaje total
                     calculateTotalScore();
                 }
+                await loadSignatures(); 
             } else {
                 console.error('Error: Dictaminador not found or user type is invalid.');
             }
         }
-
-
+        
+  
     
     });
 

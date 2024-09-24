@@ -94,7 +94,15 @@ class EvaluatorSignatureController extends Controller
         // Log data to check
         Log::info('Evaluator signature data:', ($evaluatorSignature)->toArray());
         // Devuelve los datos como JSON
-        return response()->json($evaluatorSignature);
+        // Devuelve los datos con las URLs completas de las firmas
+        return response()->json([
+            'evaluator_name_1' => $evaluatorSignature->evaluator_name_1,
+            'evaluator_name_2' => $evaluatorSignature->evaluator_name_2,
+            'evaluator_name_3' => $evaluatorSignature->evaluator_name_3,
+            'signature_path_1' => asset(path: 'storage/' . $evaluatorSignature->signature_path_1),
+            'signature_path_2' => asset(path: 'storage/' . $evaluatorSignature->signature_path_2),
+            'signature_path_3' => asset(path: 'storage/' . $evaluatorSignature->signature_path_3),
+        ]);
 
     }
 }
