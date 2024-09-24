@@ -216,11 +216,9 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
-@if(isset($signature_path_1))  
-        <img src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:block;">
-    @else
-        <img src="" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:none;">
-    @endif
+                                        @if(isset($signature_path_1))  <!-- Suponiendo que $signature_path_1 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_1) }}" alt="Firma 1" id="imgFirma1">
+                                        @endif
                                     </th>                                    
                                 </tr>
                                 <tr>
@@ -237,11 +235,9 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
-    @if(isset($signature_path_2))  
-        <img src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:block;">
-    @else
-        <img src="" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:none;">
-    @endif
+                                        @if(isset($signature_path_2))  <!-- Suponiendo que $signature_path_2 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_2) }}" alt="Firma 2" id="imgFirma2">
+                                        @endif
                                     </th>                                    
                                 </tr>
                                 <tr>
@@ -257,11 +253,9 @@ $subtotalAdded = false;
                                     </th>
                                     <th>
                                         <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
-    @if(isset($signature_path_3))  
-        <img src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:block;">
-    @else
-        <img src="" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:none;">
-    @endif
+                                        @if(isset($signature_path_3))  <!-- Suponiendo que $signature_path_3 tiene la ruta de la firma guardada -->
+                                        <img src="{{ asset($signature_path_3) }}" alt="Firma 3" id="imgFirma3">
+                                        @endif
                                     </th>                                    
 
                                 </tr>
