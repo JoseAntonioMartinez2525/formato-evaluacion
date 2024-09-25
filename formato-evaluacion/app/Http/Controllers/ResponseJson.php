@@ -122,14 +122,13 @@ class ResponseJson extends Controller
         $combinedForm3_15Responses = $responses3_15->merge($dictaminators_responses3_15);
         $combinedForm3_16Responses = $responses3_16->merge($dictaminators_responses3_16);
         $combinedForm3_17Responses = $responses3_17->merge($dictaminators_responses3_17);
-        $combinedForm3_18Responses = $responses3_18->merge($dictaminators_responses3_19);
-        $combinedForm3_19Responses = $responses3_19->merge($dictaminators_responses3_14);
+        $combinedForm3_18Responses = $responses3_18->merge($dictaminators_responses3_18);
+        $combinedForm3_19Responses = $responses3_19->merge($dictaminators_responses3_19);
+ 
         
-
-
-
         $responsesFinal = UserResume::all()->filter()->values();
         $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
+        $finalResume = $responsesFinal->merge($responsesEvaluator);
 
         // Convert each collection of responses to JSON format
         $jsonResponses = json_encode([
@@ -156,8 +155,8 @@ class ResponseJson extends Controller
             'form3_18' => $combinedForm3_18Responses->toArray(),
             'form3_19' => $combinedForm3_19Responses->toArray(),
             'form4' => $responsesFinal->toArray(),
-            //'formFinal' => $responsesFinal->toArray(),
             'form5'=> $responsesEvaluator->toArray(),
+            'final_resume'->$finalResume->toArray(),
 
             
         ], JSON_PRETTY_PRINT);

@@ -19,6 +19,8 @@ use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
 use App\Models\DictaminatorsResponseForm3_9;
+use App\Models\EvaluatorSignature;
+use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -75,6 +77,8 @@ public function getDictaminadorData(Request $request)
         $form3_17Data = DictaminatorsResponseForm3_17::where('dictaminador_id', $dictaminador_id)->first();
         $form3_18Data = DictaminatorsResponseForm3_18::where('dictaminador_id', $dictaminador_id)->first();
         $form3_19Data = DictaminatorsResponseForm3_19::where('dictaminador_id', $dictaminador_id)->first();
+        $resumeData = UserResume::where('dictaminador_id', $dictaminador_id)->first();
+        $signaturesData = EvaluatorSignature::where('user_id', $dictaminador_id)->first();
 
         // Return a structured response which includes both form data
         return response()->json([
@@ -103,6 +107,8 @@ public function getDictaminadorData(Request $request)
             'form3_17' => $form3_17Data,
             'form3_18' => $form3_18Data,
             'form3_19' => $form3_19Data,
+            'user_final_resume'=> $resumeData,
+            'signatures' => $signaturesData,
 
 
         ]);
