@@ -616,19 +616,9 @@ $subtotalAdded = false;
     const userType = @json($userType);  // Get user type from backend
 
     // Only proceed if user type is not 'docente'
-    if (userType !== 'docente' || dictaminadorSelect) {
+    if (userType !== 'docente') {
         // Add event listener to the appropriate input field or button
         const inputField = document.getElementById('user_id'); // Replace with your actual input field ID
-        const response = await fetch('/get-dictaminadores');
-        const dictaminadores = await response.json();
-
-        dictaminadores.forEach(dictaminador => {
-            const option = document.createElement('option');
-            option.value = dictaminador.id;  // Use dictaminador ID as value
-            option.dataset.email = dictaminador.email; // Store email in data attribute
-            option.textContent = dictaminador.email;
-            dictaminadorSelect.appendChild(option);
-        });
         
         inputField.addEventListener('input', async (event) => {
             const dictaminadorId = event.target.value; // Assuming input field value is used as dictaminadorId
