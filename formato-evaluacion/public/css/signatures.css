@@ -32,7 +32,7 @@
 
 @media print{
 [class^="imgFirma"]{
-margin-left: -400px;
+margin-left: -300px;
 background-color: transparent;
 }
 }
