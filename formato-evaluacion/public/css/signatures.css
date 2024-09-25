@@ -11,16 +11,16 @@
     margin-left: -300px;
 }
 
-.personaEvaluadora1{
-    background-color: aquamarine;
+[class^="imgFirma"], .imgSection{
+    background-color: rgb(163, 249, 244);
 }
 
 [class^="personaEvaluadora"]{
-    background-color: aquamarine;
+    background-color: rgb(163, 249, 244);
     width: 300px;
 }
 #firma1, #firma2, #firma3{
-    background-color: aquamarine;
+    background-color: rgb(163, 249, 244);
     margin-left: -300px;
 }
 
@@ -30,3 +30,28 @@
         width: fit-content;
 }}
 
+@media print{
+[class^="imgFirma"]{
+margin-left: -400px;
+background-color: transparent;
+}
+}
+@media print{
+.menu{
+   display: none; 
+}
+}
+
+@media print {
+
+    .buttonSignature,
+    .buttonSignature2 {
+        display: none;
+    }
+}
+
+@media print{
+    .topHeader, #form4, #form5{
+        margin-left: -200px;
+    }
+}
