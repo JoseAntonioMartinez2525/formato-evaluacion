@@ -196,15 +196,18 @@ $userType = Auth::user()->user_type;
 
                     docenteSelect.addEventListener('change', (event) => {
                         const email = event.target.value;
+                        
                         if (email) {
                             axios.get('/get-docente-data', { params: { email } })
                                 .then(response => {
                                     const data = response.data;
+                                    //documment.getElementById('convocatoria_footer').textContent = data.form1.convocatoria || '';
                                     document.getElementById('horasActv2').textContent = data.form2.horasActv2 || '0';
                                     document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
                                     document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.form2.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                                    
                                 })
                                 .catch(error => {
                                     console.error('Error fetching docente data:', error);
@@ -331,5 +334,6 @@ $userType = Auth::user()->user_type;
 
     </script>
 </body>
+<footer id="convocatoria_footer"></footer>
 
 </html>
