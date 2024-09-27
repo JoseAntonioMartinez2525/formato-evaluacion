@@ -220,7 +220,14 @@ $subtotalAdded = false;
                             <table>
                             <thead>
                                 <tr>
-                                    <th><input class="personaEvaluadora1" type="text" id="personaEvaluadora1"></th>
+                                    <th>
+                                    <!--*Implementacion en caso que el usuario sea vacio-->
+                                        @if($userType == '')
+                                        <span class="personaEvaluadora1" type="text" id="personaEvaluadora1"></span>
+                                        @else
+                                        <input class="personaEvaluadora1" type="text" id="personaEvaluadora1">
+                                        @endif
+                                    </th>
                                     <th>
                                         <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
                                     </th>
