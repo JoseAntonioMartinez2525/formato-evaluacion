@@ -391,8 +391,13 @@ text-align: right;
 }
 
 #convocatoriaPeriodoLabel{
-   margin-top: 200px; 
-   margin-left: 100px;
+   margin-top: 200px;
+   margin-left: 900px;
+}
+
+#convocatoria{
+    font-weight: bold;
+    font-size: 18px;
 }
 
 #resumen h2{
@@ -533,6 +538,8 @@ td[id^="puntaje3_9_"]{
     background-color: #c1cfd3;
     text-align: right;
 }
+
+
 
 
 

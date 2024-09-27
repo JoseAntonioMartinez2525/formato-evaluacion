@@ -174,6 +174,15 @@ $userType = Auth::user()->user_type;
             </table>
         </form>
     </main>
+    <center><footer id="convocatoria">
+    <!-- Mostrar convocatoria -->
+@if(isset($convocatoria))
+
+    <div style="margin-right: -700px;">
+        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+    </div>
+@endif
+</footer></center>
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
@@ -207,6 +216,18 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.form2.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+                                    // Actualizar convocatoria
+                                                                        // Verificar si el elemento existe antes de establecer su contenido
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
+                                    } else {
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
+                                    }
                                     
                                 })
                                 .catch(error => {
@@ -253,6 +274,20 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
                                     document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
                                     document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
+                                                                // Actualizar convocatoria
+                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
+                                    } else {
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
+                                    }
+
+                                    
                                 } else {
                                     console.log('No form2 data found for the selected dictaminador.');
                                     document.querySelector('input[name="dictaminador_id"]').value = '0';
@@ -263,6 +298,8 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('span[id="puntajeEvaluarText"]').textContent = '0';
                                     document.querySelector('span[id="comision1"]').textContent = '';
                                     document.querySelector('span[id="obs1"]').textContent = '';
+                                                                // Actualizar convocatoria
+                                    document.getElementById('convocatoria').textContent = data.form1.convocatoria = '';
                                 }
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
@@ -334,6 +371,6 @@ $userType = Auth::user()->user_type;
 
     </script>
 </body>
-<footer id="convocatoria_footer"></footer>
+
 
 </html>
