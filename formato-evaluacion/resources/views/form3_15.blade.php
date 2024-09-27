@@ -207,7 +207,17 @@ $userType = Auth::user()->user_type;
         </table>
         </form>
     </main>
+    <center>
+        <footer id="convocatoria">
+            <!-- Mostrar convocatoria -->
+            @if(isset($convocatoria))
 
+                <div style="margin-right: -700px;">
+                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                </div>
+            @endif
+        </footer>
+    </center>
     <script>
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -253,6 +263,19 @@ $userType = Auth::user()->user_type;
                                 document.querySelector('input[name="user_id"]').value = data.form3_15.user_id || '';
                                 document.querySelector('input[name="email"]').value = data.form3_15.email || '';
                                 document.querySelector('input[name="user_type"]').value = data.form3_15.user_type || '';
+
+                                    // Verificar si el elemento existe antes de establecer su contenido
+                                const convocatoriaElement = document.getElementById('convocatoria');
+                                if (convocatoriaElement) {
+                                    if (data.form1) {
+                                        convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                    } else {
+                                        console.error('form1 no está definido en la respuesta.');
+                                    }
+                                } else {
+                                    console.error('Elemento con ID "convocatoria" no encontrado.');
+                                }
+
                             } catch (error) {
                                 console.error('Error fetching docente data:', error);
                             }
@@ -317,6 +340,18 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('#obsPrototipos').textContent = data.form3_15.obsPrototipos || '';
 
 
+                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.responseForm1) {
+                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
+                                    } else {
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
+                                    }
+                                    
                                 } else {
                                     console.error('No form3_15 data found for the selected dictaminador.');
 
