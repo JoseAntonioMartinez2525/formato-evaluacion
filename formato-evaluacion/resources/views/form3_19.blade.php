@@ -15,14 +15,8 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 
 <body class="bg-gray-50 text-black/50">
-<style>
-    @media print {
-        #impresion {
-            display: none;
-        }
-    }
-</style>
-    <div class="relative min-h-screen flex flex-col items-center justify-center" id="impresion">
+
+    <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
             @if (Auth::check())
                 <section role="region" aria-label="Response form">
