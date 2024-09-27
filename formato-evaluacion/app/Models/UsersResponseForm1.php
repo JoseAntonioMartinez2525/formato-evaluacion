@@ -16,7 +16,10 @@ class UsersResponseForm1 extends BaseResponse
     ];
 
     protected $table = 'users_responses_form1';
-
+    public function dictaminatorsResponseForm2()
+    {
+        return $this->hasMany(DictaminatorsResponseForm2::class, 'user_id', 'user_id');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

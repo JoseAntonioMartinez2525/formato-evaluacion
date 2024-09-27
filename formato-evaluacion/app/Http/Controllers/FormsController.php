@@ -57,6 +57,7 @@ public function getDictaminadorData(Request $request)
 
         // Aquí deberás ajustar la lógica según cómo almacenas los datos de `form2` y `form2_2`
         $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador_id)->first();
+        $form1Data = $form2Data ? $form2Data->usersResponseForm1 : null;
         $form2_2Data = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
         $form3_1Data = DictaminatorsResponseForm3_1::where('dictaminador_id', $dictaminador_id)->first();
         $form3_2Data = DictaminatorsResponseForm3_2::where('dictaminador_id', $dictaminador_id)->first();
@@ -86,6 +87,7 @@ public function getDictaminadorData(Request $request)
                 'dictaminador_id' => $dictaminador->user_id,
                 'email' => $dictaminador->email,
             ],
+            'responseForm1' => $form1Data,
             'form2' => $form2Data,    // existing fields can still be accessed
             'form2_2' => $form2_2Data,  // potentially useful for this view
             'form3_1' => $form3_1Data,

@@ -278,8 +278,8 @@ $userType = Auth::user()->user_type;
                                     // Verificar si el elemento existe antes de establecer su contenido
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     if (convocatoriaElement) {
-                                        if (data.form1) {
-                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        if (data.responseForm1) {
+                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
                                         } else {
                                             console.error('form1 no está definido en la respuesta.');
                                         }
@@ -299,7 +299,7 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('span[id="comision1"]').textContent = '';
                                     document.querySelector('span[id="obs1"]').textContent = '';
                                                                 // Actualizar convocatoria
-                                    document.getElementById('convocatoria').textContent = data.form1.convocatoria = '';
+                                    document.getElementById('convocatoria').textContent = data.responseForm1.convocatoria = '';
                                 }
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
