@@ -16,9 +16,18 @@ class UsersResponseForm1 extends BaseResponse
     ];
 
     protected $table = 'users_responses_form1';
-    public function dictaminatorsResponseForm2()
+    public function __call($method, $parameters)
     {
-        return $this->hasMany(DictaminatorsResponseForm2::class, 'user_id', 'user_id');
+        if (preg_match('/^dictaminatorsResponseForm(\d+(_\d+)?)$/', $method, $matches)) {
+            $formNumber = $matches[1];
+            $modelClass = 'App\\Models\\DictaminatorsResponseForm' . $formNumber;
+
+            if (class_exists($modelClass)) {
+                return $this->hasMany($modelClass, 'user_id', 'user_id');
+            }
+        }
+
+        return parent::__call($method, $parameters);
     }
     public function __construct(array $attributes = [])
     {

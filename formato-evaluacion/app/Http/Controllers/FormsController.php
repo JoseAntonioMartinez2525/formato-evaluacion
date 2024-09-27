@@ -57,7 +57,6 @@ public function getDictaminadorData(Request $request)
 
         // Aquí deberás ajustar la lógica según cómo almacenas los datos de `form2` y `form2_2`
         $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador_id)->first();
-        $form1Data = $form2Data ? $form2Data->usersResponseForm1 : null;
         $form2_2Data = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
         $form3_1Data = DictaminatorsResponseForm3_1::where('dictaminador_id', $dictaminador_id)->first();
         $form3_2Data = DictaminatorsResponseForm3_2::where('dictaminador_id', $dictaminador_id)->first();
@@ -81,15 +80,19 @@ public function getDictaminadorData(Request $request)
         $resumeData = UserResume::where('dictaminador_id', $dictaminador_id)->first();
         $signaturesData = EvaluatorSignature::where('user_id', $dictaminador_id)->first();
 
+        $form1Data = $form2Data ? $form2Data->usersResponseForm1 : null;
+        $formData = $this->getAllFormData($dictaminador_id, $form1Data);
         // Return a structured response which includes both form data
         return response()->json([
             'dictaminador' => [
                 'dictaminador_id' => $dictaminador->user_id,
                 'email' => $dictaminador->email,
             ],
-            'responseForm1' => $form1Data,
-            'form2' => $form2Data,    // existing fields can still be accessed
-            'form2_2' => $form2_2Data,  // potentially useful for this view
+            'responseForm1' => $formData['form1Data'],
+            'form2' => $form2Data,
+            'form2_2' => $formData['form2_2'],
+            'forms' => $formData['forms'],
+            'form2_2Data' => $form2_2Data,
             'form3_1' => $form3_1Data,
             'form3_2' => $form3_2Data,
             'form3_3' => $form3_3Data,
@@ -116,6 +119,34 @@ public function getDictaminadorData(Request $request)
         ]);
 
         
+    }
+
+    private function getAllFormData($dictaminador_id, &$form1Data)
+    {
+        $formData = [];
+        $forms = [];
+
+        // Obtener datos de DictaminatorsResponseForm2_2
+        $formData['form2_2'] = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
+        if ($formData['form2_2'] && !$form1Data) {
+            $form1Data = $formData['form2_2']->usersResponseForm1;
+        }
+
+        // Iterar sobre los modelos de DictaminatorsResponseForm3
+        for ($i = 1; $i <= 19; $i++) {
+            $modelClass = 'App\\Models\\DictaminatorsResponseForm3_' . $i;
+            if (class_exists($modelClass)) {
+                $forms['form3_' . $i] = $modelClass::where('dictaminador_id', $dictaminador_id)->first();
+                if ($forms['form3_' . $i] && !$form1Data) {
+                    $form1Data = $forms['form3_' . $i]->usersResponseForm1;
+                }
+            }
+        }
+
+        $formData['forms'] = $forms;
+        $formData['form1Data'] = $form1Data;
+
+        return $formData;
     }
 
 
