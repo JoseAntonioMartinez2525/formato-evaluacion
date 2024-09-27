@@ -187,7 +187,17 @@ $userType = Auth::user()->user_type;
                         </table>
                     </form>
                 </main>
+                <center>
+                    <footer id="convocatoria">
+                        <!-- Mostrar convocatoria -->
+                        @if(isset($convocatoria))
 
+                            <div style="margin-right: -700px;">
+                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                            </div>
+                        @endif
+                    </footer>
+                </center>
     <script>
        document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
@@ -221,6 +231,20 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('input[name="user_id"]').value = data.form2_2.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.form2_2.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.form2_2.user_type || '';
+
+                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
+                                    } else {
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
+                                    }
+                                                                        
+
                                 })
                                 .catch(error => {
                                     console.error('Error fetching docente data:', error);
@@ -272,6 +296,18 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('td[id="actv2Comision"]').textContent = data.form2_2.actv2Comision || '';
                                     document.querySelector('span[id="obs2"]').textContent = data.form2_2.obs2 || '';
                                     document.querySelector('span[id="obs2_2"]').textContent = data.form2_2.obs2_2 || '';
+
+                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.responseForm1) {
+                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
+                                    } else {
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
+                                    }
                                 } else {
 
                                     console.log('No form2_2 data found for the selected dictaminador.');
