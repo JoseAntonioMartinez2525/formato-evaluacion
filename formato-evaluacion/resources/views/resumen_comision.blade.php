@@ -269,8 +269,8 @@ $newLocale = str_replace('_', '-', $locale);
 
                     const docenteSelect = document.getElementById('docenteSelect');
                     const dictaminadorSelect = document.getElementById('dictaminadorSelect');
-                    const formContainer = document.getElementById('formContainer');
-                    const formDataContainer = document.getElementById('formData'); 
+                const formContainer = document.getElementById('formContainer');
+                const formDataContainer = document.getElementById('formData'); 
 
                     if (dictaminadorSelect && userType == '') {
                         try {
@@ -296,7 +296,19 @@ $newLocale = str_replace('_', '-', $locale);
 
                                             // Llenar los datos del dictaminador en la tabla
                                             for (const key in response.data) {
+                                                const row = document.createElement('tr');
+                                                const labelCell = document.createElement('td');
+                                                const valueCell = document.createElement('td');
+                                                const comisionCell = document.createElement('td');
 
+                                                labelCell.textContent = key;
+                                                valueCell.textContent = response.data[key];
+                                                comisionCell.textContent = response.data[key]; // Ajusta esto según tus necesidades
+
+                                                row.appendChild(labelCell);
+                                                row.appendChild(valueCell);
+                                                row.appendChild(comisionCell);
+                                                formDataContainer.appendChild(row);
                                             }
                                         });
                                     }else

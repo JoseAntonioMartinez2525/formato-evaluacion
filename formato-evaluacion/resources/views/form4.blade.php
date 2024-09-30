@@ -80,17 +80,16 @@ $subtotalAdded = false;
 
 
                 @endphp
-    <!--<div class="container mt-4 printButtonClass">
+    <div class="container mt-4 printButtonClass">
        @if($userType == '')
-            //Select para usuario con user_type vacío seleccionando dictaminadores
+            <!--//Select para usuario con user_type vacío seleccionando dictaminadores-->
             <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
             <select id="dictaminadorSelect" class="form-select">
-                <option value="">Seleccionar un dictaminador</option>
-            //Aquí se llenarán los dictaminadores con JavaScript
+                <!--<option value="">Seleccionar un dictaminador</option>-->
             </select>
 
         @endif
-    </div>-->
+    </div>
                     <main class="container">
                         <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
                             @csrf
