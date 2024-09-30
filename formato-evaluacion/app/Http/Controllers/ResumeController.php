@@ -61,7 +61,8 @@ class ResumeController extends Controller
     {
         try {
             $data = UserResume::where('dictaminador_id', $request->query('dictaminador_id'))->first();
-            if (!$data) {
+            $dataUser_id = UserResume::where('user_id', $request->query('user_id'))->first();
+            if (!$data || !$dataUser_id) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Data not found',

@@ -27,6 +27,7 @@ use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\ResumenComisionController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\DictaminatorsResponseForm3_6;
 use Illuminate\Support\Facades\Route;
@@ -101,6 +102,7 @@ Route::get('form3_18', function () {return view('form3_18'); })->name('form3_18'
 Route::get('form3_19', function () {return view('form3_19'); })->name('form3_19');
 Route::get('form4', function () {return view('form4'); })->name('form4');
 Route::get('form5', function () {return view('form5'); })->name('form5');
+Route::get('resumen_comision', function () {return view('resumen_comision'); })->name('resumen_comision');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
@@ -112,10 +114,11 @@ Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'
 //Route::get('/get-form-content/{form}', [FormContentController::class, 'getFormContent']);
 Route::get('/get-dictaminadores', [FormsController::class, 'getdictaminadores'])->name('getdictaminadores');
 Route::get('/form4', [ConsolidatedResponseController::class, 'showResumen'])->name('form4');
-
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
 
 
+Route::get('/api/dictaminador-final-data', [ResumenComisionController::class, 'getDictaminadorFinalData']);
+Route::get('/api/dictaminadores-final', [ResumenComisionController::class, 'getDictaminadoresFinalData']);
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2');

@@ -83,6 +83,13 @@ public function getDictaminadorData(Request $request)
         $form1Data = $form2Data ? $form2Data->usersResponseForm1 : null;
         $formData = $this->getAllFormData($dictaminador_id, $form1Data);
         // Return a structured response which includes both form data
+
+        $formFinalData = DB::table('consolidated_responses')
+            ->join('users_final_resume', 'consolidated_responses.user_email', '=', 'users_final_resume.email')
+            ->where('consolidated_responses.user_email', $email)
+            ->select('consolidated_responses.*', 'users_final_resume.*')
+            ->first();
+
         return response()->json([
             'dictaminador' => [
                 'dictaminador_id' => $dictaminador->user_id,
@@ -114,6 +121,7 @@ public function getDictaminadorData(Request $request)
             'form3_19' => $form3_19Data,
             'user_final_resume'=> $resumeData,
             'signatures' => $signaturesData,
+            'final_form' => $formFinalData,
 
 
         ]);
