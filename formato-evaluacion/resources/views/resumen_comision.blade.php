@@ -264,61 +264,70 @@ $newLocale = str_replace('_', '-', $locale);
             }
         });
 
-            document.addEventListener('DOMContentLoaded', async () => {
-                    const userType = @json($userType);  // Inject user type from backend to JS
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userType = @json($userType);  // Inject user type from backend to JS
 
-                    const docenteSelect = document.getElementById('docenteSelect');
-                    const dictaminadorSelect = document.getElementById('dictaminadorSelect');
-                const formContainer = document.getElementById('formContainer');
-                const formDataContainer = document.getElementById('formData'); 
+    const docenteSelect = document.getElementById('docenteSelect');
+        const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+        const formContainer = document.getElementById('formContainer');
+        const formDataContainer = document.getElementById('formData');
 
-                    if (dictaminadorSelect && userType == '') {
+        if (dictaminadorSelect && userType == '') {
+            try {
+                const response = await fetch('/get-dictaminadores');
+                const dictaminadores = await response.json();
+
+                dictaminadores.forEach(dictaminador => {
+                    const option = document.createElement('option');
+                    option.value = dictaminador.id;  // Use dictaminador ID as the value
+                    option.dataset.email = dictaminador.email; // Store email in data attribute
+                    option.textContent = dictaminador.email;
+                    dictaminadorSelect.appendChild(option);
+                });
+
+                dictaminadorSelect.addEventListener('change', async (event) => {
+                    const dictaminadorId = event.target.value;
+                    const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+
+                    if (email) {
                         try {
-                            const response = await fetch('/get-dictaminadores');
-                            const dictaminadores = await response.json();
+                            // Usar fetch en lugar de axios para consistencia
+                            const response = await fetch(`/dictaminador-final-data?email=${email}`);
+                            const formData = await response.json();
 
-                            dictaminadores.forEach(dictaminador => {
-                                const option = document.createElement('option');
-                                option.value = dictaminador.id;  // Use dictaminador ID as the value
-                                option.dataset.email = dictaminador.email; // Store email in data attribute
-                                option.textContent = dictaminador.email;
-                                dictaminadorSelect.appendChild(option);
-                            });
+                            formDataContainer.innerHTML = ''; // Limpiar datos anteriores
+                            formContainer.style.display = 'block'; // Mostrar el formulario
 
-                            dictaminadorSelect.addEventListener('change', async (event) => {
-                                const dictaminadorId = event.target.value;
-                                const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-                                if (email) {
-                                        axios.get(`/api/dictaminador-final-data?email=${email}`)
-                                        .then(response => {
-                                            formDataContainer.innerHTML = ''; // Limpiar datos anteriores
-                                            formContainer.style.display = 'block'; // Mostrar el formulario
+                            // Manejar los datos recibidos y llenar la tabla
+                            for (const key in formData) {
+                                const row = document.createElement('tr');
+                                const labelCell = document.createElement('td');
+                                const valueCell = document.createElement('td');
+                                const comisionCell = document.createElement('td');
 
-                                            // Llenar los datos del dictaminador en la tabla
-                                            for (const key in response.data) {
-                                                const row = document.createElement('tr');
-                                                const labelCell = document.createElement('td');
-                                                const valueCell = document.createElement('td');
-                                                const comisionCell = document.createElement('td');
+                                labelCell.textContent = key;
+                                valueCell.textContent = formData[key];
+                                comisionCell.textContent = formData[key]; // Ajusta esto según tus necesidades
 
-                                                labelCell.textContent = key;
-                                                valueCell.textContent = response.data[key];
-                                                comisionCell.textContent = response.data[key]; // Ajusta esto según tus necesidades
-
-                                                row.appendChild(labelCell);
-                                                row.appendChild(valueCell);
-                                                row.appendChild(comisionCell);
-                                                formDataContainer.appendChild(row);
-                                            }
-                                        });
-                                    }else
-                                            formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
-                                    });
-                                    } catch (error) {
-                            console.error('There was a problem with the fetch operation:', error);
+                                row.appendChild(labelCell);
+                                row.appendChild(valueCell);
+                                row.appendChild(comisionCell);
+                                formDataContainer.appendChild(row);
                             }
-                        };
-                     });
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    } else {
+                        formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
+                    }
+                });
+            } catch (error) {
+                console.error('There was a problem fetching dictaminadores:', error);
+            }
+        }
+    });
+
+
                             
     </script>
 

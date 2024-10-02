@@ -117,8 +117,11 @@ Route::get('/form4', [ConsolidatedResponseController::class, 'showResumen'])->na
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
 
 
-Route::get('/api/dictaminador-final-data', [ResumenComisionController::class, 'getDictaminadorFinalData']);
-Route::get('/api/dictaminadores-final', [ResumenComisionController::class, 'getDictaminadoresFinalData']);
+Route::get('/resumen-comision', [ResumenComisionController::class, 'getDictaminadorFinalData']);
+// routes/web.php
+
+Route::get('/dictaminador-final-data', [ResumenComisionController::class, 'getDictaminadorFinalData']);
+
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2');

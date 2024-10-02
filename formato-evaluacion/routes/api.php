@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResumenComisionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -28,3 +29,4 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->users();
 });
 
+Route::get('/dictaminador-final-data', [ResumenComisionController::class, 'getDictaminadorFinalData']);

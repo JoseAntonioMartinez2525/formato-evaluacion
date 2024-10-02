@@ -18,13 +18,10 @@ class ResumenComisionController extends Controller
     public function getDictaminadorFinalData(Request $request)
     {
         $email = $request->query('email');
-        //$dictaminador_id = $request->query('dictaminador_id');
 
         \Log::info('Email recibido:', ['email' => $email]);
-        //\Log::info('Dictaminador ID recibido:', ['dictaminador_id' => $dictaminador_id]);
 
-        $dictaminador = User::where('email', $email)
-            ->first();
+        $dictaminador = User::where('email', $email)->first();
 
         if (!$dictaminador) {
             return response()->json(['error' => 'Dictaminador not found'], 404);
@@ -36,11 +33,13 @@ class ResumenComisionController extends Controller
             ->select('consolidated_responses.*', 'users_final_resume.*')
             ->first();
 
-        if ($request->ajax()) {
-            return response()->json($formFinalData);
+        if (!$formFinalData) {
+            return response()->json(['error' => 'Datos del formulario no encontrados'], 404);
         }
 
-        return view('resumen_comision', compact('formFinalData'));
+        // Retornar siempre una respuesta JSON
+        return response()->json($formFinalData);
     }
+
 
 }
