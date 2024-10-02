@@ -298,22 +298,80 @@ $newLocale = str_replace('_', '-', $locale);
                             formDataContainer.innerHTML = ''; // Limpiar datos anteriores
                             formContainer.style.display = 'block'; // Mostrar el formulario
 
-                            // Manejar los datos recibidos y llenar la tabla
-                            for (const key in formData) {
-                                const row = document.createElement('tr');
-                                const labelCell = document.createElement('td');
-                                const valueCell = document.createElement('td');
-                                const comisionCell = document.createElement('td');
+                            
+                            const labels = [
+                                '1. Permanencia en las actividades de la docencia  ',
+                                '1.1 Años de experiencia docente en la institución  ',
+                                '2. Dedicación en el desempeño docente  ',
+                                '2.1 Carga de trabajo docente frente a grupo  ',
+                                '3. Calidad en la docencia  ',
+                                '3.1 Participación en actividades de diseño curricular  ',
+                                '3.2 Calidad del desempeño docente evaluada por los estudiantes ',
+                                '3.3 Publicaciones relacionadas con la docencia',
+                                '3.4 Distinciones académicas recibidas por el docente',
+                                '3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC',
+                                '3.6 Capacitación y actualización pedagógica recibida',
+                                '3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento',
+                                '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente',
+                                'Subtotal '
+                            ];
 
-                                labelCell.textContent = key;
-                                valueCell.textContent = formData[key];
-                                comisionCell.textContent = formData[key]; // Ajusta esto según tus necesidades
+                            const values = [100, 100, 200, 200, 60, 60, 50, 100, 60, 75, 40, 40, 40];
+
+                            const comisiones = [
+                                formData['comision1'],       // Valor de 'comision1'
+                                formData['comision1'],       // Valor de 'comision1'
+                                formData['actv2Comision'],   // Valor de 'actv2Comision'
+                                formData['actv2Comision'], 
+                                formData[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
+                                formData['actv3Comision'],   // Valor de 'actv3Comision'
+                                formData['comision3_2'],      // Valor de 'comision3_2'
+                                formData['comision3_3'],
+                                formData['comision3_4'],
+                                formData['comision3_5'],
+                                formData['comision3_6'],
+                                formData['comision3_7'],
+                                formData['comision3_8'],
+                                formData['']
+
+                            ];
+
+                            // Asegúrate de que el contenedor esté bien definido
+
+                            // Ciclo para generar las filas dinámicamente
+                            for (let i = 0; i < labels.length; i++) {
+                                const row = document.createElement('tr');
+                                let labelCell = document.createElement('td');
+                                let valueCell = document.createElement('td');
+                                let comisionCell = document.createElement('td');
+
+                                labelCell.textContent = labels[i];
+                                valueCell.textContent = values[i];
+                                comisionCell.textContent = comisiones[i];
 
                                 row.appendChild(labelCell);
                                 row.appendChild(valueCell);
                                 row.appendChild(comisionCell);
                                 formDataContainer.appendChild(row);
+                                
+                                if (labels[i] === 'Subtotal ') {
+                                    // Inicializar el subtotal
+                                    let comisionSubtotal1 = 0;
+
+                                    // Sumar las comisiones del índice 5 al 12
+                                    for (let index = 5; index <= 12; index++) {
+                                        comisionSubtotal1 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                    }
+
+                                    // Asignar el subtotal a la celda correspondiente
+                                    comisionCell.textContent = comisionSubtotal1.toString();
+
+                                    // Actualizar el valor en el arreglo comisiones para el índice 13 (Subtotal)
+                                    comisiones[13] = comisionSubtotal1;
+                                }
+
                             }
+
                         } catch (error) {
                             console.error('Error fetching data:', error);
                         }
