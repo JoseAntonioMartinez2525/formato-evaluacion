@@ -49,16 +49,15 @@ $newLocale = str_replace('_', '-', $locale);
                                     <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
                                         Calidad en la docencia</a>
                                 </li><br>
+                                <!--
                                 <li id="jsonDataLink" class="d-none">
                                     <a href="{{ route('json-generator') }}" class="btn btn-primary">Mostrar datos de los
                                         Usuarios</a>
+                                </li>-->
+                                <li class="nav-item">
+                                    <a class="nav-link active" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
+                                        llenado por la Comisión del PEDPD)</a>
                                 </li>
-                                <li>
-                                    <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                        Reporte</a>
-
-                                </li>
-
                             </nav>
                 </form>@endif
                 </section>
