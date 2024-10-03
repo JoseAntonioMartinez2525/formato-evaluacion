@@ -92,7 +92,7 @@ class ConsolidatedResponseController extends Controller
 
         $totalComision1 = $consolidatedResponses->first()->comision1 ?? 0;
 
-        return view('form4', [
+        return view('resumen_comision', [
             'sections' => $sections,
             'subtotal3_1To3_8' => $subtotal3_1To3_8,
             'subtotal3_9To3_11' => $subtotal3_9To3_11,
