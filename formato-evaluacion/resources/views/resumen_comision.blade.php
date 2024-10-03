@@ -47,11 +47,6 @@ $newLocale = str_replace('_', '-', $locale);
                                                             por la
                                                             Comisión del PEDPD)</a>
                                                     </li><br>
-                                                    <li id="jsonDataLink" class="d-none">
-                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de
-                                                            los
-                                                            Usuarios</a>
-                                                    </li>
                                                     <li id="reportLink" class="nav-item d-none">
                                                         <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
                                                             Reporte</a>
