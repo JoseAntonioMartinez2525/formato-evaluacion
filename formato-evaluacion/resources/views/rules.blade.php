@@ -103,8 +103,11 @@ $userType = Auth::user()->user_type;
       <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
     @elseif(Auth::user()->user_type === '')
       <a class="nav-link active" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
-    @endif
+    @else
+      <a class="nav-link active" style="width: 250px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
+  @endif
     </li>
+
     <ul class="deptos">Departamentos:
     <li>Agropecuarias</li>
     <li>Ciencias del Mar y de la Tierra</li>

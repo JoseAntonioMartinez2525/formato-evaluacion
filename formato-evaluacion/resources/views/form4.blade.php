@@ -221,7 +221,7 @@ $subtotalAdded = false;
                                 <tr>
                                     <th>
                                     <!--*Implementacion en caso que el usuario sea vacio-->
-                                        @if($userType == '')
+                                        @if($userType === '')
                                         <span class="personaEvaluadora1" type="text" id="personaEvaluadora1"></span>
                                         @else
                                         <input class="personaEvaluadora1" type="text" id="personaEvaluadora1">
