@@ -13,118 +13,138 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/resumen_comision.js') }}"></script>
 </head>
+<style>
+    #nivelLabel{
+    padding-right: 290px;
+}
 
+ #minimaCalidad{
+    padding-left: 160px;
+ }
+
+#minimaTotal{
+    padding-left: 150px;
+}
+</style>
 <body class="bg-gray-50 text-black/50">
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-                                                    @if (Auth::check())
-                                                        <section role="region" aria-label="Response form">
-                                                            <form class="printButtonClass">
-                                                                @csrf
-                                                                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link disabled" href="#">
-                                                                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                                            </a>
-                                                                        </li>
-                                                                        <li style="list-style: none; margin-right: 20px;">
-                                                                            <a href="{{ route('login') }}">
-                                                                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                            </a>
-                                                                        </li>
+                                                                                    @if (Auth::check())
+                                                                                        <section role="region" aria-label="Response form">
+                                                                                            <form class="printButtonClass">
+                                                                                                @csrf
+                                                                                                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                                                                                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                                                                                        <li class="nav-item">
+                                                                                                            <a class="nav-link disabled" href="#">
+                                                                                                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                        <li style="list-style: none; margin-right: 20px;">
+                                                                                                            <a href="{{ route('login') }}">
+                                                                                                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                                                                            </a>
+                                                                                                        </li>
+                                                                                                    </div>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                                                                                            REGLAMENTO
+                                                                                                            PEDPD</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
+                                                                                                            llenado
+                                                                                                            por la
+                                                                                                            Comisión del PEDPD)</a>
+                                                                                                    </li><br>
+                                                                                                    <li id="reportLink" class="nav-item d-none">
+                                                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                                                                                            Reporte</a>
+                                                                                                    </li>
+                                                                                                    <li class="nav-item">
+                                                                                                        @if(Auth::user()->user_type === 'dictaminador')
+                                                                                                            <a class="nav-link active" style="width: 200px;"
+                                                                                                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                                                                                        @else
+                                                                                                            <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                                                                                                Formatos</a>
+                                                                                                        @endif
+                                                                                                    </li>
+                                                                                                    <li id="jsonDataLink" class="d-none">
+                                                                                                        <a href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
+                                                                                                            Usuarios</a>
+                                                                                                    </li>
+                                                                                                </nav>
+                                                                                            </form>
+                                                                                        </section>
+                                                                                    @endif
+
+                                                                                </div>
+                                                                                <x-general-header />
+                                                                                @php
+    $userType = Auth::user()->user_type;
+                                                                                @endphp
+                                                                        <div class="container mt-4">
+                                                                            @if($userType == '')
+                                                                                <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+                                                                                <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+                                                                                <select id="dictaminadorSelect" class="form-select">
+                                                                                    <option value="">Seleccionar un dictaminador</option>
+                                                                                    <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+                                                                                </select>
+                                                                            @endif
+                                                                        </div>
+                                                            <main class="container" id="formContainer" style="display: none;">
+                                                                <form id="form4" method="POST" enctype="multipart/form-data"
+                                                                    onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
+                                                                    @csrf
+                                                                    <div>
+                                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                                                        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+                                                                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                                                        <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+                                                                        <center>
+                                                                            <h2 id="resumen">Resumen</h2>
+                                                                            <h4>A ser llenado por la Comisión del PEDPD</h4>
+                                                                        </center>
+                                                                        <table class="resumenTabla">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th id="actv">Actividad</th>
+                                                                                    <th id="pMaximo">Puntaje máximo</th>
+                                                                                    <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="formData">
+                                                                                <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <table>
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
+                                                                                    <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
+                                                                                    <th colspan="2" id="minimaCalidad"></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <th style="padding-right: 200px;"></th>
+                                                                                    <th>Mínima Total</th>
+                                                                                    <th id="minimaTotal"></th>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <center>
+                                                                            @if(Auth::user()->user_type === 'dictaminador')
+                                                                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+                                                                            @endif
+                                                                        </center>
                                                                     </div>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                                                                            REGLAMENTO
-                                                                            PEDPD</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser
-                                                                            llenado
-                                                                            por la
-                                                                            Comisión del PEDPD)</a>
-                                                                    </li><br>
-                                                                    <li id="reportLink" class="nav-item d-none">
-                                                                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                                                            Reporte</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        @if(Auth::user()->user_type === 'dictaminador')
-                                                                            <a class="nav-link active" style="width: 200px;"
-                                                                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                                                        @else
-                                                                            <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                                                                Formatos</a>
-                                                                        @endif
-                                                                    </li>
-                                                                    <li id="jsonDataLink" class="d-none">
-                                                                        <a href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
-                                                                            Usuarios</a>
-                                                                    </li>
-                                                                </nav>
-                                                            </form>
-                                                        </section>
-                                                    @endif
-
-                                                </div>
-                                                <x-general-header />
-                                                @php
-            $userType = Auth::user()->user_type;
-                                                @endphp
-                                        <div class="container mt-4">
-                                            @if($userType == '')
-                                                <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-                                                <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-                                                <select id="dictaminadorSelect" class="form-select">
-                                                    <option value="">Seleccionar un dictaminador</option>
-                                                    <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-                                                </select>
-                                            @endif
-                                        </div>
-                            <main class="container" id="formContainer" style="display: none;">
-                                <form id="form4" method="POST" enctype="multipart/form-data"
-                                    onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
-                                    @csrf
-                                    <div>
-                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                        <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
-                                        <center>
-                                            <h2 id="resumen">Resumen</h2>
-                                            <h4>A ser llenado por la Comisión del PEDPD</h4>
-                                        </center>
-                                        <table class="resumenTabla">
-                                            <thead>
-                                                <tr>
-                                                    <th id="actv">Actividad</th>
-                                                    <th id="pMaximo">Puntaje máximo</th>
-                                                    <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="formData">
-                                                <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
-                                            </tbody>
-                                        </table>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th style="display:none;">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
-
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <center>
-                                            @if(Auth::user()->user_type === 'dictaminador')
-                                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                                            @endif
-                                        </center>
-                                    </div>
-                                </form>
-                            </main>
+                                                                </form>
+                                                            </main>
 
         @endif
     </div>
@@ -143,6 +163,14 @@ $newLocale = str_replace('_', '-', $locale);
             console.log('Button clicked: ' + currentTarget.getAttribute('data-id'));
         } document.addEventListener('DOMContentLoaded', onload);
 
+        function actualizarResultados() {
+                const minimaCalidad = evaluarCalidad(sumaComision3);
+                const minimaTotal = evaluarTotal(totalLogrado);
+
+                // Actualizar el DOM con los valores calculados
+                document.getElementById('minimaCalidad').textContent = minimaCalidad;
+                document.getElementById('minimaTotal').textContent = minimaTotal;
+            }
 
 
         function hayObservacion(indiceActividad) {
@@ -507,6 +535,13 @@ $newLocale = str_replace('_', '-', $locale);
 
                                 comisionCell.style.textAlign = 'center';
                             }
+
+                           
+                           const minimaCalidad = evaluarCalidad(sumaComision3);
+                           const  minimaTotal = evaluarTotal(totalLogrado);
+
+                            document.getElementById('minimaCalidad').textContent = minimaCalidad;
+                            document.getElementById('minimaTotal').textContent = minimaTotal;
 
 
                         } catch (error) {
