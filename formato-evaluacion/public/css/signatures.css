@@ -2,7 +2,7 @@
 #firma2,
 #firma3 {
     margin-left: -400px;
-    width: 400px;
+    width: 300px;
 }
 
 #firmaTexto,
@@ -12,15 +12,15 @@
 }
 
 [class^="imgFirma"], .imgSection{
-    background-color: rgb(163, 249, 244);
+    background-color: rgb(232, 240, 254);
 }
 
 [class^="personaEvaluadora"]{
-    background-color: rgb(163, 249, 244);
+    background-color: rgb(232, 240, 254);
     width: 300px;
 }
 #firma1, #firma2, #firma3{
-    background-color: rgb(163, 249, 244);
+    background-color: rgb(232, 240, 254);
     margin-left: -300px;
 }
 

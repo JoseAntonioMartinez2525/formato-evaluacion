@@ -29,7 +29,7 @@ $newLocale = str_replace('_', '-', $locale);
 }
 
 .evaluadores{
-    background-color: rgb(163, 249, 244); 
+    background-color: rgb(232, 240, 254); 
     width: 300px;
 }
 
