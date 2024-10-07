@@ -99,5 +99,6 @@ class DictaminatorController extends Controller
 
         ]);
     }
+    
 }
 

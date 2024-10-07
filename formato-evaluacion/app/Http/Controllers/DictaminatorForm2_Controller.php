@@ -89,4 +89,21 @@ class DictaminatorForm2_Controller extends Controller
             ], 500);
         }
     }
+
+
+    public function getConvocatoria($user_id)
+    {
+        // Obtener el registro de dictaminators_response_form2 por el dictaminador_id
+        $dictaminatorResponse = DictaminatorsResponseForm2::where('user_id', $user_id)->first();
+
+        if (!$dictaminatorResponse) {
+            return response()->json(['error' => 'No se encontró la respuesta para el dictaminador'], 404);
+        }
+
+        // Obtener la convocatoria a través de la relación con UsersResponseForm1
+        $convocatoria = $dictaminatorResponse->UsersResponseForm1->convocatoria ?? 'No hay convocatoria';
+
+        // Devolver los datos en la respuesta o pasarlos a la vista
+        return view('resumen_comision', compact('convocatoria'));
+    }
 }

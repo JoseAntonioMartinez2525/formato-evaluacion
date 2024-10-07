@@ -15,6 +15,7 @@ class ConvocatoriaMiddleware
             $userId = Auth::id();
             $convocatoria = \App\Models\UsersResponseForm1::where('user_id', $userId)->first();
             view()->share('convocatoria', $convocatoria);
+            
         }
 
         return $next($request);

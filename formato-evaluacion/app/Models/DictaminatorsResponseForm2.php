@@ -34,6 +34,7 @@ class DictaminatorsResponseForm2 extends RulesForm2
     {
         return $this->belongsTo(UsersResponseForm1::class, 'user_id', 'user_id');
     }
+    
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
