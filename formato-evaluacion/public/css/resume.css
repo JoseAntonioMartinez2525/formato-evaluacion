@@ -6,12 +6,15 @@
 }
 
 .info, .personaEvaluadora1,.personaEvaluadora2, .personaEvaluadora3,#firma1, #firma2, #firma3{
-    background-color: #c7ebf3;
+    background-color: rgb(163, 249, 244);
+    outline: none;
 }
 
 .personaEvaluadora1, .personaEvaluadora2, .personaEvaluadora3, .firma{
     padding-right: 400px;
 }
+
+
 
 
 .firma{
