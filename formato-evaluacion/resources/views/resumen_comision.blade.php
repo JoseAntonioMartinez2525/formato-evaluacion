@@ -679,55 +679,60 @@ onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
 
                             //form5
                          if(userType === ''){
-
-                        const evaluatorResponse = await fetchData(`/get-evaluator-signature`, {
-                                 user_id: user_id,
-                                 email: email,
-                                 user_type: user_type
-                             });
-
-                             // Manejar los datos de form5 aquí
-                             if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
-                                 document.getElementById('evaluator_name_1').innerText = dataSignature.evaluator_name_1 || 'No evaluator name found';
-                                 document.getElementById('signature_path_1').src = '/storage/' + (dataSignature.signature_path_1 || 'default.png');
-
-                                 document.getElementById('evaluator_name_2').innerText = dataSignature.evaluator_name_2 || 'No evaluator name found';
-                                 document.getElementById('signature_path_2').src = '/storage/' + (dataSignature.signature_path_2 || 'default.png');
-
-                                 document.getElementById('evaluator_name_3').innerText = dataSignature.evaluator_name_3 || 'No evaluator name found';
-                                 document.getElementById('signature_path_3').src = '/storage/' + (dataSignature.signature_path_3 || 'default.png');
-
-                                 // Mostrar las imágenes de las firmas
-                                 const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
-                                 if (imgFirma1 && evaluatorResponse.signature_path_1) {
-                                     imgFirma1.src = evaluatorResponse.signature_path_1;
-                                     imgFirma1.style.display = 'block';
-                                 } else if (imgFirma1) {
-                                     imgFirma1.style.display = 'none';
+                             const user_id = document.getElementById('user_id').value;
+                             const email = document.getElementById('email').value;
+                             //const user_type = document.getElementById('user_type').value;
+                       axios.get('/get-evaluator-signature', {
+                                 params: {
+                                     user_id: user_id,
+                                     email: email,
+                                     user_type: user_type
                                  }
+                             })
+                                 .then(function (response) {
+                                     const evaluatorResponse = response.data;
+                                     if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
+                                         document.getElementById('evaluator_name_1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
+                                         document.getElementById('signature_path_1').src = '/storage/' + (evaluatorResponse.signature_path_1 || 'default.png');
 
-                                 const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
-                                 if (imgFirma2 && evaluatorResponse.signature_path_2) {
-                                     imgFirma2.src = evaluatorResponse.signature_path_2;
-                                     imgFirma2.style.display = 'block';
-                                 } else if (imgFirma2) {
-                                     imgFirma2.style.display = 'none';
-                                 }
+                                         document.getElementById('evaluator_name_2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
+                                         document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
 
-                                 const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
-                                 if (imgFirma3 && evaluatorResponse.signature_path_3) {
-                                     imgFirma3.src = evaluatorResponse.signature_path_3;
-                                     imgFirma3.style.display = 'block';
-                                 } else if (imgFirma3) {
-                                     imgFirma3.style.display = 'none';
-                                 }
+                                         document.getElementById('evaluator_name_3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
+                                         document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
 
-                             } else {
-                                 console.error('Evaluator signature not found');
-                                
+                                         // Mostrar las imágenes de las firmas
+                                         const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
+                                         if (imgFirma1 && evaluatorResponse.signature_path_1) {
+                                             imgFirma1.src = evaluatorResponse.signature_path_1;
+                                             imgFirma1.style.display = 'block';
+                                         } else if (imgFirma1) {
+                                             imgFirma1.style.display = 'none';
+                                         }
 
-                             }
-                         }
+                                         const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
+                                         if (imgFirma2 && evaluatorResponse.signature_path_2) {
+                                             imgFirma2.src = evaluatorResponse.signature_path_2;
+                                             imgFirma2.style.display = 'block';
+                                         } else if (imgFirma2) {
+                                             imgFirma2.style.display = 'none';
+                                         }
+
+                                         const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
+                                         if (imgFirma3 && evaluatorResponse.signature_path_3) {
+                                             imgFirma3.src = evaluatorResponse.signature_path_3;
+                                             imgFirma3.style.display = 'block';
+                                         } else if (imgFirma3) {
+                                             imgFirma3.style.display = 'none';
+                                         }
+                                     } else {
+                                         console.error('Evaluator signature not found');
+                                     }
+                                 })
+                                 .catch(function (error) {
+                                     console.error('Error:', error);
+                                 });
+                                }
                         else if(userType === 'dictaminador'){
                              async function submitForm(url, formId) {
                                  const form = document.getElementById(formId);
@@ -853,6 +858,7 @@ onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
         }
     });
 
+    
     async function fetchData(url, params = {}) {
         const queryString = new URLSearchParams(params).toString();
         const fullUrl = `${url}?${queryString}`;
