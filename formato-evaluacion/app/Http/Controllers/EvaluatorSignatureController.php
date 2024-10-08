@@ -24,7 +24,7 @@ class EvaluatorSignatureController extends Controller
                 'firma1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma3' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'user_type' => 'required|in:user,docente,dictaminador',
+                'user_type' => 'nullable|in:docente,dictaminador,'
             ]);
 
             $signaturePaths = [];
@@ -74,19 +74,28 @@ class EvaluatorSignatureController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
-            'user_type' => 'required|in:users,user_type',
+            'user_type' => 'required|exists:users,user_type',
             
         ]);
 
-        // Obtén los datos de la firma del evaluador
-        $evaluatorSignature = EvaluatorSignature::where('user_id', $userId)
-            ->where('email', $email)
-            ->where('user_type', $userType)
-            ->first();
+        $userId = $request->input('user_id');
+        $email = $request->input('email');
+        $userType = $request->input('user_type');
+
+        $evaluatorSignatureQuery = EvaluatorSignature::where('user_id', $userId)
+            ->where('email', $email);
+
+        // Verifica si userType no está vacío y agrega la condición a la consulta
+        if (!empty($userType)) {
+            $evaluatorSignatureQuery->where('user_type', $userType);
+        }
+
+        // Ejecuta la consulta
+        $evaluatorSignature = $evaluatorSignatureQuery->first();
 
         // Maneja el caso en el que no se encuentra el registro
         if (!$evaluatorSignature) {
-            Log::warning('Evaluator signature not found', ['user_id' => $userId, 'email' => $email, $userType, 'user_type']);
+            Log::warning('Evaluator signature not found', ['user_id' => $userId, 'email' => $email]);
             return response()->json([
                 'message' => 'Evaluator signature not found',
             ], 404);
@@ -99,9 +108,9 @@ class EvaluatorSignatureController extends Controller
             'evaluator_name_1' => $evaluatorSignature->evaluator_name_1,
             'evaluator_name_2' => $evaluatorSignature->evaluator_name_2,
             'evaluator_name_3' => $evaluatorSignature->evaluator_name_3,
-            'signature_path_1' => asset(path: 'storage/' . $evaluatorSignature->signature_path_1),
-            'signature_path_2' => asset(path: 'storage/' . $evaluatorSignature->signature_path_2),
-            'signature_path_3' => asset(path: 'storage/' . $evaluatorSignature->signature_path_3),
+            'signature_path_1' => asset('storage/' . $evaluatorSignature->signature_path_1),
+            'signature_path_2' => asset('storage/' . $evaluatorSignature->signature_path_2),
+            'signature_path_3' => asset('storage/' . $evaluatorSignature->signature_path_3),
         ]);
 
     }
