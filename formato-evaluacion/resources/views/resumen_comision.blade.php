@@ -681,24 +681,28 @@ onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
                          if(userType === ''){
                              const user_id = document.getElementById('user_id').value;
                              const email = document.getElementById('email').value;
-                             //const user_type = document.getElementById('user_type').value;
-                       axios.get('/get-evaluator-signature', {
+                             const user_type = document.getElementById('user_type').value;
+                             axios.get('/get-evaluator-signature', {
                                  params: {
                                      user_id: user_id,
                                      email: email,
-                                     user_type: user_type
+                                     user_type: user_type,
+                                     evaluator_name_1: document.getElementById('personaEvaluadora1').value,
+                                     evaluator_name_2: document.getElementById('personaEvaluadora2').value,
+                                     evaluator_name_3: document.getElementById('personaEvaluadora3').value,
+
                                  }
                              })
                                  .then(function (response) {
                                      const evaluatorResponse = response.data;
                                      if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
-                                         document.getElementById('evaluator_name_1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
+                                         document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
                                          document.getElementById('signature_path_1').src = '/storage/' + (evaluatorResponse.signature_path_1 || 'default.png');
 
-                                         document.getElementById('evaluator_name_2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
+                                         document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
                                          document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
 
-                                         document.getElementById('evaluator_name_3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
+                                         document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
                                          document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
 
                                          // Mostrar las imágenes de las firmas

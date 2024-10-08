@@ -24,7 +24,7 @@ class EvaluatorSignatureController extends Controller
                 'firma1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'firma3' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'user_type' => 'nullable|in:users,docente,dictaminador,'
+                'user_type' => 'nullable|in:docente,dictaminador,'
             ]);
 
             $signaturePaths = [];
