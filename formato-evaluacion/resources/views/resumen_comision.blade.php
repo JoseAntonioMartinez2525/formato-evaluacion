@@ -91,7 +91,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                             </div>
                                                             <x-general-header />
                                                             @php
-            $userType = Auth::user()->user_type;
+    $userType = Auth::user()->user_type;
                                                             @endphp
                                                     <div class="container mt-4">
                                                         @if($userType == '' || $userType == 'dictaminador')
@@ -276,6 +276,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                         </tr>
                                                                     </thead>
                                                                 </table>
+                                                                <footer id="convocatoria"><h3></h3></footer>
                                                             </form>
 
                                                             </main>
@@ -744,6 +745,29 @@ $newLocale = str_replace('_', '-', $locale);
                                  .catch(function (error) {
                                      console.error('Error:', error);
                                  });
+
+                                 
+                             async function fetchConvocatoria(userId) {
+                                 try {
+                                     const response = await axios.get('/get-convocatoria', {
+                                         params: { user_id: userId },
+                                         headers: {
+                                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                             'Content-Type': 'application/json',
+                                         }
+                                     });
+
+                                     console.log('Response:', response); // Verificar la respuesta
+                                     console.log('Data:', response.data); // Verificar los datos
+                                     document.getElementById('convocatoria').textContent = response.data.convocatoria;
+
+                                     return response.data.convocatoria;
+
+                                 } catch (error) {
+                                     console.error('There was a problem with the fetch operation:', error.message);
+                                 }
+                             }
+
                                 }
                         else if(userType === 'dictaminador'){
                              async function submitForm(url, formId) {
@@ -922,6 +946,7 @@ $newLocale = str_replace('_', '-', $locale);
             } else {
                 console.error('Error: Signature data not found.');
             }
+
         }
 
     function getCommonFormDataValues(form) {

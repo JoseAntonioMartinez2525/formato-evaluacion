@@ -23,7 +23,6 @@ use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
 use App\Models\DictaminatorsResponseForm3_9;
-use App\Models\UsersResponseForm1;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -70,7 +69,6 @@ class TransferResponses extends Command
             DictaminatorsResponseForm3_17::class,
             DictaminatorsResponseForm3_18::class,
             DictaminatorsResponseForm3_19::class,
-            UsersResponseForm1::class,
         ];
 
         $consolidatedData = [];
@@ -105,7 +103,6 @@ class TransferResponses extends Command
                         'comision3_17' => 0,
                         'comision3_18' => 0,
                         'comision3_19' => 0,
-                        'convocatoria' => '',
                     ];
                 }
 
@@ -131,7 +128,6 @@ class TransferResponses extends Command
                 $consolidatedData[$response->user_id]['comision3_17'] += $response->comision3_17 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_18'] += $response->comision3_18 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_19'] += $response->comision3_19 ?? 0;
-                $consolidatedData[$response->user_id]['convocatoria'] = $response->convocatoria ?? '';
             }
         }
 

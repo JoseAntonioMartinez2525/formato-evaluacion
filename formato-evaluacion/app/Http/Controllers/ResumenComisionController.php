@@ -33,6 +33,8 @@ class ResumenComisionController extends Controller
             ->select('consolidated_responses.*', 'users_final_resume.*')
             ->first();
 
+        
+
         if (!$formFinalData) {
             return response()->json(['error' => 'Datos del formulario no encontrados'], 404);
         }
@@ -40,6 +42,24 @@ class ResumenComisionController extends Controller
         // Retornar siempre una respuesta JSON
         return response()->json($formFinalData);
     }
+
+    public function fetchConvocatoria($user_id)
+    {
+        \Log::info('User ID recibido:', ['user_id' => $user_id]);
+
+        $convocatoria = DB::table('users_response_form1')
+            ->where('user_id', $user_id)
+            ->value('convocatoria');
+
+        if (!$convocatoria) {
+            return response()->json(['error' => 'Convocatoria not found'], 404);
+        }
+
+        \Log::info('Convocatoria encontrada:', ['convocatoria' => $convocatoria]);
+
+        return response()->json(['convocatoria' => $convocatoria]);
+    }
+
 
 
 }

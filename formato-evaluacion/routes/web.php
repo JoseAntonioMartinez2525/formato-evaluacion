@@ -202,6 +202,8 @@ Route::get('/get-form-data', [DictaminatorFormsGroupsController::class, 'getDict
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
+Route::get('/get-convocatoria/{user_id}', [ResumenComisionController::class, 'fetchConvocatoria'])->name('get-convocatoria');
+
 Route::get('/general', [ReportsController::class, 'index'])->name('general');
 Route::get('/show-profile', [ReportsController::class, 'showProfile'])->name('show-profile');
 //Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
