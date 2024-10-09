@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Models\EvaluatorSignature;
 use Illuminate\Http\Request;
@@ -65,22 +66,41 @@ class EvaluatorSignatureController extends Controller
     public function getEvaluatorSignature(Request $request){
         Log::info('Received request for evaluator signature', $request->all());
         // Suponiendo que estás buscando por user_id o email
-        $userId = $request->input('user_id');
-        $email = $request->input('email');
-        $userType = $request->input('user_type');
-        
-
-        // Valida los datos de entrada
+        //$userId = $request->input('user_id');
         $request->validate([
+
+            'email' => 'required|exists:users,email',
+
+
+        ]);
+
+        $email = $request->input('email');
+        //$userType = $request->input('user_type');
+        // Buscamos el user_id y user_type asociados a ese email
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+        // Extraemos el user_id y user_type
+        $userId = $user->id;
+        $userType = $user->user_type;
+
+/*
+        $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'email' => 'required|exists:users,email',
             'user_type' => 'nullable|exists:users,user_type',
-            
         ]);
+        // Valida los datos de entrada
 
-        $userId = $request->input('user_id');
-        $email = $request->input('email');
-        $userType = $request->input('user_type');
+
+        $userId = $validatedData['user_id'];
+        $email = $validatedData['email'];
+        $userType = $validatedData['user_type'] ?? null;*/
+
 
         $evaluatorSignatureQuery = EvaluatorSignature::where('user_id', $userId)
             ->where('email', $email);
@@ -88,10 +108,15 @@ class EvaluatorSignatureController extends Controller
         // Verifica si userType no está vacío y agrega la condición a la consulta
         /*if (!empty($userType)) {
             $evaluatorSignatureQuery->where('user_type', $userType);
-        }*/
+       
 
         // Solo aplica la condición de user_type si no es un string vacío
         if (!is_null($userType) && $userType !== '') {
+            $evaluatorSignatureQuery->where('user_type', $userType);
+        } }*/
+
+        // Si el user_type no está vacío, lo añade a la consulta
+        if ($userType) {
             $evaluatorSignatureQuery->where('user_type', $userType);
         }
 

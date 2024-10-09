@@ -679,17 +679,13 @@ onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
 
                             //form5
                          if(userType === ''){
-                             const user_id = document.getElementById('user_id').value;
-                             const email = document.getElementById('email').value;
-                             const user_type = document.getElementById('user_type').value;
+                             
+                             const email = event.target.options[event.target.selectedIndex].dataset.email;
+                            
+
                              axios.get('/get-evaluator-signature', {
                                  params: {
-                                     user_id: user_id,
                                      email: email,
-                                     user_type: user_type,
-                                     evaluator_name_1: document.getElementById('personaEvaluadora1').value,
-                                     evaluator_name_2: document.getElementById('personaEvaluadora2').value,
-                                     evaluator_name_3: document.getElementById('personaEvaluadora3').value,
 
                                  }
                              })
