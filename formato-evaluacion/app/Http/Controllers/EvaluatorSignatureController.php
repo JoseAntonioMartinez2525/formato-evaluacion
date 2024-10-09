@@ -86,7 +86,12 @@ class EvaluatorSignatureController extends Controller
             ->where('email', $email);
 
         // Verifica si userType no está vacío y agrega la condición a la consulta
-        if (!empty($userType)) {
+        /*if (!empty($userType)) {
+            $evaluatorSignatureQuery->where('user_type', $userType);
+        }*/
+
+        // Solo aplica la condición de user_type si no es un string vacío
+        if (!is_null($userType) && $userType !== '') {
             $evaluatorSignatureQuery->where('user_type', $userType);
         }
 
