@@ -540,6 +540,10 @@ td[id^="puntaje3_9_"]{
     text-align: right;
 }
 
+.nombreLabel{
+    text-align: center;
+}
+
 
 
 
