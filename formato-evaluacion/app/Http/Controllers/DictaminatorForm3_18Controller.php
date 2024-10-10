@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
-class DictaminatorForm3_18Controller extends Controller
+class DictaminatorForm3_18Controller extends TransferController
 {
     public function storeform318(Request $request)
     {
@@ -89,6 +89,7 @@ class DictaminatorForm3_18Controller extends Controller
 
 
             DictaminatorsResponseForm3_18::create($validatedData);
+            $this->checkAndTransfer('DictaminatorsResponseForm3_18');
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',
