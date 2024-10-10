@@ -367,7 +367,7 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('span[name="comisionGrupal"]').textContent = '0';
                                     document.querySelector('span[name="comisionIndividual"]').textContent = '0';
                                     document.querySelector('span[name="obsGrupal"]').textContent = '';
-                                    document.querySelector('span[name="obsIndividual"]').textContent = 
+                                    document.querySelector('span[name="obsIndividual"]').textContent = '';
                                     document.getElementById('score3_10').textContent = '0';
                                     document.getElementById('comision3_10').textContent = '0';
 
@@ -406,7 +406,7 @@ $userType = Auth::user()->user_type;
             formData['comisionGrupal'] = form.querySelector('input[id="comisionGrupal"]').value;
             formData['comisionIndividual'] = form.querySelector('input[id="comisionIndividual"]').value;
             formData['obsGrupal'] = document.querySelector('input[name="obsGrupal"]').textContent = '';
-            formData['obsIndividual'] = document.querySelector('input[name="obsIndividual"]').textContent = 
+            formData['obsIndividual'] = document.querySelector('input[name="obsIndividual"]').textContent = '';
             formData['score3_10'] = document.getElementById('score3_10').textContent;
             formData['comision3_10'] = document.getElementById('comision3_10').textContent;
 
