@@ -7,7 +7,7 @@ use App\Models\DictaminatorsResponseForm2;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 
-class DictaminatorForm2_Controller extends Controller
+class DictaminatorForm2_Controller extends TransferController
 {
     public function storeform2(Request $request)
     {
@@ -32,6 +32,9 @@ class DictaminatorForm2_Controller extends Controller
             }
 
             DictaminatorsResponseForm2::create($validatedData);
+
+            // Llama a la verificación y transferencia
+            $this->checkAndTransfer('DictaminatorsResponseForm2');
 
             return response()->json([
                 'success' => true,
@@ -58,6 +61,8 @@ class DictaminatorForm2_Controller extends Controller
                 'message' => 'An unexpected error occurred: ' . $e->getMessage(),
             ], 500);
         }
+
+
     }
 
     public function getFormData2(Request $request)
