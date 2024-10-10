@@ -37,6 +37,12 @@
 }}
 
 @media print{
+    #seleccionDictaminador{
+        display: none;
+    }
+}
+
+@media print{
 [class^="imgFirma"]{
 margin-left: -300px;
 background-color: transparent;

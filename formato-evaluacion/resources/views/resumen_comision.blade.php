@@ -93,7 +93,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                             @php
     $userType = Auth::user()->user_type;
                                                             @endphp
-                                                    <div class="container mt-4">
+                                                    <div class="container mt-4" id="seleccionDictaminador">
                                                         @if($userType == '' || $userType == 'dictaminador')
                                                             <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
                                                             <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
@@ -276,7 +276,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                         </tr>
                                                                     </thead>
                                                                 </table>
-                                                                <footer id="convocatoria"><h3></h3></footer>
+                                                                <footer id="convocatoria"></footer>
                                                             </form>
 
                                                             </main>
@@ -747,10 +747,9 @@ $newLocale = str_replace('_', '-', $locale);
                                  });
 
                                  
-                             async function fetchConvocatoria(userId) {
+                             async function fetchConvocatoria(dictaminadorId) {
                                  try {
-                                     const response = await axios.get('/get-convocatoria', {
-                                         params: { user_id: userId },
+                                     const response = await axios.get(`/fetch-convocatoria/${dictaminadorId}`, {
                                          headers: {
                                              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                                              'Content-Type': 'application/json',
@@ -764,11 +763,15 @@ $newLocale = str_replace('_', '-', $locale);
                                      return response.data.convocatoria;
 
                                  } catch (error) {
-                                     console.error('There was a problem with the fetch operation:', error.message);
+                                     console.error('There was a problem fetching the convocatoria:', error.message);
                                  }
                              }
 
+
+                             fetchConvocatoria(dictaminadorId);
                                 }
+
+
                         else if(userType === 'dictaminador'){
                              async function submitForm(url, formId) {
                                  const form = document.getElementById(formId);
@@ -887,6 +890,7 @@ $newLocale = str_replace('_', '-', $locale);
                     } else {
                         formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
                     }
+                    //await fetchConvocatoria(dictaminadorId);
                 });
             } catch (error) {
                 console.error('There was a problem fetching dictaminadores:', error);
