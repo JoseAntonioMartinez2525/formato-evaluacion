@@ -26,27 +26,27 @@ $newLocale = str_replace('_', '-', $locale);
                             <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
                                 <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                                     <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">
+                                        <a class="nav-link disabled enlaceSN" href="#">
                                             <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
                                         </a>
                                     </li>
                                     <li style="list-style: none; margin-right: 20px;">
-                                        <a href="{{ route('login') }}">
+                                        <a class="enlaceSN" href="{{ route('login') }}">
                                             <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
                                         </a>
                                     </li>
                                 </div>
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('welcome')}}">Formato
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('welcome')}}">Formato
                                         Evaluación, apartados 1 y 2</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo 10
                                         REGLAMENTO
                                         PEDPD</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
                                         Calidad en la docencia</a>
                                 </li><br>
                                 <!--
@@ -55,7 +55,7 @@ $newLocale = str_replace('_', '-', $locale);
                                         Usuarios</a>
                                 </li>-->
                                 <li class="nav-item">
-                                    <a class="nav-link active" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
                                         llenado por la Comisión del PEDPD)</a>
                                 </li>
                             </nav>
