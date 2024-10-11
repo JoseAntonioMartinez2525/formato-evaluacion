@@ -25,7 +25,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
                         <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                             <li class="nav-item">
-                                <a class="nav-link disabled enlaceSN" href="#">
+                                <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
                                     <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
                                 </a>
                             </li>
