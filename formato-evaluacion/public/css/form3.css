@@ -93,6 +93,11 @@ nav {
     text-align: right;
 }
 
+[id^="puntaje3_9_"], #puntaje3_8, #puntajeHoras3_6{
+        background-color: #c1cfd3;
+        text-align: right;
+}
+
 #comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual, #comisionAsesoria,
 #obsAsesoria, #comisionServicio, #obsServicio, #comisionPracticas, #obsPracticas,
 #obsCientificos, #obsDivulgacion, #obsTraduccion, #obsArbitrajeInt, #obsArbitrajeNac, #obsSinInt, #obsSinNac, #obsAutor, #obsEditor, #obsWeb,

@@ -1,7 +1,29 @@
 body {
-    margin-left: 200px;
-    margin-bottom: 600px;
 
+    margin-left: 5vw;
+    margin-bottom: 10vh;
+    font-size: .5rem;
+
+}
+
+
+
+@media (min-width: 768px) {
+    body {
+        font-size: 1.125rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 0.875rem;
+    }
 }
 
 nav {
@@ -211,8 +233,16 @@ header{
 
     text-align: right;
     border: none;
-    background-color: #e2e2e2;
+    background-color: #c1cfd3;
 
+
+}
+
+.horasActv2 input:focus,
+.horasActv2 input:active {
+    background-color: #c1cfd3;
+
+    outline: none;
 }
 
 #DSE,
@@ -244,11 +274,57 @@ header{
 
 #horasPosgrado,
 #horasSemestre {
-    text-align: center;
-    background-color: #e2e2e2;
+    background-color: #c1cfd3;
+    text-align: right;
     border: none;
 }
 
+#horasPosgrado:focus,
+#horasPosgrado:active,
+#horasSemestre:focus,
+#horasSemestre:active {
+    background-color: #c1cfd3;
+    outline: none;
+}
+
+.nav-header,
+.nav-item,
+.nav-link {
+    outline: none !important;
+    border-style: none;
+}
+
+.nav-item:focus,
+.nav-item:active,
+.nav-link:focus,
+.nav-link:active {
+
+    outline: none !important;
+}
+
+#iconoSesion {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    /* Mantener el color del texto */
+    -webkit-tap-highlight-color: transparent;
+    /* Eliminar el resaltado en dispositivos táctiles */
+}
+
+#iconoSesion i {
+    pointer-events: none;
+    /* Asegurar que el ícono no interfiera */
+}
+
+#iconoSesion:focus,
+#iconoSesion:active,
+#iconoSesion:hover,
+#iconoSesion:visited {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
 
 
 #comisionPosgrado, #comisionLic, #comisionIncisoA, #comisionIncisoB, #comisionIncisoC,
@@ -395,12 +471,47 @@ text-align: right;
    margin-left: 900px;
 }
 
-#convocatoria{
+#convocatoria input {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Diseño móvil pequeño */
+@media (max-width: 480px) {
+    #convocatoria input {
+        font-size: 12px;
+        margin-top: 5px;
+        padding: 5px;
+    }
+}
+
+#convocatoria footer {
     font-weight: bold;
     font-size: 16px;
     margin-top: 10px;
     text-align: center;
+}
 
+/* Diseño móvil pequeño */
+@media (max-width: 480px) {
+    #convocatoria footer {
+        font-size: 12px;
+        margin-top: 5px;
+        padding: 5px;
+    }
+}
+
+/* Diseño tablet */
+@media (min-width: 481px) and (max-width: 1024px) {
+
+    #convocatoria input,
+    #convocatoria footer {
+        font-size: 14px;
+        margin-top: 7px;
+        padding: 7px;
+    }
 }
 
 #resumen h2{
@@ -471,51 +582,57 @@ padding-top: 50px;
 height: 800px;
 }
 
-/* Estilos para diseño responsivo */
 @media (min-width: 768px) {
     .container {
         max-width: 750px;
-        padding: 0 20px;
+        padding: 0 1.25rem;
     }
 
     .nav-link {
         display: inline-block;
         width: auto;
         margin-bottom: 0;
-        box-shadow: 10px 10px 5px 12px #afc7ce;
+        box-shadow: 0.625rem 0.625rem 0.3125rem 0.75rem #afc7ce;
     }
 }
 
 @media (min-width: 1024px) {
     .container {
         max-width: 1200px;
-        padding: 0 30px;
+        padding: 0 1.875rem;
     }
 
     .nav-link {
-        margin-right: 20px;
+        margin-right: 1.25rem;
     }
 }
 
-/* Estilos para diseño móvil */
 @media (max-width: 767px) {
     .container {
-        padding: 0 10px; /* Menos padding para pantallas más pequeñas */
+        padding: 0 0.625rem;
     }
 
     .nav-link {
-        display: block; /* Mostrar los enlaces de navegación en bloque para una mejor legibilidad en móviles */
+        display: block;
         width: 100%;
-        margin-bottom: 10px; /* Espacio entre los enlaces de navegación */
+        margin-bottom: 0.625rem;
     }
 }
-#obs3_1_1, #obs3_1_2, #obs3_1_3, #obs3_1_4, #obs3_1_5{
-    width: 140px;
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
 }
 
-#puntajeHoras3_6, #puntaje3_8{
-    background-color: #e2e2e2;
-    text-align: right;
+[id^="obs3_1_"]{
+    width: 140px;
 }
 
 #comisionDict3_6, #comisionDict3_7, #obs3_6_1, #obs3_7_1, #comisionDict3_8, #obs3_8_1{

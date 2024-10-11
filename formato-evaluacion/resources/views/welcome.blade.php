@@ -214,7 +214,7 @@ $newLocale = str_replace('_', '-', $locale);
         <td><label for="">a) Posgrado</label>
         <label for="">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Semestre </label>
         </td>
-        <td><input id="horasPosgrado" name="horasPosgrado" class="horasActv2" placeholder="0" type="text" oninput="onChange()"value="{{ oldValueOrDefault('horasPosgrado') }}"></td>
+        <td><input id="horasPosgrado" name="horasPosgrado" class="horasActv2" placeholder="0" type="number" oninput="onChange()"value="{{ oldValueOrDefault('horasPosgrado') }}"></td>
         <td class="puntajeEvaluar2"><label id="DSE" name="dse"class="puntajeEvaluar" type="text"></label></td>
         <td class="comision actv"><input id="comisionPosgrado" placeholder="0" for=""
         oninput="onActv2Comision()"></input></td>
@@ -225,7 +225,7 @@ $newLocale = str_replace('_', '-', $locale);
         <label for="">&nbsp &nbsp &nbsp &nbsp Horas </label>
         </td>
         <td>
-    <input id="horasSemestre" name="horasSemestre" class="horasActv2" placeholder="0" type="text" oninput="onChange()" value="{{ oldValueOrDefault('horasSemestre') }}">
+    <input id="horasSemestre" name="horasSemestre" class="horasActv2" placeholder="0" type="number" oninput="onChange()" value="{{ oldValueOrDefault('horasSemestre') }}">
         </td>
         <td class="puntajeEvaluar2"><label id="DSE2" name="dse2" class="puntajeEvaluar" type="text"></label></td>
         <td class="comision actv"><input id="comisionLic" placeholder="0" oninput="onActv2Comision()"></input>

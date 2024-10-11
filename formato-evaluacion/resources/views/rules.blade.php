@@ -90,13 +90,13 @@ $userType = Auth::user()->user_type;
       </a>
       </li>
       <li style="list-style: none; margin-right: 20px;">
-      <a href="{{ route('login') }}">
+      <a id="iconoSesion"href="{{ route('login') }}">
       <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
       </a>
       </li>
 
     </div>
-    @endif
+  @endif
     </li>
     <li class="nav-item">
       @if(Auth::user()->user_type === 'dictaminador')
@@ -105,7 +105,7 @@ $userType = Auth::user()->user_type;
       <a class="nav-link active" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
     @else
       <a class="nav-link active" style="width: 250px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
-  @endif
+    @endif
     </li>
 
     <ul class="deptos">Departamentos:

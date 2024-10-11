@@ -192,7 +192,7 @@ $userType = Auth::user()->user_type;
                         <!-- Mostrar convocatoria -->
                         @if(isset($convocatoria))
 
-                            <div style="margin-right: -700px;">
+                            <div style="margin-right: -200px;">
                                 <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                             </div>
                         @endif
