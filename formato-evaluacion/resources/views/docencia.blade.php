@@ -24,12 +24,12 @@ $userType = Auth::user()->user_type;
             <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
                 <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">
+                        <a class="nav-link disabled enlaceSN" href="#">
                             <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
                         </a>
                     </li>
                     <li style="list-style: none; margin-right: 20px;">
-                        <a href="{{ route('login') }}">
+                        <a class="enlaceSN" href="{{ route('login') }}">
                             <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
                         </a>
                     </li>
@@ -39,18 +39,18 @@ $userType = Auth::user()->user_type;
             </li>
             <li class="nav-item">
             @if(Auth::user()->user_type === 'dictaminador')
-                <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
             @elseif(Auth::user()->user_type === '')
-                <a class="nav-link active" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos</a>
+                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos</a>
             @endif
             </li>
             @if($userType !== 'docente')
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('resumen') }}">Resumen</a>  
+                <a class="nav-link active enlaceSN" href="{{ route('resumen') }}">Resumen</a>  
             </li>
             @else
             <li class="nav-item">
-                <a class="nav-link active" href="{{ route('welcome') }}">Formato Evaluación</a>
+                <a class="nav-link active enlaceSN" href="{{ route('welcome') }}">Formato Evaluación</a>
             </li>
             @endif
             <ul class="actv3">Actividades del apartado 3.<br>Calidad en la docencia:

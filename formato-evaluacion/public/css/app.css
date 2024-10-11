@@ -514,6 +514,15 @@ text-align: right;
     }
 }
 
+.enlaceSN {
+    color: #4281a4;
+    /* Elige el color que prefieras */
+}
+
+.enlaceSN:hover {
+    color: #086375;
+    /* Puedes cambiar el color en el hover también */
+}
 #resumen h2{
 margin-bottom: 20px;
 }

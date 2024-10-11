@@ -40,23 +40,23 @@ $newLocale = str_replace('_', '-', $locale);
                     </li>
                 </div>
                     <li class="nav-item">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
+                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO PEDPD</a>
                     </li>
                     <li class="nav-item">
                     @if (Auth::user()->user_type === 'docente')
-                        <a class="nav-link active" style="width: 200px;" href="{{route('docencia')}}">Actividades 3. Calidad en la docencia</a>
+                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('docencia')}}">Actividades 3. Calidad en la docencia</a>
                     @endif
                     </li>
                     <li class="nav-item">
                     @if (Auth::user()->user_type !== 'docente')
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
+                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser llenado por la Comisión del PEDPD)</a>
                     @endif
                     </li><br>
                     <li id="jsonDataLink" class="d-none">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
+                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
                     </li>
                     <li id="reportLink" class="nav-item d-none">
-                        <a class="nav-link active" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
+                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
                     </li>
                 </nav>
             <x-general-header />

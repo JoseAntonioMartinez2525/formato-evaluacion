@@ -26,7 +26,15 @@ $userType = Auth::user()->user_type;
       justify-content: space-between;
 
     }
+    .enlaceSN {
+        color: #4281a4;
+        /* Elige el color que prefieras */
+    }
 
+    .enlaceSN:hover {
+        color: #086375;
+        /* Puedes cambiar el color en el hover también */
+    }
     nav {
       margin-left: -180px;
       padding-top: 50px;
@@ -85,12 +93,12 @@ $userType = Auth::user()->user_type;
     <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
       <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
       <li class="nav-item">
-      <a class="nav-link disabled" href="#">
+      <a class="nav-link disabled enlaceSN" href="#">
       <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
       </a>
       </li>
       <li style="list-style: none; margin-right: 20px;">
-      <a id="iconoSesion"href="{{ route('login') }}">
+      <a class="enlaceSN" href="{{ route('login') }}">
       <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
       </a>
       </li>
@@ -100,11 +108,11 @@ $userType = Auth::user()->user_type;
     </li>
     <li class="nav-item">
       @if(Auth::user()->user_type === 'dictaminador')
-      <a class="nav-link active" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
     @elseif(Auth::user()->user_type === '')
-      <a class="nav-link active" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
     @else
-      <a class="nav-link active" style="width: 250px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 250px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
     @endif
     </li>
 
@@ -154,23 +162,23 @@ $userType = Auth::user()->user_type;
       <td>I</td>
       </tr>
       <?php
-    $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
-    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-    for ($i = 0; $i < count($minima); $i += 2) {
+  $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
+  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-    }
+  }
       ?>
 
       </tbody>
       <?php
-    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-    $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
-    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+  $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
+  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">
