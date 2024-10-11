@@ -1,12 +1,157 @@
 body {
+    margin-left: 200px;
+    margin-bottom: 600px;
+    font-size: 1rem;
 
-    margin-left: 5vw;
-    margin-bottom: 10vh;
-    font-size: .5rem;
+}
+@media (min-width: 768px) {
+    body {
+        font-size: .8rem;
+    }
+}
 
+@media (min-width: 1024px) {
+    body {
+        font-size: .8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 0.875rem;
+    }
 }
 
 
+.enlaceSN {
+    color: #4281a4;
+    /* Elige el color que prefieras */
+}
+
+.enlaceSN:hover {
+    color: #086375;
+    /* Puedes cambiar el color en el hover también */
+}
+
+
+#convocatoriaPeriodoLabel {
+    margin-top: 200px;
+    margin-left: 900px;
+}
+
+#convocatoria input {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Diseño móvil pequeño */
+@media (max-width: 480px) {
+    #convocatoria input {
+        font-size: 12px;
+        margin-top: 5px;
+        padding: 5px;
+    }
+}
+
+#convocatoria footer {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Diseño móvil pequeño */
+@media (max-width: 480px) {
+    #convocatoria footer {
+        font-size: 12px;
+        margin-top: 5px;
+        padding: 5px;
+    }
+}
+
+/* Diseño tablet */
+@media (min-width: 481px) and (max-width: 1024px) {
+
+    #convocatoria input,
+    #convocatoria footer {
+        font-size: 14px;
+        margin-top: 7px;
+        padding: 7px;
+    }
+}
+
+
+#iconoSesion {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    /* Mantener el color del texto */
+    -webkit-tap-highlight-color: transparent;
+    /* Eliminar el resaltado en dispositivos táctiles */
+}
+
+#iconoSesion i {
+    pointer-events: none;
+    /* Asegurar que el ícono no interfiera */
+}
+
+#iconoSesion:focus,
+#iconoSesion:active,
+#iconoSesion:hover,
+#iconoSesion:visited {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#horasPosgrado,
+#horasSemestre {
+    background-color: #c1cfd3;
+    text-align: right;
+    border: none;
+}
+
+#horasPosgrado:focus,
+#horasPosgrado:active,
+#horasSemestre:focus,
+#horasSemestre:active {
+    background-color: #c1cfd3;
+    outline: none;
+}
+
+.nav-header,
+.nav-item,
+.nav-link {
+    outline: none !important;
+    border-style: none;
+}
+
+.nav-item:focus,
+.nav-item:active,
+.nav-link:focus,
+.nav-link:active {
+
+    outline: none !important;
+}
+
+.horasActv2 input:focus,
+.horasActv2 input:active {
+    background-color: #c1cfd3;
+
+    outline: none;
+}
+
+.horasActv2 input {
+
+    text-align: right;
+    border: none;
+    background-color: #c1cfd3;
+
+
+}
 
 @media (min-width: 768px) {
     body {
@@ -233,16 +378,8 @@ header{
 
     text-align: right;
     border: none;
-    background-color: #c1cfd3;
+    background-color: #e2e2e2;
 
-
-}
-
-.horasActv2 input:focus,
-.horasActv2 input:active {
-    background-color: #c1cfd3;
-
-    outline: none;
 }
 
 #DSE,
@@ -274,57 +411,11 @@ header{
 
 #horasPosgrado,
 #horasSemestre {
-    background-color: #c1cfd3;
-    text-align: right;
+    text-align: center;
+    background-color: #e2e2e2;
     border: none;
 }
 
-#horasPosgrado:focus,
-#horasPosgrado:active,
-#horasSemestre:focus,
-#horasSemestre:active {
-    background-color: #c1cfd3;
-    outline: none;
-}
-
-.nav-header,
-.nav-item,
-.nav-link {
-    outline: none !important;
-    border-style: none;
-}
-
-.nav-item:focus,
-.nav-item:active,
-.nav-link:focus,
-.nav-link:active {
-
-    outline: none !important;
-}
-
-#iconoSesion {
-    text-decoration: none;
-    outline: none !important;
-    color: inherit;
-    /* Mantener el color del texto */
-    -webkit-tap-highlight-color: transparent;
-    /* Eliminar el resaltado en dispositivos táctiles */
-}
-
-#iconoSesion i {
-    pointer-events: none;
-    /* Asegurar que el ícono no interfiera */
-}
-
-#iconoSesion:focus,
-#iconoSesion:active,
-#iconoSesion:hover,
-#iconoSesion:visited {
-    text-decoration: none;
-    outline: none !important;
-    color: inherit;
-    -webkit-tap-highlight-color: transparent;
-}
 
 
 #comisionPosgrado, #comisionLic, #comisionIncisoA, #comisionIncisoB, #comisionIncisoC,
@@ -471,58 +562,14 @@ text-align: right;
    margin-left: 900px;
 }
 
-#convocatoria input {
-    font-weight: bold;
-    font-size: 16px;
-    margin-top: 10px;
-    text-align: left;
-}
-
-/* Diseño móvil pequeño */
-@media (max-width: 480px) {
-    #convocatoria input {
-        font-size: 12px;
-        margin-top: 5px;
-        padding: 5px;
-    }
-}
-
-#convocatoria footer {
+#convocatoria{
     font-weight: bold;
     font-size: 16px;
     margin-top: 10px;
     text-align: center;
+
 }
 
-/* Diseño móvil pequeño */
-@media (max-width: 480px) {
-    #convocatoria footer {
-        font-size: 12px;
-        margin-top: 5px;
-        padding: 5px;
-    }
-}
-
-/* Diseño tablet */
-@media (min-width: 481px) and (max-width: 1024px) {
-
-    #convocatoria input,
-    #convocatoria footer {
-        font-size: 14px;
-        margin-top: 7px;
-        padding: 7px;
-    }
-}
-
-.enlaceSN {
-    color: #4281a4;
-    /* Elige el color que prefieras */
-}
-
-.enlaceSN:hover {
-    color: #086375;
-    /* Puedes cambiar el color en el hover también */
-}
 #resumen h2{
 margin-bottom: 20px;
 }

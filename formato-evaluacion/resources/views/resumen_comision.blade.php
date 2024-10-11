@@ -17,15 +17,15 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 <style>
     #nivelLabel{
-    padding-right: 290px;
+    padding-right: 190px;
 }
 
  #minimaCalidad{
-    padding-left: 160px;
+    padding-left: 120px;
  }
 
 #minimaTotal{
-    padding-left: 150px;
+    padding-left: 120px;
 }
 
 .evaluadores{
@@ -50,32 +50,32 @@ $newLocale = str_replace('_', '-', $locale);
                                                                                                         </a>
                                                                                                     </li>
                                                                                                     <li style="list-style: none; margin-right: 20px;">
-                                                                                                        <a class="enlaceSN" href="{{ route('login') }}">
+                                                                                                        <a href="{{ route('login') }}">
                                                                                                             <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
                                                                                                         </a>
                                                                                                     </li>
                                                                                                 </div>
                                                                                                 <li class="nav-item">
-                                                                                                    <a class="nav-link activeenlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
                                                                                                         REGLAMENTO
                                                                                                         PEDPD</a>
                                                                                                 </li>
                                                                                                 <li class="nav-item">
-                                                                                                    <a class="nav-link activeenlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
+                                                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
                                                                                                         llenado
                                                                                                         por la
                                                                                                         Comisión del PEDPD)</a>
                                                                                                 </li><br>
                                                                                                 <li id="reportLink" class="nav-item d-none">
-                                                                                                    <a class="nav-link activeenlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
                                                                                                         Reporte</a>
                                                                                                 </li>
                                                                                                 <li class="nav-item">
                                                                                                     @if(Auth::user()->user_type === 'dictaminador')
-                                                                                                        <a class="nav-link activeenlaceSN" style="width: 200px;"
+                                                                                                        <a class="nav-link active enlaceSN" style="width: 200px;"
                                                                                                             href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
                                                                                                     @else
-                                                                                                        <a class="nav-link activeenlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                                                                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
                                                                                                             Formatos</a>
                                                                                                     @endif
                                                                                                 </li>
@@ -138,7 +138,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                         </thead>
                                                                         <tbody>
                                                                             <th style="padding-right: 200px;"></th>
-                                                                                <th>Mínima Total</th>
+                                                                                <th class="minima">Mínima Total</th>
                                                                                 <th id="minimaTotal"></th>
 
                                                                         </tbody>

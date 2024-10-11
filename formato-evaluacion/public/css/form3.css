@@ -130,8 +130,13 @@ nav {
     text-align: right;
 }
 
-.nav-item, .nav-link {
+.nav-item, .nav-link, .nav-link2 {
     border-style: none;
+    
+}
+
+.nav-link2{
+    font-size: medium;
 }
 
 #cantCGUtitular, #cantCGUespecial, #cantCGUpermanente, #cantCAACtitular, #cantCAACintegCom, #cantComDepart, #cantComPEDPD, #cantComPartPos,

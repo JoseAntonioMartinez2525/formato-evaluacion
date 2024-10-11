@@ -104,22 +104,23 @@ $userType = Auth::user()->user_type;
       </li>
 
     </div>
-  @endif
+    @endif
     </li>
     <li class="nav-item">
       @if(Auth::user()->user_type === 'dictaminador')
-      <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 300px;font-size: 20px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
     @elseif(Auth::user()->user_type === '')
-      <a class="nav-link active enlaceSN" style="width: 250px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
     @else
-      <a class="nav-link active enlaceSN" style="width: 250px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
+      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
     @endif
     </li>
-
-    <ul class="deptos">Departamentos:
+    <ul class="deptos">Areas de Conocimiento:
     <li>Agropecuarias</li>
     <li>Ciencias del Mar y de la Tierra</li>
     <li>Ciencias Sociales y Humanidades</li>
+    </ul>
+    <ul class="deptos">Departamentos:
     <li>Agronomía</li>
     <li>Ciencia Animal y Conservación del Hábitat</li>
     <li>Ciencias de la Tierra</li>
@@ -162,23 +163,23 @@ $userType = Auth::user()->user_type;
       <td>I</td>
       </tr>
       <?php
-  $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
-  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-  for ($i = 0; $i < count($minima); $i += 2) {
+    $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
+    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-  }
+    }
       ?>
 
       </tbody>
       <?php
-  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-  $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
-  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+    $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
+    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">

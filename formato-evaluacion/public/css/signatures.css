@@ -30,6 +30,8 @@
     margin-left: -300px;
 }
 
+
+
 @media print{
 [id^="firma"] ,.text-muted{
         display: none;

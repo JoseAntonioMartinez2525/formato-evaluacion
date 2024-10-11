@@ -122,7 +122,7 @@ $userType = Auth::user()->user_type;
                             <h3></h3>
                         </th>
                         <th>
-                            <h3 style="width: 50px;">Cuerpos Colegiados</h3>
+                            <h3 style="width: 350px;">Cuerpos Colegiados</h3>
                         </th>
                     </tr>
                 </thead>
