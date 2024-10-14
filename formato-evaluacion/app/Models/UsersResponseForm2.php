@@ -20,6 +20,10 @@ class UsersResponseForm2 extends RulesForm2
 
     protected $table = 'users_response_form2';
 
+    public function dictaminadores()
+    {
+        return $this->belongsToMany(DictaminatorsResponseForm2::class, 'dictaminador_docente_form2');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

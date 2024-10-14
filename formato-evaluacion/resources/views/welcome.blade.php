@@ -329,7 +329,7 @@ $newLocale = str_replace('_', '-', $locale);
 
       // Realizar los cálculos
       const dsePosgrado = puntajePosgrado * 8.5;
-      const dseSemestre = puntajeSemestre * 8;
+      const dseSemestre = puntajeSemestre * 8.5;
       const hora = (dsePosgrado + dseSemestre);
 
       // Actualizar el contenido de las etiquetas <label>

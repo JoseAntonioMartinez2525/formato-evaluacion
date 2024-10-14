@@ -257,7 +257,7 @@ $userType = Auth::user()->user_type;
                     dictaminadorSelect.addEventListener('change', async (event) => {
                         const dictaminadorId = event.target.value;
                         const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-                        if (dictaminadorId) {
+                        /*if (dictaminadorId) {
                             try {
                                 console.log('Email:', email);
                                 console.log('Dictaminador ID:', dictaminadorId);
@@ -304,7 +304,41 @@ $userType = Auth::user()->user_type;
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
                             }
-                        }
+                        }*/
+                 if (dictaminadorId) {
+                            // Limpiar el select de docentes
+                            docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
+
+                            try {
+                                const response = await fetch(`/get-docentes-by-dictaminador?dictaminador_id=${dictaminadorId}`);
+                                const docentes = await response.json();
+
+                                docentes.forEach(docente => {
+                                    const option = document.createElement('option');
+                                    option.value = docente.email;
+                                    option.textContent = docente.email;
+                                    docenteSelect.appendChild(option);
+                                });
+
+                                // Ahora puedes manejar el cambio del select de docentes
+                                docenteSelect.addEventListener('change', (event) => {
+                                    const email = event.target.value;
+                                    if (email) {
+                                        // Aquí puedes manejar el fetch para obtener los datos del docente seleccionado
+                                        axios.get('/get-docente-data', { params: { email } })
+                                            .then(response => {
+                                                const data = response.data;
+                                                // Rellena los campos con los datos del docente
+                                            })
+                                            .catch(error => {
+                                                console.error('Error fetching docente data:', error);
+                                            });
+                                    }
+                                });
+                            } catch (error) {
+                                console.error('Error fetching docentes:', error);
+                            }
+                        }                      
                     });
                 } catch (error) {
                     console.error('Error fetching dictaminadores:', error);

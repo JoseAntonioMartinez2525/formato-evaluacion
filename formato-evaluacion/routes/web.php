@@ -203,6 +203,7 @@ Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
 Route::get('/fetch-convocatoria/{user_id}', [ResumenComisionController::class, 'fetchConvocatoria'])->name('fetch-convocatoria');
+Route::get('/get-docentes-by-dictaminador', [DictaminatorForm2_Controller::class, 'getDocentesByDictaminador']);
 
 Route::get('/general', [ReportsController::class, 'index'])->name('general');
 Route::get('/show-profile', [ReportsController::class, 'showProfile'])->name('show-profile');

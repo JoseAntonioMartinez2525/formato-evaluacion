@@ -147,7 +147,7 @@ $userType = Auth::user()->user_type;
                                                                 &nbsp
                                                                 Puntaje</span>
                                                         </td>
-                                                        <td><label class="actividades">Cantidad</label></td>
+                                                        <td><label class="actividades" id="cantidadActv">Cantidad</label></td>
                                                         <td><label class="actividades">Subtotal</label></td>
                                                     </tr>
                                                     <tr>
@@ -459,7 +459,7 @@ $userType = Auth::user()->user_type;
                                                 <td class="obra">Obra</td>
                                                 <td>Actividad</td>
                                                 <td>Puntaje</td>
-                                                <td>Cantidad</td>
+                                                <td id="cantidadform3_3">Cantidad</td>
                                                 <td>SubTotal</td>
 
                                             </tr>
@@ -1513,7 +1513,7 @@ $userType = Auth::user()->user_type;
                                             <td>Autor(a) o coautor(a) de libros, técnicos, científicos y humanísticos</td>
                                             <td>--</td>
                                             <td>--</td>
-                                            <td id="puntajeCientificos">100</td>
+                                            <td id="puntajeCientificos"><b>100</b> </td>
                                             <td><input type="value" id="cantCientifico"
                                                     oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantCientifico') }}"></td>
                                             <td></td>
@@ -1529,7 +1529,7 @@ $userType = Auth::user()->user_type;
                                             <td>Autor(a) o coautor(a) de libros de divulgación</td>
                                             <td>--</td>
                                             <td>--</td>
-                                            <td id="puntajeDivulgacion">50</td>
+                                            <td id="puntajeDivulgacion"><b>50</b></td>
                                             <td><input type="value" id="cantDivulgacion"
                                                     oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantDivulgacion') }}"></td>
                                             <td></td>
@@ -1545,7 +1545,7 @@ $userType = Auth::user()->user_type;
                                             <td>Traducción de libros</td>
                                             <td>--</td>
                                             <td>--</td>
-                                            <td id="puntajeTraduccion">40</td>
+                                            <td id="puntajeTraduccion"><b>40</b></td>
                                             <td><input type="value" id="cantTraduccion"
                                                     oninput="onActv3SubTotal3_12()" value="{{ oldValueOrDefault('cantTraduccion') }}"></td>
                                             <td></td>

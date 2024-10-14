@@ -795,7 +795,7 @@ console.log("Subtotal Arbitraje Internacional: ",subtotalReporteInvInt );
 
 //Puntaje Minimo resultante
   sumaEvaluar13 = subtotalInicioFinanExt + subtotalInicioInvInterno + subtotalReporteFinanciamExt + subtotalReporteInvInt;
-  const score3_13 = Math.min(sumaEvaluar13,150);
+  const score3_13 = Math.min(sumaEvaluar13,130);
 
   document.getElementById( "score3_13" ).innerHTML= score3_13;
   console.log ("Puntaje de las Evaluaciones 3.13: "), score3_13;

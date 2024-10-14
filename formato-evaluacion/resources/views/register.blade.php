@@ -17,6 +17,11 @@
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;ampdisplay=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+    <style>
+        #labelRegister{
+            padding-left: 100px;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,7 +66,7 @@
                                 <option value="dictaminador">Dictaminador</option>
                                 <option value="docente">Docente</option>
                             </select>
-                            <label class="form-label" for="registerUsertype">Usuario (Haz click aquí y selecciona)</label>
+                            <label class="form-label" for="registerUsertype" id="labelRegister">Usuario (Haz click aquí y selecciona)</label>
                             
                         </div>
                         <!-- Email input -->

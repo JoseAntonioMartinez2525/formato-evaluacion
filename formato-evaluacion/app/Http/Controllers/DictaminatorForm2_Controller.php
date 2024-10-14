@@ -111,4 +111,16 @@ class DictaminatorForm2_Controller extends TransferController
         // Devolver los datos en la respuesta o pasarlos a la vista
         return view('resumen_comision', compact('convocatoria'));
     }
+
+    public function getDocentesByDictaminador(Request $request)
+    {
+        $dictaminador = DictaminatorsResponseForm2::find($request->dictaminador_id);
+
+        if ($dictaminador) {
+            $docentes = $dictaminador->docentes()->get();
+            return response()->json($docentes);
+        }
+
+        return response()->json([], 404);  // Retorna un 404 si no se encuentra el dictaminador
+    }
 }

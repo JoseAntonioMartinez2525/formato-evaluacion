@@ -456,10 +456,7 @@ header{
 }
 
 
-.actividades{
-border-right: black;
-
-}
+.actividades{border-right: black;}
 
 .label-container {
     display: flex;
@@ -719,6 +716,42 @@ td[id^="puntaje3_9_"]{
     text-align: center;
 }
 
+@media (min-width: 1024px){
+#puntaje60, #puntaje40, #puntaje10, #puntaje20, #p10{
+    margin-left: 70px;
+    
+}
+#cantidadActv, #cantidadform3_3{
+    margin-left: 350px;
+    text-align: right;
+}
+
+
+#elaboracion2,
+#elaboracion3,
+#elaboracion4,
+#elaboracion5{
+    margin-left: -250px;
+}
+input[id^="rc"]{
+    margin-left: -250px;
+}
+
+#seccion3_8{
+    font-size: 1.2rem;
+}
+
+}
+
+#puntajeArbitrajeInt,
+#puntajeArbitrajeNac,
+#puntajeSinInt,
+#puntajeSinNac,
+#puntajeAutor,
+#puntajeEditor,
+#puntajeWeb{
+    font-weight: bold;
+}
 
 
 
