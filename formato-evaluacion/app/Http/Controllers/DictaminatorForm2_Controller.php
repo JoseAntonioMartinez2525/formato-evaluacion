@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsersResponseForm2;
 use Illuminate\Http\Request;
 use App\Models\DictaminatorsResponseForm2;
 use Illuminate\Database\QueryException;
@@ -123,4 +124,60 @@ class DictaminatorForm2_Controller extends TransferController
 
         return response()->json([], 404);  // Retorna un 404 si no se encuentra el dictaminador
     }
+
+
+    public function asignarDocentes(Request $request, $dictaminador_id)
+    {
+        // Encuentra al dictaminador
+        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
+
+        // Verifica si el dictaminador existe
+        if (!$dictaminator) {
+            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
+        }
+
+        // Convertir los correos electrónicos en IDs
+        $docenteEmails = $request->docentes; // Aquí obtienes los emails
+
+        // Buscar los IDs de los docentes usando los correos electrónicos
+        $docentes = UsersResponseForm2::whereIn('email', $docenteEmails)->get();
+
+        foreach ($docentes as $docente) {
+            // Asignar la relación y el correo electrónico
+            $dictaminator->docentes()->attach($docente->user_id, ['docente_email' => $docente->email]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Docentes asignados correctamente']);
+    }
+
+
+
+    public function agregarDocente(Request $request, $dictaminador_id)
+    {
+        // Encuentra al dictaminador
+        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
+
+        // Verifica si el dictaminador existe
+        if (!$dictaminator) {
+            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
+        }
+
+        // Agregar un docente a la relación (esto agrega el docente sin eliminar los actuales)
+        // $request->docente_id debe ser el ID del docente
+        $dictaminator->docentes()->syncWithoutDetaching([$request->docente_id]);
+
+        return response()->json(['success' => true, 'message' => 'Docente agregado correctamente']);
+    }
+
+    public function showForm()
+    {
+        $docentes = UsersResponseForm2::all(); // O cualquier lógica para obtener los docentes
+
+        return view('tu_vista', [
+            
+            'docentes' => $docentes,
+            // Otras variables que necesites pasar a la vista
+        ]);
+    }
+
 }

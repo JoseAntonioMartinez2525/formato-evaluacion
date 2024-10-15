@@ -173,6 +173,14 @@ Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'storeform
 Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'storeform318'])->withoutMiddleware('auth');
 Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'storeform319'])->withoutMiddleware('auth');
 
+
+// Ruta para asignar varios docentes a un dictaminador
+Route::post('/asignar-docentes/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'asignarDocentes'])
+    ->name('asignar.docentes');
+
+// Ruta para agregar un solo docente a un dictaminador
+Route::post('/agregar-docente/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'agregarDocente'])
+    ->name('agregar.docente');
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');

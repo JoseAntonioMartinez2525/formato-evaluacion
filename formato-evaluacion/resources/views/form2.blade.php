@@ -67,14 +67,16 @@ $newLocale = str_replace('_', '-', $locale);
     <x-general-header />
     
 @php
-$userType = Auth::user()->user_type;
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
 @endphp
 
 <div class="container mt-4">
     @if($userType == 'dictaminador')
         <!-- Select para dictaminador seleccionando docentes -->
         <label for="docenteSelect">Seleccionar Docente:</label>
-        <select id="docenteSelect" class="form-select">
+        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
             <option value="">Seleccionar un docente</option>
             <!-- Aquí se llenarán los docentes con JavaScript -->
         </select>
@@ -187,11 +189,11 @@ $userType = Auth::user()->user_type;
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
-
+            const user_identity = @json($user_identity); 
             const docenteSelect = document.getElementById('docenteSelect');
             const dictaminadorSelect = document.getElementById('dictaminadorSelect');
 
-            if (docenteSelect && userType == 'dictaminador') {
+            if (docenteSelect && userType === 'dictaminador') {
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -203,7 +205,7 @@ $userType = Auth::user()->user_type;
                         docenteSelect.appendChild(option);
                     });
 
-                    docenteSelect.addEventListener('change', (event) => {
+                    docenteSelect.addEventListener('change', async  (event) => {
                         const email = event.target.value;
                         
                         if (email) {
@@ -233,6 +235,8 @@ $userType = Auth::user()->user_type;
                                 .catch(error => {
                                     console.error('Error fetching docente data:', error);
                                 });
+          
+                            await asignarDocentes(user_identity, email);
                         }
                     });
                 } catch (error) {
@@ -241,7 +245,7 @@ $userType = Auth::user()->user_type;
                 }
             }
 
-            if (dictaminadorSelect && userType == '') {
+            if (dictaminadorSelect && userType === '') {
                 try {
                     const response = await fetch('/get-dictaminadores');
                     const dictaminadores = await response.json();
@@ -257,7 +261,7 @@ $userType = Auth::user()->user_type;
                     dictaminadorSelect.addEventListener('change', async (event) => {
                         const dictaminadorId = event.target.value;
                         const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-                        /*if (dictaminadorId) {
+                        if (dictaminadorId) {
                             try {
                                 console.log('Email:', email);
                                 console.log('Dictaminador ID:', dictaminadorId);
@@ -274,7 +278,11 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('span[id="puntajeEvaluarText"]').textContent = data.form2.puntajeEvaluar || '0';
                                     document.querySelector('span[id="comision1"]').textContent = data.form2.comision1 || '';
                                     document.querySelector('span[id="obs1"]').textContent = data.form2.obs1 || '';
-                                                                // Actualizar convocatoria
+                                     
+                                    
+
+                                    
+                                    // Actualizar convocatoria
                                     // Verificar si el elemento existe antes de establecer su contenido
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     if (convocatoriaElement) {
@@ -304,50 +312,88 @@ $userType = Auth::user()->user_type;
                             } catch (error) {
                                 console.error('Error fetching dictaminador data:', error);
                             }
-                        }*/
-                 if (dictaminadorId) {
-                            // Limpiar el select de docentes
-                            docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
+                        }
+                        if(userType === ''){
+                                if (dictaminadorId) {
+                                // Limpiar el select de docentes
+                                docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
 
-                            try {
-                                const response = await fetch(`/get-docentes-by-dictaminador?dictaminador_id=${dictaminadorId}`);
-                                const docentes = await response.json();
+                                try {
+                                    const response = await fetch(`/get-docentes-by-dictaminador?dictaminador_id=${dictaminadorId}`);
+                                    const docentes = await response.json();
 
-                                docentes.forEach(docente => {
-                                    const option = document.createElement('option');
-                                    option.value = docente.email;
-                                    option.textContent = docente.email;
-                                    docenteSelect.appendChild(option);
-                                });
+                                    docentes.forEach(docente => {
+                                        const option = document.createElement('option');
+                                        option.value = docente.email;
+                                        option.textContent = docente.email;
+                                        docenteSelect.appendChild(option);
+                                    });
 
-                                // Ahora puedes manejar el cambio del select de docentes
-                                docenteSelect.addEventListener('change', (event) => {
-                                    const email = event.target.value;
-                                    if (email) {
-                                        // Aquí puedes manejar el fetch para obtener los datos del docente seleccionado
-                                        axios.get('/get-docente-data', { params: { email } })
-                                            .then(response => {
-                                                const data = response.data;
-                                                // Rellena los campos con los datos del docente
-                                            })
-                                            .catch(error => {
-                                                console.error('Error fetching docente data:', error);
-                                            });
-                                    }
-                                });
-                            } catch (error) {
-                                console.error('Error fetching docentes:', error);
-                            }
-                        }                      
+                                    // Ahora puedes manejar el cambio del select de docentes
+                                    docenteSelect.addEventListener('change', (event) => {
+                                        const email = event.target.value;
+                                        if (email) {
+                                            // Aquí puedes manejar el fetch para obtener los datos del docente seleccionado
+                                            axios.get('/get-docente-data', { params: { email } })
+                                                .then(response => {
+                                                    const data = response.data;
+                                                    // Rellena los campos con los datos del docente
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error fetching docente data:', error);
+                                                });
+                                        }
+                                    });
+                                } catch (error) {
+                                    console.error('Error fetching docentes:', error);
+                                }
+                            } 
+                        }
                     });
                 } catch (error) {
                     console.error('Error fetching dictaminadores:', error);
                     alert('No se pudo cargar la lista de dictaminadores.');
                 }
             }
+
+        // Ejemplo de cómo enviar datos dinámicamente usando fetch
+        async function asignarDocentes(dictaminadorId, docenteEmail) {
+            try {
+                const response = await fetch(`/asignar-docentes/${dictaminadorId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ docentes: docenteEmail })
+                });
+                const data = await response.json();
+                console.log('Docentes asignados correctamente:', data);
+            } catch (error) {
+                console.error('Error asignando docentes:', error);
+            }
+        }
+
+        async function agregarDocente(dictaminadorId, docenteEmail) {
+            try {
+                const response = await fetch(`/agregar-docente/${dictaminadorId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ docente_email: docenteEmail })
+                });
+                const data = await response.json();
+                console.log('Docente agregado correctamente:', data);
+            } catch (error) {
+                console.error('Error agregando docente:', error);
+            }
+        }
         });
 
         async function submitForm(url, formId) {
+            const user_identity = @json($user_identity); 
             let formData = {};
             let form = document.getElementById(formId);
 
@@ -387,6 +433,7 @@ $userType = Auth::user()->user_type;
 
                 let responseData = JSON.parse(text);
                 console.log('Response received from server:', responseData);
+                 await agregarDocentes(user_identity, formData['email']);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
@@ -398,9 +445,13 @@ $userType = Auth::user()->user_type;
                 form2.onsubmit = function (event) {
                     event.preventDefault();
                     submitForm('/store-form2', 'form2');
+                    
                 };
             }
         });
+
+
+
 
 
     </script>

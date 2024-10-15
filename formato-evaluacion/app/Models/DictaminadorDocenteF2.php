@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DictaminatorsResponseForm2 extends RulesForm2
+class DictaminadorDocenteF2 extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'dictaminador_id',
-        'user_id',
-        'email',
+        'dictaminador_email',
+        'docente_id',
+        'docente_email',
         'horasActv2',
         'puntajeEvaluar',
         'comision1',
@@ -42,7 +44,7 @@ class DictaminatorsResponseForm2 extends RulesForm2
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'dictaminators_response_form2';
+        $this->table = 'dictaminador_docente_form2';
         $this->connection = 'mysql';
     }
 
@@ -50,10 +52,4 @@ class DictaminatorsResponseForm2 extends RulesForm2
     {
         return $query->orderBy('created_at', 'desc')->first();
     }
-
-
 }
-
-
-
-
