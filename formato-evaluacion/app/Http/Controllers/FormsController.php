@@ -36,21 +36,23 @@ class FormsController extends Controller
 
     public function getDictaminadores()
     {
-        $dictaminador = User::where('user_type', 'dictaminador')->get(['id', 'email']);
+        $dictaminador = User::where('user_type', 'dictaminador')->get(['id', 'emails']);
         \Log::info('Dictaminador:', $dictaminador->toArray());
         return response()->json($dictaminador);
     }
 public function getDictaminadorData(Request $request)
 {
-        $email = $request->query('email');
+        $emails = $request->query('emailss');
         $dictaminador_id = $request->query('dictaminador_id');
 
-        \Log::info('Email recibido:', ['email' => $email]);
+        \Log::info('emails recibido:', ['emails' => $emails]);
         \Log::info('Dictaminador ID recibido:', ['dictaminador_id' => $dictaminador_id]);
-        
-        $dictaminador = User::where('email', $email)
-            ->where('id', $dictaminador_id)
-            ->first();
+
+        if (!is_array($emails) || empty($emailss)) {
+            return response()->json(['error' => 'emailss invalidos o no recibidos'], 400);
+        }
+        // Verificar que el dictaminador con el ID proporcionado exista
+        $dictaminador = User::where('id', $dictaminador_id)->first();
 
         if (!$dictaminador) {
             return response()->json(['error' => 'Dictaminador not found'], 404);
@@ -87,14 +89,14 @@ public function getDictaminadorData(Request $request)
 
         $formFinalData = DB::table('consolidated_responses')
             ->join('users_final_resume', 'consolidated_responses.user_email', '=', 'users_final_resume.email')
-            ->where('consolidated_responses.user_email', $email)
+            ->where('consolidated_responses.user_email', $emails)
             ->select('consolidated_responses.*', 'users_final_resume.*')
             ->first();
 
         return response()->json([
             'dictaminador' => [
                 'dictaminador_id' => $dictaminador->user_id,
-                'email' => $dictaminador->email,
+                'emails' => $dictaminador->emails,
             ],
             'responseForm1' => $formData['form1Data'],
             'form2' => $form2Data,
@@ -170,14 +172,14 @@ public function getDictaminadorData(Request $request)
         }
 
         // Convertir los correos electrónicos en IDs
-        $docenteEmails = $request->docentes; // Aquí obtienes los emails
+        $docenteemailss = $request->docentes; // Aquí obtienes los emailss
 
         // Buscar los IDs de los docentes usando los correos electrónicos
-        $docentes = UsersResponseForm2::whereIn('email', $docenteEmails)->get();
+        $docentes = UsersResponseForm2::whereIn('emails', $docenteemailss)->get();
 
         foreach ($docentes as $docente) {
             // Asignar la relación y el correo electrónico
-            $dictaminator->docentes()->attach($docente->user_id, ['docente_email' => $docente->email]);
+            $dictaminator->docentes()->attach($docente->user_id, ['docente_emails' => $docente->emails]);
         }
 
         return response()->json(['success' => true, 'message' => 'Docentes asignados correctamente']);

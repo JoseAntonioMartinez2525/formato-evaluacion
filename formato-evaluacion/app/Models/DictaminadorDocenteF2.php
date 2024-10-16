@@ -22,7 +22,7 @@ class DictaminadorDocenteF2 extends Model
 
     ];
 
-    public $incrementing = false; // Indicates the primary key is not auto-incrementing
+    public $incrementing = true; // Indicates the primary key is not auto-incrementing
     protected $primaryKey = 'dictaminador_id'; // Specifies the primary key
     protected $keyType = 'bigint'; // Specifies the key type
 

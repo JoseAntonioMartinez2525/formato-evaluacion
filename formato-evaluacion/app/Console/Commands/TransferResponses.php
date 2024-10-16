@@ -79,7 +79,7 @@ class TransferResponses extends Command
                 if (!isset($consolidatedData[$response->user_id])) {
                     $consolidatedData[$response->user_id] = [
                         'user_id' => $response->user_id,
-                        'user_email' => $response->user ? $response->user->email : null,
+                        'user_emails' => [], 
                         'user_type' => 'dictaminador',
                         'comision1' => 0,
                         'actv2Comision' => 0,
@@ -104,6 +104,11 @@ class TransferResponses extends Command
                         'comision3_18' => 0,
                         'comision3_19' => 0,
                     ];
+                }
+
+                // Añadir el email del dictaminador si no está ya en la lista
+                if ($response->user && !in_array($response->user->email, $consolidatedData[$response->user_id]['user_emails'])) {
+                    $consolidatedData[$response->user_id]['user_emails'][] = $response->user->email;
                 }
 
                 // Acumula los valores de las comisiones
@@ -132,8 +137,13 @@ class TransferResponses extends Command
         }
 
         foreach ($consolidatedData as $data) {
+            // Convierte el array de correos en JSON antes de guardar
+            $data['user_emails'] = json_encode($data['user_emails']);
+            
             DB::table('consolidated_responses')->updateOrInsert(
-                ['user_id' => $data['user_id']], // Condición para actualizar
+                
+                ['user_id' => $data['user_id']], 
+                // Condición para actualizar
                 $data // Datos para actualizar o insertar
             );
         }
