@@ -22,6 +22,7 @@ use App\Models\DictaminatorsResponseForm3_9;
 use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
+use App\Models\UsersResponseForm2;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DictaminatorsResponseForm2;
@@ -157,5 +158,50 @@ public function getDictaminadorData(Request $request)
         return $formData;
     }
 
+/*
+    public function asignarDocentes(Request $request, $dictaminador_id)
+    {
+        // Encuentra al dictaminador
+        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
+
+        // Verifica si el dictaminador existe
+        if (!$dictaminator) {
+            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
+        }
+
+        // Convertir los correos electrónicos en IDs
+        $docenteEmails = $request->docentes; // Aquí obtienes los emails
+
+        // Buscar los IDs de los docentes usando los correos electrónicos
+        $docentes = UsersResponseForm2::whereIn('email', $docenteEmails)->get();
+
+        foreach ($docentes as $docente) {
+            // Asignar la relación y el correo electrónico
+            $dictaminator->docentes()->attach($docente->user_id, ['docente_email' => $docente->email]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Docentes asignados correctamente']);
+    }
+
+
+
+    public function agregarDocente(Request $request, $dictaminador_id)
+    {
+        // Encuentra al dictaminador
+        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
+
+        // Verifica si el dictaminador existe
+        if (!$dictaminator) {
+            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
+        }
+
+        // Agregar un docente a la relación (esto agrega el docente sin eliminar los actuales)
+        // $request->docente_id debe ser el ID del docente
+        $dictaminator->docentes()->syncWithoutDetaching([$request->docente_id]);
+
+        return response()->json(['success' => true, 'message' => 'Docente agregado correctamente']);
+    }
+    
+*/
 
 }

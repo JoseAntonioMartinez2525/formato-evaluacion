@@ -630,7 +630,7 @@ $newLocale = str_replace('_', '-', $locale);
       // Set text properties
       context.font = '20px Arial';
       context.fillStyle = 'black';
-      context.textAlign = 'right';
+      context.textAlign = 'center';
       context.textBaseline = 'middle';
 
       // Draw the text

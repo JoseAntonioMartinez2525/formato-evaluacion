@@ -11,10 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('dictaminators_response_form3_13', function (Blueprint $table) {
-
+            $table->id();
             $table->bigInteger('dictaminador_id')->unsigned();
             $table->unsignedBigInteger('user_id');
-            $table->primary('dictaminador_id');
+            $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');

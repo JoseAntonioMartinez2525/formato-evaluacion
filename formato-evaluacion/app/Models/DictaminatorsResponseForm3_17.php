@@ -9,6 +9,7 @@ class DictaminatorsResponseForm3_17 extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'dictaminador_id',
         'user_id',
         'email',
@@ -34,9 +35,9 @@ class DictaminatorsResponseForm3_17 extends Model
 
     ];
 
-    public $incrementing = false; // Indicates the primary key is not auto-incrementing
-    protected $primaryKey = 'dictaminador_id'; // Specifies the primary key
-    protected $keyType = 'bigint'; // Specifies the key type
+    public $incrementing = true; // Indicates the primary key is not auto-incrementing
+    protected $primaryKey = 'id'; // Specifies the primary key
+    //protected $keyType = 'bigint'; // Specifies the key type
 
 
     protected $table = 'dictaminators_response_form3_17';

@@ -15,14 +15,17 @@ return new class extends Migration {
             $table->unsignedBigInteger('dictaminador_id');
             $table->string('dictaminador_email');
             $table->unsignedBigInteger('user_id');
+            $table->primary('id');
             $table->string('docente_email');
             $table->decimal('horasActv2', 8, 2);
             $table->decimal('puntajeEvaluar', 8, 2);
             $table->decimal('comision1', 8, 2);
             $table->text('obs1')->nullable();
             // Asegúrate de que las claves foráneas sean correctas
-            $table->foreign('dictaminador_id')->references('dictaminador_id')->on('dictaminators_response_form2')->onDelete('cascade');
-            $table->foreign('user_id')->references('user_id')->on('users_response_form2')->onDelete('cascade');
+            $table->foreign('dictaminador_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('dictaminador_email')->references('email')->on('users')->onDelete('cascade');
+            $table->foreign('docente_email')->references('email')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

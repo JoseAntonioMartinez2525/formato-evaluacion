@@ -13,6 +13,7 @@ class CreateUsersResponseForm22 extends Migration {
         Schema::create('users_response_form2_2', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Add this line
+            $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->onDelete('cascade');

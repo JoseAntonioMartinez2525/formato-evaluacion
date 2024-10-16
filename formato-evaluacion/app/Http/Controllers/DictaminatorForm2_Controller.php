@@ -173,7 +173,7 @@ class DictaminatorForm2_Controller extends TransferController
     {
         $docentes = UsersResponseForm2::all(); // O cualquier lógica para obtener los docentes
 
-        return view('tu_vista', [
+        return view('form2', [
             
             'docentes' => $docentes,
             // Otras variables que necesites pasar a la vista
