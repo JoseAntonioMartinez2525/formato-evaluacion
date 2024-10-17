@@ -258,7 +258,7 @@ $user_identity = $user->id;
 
                     docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
-
+                        
                         if (email) {
                             // Lógica para obtener datos de DictaminatorsResponseForm2
                             try {

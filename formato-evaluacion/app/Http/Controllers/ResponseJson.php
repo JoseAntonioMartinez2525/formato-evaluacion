@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DictaminatorsResponseForm2_2;
 use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\DictaminatorsResponseForm3_10;
 use App\Models\DictaminatorsResponseForm3_11;
@@ -169,6 +170,7 @@ class ResponseJson extends Controller
     public function getDictaminatorResponses()
     {
         $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
+        $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
         return response()->json($dictaminators_responses2);
     }
 
