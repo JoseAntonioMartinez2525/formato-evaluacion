@@ -73,27 +73,28 @@ $user_identity = $user->id;
 @endphp
 
 <div class="container mt-4">
-    @if($userType == 'dictaminador')
+    @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
         <label for="docenteSelect">Seleccionar Docente:</label>
         <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
             <option value="">Seleccionar un docente</option>
             <!-- Aquí se llenarán los docentes con JavaScript -->
         </select>
+        <!--
     @elseif($userType == '')
-        <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
+        Select para usuario con user_type vacío seleccionando dictaminadores 
         <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
         <select id="dictaminadorSelect" class="form-select">
             <option value="">Seleccionar un dictaminador</option>
-            <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+            Aquí se llenarán los dictaminadores con JavaScript 
         </select>
     @else
-        <!-- Select por defecto para otros usuarios seleccionando docentes -->
+        Select por defecto para otros usuarios seleccionando docentes 
         <label for="docenteSelect">Seleccionar Docente:</label>
         <select id="docenteSelect" class="form-select">
             <option value="">Seleccionar un docente</option>
-            <!-- Aquí se llenarán los docentes con JavaScript -->
-        </select>
+            Aquí se llenarán los docentes con JavaScript 
+        </select> -->
     @endif
 </div>
 
@@ -188,12 +189,13 @@ $user_identity = $user->id;
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
-            const userType = @json($userType);  // Inject user type from backend to JS
-            const user_identity = @json($user_identity); 
-            const docenteSelect = document.getElementById('docenteSelect');
-            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+        const userType = @json($userType);  // Inject user type from backend to JS
+    const user_identity = @json($user_identity); 
+    const docenteSelect = document.getElementById('docenteSelect');
 
-            if (docenteSelect && userType === 'dictaminador') {
+        if (docenteSelect) {
+            // Cuando el usuario es dictaminador
+            if (userType === 'dictaminador') {
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -205,21 +207,20 @@ $user_identity = $user->id;
                         docenteSelect.appendChild(option);
                     });
 
-                    docenteSelect.addEventListener('change', async  (event) => {
+                    docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
-                        
+
                         if (email) {
                             axios.get('/get-docente-data', { params: { email } })
                                 .then(response => {
                                     const data = response.data;
-                                    //documment.getElementById('convocatoria_footer').textContent = data.form1.convocatoria || '';
                                     document.getElementById('horasActv2').textContent = data.form2.horasActv2 || '0';
                                     document.getElementById('puntajeEvaluarText').textContent = data.form2.puntajeEvaluar || '0';
                                     document.querySelector('input[name="user_id"]').value = data.form2.user_id || '';
                                     document.querySelector('input[name="email"]').value = data.form2.email || '';
                                     document.querySelector('input[name="user_type"]').value = data.form2.user_type || '';
+
                                     // Actualizar convocatoria
-                                                                        // Verificar si el elemento existe antes de establecer su contenido
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     if (convocatoriaElement) {
                                         if (data.form1) {
@@ -230,12 +231,10 @@ $user_identity = $user->id;
                                     } else {
                                         console.error('Elemento con ID "convocatoria" no encontrado.');
                                     }
-                                    
                                 })
                                 .catch(error => {
                                     console.error('Error fetching docente data:', error);
                                 });
-          
                             await asignarDocentes(user_identity, email);
                         }
                     });
@@ -244,7 +243,75 @@ $user_identity = $user->id;
                     alert('No se pudo cargar la lista de docentes.');
                 }
             }
+            // Cuando el userType está vacío
+            else if (userType === '') {
+                try {
+                    const response = await fetch('/get-docentes');
+                    const docentes = await response.json();
 
+                    docentes.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
+                    });
+
+                    docenteSelect.addEventListener('change', async (event) => {
+                        const email = event.target.value;
+
+                        if (email) {
+                            // Lógica para obtener datos de DictaminatorsResponseForm2
+                            try {
+                                const response = await fetch('/get-dictaminators-responses');
+                                const dictaminatorResponses = await response.json();
+                                // Filtrar la entrada correspondiente al email seleccionado
+                                const selectedResponse = dictaminatorResponses.find(res => res.email === email);
+                                if (selectedResponse) {
+                                    // Si se encuentra la respuesta correspondiente, asigna sus valores a los campos
+                                    document.getElementById('horasActv2').textContent = selectedResponse.horasActv2 || '0';
+                                    document.getElementById('puntajeEvaluarText').textContent = selectedResponse.puntajeEvaluar || '0';
+                                    document.querySelector('input[name="user_id"]').value = selectedResponse.user_id || '';
+                                    document.querySelector('input[name="email"]').value = selectedResponse.email || '';
+                                    document.querySelector('input[name="user_type"]').value = selectedResponse.user_type || '';
+                                    document.querySelector('span[id="comision1"]').textContent = selectedResponse.comision1 || '';
+                                    document.querySelector('span[id="obs1"]').textContent = selectedResponse.obs1 || '';
+                                } else {
+                                    // Si no se encuentra ningún dato, puedes limpiar los campos o mostrar un mensaje
+                                    console.log('No se encontraron respuestas para este email.');
+                                    document.getElementById('horasActv2').textContent = '0';
+                                    document.getElementById('puntajeEvaluarText').textContent = '0';
+                                    document.querySelector('span[id="comision1"]').textContent = '';
+                                    document.querySelector('span[id="obs1"]').textContent = '';
+                                }
+                            } catch (error) {
+                                console.error('Error fetching dictaminators responses:', error);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
+                }
+
+                    
+                }
+
+                      /*                              // Actualizar convocatoria
+                // Verificar si el elemento existe antes de establecer su contenido
+                const convocatoriaElement = document.getElementById('convocatoria');
+                if (convocatoriaElement) {
+                    if (data.responseForm1) {
+                        convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
+                    } else {
+                        console.error('form1 no está definido en la respuesta.');
+                    }
+                } else {
+                    console.error('Elemento con ID "convocatoria" no encontrado.');
+                }*/
+            
+            }
+            
+/*
             if (dictaminadorSelect && userType === '') {
                 try {
                     const response = await fetch('/get-dictaminadores');
@@ -281,20 +348,9 @@ $user_identity = $user->id;
                                      
                                     
 
-                                    
-                                    // Actualizar convocatoria
-                                    // Verificar si el elemento existe antes de establecer su contenido
-                                    const convocatoriaElement = document.getElementById('convocatoria');
-                                    if (convocatoriaElement) {
-                                        if (data.responseForm1) {
-                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
-                                        } else {
-                                            console.error('form1 no está definido en la respuesta.');
-                                        }
-                                    } else {
-                                        console.error('Elemento con ID "convocatoria" no encontrado.');
-                                    }
+                                   */ 
 
+                                    /*
                                     
                                 } else {
                                     console.log('No form2 data found for the selected dictaminador.');
@@ -355,8 +411,9 @@ $user_identity = $user->id;
                     alert('No se pudo cargar la lista de dictaminadores.');
                 }
             }
-
+*/
         // Ejemplo de cómo enviar datos dinámicamente usando fetch
+        /*
         async function asignarDocentes(dictaminadorId, docenteEmail) {
             try {
                 const response = await fetch(`/asignar-docentes/${dictaminadorId}`, {
@@ -373,7 +430,7 @@ $user_identity = $user->id;
                 console.error('Error asignando docentes:', error);
             }
         }
-
+        
         async function agregarDocente(dictaminadorId, docenteEmail) {
             try {
                 const response = await fetch(`/agregar-docente/${dictaminadorId}`, {
@@ -390,6 +447,7 @@ $user_identity = $user->id;
                 console.error('Error agregando docente:', error);
             }
         }
+             */
         });
 
         async function submitForm(url, formId) {

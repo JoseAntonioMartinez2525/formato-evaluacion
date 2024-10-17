@@ -210,6 +210,7 @@ Route::get('/get-form-data', [DictaminatorFormsGroupsController::class, 'getDict
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
+Route::get('/get-dictaminators-responses', [ResponseJson::class, 'getDictaminatorResponses']);
 Route::get('/fetch-convocatoria/{user_id}', [ResumenComisionController::class, 'fetchConvocatoria'])->name('fetch-convocatoria');
 Route::get('/get-docentes-by-dictaminador', [DictaminatorForm2_Controller::class, 'getDocentesByDictaminador']);
 

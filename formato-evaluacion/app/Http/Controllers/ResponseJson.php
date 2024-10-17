@@ -165,4 +165,11 @@ class ResponseJson extends Controller
         return response($jsonResponses)
             ->header('Content-Type', 'application/json');
     }
+
+    public function getDictaminatorResponses()
+    {
+        $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
+        return response()->json($dictaminators_responses2);
+    }
+
 }
