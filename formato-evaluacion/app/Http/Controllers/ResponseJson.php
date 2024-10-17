@@ -171,6 +171,9 @@ class ResponseJson extends Controller
     {
         $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
         $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
+
+        
+        
         return response()->json($dictaminators_responses2);
     }
 

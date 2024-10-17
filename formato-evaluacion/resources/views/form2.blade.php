@@ -245,6 +245,7 @@ $user_identity = $user->id;
             }
             // Cuando el userType está vacío
             else if (userType === '') {
+                const formName = 'form2';
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -258,7 +259,7 @@ $user_identity = $user->id;
 
                     docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
-                        
+
                         if (email) {
                             // Lógica para obtener datos de DictaminatorsResponseForm2
                             try {
