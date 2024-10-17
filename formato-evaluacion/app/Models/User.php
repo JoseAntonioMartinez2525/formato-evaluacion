@@ -33,6 +33,21 @@ class User extends Authenticatable
      * Esto permite generar automáticamente las relaciones con los formularios de dictaminador.
      */
 
+
+
+    public function dictaminadorDocenteForm2()
+    {
+        return $this->hasMany(DictaminadorDocenteForm2::class);
+    } 
+    
+        public function dictaminadores()
+    {
+        return $this->belongsToMany(User::class, 'dictaminador_docente_form2', 'user_id', 'dictaminador_id')
+                    ->using(DictaminadorDocenteForm2::class)
+                    ->withPivot('dictaminador_email', 'docente_email', 'horasActv2', 'puntajeEvaluar', 'comision1', 'obs1')
+                    ->withTimestamps();
+    }
+
     public function evaluatorSignatures()
     {
         return $this->hasMany(EvaluatorSignature::class, 'user_id', 'id');

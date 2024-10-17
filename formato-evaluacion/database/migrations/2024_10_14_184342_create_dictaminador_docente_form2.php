@@ -21,15 +21,14 @@ return new class extends Migration {
             $table->decimal('puntajeEvaluar', 8, 2);
             $table->decimal('comision1', 8, 2);
             $table->text('obs1')->nullable();
-            // Asegúrate de que las claves foráneas sean correctas
+            // Asegúrate de que las claves foráneas sean correctdictaminador_docente_form2as
             $table->foreign('dictaminador_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('dictaminador_email')->references('email')->on('users')->onDelete('cascade');
-            $table->foreign('docente_email')->references('email')->on('users')->onDelete('cascade');
+
 
             $table->timestamps();
         });
-        \DB::statement("ALTER TABLE dictaminators_response_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
+        \DB::statement("ALTER TABLE dictaminador_docente_form2 MODIFY obs1 VARCHAR(255) DEFAULT 'sin comentarios' NOT NULL");
     }
 
     /**
