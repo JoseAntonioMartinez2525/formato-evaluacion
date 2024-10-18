@@ -39,8 +39,11 @@
 }}
 
 @media print{
-    #seleccionDictaminador{
+    #seleccionDictaminador, #seleccionDocente, #navPrint{
         display: none;
+    }
+    #form3_1{
+        margin-left: -200px;
     }
 }
 

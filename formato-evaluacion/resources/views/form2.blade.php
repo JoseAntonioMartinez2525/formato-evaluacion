@@ -174,7 +174,7 @@ $user_identity = $user->id;
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
-        const userType = @json($userType);  // Inject user type from backend to JS
+    const userType = @json($userType);  // Inject user type from backend to JS
     const user_identity = @json($user_identity); 
     const docenteSelect = document.getElementById('docenteSelect');
 
