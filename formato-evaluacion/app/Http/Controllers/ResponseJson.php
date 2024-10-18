@@ -171,14 +171,51 @@ class ResponseJson extends Controller
     {
 // Obtiene las respuestas de form2
     $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
-    
-    // Obtiene las respuestas de form2_2
     $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
+    $dictaminators_responses3_1 = DictaminatorsResponseForm3_1::all()->filter()->values();
+    $dictaminators_responses3_2 = DictaminatorsResponseForm3_2::all()->filter()->values();
+    $dictaminators_responses3_3 = DictaminatorsResponseForm3_3::all()->filter()->values();
+    $dictaminators_responses3_4 = DictaminatorsResponseForm3_4::all()->filter()->values();
+    $dictaminators_responses3_5 = DictaminatorsResponseForm3_5::all()->filter()->values();
+    $dictaminators_responses3_6 = DictaminatorsResponseForm3_6::all()->filter()->values();
+    $dictaminators_responses3_7 = DictaminatorsResponseForm3_7::all()->filter()->values();
+    $dictaminators_responses3_8 = DictaminatorsResponseForm3_8::all()->filter()->values();
+    $dictaminators_responses3_9 = DictaminatorsResponseForm3_9::all()->filter()->values();
+    $dictaminators_responses3_10 = DictaminatorsResponseForm3_10::all()->filter()->values();
+    $dictaminators_responses3_11 = DictaminatorsResponseForm3_11::all()->filter()->values();
+    $dictaminators_responses3_12 = DictaminatorsResponseForm3_12::all()->filter()->values();
+    $dictaminators_responses3_13 = DictaminatorsResponseForm3_13::all()->filter()->values();
+    $dictaminators_responses3_14 = DictaminatorsResponseForm3_14::all()->filter()->values();
+    $dictaminators_responses3_15 = DictaminatorsResponseForm3_15::all()->filter()->values();
+    $dictaminators_responses3_16 = DictaminatorsResponseForm3_16::all()->filter()->values();
+    $dictaminators_responses3_17 = DictaminatorsResponseForm3_17::all()->filter()->values();
+    $dictaminators_responses3_18 = DictaminatorsResponseForm3_18::all()->filter()->values();
+    $dictaminators_responses3_19 = DictaminatorsResponseForm3_19::all()->filter()->values();
+
 
     // Retorna ambas respuestas en un array JSON estructurado
     return response()->json([
         'form2' => $dictaminators_responses2,
         'form2_2' => $dictaminators_responses2_2,
+        'form3_1' => $dictaminators_responses3_1,
+        'form3_2' => $dictaminators_responses3_2,
+        'form3_3' => $dictaminators_responses3_3,
+        'form3_4' => $dictaminators_responses3_4,
+        'form3_5' => $dictaminators_responses3_5,
+        'form3_6' => $dictaminators_responses3_6,
+        'form3_7' => $dictaminators_responses3_7,
+        'form3_8' => $dictaminators_responses3_8,
+        'form3_9' => $dictaminators_responses3_9,
+        'form3_10' => $dictaminators_responses3_10,
+        'form3_11' => $dictaminators_responses3_11,
+        'form3_12' => $dictaminators_responses3_12,
+        'form3_13' => $dictaminators_responses3_13,
+        'form3_14' => $dictaminators_responses3_14,
+        'form3_15' => $dictaminators_responses3_15,
+        'form3_16' => $dictaminators_responses3_16,
+        'form3_17' => $dictaminators_responses3_17,
+        'form3_18' => $dictaminators_responses3_18,
+        'form3_19' => $dictaminators_responses3_19,
     ]);
 
 }
