@@ -169,12 +169,17 @@ class ResponseJson extends Controller
 
     public function getDictaminatorResponses()
     {
-        $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
-        $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
+// Obtiene las respuestas de form2
+    $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
+    
+    // Obtiene las respuestas de form2_2
+    $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
 
-        
-        
-        return response()->json($dictaminators_responses2);
-    }
+    // Retorna ambas respuestas en un array JSON estructurado
+    return response()->json([
+        'form2' => $dictaminators_responses2,
+        'form2_2' => $dictaminators_responses2_2,
+    ]);
 
+}
 }
