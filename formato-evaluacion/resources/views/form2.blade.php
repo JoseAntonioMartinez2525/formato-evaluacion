@@ -248,6 +248,7 @@ $user_identity = $user->id;
                 const formName = 'form2';
                 try {
                     const response = await fetch('/get-docentes');
+                    
                     const docentes = await response.json();
 
                     docentes.forEach(docente => {
@@ -261,6 +262,26 @@ $user_identity = $user->id;
                         const email = event.target.value;
 
                         if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+
+                                    // Actualizar convocatoria
+
+                                                    // Verifica si la respuesta contiene los datos esperados
+                                    if (data.docente) {
+                                        const convocatoriaElement = document.getElementById('convocatoria');
+
+                                        // Mostrar la convocatoria si existe
+                                        if (convocatoriaElement) {
+                                            if (data.docente.convocatoria) {
+                                                convocatoriaElement.textContent = data.docente.convocatoria;
+                                            } else {
+                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                            }
+                                        }
+                                    }
+                                });
                             // Lógica para obtener datos de DictaminatorsResponseForm2
                             try {
                                 const response = await fetch('/get-dictaminators-responses');
@@ -297,18 +318,7 @@ $user_identity = $user->id;
                     
                 }
 
-                      /*                              // Actualizar convocatoria
-                // Verificar si el elemento existe antes de establecer su contenido
-                const convocatoriaElement = document.getElementById('convocatoria');
-                if (convocatoriaElement) {
-                    if (data.responseForm1) {
-                        convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
-                    } else {
-                        console.error('form1 no está definido en la respuesta.');
-                    }
-                } else {
-                    console.error('Elemento con ID "convocatoria" no encontrado.');
-                }*/
+
             
             }
             
