@@ -22,7 +22,7 @@ $newLocale = str_replace('_', '-', $locale);
                 <section role="region" aria-label="Response form">
                     <form class="printButtonClass">
                         @csrf
-                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;" id="navPrint">
                         <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                             <li class="nav-item">
                                 <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
