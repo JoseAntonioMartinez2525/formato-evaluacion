@@ -42,7 +42,7 @@
     #seleccionDictaminador, #seleccionDocente, #navPrint{
         display: none;
     }
-    #form3_1{
+        [id^="form3_"]{
         margin-left: -200px;
     }
 }
