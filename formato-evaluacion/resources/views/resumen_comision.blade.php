@@ -38,248 +38,250 @@ $newLocale = str_replace('_', '-', $locale);
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-    @if (Auth::check())
-        <section role="region" aria-label="Response form">
-            <form class="printButtonClass">
-                @csrf
-                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                        <li class="nav-item">
-                            <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                            </a>
-                        </li>
-                        <li style="list-style: none; margin-right: 20px;">
-                            <a href="{{ route('login') }}">
-                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                            </a>
-                        </li>
-                    </div>
-                    <li class="nav-item">
-                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                            REGLAMENTO
-                            PEDPD</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
-                            llenado
-                            por la
-                            Comisión del PEDPD)</a>
-                    </li><br>
-                    <li id="reportLink" class="nav-item d-none">
-                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                            Reporte</a>
-                    </li>
-                    <li class="nav-item">
-                        @if(Auth::user()->user_type === 'dictaminador')
-                            <a class="nav-link active enlaceSN" style="width: 200px;"
-                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                        @else
-                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                Formatos</a>
-                        @endif
-                    </li>
-                    <li id="jsonDataLink" class="d-none">
-                        <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
-                            Usuarios</a>
-                    </li>
-                </nav>
-            </form>
-        </section>
-    @endif
+                @if (Auth::check())
+                    <section role="region" aria-label="Response form">
+                        <form class="printButtonClass">
+                            @csrf
+                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                        </a>
+                                    </li>
+                                    <li style="list-style: none; margin-right: 20px;">
+                                        <a href="{{ route('login') }}">
+                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                        REGLAMENTO
+                                        PEDPD</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
+                                        llenado
+                                        por la
+                                        Comisión del PEDPD)</a>
+                                </li><br>
+                                <li id="reportLink" class="nav-item d-none">
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                        Reporte</a>
+                                </li>
+                                <li class="nav-item">
+                                    @if(Auth::user()->user_type === 'dictaminador')
+                                        <a class="nav-link active enlaceSN" style="width: 200px;"
+                                            href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                    @else
+                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                            Formatos</a>
+                                    @endif
+                                </li>
+                                <li id="jsonDataLink" class="d-none">
+                                    <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
+                                        Usuarios</a>
+                                </li>
+                            </nav>
+                        </form>
+                    </section>
+                @endif
 
-</div>
-<x-general-header />
+            </div>
+            <x-general-header />
 @php
-    $userType = Auth::user()->user_type;
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_identity = $user->id; 
 @endphp
-    <div class="container mt-4" id="seleccionDictaminador">
-    @if($userType == '' || $userType == 'dictaminador')
-        <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-        <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-        <select id="dictaminadorSelect" class="form-select">
-            <option value="">Seleccionar un dictaminador</option>
-            <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-        </select>
-    @endif
-    </div>
-        <main class="container" id="formContainer" style="display: none;">
-        <form id="form4" method="POST" enctype="multipart/form-data"
-        onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
-        @csrf
-        <div>
-        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-        <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
-        <center>
-        <h2 id="resumen">Resumen</h2>
-        <h4>A ser llenado por la Comisión del PEDPD</h4>
-        </center>
-        <table class="resumenTabla">
-        <thead>
-            <tr>
-                <th id="actv">Actividad</th>
-                <th id="pMaximo">Puntaje máximo</th>
-                <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-            </tr>
-        </thead>
-        <tbody id="formData">
-            <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
-        </tbody>
-        </table>
-        <table>
-        <thead>
-            <tr>
-                <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
-                <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
-                <th colspan="2" id="minimaCalidad"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <th style="padding-right: 200px;"></th>
-                <th class="minima">Mínima Total</th>
-                <th id="minimaTotal"></th>
-
-        </tbody>
-        </table>
-        <center>
-        @if(Auth::user()->user_type === 'dictaminador')
-            <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-        @endif
-        </center>
+        <div class="container mt-4" id="seleccionDocente">
+            @if($userType !== 'docente')
+                <!-- Select para dictaminador seleccionando docentes -->
+                <label for="docenteSelect">Seleccionar Docente:</label>
+                <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+                    <option value="">Seleccionar un docente</option>
+                    <!-- Aquí se llenarán los docentes con JavaScript -->
+                </select>
+            @endif
         </div>
-        </form>
-            <form id="form5" method="POST" enctype="multipart/form-data"
-                onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
-                @csrf
-                <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
-                <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
-
-
-                <table>
+                    <main class="container" id="formContainer" style="display: none;">
+                    <form id="form4" method="POST" enctype="multipart/form-data"
+                    onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
+                    @csrf
+                    <div>
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                    <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+                    <center>
+                    <h2 id="resumen">Resumen</h2>
+                    <h4>A ser llenado por la Comisión del PEDPD</h4>
+                    </center>
+                    <table class="resumenTabla">
                     <thead>
                         <tr>
-                            <th class="evaluadores">
-                                <!--*Implementacion en caso que el usuario sea vacio-->
-                            @if($userType === '')
-                                <span class="personaEvaluadora1" type="text" id="personaEvaluadora1" ></span>
-                            @elseif($userType === 'dictaminador')
-                                <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;
-        border: 15px rgba(0, 0, 0, 0);">
-                            @endif
-                            </th>
-                            <th>
-                            @if($userType === 'dictaminador')
-                                <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
-                            @endif
-                            </th>
-                            <th>
-                                <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
-                        @if(isset($signature_path_1))  
-                            <img id="signature_path_1" src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1"
-                                style="display:block;">
-                        @else
-                            <img src="" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:none;">
-                        @endif
-                            </th>
-                        </tr>
-                        <tr>
-
-                            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
-                            <td></td>
-                            <td class="p-2"><span id="firmaTexto">Firma</span>
-                            @if($userType === 'dictaminador')
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                            </td>
-                        @endif
-
-                        </tr>
-                        <tr>
-                            <th class="evaluadores">
-                            @if($userType !== '')   
-                            <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;
-                                    border: 15px rgba(0, 0, 0, 0);">
-                            @else
-                            <span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span>
-                            @endif
-                            </th>
-                            <th>
-                            @if($userType === 'dictaminador')
-                                <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
-                                @endif
-                            </th>
-                            <th>
-                                <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
-                                @if(isset($signature_path_2))  
-                                    <img id="signature_path_2" src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2"
-                                        style="display:block;">
-                                @else
-                                <img src="" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:none;">
-                            @endif
-
-                            </th>
-                        </tr>
-                        <tr>
-
-                            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
-                            <td></td>
-                            <td class="p-2"><span id="firmaTexto2">Firma</span>
-                            @if($userType === 'dictaminador')
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                            </td>
-                        @endif
-                        </tr>
-                        <tr>
-                            <th class="evaluadores">
-                            @if($userType !== '')   
-                            <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;
-                                    border: 15px rgba(0, 0, 0, 0);">
-                            @else
-                                <span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span>
-                            @endif
-                            </th>
-                            <th>
-                            @if($userType === 'dictaminador')
-                                <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
-                            @endif
-                            </th>
-                            <th>
-                                <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
-                            @if(isset($signature_path_3))
-                            <img id="signature_path_3" src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3"
-                            style="display:block;">
-                            @else
-                            <img src="" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:none;">
-                            @endif
-                            </th>
-
-
-                        </tr>
-                        <tr>
-                            <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
-                            <td></td>
-                            <td class="p-2"><span id="firmaTexto3">Firma</span>
-                            @if($userType === 'dictaminador')
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                            </td>
-                            @endif
-
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 600px;">
-                            @if(Auth::user()->user_type === 'dictaminador')
-                            <button type="submit" class="btn custom-btn buttonSignature2">Enviar</button>
-                            @endif
-                            </td>
+                            <th id="actv">Actividad</th>
+                            <th id="pMaximo">Puntaje máximo</th>
+                            <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
                         </tr>
                     </thead>
-                </table>
-                <footer id="convocatoria"></footer>
-            </form>
+                    <tbody id="formData">
+                        <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
+                    </tbody>
+                    </table>
+                    <table>
+                    <thead>
+                        <tr>
+                            <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
+                            <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
+                            <th colspan="2" id="minimaCalidad"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th style="padding-right: 200px;"></th>
+                            <th class="minima">Mínima Total</th>
+                            <th id="minimaTotal"></th>
 
-            </main>
+                    </tbody>
+                    </table>
+                    <center>
+                    @if(Auth::user()->user_type === 'dictaminador')
+                        <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+                    @endif
+                    </center>
+                    </div>
+                    </form>
+                        <form id="form5" method="POST" enctype="multipart/form-data"
+                            onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+                            @csrf
+                            <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                            <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
+
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="evaluadores">
+                                            <!--*Implementacion en caso que el usuario sea vacio-->
+                                        @if($userType === '')
+                                            <span class="personaEvaluadora1" type="text" id="personaEvaluadora1" ></span>
+                                        @elseif($userType === 'dictaminador')
+                                            <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;
+                    border: 15px rgba(0, 0, 0, 0);">
+                                        @endif
+                                        </th>
+                                        <th>
+                                        @if($userType === 'dictaminador')
+                                            <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
+                                        @endif
+                                        </th>
+                                        <th>
+                                            <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
+                                    @if(isset($signature_path_1))  
+                                        <img id="signature_path_1" src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1"
+                                            style="display:block;">
+                                    @else
+                                        <img src="" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:none;">
+                                    @endif
+                                        </th>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+                                        <td></td>
+                                        <td class="p-2"><span id="firmaTexto">Firma</span>
+                                        @if($userType === 'dictaminador')
+                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                        </td>
+                                    @endif
+
+                                    </tr>
+                                    <tr>
+                                        <th class="evaluadores">
+                                        @if($userType !== '')   
+                                        <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;
+                                                border: 15px rgba(0, 0, 0, 0);">
+                                        @else
+                                        <span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span>
+                                        @endif
+                                        </th>
+                                        <th>
+                                        @if($userType === 'dictaminador')
+                                            <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
+                                            @endif
+                                        </th>
+                                        <th>
+                                            <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
+                                            @if(isset($signature_path_2))  
+                                                <img id="signature_path_2" src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2"
+                                                    style="display:block;">
+                                            @else
+                                            <img src="" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:none;">
+                                        @endif
+
+                                        </th>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+                                        <td></td>
+                                        <td class="p-2"><span id="firmaTexto2">Firma</span>
+                                        @if($userType === 'dictaminador')
+                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                        </td>
+                                    @endif
+                                    </tr>
+                                    <tr>
+                                        <th class="evaluadores">
+                                        @if($userType !== '')   
+                                        <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;
+                                                border: 15px rgba(0, 0, 0, 0);">
+                                        @else
+                                            <span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span>
+                                        @endif
+                                        </th>
+                                        <th>
+                                        @if($userType === 'dictaminador')
+                                            <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
+                                        @endif
+                                        </th>
+                                        <th>
+                                            <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
+                                        @if(isset($signature_path_3))
+                                        <img id="signature_path_3" src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3"
+                                        style="display:block;">
+                                        @else
+                                        <img src="" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:none;">
+                                        @endif
+                                        </th>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
+                                        <td></td>
+                                        <td class="p-2"><span id="firmaTexto3">Firma</span>
+                                        @if($userType === 'dictaminador')
+                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                        </td>
+                                        @endif
+
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left: 600px;">
+                                        @if(Auth::user()->user_type === 'dictaminador')
+                                        <button type="submit" class="btn custom-btn buttonSignature2">Enviar</button>
+                                        @endif
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <footer id="convocatoria"></footer>
+                        </form>
+
+                        </main>
 
         @endif
     </div>
@@ -292,6 +294,48 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 
     <script>
+    const labels = [
+        '1. Permanencia en las actividades de la docencia  ',
+        '1.1 Años de experiencia docente en la institución  ',
+        '2. Dedicación en el desempeño docente  ',
+        '2.1 Carga de trabajo docente frente a grupo  ',
+        '3. Calidad en la docencia  ',
+        '3.1 Participación en actividades de diseño curricular  ',
+        '3.2 Calidad del desempeño docente evaluada por los estudiantes ',
+        '3.3 Publicaciones relacionadas con la docencia',
+        '3.4 Distinciones académicas recibidas por el docente',
+        '3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC',
+        '3.6 Capacitación y actualización pedagógica recibida',
+        '3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento',
+        '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente',
+        'Subtotal ',
+        'Tutorias',
+        '3.9 Trabajos dirigidos para la titulación de estudiantes',
+        '3.10 Tutorías a estudiantes',
+        '3.11 Asesoría a estudiantes',
+        'Subtotal',
+        'Investigación',
+        '3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente',
+        '3.13 Proyectos académicos de investigación',
+        '3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente',
+        '3.15 Registro de patentes y productos de investigación tecnológica y educativa',
+        '3.16 Actividades de arbitraje, revisión, corrección y edición',
+        'Subtotal',
+        'Cuerpos colegiados',
+        '3.17 Proyectos académicos de extensión y difusión',
+        '3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente',
+        '3.19 Participación en cuerpos colegiados',
+        'Subtotal',
+        'Total logrado en la evaluación',
+        '1. Permanencia en las actividades de la docencia ',
+        '2. Dedicación en el desempeño docente',
+        '3. Calidad en la docencia',
+        'Total de puntaje obtenido en la evaluación',
+    ];
+
+    const values = [100, 100, 200, 200, 700, 60, 50, 100, 60, 75, 40, 40, 40, null, null,
+        200, 115, 95, null, null, 150, 130, 40, 60, 30, null, null, 50, 40, 40, null, null, 100, 200, 700, null];
+
         function handleClick(event) {
             var currentTarget = event.currentTarget;
             // Use the event data here. 
@@ -437,6 +481,7 @@ $newLocale = str_replace('_', '-', $locale);
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType); 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const user_identity = @json($user_identity);
         const docenteSelect = document.getElementById('docenteSelect');
         const dictaminadorSelect = document.getElementById('dictaminadorSelect');
         const formContainer = document.getElementById('formContainer');
@@ -444,21 +489,118 @@ $newLocale = str_replace('_', '-', $locale);
        
         
 
-        if (dictaminadorSelect && (userType === '' || userType === 'dictaminador')) {
-            //docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
-            try {
-                const response = await fetch('/get-dictaminadores');
-                const dictaminadores = await response.json();
+        if (docenteSelect) {
+            // Cuando el usuario es dictaminador
+            if (userType === 'dictaminador') {
+                try {
+                    const response = await fetch('/get-docentes');
 
-                dictaminadores.forEach(dictaminador => {
-                    const option = document.createElement('option');
-                    option.value = dictaminador.id;  // Use dictaminador ID as the value
-                    option.dataset.email = dictaminador.email; // Store email in data attribute
-                    option.textContent = dictaminador.email;
-                    dictaminadorSelect.appendChild(option);
-                });
+                    const docentes = await response.json();
 
-                dictaminadorSelect.addEventListener('change', async (event) => {
+                    docentes.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
+                    });
+
+                    docenteSelect.addEventListener('change', async (event) => {
+                        const email = event.target.value;
+
+                        if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+
+                                    // Actualizar convocatoria
+
+                                    // Verifica si la respuesta contiene los datos esperados
+                                    if (data.docente) {
+                                        const convocatoriaElement = document.getElementById('convocatoria');
+
+                                        // Mostrar la convocatoria si existe
+                                        if (convocatoriaElement) {
+                                            if (data.docente.convocatoria) {
+                                                convocatoriaElement.textContent = data.docente.convocatoria;
+                                            } else {
+                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                            }
+                                        }
+                                    }
+                                });
+                            // Lógica para obtener datos de DictaminatorsResponseForm
+                            try {
+                                const response = await fetch('/get-dictaminators-responses');
+                                const dictaminatorResponses = await response.json();
+                                const formKeys = [
+                                    'selectedResponseForm2', 'selectedResponseForm2_2', 'selectedResponseForm3_1',
+                                    'selectedResponseForm3_2', 'selectedResponseForm3_3', 'selectedResponseForm3_4',
+                                    'selectedResponseForm3_5', 'selectedResponseForm3_6', 'selectedResponseForm3_7',
+                                    'selectedResponseForm3_8', 'selectedResponseForm3_9', 'selectedResponseForm3_10',
+                                    'selectedResponseForm3_11', 'selectedResponseForm3_12', 'selectedResponseForm3_13',
+                                    'selectedResponseForm3_14', 'selectedResponseForm3_15', 'selectedResponseForm3_16',
+                                    'selectedResponseForm3_17', 'selectedResponseForm3_18', 'selectedResponseForm3_19'
+                                ];
+                                const selectedResponses = {};
+                                const elements = {};
+
+                                const suffixes = Array.from({ length: 19 }, (_, i) => i + 1); // Genera sufijos del 1 al 19
+
+                                suffixes.forEach(i => {
+                                    const dictKey = `form3_${i}`;
+                                    const selectedKey = `dictForm3_${i}`;
+                                    const elementKey = `comision3_${i}`;
+
+                                    selectedResponses[selectedKey] = dictaminatorResponses[dictKey]?.find(res => res.email === email);
+                                    elements[elementKey] = document.getElementById(elementKey);
+                                });
+
+                                suffixes.forEach(i => {
+                                    const selectedKey = `dictForm3_${i}`;
+                                    const elementKey = `comision3_${i}`;
+
+                                    if (elements[elementKey]) {
+                                        elements[elementKey].textContent = selectedResponses[selectedKey]?.[`comision3_${i}`] || '0';
+                                    } else {
+                                        console.warn(`Elemento con ID ${elementKey} no encontrado`);
+                                    }
+                                });
+    
+
+                                if (dictaminatorResponses) {
+                                    // Actualizar los valores de los inputs
+                                    document.querySelector('input[name="dictaminador_id"]').value = dictaminatorResponses.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = dictaminatorResponses.user_id || '';
+                                    document.querySelector('input[name="email"]').value = dictaminatorResponses.email || '';
+                                    document.querySelector('input[name="user_type"]').value = dictaminatorResponses.user_type || '';
+
+                                    document.getElementById('comision1').textContent = selectedResponses.selectedResponseForm2?.comision1 || '0';
+                                    document.getElementById('actv2Comision').textContent = selectedResponses.selectedResponseForm2_2?.actv2Comision || '0';
+                                    document.getElementById('actv3Comision').textContent = selectedResponses.selectedResponseForm3_1?.actv3Comision || '0';
+
+                            } else {
+                                console.error('No form data found for the selected docente.');
+
+                                // Reset input values if no data found
+                                document.querySelector('input[name="dictaminador_id"]').value = '0';
+                                document.querySelector('input[name="user_id"]').value = '0';
+                                document.querySelector('input[name="email"]').value = '';
+                                document.querySelector('input[name="user_type"]').value = '';
+
+
+
+                            }
+                            }  catch (error) {
+                                console.error('Error fetching dictaminators responses:', error);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
+                }
+
+               /* docenteSelect.addEventListener('change', async (event) => {
                     const dictaminadorId = event.target.value;
                     const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
 
@@ -472,48 +614,7 @@ $newLocale = str_replace('_', '-', $locale);
                             formDataContainer.innerHTML = ''; // Limpiar datos anteriores
                             formContainer.style.display = 'block'; // Mostrar el formulario
 
-                            const labels = [
-                                '1. Permanencia en las actividades de la docencia  ',
-                                '1.1 Años de experiencia docente en la institución  ',
-                                '2. Dedicación en el desempeño docente  ',
-                                '2.1 Carga de trabajo docente frente a grupo  ',
-                                '3. Calidad en la docencia  ',
-                                '3.1 Participación en actividades de diseño curricular  ',
-                                '3.2 Calidad del desempeño docente evaluada por los estudiantes ',
-                                '3.3 Publicaciones relacionadas con la docencia',
-                                '3.4 Distinciones académicas recibidas por el docente',
-                                '3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC',
-                                '3.6 Capacitación y actualización pedagógica recibida',
-                                '3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento',
-                                '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente',
-                                'Subtotal ',
-                                'Tutorias',
-                                '3.9 Trabajos dirigidos para la titulación de estudiantes',
-                                '3.10 Tutorías a estudiantes',
-                                '3.11 Asesoría a estudiantes',
-                                'Subtotal',
-                                'Investigación',
-                                '3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente',
-                                '3.13 Proyectos académicos de investigación',
-                                '3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente',
-                                '3.15 Registro de patentes y productos de investigación tecnológica y educativa',
-                                '3.16 Actividades de arbitraje, revisión, corrección y edición',
-                                'Subtotal',
-                                'Cuerpos colegiados',
-                                '3.17 Proyectos académicos de extensión y difusión',
-                                '3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente',
-                                '3.19 Participación en cuerpos colegiados',
-                                'Subtotal',
-                                'Total logrado en la evaluación',
-                                '1. Permanencia en las actividades de la docencia ',
-                                '2. Dedicación en el desempeño docente',
-                                '3. Calidad en la docencia',
-                                'Total de puntaje obtenido en la evaluación',
-                            ];
-
-                            const values = [100, 100, 200, 200, 700, 60, 50, 100, 60, 75, 40, 40, 40, null, null, 
-                            200, 115, 95, null, null, 150, 130, 40, 60, 30, null, null, 50, 40, 40, null, null, 100,200,700,null];
-
+                           
                             const comisiones = [
                                 formData['comision1'],       // Valor de 'comision1'
                                 formData['comision1'],       // Valor de 'comision1'
@@ -892,10 +993,8 @@ $newLocale = str_replace('_', '-', $locale);
                         formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
                     }
                     //await fetchConvocatoria(dictaminadorId);
-                });
-            } catch (error) {
-                console.error('There was a problem fetching dictaminadores:', error);
-            }
+                });*/
+            } 
         }
     });
 

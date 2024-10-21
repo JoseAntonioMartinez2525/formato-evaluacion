@@ -24,6 +24,8 @@ use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
 use App\Models\DictaminatorsResponseForm3_9;
 
+
+use App\Models\UsersResponseForm1;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -48,6 +50,7 @@ class TransferResponses extends Command
     private function transferDictaminadorResponses()
     {
         $models = [
+            UsersResponseForm1::class,
             DictaminatorsResponseForm2::class,
             DictaminatorsResponseForm2_2::class,
             DictaminatorsResponseForm3_1::class,
@@ -79,8 +82,9 @@ class TransferResponses extends Command
                 if (!isset($consolidatedData[$response->user_id])) {
                     $consolidatedData[$response->user_id] = [
                         'user_id' => $response->user_id,
+                        'dictaminador_id' => $response->dictaminador_id,
                         'user_emails' => [], 
-                        'user_type' => 'dictaminador',
+                        'user_type' => 'docente',
                         'comision1' => 0,
                         'actv2Comision' => 0,
                         'actv3Comision' => 0,
