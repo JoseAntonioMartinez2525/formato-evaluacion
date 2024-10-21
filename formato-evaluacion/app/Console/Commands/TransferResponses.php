@@ -83,7 +83,7 @@ class TransferResponses extends Command
                     $consolidatedData[$response->user_id] = [
                         'user_id' => $response->user_id,
                         'dictaminador_id' => $response->dictaminador_id,
-                        'user_emails' => [], 
+                        'user_email' => $response->user_email, 
                         'user_type' => 'docente',
                         'comision1' => 0,
                         'actv2Comision' => 0,
@@ -140,7 +140,7 @@ class TransferResponses extends Command
             }
         }
 
-        foreach ($consolidatedData as $data) {
+       /* foreach ($consolidatedData as $data) {
             // Convierte el array de correos en JSON antes de guardar
             $data['user_emails'] = json_encode($data['user_emails']);
             
@@ -150,6 +150,6 @@ class TransferResponses extends Command
                 // Condición para actualizar
                 $data // Datos para actualizar o insertar
             );
-        }
+        }*/
     }
 }
