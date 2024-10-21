@@ -71,33 +71,21 @@ $newLocale = str_replace('_', '-', $locale);
         @endif
     </div>
     <x-general-header />
-    @php
-$userType = Auth::user()->user_type;
-    @endphp
-    <div class="container mt-4 printButtonClass">
-        @if($userType == 'dictaminador')
-            <!-- Select para dictaminador seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @elseif($userType == '')
-            <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-            <select id="dictaminadorSelect" class="form-select">
-                <option value="">Seleccionar un dictaminador</option>
-                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-            </select>
-        @else
-            <!-- Select por defecto para otros usuarios seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @endif
-    </div>
+@php
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
+@endphp
+<div class="container mt-4" id="seleccionDocente">
+    @if($userType !== 'docente')
+        <!-- Select para dictaminador seleccionando docentes -->
+        <label for="docenteSelect">Seleccionar Docente:</label>
+        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+            <option value="">Seleccionar un docente</option>
+            <!-- Aquí se llenarán los docentes con JavaScript -->
+        </select>
+    @endif
+</div>
 
     <main class="container">
         <!-- Form for Part 3_18 -->
@@ -492,15 +480,14 @@ $userType = Auth::user()->user_type;
         let comision3_18 = ['comisionComOrgInt', 'comisionComOrgNac', 'comisionComOrgReg', 'comisionComApoyoInt', 'comisionComApoyoNac', 'comisionComApoyoReg', 'comisionCicloComOrgInt', 'comisionCicloComOrgNac', 'comisionCicloComOrgReg', 'comisionCicloComApoyoInt', 'comisionCicloComApoyoNac', 'comisionCicloComApoyoReg'];
         let obs3_18 = ['obsComOrgInt', 'obsComOrgNac', 'obsComOrgReg', 'obsComApoyoInt', 'obsComApoyoNac', 'obsComApoyoReg', 'obsCicloComOrgInt', 'obsCicloComOrgNac', 'obsCicloComOrgReg', 'obsCicloComApoyoInt', 'obsCicloComApoyoNac','obsCicloComApoyoReg'];
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
-            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userType = @json($userType);  // Inject user type from backend to JS
+        const user_identity = @json($user_identity);
+        const docenteSelect = document.getElementById('docenteSelect');
 
-            // Current user type from the backend
-            const userType = @json($userType);  // Get user type from backend
-
-            // Fetch docente options if user is a dictaminador
-            if (docenteSelect && userType === 'dictaminador') {
+        if (docenteSelect) {
+            // Cuando el usuario es dictaminador
+            if (userType === 'dictaminador') {
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -512,66 +499,67 @@ $userType = Auth::user()->user_type;
                         docenteSelect.appendChild(option);
                     });
 
-                    // Handle docente selection change
                     docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
+
                         if (email) {
-                            try {
-                                const response = await axios.get('/get-docente-data', { params: { email } });
-                                const data = response.data;
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
 
-                                // Populate fields with fetched data
-                                document.getElementById('score3_18').textContent = data.form3_18.score3_18 || '0';
+                                    // Populate fields with fetched data
+                                    document.getElementById('score3_18').textContent = selectedResponseForm3_18.score3_18 || '0';
 
-                                // Cantidades
-                                document.getElementById('cantComOrgInt').textContent = data.form3_18.cantComOrgInt || '0';
-                                document.getElementById('cantComOrgNac').textContent = data.form3_18.cantComOrgNac || '0';
-                                document.getElementById('cantComApoyoInt').textContent = data.form3_18.cantComApoyoInt || '0';
-                                document.getElementById('cantComApoyoNac').textContent = data.form3_18.cantComApoyoNac || '0';
-                                document.getElementById('cantComApoyoReg').textContent = data.form3_18.cantComApoyoReg || '0';
-                                document.getElementById('cantCicloComOrgInt').textContent = data.form3_18.cantCicloComOrgInt || '0';
-                                document.getElementById('cantCicloComOrgNac').textContent = data.form3_18.cantCicloComOrgNac || '0';
-                                document.getElementById('cantCicloComOrgReg').textContent = data.form3_18.cantCicloComOrgReg || '0';
-                                document.getElementById('cantCicloComApoyoInt').textContent = data.form3_18.cantCicloComApoyoInt || '0';
-                                document.getElementById('cantCicloComApoyoNac').textContent = data.form3_18.cantCicloComApoyoNac || '0';
-                                document.getElementById('cantCicloComApoyoReg').textContent = data.form3_18.cantCicloComApoyoReg || '0';
-                                document.getElementById('cantComOrgReg').textContent = data.form3_18.cantComOrgReg || '0';
+                                    // Cantidades
+                                    document.getElementById('cantComOrgInt').textContent = selectedResponseForm3_18.cantComOrgInt || '0';
+                                    document.getElementById('cantComOrgNac').textContent = selectedResponseForm3_18.cantComOrgNac || '0';
+                                    document.getElementById('cantComApoyoInt').textContent = selectedResponseForm3_18.cantComApoyoInt || '0';
+                                    document.getElementById('cantComApoyoNac').textContent = selectedResponseForm3_18.cantComApoyoNac || '0';
+                                    document.getElementById('cantComApoyoReg').textContent = selectedResponseForm3_18.cantComApoyoReg || '0';
+                                    document.getElementById('cantCicloComOrgInt').textContent = selectedResponseForm3_18.cantCicloComOrgInt || '0';
+                                    document.getElementById('cantCicloComOrgNac').textContent = selectedResponseForm3_18.cantCicloComOrgNac || '0';
+                                    document.getElementById('cantCicloComOrgReg').textContent = selectedResponseForm3_18.cantCicloComOrgReg || '0';
+                                    document.getElementById('cantCicloComApoyoInt').textContent = selectedResponseForm3_18.cantCicloComApoyoInt || '0';
+                                    document.getElementById('cantCicloComApoyoNac').textContent = selectedResponseForm3_18.cantCicloComApoyoNac || '0';
+                                    document.getElementById('cantCicloComApoyoReg').textContent = selectedResponseForm3_18.cantCicloComApoyoReg || '0';
+                                    document.getElementById('cantComOrgReg').textContent = selectedResponseForm3_18.cantComOrgReg || '0';
 
-                                // Subtotales
-                                document.getElementById('subtotalComOrgInt').textContent = data.form3_18.subtotalComOrgInt || '0';
-                                document.getElementById('subtotalComOrgNac').textContent = data.form3_18.subtotalComOrgNac || '0';
-                                document.getElementById('subtotalComOrgReg').textContent = data.form3_18.subtotalComOrgReg || '0';
-                                document.getElementById('subtotalComApoyoInt').textContent = data.form3_18.subtotalComApoyoInt || '0';
-                                document.getElementById('subtotalComApoyoNac').textContent = data.form3_18.subtotalComApoyoNac || '0';
-                                document.getElementById('subtotalComApoyoReg').textContent = data.form3_18.subtotalComApoyoReg || '0';
-                                document.getElementById('subtotalCicloComOrgInt').textContent = data.form3_18.subtotalCicloComOrgInt || '0';
-                                document.getElementById('subtotalCicloComOrgNac').textContent = data.form3_18.subtotalCicloComOrgNac || '0';
-                                document.getElementById('subtotalCicloComOrgReg').textContent = data.form3_18.subtotalCicloComOrgReg || '0';
-                                document.getElementById('subtotalCicloComApoyoInt').textContent = data.form3_18.subtotalCicloComApoyoInt || '0';
-                                document.getElementById('subtotalCicloComApoyoNac').textContent = data.form3_18.subtotalCicloComApoyoNac || '0';
-                                document.getElementById('subtotalCicloComApoyoReg').textContent = data.form3_18.subtotalCicloComApoyoReg || '0';
+                                    // Subtotales
+                                    document.getElementById('subtotalComOrgInt').textContent = selectedResponseForm3_18.subtotalComOrgInt || '0';
+                                    document.getElementById('subtotalComOrgNac').textContent = selectedResponseForm3_18.subtotalComOrgNac || '0';
+                                    document.getElementById('subtotalComOrgReg').textContent = selectedResponseForm3_18.subtotalComOrgReg || '0';
+                                    document.getElementById('subtotalComApoyoInt').textContent = selectedResponseForm3_18.subtotalComApoyoInt || '0';
+                                    document.getElementById('subtotalComApoyoNac').textContent = selectedResponseForm3_18.subtotalComApoyoNac || '0';
+                                    document.getElementById('subtotalComApoyoReg').textContent = selectedResponseForm3_18.subtotalComApoyoReg || '0';
+                                    document.getElementById('subtotalCicloComOrgInt').textContent = selectedResponseForm3_18.subtotalCicloComOrgInt || '0';
+                                    document.getElementById('subtotalCicloComOrgNac').textContent = selectedResponseForm3_18.subtotalCicloComOrgNac || '0';
+                                    document.getElementById('subtotalCicloComOrgReg').textContent = selectedResponseForm3_18.subtotalCicloComOrgReg || '0';
+                                    document.getElementById('subtotalCicloComApoyoInt').textContent = selectedResponseForm3_18.subtotalCicloComApoyoInt || '0';
+                                    document.getElementById('subtotalCicloComApoyoNac').textContent = selectedResponseForm3_18.subtotalCicloComApoyoNac || '0';
+                                    document.getElementById('subtotalCicloComApoyoReg').textContent = selectedResponseForm3_18.subtotalCicloComApoyoReg || '0';
 
 
-                                // Populate hidden inputs
-                                document.querySelector('input[name="user_id"]').value = data.form3_18.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form3_18.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form3_18.user_type || '';
+                                    // Populate hidden inputs
+                                    document.querySelector('input[name="user_id"]').value = selectedResponseForm3_18.user_id || '';
+                                    document.querySelector('input[name="email"]').value = selectedResponseForm3_18.email || '';
+                                    document.querySelector('input[name="user_type"]').value = selectedResponseForm3_18.user_type || '';
 
-                                    // Verificar si el elemento existe antes de establecer su contenido
-                                const convocatoriaElement = document.getElementById('convocatoria');
-                                if (convocatoriaElement) {
-                                    if (data.form1) {
-                                        convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                    // Actualizar convocatoria
+                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                    if (convocatoriaElement) {
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        } else {
+                                            console.error('form1 no está definido en la respuesta.');
+                                        }
                                     } else {
-                                        console.error('form1 no está definido en la respuesta.');
+                                        console.error('Elemento con ID "convocatoria" no encontrado.');
                                     }
-                                } else {
-                                    console.error('Elemento con ID "convocatoria" no encontrado.');
-                                }
-
-                            } catch (error) {
-                                console.error('Error fetching docente data:', error);
-                            }
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching docente data:', error);
+                                });
+                            //await asignarDocentes(user_identity, email);
                         }
                     });
                 } catch (error) {
@@ -579,110 +567,117 @@ $userType = Auth::user()->user_type;
                     alert('No se pudo cargar la lista de docentes.');
                 }
             }
+            // Cuando el userType está vacío
+            else if (userType === '') {
 
-            // Fetch dictaminador options if user type is null or empty
-            if (dictaminadorSelect && userType === '') {
                 try {
-                    const response = await fetch('/get-dictaminadores');
-                    const dictaminadores = await response.json();
+                    const response = await fetch('/get-docentes');
 
-                    dictaminadores.forEach(dictaminador => {
+                    const docentes = await response.json();
+
+                    docentes.forEach(docente => {
                         const option = document.createElement('option');
-                        option.value = dictaminador.id;  // Use dictaminador ID as value
-                        option.dataset.email = dictaminador.email; // Store email in data attribute
-                        option.textContent = dictaminador.email;
-                        dictaminadorSelect.appendChild(option);
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
                     });
 
-                    // Handle dictaminador selection change
-                    dictaminadorSelect.addEventListener('change', async (event) => {
-                        const dictaminadorId = event.target.value;
-                        const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
+                    docenteSelect.addEventListener('change', async (event) => {
+                        const email = event.target.value;
 
-                        if (dictaminadorId) {
-                            try {
-                                const response = await axios.get('/get-dictaminador-data', {
-                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
+                        if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+
+                                    // Actualizar convocatoria
+
+                                    // Verifica si la respuesta contiene los datos esperados
+                                    if (data.docente) {
+                                        const convocatoriaElement = document.getElementById('convocatoria');
+
+                                        // Mostrar la convocatoria si existe
+                                        if (convocatoriaElement) {
+                                            if (data.docente.convocatoria) {
+                                                convocatoriaElement.textContent = data.docente.convocatoria;
+                                            } else {
+                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                            }
+                                        }
+                                    }
                                 });
-                                const data = response.data;
+                            // Lógica para obtener datos de DictaminatorsResponseForm2
+                            try {
+                                const response = await fetch('/get-dictaminators-responses');
+                                const dictaminatorResponses = await response.json();
+                                // Filtrar la entrada correspondiente al email seleccionado
+                                const selectedResponseForm3_18 = dictaminatorResponses.form3_18.find(res => res.email === email);
+                                if (selectedResponseForm3_18) {
 
-                                // Populate fields based on fetched data
-                                if (data.form3_18) {
-                                    document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
-                                    document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
-                                    document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
-                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
-                                    document.getElementById('score3_18').textContent = data.form3_18.score3_18 || '0';
-                                    document.getElementById('comision3_18').textContent = data.form3_18.comision3_18 || '0';
+                                    document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_18.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = selectedResponseForm3_18.user_id || '';
+                                    document.querySelector('input[name="email"]').value = selectedResponseForm3_18.email || '';
+                                    document.querySelector('input[name="user_type"]').value = selectedResponseForm3_18.user_type || '';
+                                    document.getElementById('score3_18').textContent = selectedResponseForm3_18.score3_18 || '0';
+                                    document.getElementById('comision3_18').textContent = selectedResponseForm3_18.comision3_18 || '0';
 
                                     // Cantidades
-                                    document.getElementById('cantComOrgInt').textContent = data.form3_18.cantComOrgInt || '0';
-                                    document.getElementById('cantComOrgNac').textContent = data.form3_18.cantComOrgNac || '0';
-                                    document.getElementById('cantComOrgReg').textContent = data.form3_18.cantComOrgReg || '0';
-                                    document.getElementById('cantComApoyoInt').textContent = data.form3_18.cantComApoyoInt || '0';
-                                    document.getElementById('cantComApoyoNac').textContent = data.form3_18.cantComApoyoNac || '0';
-                                    document.getElementById('cantComApoyoReg').textContent = data.form3_18.cantComApoyoReg || '0';
-                                    document.getElementById('cantCicloComOrgInt').textContent = data.form3_18.cantCicloComOrgInt || '0';
-                                    document.getElementById('cantCicloComOrgNac').textContent = data.form3_18.cantCicloComOrgNac || '0';
-                                    document.getElementById('cantCicloComOrgReg').textContent = data.form3_18.cantCicloComOrgReg || '0';
-                                    document.getElementById('cantCicloComApoyoInt').textContent = data.form3_18.cantCicloComApoyoInt || '0';
-                                    document.getElementById('cantCicloComApoyoNac').textContent = data.form3_18.cantCicloComApoyoNac || '0';
-                                    document.getElementById('cantCicloComApoyoReg').textContent = data.form3_18.cantCicloComApoyoReg || '0';
-                                    
+                                    document.getElementById('cantComOrgInt').textContent = selectedResponseForm3_18.cantComOrgInt || '0';
+                                    document.getElementById('cantComOrgNac').textContent = selectedResponseForm3_18.cantComOrgNac || '0';
+                                    document.getElementById('cantComOrgReg').textContent = selectedResponseForm3_18.cantComOrgReg || '0';
+                                    document.getElementById('cantComApoyoInt').textContent = selectedResponseForm3_18.cantComApoyoInt || '0';
+                                    document.getElementById('cantComApoyoNac').textContent = selectedResponseForm3_18.cantComApoyoNac || '0';
+                                    document.getElementById('cantComApoyoReg').textContent = selectedResponseForm3_18.cantComApoyoReg || '0';
+                                    document.getElementById('cantCicloComOrgInt').textContent = selectedResponseForm3_18.cantCicloComOrgInt || '0';
+                                    document.getElementById('cantCicloComOrgNac').textContent = selectedResponseForm3_18.cantCicloComOrgNac || '0';
+                                    document.getElementById('cantCicloComOrgReg').textContent = selectedResponseForm3_18.cantCicloComOrgReg || '0';
+                                    document.getElementById('cantCicloComApoyoInt').textContent = selectedResponseForm3_18.cantCicloComApoyoInt || '0';
+                                    document.getElementById('cantCicloComApoyoNac').textContent = selectedResponseForm3_18.cantCicloComApoyoNac || '0';
+                                    document.getElementById('cantCicloComApoyoReg').textContent = selectedResponseForm3_18.cantCicloComApoyoReg || '0';
+
                                     // Subtotales
-                                    document.getElementById('subtotalComOrgInt').textContent = data.form3_18.subtotalComOrgInt || '0';
-                                    document.getElementById('subtotalComOrgNac').textContent = data.form3_18.subtotalComOrgNac || '0';
-                                    document.getElementById('subtotalComOrgReg').textContent = data.form3_18.subtotalComOrgReg || '0';
-                                    document.getElementById('subtotalComApoyoInt').textContent = data.form3_18.subtotalComApoyoInt || '0';
-                                    document.getElementById('subtotalComApoyoNac').textContent = data.form3_18.subtotalComApoyoNac || '0';
-                                    document.getElementById('subtotalComApoyoReg').textContent = data.form3_18.subtotalComApoyoReg || '0';
-                                    document.getElementById('subtotalCicloComOrgInt').textContent = data.form3_18.subtotalCicloComOrgInt || '0';
-                                    document.getElementById('subtotalCicloComOrgNac').textContent = data.form3_18.subtotalCicloComOrgNac || '0';
-                                    document.getElementById('subtotalCicloComOrgReg').textContent = data.form3_18.subtotalCicloComOrgReg || '0';
-                                    document.getElementById('subtotalCicloComApoyoInt').textContent = data.form3_18.subtotalCicloComApoyoInt || '0';
-                                    document.getElementById('subtotalCicloComApoyoNac').textContent = data.form3_18.subtotalCicloComApoyoNac || '0';
-                                    document.getElementById('subtotalCicloComApoyoReg').textContent = data.form3_18.subtotalCicloComApoyoReg || '0'; 
+                                    document.getElementById('subtotalComOrgInt').textContent = selectedResponseForm3_18.subtotalComOrgInt || '0';
+                                    document.getElementById('subtotalComOrgNac').textContent = selectedResponseForm3_18.subtotalComOrgNac || '0';
+                                    document.getElementById('subtotalComOrgReg').textContent = selectedResponseForm3_18.subtotalComOrgReg || '0';
+                                    document.getElementById('subtotalComApoyoInt').textContent = selectedResponseForm3_18.subtotalComApoyoInt || '0';
+                                    document.getElementById('subtotalComApoyoNac').textContent = selectedResponseForm3_18.subtotalComApoyoNac || '0';
+                                    document.getElementById('subtotalComApoyoReg').textContent = selectedResponseForm3_18.subtotalComApoyoReg || '0';
+                                    document.getElementById('subtotalCicloComOrgInt').textContent = selectedResponseForm3_18.subtotalCicloComOrgInt || '0';
+                                    document.getElementById('subtotalCicloComOrgNac').textContent = selectedResponseForm3_18.subtotalCicloComOrgNac || '0';
+                                    document.getElementById('subtotalCicloComOrgReg').textContent = selectedResponseForm3_18.subtotalCicloComOrgReg || '0';
+                                    document.getElementById('subtotalCicloComApoyoInt').textContent = selectedResponseForm3_18.subtotalCicloComApoyoInt || '0';
+                                    document.getElementById('subtotalCicloComApoyoNac').textContent = selectedResponseForm3_18.subtotalCicloComApoyoNac || '0';
+                                    document.getElementById('subtotalCicloComApoyoReg').textContent = selectedResponseForm3_18.subtotalCicloComApoyoReg || '0';
 
 
                                     // Comisiones
-                                    document.querySelector('#comisionComOrgInt').textContent = data.form3_18.comisionComOrgInt || '0';
-                                    document.querySelector('#comisionComOrgNac').textContent = data.form3_18.comisionComOrgNac || '0';
-                                    document.querySelector('#comisionComOrgReg').textContent = data.form3_18.comisionComOrgReg || '0';
-                                    document.querySelector('#comisionComApoyoInt').textContent = data.form3_18.comisionComApoyoInt || '0';
-                                    document.querySelector('#comisionComApoyoNac').textContent = data.form3_18.comisionComApoyoNac || '0';
-                                    document.querySelector('#comisionComApoyoReg').textContent = data.form3_18.comisionComApoyoReg || '0';
-                                    document.querySelector('#comisionCicloComOrgInt').textContent = data.form3_18.comisionCicloComOrgInt || '0';
-                                    document.querySelector('#comisionCicloComOrgNac').textContent = data.form3_18.comisionCicloComOrgNac || '0';
-                                    document.querySelector('#comisionCicloComOrgReg').textContent = data.form3_18.comisionCicloComOrgReg || '0';
-                                    document.querySelector('#comisionCicloComApoyoInt').textContent = data.form3_18.comisionCicloComApoyoInt || '0';
-                                    document.querySelector('#comisionCicloComApoyoNac').textContent = data.form3_18.comisionCicloComApoyoNac || '0';
-                                    document.querySelector('#comisionCicloComApoyoReg').textContent = data.form3_18.comisionCicloComApoyoReg || '0';
+                                    document.querySelector('#comisionComOrgInt').textContent = selectedResponseForm3_18.comisionComOrgInt || '0';
+                                    document.querySelector('#comisionComOrgNac').textContent = selectedResponseForm3_18.comisionComOrgNac || '0';
+                                    document.querySelector('#comisionComOrgReg').textContent = selectedResponseForm3_18.comisionComOrgReg || '0';
+                                    document.querySelector('#comisionComApoyoInt').textContent = selectedResponseForm3_18.comisionComApoyoInt || '0';
+                                    document.querySelector('#comisionComApoyoNac').textContent = selectedResponseForm3_18.comisionComApoyoNac || '0';
+                                    document.querySelector('#comisionComApoyoReg').textContent = selectedResponseForm3_18.comisionComApoyoReg || '0';
+                                    document.querySelector('#comisionCicloComOrgInt').textContent = selectedResponseForm3_18.comisionCicloComOrgInt || '0';
+                                    document.querySelector('#comisionCicloComOrgNac').textContent = selectedResponseForm3_18.comisionCicloComOrgNac || '0';
+                                    document.querySelector('#comisionCicloComOrgReg').textContent = selectedResponseForm3_18.comisionCicloComOrgReg || '0';
+                                    document.querySelector('#comisionCicloComApoyoInt').textContent = selectedResponseForm3_18.comisionCicloComApoyoInt || '0';
+                                    document.querySelector('#comisionCicloComApoyoNac').textContent = selectedResponseForm3_18.comisionCicloComApoyoNac || '0';
+                                    document.querySelector('#comisionCicloComApoyoReg').textContent = selectedResponseForm3_18.comisionCicloComApoyoReg || '0';
 
                                     // Observaciones
-                                    document.querySelector('#obsComOrgInt').textContent = data.form3_18.obsComOrgInt || '';
-                                    document.querySelector('#obsComOrgNac').textContent = data.form3_18.obsComOrgNac || '';
-                                    document.querySelector('#obsComOrgReg').textContent = data.form3_18.obsComOrgReg || '';
-                                    document.querySelector('#obsComApoyoInt').textContent = data.form3_18.obsComApoyoInt || '';
-                                    document.querySelector('#obsComApoyoNac').textContent = data.form3_18.obsComApoyoNac || '';
-                                    document.querySelector('#obsComApoyoReg').textContent = data.form3_18.obsComApoyoReg || '';
-                                    document.querySelector('#obsCicloComOrgInt').textContent = data.form3_18.obsCicloComOrgInt || '';
-                                    document.querySelector('#obsCicloComOrgNac').textContent = data.form3_18.obsCicloComOrgNac || '';
-                                    document.querySelector('#obsCicloComOrgReg').textContent = data.form3_18.obsCicloComOrgReg || '';
-                                    document.querySelector('#obsCicloComApoyoInt').textContent = data.form3_18.obsCicloComApoyoInt || '';
-                                    document.querySelector('#obsCicloComApoyoNac').textContent = data.form3_18.obsCicloComApoyoNac || '';
-                                    document.querySelector('#obsCicloComApoyoReg').textContent = data.form3_18.obsCicloComApoyoReg || '';
+                                    document.querySelector('#obsComOrgInt').textContent = selectedResponseForm3_18.obsComOrgInt || '';
+                                    document.querySelector('#obsComOrgNac').textContent = selectedResponseForm3_18.obsComOrgNac || '';
+                                    document.querySelector('#obsComOrgReg').textContent = selectedResponseForm3_18.obsComOrgReg || '';
+                                    document.querySelector('#obsComApoyoInt').textContent = selectedResponseForm3_18.obsComApoyoInt || '';
+                                    document.querySelector('#obsComApoyoNac').textContent = selectedResponseForm3_18.obsComApoyoNac || '';
+                                    document.querySelector('#obsComApoyoReg').textContent = selectedResponseForm3_18.obsComApoyoReg || '';
+                                    document.querySelector('#obsCicloComOrgInt').textContent = selectedResponseForm3_18.obsCicloComOrgInt || '';
+                                    document.querySelector('#obsCicloComOrgNac').textContent = selectedResponseForm3_18.obsCicloComOrgNac || '';
+                                    document.querySelector('#obsCicloComOrgReg').textContent = selectedResponseForm3_18.obsCicloComOrgReg || '';
+                                    document.querySelector('#obsCicloComApoyoInt').textContent = selectedResponseForm3_18.obsCicloComApoyoInt || '';
+                                    document.querySelector('#obsCicloComApoyoNac').textContent = selectedResponseForm3_18.obsCicloComApoyoNac || '';
+                                    document.querySelector('#obsCicloComApoyoReg').textContent = selectedResponseForm3_18.obsCicloComApoyoReg || '';
 
-                                    // Verificar si el elemento existe antes de establecer su contenido
-                                    const convocatoriaElement = document.getElementById('convocatoria');
-                                    if (convocatoriaElement) {
-                                        if (data.responseForm1) {
-                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
-                                        } else {
-                                            console.error('form1 no está definido en la respuesta.');
-                                        }
-                                    } else {
-                                        console.error('Elemento con ID "convocatoria" no encontrado.');
-                                    }
 
                                 } else {
                                     console.error('No form3_18 data found for the selected dictaminador.');
@@ -728,16 +723,23 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('comision3_18').textContent = '0';
                                 }
                             } catch (error) {
-                                console.error('Error fetching dictaminador data:', error);
+                                console.error('Error fetching dictaminators responses:', error);
                             }
                         }
                     });
                 } catch (error) {
-                    console.error('Error fetching dictaminadores:', error);
-                    alert('No se pudo cargar la lista de dictaminadores.');
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
                 }
+
+
             }
-        });
+
+
+
+        }
+
+    });
 
         // Function to handle form submission
         async function submitForm(url, formId) {

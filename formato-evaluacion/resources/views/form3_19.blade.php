@@ -71,33 +71,21 @@ $newLocale = str_replace('_', '-', $locale);
         @endif
     </div>
     <x-general-header />
-    @php
-$userType = Auth::user()->user_type;
-    @endphp
-    <div class="container mt-4 printButtonClass">
-        @if($userType == 'dictaminador')
-            <!-- Select para dictaminador seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @elseif($userType == '')
-            <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-            <select id="dictaminadorSelect" class="form-select">
-                <option value="">Seleccionar un dictaminador</option>
-                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-            </select>
-        @else
-            <!-- Select por defecto para otros usuarios seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @endif
-    </div>
+@php
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
+@endphp
+<div class="container mt-4" id="seleccionDocente">
+    @if($userType !== 'docente')
+        <!-- Select para dictaminador seleccionando docentes -->
+        <label for="docenteSelect">Seleccionar Docente:</label>
+        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+            <option value="">Seleccionar un docente</option>
+            <!-- Aquí se llenarán los docentes con JavaScript -->
+        </select>
+    @endif
+</div>
 
     <main class="container">
         <!-- Form for Part 3_19 -->
@@ -715,15 +703,14 @@ $userType = Auth::user()->user_type;
     ];
 
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
-            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userType = @json($userType);  // Inject user type from backend to JS
+        const user_identity = @json($user_identity);
+        const docenteSelect = document.getElementById('docenteSelect');
 
-            // Current user type from the backend
-            const userType = @json($userType);  // Get user type from backend
-
-            // Fetch docente options if user is a dictaminador
-            if (docenteSelect && userType === 'dictaminador') {
+        if (docenteSelect) {
+            // Cuando el usuario es dictaminador
+            if (userType === 'dictaminador') {
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -735,131 +722,20 @@ $userType = Auth::user()->user_type;
                         docenteSelect.appendChild(option);
                     });
 
-                    // Handle docente selection change
                     docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
+
                         if (email) {
-                            try {
-                                const response = await axios.get('/get-docente-data', { params: { email } });
-                                const data = response.data;
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
 
-                                // Populate fields with fetched data
-                                document.getElementById('score3_19').textContent = data.form3_19.score3_19 || '0';
-
-                                // Cantidades
-                                document.getElementById('cantCGUtitular').textContent = data.form3_19.cantCGUtitular || '0';
-                                document.getElementById('cantCGUespecial').textContent = data.form3_19.cantCGUespecial || '0';
-                                document.getElementById('cantCGUpermanente').textContent = data.form3_19.cantCGUpermanente || '0';
-                                document.getElementById('cantCAACtitular').textContent = data.form3_19.cantCAACtitular || '0';
-                                document.getElementById('cantCAACintegCom').textContent = data.form3_19.cantCAACintegCom || '0';
-                                document.getElementById('cantComDepart').textContent = data.form3_19.cantComDepart || '0';
-                                document.getElementById('cantComPEDPD').textContent = data.form3_19.cantComPEDPD || '0';
-                                document.getElementById('cantComPartPos').textContent = data.form3_19.cantComPartPos || '0';
-                                document.getElementById('cantRespPos').textContent = data.form3_19.cantRespPos || '0';
-                                document.getElementById('cantRespCarrera').textContent = data.form3_19.cantRespCarrera || '0';
-                                document.getElementById('cantRespProd').textContent = data.form3_19.cantRespProd || '0';
-                                document.getElementById('cantRespLab').textContent = data.form3_19.cantRespLab || '0';
-                                document.getElementById('cantExamProf').textContent = data.form3_19.cantExamProf || '0';
-                                document.getElementById('cantExamAcademicos').textContent = data.form3_19.cantExamAcademicos || '0';
-                                document.getElementById('cantPRODEPformResp').textContent = data.form3_19.cantPRODEPformResp || '0';
-                                document.getElementById('cantPRODEPformInteg').textContent = data.form3_19.cantPRODEPformInteg || '0';
-                                document.getElementById('cantPRODEPenconsResp').textContent = data.form3_19.cantPRODEPenconsResp || '0';
-                                document.getElementById('cantPRODEPenconsInteg').textContent = data.form3_19.cantPRODEPenconsInteg || '0';
-                                document.getElementById('cantPRODEPconsResp').textContent = data.form3_19.cantPRODEPconsResp || '0';
-                                document.getElementById('cantPRODEPconsInteg').textContent = data.form3_19.cantPRODEPconsInteg || '0';
-
-
-
-                                // Subtotales
-                                document.getElementById('subtotalCGUtitular').textContent = data.form3_19.subtotalCGUtitular || '0';
-                                document.getElementById('subtotalCGUespecial').textContent = data.form3_19.subtotalCGUespecial || '0';
-                                document.getElementById('subtotalCGUpermanente').textContent = data.form3_19.subtotalCGUpermanente || '0';
-                                document.getElementById('subtotalCAACtitular').textContent = data.form3_19.subtotalCAACtitular || '0';
-                                document.getElementById('subtotalCAACintegCom').textContent = data.form3_19.subtotalCAACintegCom || '0';
-                                document.getElementById('subtotalComDepart').textContent = data.form3_19.subtotalComDepart || '0';
-                                document.getElementById('subtotalComPEDPD').textContent = data.form3_19.subtotalComPEDPD || '0';
-                                document.getElementById('subtotalComPartPos').textContent = data.form3_19.subtotalComPartPos || '0';
-                                document.getElementById('subtotalRespPos').textContent = data.form3_19.subtotalRespPos || '0';
-                                document.getElementById('subtotalRespCarrera').textContent = data.form3_19.subtotalRespCarrera || '0';
-                                document.getElementById('subtotalRespProd').textContent = data.form3_19.subtotalRespProd || '0';
-                                document.getElementById('subtotalRespLab').textContent = data.form3_19.subtotalRespLab || '0';
-                                document.getElementById('subtotalExamProf').textContent = data.form3_19.subtotalExamProf || '0';
-                                document.getElementById('subtotalExamAcademicos').textContent = data.form3_19.subtotalExamAcademicos || '0';
-                                document.getElementById('subtotalPRODEPformResp').textContent = data.form3_19.subtotalPRODEPformResp || '0';
-                                document.getElementById('subtotalPRODEPformInteg').textContent = data.form3_19.subtotalPRODEPformInteg || '0';
-                                document.getElementById('subtotalPRODEPenconsResp').textContent = data.form3_19.subtotalPRODEPenconsResp || '0';
-                                document.getElementById('subtotalPRODEPenconsInteg').textContent = data.form3_19.subtotalPRODEPenconsInteg || '0';
-                                document.getElementById('subtotalPRODEPconsResp').textContent = data.form3_19.subtotalPRODEPconsResp || '0';
-                                document.getElementById('subtotalPRODEPconsInteg').textContent = data.form3_19.subtotalPRODEPconsInteg || '0';
-
-
-                                // Populate hidden inputs
-                                document.querySelector('input[name="user_id"]').value = data.form3_19.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form3_19.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form3_19.user_type || '';
-
-                                    // Verificar si el elemento existe antes de establecer su contenido
-                                const convocatoriaElement = document.getElementById('convocatoria');
-                                if (convocatoriaElement) {
-                                    if (data.form1) {
-                                        convocatoriaElement.textContent = data.form1.convocatoria || '';
-                                    } else {
-                                        console.error('form1 no está definido en la respuesta.');
-                                    }
-                                } else {
-                                    console.error('Elemento con ID "convocatoria" no encontrado.');
-                                }
-
-                            } catch (error) {
-                                console.error('Error fetching docente data:', error);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error fetching docentes:', error);
-                    alert('No se pudo cargar la lista de docentes.');
-                }
-            }
-
-            // Fetch dictaminador options if user type is null or empty
-            if (dictaminadorSelect && userType === '') {
-                try {
-                    const response = await fetch('/get-dictaminadores');
-                    const dictaminadores = await response.json();
-
-                    dictaminadores.forEach(dictaminador => {
-                        const option = document.createElement('option');
-                        option.value = dictaminador.id;  // Use dictaminador ID as value
-                        option.dataset.email = dictaminador.email; // Store email in data attribute
-                        option.textContent = dictaminador.email;
-                        dictaminadorSelect.appendChild(option);
-                    });
-
-                    // Handle dictaminador selection change
-                    dictaminadorSelect.addEventListener('change', async (event) => {
-                        const dictaminadorId = event.target.value;
-                        const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-
-                        if (dictaminadorId) {
-                            try {
-                                const response = await axios.get('/get-dictaminador-data', {
-                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                                });
-                                const data = response.data;
-
-                                // Populate fields based on fetched data
-                                if (data.form3_19) {
-                                    document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
-                                    document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
-                                    document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
-                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
+                                    // Populate fields with fetched data
                                     document.getElementById('score3_19').textContent = data.form3_19.score3_19 || '0';
-                                    document.getElementById('comision3_19').textContent = data.form3_19.comision3_19 || '0';
 
                                     // Cantidades
                                     document.getElementById('cantCGUtitular').textContent = data.form3_19.cantCGUtitular || '0';
                                     document.getElementById('cantCGUespecial').textContent = data.form3_19.cantCGUespecial || '0';
-                                    document.getElementById('cantRespLab').textContent = data.form3_19.cantRespLab || '0';
                                     document.getElementById('cantCGUpermanente').textContent = data.form3_19.cantCGUpermanente || '0';
                                     document.getElementById('cantCAACtitular').textContent = data.form3_19.cantCAACtitular || '0';
                                     document.getElementById('cantCAACintegCom').textContent = data.form3_19.cantCAACintegCom || '0';
@@ -868,7 +744,8 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('cantComPartPos').textContent = data.form3_19.cantComPartPos || '0';
                                     document.getElementById('cantRespPos').textContent = data.form3_19.cantRespPos || '0';
                                     document.getElementById('cantRespCarrera').textContent = data.form3_19.cantRespCarrera || '0';
-                                    document.getElementById('cantRespProd').textContent = data.form3_19.cantRespProd || '0'; 
+                                    document.getElementById('cantRespProd').textContent = data.form3_19.cantRespProd || '0';
+                                    document.getElementById('cantRespLab').textContent = data.form3_19.cantRespLab || '0';
                                     document.getElementById('cantExamProf').textContent = data.form3_19.cantExamProf || '0';
                                     document.getElementById('cantExamAcademicos').textContent = data.form3_19.cantExamAcademicos || '0';
                                     document.getElementById('cantPRODEPformResp').textContent = data.form3_19.cantPRODEPformResp || '0';
@@ -877,6 +754,7 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('cantPRODEPenconsInteg').textContent = data.form3_19.cantPRODEPenconsInteg || '0';
                                     document.getElementById('cantPRODEPconsResp').textContent = data.form3_19.cantPRODEPconsResp || '0';
                                     document.getElementById('cantPRODEPconsInteg').textContent = data.form3_19.cantPRODEPconsInteg || '0';
+
 
 
                                     // Subtotales
@@ -901,61 +779,177 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('subtotalPRODEPconsResp').textContent = data.form3_19.subtotalPRODEPconsResp || '0';
                                     document.getElementById('subtotalPRODEPconsInteg').textContent = data.form3_19.subtotalPRODEPconsInteg || '0';
 
-                                    // Comisiones
-                                    document.querySelector('#comCGUtitular').textContent = data.form3_19.comCGUtitular || '0';
-                                    document.querySelector('#comCGUespecial').textContent = data.form3_19.comCGUespecial || '0';
-                                    document.querySelector('#comCGUpermanente').textContent = data.form3_19.comCGUpermanente || '0';
-                                    document.querySelector('#comCAACtitular').textContent = data.form3_19.comCAACtitular || '0';
-                                    document.querySelector('#comCAACintegCom').textContent = data.form3_19.comCAACintegCom || '0';
-                                    document.querySelector('#comComDepart').textContent = data.form3_19.comComDepart || '0';
-                                    document.querySelector('#comComPEDPD').textContent = data.form3_19.comComPEDPD || '0';
-                                    document.querySelector('#comComPartPos').textContent = data.form3_19.comComPartPos || '0';
-                                    document.querySelector('#comRespPos').textContent = data.form3_19.comRespPos || '0';
-                                    document.querySelector('#comRespCarrera').textContent = data.form3_19.comRespCarrera || '0';
-                                    document.querySelector('#comRespProd').textContent = data.form3_19.comRespProd || '0';
-                                    document.querySelector('#comRespLab').textContent = data.form3_19.comRespLab || '0';
-                                    document.querySelector('#comExamProf').textContent = data.form3_19.comExamProf || '0';
-                                    document.querySelector('#comExamAcademicos').textContent = data.form3_19.comExamAcademicos || '0';
-                                    document.querySelector('#comPRODEPformResp').textContent = data.form3_19.comPRODEPformResp || '0';
-                                    document.querySelector('#comPRODEPformInteg').textContent = data.form3_19.comPRODEPformInteg || '0';
-                                    document.querySelector('#comPRODEPenconsResp').textContent = data.form3_19.comPRODEPenconsResp || '0';
-                                    document.querySelector('#comPRODEPenconsInteg').textContent = data.form3_19.comPRODEPenconsInteg || '0';
-                                    document.querySelector('#comPRODEPconsResp').textContent = data.form3_19.comPRODEPconsResp || '0';
-                                    document.querySelector('#comPRODEPconsInteg').textContent = data.form3_19.comPRODEPconsInteg || '0';
 
-                                    // Observaciones
-                                    document.querySelector('#obsCGUtitular').textContent = data.form3_19.obsCGUtitular || '';
-                                    document.querySelector('#obsCGUespecial').textContent = data.form3_19.obsCGUespecial || '';
-                                    document.querySelector('#obsCGUpermanente').textContent = data.form3_19.obsCGUpermanente || '';
-                                    document.querySelector('#obsCAACtitular').textContent = data.form3_19.obsCAACtitular || '';
-                                    document.querySelector('#obsCAACintegCom').textContent = data.form3_19.obsCAACintegCom || '';
-                                    document.querySelector('#obsComDepart').textContent = data.form3_19.obsComDepart || '';
-                                    document.querySelector('#obsComPEDPD').textContent = data.form3_19.obsComPEDPD || '';
-                                    document.querySelector('#obsComPartPos').textContent = data.form3_19.obsComPartPos || '';
-                                    document.querySelector('#obsRespPos').textContent = data.form3_19.obsRespPos || '';
-                                    document.querySelector('#obsRespCarrera').textContent = data.form3_19.obsRespCarrera || '';
-                                    document.querySelector('#obsRespProd').textContent = data.form3_19.obsRespProd || '';
-                                    document.querySelector('#obsRespLab').textContent = data.form3_19.obsRespLab || '';
-                                    document.querySelector('#obsExamProf').textContent = data.form3_19.obsExamProf || '';
-                                    document.querySelector('#obsExamAcademicos').textContent = data.form3_19.obsExamAcademicos || '';
-                                    document.querySelector('#obsPRODEPformResp').textContent = data.form3_19.obsPRODEPformResp || '';
-                                    document.querySelector('#obsPRODEPformInteg').textContent = data.form3_19.obsPRODEPformInteg || '';
-                                    document.querySelector('#obsPRODEPenconsResp').textContent = data.form3_19.obsPRODEPenconsResp || '';
-                                    document.querySelector('#obsPRODEPenconsInteg').textContent = data.form3_19.obsPRODEPenconsInteg || '';
-                                    document.querySelector('#obsPRODEPconsResp').textContent = data.form3_19.obsPRODEPconsResp || '';
-                                    document.querySelector('#obsPRODEPconsInteg').textContent = data.form3_19.obsPRODEPconsInteg || '';
+                                    // Populate hidden inputs
+                                    document.querySelector('input[name="user_id"]').value = data.form3_19.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.form3_19.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.form3_19.user_type || '';
 
-                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     if (convocatoriaElement) {
-                                        if (data.responseForm1) {
-                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
                                         } else {
                                             console.error('form1 no está definido en la respuesta.');
                                         }
                                     } else {
                                         console.error('Elemento con ID "convocatoria" no encontrado.');
                                     }
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching docente data:', error);
+                                });
+                            //await asignarDocentes(user_identity, email);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
+                }
+            }
+            // Cuando el userType está vacío
+            else if (userType === '') {
+
+                try {
+                    const response = await fetch('/get-docentes');
+
+                    const docentes = await response.json();
+
+                    docentes.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
+                    });
+
+                    docenteSelect.addEventListener('change', async (event) => {
+                        const email = event.target.value;
+
+                        if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+
+                                    // Actualizar convocatoria
+
+                                    // Verifica si la respuesta contiene los datos esperados
+                                    if (data.docente) {
+                                        const convocatoriaElement = document.getElementById('convocatoria');
+
+                                        // Mostrar la convocatoria si existe
+                                        if (convocatoriaElement) {
+                                            if (data.docente.convocatoria) {
+                                                convocatoriaElement.textContent = data.docente.convocatoria;
+                                            } else {
+                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                            }
+                                        }
+                                    }
+                                });
+                            // Lógica para obtener datos de DictaminatorsResponseForm2
+                            try {
+                                const response = await fetch('/get-dictaminators-responses');
+                                const dictaminatorResponses = await response.json();
+                                // Filtrar la entrada correspondiente al email seleccionado
+                                const selectedResponseForm3_19 = dictaminatorResponses.form3_19.find(res => res.email === email);
+                                if (selectedResponseForm3_19) {
+                                    document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_19.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = selectedResponseForm3_19.user_id || '';
+                                    document.querySelector('input[name="email"]').value = selectedResponseForm3_19.email || '';
+                                    document.querySelector('input[name="user_type"]').value = selectedResponseForm3_19.user_type || '';
+                                    document.getElementById('score3_19').textContent = selectedResponseForm3_19.score3_19 || '0';
+                                    document.getElementById('comision3_19').textContent = selectedResponseForm3_19.comision3_19 || '0';
+
+                                    // Cantidades
+                                    document.getElementById('cantCGUtitular').textContent = selectedResponseForm3_19.cantCGUtitular || '0';
+                                    document.getElementById('cantCGUespecial').textContent = selectedResponseForm3_19.cantCGUespecial || '0';
+                                    document.getElementById('cantRespLab').textContent = selectedResponseForm3_19.cantRespLab || '0';
+                                    document.getElementById('cantCGUpermanente').textContent = selectedResponseForm3_19.cantCGUpermanente || '0';
+                                    document.getElementById('cantCAACtitular').textContent = selectedResponseForm3_19.cantCAACtitular || '0';
+                                    document.getElementById('cantCAACintegCom').textContent = selectedResponseForm3_19.cantCAACintegCom || '0';
+                                    document.getElementById('cantComDepart').textContent = selectedResponseForm3_19.cantComDepart || '0';
+                                    document.getElementById('cantComPEDPD').textContent = selectedResponseForm3_19.cantComPEDPD || '0';
+                                    document.getElementById('cantComPartPos').textContent = selectedResponseForm3_19.cantComPartPos || '0';
+                                    document.getElementById('cantRespPos').textContent = selectedResponseForm3_19.cantRespPos || '0';
+                                    document.getElementById('cantRespCarrera').textContent = selectedResponseForm3_19.cantRespCarrera || '0';
+                                    document.getElementById('cantRespProd').textContent = selectedResponseForm3_19.cantRespProd || '0';
+                                    document.getElementById('cantExamProf').textContent = selectedResponseForm3_19.cantExamProf || '0';
+                                    document.getElementById('cantExamAcademicos').textContent = selectedResponseForm3_19.cantExamAcademicos || '0';
+                                    document.getElementById('cantPRODEPformResp').textContent = selectedResponseForm3_19.cantPRODEPformResp || '0';
+                                    document.getElementById('cantPRODEPformInteg').textContent = selectedResponseForm3_19.cantPRODEPformInteg || '0';
+                                    document.getElementById('cantPRODEPenconsResp').textContent = selectedResponseForm3_19.cantPRODEPenconsResp || '0';
+                                    document.getElementById('cantPRODEPenconsInteg').textContent = selectedResponseForm3_19.cantPRODEPenconsInteg || '0';
+                                    document.getElementById('cantPRODEPconsResp').textContent = selectedResponseForm3_19.cantPRODEPconsResp || '0';
+                                    document.getElementById('cantPRODEPconsInteg').textContent = selectedResponseForm3_19.cantPRODEPconsInteg || '0';
+
+
+                                    // Subtotales
+                                    document.getElementById('subtotalCGUtitular').textContent = selectedResponseForm3_19.subtotalCGUtitular || '0';
+                                    document.getElementById('subtotalCGUespecial').textContent = selectedResponseForm3_19.subtotalCGUespecial || '0';
+                                    document.getElementById('subtotalCGUpermanente').textContent = selectedResponseForm3_19.subtotalCGUpermanente || '0';
+                                    document.getElementById('subtotalCAACtitular').textContent = selectedResponseForm3_19.subtotalCAACtitular || '0';
+                                    document.getElementById('subtotalCAACintegCom').textContent = selectedResponseForm3_19.subtotalCAACintegCom || '0';
+                                    document.getElementById('subtotalComDepart').textContent = selectedResponseForm3_19.subtotalComDepart || '0';
+                                    document.getElementById('subtotalComPEDPD').textContent = selectedResponseForm3_19.subtotalComPEDPD || '0';
+                                    document.getElementById('subtotalComPartPos').textContent = selectedResponseForm3_19.subtotalComPartPos || '0';
+                                    document.getElementById('subtotalRespPos').textContent = selectedResponseForm3_19.subtotalRespPos || '0';
+                                    document.getElementById('subtotalRespCarrera').textContent = selectedResponseForm3_19.subtotalRespCarrera || '0';
+                                    document.getElementById('subtotalRespProd').textContent = selectedResponseForm3_19.subtotalRespProd || '0';
+                                    document.getElementById('subtotalRespLab').textContent = selectedResponseForm3_19.subtotalRespLab || '0';
+                                    document.getElementById('subtotalExamProf').textContent = selectedResponseForm3_19.subtotalExamProf || '0';
+                                    document.getElementById('subtotalExamAcademicos').textContent = selectedResponseForm3_19.subtotalExamAcademicos || '0';
+                                    document.getElementById('subtotalPRODEPformResp').textContent = selectedResponseForm3_19.subtotalPRODEPformResp || '0';
+                                    document.getElementById('subtotalPRODEPformInteg').textContent = selectedResponseForm3_19.subtotalPRODEPformInteg || '0';
+                                    document.getElementById('subtotalPRODEPenconsResp').textContent = selectedResponseForm3_19.subtotalPRODEPenconsResp || '0';
+                                    document.getElementById('subtotalPRODEPenconsInteg').textContent = selectedResponseForm3_19.subtotalPRODEPenconsInteg || '0';
+                                    document.getElementById('subtotalPRODEPconsResp').textContent = selectedResponseForm3_19.subtotalPRODEPconsResp || '0';
+                                    document.getElementById('subtotalPRODEPconsInteg').textContent = selectedResponseForm3_19.subtotalPRODEPconsInteg || '0';
+
+                                    // Comisiones
+                                    document.querySelector('#comCGUtitular').textContent = selectedResponseForm3_19.comCGUtitular || '0';
+                                    document.querySelector('#comCGUespecial').textContent = selectedResponseForm3_19.comCGUespecial || '0';
+                                    document.querySelector('#comCGUpermanente').textContent = selectedResponseForm3_19.comCGUpermanente || '0';
+                                    document.querySelector('#comCAACtitular').textContent = selectedResponseForm3_19.comCAACtitular || '0';
+                                    document.querySelector('#comCAACintegCom').textContent = selectedResponseForm3_19.comCAACintegCom || '0';
+                                    document.querySelector('#comComDepart').textContent = selectedResponseForm3_19.comComDepart || '0';
+                                    document.querySelector('#comComPEDPD').textContent = selectedResponseForm3_19.comComPEDPD || '0';
+                                    document.querySelector('#comComPartPos').textContent = selectedResponseForm3_19.comComPartPos || '0';
+                                    document.querySelector('#comRespPos').textContent = selectedResponseForm3_19.comRespPos || '0';
+                                    document.querySelector('#comRespCarrera').textContent = selectedResponseForm3_19.comRespCarrera || '0';
+                                    document.querySelector('#comRespProd').textContent = selectedResponseForm3_19.comRespProd || '0';
+                                    document.querySelector('#comRespLab').textContent = selectedResponseForm3_19.comRespLab || '0';
+                                    document.querySelector('#comExamProf').textContent = selectedResponseForm3_19.comExamProf || '0';
+                                    document.querySelector('#comExamAcademicos').textContent = selectedResponseForm3_19.comExamAcademicos || '0';
+                                    document.querySelector('#comPRODEPformResp').textContent = selectedResponseForm3_19.comPRODEPformResp || '0';
+                                    document.querySelector('#comPRODEPformInteg').textContent = selectedResponseForm3_19.comPRODEPformInteg || '0';
+                                    document.querySelector('#comPRODEPenconsResp').textContent = selectedResponseForm3_19.comPRODEPenconsResp || '0';
+                                    document.querySelector('#comPRODEPenconsInteg').textContent = selectedResponseForm3_19.comPRODEPenconsInteg || '0';
+                                    document.querySelector('#comPRODEPconsResp').textContent = selectedResponseForm3_19.comPRODEPconsResp || '0';
+                                    document.querySelector('#comPRODEPconsInteg').textContent = selectedResponseForm3_19.comPRODEPconsInteg || '0';
+
+                                    // Observaciones
+                                    document.querySelector('#obsCGUtitular').textContent = selectedResponseForm3_19.obsCGUtitular || '';
+                                    document.querySelector('#obsCGUespecial').textContent = selectedResponseForm3_19.obsCGUespecial || '';
+                                    document.querySelector('#obsCGUpermanente').textContent = selectedResponseForm3_19.obsCGUpermanente || '';
+                                    document.querySelector('#obsCAACtitular').textContent = selectedResponseForm3_19.obsCAACtitular || '';
+                                    document.querySelector('#obsCAACintegCom').textContent = selectedResponseForm3_19.obsCAACintegCom || '';
+                                    document.querySelector('#obsComDepart').textContent = selectedResponseForm3_19.obsComDepart || '';
+                                    document.querySelector('#obsComPEDPD').textContent = selectedResponseForm3_19.obsComPEDPD || '';
+                                    document.querySelector('#obsComPartPos').textContent = selectedResponseForm3_19.obsComPartPos || '';
+                                    document.querySelector('#obsRespPos').textContent = selectedResponseForm3_19.obsRespPos || '';
+                                    document.querySelector('#obsRespCarrera').textContent = selectedResponseForm3_19.obsRespCarrera || '';
+                                    document.querySelector('#obsRespProd').textContent = selectedResponseForm3_19.obsRespProd || '';
+                                    document.querySelector('#obsRespLab').textContent = selectedResponseForm3_19.obsRespLab || '';
+                                    document.querySelector('#obsExamProf').textContent = selectedResponseForm3_19.obsExamProf || '';
+                                    document.querySelector('#obsExamAcademicos').textContent = selectedResponseForm3_19.obsExamAcademicos || '';
+                                    document.querySelector('#obsPRODEPformResp').textContent = selectedResponseForm3_19.obsPRODEPformResp || '';
+                                    document.querySelector('#obsPRODEPformInteg').textContent = selectedResponseForm3_19.obsPRODEPformInteg || '';
+                                    document.querySelector('#obsPRODEPenconsResp').textContent = selectedResponseForm3_19.obsPRODEPenconsResp || '';
+                                    document.querySelector('#obsPRODEPenconsInteg').textContent = selectedResponseForm3_19.obsPRODEPenconsInteg || '';
+                                    document.querySelector('#obsPRODEPconsResp').textContent = selectedResponseForm3_19.obsPRODEPconsResp || '';
+                                    document.querySelector('#obsPRODEPconsInteg').textContent = selectedResponseForm3_19.obsPRODEPconsInteg || '';
+
 
                                 } else {
                                     console.error('No form3_19 data found for the selected dictaminador.');
@@ -1001,16 +995,23 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('comision3_19').textContent = '0';
                                 }
                             } catch (error) {
-                                console.error('Error fetching dictaminador data:', error);
+                                console.error('Error fetching dictaminators responses:', error);
                             }
                         }
                     });
                 } catch (error) {
-                    console.error('Error fetching dictaminadores:', error);
-                    alert('No se pudo cargar la lista de dictaminadores.');
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
                 }
+
+
             }
-        });
+
+
+
+        }
+
+    });
 
         // Function to handle form submission
         async function submitForm(url, formId) {

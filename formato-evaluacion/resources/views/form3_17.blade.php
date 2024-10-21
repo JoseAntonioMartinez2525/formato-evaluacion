@@ -71,33 +71,21 @@ $newLocale = str_replace('_', '-', $locale);
         @endif
     </div>
     <x-general-header />
-    @php
-$userType = Auth::user()->user_type;
-    @endphp
-    <div class="container mt-4 printButtonClass">
-        @if($userType == 'dictaminador')
-            <!-- Select para dictaminador seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @elseif($userType == '')
-            <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-            <select id="dictaminadorSelect" class="form-select">
-                <option value="">Seleccionar un dictaminador</option>
-                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-            </select>
-        @else
-            <!-- Select por defecto para otros usuarios seleccionando docentes -->
-            <label for="docenteSelect">Seleccionar Docente:</label>
-            <select id="docenteSelect" class="form-select">
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-            </select>
-        @endif
-    </div>
+@php
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
+@endphp
+<div class="container mt-4" id="seleccionDocente">
+    @if($userType !== 'docente')
+        <!-- Select para dictaminador seleccionando docentes -->
+        <label for="docenteSelect">Seleccionar Docente:</label>
+        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+            <option value="">Seleccionar un docente</option>
+            <!-- Aquí se llenarán los docentes con JavaScript -->
+        </select>
+    @endif
+</div>
 
     <main class="container">
         <!-- Form for Part 3_1 -->
@@ -277,15 +265,14 @@ $userType = Auth::user()->user_type;
     </center>
     <script>
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const docenteSelect = document.getElementById('docenteSelect');
-            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userType = @json($userType);  // Inject user type from backend to JS
+        const user_identity = @json($user_identity);
+        const docenteSelect = document.getElementById('docenteSelect');
 
-            // Current user type from the backend
-            const userType = @json($userType);  // Get user type from backend
-
-            // Fetch docente options if user is a dictaminador
-            if (docenteSelect && userType === 'dictaminador') {
+        if (docenteSelect) {
+            // Cuando el usuario es dictaminador
+            if (userType === 'dictaminador') {
                 try {
                     const response = await fetch('/get-docentes');
                     const docentes = await response.json();
@@ -297,92 +284,16 @@ $userType = Auth::user()->user_type;
                         docenteSelect.appendChild(option);
                     });
 
-                    // Handle docente selection change
                     docenteSelect.addEventListener('change', async (event) => {
                         const email = event.target.value;
+
                         if (email) {
-                            try {
-                                const response = await axios.get('/get-docente-data', { params: { email } });
-                                const data = response.data;
-                                console.log('Fetched data:', data); 
-                                // Populate fields with fetched data
-                                document.getElementById('score3_17').textContent = data.form3_17.score3_17 || '0';
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
 
-                                // Cantidades
-                                document.getElementById('cantDifusionExt').textContent = data.form3_17.cantDifusionExt || '0';
-                                document.getElementById('cantDifusionInt').textContent = data.form3_17.cantDifusionInt || '0';
-                                document.getElementById('cantRepDifusionExt').textContent = data.form3_17.cantRepDifusionExt || '0';
-                                document.getElementById('cantRepDifusionInt').textContent = data.form3_17.cantRepDifusionInt || '0';
-
-
-                                // Subtotales
-                                document.getElementById('subtotalDifusionExt').textContent = data.form3_17.subtotalDifusionExt || '0';
-                                document.getElementById('subtotalDifusionInt').textContent = data.form3_17.subtotalDifusionInt || '0';
-                                document.getElementById('subtotalRepDifusionExt').textContent = data.form3_17.subtotalRepDifusionExt || '0';
-                                document.getElementById('subtotalRepDifusionInt').textContent = data.form3_17.subtotalRepDifusionInt || '0';
-
-                                //  hidden inputs
-                                document.querySelector('input[name="user_id"]').value = data.form3_17.user_id || '';
-                                document.querySelector('input[name="email"]').value = data.form3_17.email || '';
-                                document.querySelector('input[name="user_type"]').value = data.form3_17.user_type || '';
-
-                                    // Verificar si el elemento existe antes de establecer su contenido
-                                const convocatoriaElement = document.getElementById('convocatoria');
-                                if (convocatoriaElement) {
-                                    if (data.form1) {
-                                        convocatoriaElement.textContent = data.form1.convocatoria || '';
-                                    } else {
-                                        console.error('form1 no está definido en la respuesta.');
-                                    }
-                                } else {
-                                    console.error('Elemento con ID "convocatoria" no encontrado.');
-                                }
-
-                            } catch (error) {
-                                console.error('Error fetching docente data:', error);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error fetching docentes:', error);
-                    alert('No se pudo cargar la lista de docentes.');
-                }
-            }
-
-            // Fetch dictaminador options if user type is null or empty
-            if (dictaminadorSelect && userType === '') {
-                try {
-                    const response = await fetch('/get-dictaminadores');
-                    const dictaminadores = await response.json();
-
-                    dictaminadores.forEach(dictaminador => {
-                        const option = document.createElement('option');
-                        option.value = dictaminador.id;  // Use dictaminador ID as value
-                        option.dataset.email = dictaminador.email; // Store email in data attribute
-                        option.textContent = dictaminador.email;
-                        dictaminadorSelect.appendChild(option);
-                    });
-
-                    // Handle dictaminador selection change
-                    dictaminadorSelect.addEventListener('change', async (event) => {
-                        const dictaminadorId = event.target.value;
-                        const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-
-                        if (dictaminadorId) {
-                            try {
-                                const response = await axios.get('/get-dictaminador-data', {
-                                    params: { email: email, dictaminador_id: dictaminadorId }  // Send both ID and email
-                                });
-                                const data = response.data;
-
-                                // Populate fields based on fetched data
-                                if (data.form3_17) {
-                                    document.querySelector('input[name="dictaminador_id"]').value = data.dictaminador.dictaminador_id || '0';
-                                    document.querySelector('input[name="user_id"]').value = data.dictaminador.user_id || '';
-                                    document.querySelector('input[name="email"]').value = data.dictaminador.email || '';
-                                    document.querySelector('input[name="user_type"]').value = data.dictaminador.user_type || '';
+                                    // Populate fields with fetched data
                                     document.getElementById('score3_17').textContent = data.form3_17.score3_17 || '0';
-                                    document.getElementById('comision3_17').textContent = data.form3_17.comision3_17 || '0';
 
                                     // Cantidades
                                     document.getElementById('cantDifusionExt').textContent = data.form3_17.cantDifusionExt || '0';
@@ -397,31 +308,114 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('subtotalRepDifusionExt').textContent = data.form3_17.subtotalRepDifusionExt || '0';
                                     document.getElementById('subtotalRepDifusionInt').textContent = data.form3_17.subtotalRepDifusionInt || '0';
 
-
-                                    // Comisiones
-                                    document.querySelector('#comisionDifusionExt').textContent = data.form3_17.comisionDifusionExt || '0';
-                                    document.querySelector('#comisionDifusionInt').textContent = data.form3_17.comisionDifusionInt || '0';
-                                    document.querySelector('#comisionRepDifusionExt').textContent = data.form3_17.comisionRepDifusionExt || '0';
-                                    document.querySelector('#comisionRepDifusionInt').textContent = data.form3_17.comisionRepDifusionInt || '0';
-
-
-                                    // Observaciones
-                                    document.querySelector('#obsDifusionExt').textContent = data.form3_17.obsDifusionExt || '';
-                                    document.querySelector('#obsDifusionInt').textContent = data.form3_17.obsDifusionInt || '';
-                                    document.querySelector('#obsRepDifusionExt').textContent = data.form3_17.obsRepDifusionExt || '';
-                                    document.querySelector('#obsRepDifusionInt').textContent = data.form3_17.obsRepDifusionInt || '';
-
-                                    // Verificar si el elemento existe antes de establecer su contenido
+                                    //  hidden inputs
+                                    document.querySelector('input[name="user_id"]').value = data.form3_17.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.form3_17.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.form3_17.user_type || '';
+                                    // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     if (convocatoriaElement) {
-                                        if (data.responseForm1) {
-                                            convocatoriaElement.textContent = data.responseForm1.convocatoria || '';
+                                        if (data.form1) {
+                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
                                         } else {
                                             console.error('form1 no está definido en la respuesta.');
                                         }
                                     } else {
                                         console.error('Elemento con ID "convocatoria" no encontrado.');
                                     }
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching docente data:', error);
+                                });
+                            //await asignarDocentes(user_identity, email);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
+                }
+            }
+            // Cuando el userType está vacío
+            else if (userType === '') {
+
+                try {
+                    const response = await fetch('/get-docentes');
+
+                    const docentes = await response.json();
+
+                    docentes.forEach(docente => {
+                        const option = document.createElement('option');
+                        option.value = docente.email;
+                        option.textContent = docente.email;
+                        docenteSelect.appendChild(option);
+                    });
+
+                    docenteSelect.addEventListener('change', async (event) => {
+                        const email = event.target.value;
+
+                        if (email) {
+                            axios.get('/get-docente-data', { params: { email } })
+                                .then(response => {
+                                    const data = response.data;
+
+                                    // Actualizar convocatoria
+
+                                    // Verifica si la respuesta contiene los datos esperados
+                                    if (data.docente) {
+                                        const convocatoriaElement = document.getElementById('convocatoria');
+
+                                        // Mostrar la convocatoria si existe
+                                        if (convocatoriaElement) {
+                                            if (data.docente.convocatoria) {
+                                                convocatoriaElement.textContent = data.docente.convocatoria;
+                                            } else {
+                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                            }
+                                        }
+                                    }
+                                });
+                            // Lógica para obtener datos de DictaminatorsResponseForm2
+                            try {
+                                const response = await fetch('/get-dictaminators-responses');
+                                const dictaminatorResponses = await response.json();
+                                // Filtrar la entrada correspondiente al email seleccionado
+                                const selectedResponseForm3_17 = dictaminatorResponses.form3_17.find(res => res.email === email);
+                                if (selectedResponseForm3_17) {
+
+                                    document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_17.dictaminador_id || '0';
+                                    document.querySelector('input[name="user_id"]').value = selectedResponseForm3_17.user_id || '';
+                                    document.querySelector('input[name="email"]').value = selectedResponseForm3_17.email || '';
+                                    document.querySelector('input[name="user_type"]').value = selectedResponseForm3_17.user_type || '';
+                                    document.getElementById('score3_17').textContent = selectedResponseForm3_17.score3_17 || '0';
+                                    document.getElementById('comision3_17').textContent = selectedResponseForm3_17.comision3_17 || '0';
+
+                                    // Cantidades
+                                    document.getElementById('cantDifusionExt').textContent = selectedResponseForm3_17.cantDifusionExt || '0';
+                                    document.getElementById('cantDifusionInt').textContent = selectedResponseForm3_17.cantDifusionInt || '0';
+                                    document.getElementById('cantRepDifusionExt').textContent = selectedResponseForm3_17.cantRepDifusionExt || '0';
+                                    document.getElementById('cantRepDifusionInt').textContent = selectedResponseForm3_17.cantRepDifusionInt || '0';
+
+
+                                    // Subtotales
+                                    document.getElementById('subtotalDifusionExt').textContent = selectedResponseForm3_17.subtotalDifusionExt || '0';
+                                    document.getElementById('subtotalDifusionInt').textContent = selectedResponseForm3_17.subtotalDifusionInt || '0';
+                                    document.getElementById('subtotalRepDifusionExt').textContent = selectedResponseForm3_17.subtotalRepDifusionExt || '0';
+                                    document.getElementById('subtotalRepDifusionInt').textContent = selectedResponseForm3_17.subtotalRepDifusionInt || '0';
+
+
+                                    // Comisiones
+                                    document.querySelector('#comisionDifusionExt').textContent = selectedResponseForm3_17.comisionDifusionExt || '0';
+                                    document.querySelector('#comisionDifusionInt').textContent = selectedResponseForm3_17.comisionDifusionInt || '0';
+                                    document.querySelector('#comisionRepDifusionExt').textContent = selectedResponseForm3_17.comisionRepDifusionExt || '0';
+                                    document.querySelector('#comisionRepDifusionInt').textContent = selectedResponseForm3_17.comisionRepDifusionInt || '0';
+
+
+                                    // Observaciones
+                                    document.querySelector('#obsDifusionExt').textContent = selectedResponseForm3_17.obsDifusionExt || '';
+                                    document.querySelector('#obsDifusionInt').textContent = selectedResponseForm3_17.obsDifusionInt || '';
+                                    document.querySelector('#obsRepDifusionExt').textContent = selectedResponseForm3_17.obsRepDifusionExt || '';
+                                    document.querySelector('#obsRepDifusionInt').textContent = selectedResponseForm3_17.obsRepDifusionInt || '';
+
 
                                 } else {
                                     console.error('No form3_17 data found for the selected dictaminador.');
@@ -435,7 +429,7 @@ $userType = Auth::user()->user_type;
                                     document.getElementById('score3_17').textContent = '0';
 
                                     // Cantidades
-                                    document.getElementById('cantDifusionExt').textContent =  '0';
+                                    document.getElementById('cantDifusionExt').textContent = '0';
                                     document.getElementById('cantDifusionInt').textContent = '0';
                                     document.getElementById('cantRepDifusionExt').textContent = '0';
                                     document.getElementById('cantRepDifusionInt').textContent = '0';
@@ -444,8 +438,8 @@ $userType = Auth::user()->user_type;
                                     // Subtotales
                                     document.getElementById('subtotalDifusionExt').textContent = '0';
                                     document.getElementById('subtotalDifusionInt').textContent = '0';
-                                    document.getElementById('subtotalRepDifusionExt').textContent =  '0';
-                                    document.getElementById('subtotalRepDifusionInt').textContent =  '0';
+                                    document.getElementById('subtotalRepDifusionExt').textContent = '0';
+                                    document.getElementById('subtotalRepDifusionInt').textContent = '0';
 
 
                                     // Comisiones
@@ -459,21 +453,28 @@ $userType = Auth::user()->user_type;
                                     document.querySelector('#obsDifusionExt').textContent = '';
                                     document.querySelector('#obsDifusionInt').textContent = '';
                                     document.querySelector('#obsRepDifusionExt').textContent = '';
-                                    document.querySelector('#obsRepDifusionInt').textContent = '';                                   
+                                    document.querySelector('#obsRepDifusionInt').textContent = '';
 
                                     document.getElementById('comision3_17').textContent = '0';
                                 }
                             } catch (error) {
-                                console.error('Error fetching dictaminador data:', error);
+                                console.error('Error fetching dictaminators responses:', error);
                             }
                         }
                     });
                 } catch (error) {
-                    console.error('Error fetching dictaminadores:', error);
-                    alert('No se pudo cargar la lista de dictaminadores.');
+                    console.error('Error fetching docentes:', error);
+                    alert('No se pudo cargar la lista de docentes.');
                 }
+
+
             }
-        });
+
+
+
+        }
+
+    });
 
         // Function to handle form submission
         async function submitForm(url, formId) {
