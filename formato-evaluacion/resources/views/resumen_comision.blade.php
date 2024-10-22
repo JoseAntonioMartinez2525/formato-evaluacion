@@ -1198,6 +1198,10 @@ $newLocale = str_replace('_', '-', $locale);
                                                         }
 
                                                         comisionCell.style.textAlign = 'center';
+
+                                                     
+                                                        
+                                                        //populate cells comision
                                                     }
 
                                                 
@@ -1238,28 +1242,67 @@ $newLocale = str_replace('_', '-', $locale);
                                                 ];
 
 
-
                                                 const selectedResponses = {};
 
-                                                formNames.forEach(formName => {
-                                                    selectedResponses[formName] = dictaminatorResponses[formName].find(res => res.email === email);
-                                                });
+                                                 //console.log(dictaminatorResponses.form2[0].comision1);
+                                                const comisiones = [
+                                                    data['comision1'],       // Valor de 'comision1'
+                                                    data['comision1'],       // Valor de 'comision1'
+                                                    data['actv2Comision'],   // Valor de 'actv2Comision'
+                                                    data['actv2Comision'],
+                                                    data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
+                                                    data['actv3Comision'],   // Valor de 'actv3Comision'
+                                                    data['comision3_2'],      // Valor de 'comision3_2'
+                                                    data['comision3_3'],
+                                                    data['comision3_4'],
+                                                    data['comision3_5'],
+                                                    data['comision3_6'],
+                                                    data['comision3_7'],
+                                                    data['comision3_8'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_9'],
+                                                    data['comision3_10'],
+                                                    data['comision3_11'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_12'],
+                                                    data['comision3_13'],
+                                                    data['comision3_14'],
+                                                    data['comision3_15'],
+                                                    data['comision3_16'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_17'],
+                                                    data['comision3_18'],
+                                                    data['comision3_19'],
+                                                    data[''],
+                                                    data[''], //31
+                                                    data['comision1'], //32
+                                                    data['actv2Comision'],
+                                                    data[''],
+                                                    data[''],   //35                                                                                        
 
-                                                const selectedResponseForm2 = selectedResponses['Form2'];
-                                                const selectedResponseForm2_2 = selectedResponses['form2_2'];
+                                                ];
                                                 
+                                                // Check the structure and content
 
+                                                // Asignar los valores a los elementos del DOM
+                                                comisiones[0] = dictaminatorResponses.form2[0].comision1 || '0';
                                                 
-                                                data['comision1'].textContent = selectedResponsesForm2_2.actv2Comision || '0';
-                                                
-                                                data['actv3Comision'].textContent = selectedResponsesForm3_1.actv3Comision || '0';
-                                                data['comision3_2'].textContent = selectedResponsesForm3_2.comision3_2 || '0';
-                                                data['comision3_3'].textContent = selectedResponsesForm3_3.comision3_3 || '0';
-                                                data['comision3_4'].textContent = selectedResponsesForm3_4.comision3_4 || '0';
-                                                data['comision3_5'].textContent = selectedResponsesForm3_5.comision3_5 || '0';
-                                                data['comision3_6'].textContent = selectedResponsesForm3_6.comision3_6 || '0';
-                                                data['comision3_7'].textContent = selectedResponsesForm3_7.comision3_7 || '0';
+                                                console.log (email+" comision 1: "+ comisiones[0]);
 
+                                                comisiones[1] = dictaminatorResponses.form2[0].actv2Comision || '0';
+                                                console.log(comisiones[1]);
+                                                /*
+                                                data['actv3Comision'].textContent = selectedResponseForm3_1?.actv3Comision || '0';
+                                                data['comision3_2'].textContent = selectedResponseForm3_2?.comision3_2 || '0';
+                                                data['comision3_3'].textContent = selectedResponseForm3_3?.comision3_3 || '0';
+                                                data['comision3_4'].textContent = selectedResponseForm3_4?.comision3_4 || '0';
+                                                data['comision3_5'].textContent = selectedResponseForm3_5?.comision3_5 || '0';
+                                                data['comision3_6'].textContent = selectedResponseForm3_6?.comision3_6 || '0';
+                                                data['comision3_7'].textContent = selectedResponseForm3_7?.comision3_7 || '0';
+                                                */
 
 
                                             } catch (error) {
