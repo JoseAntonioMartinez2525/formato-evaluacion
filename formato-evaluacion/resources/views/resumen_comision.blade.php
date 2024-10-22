@@ -1241,14 +1241,17 @@ $newLocale = str_replace('_', '-', $locale);
 
                                                 const selectedResponses = {};
 
+                                                formNames.forEach(formName => {
+                                                    selectedResponses[formName] = dictaminatorResponses[formName].find(res => res.email === email);
+                                                });
+
                                                 const selectedResponseForm2 = selectedResponses['Form2'];
                                                 const selectedResponseForm2_2 = selectedResponses['form2_2'];
                                                 
+
                                                 
+                                                data['comision1'].textContent = selectedResponsesForm2_2.actv2Comision || '0';
                                                 
-                                                comisionCell.comisiones[0] = selectedResponsesForm2_2.comision1 || '0';
-                                                
-                                                /*
                                                 data['actv3Comision'].textContent = selectedResponsesForm3_1.actv3Comision || '0';
                                                 data['comision3_2'].textContent = selectedResponsesForm3_2.comision3_2 || '0';
                                                 data['comision3_3'].textContent = selectedResponsesForm3_3.comision3_3 || '0';
@@ -1256,7 +1259,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 data['comision3_5'].textContent = selectedResponsesForm3_5.comision3_5 || '0';
                                                 data['comision3_6'].textContent = selectedResponsesForm3_6.comision3_6 || '0';
                                                 data['comision3_7'].textContent = selectedResponsesForm3_7.comision3_7 || '0';
-                                                        */
+
 
 
                                             } catch (error) {
