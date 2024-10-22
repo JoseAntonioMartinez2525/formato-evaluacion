@@ -1011,7 +1011,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                     if (docenteSelect) {
                         // Cuando el usuario es dictaminador
-                        if (userType === 'dictaminador') {
+                        if (userType === 'dictaminador' || userType === '') {
                             try {
                                 const response = await fetch('/get-docentes');
                                 const docentes = await response.json();
@@ -1032,180 +1032,180 @@ $newLocale = str_replace('_', '-', $locale);
                                                 const data = response.data;
                                                 
                                                 //generar la tabla
-                                            //constdata = await response.json();
+                                        
 
-                        dataContainer.innerHTML = ''; // Limpiar datos anteriores
-                            formContainer.style.display = 'block'; // Mostrar el formulario
+                                                dataContainer.innerHTML = ''; // Limpiar datos anteriores
+                                                    formContainer.style.display = 'block'; // Mostrar el formulario
 
-                           
-                            const comisiones = [
-                            data['comision1'],       // Valor de 'comision1'
-                            data['comision1'],       // Valor de 'comision1'
-                            data['actv2Comision'],   // Valor de 'actv2Comision'
-                            data['actv2Comision'],
-                            data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
-                            data['actv3Comision'],   // Valor de 'actv3Comision'
-                            data['comision3_2'],      // Valor de 'comision3_2'
-                            data['comision3_3'],
-                            data['comision3_4'],
-                            data['comision3_5'],
-                            data['comision3_6'],
-                            data['comision3_7'],
-                            data['comision3_8'],
-                            data[''],
-                            data[''],
-                            data['comision3_9'],
-                            data['comision3_10'],
-                            data['comision3_11'],
-                            data[''],
-                            data[''],
-                            data['comision3_12'],
-                            data['comision3_13'],
-                            data['comision3_14'],
-                            data['comision3_15'],
-                            data['comision3_16'],
-                            data[''],
-                            data[''],
-                            data['comision3_17'],
-                            data['comision3_18'],
-                            data['comision3_19'],
-                            data[''],
-                            data[''], //31
-                            data['comision1'], //32
-                            data['actv2Comision'],
-                            data[''],       
-                            data[''],   //35                                                                                        
+                                                
+                                                    const comisiones = [
+                                                    data['comision1'],       // Valor de 'comision1'
+                                                    data['comision1'],       // Valor de 'comision1'
+                                                    data['actv2Comision'],   // Valor de 'actv2Comision'
+                                                    data['actv2Comision'],
+                                                    data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
+                                                    data['actv3Comision'],   // Valor de 'actv3Comision'
+                                                    data['comision3_2'],      // Valor de 'comision3_2'
+                                                    data['comision3_3'],
+                                                    data['comision3_4'],
+                                                    data['comision3_5'],
+                                                    data['comision3_6'],
+                                                    data['comision3_7'],
+                                                    data['comision3_8'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_9'],
+                                                    data['comision3_10'],
+                                                    data['comision3_11'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_12'],
+                                                    data['comision3_13'],
+                                                    data['comision3_14'],
+                                                    data['comision3_15'],
+                                                    data['comision3_16'],
+                                                    data[''],
+                                                    data[''],
+                                                    data['comision3_17'],
+                                                    data['comision3_18'],
+                                                    data['comision3_19'],
+                                                    data[''],
+                                                    data[''], //31
+                                                    data['comision1'], //32
+                                                    data['actv2Comision'],
+                                                    data[''],       
+                                                    data[''],   //35                                                                                        
 
-                            ];
+                                                    ];
 
-                          // Generar las filas
-                            let sumaComision3 = 0;
-                            let comisionSubtotal1 = 0;
-                            let comisionSubtotal2 = 0;
-                            let comisionSubtotal3 = 0;
-                            let comisionSubtotal4 = 0;
-                            let totalLogrado = 0;
+                                                // Generar las filas
+                                                    let sumaComision3 = 0;
+                                                    let comisionSubtotal1 = 0;
+                                                    let comisionSubtotal2 = 0;
+                                                    let comisionSubtotal3 = 0;
+                                                    let comisionSubtotal4 = 0;
+                                                    let totalLogrado = 0;
 
-                            // Primero, calcular los subtotales
-                            for (let i = 0; i < labels.length; i++) {
-                                if (labels[i] === 'Subtotal ' || labels[i] === 'Subtotal') {
-                                    // Sumar las comisiones del índice 5 al 12
-                                    if (i === 13) {
-                                        for (let index = 5; index <= 12; index++) {
-                                            comisionSubtotal1 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal1;
-                                        comisiones[13] = comisionSubtotal1; // Asignar el subtotal calculado
-                                    }
+                                                    // Primero, calcular los subtotales
+                                                    for (let i = 0; i < labels.length; i++) {
+                                                        if (labels[i] === 'Subtotal ' || labels[i] === 'Subtotal') {
+                                                            // Sumar las comisiones del índice 5 al 12
+                                                            if (i === 13) {
+                                                                for (let index = 5; index <= 12; index++) {
+                                                                    comisionSubtotal1 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                                                }
+                                                                sumaComision3 += comisionSubtotal1;
+                                                                comisiones[13] = comisionSubtotal1; // Asignar el subtotal calculado
+                                                            }
 
-                                    // Sumar las comisiones del índice 15 al 17
-                                    if (i === 18) {
-                                        for (let index = 15; index <= 17; index++) {
-                                            comisionSubtotal2 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal2;
-                                        comisiones[18] = comisionSubtotal2; // Asignar el subtotal calculado
-                                    }
+                                                            // Sumar las comisiones del índice 15 al 17
+                                                            if (i === 18) {
+                                                                for (let index = 15; index <= 17; index++) {
+                                                                    comisionSubtotal2 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                                                }
+                                                                sumaComision3 += comisionSubtotal2;
+                                                                comisiones[18] = comisionSubtotal2; // Asignar el subtotal calculado
+                                                            }
 
-                                    // Sumar las comisiones del índice 20 al 24
-                                    if (i === 25) {
-                                        for (let index = 20; index <= 24; index++) {
-                                            comisionSubtotal3 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal3;
-                                        comisiones[25] = comisionSubtotal3; // Asignar el subtotal calculado
-                                    }
+                                                            // Sumar las comisiones del índice 20 al 24
+                                                            if (i === 25) {
+                                                                for (let index = 20; index <= 24; index++) {
+                                                                    comisionSubtotal3 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                                                }
+                                                                sumaComision3 += comisionSubtotal3;
+                                                                comisiones[25] = comisionSubtotal3; // Asignar el subtotal calculado
+                                                            }
 
-                                    // Sumar las comisiones del índice 27 al 29
-                                    if (i === 30) {
-                                        for (let index = 27; index <= 29; index++) {
-                                            comisionSubtotal4 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal4;
-                                        comisiones[30] = comisionSubtotal4; // Asignar el subtotal calculado
-                                    }
-                                }
-                            }
+                                                            // Sumar las comisiones del índice 27 al 29
+                                                            if (i === 30) {
+                                                                for (let index = 27; index <= 29; index++) {
+                                                                    comisionSubtotal4 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                                                }
+                                                                sumaComision3 += comisionSubtotal4;
+                                                                comisiones[30] = comisionSubtotal4; // Asignar el subtotal calculado
+                                                            }
+                                                        }
+                                                    }
 
-                            // Limitar sumaComision3 a 700 usando Math.min
-                            sumaComision3 = Math.min(sumaComision3, 700);
+                                                    // Limitar sumaComision3 a 700 usando Math.min
+                                                    sumaComision3 = Math.min(sumaComision3, 700);
 
-                            // Asignar el valor de sumaComision3 al índice 4
-                            comisiones[4] = sumaComision3;
+                                                    // Asignar el valor de sumaComision3 al índice 4
+                                                    comisiones[4] = sumaComision3;
 
-                            // Calcular totalLogrado sumando comisiones[0], comisiones[2], y comisiones[4]
-                            totalLogrado = (parseInt(comisiones[0]) || 0) + (parseInt(comisiones[2]) || 0) + (parseInt(comisiones[4]) || 0);
+                                                    // Calcular totalLogrado sumando comisiones[0], comisiones[2], y comisiones[4]
+                                                    totalLogrado = (parseInt(comisiones[0]) || 0) + (parseInt(comisiones[2]) || 0) + (parseInt(comisiones[4]) || 0);
 
-                            // Limitar totalLogrado a 700 usando Math.min
-                            totalLogrado = Math.min(totalLogrado, 700);
+                                                    // Limitar totalLogrado a 700 usando Math.min
+                                                    totalLogrado = Math.min(totalLogrado, 700);
 
-                            // Asignar el valor de totalLogrado al índice 31
-                            comisiones[31] = totalLogrado;
-                            comisiones [34] = comisiones[4];
-                            comisiones[35] = comisiones [31];
+                                                    // Asignar el valor de totalLogrado al índice 31
+                                                    comisiones[31] = totalLogrado;
+                                                    comisiones [34] = comisiones[4];
+                                                    comisiones[35] = comisiones [31];
 
-                            // Luego, generar las filas
-                            for (let i = 0; i < labels.length; i++) {
-                                const row = document.createElement('tr');
-                                let labelCell = document.createElement('td');
-                                let valueCell = document.createElement('td');
-                                let comisionCell = document.createElement('td');
+                                                    // Luego, generar las filas
+                                                    for (let i = 0; i < labels.length; i++) {
+                                                        const row = document.createElement('tr');
+                                                        let labelCell = document.createElement('td');
+                                                        let valueCell = document.createElement('td');
+                                                        let comisionCell = document.createElement('td');
 
-                                labelCell.textContent = labels[i];
-                                valueCell.textContent = values[i];
-                                comisionCell.textContent = comisiones[i];
+                                                        labelCell.textContent = labels[i];
+                                                        valueCell.textContent = values[i];
+                                                        comisionCell.textContent = comisiones[i];
 
-                                // Aplicar estilos a los elementos específicos
-                                if (['Subtotal ', 'Subtotal', 'Tutorias', 'Investigación', 'Cuerpos colegiados', 'Total logrado en la evaluación', 'Total de puntaje obtenido en la evaluación'].includes(labels[i])) {
-                                    labelCell.style.fontWeight = 'bold';
-                                    labelCell.style.textAlign = 'center';
-                                }
+                                                        // Aplicar estilos a los elementos específicos
+                                                        if (['Subtotal ', 'Subtotal', 'Tutorias', 'Investigación', 'Cuerpos colegiados', 'Total logrado en la evaluación', 'Total de puntaje obtenido en la evaluación'].includes(labels[i])) {
+                                                            labelCell.style.fontWeight = 'bold';
+                                                            labelCell.style.textAlign = 'center';
+                                                        }
 
-                                // Excluir ciertos elementos de ser pintados
-                                if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
-                                    comisionCell.style.backgroundColor = '#f6c667';
-                                }
+                                                        // Excluir ciertos elementos de ser pintados
+                                                        if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
+                                                            comisionCell.style.backgroundColor = '#f6c667';
+                                                        }
 
-                                if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
-                                    comisionCell.style.fontWeight = 'bold';
-                                }
+                                                        if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
+                                                            comisionCell.style.fontWeight = 'bold';
+                                                        }
 
-                                if([35].includes(i)){
-                                    comisionCell.style.backgroundColor = 'transparent';
-                                }
+                                                        if([35].includes(i)){
+                                                            comisionCell.style.backgroundColor = 'transparent';
+                                                        }
 
-                                row.appendChild(labelCell);
-                                row.appendChild(valueCell);
-                                row.appendChild(comisionCell);
-                            dataContainer.appendChild(row);
+                                                        row.appendChild(labelCell);
+                                                        row.appendChild(valueCell);
+                                                        row.appendChild(comisionCell);
+                                                    dataContainer.appendChild(row);
 
-                                // Asegurarse de que el valor de sumaComision3 se muestre en el índice 4
-                                if (i === 4) {
-                                    comisionCell.textContent = sumaComision3.toString();
-                                }
+                                                        // Asegurarse de que el valor de sumaComision3 se muestre en el índice 4
+                                                        if (i === 4) {
+                                                            comisionCell.textContent = sumaComision3.toString();
+                                                        }
 
-                                // Asegurarse de que los subtotales se muestren en las celdas correspondientes
-                                if (i === 13) {
-                                    comisionCell.textContent = comisionSubtotal1.toString();
-                                } else if (i === 18) {
-                                    comisionCell.textContent = comisionSubtotal2.toString();
-                                } else if (i === 25) {
-                                    comisionCell.textContent = comisionSubtotal3.toString();
-                                } else if (i === 30) {
-                                    comisionCell.textContent = comisionSubtotal4.toString();
-                                } else if (i === 31) {
-                                    comisionCell.textContent = totalLogrado.toString();
-                                }
+                                                        // Asegurarse de que los subtotales se muestren en las celdas correspondientes
+                                                        if (i === 13) {
+                                                            comisionCell.textContent = comisionSubtotal1.toString();
+                                                        } else if (i === 18) {
+                                                            comisionCell.textContent = comisionSubtotal2.toString();
+                                                        } else if (i === 25) {
+                                                            comisionCell.textContent = comisionSubtotal3.toString();
+                                                        } else if (i === 30) {
+                                                            comisionCell.textContent = comisionSubtotal4.toString();
+                                                        } else if (i === 31) {
+                                                            comisionCell.textContent = totalLogrado.toString();
+                                                        }
 
-                                comisionCell.style.textAlign = 'center';
-                            }
+                                                        comisionCell.style.textAlign = 'center';
+                                                    }
 
-                           
-                           const minimaCalidad = evaluarCalidad(sumaComision3);
-                           const  minimaTotal = evaluarTotal(totalLogrado);
+                                                
+                                                const minimaCalidad = evaluarCalidad(sumaComision3);
+                                                const  minimaTotal = evaluarTotal(totalLogrado);
 
-                            document.getElementById('minimaCalidad').textContent = minimaCalidad;
-                            document.getElementById('minimaTotal').textContent = minimaTotal;
+                                                    document.getElementById('minimaCalidad').textContent = minimaCalidad;
+                                                    document.getElementById('minimaTotal').textContent = minimaTotal;
 
                                                 // Actualizar convocatoria
                                                 const convocatoriaElement = document.getElementById('convocatoria');
@@ -1222,88 +1222,55 @@ $newLocale = str_replace('_', '-', $locale);
                                             .catch(error => {
                                                 console.error('Error fetching docente data:', error);
                                             });
-                                        //await asignarDocentes(user_identity, email);
-                                    }
-                                });
-                            } catch (error) {
-                                console.error('Error fetching docentes:', error);
-                                alert('No se pudo cargar la lista de docentes.');
-                            }
-                        }
-                        // Cuando el userType está vacío
-                        else if (userType === '') {
-                            const formName = 'form2';
-                            try {
-                                const response = await fetch('/get-docentes');
+                                        
 
-                                const docentes = await response.json();
+                                        //populate values
+                                            try {
+                                                const response = await fetch('/get-dictaminators-responses');
+                                                const dictaminatorResponses = await response.json();
+                                                // Filtrar la entrada correspondiente al email seleccionado
+                                                const formNames = [
+                                                    'Form2', 'Form2_2',
+                                                    'Form3_1', 'Form3_2', 'Form3_3', 'Form3_4', 'Form3_5',
+                                                    'Form3_6', 'Form3_7', 'Form3_8', 'Form3_9', 'Form3_10',
+                                                    'Form3_11', 'Form3_12', 'Form3_13', 'Form3_14',
+                                                    'Form3_15', 'Form3_16', 'Form3_17', 'Form3_18', 'Form3_19'
+                                                ];
 
-                                docentes.forEach(docente => {
-                                    const option = document.createElement('option');
-                                    option.value = docente.email;
-                                    option.textContent = docente.email;
-                                    docenteSelect.appendChild(option);
-                                });
 
-                                docenteSelect.addEventListener('change', async (event) => {
-                                    const email = event.target.value;
 
-                                    if (email) {
-                                        axios.get('/get-docente-data', { params: { email } })
-                                            .then(response => {
-                                                const data = response.data;
+                                                const selectedResponses = {};
 
-                                                // Actualizar convocatoria
+                                                const selectedResponseForm2 = selectedResponses['Form2'];
+                                                const selectedResponseForm2_2 = selectedResponses['form2_2'];
+                                                
+                                                
+                                                
+                                                comisionCell.comisiones[0] = selectedResponsesForm2_2.comision1 || '0';
+                                                
+                                                /*
+                                                data['actv3Comision'].textContent = selectedResponsesForm3_1.actv3Comision || '0';
+                                                data['comision3_2'].textContent = selectedResponsesForm3_2.comision3_2 || '0';
+                                                data['comision3_3'].textContent = selectedResponsesForm3_3.comision3_3 || '0';
+                                                data['comision3_4'].textContent = selectedResponsesForm3_4.comision3_4 || '0';
+                                                data['comision3_5'].textContent = selectedResponsesForm3_5.comision3_5 || '0';
+                                                data['comision3_6'].textContent = selectedResponsesForm3_6.comision3_6 || '0';
+                                                data['comision3_7'].textContent = selectedResponsesForm3_7.comision3_7 || '0';
+                                                        */
 
-                                                // Verifica si la respuesta contiene los datos esperados
-                                                if (data.docente) {
-                                                    const convocatoriaElement = document.getElementById('convocatoria');
 
-                                                    // Mostrar la convocatoria si existe
-                                                    if (convocatoriaElement) {
-                                                        if (data.docente.convocatoria) {
-                                                            convocatoriaElement.textContent = data.docente.convocatoria;
-                                                        } else {
-                                                            convocatoriaElement.textContent = 'Convocatoria no disponible';
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        // Lógica para obtener datos de DictaminatorsResponseForm2
-                                        try {
-                                            const response = await fetch('/get-dictaminators-responses');
-                                            const dictaminatorResponses = await response.json();
-                                            // Filtrar la entrada correspondiente al email seleccionado
-                                            const selectedResponseForm2 = dictaminatorResponses.form2.find(res => res.email === email);
-                                            if (selectedResponseForm2) {
-                                                // Si se encuentra la respuesta correspondiente, asigna sus valores a los campos
-                                                document.getElementById('horasActv2').textContent = selectedResponseForm2.horasActv2 || '0';
-                                                document.getElementById('puntajeEvaluarText').textContent = selectedResponseForm2.puntajeEvaluar || '0';
-                                                document.querySelector('input[name="user_id"]').value = selectedResponseForm2.user_id || '';
-                                                document.querySelector('input[name="email"]').value = selectedResponseForm2.email || '';
-                                                document.querySelector('input[name="user_type"]').value = selectedResponseForm2.user_type || '';
-                                                document.querySelector('span[id="comision1"]').textContent = selectedResponseForm2.comision1 || '';
-                                                document.querySelector('span[id="obs1"]').textContent = selectedResponseForm2.obs1 || '';
-                                            } else {
-                                                // Si no se encuentra ningún dato, puedes limpiar los campos o mostrar un mensaje
-                                                console.log('No se encontraron respuestas para este email.');
-                                                document.getElementById('horasActv2').textContent = '0';
-                                                document.getElementById('puntajeEvaluarText').textContent = '0';
-                                                document.querySelector('span[id="comision1"]').textContent = '';
-                                                document.querySelector('span[id="obs1"]').textContent = '';
+                                            } catch (error) {
+                                                console.error('Error fetching dictaminators responses:', error);
                                             }
-                                        } catch (error) {
-                                            console.error('Error fetching dictaminators responses:', error);
-                                        }
                                     }
                                 });
                             } catch (error) {
                                 console.error('Error fetching docentes:', error);
                                 alert('No se pudo cargar la lista de docentes.');
                             }
-
-
                         }
+
+                        
 
 
 
