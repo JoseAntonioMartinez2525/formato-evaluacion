@@ -126,7 +126,7 @@ $newLocale = str_replace('_', '-', $locale);
                             <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
                         </tr>
                     </thead>
-                    <tbody id="formData">
+                    <tbody id="data">
                         <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
                     </tbody>
                     </table>
@@ -478,6 +478,7 @@ $newLocale = str_replace('_', '-', $locale);
             }
         });
 
+        /*
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType); 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -485,7 +486,7 @@ $newLocale = str_replace('_', '-', $locale);
         const docenteSelect = document.getElementById('docenteSelect');
         const dictaminadorSelect = document.getElementById('dictaminadorSelect');
         const formContainer = document.getElementById('formContainer');
-        const formDataContainer = document.getElementById('formData');
+        constdataContainer = document.getElementById(data');
        
         
 
@@ -609,49 +610,49 @@ $newLocale = str_replace('_', '-', $locale);
                         try {
 
                             const response = await fetch(`/dictaminador-final-data?email=${email}`);
-                            const formData = await response.json();
+                            constdata = await response.json();
 
-                            formDataContainer.innerHTML = ''; // Limpiar datos anteriores
+                        dataContainer.innerHTML = ''; // Limpiar datos anteriores
                             formContainer.style.display = 'block'; // Mostrar el formulario
 
                            
                             const comisiones = [
-                                formData['comision1'],       // Valor de 'comision1'
-                                formData['comision1'],       // Valor de 'comision1'
-                                formData['actv2Comision'],   // Valor de 'actv2Comision'
-                                formData['actv2Comision'],
-                                formData[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
-                                formData['actv3Comision'],   // Valor de 'actv3Comision'
-                                formData['comision3_2'],      // Valor de 'comision3_2'
-                                formData['comision3_3'],
-                                formData['comision3_4'],
-                                formData['comision3_5'],
-                                formData['comision3_6'],
-                                formData['comision3_7'],
-                                formData['comision3_8'],
-                                formData[''],
-                                formData[''],
-                                formData['comision3_9'],
-                                formData['comision3_10'],
-                                formData['comision3_11'],
-                                formData[''],
-                                formData[''],
-                                formData['comision3_12'],
-                                formData['comision3_13'],
-                                formData['comision3_14'],
-                                formData['comision3_15'],
-                                formData['comision3_16'],
-                                formData[''],
-                                formData[''],
-                                formData['comision3_17'],
-                                formData['comision3_18'],
-                                formData['comision3_19'],
-                                formData[''],
-                                formData[''], //31
-                                formData['comision1'], //32
-                                formData['actv2Comision'],
-                                formData[''],       
-                                formData[''],   //35                                                                                        
+                            data['comision1'],       // Valor de 'comision1'
+                            data['comision1'],       // Valor de 'comision1'
+                            data['actv2Comision'],   // Valor de 'actv2Comision'
+                            data['actv2Comision'],
+                            data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
+                            data['actv3Comision'],   // Valor de 'actv3Comision'
+                            data['comision3_2'],      // Valor de 'comision3_2'
+                            data['comision3_3'],
+                            data['comision3_4'],
+                            data['comision3_5'],
+                            data['comision3_6'],
+                            data['comision3_7'],
+                            data['comision3_8'],
+                            data[''],
+                            data[''],
+                            data['comision3_9'],
+                            data['comision3_10'],
+                            data['comision3_11'],
+                            data[''],
+                            data[''],
+                            data['comision3_12'],
+                            data['comision3_13'],
+                            data['comision3_14'],
+                            data['comision3_15'],
+                            data['comision3_16'],
+                            data[''],
+                            data[''],
+                            data['comision3_17'],
+                            data['comision3_18'],
+                            data['comision3_19'],
+                            data[''],
+                            data[''], //31
+                            data['comision1'], //32
+                            data['actv2Comision'],
+                            data[''],       
+                            data[''],   //35                                                                                        
 
                             ];
 
@@ -754,7 +755,7 @@ $newLocale = str_replace('_', '-', $locale);
                                 row.appendChild(labelCell);
                                 row.appendChild(valueCell);
                                 row.appendChild(comisionCell);
-                                formDataContainer.appendChild(row);
+                            dataContainer.appendChild(row);
 
                                 // Asegurarse de que el valor de sumaComision3 se muestre en el índice 4
                                 if (i === 4) {
@@ -883,18 +884,18 @@ $newLocale = str_replace('_', '-', $locale);
                                  }
 
                                  if (formId === 'form4') {
-                                     let formDataValues = getCommonFormDataValues(form);
-                                     formDataValues['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
+                                     letdataValues = getCommodataValues(form);
+                                    dataValues['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
                                      // Obtener valores de los labels y spans
-                                     formDataValues['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
-                                     formDataValues['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
-                                     formDataValues['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
-                                     formDataValues['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
-                                     formDataValues['minima_total'] = document.getElementById('minimaTotal').textContent;
-                                     formDataValues['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
+                                    dataValues['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
+                                    dataValues['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
+                                    dataValues['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
+                                    dataValues['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
+                                    dataValues['minima_total'] = document.getElementById('minimaTotal').textContent;
+                                    dataValues['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
 
                                      // Log form data to check values
-                                     console.log('Form data for form4: ', formDataValues);
+                                     console.log('Form data for form4: ',dataValues);
 
                                      try {
                                          const response = await fetch(url, {
@@ -903,7 +904,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                                                  'Content-Type': 'application/json',
                                              },
-                                             body: JSON.stringify(formDataValues),
+                                             body: JSON.stringifydataValues),
                                          });
 
                                          if (!response.ok) {
@@ -916,26 +917,26 @@ $newLocale = str_replace('_', '-', $locale);
                                          console.error('There was a problem with the fetch operation:', error);
                                      }
                                  } else if (formId === 'form5') {
-                                     let formDataValues = new FormData(form);
+                                     letdataValues = newdata(form);
                                      document.getElementById('reportLink').classList.remove('d-none');
 
                                      // Agregar los campos comunes
-                                     let commonData = getCommonFormDataValues(form);
+                                     let commonData = getCommodataValues(form);
                                      for (let key in commonData) {
-                                         formDataValues.append(key, commonData[key]);
+                                        dataValues.append(key, commonData[key]);
                                      }
 
 
                                      // evaluator names
-                                     formDataValues.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
-                                     formDataValues.set('evaluator_name_2', form.querySelector('#personaEvaluadora2').value);
-                                     formDataValues.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
+                                    dataValues.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
+                                    dataValues.set('evaluator_name_2', form.querySelector('#personaEvaluadora2').value);
+                                    dataValues.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
 
-                                     // Add files to formDataValues
+                                     // Add files todataValues
                                      ['firma1', 'firma2', 'firma3'].forEach((firma) => {
                                          let fileInput = form.querySelector(`#${firma}`);
                                          if (fileInput.files.length > 0) {
-                                             formDataValues.append(firma, fileInput.files[0]);
+                                            dataValues.append(firma, fileInput.files[0]);
                                          }
                                      });
 
@@ -945,7 +946,7 @@ $newLocale = str_replace('_', '-', $locale);
                                              headers: {
                                                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                                              },
-                                             body: formDataValues,
+                                             body:dataValues,
                                          });
 
                                          if (!response.ok) {
@@ -993,12 +994,359 @@ $newLocale = str_replace('_', '-', $locale);
                         formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
                     }
                     //await fetchConvocatoria(dictaminadorId);
-                });*/
+                });
             } 
         }
-    });
+    }); */
 
     
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userType = @json($userType); 
+             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const user_identity = @json($user_identity);
+            const docenteSelect = document.getElementById('docenteSelect');
+            const dictaminadorSelect = document.getElementById('dictaminadorSelect');
+            const formContainer = document.getElementById('formContainer');
+            const dataContainer = document.getElementById('data');
+
+                    if (docenteSelect) {
+                        // Cuando el usuario es dictaminador
+                        if (userType === 'dictaminador') {
+                            try {
+                                const response = await fetch('/get-docentes');
+                                const docentes = await response.json();
+
+                                docentes.forEach(docente => {
+                                    const option = document.createElement('option');
+                                    option.value = docente.email;
+                                    option.textContent = docente.email;
+                                    docenteSelect.appendChild(option);
+                                });
+
+                                docenteSelect.addEventListener('change', async (event) => {
+                                    const email = event.target.value;
+
+                                    if (email) {
+                                        axios.get('/get-docente-data', { params: { email } })
+                                            .then(response => {
+                                                const data = response.data;
+                                                
+                                                //generar la tabla
+                                            //constdata = await response.json();
+
+                        dataContainer.innerHTML = ''; // Limpiar datos anteriores
+                            formContainer.style.display = 'block'; // Mostrar el formulario
+
+                           
+                            const comisiones = [
+                            data['comision1'],       // Valor de 'comision1'
+                            data['comision1'],       // Valor de 'comision1'
+                            data['actv2Comision'],   // Valor de 'actv2Comision'
+                            data['actv2Comision'],
+                            data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
+                            data['actv3Comision'],   // Valor de 'actv3Comision'
+                            data['comision3_2'],      // Valor de 'comision3_2'
+                            data['comision3_3'],
+                            data['comision3_4'],
+                            data['comision3_5'],
+                            data['comision3_6'],
+                            data['comision3_7'],
+                            data['comision3_8'],
+                            data[''],
+                            data[''],
+                            data['comision3_9'],
+                            data['comision3_10'],
+                            data['comision3_11'],
+                            data[''],
+                            data[''],
+                            data['comision3_12'],
+                            data['comision3_13'],
+                            data['comision3_14'],
+                            data['comision3_15'],
+                            data['comision3_16'],
+                            data[''],
+                            data[''],
+                            data['comision3_17'],
+                            data['comision3_18'],
+                            data['comision3_19'],
+                            data[''],
+                            data[''], //31
+                            data['comision1'], //32
+                            data['actv2Comision'],
+                            data[''],       
+                            data[''],   //35                                                                                        
+
+                            ];
+
+                          // Generar las filas
+                            let sumaComision3 = 0;
+                            let comisionSubtotal1 = 0;
+                            let comisionSubtotal2 = 0;
+                            let comisionSubtotal3 = 0;
+                            let comisionSubtotal4 = 0;
+                            let totalLogrado = 0;
+
+                            // Primero, calcular los subtotales
+                            for (let i = 0; i < labels.length; i++) {
+                                if (labels[i] === 'Subtotal ' || labels[i] === 'Subtotal') {
+                                    // Sumar las comisiones del índice 5 al 12
+                                    if (i === 13) {
+                                        for (let index = 5; index <= 12; index++) {
+                                            comisionSubtotal1 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                        }
+                                        sumaComision3 += comisionSubtotal1;
+                                        comisiones[13] = comisionSubtotal1; // Asignar el subtotal calculado
+                                    }
+
+                                    // Sumar las comisiones del índice 15 al 17
+                                    if (i === 18) {
+                                        for (let index = 15; index <= 17; index++) {
+                                            comisionSubtotal2 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                        }
+                                        sumaComision3 += comisionSubtotal2;
+                                        comisiones[18] = comisionSubtotal2; // Asignar el subtotal calculado
+                                    }
+
+                                    // Sumar las comisiones del índice 20 al 24
+                                    if (i === 25) {
+                                        for (let index = 20; index <= 24; index++) {
+                                            comisionSubtotal3 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                        }
+                                        sumaComision3 += comisionSubtotal3;
+                                        comisiones[25] = comisionSubtotal3; // Asignar el subtotal calculado
+                                    }
+
+                                    // Sumar las comisiones del índice 27 al 29
+                                    if (i === 30) {
+                                        for (let index = 27; index <= 29; index++) {
+                                            comisionSubtotal4 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
+                                        }
+                                        sumaComision3 += comisionSubtotal4;
+                                        comisiones[30] = comisionSubtotal4; // Asignar el subtotal calculado
+                                    }
+                                }
+                            }
+
+                            // Limitar sumaComision3 a 700 usando Math.min
+                            sumaComision3 = Math.min(sumaComision3, 700);
+
+                            // Asignar el valor de sumaComision3 al índice 4
+                            comisiones[4] = sumaComision3;
+
+                            // Calcular totalLogrado sumando comisiones[0], comisiones[2], y comisiones[4]
+                            totalLogrado = (parseInt(comisiones[0]) || 0) + (parseInt(comisiones[2]) || 0) + (parseInt(comisiones[4]) || 0);
+
+                            // Limitar totalLogrado a 700 usando Math.min
+                            totalLogrado = Math.min(totalLogrado, 700);
+
+                            // Asignar el valor de totalLogrado al índice 31
+                            comisiones[31] = totalLogrado;
+                            comisiones [34] = comisiones[4];
+                            comisiones[35] = comisiones [31];
+
+                            // Luego, generar las filas
+                            for (let i = 0; i < labels.length; i++) {
+                                const row = document.createElement('tr');
+                                let labelCell = document.createElement('td');
+                                let valueCell = document.createElement('td');
+                                let comisionCell = document.createElement('td');
+
+                                labelCell.textContent = labels[i];
+                                valueCell.textContent = values[i];
+                                comisionCell.textContent = comisiones[i];
+
+                                // Aplicar estilos a los elementos específicos
+                                if (['Subtotal ', 'Subtotal', 'Tutorias', 'Investigación', 'Cuerpos colegiados', 'Total logrado en la evaluación', 'Total de puntaje obtenido en la evaluación'].includes(labels[i])) {
+                                    labelCell.style.fontWeight = 'bold';
+                                    labelCell.style.textAlign = 'center';
+                                }
+
+                                // Excluir ciertos elementos de ser pintados
+                                if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
+                                    comisionCell.style.backgroundColor = '#f6c667';
+                                }
+
+                                if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
+                                    comisionCell.style.fontWeight = 'bold';
+                                }
+
+                                if([35].includes(i)){
+                                    comisionCell.style.backgroundColor = 'transparent';
+                                }
+
+                                row.appendChild(labelCell);
+                                row.appendChild(valueCell);
+                                row.appendChild(comisionCell);
+                            dataContainer.appendChild(row);
+
+                                // Asegurarse de que el valor de sumaComision3 se muestre en el índice 4
+                                if (i === 4) {
+                                    comisionCell.textContent = sumaComision3.toString();
+                                }
+
+                                // Asegurarse de que los subtotales se muestren en las celdas correspondientes
+                                if (i === 13) {
+                                    comisionCell.textContent = comisionSubtotal1.toString();
+                                } else if (i === 18) {
+                                    comisionCell.textContent = comisionSubtotal2.toString();
+                                } else if (i === 25) {
+                                    comisionCell.textContent = comisionSubtotal3.toString();
+                                } else if (i === 30) {
+                                    comisionCell.textContent = comisionSubtotal4.toString();
+                                } else if (i === 31) {
+                                    comisionCell.textContent = totalLogrado.toString();
+                                }
+
+                                comisionCell.style.textAlign = 'center';
+                            }
+
+                           
+                           const minimaCalidad = evaluarCalidad(sumaComision3);
+                           const  minimaTotal = evaluarTotal(totalLogrado);
+
+                            document.getElementById('minimaCalidad').textContent = minimaCalidad;
+                            document.getElementById('minimaTotal').textContent = minimaTotal;
+
+                                                // Actualizar convocatoria
+                                                const convocatoriaElement = document.getElementById('convocatoria');
+                                                if (convocatoriaElement) {
+                                                    if (data.form1) {
+                                                        convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                                    } else {
+                                                        console.error('form1 no está definido en la respuesta.');
+                                                    }
+                                                } else {
+                                                    console.error('Elemento con ID "convocatoria" no encontrado.');
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Error fetching docente data:', error);
+                                            });
+                                        //await asignarDocentes(user_identity, email);
+                                    }
+                                });
+                            } catch (error) {
+                                console.error('Error fetching docentes:', error);
+                                alert('No se pudo cargar la lista de docentes.');
+                            }
+                        }
+                        // Cuando el userType está vacío
+                        else if (userType === '') {
+                            const formName = 'form2';
+                            try {
+                                const response = await fetch('/get-docentes');
+
+                                const docentes = await response.json();
+
+                                docentes.forEach(docente => {
+                                    const option = document.createElement('option');
+                                    option.value = docente.email;
+                                    option.textContent = docente.email;
+                                    docenteSelect.appendChild(option);
+                                });
+
+                                docenteSelect.addEventListener('change', async (event) => {
+                                    const email = event.target.value;
+
+                                    if (email) {
+                                        axios.get('/get-docente-data', { params: { email } })
+                                            .then(response => {
+                                                const data = response.data;
+
+                                                // Actualizar convocatoria
+
+                                                // Verifica si la respuesta contiene los datos esperados
+                                                if (data.docente) {
+                                                    const convocatoriaElement = document.getElementById('convocatoria');
+
+                                                    // Mostrar la convocatoria si existe
+                                                    if (convocatoriaElement) {
+                                                        if (data.docente.convocatoria) {
+                                                            convocatoriaElement.textContent = data.docente.convocatoria;
+                                                        } else {
+                                                            convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        // Lógica para obtener datos de DictaminatorsResponseForm2
+                                        try {
+                                            const response = await fetch('/get-dictaminators-responses');
+                                            const dictaminatorResponses = await response.json();
+                                            // Filtrar la entrada correspondiente al email seleccionado
+                                            const selectedResponseForm2 = dictaminatorResponses.form2.find(res => res.email === email);
+                                            if (selectedResponseForm2) {
+                                                // Si se encuentra la respuesta correspondiente, asigna sus valores a los campos
+                                                document.getElementById('horasActv2').textContent = selectedResponseForm2.horasActv2 || '0';
+                                                document.getElementById('puntajeEvaluarText').textContent = selectedResponseForm2.puntajeEvaluar || '0';
+                                                document.querySelector('input[name="user_id"]').value = selectedResponseForm2.user_id || '';
+                                                document.querySelector('input[name="email"]').value = selectedResponseForm2.email || '';
+                                                document.querySelector('input[name="user_type"]').value = selectedResponseForm2.user_type || '';
+                                                document.querySelector('span[id="comision1"]').textContent = selectedResponseForm2.comision1 || '';
+                                                document.querySelector('span[id="obs1"]').textContent = selectedResponseForm2.obs1 || '';
+                                            } else {
+                                                // Si no se encuentra ningún dato, puedes limpiar los campos o mostrar un mensaje
+                                                console.log('No se encontraron respuestas para este email.');
+                                                document.getElementById('horasActv2').textContent = '0';
+                                                document.getElementById('puntajeEvaluarText').textContent = '0';
+                                                document.querySelector('span[id="comision1"]').textContent = '';
+                                                document.querySelector('span[id="obs1"]').textContent = '';
+                                            }
+                                        } catch (error) {
+                                            console.error('Error fetching dictaminators responses:', error);
+                                        }
+                                    }
+                                });
+                            } catch (error) {
+                                console.error('Error fetching docentes:', error);
+                                alert('No se pudo cargar la lista de docentes.');
+                            }
+
+
+                        }
+
+
+
+                    }
+
+
+                    /*
+                    async function asignarDocentes(dictaminadorId, docenteEmail) {
+                        try {
+                            const response = await fetch(`/asignar-docentes/${dictaminadorId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({ docentes: docenteEmail })
+                            });
+                            const data = await response.json();
+                            console.log('Docentes asignados correctamente:', data);
+                        } catch (error) {
+                            console.error('Error asignando docentes:', error);
+                        }
+                    }
+                    
+                    async function agregarDocente(dictaminadorId, docenteEmail) {
+                        try {
+                            const response = await fetch(`/agregar-docente/${dictaminadorId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({ docente_email: docenteEmail })
+                            });
+                            const data = await response.json();
+                            console.log('Docente agregado correctamente:', data);
+                        } catch (error) {
+                            console.error('Error agregando docente:', error);
+                        }
+                    }
+                         */
+                });
+
     async function fetchData(url, params = {}) {
         const queryString = new URLSearchParams(params).toString();
         const fullUrl = `${url}?${queryString}`;
@@ -1053,14 +1401,14 @@ $newLocale = str_replace('_', '-', $locale);
 
         }
 
-    function getCommonFormDataValues(form) {
-            const formData = {};
+    function getCommodataValues(form) {
+            constdata = {};
 
-            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-            formData['email'] = form.querySelector('input[name="email"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-            console.log('user_type value: ', formData['user_type']);
-            return formData;
+        data['user_id'] = form.querySelector('input[name="user_id"]').value;
+        data['email'] = form.querySelector('input[name="email"]').value;
+        data['user_type'] = form.querySelector('input[name="user_type"]').value;
+            console.log('user_type value: ',data['user_type']);
+            returndata;
         }
                             
     </script>
