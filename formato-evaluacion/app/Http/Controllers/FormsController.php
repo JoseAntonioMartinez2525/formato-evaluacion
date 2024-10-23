@@ -42,7 +42,7 @@ class FormsController extends Controller
     }
 public function getDictaminadorData(Request $request)
 {
-        $emails = $request->query('emailss');
+        $emails = $request->query('emails');
         $dictaminador_id = $request->query('dictaminador_id');
 
         \Log::info('emails recibido:', ['emails' => $emails]);

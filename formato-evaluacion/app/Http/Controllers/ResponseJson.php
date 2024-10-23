@@ -169,6 +169,7 @@ class ResponseJson extends Controller
 
     public function getDictaminatorResponses()
     {
+        
 // Obtiene las respuestas de form2
     $dictaminators_responses2 = DictaminatorsResponseForm2::all()->filter()->values();
     $dictaminators_responses2_2 = DictaminatorsResponseForm2_2::all()->filter()->values();
@@ -219,6 +220,55 @@ class ResponseJson extends Controller
     ]);
 
 }
+    public function getDictaminatorResponsesId(Request $request)
+    {
+        // Obtén el user_id desde la consulta
+        $user_id = $request->query('user_id');
+
+        // Verifica si se proporciona el user_id
+        if (!$user_id) {
+            return response()->json(['error' => 'User ID is required'], 400);
+        }
+
+        // Inicializa un array para almacenar las respuestas
+        $responses = [];
+
+        // Obtiene las respuestas del dictaminador basado en el user_id y selecciona solo la comisión necesaria
+        $responses['form2'] = DictaminatorsResponseForm2::where('user_id', $user_id)->first(['comision1']);
+        $responses['form2_2'] = DictaminatorsResponseForm2_2::where('user_id', $user_id)->first(['actv2Comision']);
+        $responses['form3_1'] = DictaminatorsResponseForm3_1::where('user_id', $user_id)->first(['actv3Comision']);
+        $responses['form3_2'] = DictaminatorsResponseForm3_2::where('user_id', $user_id)->first(['comision3_2']);
+        $responses['form3_3'] = DictaminatorsResponseForm3_3::where('user_id', $user_id)->first(['comision3_3']);
+        $responses['form3_4'] = DictaminatorsResponseForm3_4::where('user_id', $user_id)->first(['comision3_4']);
+        $responses['form3_5'] = DictaminatorsResponseForm3_5::where('user_id', $user_id)->first(['comision3_5']);
+        $responses['form3_6'] = DictaminatorsResponseForm3_6::where('user_id', $user_id)->first(['comision3_6']);
+        $responses['form3_7'] = DictaminatorsResponseForm3_7::where('user_id', $user_id)->first(['comision3_7']);
+        $responses['form3_8'] = DictaminatorsResponseForm3_8::where('user_id', $user_id)->first(['comision3_8']);
+        $responses['form3_9'] = DictaminatorsResponseForm3_9::where('user_id', $user_id)->first(['comision3_9']);
+        $responses['form3_10'] = DictaminatorsResponseForm3_10::where('user_id', $user_id)->first(['comision3_10']);
+        $responses['form3_11'] = DictaminatorsResponseForm3_11::where('user_id', $user_id)->first(['comision3_11']);
+        $responses['form3_12'] = DictaminatorsResponseForm3_12::where('user_id', $user_id)->first(['comision3_12']);
+        $responses['form3_13'] = DictaminatorsResponseForm3_13::where('user_id', $user_id)->first(['comision3_13']);
+        $responses['form3_14'] = DictaminatorsResponseForm3_14::where('user_id', $user_id)->first(['comision3_14']);
+        $responses['form3_15'] = DictaminatorsResponseForm3_15::where('user_id', $user_id)->first(['comision3_15']);
+        $responses['form3_16'] = DictaminatorsResponseForm3_16::where('user_id', $user_id)->first(['comision3_16']);
+        $responses['form3_17'] = DictaminatorsResponseForm3_17::where('user_id', $user_id)->first(['comision3_17']);
+        $responses['form3_18'] = DictaminatorsResponseForm3_18::where('user_id', $user_id)->first(['comision3_18']);
+        $responses['form3_19'] = DictaminatorsResponseForm3_19::where('user_id', $user_id)->first(['comision3_19']);
+
+        // Limpia los campos nulos
+        $responses = array_filter($responses, function ($value) {
+            return $value !== null;
+        });
+
+        // Retorna las respuestas en un array JSON estructurado
+        return response()->json($responses);
+    }
+
+
+
+    
+
 
 
 }

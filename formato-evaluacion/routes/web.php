@@ -211,9 +211,10 @@ Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name
 Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
 Route::get('/get-dictaminators-responses', [ResponseJson::class, 'getDictaminatorResponses']);
+Route::get('/get-dictaminators-responses-id', [ResponseJson::class, 'getDictaminatorResponsesId']);
 Route::get('/fetch-convocatoria/{user_id}', [ResumenComisionController::class, 'fetchConvocatoria'])->name('fetch-convocatoria');
 Route::get('/get-docentes-by-dictaminador', [DictaminatorForm2_Controller::class, 'getDocentesByDictaminador']);
-
+Route::get('/get-user-id', [DictaminatorController::class, 'getUserId']);
 Route::get('/general', [ReportsController::class, 'index'])->name('general');
 Route::get('/show-profile', [ReportsController::class, 'showProfile'])->name('show-profile');
 //Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');

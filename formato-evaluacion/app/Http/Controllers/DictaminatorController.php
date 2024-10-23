@@ -101,6 +101,18 @@ class DictaminatorController extends Controller
 
         ]);
     }
-    
+
+    public function getUserId(Request $request)
+    {
+        $email = $request->query('email');
+        $user = User::where('email', $email)->first();
+        if ($user) {
+            return response()->json(['user_id' => $user->id]);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
+
+
 }
 
