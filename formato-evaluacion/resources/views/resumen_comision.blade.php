@@ -1124,6 +1124,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 comisiones[34] = comisiones[4];
                                 comisiones[35] = comisiones[31];
 
+                                
+
                                 // **Generar las filas con los estilos y cálculos**
                                 for (let i = 0; i < labels.length; i++) {
                                     const row = document.createElement('tr');
@@ -1166,13 +1168,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     row.appendChild(valueCell);
                                     row.appendChild(comisionCell);
                                     dataContainer.appendChild(row);
+
+                                    
                                 }
+
+                                
 
                                 // Asignar los valores calculados a otros elementos del DOM
                                 const minimaCalidad = evaluarCalidad(sumaComision3);
                                 const minimaTotal = evaluarTotal(totalLogrado);
                                 document.getElementById('minimaCalidad').textContent = minimaCalidad;
                                 document.getElementById('minimaTotal').textContent = minimaTotal;
+
+
 
                                              // Actualizar convocatoria
                                                 const convocatoriaElement = document.getElementById('convocatoria');

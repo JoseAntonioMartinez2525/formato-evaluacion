@@ -46,5 +46,10 @@ class UsersResponseForm3_1 extends Model
     }
 
 
+    public function dictaminadores()
+    {
+        return $this->belongsToMany(DictaminatorsResponseForm3_1::class, 'dictaminators_response_form3_1');
+    }
+
 }
 

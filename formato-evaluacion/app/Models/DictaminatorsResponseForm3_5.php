@@ -42,6 +42,11 @@ class DictaminatorsResponseForm3_5 extends Model
     {
         return $this->belongsTo(UsersResponseForm1::class, 'user_id', 'user_id');
     }
+
+    public function docentes()
+    {
+        return $this->belongsToMany(UsersResponseForm3_5::class, 'users_response_form3_5');
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

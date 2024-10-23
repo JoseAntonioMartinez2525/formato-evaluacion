@@ -37,6 +37,12 @@ class UsersResponseForm2_2 extends RulesForm2_2
     }
 
 
+    public function dictaminadores()
+    {
+        return $this->belongsToMany(DictaminatorsResponseForm2_2::class, 'dictaminators_response_form2_2');
+    }
+
+
 }
 
 

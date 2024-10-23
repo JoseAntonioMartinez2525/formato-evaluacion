@@ -38,4 +38,9 @@ class UsersResponseForm3_11 extends Model
     {
         return $query->orderBy('created_at', 'desc')->first();
     }
+
+    public function dictaminadores()
+    {
+        return $this->belongsToMany(DictaminatorsResponseForm3_11::class, 'dictaminators_response_form3_11');
+    }
 }
