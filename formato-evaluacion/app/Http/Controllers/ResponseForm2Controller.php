@@ -20,6 +20,7 @@ class ResponseForm2Controller extends Controller
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
+            $validatedData['form_type'] = 'form2';
             // Assign a default value if puntajeEvaluar is not provided
             if (!isset($validatedData['puntajeEvaluar'])) {
                 $validatedData['puntajeEvaluar'] = 0;

@@ -18,6 +18,7 @@ class DictaminatorsResponseForm2 extends RulesForm2
         'comision1',
         'obs1',
         'user_type',
+        'form_type',
 
     ];
 
@@ -38,7 +39,9 @@ class DictaminatorsResponseForm2 extends RulesForm2
 
     public function docentes()
     {
-        return $this->belongsToMany(UsersResponseForm2::class, 'users_response_form2');
+        return $this->belongsToMany(UsersResponseForm2::class, 'dictaminador_docente', 'dictaminator_form_id', 'user_id')
+            ->withPivot('form_type')
+            ->withTimestamps();
     }
     public function __construct(array $attributes = [])
     {

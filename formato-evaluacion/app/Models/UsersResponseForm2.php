@@ -15,6 +15,7 @@ class UsersResponseForm2 extends RulesForm2
         'horasActv2',
         'puntajeEvaluar',
         'obs1',
+        'form_type',
 
     ];
 
@@ -23,7 +24,9 @@ class UsersResponseForm2 extends RulesForm2
 
     public function dictaminadores()
     {
-        return $this->belongsToMany(DictaminatorsResponseForm2::class, 'dictaminators_response_form2');
+        return $this->belongsToMany(DictaminatorsResponseForm2::class, 'dictaminador_docente', 'user_id', 'dictaminator_form_id')
+            ->withPivot('form_type')
+            ->withTimestamps();
     }
     public function __construct(array $attributes = [])
     {

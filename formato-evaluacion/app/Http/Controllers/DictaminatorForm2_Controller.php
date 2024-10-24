@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersResponseForm2;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\DictaminatorsResponseForm2;
 use Illuminate\Database\QueryException;
@@ -22,8 +23,10 @@ class DictaminatorForm2_Controller extends TransferController
                 'comision1' => 'required|numeric',
                 'obs1' => 'nullable|string',
                 'user_type' => 'required|in:user,docente,dictaminator',
+                
             ]);
 
+            $validatedData['form_type'] = 'form2';
             // Default values for optional fields
             if (!isset($validatedData['puntajeEvaluar'])) {
                 $validatedData['puntajeEvaluar'] = 0;
@@ -32,8 +35,15 @@ class DictaminatorForm2_Controller extends TransferController
                 $validatedData['obs1'] = "sin comentarios";
             }
 
-            DictaminatorsResponseForm2::create($validatedData);
-
+            $response = DictaminatorsResponseForm2::create($validatedData);
+            // Agregar a dictaminador_docente
+            DB::table('dictaminador_docente')->insert([
+                'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
+                'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
+                'form_type' => 'form2', // O el tipo de formulario correspondiente
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
             // Llama a la verificación y transferencia
             $this->checkAndTransfer('DictaminatorsResponseForm2');
 
@@ -62,6 +72,8 @@ class DictaminatorForm2_Controller extends TransferController
                 'message' => 'An unexpected error occurred: ' . $e->getMessage(),
             ], 500);
         }
+
+        
 
 
     }
