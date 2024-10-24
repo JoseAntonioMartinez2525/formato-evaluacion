@@ -29,6 +29,8 @@ class ResponseForm3_11Controller extends Controller
 
             ]);
 
+            $validatedData['form_type'] = 'form3_11';
+
             // Assign default value if not provided
             $validatedData['obsAsesoria'] = $validatedData['obsAsesoria'] ?? 'sin comentarios';
             $validatedData['obsServicio'] = $validatedData['obsServicio'] ?? 'sin comentarios';

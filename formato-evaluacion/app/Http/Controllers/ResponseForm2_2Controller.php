@@ -25,6 +25,7 @@ class ResponseForm2_2Controller extends Controller
             'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
+            $validatedData['form_type'] = 'form2_2';
         // Assign a default value if hours is not provided
         if (!isset($validatedData['hours'])) {
             $validatedData['hours'] = 0;

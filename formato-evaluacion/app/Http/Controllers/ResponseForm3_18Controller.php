@@ -59,6 +59,8 @@ class ResponseForm3_18Controller extends Controller
 
             ]);
 
+            $validatedData['form_type'] = 'form3_18';
+
             // Assign default value if not provided
             $validatedData['obsComOrgInt'] = $validatedData['obsComOrgInt'] ?? 'sin comentarios';
             $validatedData['obsComOrgNac'] = $validatedData['obsComOrgNac'] ?? 'sin comentarios';

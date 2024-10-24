@@ -6,7 +6,7 @@ use App\Models\DictaminatorsResponseForm3_9;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Facades\DB;
 class DictaminatorForm3_9Controller extends TransferController
 {
     public function storeform39(Request $request)
@@ -91,6 +91,8 @@ class DictaminatorForm3_9Controller extends TransferController
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
+            $validatedData['form_type'] = 'form3_9';
+
             if (!isset($validatedData['score3_9'])) {
                 $validatedData['score3_9'] = 0;
             }
@@ -114,7 +116,17 @@ class DictaminatorForm3_9Controller extends TransferController
 
 
 
-            DictaminatorsResponseForm3_9::create($validatedData);
+            $response = DictaminatorsResponseForm3_9::create($validatedData);
+            DB::table('dictaminador_docente')->insert([
+                'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
+                'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
+                'dictaminador_id' => $response->dictaminador_id,
+                'form_type' => 'form3_9', // O el tipo de formulario correspondiente
+                'docente_email' => $response->email,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
             $this->checkAndTransfer('DictaminatorsResponseForm3_9');
 
             return response()->json([

@@ -35,6 +35,8 @@ class ResponseForm3_1Controller extends Controller
             'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
+            $validatedData['form_type'] = 'form3_1';
+
             if (!isset($validatedData['score3_1'])) {
                 $validatedData['score3_1'] = 0;
             }

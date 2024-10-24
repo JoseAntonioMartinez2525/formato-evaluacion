@@ -71,6 +71,8 @@ class ResponseForm3_9Controller extends Controller
             
             ]);
 
+            $validatedData['form_type'] = 'form3_9';
+
             // Assign default value if not provided
             for ($i=1; $i <=17 ; $i++) {
                 $validatedData["obs3_9_$i"] = $validatedData["obs3_9_$i"] ?? 'sin comentarios';

@@ -30,6 +30,8 @@ class ResponseForm3_4Controller extends Controller
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
+            $validatedData['form_type'] = 'form3_4';
+
             // Assign default value if not provided
             $validatedData['obs3_4_1'] = $validatedData['obs3_4_1'] ?? 'sin comentarios';
             $validatedData['obs3_4_2'] = $validatedData['obs3_4_2'] ?? 'sin comentarios';

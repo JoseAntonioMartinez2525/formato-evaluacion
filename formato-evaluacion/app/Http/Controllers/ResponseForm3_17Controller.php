@@ -33,6 +33,7 @@ class ResponseForm3_17Controller extends Controller
 
             ]);
 
+            $validatedData['form_type'] = 'form3_17';
             // Assign default value if not provided
             $validatedData['obsDifusionExt'] = $validatedData['obsDifusionExt'] ?? 'sin comentarios';
             $validatedData['obsDifusionInt'] = $validatedData['obsDifusionInt'] ?? 'sin comentarios';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DictaminatorsResponseForm2_2;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class DictaminatorForm2_2Controller extends TransferController
@@ -29,6 +30,8 @@ class DictaminatorForm2_2Controller extends TransferController
             'user_type' => 'required|in:user,docente,dictaminator',
         ]);
 
+            $validatedData['form_type'] = 'form2_2';
+
         if (!isset($validatedData['hours'])) {
             $validatedData['hours'] = 0;
         }
@@ -36,7 +39,18 @@ class DictaminatorForm2_2Controller extends TransferController
         $validatedData['obs2_2'] = $validatedData['obs2_2'] ?? 'sin comentarios';
 
         try {
-            DictaminatorsResponseForm2_2::create($validatedData);
+            $response = DictaminatorsResponseForm2_2::create($validatedData);
+
+                DB::table('dictaminador_docente')->insert([
+                    'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
+                    'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
+                    'dictaminador_id' => $response->dictaminador_id,
+                    'form_type' => 'form2_2', // O el tipo de formulario correspondiente
+                    'docente_email' => $response->email,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
                 $this->checkAndTransfer('DictaminatorsResponseForm2_2');
         } catch (QueryException $e) {
             return response()->json([

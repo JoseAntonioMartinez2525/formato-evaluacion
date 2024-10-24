@@ -82,6 +82,8 @@ class ResponseForm3_19Controller extends Controller
 
             ]);
 
+            $validatedData['form_type'] = 'form3_19';
+
             // Assign default value if not provided
             $validatedData['obsCGUtitular'] = $validatedData['obsCGUtitular'] ?? 'sin comentarios';
             $validatedData['obsCGUespecial'] = $validatedData['obsCGUespecial'] ?? 'sin comentarios';
