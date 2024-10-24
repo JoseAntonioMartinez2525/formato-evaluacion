@@ -53,7 +53,9 @@ class DictaminatorsResponseForm3_17 extends Model
 
     public function docentes()
     {
-        return $this->belongsToMany(UsersResponseForm3_17::class, 'users_response_form3_17');
+        return $this->belongsToMany(UsersResponseForm3_17::class, 'dictaminador_docente', 'dictaminator_form_id', 'user_id')
+            ->withPivot('form_type')
+            ->withTimestamps();
     }
     public function __construct(array $attributes = [])
     {
