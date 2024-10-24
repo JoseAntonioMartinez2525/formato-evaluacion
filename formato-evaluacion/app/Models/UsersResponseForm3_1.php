@@ -28,6 +28,7 @@ class UsersResponseForm3_1 extends Model
         'obs3_1_4',
         'obs3_1_5',
         'user_type',
+        'form_type',
     ];
 
 
@@ -48,8 +49,9 @@ class UsersResponseForm3_1 extends Model
 
     public function dictaminadores()
     {
-        return $this->belongsToMany(DictaminatorsResponseForm3_1::class, 'dictaminators_response_form3_1');
+        return $this->belongsToMany(DictaminatorsResponseForm3_1::class, 'dictaminador_docente', 'user_id', 'dictaminator_form_id')
+            ->withPivot('form_type')
+            ->withTimestamps();
     }
 
 }
-
