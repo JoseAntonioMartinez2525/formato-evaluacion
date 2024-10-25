@@ -105,8 +105,14 @@ class DictaminatorsResponseForm3_9 extends Model
 
     public function docentes()
     {
-        return $this->belongsToMany(UsersResponseForm3_9::class, 'dictaminador_docente', 'dictaminator_form_id', 'user_id')
-            ->withPivot('form_type')
+        return $this->morphedByMany(
+            UsersResponseForm3_9::class,            // Modelo objetivo
+            'id_type',                    // Nombre del campo morph
+            'dictaminador_docente',               // Nombre de la tabla pivot
+            'dictaminador_form_id',               // Llave de la tabla de dictaminadores
+            'user_id'                             // Llave de la tabla objetivo en la relación polimórfica
+        )
+            ->withPivot('form_type', 'docente_email') // Campos adicionales en la tabla pivot
             ->withTimestamps();
     }
     public function __construct(array $attributes = [])

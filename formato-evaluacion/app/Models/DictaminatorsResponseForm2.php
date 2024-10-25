@@ -39,7 +39,7 @@ class DictaminatorsResponseForm2 extends RulesForm2
 
     public function docentes()
     {
-        return $this->belongsToMany(UsersResponseForm2::class, 'dictaminador_docente', 'dictaminator_form_id', 'user_id')
+        return $this->belongsToMany(UsersResponseForm2::class, 'dictaminador_docente', 'user_id')
             ->withPivot('form_type')
             ->withTimestamps();
     }
