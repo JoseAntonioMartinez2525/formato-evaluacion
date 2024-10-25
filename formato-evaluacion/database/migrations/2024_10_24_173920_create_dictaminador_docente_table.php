@@ -18,7 +18,7 @@ public function up()
         $table->timestamps();
 
         // Clave foránea para relacionar user_id con la tabla de usuarios de docentes
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
     });
 
 
