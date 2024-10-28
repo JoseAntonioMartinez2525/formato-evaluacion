@@ -160,7 +160,7 @@ $user_identity = $user->id;
                         <td id="subtotalArbInt"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionArbInt" value="{{ oldValueOrDefault('comisionArbInt') }}"
+                            <input type="number" step="0.01" id="comisionArbInt" value="{{ oldValueOrDefault('comisionArbInt') }}"
                                 oninput="onActv3Comision3_16()">
                         @else
                             <span id="comisionArbInt"></span>
@@ -185,7 +185,7 @@ $user_identity = $user->id;
                         <td id="subtotalArbNac"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionArbNac" value="{{ oldValueOrDefault('comisionArbNac') }}"
+                            <input type="number" step="0.01" id="comisionArbNac" value="{{ oldValueOrDefault('comisionArbNac') }}"
                                 oninput="onActv3Comision3_16()">
                         @else
                             <span id="comisionArbNac"></span>
@@ -211,7 +211,7 @@ $user_identity = $user->id;
                         <td id="subtotalPubInt"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionPubInt" value="{{ oldValueOrDefault('comisionPubInt') }}"
+                            <input type="number" step="0.01" id="comisionPubInt" value="{{ oldValueOrDefault('comisionPubInt') }}"
                                 oninput="onActv3Comision3_16()"></td>
                         @else
                         <span id="comisionPubInt"></span>
@@ -237,7 +237,7 @@ $user_identity = $user->id;
                         <td id="subtotalPubNac"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionPubNac" value="{{ oldValueOrDefault('comisionPubNac') }}"
+                            <input type="number" step="0.01" id="comisionPubNac" value="{{ oldValueOrDefault('comisionPubNac') }}"
                                 oninput="onActv3Comision3_16()">
                         @else
                             <span id="comisionPubNac"></span>
@@ -262,7 +262,7 @@ $user_identity = $user->id;
                         <td id="subtotalRevInt"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionRevInt" value="{{ oldValueOrDefault('comisionRevInt') }}"
+                            <input type="number" step="0.01" id="comisionRevInt" value="{{ oldValueOrDefault('comisionRevInt') }}"
                                 oninput="onActv3Comision3_16()"></td>
                         @else
                             <span id="comisionRevInt"> </span>
@@ -286,7 +286,7 @@ $user_identity = $user->id;
                         <td id="subtotalRevNac"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionRevNac" value="{{ oldValueOrDefault('comisionRevNac') }}"
+                            <input type="number" step="0.01" id="comisionRevNac" value="{{ oldValueOrDefault('comisionRevNac') }}"
                                 oninput="onActv3Comision3_16()"></td>
                         @else
                             <span id="comisionRevNac"> </span>
@@ -310,7 +310,7 @@ $user_identity = $user->id;
                         <td id="subtotalRevista"></td>
                         <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionRevista" value="{{ oldValueOrDefault('comisionRevista') }}"
+                            <input type="number" step="0.01" id="comisionRevista" value="{{ oldValueOrDefault('comisionRevista') }}"
                                 oninput="onActv3Comision3_16()"></td>
                         @else
                             <span id="comisionRevista"> </span>

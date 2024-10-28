@@ -132,7 +132,7 @@ $user_identity = $user->id;
                         </td>
                         <td id="cantInternacional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comInternacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comInternacional') }}">
+                            <input type="number" step="0.01" id="comInternacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comInternacional') }}">
                         @else
                             <span id="comInternacional" name="comInternacional"></span>
                             @endif
@@ -148,10 +148,10 @@ $user_identity = $user->id;
                         <td class="punto3_4">b)</td>
                         <td>Nacional</td>
                         <td id="p30Nac"><b>30</b></td>
-                        <td><span type="number" id="cantNacional"></span></td>
+                        <td><span type="number" step="0.01" id="cantNacional"></span></td>
                         <td id="cantNacional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comNacional"name="comNacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comNacional') }}">
+                            <input type="number" step="0.01" id="comNacional"name="comNacional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comNacional') }}">
                         @else
                             <span id="comNacional" name="comNacional"></span>
                             @endif
@@ -172,7 +172,7 @@ $user_identity = $user->id;
                         </td>
                         <td id="cantidadRegional2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comRegional" name="comRegional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comRegional') }}">
+                            <input type="number" step="0.01" id="comRegional" name="comRegional" oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comRegional') }}">
                         @else
                             <span id="comRegional" name="comRegional"></span>
                             @endif
@@ -193,7 +193,7 @@ $user_identity = $user->id;
                         </td>
                         <td id="cantPreparacion2"></td>
                         <td>@if($userType == 'dictaminador')
-                            <input type="number" id="comPreparacion"  oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comPreparacion') }}">
+                            <input type="number" step="0.01" id="comPreparacion"  oninput="onActv3Comision3_4()" value="{{ oldValueOrDefault('comPreparacion') }}">
                         @else
                             <span id="comPreparacion" name="comPreparacion"></span>
                             @endif

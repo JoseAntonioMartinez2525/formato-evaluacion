@@ -169,7 +169,7 @@ $user_identity = $user->id;
                                     <td><span id="elaboracionSubTotal1" for="" type="text"></span></td>
                                     <td class="comision actv">
                                     @if($userType == 'dictaminador')
-                                        <input id="comisionIncisoA" for="" type="number"
+                                        <input id="comisionIncisoA" for="" type="number" step="0.01"
                                                 oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoA') }}"></input>
                                     @else
                                         <label id="comisionIncisoA" name="comisionIncisoA"></label>
@@ -207,7 +207,7 @@ $user_identity = $user->id;
                                             </td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoB" for="" type="number"
+                                                <input id="comisionIncisoB" for="" type="number" step="0.01"
                                                         oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoB') }}"></input>
                                             @else
                                                 <label id="comisionIncisoB" name="comisionIncisoB"></label>                                            
@@ -246,7 +246,7 @@ $user_identity = $user->id;
                                             </td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoC" for="" type="number"
+                                                <input id="comisionIncisoC" for="" type="number" step="0.01"
                                                         oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
                                             @else
                                                 <label id="comisionIncisoC" name="comisionIncisoC"></label>
@@ -288,7 +288,7 @@ $user_identity = $user->id;
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
 
-                                                <input id="comisionIncisoD" for="" type="number"
+                                                <input id="comisionIncisoD" for="" type="number" step="0.01"
                                                         oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}"></input>
                                             @else
                                                 <label id="comisionIncisoD" name="comisionIncisoD"></label>
@@ -327,7 +327,7 @@ $user_identity = $user->id;
                                             <td><span id="elaboracionSubTotal5"></span></td>
                                             <td class="comision actv">
                                             @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoE" for="" type="number"
+                                                <input id="comisionIncisoE" for="" type="number" step="0.01"
                                                         oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
                                             @else
                                              <label id="comisionIncisoE" name="comisionIncisoE"></label>

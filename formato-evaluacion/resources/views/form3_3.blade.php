@@ -156,7 +156,7 @@ $user_identity = $user->id;
                             <td id="stotal1"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
-                                <input  type="number" id="comIncisoA" for=""
+                                <input  type="number" step="0.01" id="comIncisoA" for=""
                                     oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoA') }}">
                                 </input>
                             @else
@@ -182,7 +182,7 @@ $user_identity = $user->id;
                             <td id="stotal2"></td>
                             <td class="comision actv">
                              @if($userType == 'dictaminador')   
-                                <input id="comIncisoB" for="" type="number"
+                                <input id="comIncisoB" for="" type="number" step="0.01"
                                     oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoB') }}"></input>
                              @else    
                              <span id="comIncisoB" name="comIncisoB"></span>
@@ -215,7 +215,7 @@ $user_identity = $user->id;
                             <td id="stotal3"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')    
-                                <input id="comIncisoC" for="" type="number"
+                                <input id="comIncisoC" for="" type="number" step="0.01"
                                     oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoC') }}">
                                 </input>
                             @else 
@@ -244,7 +244,7 @@ $user_identity = $user->id;
                             <td id="stotal4"></td>
                             <td class="comision actv">
                             @if($userType == 'dictaminador')
-                                <input id="comIncisoD"  for="" type="number"
+                                <input id="comIncisoD"  for="" type="number" step="0.01"
                                     oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoD') }}"></input>
                             @else 
                                 <span id="comIncisoD" name="comIncisoD"></span>

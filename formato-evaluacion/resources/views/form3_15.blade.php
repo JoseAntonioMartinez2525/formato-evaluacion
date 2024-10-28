@@ -141,7 +141,7 @@ $user_identity = $user->id;
                     <td id="subtotalPatentes">0</td>
                     <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionPatententes" value="{{ oldValueOrDefault('comisionPatententes') }}" oninput="onActv3Comision3_15()">
+                            <input type="number" step="0.01" id="comisionPatententes" value="{{ oldValueOrDefault('comisionPatententes') }}" oninput="onActv3Comision3_15()">
                         @else
                             <span id="comisionPatententes"></span>
                         @endif               
@@ -165,7 +165,7 @@ $user_identity = $user->id;
                     <td id="subtotalPrototipos">0</td>
                     <td>
                         @if($userType == 'dictaminador')
-                            <input type="number" id="comisionPrototipos" value="{{ oldValueOrDefault('comisionPrototipos') }}" oninput="onActv3Comision3_15()">
+                            <input type="number" step="0.01" id="comisionPrototipos" value="{{ oldValueOrDefault('comisionPrototipos') }}" oninput="onActv3Comision3_15()">
                         @else
                             <span id="comisionPrototipos"></span>
                         @endif

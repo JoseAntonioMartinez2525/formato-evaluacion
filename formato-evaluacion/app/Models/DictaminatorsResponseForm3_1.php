@@ -44,10 +44,12 @@ class DictaminatorsResponseForm3_1 extends Model
 
 
     protected $table = 'dictaminators_response_form3_1';
+
+    /*
     public function user()
     {
         return $this->belongsTo(User::class, 'dictaminador_id', 'id');
-    }
+    }*/
 
     public function usersResponseForm1()
     {

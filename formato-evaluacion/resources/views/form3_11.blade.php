@@ -152,7 +152,7 @@ $user_identity = $user->id;
                         <td id="subtotalAsesoria"></td>
                         <td id="comisionAsesoria">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="comisionAsesoria" name="comisionAsesoria" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionAsesoria') }}">   
+                                <input type="number" step="0.01" id="comisionAsesoria" name="comisionAsesoria" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionAsesoria') }}">   
                             @else
                                 <span  id="comisionAsesoria" name="comisionAsesoria" ></span>                      
                             @endif
@@ -178,7 +178,7 @@ $user_identity = $user->id;
                         <td id="subtotalServicio"></td>
                         <td id="comisionServicio">
                         @if ($userType == 'dictaminador')   
-                            <input type="number" id="comisionServicio" name="comisionServicio" placeholder="0" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionServicio') }}">
+                            <input type="number" step="0.01" id="comisionServicio" name="comisionServicio" placeholder="0" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionServicio') }}">
                         @else
                             <span id="comisionServicio" name="comisionServicio"></span>
                         @endif
@@ -204,7 +204,7 @@ $user_identity = $user->id;
                         <td id="subtotalPracticas"></td>
                         <td  id="comisionPracticas">
                         @if ($userType == 'dictaminador')  
-                            <input type="number" id="comisionPracticas"  name="comisionPracticas" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionPracticas') }}">
+                            <input type="number" step="0.01" id="comisionPracticas"  name="comisionPracticas" oninput="onActv3Comision3_11()" value="{{ oldValueOrDefault('comisionPracticas') }}">
                         @else
                         <span id="comisionPracticas" name="comisionPracticas"></span
                         @endif  

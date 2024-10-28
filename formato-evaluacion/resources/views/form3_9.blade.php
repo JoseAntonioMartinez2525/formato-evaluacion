@@ -181,7 +181,7 @@ $user_identity = $user->id;
                         <td id="tutorias1">0</td>
                         <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision1" name="tutoriasComision1" 
+                            <input type="number" step="0.01" id="tutoriasComision1" name="tutoriasComision1" 
                                 oninput="onActv3Comision3_9()" value="{{ oldValueOrDefault('tutoriasComision1') }}">    
                         @else
                             <span id="tutoriasComision1" name="tutoriasComision1"></span>
@@ -205,7 +205,7 @@ $user_identity = $user->id;
                         <td id="tutorias2">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision2" name="tutoriasComision2" oninput="onActv3Comision3_9()" value="{{ oldValueOrDefault('tutoriasComision2') }}">
+                                <input type="number" step="0.01" id="tutoriasComision2" name="tutoriasComision2" oninput="onActv3Comision3_9()" value="{{ oldValueOrDefault('tutoriasComision2') }}">
                             @else
                                 <span id="tutoriasComision2" name="tutoriasComision2"></span>
                             @endif
@@ -228,7 +228,7 @@ $user_identity = $user->id;
                         <td id="tutorias3">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision3" name="tutoriasComision3" value="{{ oldValueOrDefault('tutoriasComision3') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision3" name="tutoriasComision3" value="{{ oldValueOrDefault('tutoriasComision3') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision3" name="tutoriasComision3"></span>
                             @endif
@@ -251,7 +251,7 @@ $user_identity = $user->id;
                         <td id="tutorias4">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision4" name="tutoriasComision4" value="{{ oldValueOrDefault('tutoriasComision4') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision4" name="tutoriasComision4" value="{{ oldValueOrDefault('tutoriasComision4') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision4" name="tutoriasComision4"></span>
                             @endif
@@ -274,7 +274,7 @@ $user_identity = $user->id;
                         <td id="tutorias5">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision5" name="tutoriasComision5" value="{{ oldValueOrDefault('tutoriasComision5') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision5" name="tutoriasComision5" value="{{ oldValueOrDefault('tutoriasComision5') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision5" name="tutoriasComision5"></span>
                             @endif
@@ -297,7 +297,7 @@ $user_identity = $user->id;
                         <td id="tutorias6">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision6" name="tutoriasComision6" value="{{ oldValueOrDefault('tutoriasComision6') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision6" name="tutoriasComision6" value="{{ oldValueOrDefault('tutoriasComision6') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision6" name="tutoriasComision6"></span>
                             @endif
@@ -320,7 +320,7 @@ $user_identity = $user->id;
                         <td id="tutorias7">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision7" name="tutoriasComision7" value="{{ oldValueOrDefault('tutoriasComision7') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision7" name="tutoriasComision7" value="{{ oldValueOrDefault('tutoriasComision7') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision7" name="tutoriasComision7"></span>
                             @endif
@@ -343,7 +343,7 @@ $user_identity = $user->id;
                         <td id="tutorias8">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision8" name="tutoriasComision8" value="{{ oldValueOrDefault('tutoriasComision8') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision8" name="tutoriasComision8" value="{{ oldValueOrDefault('tutoriasComision8') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision8" name="tutoriasComision8"></span>
                             @endif
@@ -366,7 +366,7 @@ $user_identity = $user->id;
                         <td id="tutorias9">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" id="tutoriasComision9" name="tutoriasComision9" value="{{ oldValueOrDefault('tutoriasComision9') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision9" name="tutoriasComision9" value="{{ oldValueOrDefault('tutoriasComision9') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision9" name="tutoriasComision9"></span>
                             @endif
@@ -389,7 +389,7 @@ $user_identity = $user->id;
                     <td id="tutorias10">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision10" name="tutoriasComision10" value="{{ oldValueOrDefault('tutoriasComision10') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision10" name="tutoriasComision10" value="{{ oldValueOrDefault('tutoriasComision10') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision10" name="tutoriasComision10"></span>
                         @endif
@@ -412,7 +412,7 @@ $user_identity = $user->id;
                     <td id="tutorias11">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision11" name="tutoriasComision11" value="{{ oldValueOrDefault('tutoriasComision11') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision11" name="tutoriasComision11" value="{{ oldValueOrDefault('tutoriasComision11') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision11" name="tutoriasComision11"></span>
                         @endif
@@ -435,7 +435,7 @@ $user_identity = $user->id;
                     <td id="tutorias12">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision12" name="tutoriasComision12" value="{{ oldValueOrDefault('tutoriasComision12') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision12" name="tutoriasComision12" value="{{ oldValueOrDefault('tutoriasComision12') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision12" name="tutoriasComision12"></span>
                         @endif
@@ -458,7 +458,7 @@ $user_identity = $user->id;
                     <td id="tutorias13">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision13" name="tutoriasComision13" value="{{ oldValueOrDefault('tutoriasComision13') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision13" name="tutoriasComision13" value="{{ oldValueOrDefault('tutoriasComision13') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision13" name="tutoriasComision13"></span>
                         @endif
@@ -481,7 +481,7 @@ $user_identity = $user->id;
                     <td id="tutorias14">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision14" name="tutoriasComision14" value="{{ oldValueOrDefault('tutoriasComision14') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision14" name="tutoriasComision14" value="{{ oldValueOrDefault('tutoriasComision14') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision14" name="tutoriasComision14"></span>
                         @endif
@@ -504,7 +504,7 @@ $user_identity = $user->id;
                     <td id="tutorias15">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision15" name="tutoriasComision15" value="{{ oldValueOrDefault('tutoriasComision15') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision15" name="tutoriasComision15" value="{{ oldValueOrDefault('tutoriasComision15') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision15" name="tutoriasComision15"></span>
                         @endif
@@ -527,7 +527,7 @@ $user_identity = $user->id;
                     <td id="tutorias16">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision16" name="tutoriasComision16" value="{{ oldValueOrDefault('tutoriasComision16') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision16" name="tutoriasComision16" value="{{ oldValueOrDefault('tutoriasComision16') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision16" name="tutoriasComision16"></span>
                         @endif
@@ -550,7 +550,7 @@ $user_identity = $user->id;
                     <td id="tutorias17">0</td>
                     <td class="rightSelect">
                         @if ($userType == 'dictaminador')
-                            <input type="number" id="tutoriasComision17" name="tutoriasComision17" value="{{ oldValueOrDefault('tutoriasComision17') }}" oninput="onActv3Comision3_9()">
+                            <input type="number" step="0.01" id="tutoriasComision17" name="tutoriasComision17" value="{{ oldValueOrDefault('tutoriasComision17') }}" oninput="onActv3Comision3_9()">
                         @else
                             <span id="tutoriasComision17" name="tutoriasComision17"></span>
                         @endif

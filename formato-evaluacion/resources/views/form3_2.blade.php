@@ -136,7 +136,7 @@ $user_identity = $user->id;
                             <td id="cant1" name="cant1">0</td>
                             <td>
                             @if($userType == 'dictaminador')
-                                <input id="prom90_100" type="number" 
+                                <input id="prom90_100" type="number" step="0.01"
                                     oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom90_100') }}">
                             @else
                             <span id="prom90_100" name="prom90_100"></span>
@@ -162,7 +162,7 @@ $user_identity = $user->id;
 
                             <td>
                              @if($userType == 'dictaminador')   
-                                <input id="prom80_90" type="number"
+                                <input id="prom80_90" type="number" step="0.01"
                                     oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom80_90') }}">
                             @else
                                 <span id="prom80_90" name="prom80_90"></span>
@@ -188,7 +188,7 @@ $user_identity = $user->id;
                             <td id="cant3">0</td>
                             <td>
                             @if($userType == 'dictaminador')  
-                                <input id="prom70_80" placeholder="0" type="number"
+                                <input id="prom70_80" placeholder="0" type="number" step="0.01"
                                         oninput="onActv3_2Comision()" value="{{ oldValueOrDefault('prom70_80') }}">
                             @else
                             <span id="prom70_80" name="prom70_80"></span>

@@ -144,7 +144,7 @@ $user_identity = $user->id;
                             <td id="comisionGrupal">
                             @if ($userType == 'dictaminador')
 
-                                <input type="value" id="comisionGrupal" name="comisionGrupal" oninput="onActv3Comision3_10()"
+                                <input type="number" step="0.01" id="comisionGrupal" name="comisionGrupal" oninput="onActv3Comision3_10()"
                                     value="{{ oldValueOrDefault('comisionGrupal') }}">                         
                             @else
                                 <span id="comisionGrupal" name="comisionGrupal"></span>
@@ -170,7 +170,7 @@ $user_identity = $user->id;
                             <td id="evaluarIndividual"></td>
                             <td id="comisionIndividual">
                             @if ($userType == 'dictaminador')
-                                <input type="value" id="comisionIndividual" name="comisionIndividual" oninput="onActv3Comision3_10()"
+                                <input type="number" step="0.01" id="comisionIndividual" name="comisionIndividual" oninput="onActv3Comision3_10()"
                                         value="{{ oldValueOrDefault('comisionIndividual') }}"> 
                             @else
                                 <span id="comisionIndividual"  name="comisionIndividual"></span>
