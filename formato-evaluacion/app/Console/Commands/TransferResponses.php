@@ -82,8 +82,8 @@ class TransferResponses extends Command
                 if (!isset($consolidatedData[$response->user_id])) {
                     $consolidatedData[$response->user_id] = [
                         'user_id' => $response->user_id,
-                        'dictaminador_id' => $response->dictaminador_id,
-                        'user_email' => $response->user_email, 
+                        //'dictaminador_id' => $response->dictaminador_id,
+                        'user_email' => $response->user ? $response->user->email : 'N/A',
                         'user_type' => 'docente',
                         'comision1' => 0,
                         'actv2Comision' => 0,
@@ -110,10 +110,6 @@ class TransferResponses extends Command
                     ];
                 }
 
-                // Añadir el email del dictaminador si no está ya en la lista
-                if ($response->user && !in_array($response->user->email, $consolidatedData[$response->user_id]['user_emails'])) {
-                    $consolidatedData[$response->user_id]['user_emails'][] = $response->user->email;
-                }
 
                 // Acumula los valores de las comisiones
                 $consolidatedData[$response->user_id]['comision1'] += $response->comision1 ?? 0;
@@ -140,16 +136,30 @@ class TransferResponses extends Command
             }
         }
 
-       /* foreach ($consolidatedData as $data) {
-            // Convierte el array de correos en JSON antes de guardar
-            $data['user_emails'] = json_encode($data['user_emails']);
-            
-            DB::table('consolidated_responses')->updateOrInsert(
-                
-                ['user_id' => $data['user_id']], 
-                // Condición para actualizar
-                $data // Datos para actualizar o insertar
-            );
-        }*/
+        foreach ($consolidatedData as $data) {
+            DB::table('consolidated_responses')->upsert($data, ['user_id'], [
+                'comision1',
+                'actv2Comision',
+                'actv3Comision',
+                'comision3_2',
+                'comision3_3',
+                'comision3_4',
+                'comision3_5',
+                'comision3_6',
+                'comision3_7',
+                'comision3_8',
+                'comision3_9',
+                'comision3_10',
+                'comision3_11',
+                'comision3_12',
+                'comision3_13',
+                'comision3_14',
+                'comision3_15',
+                'comision3_16',
+                'comision3_17',
+                'comision3_18',
+                'comision3_19',
+            ]);
+        }
     }
 }

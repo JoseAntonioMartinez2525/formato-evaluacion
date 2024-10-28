@@ -40,7 +40,7 @@ class DictaminatorsResponseForm3_11 extends Model
     //UserResume
     public function user()
     {
-        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function usersResponseForm1()

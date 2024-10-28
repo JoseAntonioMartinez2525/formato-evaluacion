@@ -22,9 +22,6 @@ class CreateConsolidatedResponsesTable extends Migration
                 $table->decimal("comision3_$i", 8, 2)->nullable();
             }
 
-            // Campos genéricos para las respuestas
-            //$table->json('response_data')->nullable(); // Almacena respuestas en formato JSON
-
             $table->timestamps();
         });
 

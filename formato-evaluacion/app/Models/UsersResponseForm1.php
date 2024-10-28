@@ -16,6 +16,11 @@ class UsersResponseForm1 extends BaseResponse
     ];
 
     protected $table = 'users_responses_form1';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
     public function __call($method, $parameters)
     {
         if (preg_match('/^dictaminatorsResponseForm(\d+(_\d+)?)$/', $method, $matches)) {

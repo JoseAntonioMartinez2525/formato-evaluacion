@@ -1124,14 +1124,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 comisiones[34] = comisiones[4];
                                 comisiones[35] = comisiones[31];
 
-                                
+                                let comisionCell;
 
                                 // **Generar las filas con los estilos y cálculos**
                                 for (let i = 0; i < labels.length; i++) {
                                     const row = document.createElement('tr');
                                     let labelCell = document.createElement('td');
                                     let valueCell = document.createElement('td');
-                                    let comisionCell = document.createElement('td');
+                                    comisionCell = document.createElement('td');
 
                                     labelCell.textContent = labels[i];
                                     valueCell.textContent = values[i];
@@ -1145,10 +1145,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                     if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
                                         comisionCell.style.backgroundColor = '#f6c667';
+                                        comisionCell[i] = comisiones[i].toString();
                                     }
 
                                     if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
                                         comisionCell.style.fontWeight = 'bold';
+                                        comisionCell[i] = comisiones[i].toString();
                                     }
 
                                     if ([35].includes(i)) {
@@ -1173,6 +1175,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 }
 
                                 
+
+                                console.log(comisiones[0].toString());
 
                                 // Asignar los valores calculados a otros elementos del DOM
                                 const minimaCalidad = evaluarCalidad(sumaComision3);

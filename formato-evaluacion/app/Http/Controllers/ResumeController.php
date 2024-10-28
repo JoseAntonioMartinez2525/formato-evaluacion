@@ -31,8 +31,17 @@ class ResumeController extends Controller
 
 
          // Create a new record using Eloquent ORM
-            UserResume::create($validatedData);
-
+            $response = UserResume::create($validatedData);
+            DB::table('dictaminador_docente')->insert([
+                'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
+                'dictaminador_id' => $response->dictaminador_id,
+                'form_type' => 'form4', // O el tipo de formulario correspondiente
+                'docente_email' => $response->email,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $this->checkAndTransfer('UserResume');
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',

@@ -34,11 +34,6 @@ class User extends Authenticatable
      */
 
 
-
-    public function dictaminadorDocenteForm2()
-    {
-        return $this->hasMany(DictaminadorDocenteForm2::class);
-    } 
     
 
     public function evaluatorSignatures()

@@ -17,7 +17,7 @@ public function up()
         $table->string('docente_email')->nullable();
         $table->timestamps();
 
-        // Clave foránea para relacionar user_id con la tabla de usuarios de docentes
+        
 
     });
 

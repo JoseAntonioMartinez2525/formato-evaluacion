@@ -36,67 +36,67 @@ class FormsController extends Controller
 
     public function getDictaminadores()
     {
-        $dictaminador = User::where('user_type', 'dictaminador')->get(['id', 'emails']);
+        $dictaminador = User::where('user_type', 'dictaminador')->get(['id', 'email']);
         \Log::info('Dictaminador:', $dictaminador->toArray());
         return response()->json($dictaminador);
     }
 public function getDictaminadorData(Request $request)
 {
-        $emails = $request->query('emails');
-        $dictaminador_id = $request->query('dictaminador_id');
+        $email = $request->query('user_email');
+        $user_id = $request->query('user_id');
 
-        \Log::info('emails recibido:', ['emails' => $emails]);
-        \Log::info('Dictaminador ID recibido:', ['dictaminador_id' => $dictaminador_id]);
+        \Log::info('emails recibido:', ['emails' => $email]);
+        \Log::info('Docente ID recibido:', ['docente_id' => $user_id]);
 
-        if (!is_array($emails) || empty($emailss)) {
+        if (!is_array($email) || empty($email)) {
             return response()->json(['error' => 'emailss invalidos o no recibidos'], 400);
         }
         // Verificar que el dictaminador con el ID proporcionado exista
-        $dictaminador = User::where('id', $dictaminador_id)->first();
+        $docente = User::where('id', $user_id)->first();
 
-        if (!$dictaminador) {
+        if (!$docente) {
             return response()->json(['error' => 'Dictaminador not found'], 404);
         }
 
         // Aquí deberás ajustar la lógica según cómo almacenas los datos de `form2` y `form2_2`
-        $form2Data = DictaminatorsResponseForm2::where('dictaminador_id', $dictaminador_id)->first();
-        $form2_2Data = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_1Data = DictaminatorsResponseForm3_1::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_2Data = DictaminatorsResponseForm3_2::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_3Data = DictaminatorsResponseForm3_3::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_4Data = DictaminatorsResponseForm3_4::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_5Data = DictaminatorsResponseForm3_5::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_6Data = DictaminatorsResponseForm3_6::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_7Data = DictaminatorsResponseForm3_7::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_8Data = DictaminatorsResponseForm3_8::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_9Data = DictaminatorsResponseForm3_9::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_10Data = DictaminatorsResponseForm3_10::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_11Data = DictaminatorsResponseForm3_11::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_12Data = DictaminatorsResponseForm3_12::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_13Data = DictaminatorsResponseForm3_13::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_14Data = DictaminatorsResponseForm3_14::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_15Data = DictaminatorsResponseForm3_15::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_16Data = DictaminatorsResponseForm3_16::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_17Data = DictaminatorsResponseForm3_17::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_18Data = DictaminatorsResponseForm3_18::where('dictaminador_id', $dictaminador_id)->first();
-        $form3_19Data = DictaminatorsResponseForm3_19::where('dictaminador_id', $dictaminador_id)->first();
-        $resumeData = UserResume::where('dictaminador_id', $dictaminador_id)->first();
-        $signaturesData = EvaluatorSignature::where('user_id', $dictaminador_id)->first();
+        $form2Data = DictaminatorsResponseForm2::where('user_id', $user_id)->first();
+        $form2_2Data = DictaminatorsResponseForm2_2::where('user_id', $user_id)->first();
+        $form3_1Data = DictaminatorsResponseForm3_1::where('user_id', $user_id)->first();
+        $form3_2Data = DictaminatorsResponseForm3_2::where('user_id', $user_id)->first();
+        $form3_3Data = DictaminatorsResponseForm3_3::where('user_id', $user_id)->first();
+        $form3_4Data = DictaminatorsResponseForm3_4::where('user_id', $user_id)->first();
+        $form3_5Data = DictaminatorsResponseForm3_5::where('user_id', $user_id)->first();
+        $form3_6Data = DictaminatorsResponseForm3_6::where('user_id', $user_id)->first();
+        $form3_7Data = DictaminatorsResponseForm3_7::where('user_id', $user_id)->first();
+        $form3_8Data = DictaminatorsResponseForm3_8::where('user_id', $user_id)->first();
+        $form3_9Data = DictaminatorsResponseForm3_9::where('user_id', $user_id)->first();
+        $form3_10Data = DictaminatorsResponseForm3_10::where('user_id', $user_id)->first();
+        $form3_11Data = DictaminatorsResponseForm3_11::where('user_id', $user_id)->first();
+        $form3_12Data = DictaminatorsResponseForm3_12::where('user_id', $user_id)->first();
+        $form3_13Data = DictaminatorsResponseForm3_13::where('user_id', $user_id)->first();
+        $form3_14Data = DictaminatorsResponseForm3_14::where('user_id', $user_id)->first();
+        $form3_15Data = DictaminatorsResponseForm3_15::where('user_id', $user_id)->first();
+        $form3_16Data = DictaminatorsResponseForm3_16::where('user_id', $user_id)->first();
+        $form3_17Data = DictaminatorsResponseForm3_17::where('user_id', $user_id)->first();
+        $form3_18Data = DictaminatorsResponseForm3_18::where('user_id', $user_id)->first();
+        $form3_19Data = DictaminatorsResponseForm3_19::where('user_id', $user_id)->first();
+        $resumeData = UserResume::where('user_id', $user_id)->first();
+        $signaturesData = EvaluatorSignature::where('user_id', $user_id)->first();
 
         $form1Data = $form2Data ? $form2Data->usersResponseForm1 : null;
-        $formData = $this->getAllFormData($dictaminador_id, $form1Data);
+        $formData = $this->getAllFormData($user_id, $form1Data);
         // Return a structured response which includes both form data
 
         $formFinalData = DB::table('consolidated_responses')
             ->join('users_final_resume', 'consolidated_responses.user_email', '=', 'users_final_resume.email')
-            ->where('consolidated_responses.user_email', $emails)
+            ->where('consolidated_responses.user_email', $email)
             ->select('consolidated_responses.*', 'users_final_resume.*')
             ->first();
 
         return response()->json([
-            'dictaminador' => [
-                'dictaminador_id' => $dictaminador->user_id,
-                'emails' => $dictaminador->emails,
+            'docente' => [
+                'docente_id' => $docente->user_id,
+                'email' => $docente->email,
             ],
             'responseForm1' => $formData['form1Data'],
             'form2' => $form2Data,
@@ -132,13 +132,13 @@ public function getDictaminadorData(Request $request)
         
     }
 
-    private function getAllFormData($dictaminador_id, &$form1Data)
+    private function getAllFormData($user_id, &$form1Data)
     {
         $formData = [];
         $forms = [];
 
         // Obtener datos de DictaminatorsResponseForm2_2
-        $formData['form2_2'] = DictaminatorsResponseForm2_2::where('dictaminador_id', $dictaminador_id)->first();
+        $formData['form2_2'] = DictaminatorsResponseForm2_2::where('user_id', $user_id)->first();
         if ($formData['form2_2'] && !$form1Data) {
             $form1Data = $formData['form2_2']->usersResponseForm1;
         }
@@ -147,7 +147,7 @@ public function getDictaminadorData(Request $request)
         for ($i = 1; $i <= 19; $i++) {
             $modelClass = 'App\\Models\\DictaminatorsResponseForm3_' . $i;
             if (class_exists($modelClass)) {
-                $forms['form3_' . $i] = $modelClass::where('dictaminador_id', $dictaminador_id)->first();
+                $forms['form3_' . $i] = $modelClass::where('dictaminador_id', $user_id)->first();
                 if ($forms['form3_' . $i] && !$form1Data) {
                     $form1Data = $forms['form3_' . $i]->usersResponseForm1;
                 }
@@ -160,50 +160,5 @@ public function getDictaminadorData(Request $request)
         return $formData;
     }
 
-/*
-    public function asignarDocentes(Request $request, $dictaminador_id)
-    {
-        // Encuentra al dictaminador
-        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
-
-        // Verifica si el dictaminador existe
-        if (!$dictaminator) {
-            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
-        }
-
-        // Convertir los correos electrónicos en IDs
-        $docenteemailss = $request->docentes; // Aquí obtienes los emailss
-
-        // Buscar los IDs de los docentes usando los correos electrónicos
-        $docentes = UsersResponseForm2::whereIn('emails', $docenteemailss)->get();
-
-        foreach ($docentes as $docente) {
-            // Asignar la relación y el correo electrónico
-            $dictaminator->docentes()->attach($docente->user_id, ['docente_emails' => $docente->emails]);
-        }
-
-        return response()->json(['success' => true, 'message' => 'Docentes asignados correctamente']);
-    }
-
-
-
-    public function agregarDocente(Request $request, $dictaminador_id)
-    {
-        // Encuentra al dictaminador
-        $dictaminator = DictaminatorsResponseForm2::find($dictaminador_id);
-
-        // Verifica si el dictaminador existe
-        if (!$dictaminator) {
-            return response()->json(['success' => false, 'message' => 'Dictaminador no encontrado'], 404);
-        }
-
-        // Agregar un docente a la relación (esto agrega el docente sin eliminar los actuales)
-        // $request->docente_id debe ser el ID del docente
-        $dictaminator->docentes()->syncWithoutDetaching([$request->docente_id]);
-
-        return response()->json(['success' => true, 'message' => 'Docente agregado correctamente']);
-    }
-    
-*/
 
 }

@@ -29,12 +29,11 @@ class DictaminatorsResponseForm3_8 extends Model
 
 
     protected $table = 'dictaminators_response_form3_8';
-   
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
     public function usersResponseForm1()
     {
         return $this->belongsTo(UsersResponseForm1::class, 'user_id', 'user_id');
