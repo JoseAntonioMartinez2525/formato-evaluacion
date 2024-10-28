@@ -162,7 +162,7 @@ class ConsolidatedResponseController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store($request)
     {
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
