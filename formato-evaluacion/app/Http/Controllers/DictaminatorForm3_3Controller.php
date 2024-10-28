@@ -52,8 +52,8 @@ class DictaminatorForm3_3Controller extends TransferController
 
 
             $response = DictaminatorsResponseForm3_3::create($validatedData);
+            
             DB::table('dictaminador_docente')->insert([
-                'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
                 'dictaminador_id' => $response->dictaminador_id,
                 'form_type' => 'form3_3', // O el tipo de formulario correspondiente
@@ -61,6 +61,7 @@ class DictaminatorForm3_3Controller extends TransferController
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            
             $this->checkAndTransfer('DictaminatorsResponseForm3_3');
             return response()->json([
                 'success' => true,

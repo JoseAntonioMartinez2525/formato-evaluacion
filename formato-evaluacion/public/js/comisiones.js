@@ -1,17 +1,25 @@
 //Comisiones Totales
-function onActv2Comision(){
-  //valores de los inputs comisiones de Posgrado y licenciatura/TSU
-    const comisionPosgrado = parseFloat(document.getElementById("comisionPosgrado").value);
-    const comisionLic = parseFloat(document.getElementById("comisionLic").value);
+function onActv2Comision() {
+    // Obtener los valores de los inputs y convertirlos a números flotantes
+    let comisionPosgrado = parseFloat(document.getElementById("comisionPosgrado").value);
+    let comisionLic = parseFloat(document.getElementById("comisionLic").value);
+    
+    // Verificar que los valores son números válidos y no NaN
+    if (isNaN(comisionPosgrado)) comisionPosgrado = 0;
+    if (isNaN(comisionLic)) comisionLic = 0;
+    
+    // Realizar los cálculos
+    let sumaComision = minWithSum(comisionPosgrado, comisionLic);
+    
+    // Redondear el resultado a 3 decimales sin convertir a cadena
+    sumaComision = Math.round(sumaComision * 1000) / 1000;
+    
+    // Actualizar el contenido del td
+    document.getElementById("actv2Comision").textContent = sumaComision.toFixed(2);
 
-    const comision = parseFloat(document.getElementById("actv2Comision").value);
-    //calculos de la actividad 2 de la comision
-   const sumaComision = minWithSum(comisionPosgrado, comisionLic);
-    document.getElementById("actv2Comision").innerText = sumaComision;
     console.log(sumaComision);
-
-
 }
+
 
 
 

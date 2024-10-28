@@ -22,9 +22,9 @@ class DictaminatorsResponseForm2 extends RulesForm2
 
     ];
 
-    public $incrementing = true; // Indicates the primary key is not auto-incrementing
-    protected $primaryKey = 'id'; // Specifies the primary key
-    //protected $keyType = 'bigint'; // Specifies the key type
+    public $incrementing = true;  // Indicates the primary key is not auto-incrementing
+    protected $primaryKey = 'id';  // Specifies the primary key
+    
 
     protected $table = 'dictaminators_response_form2';
     public function user()

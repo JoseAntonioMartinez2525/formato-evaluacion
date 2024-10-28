@@ -31,10 +31,12 @@ class DictaminatorsResponseForm2_2 extends RulesForm2_2
     protected $primaryKey = 'id'; // Specifies the primary key
     //protected $keyType = 'bigint'; // Specifies the key type
     protected $table = 'dictaminators_response_form2_2';
+    /*
     public function user()
     {
         return $this->belongsTo(User::class, 'dictaminador_id', 'id');
     }
+        */
 
     public function usersResponseForm1()
     {
@@ -44,7 +46,7 @@ class DictaminatorsResponseForm2_2 extends RulesForm2_2
     //users_response_form2_2
     public function docentes()
     {
-        return $this->belongsToMany(UsersResponseForm2_2::class, 'dictaminador_docente', relatedPivotKey: 'user_id')
+        return $this->belongsToMany(UsersResponseForm2_2::class, 'dictaminador_docente')
             ->withPivot('form_type')
             ->withTimestamps();
     }
