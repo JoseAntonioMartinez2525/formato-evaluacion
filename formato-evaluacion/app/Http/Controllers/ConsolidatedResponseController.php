@@ -161,5 +161,25 @@ class ConsolidatedResponseController extends Controller
                 return 'FALSE';
         }
     }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'comision1' => 'numeric',
+            'actv2Comision' => 'numeric',
+            'actv3Comision' => 'numeric',
+            'totalLogrado' => 'numeric',
+            // Agrega validación para otros campos
+        ]);
+
+        DB::table('consolidated_responses')->updateOrInsert(
+            ['user_id' => $validatedData['user_id']],
+            $validatedData
+        );
+
+        return response()->json(['message' => 'Datos consolidados guardados exitosamente']);
+    }
+
 }
 

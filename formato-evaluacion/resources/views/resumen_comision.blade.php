@@ -1280,7 +1280,40 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('user_type value: ',data['user_type']);
             returndata;
         }
-                            
+           
+   async function saveConsolidatedData(data) {
+                    try {
+                        const response = await fetch('/consolidate-responses', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Error al guardar los datos consolidados');
+                        }
+
+                        const result = await response.json();
+                        console.log('Datos consolidados guardados exitosamente:', result);
+                    } catch (error) {
+                        console.error('Hubo un problema al guardar los datos:', error);
+                    }
+                }
+                // Después de calcular los subtotales y totales
+                const consolidatedData = {
+                    user_id: userId,
+                    comision1: comisiones[0],
+                    actv2Comision: comisiones[2],
+                    actv3Comision: sumaComision3,
+                    totalLogrado: totalLogrado,
+                    // Agrega otros campos necesarios
+                };
+
+                await saveConsolidatedData(consolidatedData);
+     
     </script>
 
 
