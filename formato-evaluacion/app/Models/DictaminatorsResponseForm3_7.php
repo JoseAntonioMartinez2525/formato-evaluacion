@@ -29,6 +29,7 @@ class DictaminatorsResponseForm3_7 extends Model
 
 
     protected $table = 'dictaminators_response_form3_7';
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'dictaminador_id', 'id');
@@ -41,14 +42,8 @@ class DictaminatorsResponseForm3_7 extends Model
 
     public function docentes()
     {
-        return $this->morphedByMany(
-            UsersResponseForm3_7::class,            // Modelo objetivo
-            'id_type',                   // Nombre del campo morph
-            'dictaminador_docente',               // Nombre de la tabla pivot
-            'dictaminador_form_id',               // Llave de la tabla de dictaminadores
-            'user_id'                             // Llave de la tabla objetivo en la relación polimórfica
-        )
-            ->withPivot('form_type', 'docente_email') // Campos adicionales en la tabla pivot
+        return $this->belongsToMany(UsersResponseForm3_7::class, 'dictaminador_docente')
+            ->withPivot('form_type')
             ->withTimestamps();
     }
     public function __construct(array $attributes = [])
