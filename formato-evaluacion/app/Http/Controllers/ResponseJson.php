@@ -230,6 +230,9 @@ class ResponseJson extends Controller
             return response()->json(['error' => 'User ID is required'], 400);
         }
 
+        // Log para depuración
+        \Log::info("Fetching responses for user_id: $user_id");
+
         // Inicializa un array para almacenar las respuestas
         $responses = [];
 
@@ -260,6 +263,11 @@ class ResponseJson extends Controller
         $responses = array_filter($responses, function ($value) {
             return $value !== null;
         });
+
+        // Verifica si hay datos encontrados
+        if (empty($responses)) {
+            return response()->json(['error' => 'No data found for this user'], 404);
+        }
 
         // Retorna las respuestas en un array JSON estructurado
         return response()->json($responses);

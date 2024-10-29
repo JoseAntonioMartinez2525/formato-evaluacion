@@ -75,6 +75,7 @@ class TransferResponses extends Command
         ];
 
         $consolidatedData = [];
+        
 
         foreach ($models as $model) {
             $responses = $model::with('user')->get();
@@ -82,7 +83,7 @@ class TransferResponses extends Command
                 if (!isset($consolidatedData[$response->user_id])) {
                     $consolidatedData[$response->user_id] = [
                         'user_id' => $response->user_id,
-                        //'dictaminador_id' => $response->dictaminador_id,
+
                         'user_email' => $response->user ? $response->user->email : 'N/A',
                         'user_type' => 'docente',
                         'comision1' => 0,

@@ -162,17 +162,62 @@ class ConsolidatedResponseController extends Controller
         }
     }
 
-    public function store($request)
+    public function storeConsolidatedData($request)
     {
+        // Validación inicial para datos generales
         $validatedData = $request->validate([
             'user_id' => 'required|exists:users,id',
             'comision1' => 'numeric',
+            'comision1Repetido' => 'numeric',
             'actv2Comision' => 'numeric',
+            'actv2ComisionRepetido' => 'numeric',
             'actv3Comision' => 'numeric',
+            'comision3_2' => 'numeric',
+            'comision3_3' => 'numeric',
+            'comision3_4' => 'numeric',
+            'comision3_5' => 'numeric',
+            'comision3_6' => 'numeric',
+            'comision3_7' => 'numeric',
+            'comision3_8' => 'numeric',
+            'comision3_9' => 'numeric',
+            'comision3_10' => 'numeric',
+            'comision3_11' => 'numeric',
+            'comision3_12' => 'numeric',
+            'comision3_13' => 'numeric',
+            'comision3_14' => 'numeric',
+            'comision3_15' => 'numeric',
+            'comision3_16' => 'numeric',
+            'comision3_17' => 'numeric',
+            'comision3_18' => 'numeric',
+            'comision3_19' => 'numeric',
             'totalLogrado' => 'numeric',
-            // Agrega validación para otros campos
+            '1. Permanencia en las actividades de la docencia' => 'numeric',
+            '2. Dedicación en el desempeño docente' => 'numeric',
+            '3. Calidad en la docencia' => 'numeric'
         ]);
 
+        // Calcular subtotales
+        $subtotal3_1To3_8 = $request->only(['actv3Comision', 'comision3_2', 'comision3_3', 'comision3_4', 'comision3_5', 'comision3_6', 'comision3_7', 'comision3_8'])
+            ->sum();
+        $subtotal3_9To3_11 = $request->only(['comision3_9', 'comision3_10', 'comision3_11'])
+            ->sum();
+        $subtotal3_12To3_16 = $request->only(['comision3_12', 'comision3_13', 'comision3_14', 'comision3_15', 'comision3_16'])
+            ->sum();
+        $subtotal3_17To3_19 = $request->only(['comision3_17', 'comision3_18', 'comision3_19'])
+            ->sum();
+
+        // Calcular el total y agregarlo a los datos validados
+        $total = min(
+            $subtotal3_1To3_8 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19,
+            700
+        );
+        $validatedData['subtotal3_1To3_8'] = $subtotal3_1To3_8;
+        $validatedData['subtotal3_9To3_11'] = $subtotal3_9To3_11;
+        $validatedData['subtotal3_12To3_16'] = $subtotal3_12To3_16;
+        $validatedData['subtotal3_17To3_19'] = $subtotal3_17To3_19;
+        $validatedData['total'] = $total;
+
+        // Guardar los datos en la base de datos
         DB::table('consolidated_responses')->updateOrInsert(
             ['user_id' => $validatedData['user_id']],
             $validatedData
@@ -180,6 +225,7 @@ class ConsolidatedResponseController extends Controller
 
         return response()->json(['message' => 'Datos consolidados guardados exitosamente']);
     }
+
 
 }
 
