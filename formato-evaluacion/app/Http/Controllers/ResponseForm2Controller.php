@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UsersResponseForm2;
 use App\Models\DictaminatorsResponseForm2;
+use Illuminate\Support\Facades\DB;
 
 class ResponseForm2Controller extends Controller
 {
@@ -31,6 +32,16 @@ class ResponseForm2Controller extends Controller
 
             $horasActv2 = $validatedData['horasActv2'] ?? 0.0;
             UsersResponseForm2::create($validatedData);
+
+            $consolidatedData = DB::table('consolidated_responses')
+                ->where('user_id', $validatedData['user_id'])
+                ->first();
+
+            if ($consolidatedData) {
+                // Actualiza el registro del docente con la comision1
+                UsersResponseForm2::where('user_id', $validatedData['user_id'])
+                    ->update(['comision1' => $consolidatedData->comision1]);
+            }
 
             return response()->json([
                 'success' => true,

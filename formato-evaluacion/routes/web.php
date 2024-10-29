@@ -172,7 +172,6 @@ Route::post('/store-form316', [DictaminatorForm3_16Controller::class, 'storeform
 Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'storeform317'])->withoutMiddleware('auth');
 Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'storeform318'])->withoutMiddleware('auth');
 Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'storeform319'])->withoutMiddleware('auth');
-Route::post('/save-consolidated-data', [ConsolidatedResponseController::class, 'storeConsolidatedData']);
 
 
 // Ruta para asignar varios docentes a un dictaminador

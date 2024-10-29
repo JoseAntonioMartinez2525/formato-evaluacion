@@ -1304,8 +1304,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                               
                                                 }
                                             } else {
-                                        console.error("Error fetching data:", dictaminatorData.error);
-                                    }
+        console.error("Error fetching data:", dictaminatorData.error);
+    }
                                         
                                             } else {
                                     console.error('No se pudo encontrar el user_id para el email seleccionado.');
