@@ -32,12 +32,18 @@ class ResponseForm2Controller extends Controller
 
             $horasActv2 = $validatedData['horasActv2'] ?? 0.0;
 
-            // Obtener el valor de comision1 desde la tabla dictaminators_response_form2
-            $comision1 = DB::table('dictaminators_response_form2')
-                ->where('user_id', $validatedData['user_id'])
-                ->value('comision1');
+            // Consulta de datos con unión
+            $docenteData = DB::table('users_response_form2')
+                ->join('dictaminators_response_form2', 'users_response_form2.user_id', '=', 'dictaminators_response_form2.user_id')
+                ->where('users_response_form2.user_id', $validatedData['user_id'])
+                ->select(
+                    'users_response_form2.*',
+                    'dictaminators_response_form2.comision1 as comision1'
+                )
+                ->first();
 
-            $validatedData['comision1'] = $comision1;
+            // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
+            $validatedData['comision1'] = $docenteData->comision1 ?? null;
 
             UsersResponseForm2::create($validatedData);
 

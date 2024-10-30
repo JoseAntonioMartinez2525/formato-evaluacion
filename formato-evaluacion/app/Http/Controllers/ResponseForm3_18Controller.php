@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UsersResponseForm3_18;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResponseForm3_18Controller extends Controller
 {
@@ -76,6 +77,18 @@ class ResponseForm3_18Controller extends Controller
             $validatedData['obsCicloComApoyoReg'] = $validatedData['obsCicloComApoyoReg'] ?? 'sin comentarios';
 
 
+            // Consulta de datos con unión
+            $docenteData = DB::table('users_response_form3_18')
+                ->join('dictaminators_response_form3_18', 'users_response_form3_18.user_id', '=', 'dictaminators_response_form3_18.user_id')
+                ->where('users_response_form3_18.user_id', $validatedData['user_id'])
+                ->select(
+                    'users_response_form3_18.*',
+                    'dictaminators_response_form3_18.comision3_18 as comision3_18'
+                )
+                ->first();
+
+            // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
+            $validatedData['comision3_18'] = $docenteData->comision3_18 ?? null;
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_18::create($validatedData);

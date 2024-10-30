@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UsersResponseForm3_6;
+use Illuminate\Support\Facades\DB;
 class ResponseForm3_6Controller extends Controller
 {
     public function store36(Request $request)
@@ -26,7 +27,18 @@ class ResponseForm3_6Controller extends Controller
             // Assign default value if not provided
             $validatedData['obs3_6_1'] = $validatedData['obs3_6_1'] ?? 'sin comentarios';
 
+            // Consulta de datos con unión
+            $docenteData = DB::table('users_response_form3_6')
+                ->join('dictaminators_response_form3_6', 'users_response_form3_6.user_id', '=', 'dictaminators_response_form3_6.user_id')
+                ->where('users_response_form3_6.user_id', $validatedData['user_id'])
+                ->select(
+                    'users_response_form3_6.*',
+                    'dictaminators_response_form3_6.comision3_6 as comision3_6'
+                )
+                ->first();
 
+            // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
+            $validatedData['comision3_6'] = $docenteData->comision3_6 ?? null;
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_6::create($validatedData);
