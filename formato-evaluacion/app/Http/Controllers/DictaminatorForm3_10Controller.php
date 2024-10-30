@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_10;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -53,6 +54,8 @@ class DictaminatorForm3_10Controller extends TransferController
             ]);
             
             $this->checkAndTransfer('DictaminatorsResponseForm3_10');
+
+            event(new EvaluationCompleted($validatedData['user_id']));
             
             return response()->json([
                 'success' => true,

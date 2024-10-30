@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\DictaminatorsResponseForm2;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
+use App\Events\EvaluationCompleted;
+
 
 class DictaminatorForm2_Controller extends TransferController
 {
@@ -48,6 +50,9 @@ class DictaminatorForm2_Controller extends TransferController
             // Llama a la verificación y transferencia
             $this->checkAndTransfer('DictaminatorsResponseForm2');
 
+            // Disparar el evento después de guardar los datos
+            event(new EvaluationCompleted($validatedData['user_id']));
+
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',
@@ -74,7 +79,7 @@ class DictaminatorForm2_Controller extends TransferController
             ], 500);
         }
 
-        
+
 
 
     }
@@ -192,5 +197,7 @@ class DictaminatorForm2_Controller extends TransferController
             // Otras variables que necesites pasar a la vista
         ]);
     }
+
+    
 
 }

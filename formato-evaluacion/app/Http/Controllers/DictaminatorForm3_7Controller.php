@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_7;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -38,6 +39,7 @@ class DictaminatorForm3_7Controller extends TransferController
 
 
             $response = DictaminatorsResponseForm3_7::create($validatedData);
+            
             DB::table('dictaminador_docente')->insert([
                 'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
@@ -48,6 +50,8 @@ class DictaminatorForm3_7Controller extends TransferController
                 'updated_at' => now(),
             ]);
             $this->checkAndTransfer('DictaminatorsResponseForm3_7');
+
+            event(new EvaluationCompleted($validatedData['user_id']));
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',

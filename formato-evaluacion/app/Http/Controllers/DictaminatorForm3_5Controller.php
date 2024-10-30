@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_5;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -42,6 +43,9 @@ class DictaminatorForm3_5Controller extends TransferController
 
 
             $response = DictaminatorsResponseForm3_5::create($validatedData);
+
+            event(new EvaluationCompleted($validatedData['user_id']));
+            
             DB::table('dictaminador_docente')->insert([
                 'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista

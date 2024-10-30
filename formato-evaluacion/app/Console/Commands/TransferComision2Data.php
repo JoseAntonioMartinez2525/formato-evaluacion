@@ -15,7 +15,7 @@ class TransferComision2Data extends Command
         $dictaminators = DB::table('dictaminators_response_form2_2')->get();
 
         foreach ($dictaminators as $dictaminator) {
-            DB::table('users_response_form2')
+            DB::table('users_response_form2_2')
                 ->where('user_id', $dictaminator->user_id)
                 ->update(['actv2Comision' => $dictaminator->actv2Comision]);
         }
