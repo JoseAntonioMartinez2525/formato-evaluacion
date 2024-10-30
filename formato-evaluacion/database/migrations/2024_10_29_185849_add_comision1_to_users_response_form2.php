@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users_response_form2', function (Blueprint $table) {
-            //
+            $table->decimal('comision1', 8, 2)->nullable();
         });
     }
 

@@ -31,6 +31,14 @@ class ResponseForm2Controller extends Controller
             }
 
             $horasActv2 = $validatedData['horasActv2'] ?? 0.0;
+
+            // Obtener el valor de comision1 desde la tabla dictaminators_response_form2
+            $comision1 = DB::table('dictaminators_response_form2')
+                ->where('user_id', $validatedData['user_id'])
+                ->value('comision1');
+
+            $validatedData['comision1'] = $comision1;
+
             UsersResponseForm2::create($validatedData);
 
             $consolidatedData = DB::table('consolidated_responses')
@@ -42,6 +50,7 @@ class ResponseForm2Controller extends Controller
                 UsersResponseForm2::where('user_id', $validatedData['user_id'])
                     ->update(['comision1' => $consolidatedData->comision1]);
             }
+
 
             return response()->json([
                 'success' => true,
