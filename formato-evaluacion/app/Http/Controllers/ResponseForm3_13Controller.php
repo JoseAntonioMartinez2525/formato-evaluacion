@@ -42,15 +42,11 @@ class ResponseForm3_13Controller extends Controller
             $validatedData['obsReporteFinanciamExt'] = $validatedData['obsReporteFinanciamExt'] ?? 'sin comentarios';
             $validatedData['obsReporteInvInt'] = $validatedData['obsReporteInvInt'] ?? 'sin comentarios';
 
-            // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form3_13')
-                ->join('dictaminators_response_form3_13', 'users_response_form3_13.user_id', '=', 'dictaminators_response_form3_13.user_id')
-                ->where('users_response_form3_13.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form3_13.*',
-                    'dictaminators_response_form3_13.comision3_13 as comision3_13'
-                )
+            $docenteData = DB::table('dictaminators_response_form3_13')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('comision3_13')
                 ->first();
+
 
             // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['comision3_13'] = $docenteData->comision3_13 ?? null;

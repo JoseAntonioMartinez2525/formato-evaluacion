@@ -79,14 +79,11 @@ class ResponseForm3_18Controller extends Controller
 
 
             // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form3_18')
-                ->join('dictaminators_response_form3_18', 'users_response_form3_18.user_id', '=', 'dictaminators_response_form3_18.user_id')
-                ->where('users_response_form3_18.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form3_18.*',
-                    'dictaminators_response_form3_18.comision3_18 as comision3_18'
-                )
+            $docenteData = DB::table('dictaminators_response_form3_18')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('comision3_18')
                 ->first();
+
 
             // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['comision3_18'] = $docenteData->comision3_18 ?? null;
