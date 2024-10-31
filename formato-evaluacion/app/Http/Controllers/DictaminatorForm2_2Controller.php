@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
+use App\Models\UsersResponseForm2_2;
 use Illuminate\Http\Request;
 use App\Models\DictaminatorsResponseForm2_2;
 use Illuminate\Database\QueryException;
@@ -40,7 +42,8 @@ class DictaminatorForm2_2Controller extends TransferController
 
         try {
             $response = DictaminatorsResponseForm2_2::create($validatedData);
-
+                // Actualizar automáticamente el modelo docente con la comision
+                $this->updateUserResponseComision($validatedData['user_id'], $validatedData['comision2_2']);
                 DB::table('dictaminador_docente')->insert([
                     'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
                     'dictaminador_id' => $response->dictaminador_id,
@@ -51,6 +54,9 @@ class DictaminatorForm2_2Controller extends TransferController
                 ]);
 
                 $this->checkAndTransfer('DictaminatorsResponseForm2_2');
+
+                event(new EvaluationCompleted($validatedData['user_id']));
+                
         } catch (QueryException $e) {
             return response()->json([
                 'success' => false,
@@ -109,5 +115,16 @@ class DictaminatorForm2_2Controller extends TransferController
             ], 500);
         }
 
+    }
+
+    private function updateUserResponseComision($userId, $comisionValue)
+    {
+        // Buscar el registro de UsersResponseForm2 correspondiente y actualizar comision1
+        $userResponse = UsersResponseForm2_2::where('user_id', $userId)->first();
+
+        if ($userResponse) {
+            $userResponse->comision1 = $comisionValue;
+            $userResponse->save();
+        }
     }
 }

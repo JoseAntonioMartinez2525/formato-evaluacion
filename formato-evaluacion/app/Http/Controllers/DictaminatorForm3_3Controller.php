@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_3;
+use App\Models\UsersResponseForm3_3;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,9 @@ class DictaminatorForm3_3Controller extends TransferController
 
 
             $response = DictaminatorsResponseForm3_3::create($validatedData);
-            
+            // Actualizar automáticamente el modelo docente con la comision
+            $this->updateUserResponseComision($validatedData['user_id'], $validatedData['comision3_3']);
+           
             DB::table('dictaminador_docente')->insert([
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
                 'dictaminador_id' => $response->dictaminador_id,
@@ -114,6 +117,17 @@ class DictaminatorForm3_3Controller extends TransferController
             ], 500);
         }
 
+    }
+
+    private function updateUserResponseComision($userId, $comisionValue)
+    {
+        // Buscar el registro de UsersResponseForm2 correspondiente y actualizar comision1
+        $userResponse = UsersResponseForm3_3::where('user_id', $userId)->first();
+
+        if ($userResponse) {
+            $userResponse->comision1 = $comisionValue;
+            $userResponse->save();
+        }
     }
 }
 

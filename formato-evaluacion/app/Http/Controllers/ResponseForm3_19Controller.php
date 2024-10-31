@@ -124,6 +124,15 @@ class ResponseForm3_19Controller extends Controller
             // Create a new record using Eloquent ORM
             UsersResponseForm3_19::create($validatedData);
 
+            $consolidatedData = DB::table('consolidated_responses')
+                ->where('user_id', $validatedData['user_id'])
+                ->first();
+
+            if ($consolidatedData) {
+                // Actualiza el registro del docente con la comision1
+                UsersResponseForm3_19::where('user_id', $validatedData['user_id'])
+                    ->update(['comision3_19' => $consolidatedData->comision3_19]);
+            }
             return response()->json([
                 'success' => true,
                 'message' => 'Form submitted successfully!',

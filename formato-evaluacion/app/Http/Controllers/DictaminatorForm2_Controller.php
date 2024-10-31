@@ -38,6 +38,9 @@ class DictaminatorForm2_Controller extends TransferController
             }
 
             $response = DictaminatorsResponseForm2::create($validatedData);
+
+            // Actualizar automáticamente UsersResponseForm2 con comision1
+            $this->updateUserResponseComision($validatedData['user_id'], $validatedData['comision1']);
             // Agregar a dictaminador_docente
             DB::table('dictaminador_docente')->insert([
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
@@ -198,6 +201,16 @@ class DictaminatorForm2_Controller extends TransferController
         ]);
     }
 
+    private function updateUserResponseComision($userId, $comisionValue)
+    {
+        // Buscar el registro de UsersResponseForm2 correspondiente y actualizar comision1
+        $userResponse = UsersResponseForm2::where('user_id', $userId)->first();
+
+        if ($userResponse) {
+            $userResponse->comision1 = $comisionValue;
+            $userResponse->save();
+        }
+    }
     
 
 }

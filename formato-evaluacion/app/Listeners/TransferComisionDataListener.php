@@ -3,6 +3,7 @@ namespace App\Listeners;
 
 use App\Events\EvaluationCompleted;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TransferComisionDataListener
 {
@@ -118,23 +119,40 @@ class TransferComisionDataListener
 
     public function handle(EvaluationCompleted $event)
     {
+        Log::info('Evento EvaluationCompleted recibido para user_id: ' . $event->user_id);
+
         foreach ($this->modelMappings as $sourceModel => $mapping) {
-            // Obtener los datos del dictaminador
-            $dictaminator = DB::table($sourceModel::getTable())
-                ->where('user_id', $event->user_id) // Cambia aquí para usar dictaminador_id
+            $sourceModelInstance = new $sourceModel;
+            $tableName = $sourceModelInstance->getTable();
+            Log::info('Verificando en la tabla ' . $tableName . ' para user_id: ' . $event->user_id);
+
+            $dictaminator = DB::table($tableName)
+                ->where('user_id', $event->user_id)
                 ->first();
 
             if ($dictaminator) {
-                // Transferir datos a la tabla correspondiente
                 $destinationModel = $mapping['destinationModel'];
+                $destinationModelInstance = new $destinationModel;
+                $destinationTableName = $destinationModelInstance->getTable();
                 $sourceField = $mapping['sourceField'];
                 $destinationField = $mapping['destinationField'];
 
-                DB::table($destinationModel::getTable())
+                Log::info('Transfiriendo datos de ' . $tableName . ' a ' . $destinationTableName . ' para user_id: ' . $event->user_id);
+
+                $updateResult = DB::table($destinationTableName)
                     ->where('user_id', $dictaminator->user_id)
                     ->update([$destinationField => $dictaminator->$sourceField]);
+
+                if ($updateResult) {
+                    Log::info('Datos transferidos con éxito para user_id: ' . $event->user_id);
+                } else {
+                    Log::warning('No se pudieron actualizar los datos en ' . $destinationTableName . ' para user_id: ' . $event->user_id);
+                }
+            } else {
+                Log::warning('No se encontraron datos en ' . $tableName . ' para user_id: ' . $event->user_id);
             }
         }
     }
+
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_1;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -49,20 +50,18 @@ class ResponseForm3_1Controller extends Controller
         $validatedData['obs3_1_5'] = $validatedData['obs3_1_5'] ?? 'sin comentarios';
 
             // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form3_1')
-                ->join('dictaminators_response_form3_1', 'users_response_form3_1.user_id', '=', 'dictaminators_response_form3_1.user_id')
-                ->where('users_response_form3_1.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form3_1.*',
-                    'dictaminators_response_form3_1.actv3Comision as actv3Comision'
-                )
+            $docenteData = DB::table('dictaminators_response_form3_1')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('actv3Comision')
                 ->first();
 
-            // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['actv3Comision'] = $docenteData->actv3Comision ?? null;
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_1::create($validatedData);
+
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             return response()->json([
                 'success' => true,

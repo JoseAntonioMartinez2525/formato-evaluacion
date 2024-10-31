@@ -2615,7 +2615,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Titular o suplente</td>
                                                 <td id="puntajeCGUtitular"><b>20</b></td>
-                                                <td><input type="value" id="cantCGUtitular" 
+                                                <td><input type="number" id="cantCGUtitular" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUtitular') }}">
                                                 </td>
                                                 <td></td>
@@ -2630,7 +2630,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Participación como miembro de comisión especial</td>
                                                 <td id="puntajeCGUespecial"><b>15</b></td>
-                                                <td><input type="value" id="cantCGUespecial" 
+                                                <td><input type="number" id="cantCGUespecial" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUespecial') }}">
                                                 </td>
                                                 <td></td>
@@ -2646,7 +2646,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Participación como miembro en comisión permanente</td>
                                                 <td id="puntajeCGUpermanente"><b>10</b></td>
-                                                <td><input type="value" id="cantCGUpermanente" 
+                                                <td><input type="number" id="cantCGUpermanente" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCGUpermanente') }}">
                                                 </td>
                                                 <td></td>
@@ -2662,7 +2662,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Titular o suplente</td>
                                                 <td id="puntajeCAACtitular"><b>10</b></td>
-                                                <td><input type="value" id="cantCAACtitular" 
+                                                <td><input type="number" id="cantCAACtitular" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCAACtitular') }}">
                                                 </td>
                                                 <td></td>
@@ -2678,7 +2678,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Participación como integrante de comisión</td>
                                                 <td id="puntajeCAACintegCom"><b>5</b></td>
-                                                <td><input type="value" id="cantCAACintegCom" 
+                                                <td><input type="number" id="cantCAACintegCom" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantCAACintegCom') }}">
                                                 </td>
                                                 <td></td>
@@ -2694,7 +2694,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Departamentales</td>
                                                 <td id="puntajeComDepart"><b>15</b></td>
-                                                <td><input type="value" id="cantComDepart" 
+                                                <td><input type="number" id="cantComDepart" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComDepart') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalComDepart"></td>
@@ -2708,7 +2708,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Dictaminadora del PEDPD</td>
                                                 <td id="puntajeComPEDPD"><b>15</b></td>
-                                                <td><input type="value" id="cantComPEDPD"
+                                                <td><input type="number" id="cantComPEDPD"
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComPEDPD') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalComPEDPD"></td>
@@ -2722,7 +2722,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Participación como integrante del Comité Académico de Posgrado</td>
                                                 <td id="puntajeComPartPos"><b>5</b></td>
-                                                <td><input type="value" id="cantComPartPos" 
+                                                <td><input type="number" id="cantComPartPos" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantComPartPos') }}">
                                                 </td>
                                                 <td></td>
@@ -2737,7 +2737,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>De posgrado</td>
                                                 <td id="puntajeRespPos"><b>25</b></td>
-                                                <td><input type="value" id="cantRespPos" 
+                                                <td><input type="number" id="cantRespPos" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespPos') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespPos"></td>
@@ -2751,7 +2751,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>De carrera</td>
                                                 <td id="puntajeRespCarrera"><b>15</b></td>
-                                                <td><input type="value" id="cantRespCarrera" 
+                                                <td><input type="number" id="cantRespCarrera" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespCarrera') }}">
                                                 </td>
                                                 <td></td>
@@ -2767,7 +2767,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>De unidad de producción</td>
                                                 <td id="puntajeRespProd"><b>20</b></td>
-                                                <td><input type="value" id="cantRespProd" 
+                                                <td><input type="number" id="cantRespProd" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespProd') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespProd"></td>
@@ -2781,7 +2781,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>De laboratorio de docencia e investigación</td>
                                                 <td id="puntajeRespLab"><b>15</b></td>
-                                                <td><input type="value" id="cantRespLab" 
+                                                <td><input type="number" id="cantRespLab" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantRespLab') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalRespLab"></td>
@@ -2795,7 +2795,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Profesorado</td>
                                                 <td id="puntajeExamProf"><b>15</b></td>
-                                                <td><input type="value" id="cantExamProf" 
+                                                <td><input type="number" id="cantExamProf" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantExamProf') }}"></td>
                                                 <td></td>
                                                 <td id="subtotalExamProf"></td>
@@ -2809,7 +2809,7 @@ $userType = Auth::user()->user_type;
                                                 <td></td>
                                                 <td>Ayudantes académicos</td>
                                                 <td id="puntajeExamAcademicos"><b>5</b></td>
-                                                <td><input type="value" id="cantExamAcademicos" 
+                                                <td><input type="number" id="cantExamAcademicos" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantExamAcademicos') }}">
                                                 </td>
                                                 <td></td>
@@ -2825,7 +2825,7 @@ $userType = Auth::user()->user_type;
                                                 <td>En formación</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPformResp"><b>15</b></td>
-                                                <td><input type="value" id="cantPRODEPformResp" 
+                                                <td><input type="number" id="cantPRODEPformResp" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPformResp') }}">
                                                 </td>
                                                 <td></td>
@@ -2841,7 +2841,7 @@ $userType = Auth::user()->user_type;
                                                 <td>En formación</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPformInteg"><b>10</b></td>
-                                                <td><input type="value" id="cantPRODEPformInteg" 
+                                                <td><input type="number" id="cantPRODEPformInteg" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPformInteg') }}">
                                                 </td>
                                                 <td></td>
@@ -2857,7 +2857,7 @@ $userType = Auth::user()->user_type;
                                                 <td>En consolidación</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPenconsResp"><b>25</b></td>
-                                                <td><input type="value" id="cantPRODEPenconsResp"
+                                                <td><input type="number" id="cantPRODEPenconsResp"
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPenconsResp') }}">
                                                 </td>
                                                 <td></td>
@@ -2873,7 +2873,7 @@ $userType = Auth::user()->user_type;
                                                 <td>En consolidación</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPenconsInteg"><b>15</b></td>
-                                                <td><input type="value" id="cantPRODEPenconsInteg" 
+                                                <td><input type="number" id="cantPRODEPenconsInteg" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPenconsInteg') }}">
                                                 </td>
                                                 <td></td>
@@ -2889,7 +2889,7 @@ $userType = Auth::user()->user_type;
                                                 <td>Consolidado</td>
                                                 <td>Responsable</td>
                                                 <td id="puntajePRODEPconsResp"><b>35</b></td>
-                                                <td><input type="value" id="cantPRODEPconsResp" 
+                                                <td><input type="number" id="cantPRODEPconsResp" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPconsResp') }}">
                                                 </td>
                                                 <td></td>
@@ -2905,7 +2905,7 @@ $userType = Auth::user()->user_type;
                                                 <td>Consolidado</td>
                                                 <td>Integrante</td>
                                                 <td id="puntajePRODEPconsInteg"><b>25</b></td>
-                                                <td><input type="value" id="cantPRODEPconsInteg" 
+                                                <td><input type="number" id="cantPRODEPconsInteg" 
                                                         oninput="onActv3SubTotal3_19()" value="{{ oldValueOrDefault('cantPRODEPconsInteg') }}">
                                                 </td>
                                                 <td></td>

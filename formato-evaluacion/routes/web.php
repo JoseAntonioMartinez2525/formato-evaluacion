@@ -225,5 +225,11 @@ Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('jso
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
+Route::get('/test-event/{user_id}', function ($user_id) {
+    event(new \App\Events\EvaluationCompleted($user_id));
+    return 'Evento disparado para user_id: ' . $user_id;
+});
+
+
 
 

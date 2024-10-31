@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use Illuminate\Http\Request;
 use App\Models\UsersResponseForm2;
 use App\Models\DictaminatorsResponseForm2;
@@ -32,20 +33,19 @@ class ResponseForm2Controller extends Controller
 
             $horasActv2 = $validatedData['horasActv2'] ?? 0.0;
 
-            // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form2')
-                ->join('dictaminators_response_form2', 'users_response_form2.user_id', '=', 'dictaminators_response_form2.user_id')
-                ->where('users_response_form2.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form2.*',
-                    'dictaminators_response_form2.comision1 as comision1'
-                )
+            // Busca la comision1 en dictaminators_response_form2
+            $docenteData = DB::table('dictaminators_response_form2')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('comision1')
                 ->first();
 
-            // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['comision1'] = $docenteData->comision1 ?? null;
 
             UsersResponseForm2::create($validatedData);
+
+
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             $consolidatedData = DB::table('consolidated_responses')
                 ->where('user_id', $validatedData['user_id'])
@@ -57,6 +57,7 @@ class ResponseForm2Controller extends Controller
                     ->update(['comision1' => $consolidatedData->comision1]);
             }
 
+   
 
             return response()->json([
                 'success' => true,
