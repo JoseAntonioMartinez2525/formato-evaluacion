@@ -88,14 +88,15 @@ nav {
 #cantCongresoInt, #cantCongresoNac, #cantCongresoLoc, 
 #cantDifusionExt, #cantDifusionInt, #cantRepDifusionExt, #cantRepDifusionInt, #cantDA, #cantCAAC, #puntaje3_7,
 #cantInicioFinanExt, #cantInicioInvInterno, #cantReporteFinanciamExt, #cantReporteInvInt{
-
+    border-color: transparent;
     background-color: #c1cfd3;
     text-align: right;
 }
 
-[id^="puntaje3_9_"], #puntaje3_8, #puntajeHoras3_6{
+[id^="puntaje3_9_"], #puntaje3_8, #puntaje3_6{
         background-color: #c1cfd3;
         text-align: right;
+        border-color:transparent;
 }
 
 #comisionIndividual, #comisionGrupal, #obsGrupal, #obsIndividual, #comisionAsesoria,
@@ -146,6 +147,7 @@ nav {
 #cantArbInt, #cantArbNac, #cantPubInt,#cantPubNac,#cantRevInt, #cantRevNac,#cantRevista, #cantPatentes, #cantPrototipos, #r1, #r2, #r3, .elabInput{
     background-color: #c1cfd3;
     text-align: right;
+    border-color:transparent;
 }
 
 #actvCant, #cantidadTd{
