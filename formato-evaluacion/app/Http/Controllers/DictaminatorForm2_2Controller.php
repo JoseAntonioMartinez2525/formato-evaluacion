@@ -123,7 +123,7 @@ class DictaminatorForm2_2Controller extends TransferController
         $userResponse = UsersResponseForm2_2::where('user_id', $userId)->first();
 
         if ($userResponse) {
-            $userResponse->comision1 = $comisionValue;
+            $userResponse->actv2Comision = $comisionValue;
             $userResponse->save();
         }
     }

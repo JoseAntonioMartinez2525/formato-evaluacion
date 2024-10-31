@@ -163,7 +163,7 @@ class DictaminatorForm3_18Controller extends TransferController
         $userResponse = UsersResponseForm3_18::where('user_id', $userId)->first();
 
         if ($userResponse) {
-            $userResponse->comision1 = $comisionValue;
+            $userResponse->comision3_18 = $comisionValue;
             $userResponse->save();
         }
     }
