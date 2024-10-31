@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\UsersResponseForm3_15;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,8 @@ class ResponseForm3_15Controller extends Controller
             $validatedData['comision3_15'] = $docenteData->comision3_15 ?? null;
             // Create a new record using Eloquent ORM
             UsersResponseForm3_15::create($validatedData);
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             return response()->json([
                 'success' => true,

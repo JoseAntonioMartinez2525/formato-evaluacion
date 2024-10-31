@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use Illuminate\Http\Request;
 use App\Models\UsersResponseForm3_4; 
 use Illuminate\Support\Facades\DB;// Adjust the model namespace as needed
@@ -39,21 +40,19 @@ class ResponseForm3_4Controller extends Controller
             $validatedData['obs3_4_3'] = $validatedData['obs3_4_3'] ?? 'sin comentarios';
             $validatedData['obs3_4_4'] = $validatedData['obs3_4_4'] ?? 'sin comentarios';
 
-            // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form3_4')
-                ->join('dictaminators_response_form3_4', 'users_response_form3_4.user_id', '=', 'dictaminators_response_form3_4.user_id')
-                ->where('users_response_form3_4.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form3_4.*',
-                    'dictaminators_response_form3_4.comision3_4 as comision3_4'
-                )
+            $docenteData = DB::table('dictaminators_response_form3_4')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('comision3_4')
                 ->first();
+
 
             // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['comision3_4'] = $docenteData->comision3_4 ?? null;
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_4::create($validatedData);
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             return response()->json([
                 'success' => true,

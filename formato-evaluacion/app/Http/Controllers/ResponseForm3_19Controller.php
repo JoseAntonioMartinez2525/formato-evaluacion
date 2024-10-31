@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use App\Models\UsersResponseForm3_19;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -123,6 +124,8 @@ class ResponseForm3_19Controller extends Controller
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_19::create($validatedData);
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             $consolidatedData = DB::table('consolidated_responses')
                 ->where('user_id', $validatedData['user_id'])

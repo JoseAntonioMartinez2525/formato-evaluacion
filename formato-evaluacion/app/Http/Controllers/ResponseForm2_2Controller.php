@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Models\UsersResponseForm2_2;
@@ -38,20 +39,18 @@ class ResponseForm2_2Controller extends Controller
         $horasPosgrado = $validatedData['horasPosgrado'] ?? 0.0;
 
             // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form2_2')
-                ->join('dictaminators_response_form2_2', 'users_response_form2_2.user_id', '=', 'dictaminators_response_form2_2.user_id')
-                ->where('users_response_form2_2.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form2_2.*',
-                    'dictaminators_response_form2_2.actv2Comision as actv2Comision'
-                )
+            $docenteData = DB::table('dictaminators_response_form2_2')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('actv2Comision')
                 ->first();
-
             // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['actv2Comision'] = $docenteData->actv2Comision ?? null;
         // Guardar en la tabla correspondiente según el tipo de usuario
 
         UsersResponseForm2_2::create($validatedData);
+
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
             return response()->json([
                 'success' => true,
                 'message' => 'Form submitted successfully!',

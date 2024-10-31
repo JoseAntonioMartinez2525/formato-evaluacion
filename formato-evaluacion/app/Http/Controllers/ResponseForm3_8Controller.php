@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EvaluationCompleted;
 use Illuminate\Http\Request;
 use App\Models\UsersResponseForm3_8;
 use Illuminate\Support\Facades\DB;
@@ -27,21 +28,20 @@ class ResponseForm3_8Controller extends Controller
             // Assign default value if not provided
             $validatedData['obs3_8_1'] = $validatedData['obs3_8_1'] ?? 'sin comentarios';
 
-            // Consulta de datos con unión
-            $docenteData = DB::table('users_response_form3_8')
-                ->join('dictaminators_response_form3_8', 'users_response_form3_8.user_id', '=', 'dictaminators_response_form3_8.user_id')
-                ->where('users_response_form3_8.user_id', $validatedData['user_id'])
-                ->select(
-                    'users_response_form3_8.*',
-                    'dictaminators_response_form3_8.comision3_8 as comision3_8'
-                )
+            $docenteData = DB::table('dictaminators_response_form3_8')
+                ->where('user_id', $validatedData['user_id'])
+                ->select('comision3_8')
                 ->first();
+
 
             // Pasar el valor a $validatedData para asegurar que esté disponible en la vista
             $validatedData['comision3_8'] = $docenteData->comision3_8 ?? null;
 
             // Create a new record using Eloquent ORM
             UsersResponseForm3_8::create($validatedData);
+
+            // Disparar evento después de la creación del registro
+            event(new EvaluationCompleted($validatedData['user_id']));
 
             return response()->json([
                 'success' => true,
