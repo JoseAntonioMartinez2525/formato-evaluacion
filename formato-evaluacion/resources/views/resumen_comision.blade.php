@@ -1030,6 +1030,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                         .then(async response => {
                             const data = response.data;
 
+                            //cambiar la logica para acceder a las comisiones desde el id del docente
+                            const comisiones = await fetch('/get-comisiones', {
+                                //implementar switch para casos de uso para evitar formularios nulos
+
+                            switch(response.data){
+                                case: 'form2': let actv1 = response.data.form2.comision1;
+                                break;
+                                
+                                case: 'form2_2': let actv2 = response.data.form2_2.actv2Comision;
+                                break;
+
+                                case: 'form3_1': let actv3_1 = response.data.form3_1.actv3Comision;
+                            }
+                            
+                            
+                            let actividades = {};
+
+                            for (let i = 2; i <= 19; i++) {
+                                actividades[`actv3_${i}`] = response.data[`form3_${i}`][`comision3_${i}`];
+                            }
+
+                            console.log(actividades.actv3_2); // accede a actv3_2
+
                             formContainer.style.display = 'block'; // Mostrar formulario
 
                             // Aquí realizamos la solicitud para obtener las comisiones de los dictaminadores
@@ -1039,6 +1062,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 
                                 if (userIdData.user_id) {
                                 const userId = userIdData.user_id;
+
+                                
                                 const dictaminatorResponse = await fetch(`/get-dictaminators-responses?user_id=${userId}`);
                                 const dictaminatorData = await dictaminatorResponse.json();
                                     if (dictaminatorResponse.ok) {
