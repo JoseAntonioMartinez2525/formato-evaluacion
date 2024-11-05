@@ -1060,8 +1060,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                             console.log(actividades[`comision3_${i}`]);
                         }
 
-                            console.log(actividades); // accede al arreglo
-
                             formContainer.style.display = 'block'; // Mostrar formulario
 
                             // Aquí realizamos la solicitud para obtener las comisiones de los dictaminadores
@@ -1093,14 +1091,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 comisiones[10] = data.form3_6?.comision3_6 || '0';
                                 comisiones[11] = data.form3_7?.comision3_7 || '0';
                                 comisiones[12] = data.form3_8?.comision3_8 || '0';
+                                comisiones[14] = '';
                                 comisiones[15] = data.form3_9?.comision3_9 || '0';
                                 comisiones[16] = data.form3_10?.comision3_10 || '0';
                                 comisiones[17] = data.form3_11?.comision3_11 || '0';
+                                comisiones[19] = '';
                                 comisiones[20] = data.form3_12?.comision3_12 || '0';
                                 comisiones[21] = data.form3_13?.comision3_13 || '0';
                                 comisiones[22] = data.form3_14?.comision3_14 || '0';
                                 comisiones[23] = data.form3_15?.comision3_15 || '0';
                                 comisiones[24] = data.form3_16?.comision3_16 || '0';
+                                comisiones[26] = '';
                                 comisiones[27] = data.form3_17?.comision3_17 || '0';
                                 comisiones[28] = data.form3_18?.comision3_18 || '0';
                                 comisiones[29] = data.form3_19?.comision3_19 || '0';
@@ -1125,14 +1126,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     
                                 });
 
-                                const sumaComision3 = Math.min(comisiones[13] + comisiones[18] + comisiones[25], 700);
+                                const sumaComision3 = Math.min(comisiones[13] + comisiones[18] + comisiones[25] + comisiones[30], 700);
 
                                 comisiones[4] = sumaComision3;
                                 comisiones[34] = comisiones[4];
 
-                                let tLogrado = parseInt(comisiones[1] + comisiones[3] + comisiones[4]);
+                                let tLogrado = parseFloat(comisiones[1]) + parseFloat(comisiones[3]) + parseFloat(comisiones[4]);
+                                tLogrado = tLogrado.toFixed(2); 
 
-                                const totalLogrado = Math.min(tLogrado, 700);
+                                const totalLogrado = tLogrado >= 700 ? Math.min(tLogrado, 700) : tLogrado;
+                                
                                 comisiones[31] = totalLogrado;
                                 comisiones[35] = totalLogrado;
                                 let comisionCell;
