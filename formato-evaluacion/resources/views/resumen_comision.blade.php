@@ -277,7 +277,7 @@ $newLocale = str_replace('_', '-', $locale);
                                         </td>
                                     </tr>
                                 </thead>
-                            </table>
+                            </table><br>
                             <footer id="convocatoria"></footer>
                         </form>
 
@@ -342,7 +342,7 @@ $newLocale = str_replace('_', '-', $locale);
             console.log('Button clicked: ' + currentTarget.getAttribute('data-id'));
         } document.addEventListener('DOMContentLoaded', onload);
 
-        function actualizarResultados() {
+        function actualizarResultados(sumaComision3, totalLogrado) {
                 const minimaCalidad = evaluarCalidad(sumaComision3);
                 const minimaTotal = evaluarTotal(totalLogrado);
 
@@ -1039,33 +1039,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             switch (data) {
                             case 'form2':
-                                actividades['actv1'] = response.data.form2 && response.data.form2.comision1 ? response.data.form2.comision1 : 0;
+                                actividades['comision1'] = response.data.form2 && response.data.form2.comision1 ? response.data.form2.comision1 : 0;
+                                console.log(actividades['comision1']);
                                 break;
                             case 'form2_2':
-                                actividades['actv2'] = response.data.form2_2 && response.data.form2_2.actv2Comision ? response.data.form2_2.actv2Comision : 0;
+                                actividades['actv2Comision'] = response.data.form2_2 && response.data.form2_2.actv2Comision ? response.data.form2_2.actv2Comision : 0;
+                                console.log(actividades['actv2Comision']);
                                 break;
                             case 'form3_1':
-                                actividades['actv3'] = response.data.form3_1 && response.data.form3_1.actv3Comision ? response.data.form3_1.actv3Comision : 0;
-                            default:
+                                actividades['actv3Comision'] = response.data.form3_1 && response.data.form3_1.actv3Comision ? response.data.form3_1.actv3Comision : 0;
+                                console.log(actividades['actv3Comision']);
+                                default:
                                 console.warn('Unexpected form name:', data);
                                 break;
                         }
                             
                             
                         for (let i = 2; i <= 19; i++) {
-                            actividades[`actv3_${i}`] = data[`form3_${i}`] ? (data[`form3_${i}`].comision3_i || 0) : 0;
+                            actividades[`comision3_${i}`] = data[`form3_${i}`] ? (data[`form3_${i}`].comision3_i || 0) : 0;
+                            console.log(actividades[`comision3_${i}`]);
                         }
 
-                            console.log(actividades.actv3_2); // accede a actv3_2
+                            console.log(actividades); // accede al arreglo
 
                             formContainer.style.display = 'block'; // Mostrar formulario
 
                             // Aquí realizamos la solicitud para obtener las comisiones de los dictaminadores
 
-                    }
-                else {
-                    console.error('Error fetching docente data:', error);
-                }
+                   
                     try {
                         const userIdResponse = await fetch(`/get-user-id?email=${email}`);
                         const userIdData = await userIdResponse.json();
@@ -1080,34 +1081,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 let comisiones = Array(35).fill('0');
 
                                 // Asignación de valores con cortocircuito
-                                comisiones[0] = dictaminatorData.form2?.comision1 || '0';
-                                comisiones[1] = dictaminatorData.form2?.comision1 || '0';
-                                comisiones[2] = dictaminatorData.form2_2?.actv2Comision || '0';
-                                comisiones[3] = dictaminatorData.form2_2?.actv2Comision || '0';
-                                comisiones[5] = dictaminatorData.form3_1?.actv3Comision || '0';
-                                comisiones[6] = dictaminatorData.form3_2?.comision3_2 || '0';
-                                comisiones[7] = dictaminatorData.form3_3?.comision3_3 || '0';
-                                comisiones[8] = dictaminatorData.form3_4?.comision3_4 || '0';
-                                comisiones[9] = dictaminatorData.form3_5?.comision3_5 || '0';
-                                comisiones[10] = dictaminatorData.form3_6?.comision3_6 || '0';
-                                comisiones[11] = dictaminatorData.form3_7?.comision3_7 || '0';
-                                comisiones[12] = dictaminatorData.form3_8?.comision3_8 || '0';
-                                comisiones[15] = dictaminatorData.form3_9?.comision3_9 || '0';
-                                comisiones[16] = dictaminatorData.form3_10?.comision3_10 || '0';
-                                comisiones[17] = dictaminatorData.form3_11?.comision3_11 || '0';
-                                comisiones[20] = dictaminatorData.form3_12?.comision3_12 || '0';
-                                comisiones[21] = dictaminatorData.form3_13?.comision3_13 || '0';
-                                comisiones[22] = dictaminatorData.form3_14?.comision3_14 || '0';
-                                comisiones[23] = dictaminatorData.form3_15?.comision3_15 || '0';
-                                comisiones[24] = dictaminatorData.form3_16?.comision3_16 || '0';
-                                comisiones[27] = dictaminatorData.form3_17?.comision3_17 || '0';
-                                comisiones[28] = dictaminatorData.form3_18?.comision3_18 || '0';
-                                comisiones[29] = dictaminatorData.form3_19?.comision3_19 || '0';
-                                comisiones[32] = dictaminatorData.form2?.comision1 || '0';
-                                comisiones[33] = dictaminatorData.form2_2?.actv2Comision || '0';
+                                comisiones[0] = data.form2?.comision1 || '0';
+                                comisiones[1] = data.form2?.comision1 || '0';
+                                comisiones[2] = data.form2_2?.actv2Comision || '0';
+                                comisiones[3] = data.form2_2?.actv2Comision || '0';
+                                comisiones[5] = data.form3_1?.actv3Comision || '0';
+                                comisiones[6] = data.form3_2?.comision3_2 || '0';
+                                comisiones[7] = data.form3_3?.comision3_3 || '0';
+                                comisiones[8] = data.form3_4?.comision3_4 || '0';
+                                comisiones[9] = data.form3_5?.comision3_5 || '0';
+                                comisiones[10] = data.form3_6?.comision3_6 || '0';
+                                comisiones[11] = data.form3_7?.comision3_7 || '0';
+                                comisiones[12] = data.form3_8?.comision3_8 || '0';
+                                comisiones[15] = data.form3_9?.comision3_9 || '0';
+                                comisiones[16] = data.form3_10?.comision3_10 || '0';
+                                comisiones[17] = data.form3_11?.comision3_11 || '0';
+                                comisiones[20] = data.form3_12?.comision3_12 || '0';
+                                comisiones[21] = data.form3_13?.comision3_13 || '0';
+                                comisiones[22] = data.form3_14?.comision3_14 || '0';
+                                comisiones[23] = data.form3_15?.comision3_15 || '0';
+                                comisiones[24] = data.form3_16?.comision3_16 || '0';
+                                comisiones[27] = data.form3_17?.comision3_17 || '0';
+                                comisiones[28] = data.form3_18?.comision3_18 || '0';
+                                comisiones[29] = data.form3_19?.comision3_19 || '0';
+                                comisiones[32] = data.form2?.comision1 || '0';
+                                comisiones[33] = data.form2_2?.actv2Comision || '0';
 
                                 // Cálculo de subtotales
-                                let sumaComision3 = 0;
+                                
                                 const subtotales = [
                                     { range: [5, 12], position: 13 }, // Subtotal 1
                                     { range: [15, 17], position: 18 }, // Subtotal 2
@@ -1121,24 +1122,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         subtotal += parseInt(comisiones[i]) || 0;
                                     }
                                     comisiones[position] = subtotal;
-                                    sumaComision3 += subtotal;
+                                    
                                 });
 
-                                sumaComision3 = Math.min(sumaComision3, 700);
+                                const sumaComision3 = Math.min(comisiones[13] + comisiones[18] + comisiones[25], 700);
+
                                 comisiones[4] = sumaComision3;
-
-                                let totalLogrado = (parseInt(comisiones[0]) || 0) + (parseInt(comisiones[2]) || 0) + sumaComision3;
-                                totalLogrado = Math.min(totalLogrado, 700);
-                                comisiones[31] = totalLogrado;
                                 comisiones[34] = comisiones[4];
-                                comisiones[35] = comisiones[31];
 
+                                let tLogrado = parseInt(comisiones[1] + comisiones[3] + comisiones[4]);
+
+                                const totalLogrado = Math.min(tLogrado, 700);
+                                comisiones[31] = totalLogrado;
+                                comisiones[35] = totalLogrado;
+                                let comisionCell;
                                 // Generar las filas en la tabla
                                 labels.forEach((label, i) => {
                                     const row = document.createElement('tr');
                                     const labelCell = document.createElement('td');
                                     const valueCell = document.createElement('td');
-                                    const comisionCell = document.createElement('td');
+                                     comisionCell = document.createElement('td');
 
                                     labelCell.textContent = label;
                                     valueCell.textContent = values[i];
@@ -1175,121 +1178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     dataContainer.appendChild(row);
                                 });
 
-                                for (let i = 0; i < comisiones.length; i++) {
-                                    switch (i) {
-                                        case 0: comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2?.comision1;
-                                        break;
-                                        case 1:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2?.comision1; // Asignación estándar
-                                            break;
-                                        case 2: comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2_2?.actv2Comision; break;
-                                        case 3:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2_2?.actv2Comision; // Asignación estándar
-                                            break;
-                                        case 4:
-                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
-                                            break;
-                                        case 5:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_1?.actv3Comision || '0'; // comision3_1
-                                            break;
-                                        case 6:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_2?.comision3_2 || '0'; // comision3_2
-                                            break;
-                                        case 7:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_3?.comision3_3 || '0'; // comision3_3
-                                            break;
-                                        case 8:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_4?.comision3_4 || '0'; // comision3_4
-                                            break;
-                                        case 9:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_5?.comision3_5 || '0'; // comision3_5
-                                            break;
-                                        case 10:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_6?.comision3_6 || '0'; // comision3_6
-                                            break;
-                                        case 11:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_7?.comision3_7 || '0'; // comision3_7
-                                            break;
-                                        case 12:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_8?.comision3_8 || '0'; // comision3_8
-                                            break;
-                                        case 13:
-                                            comisionCell.innerHTML = comisionSubtotal1.toString(); // Valor calculado
-                                            break;
-                                        case 15:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_9?.comision3_9 || '0'; // comision3_9
-                                            break;
-                                        case 16:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_10?.comision3_10 || '0'; // comision3_10
-                                            break;
-                                        case 17:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_11?.comision3_11 || '0'; // comision3_11
-                                            break;
-                                        case 18:
-                                            comisionCell.innerHTML = comisionSubtotal2.toString(); // Valor calculado
-                                            break;
-                                        case 20:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_12?.comision3_12 || '0'; // comision3_12
-                                            break;
-                                        case 21:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_13?.comision3_13 || '0'; // comision3_13
-                                            break;
-                                        case 22:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_14?.comision3_14 || '0'; // comision3_14
-                                            break;
-                                        case 23:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_15?.comision3_15 || '0'; // comision3_15
-                                            break;
-                                        case 24:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_16?.comision3_16 || '0'; // comision3_16
-                                            break;
-                                        case 25:
-                                            comisionCell.innerHTML = comisionSubtotal3.toString(); // Valor calculado
-                                            break;
-                                        case 27:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_17?.comision3_17 || '0'; // comision3_17
-                                            break;
-                                        case 28:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_18?.comision3_18; // comision3_18
-                                            break;
-                                        case 29:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form3_19?.comision3_19; // comision3_19
-                                            break;
-                                        case 30:
-                                            comisionCell.innerHTML = comisionSubtotal4.toString(); // Valor calculado
-                                            break;
-                                        case 31:
-                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
-                                            break;
-                                        case 32:
-                                            comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2?.comision1; // Asignación estándar
-                                            break;
-                                        case 33: comisionCell.innerHTML = comisiones[i] || dictaminatorData.form2_2?.actv2Comision;
-                                            break;
-                                        case 34:
-                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
-                                            break;
-                                        case 35:
-                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
-                                            break;
-                                        default:
-                                            comisionCell.innerHTML = '0'; // Valor por defecto si no coincide con ningún caso
-                                    }
-                                }
-
-
-                                console.log(comisionCell.innerHTML);
-                                console.log(comisiones.toString());
-
-                                // Asignar los valores calculados a otros elementos del DOM
-                                const minimaCalidad = evaluarCalidad(sumaComision3);
-                                const minimaTotal = evaluarTotal(totalLogrado);
-                                document.getElementById('minimaCalidad').textContent = minimaCalidad;
-                                document.getElementById('minimaTotal').textContent = minimaTotal;
-
-
-
-                                // Actualizar convocatoria
+                                                                // Actualizar convocatoria
                                 const convocatoriaElement = document.getElementById('convocatoria');
                                 if (convocatoriaElement) {
                                     if (data.form1) {
@@ -1302,10 +1191,128 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 }
 
+                                for (let i = 0; i <= comisiones.length; i++) {
+                                    switch (i) {
+                                        case 0: comisionCell.innerHTML = comisiones[i] || data.form2?.comision1;
+                                        break;
+                                        case 1:
+                                            comisionCell.innerHTML = comisiones[i] || data.form2?.comision1; // Asignación estándar
+                                            break;
+                                        case 2: comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision; break;
+                                        case 3:
+                                            comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision; // Asignación estándar
+                                            break;
+                                        case 4:
+                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
+                                            break;
+                                        case 5:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_1?.actv3Comision || '0'; // comision3_1
+                                            break;
+                                        case 6:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_2?.comision3_2 || '0'; // comision3_2
+                                            break;
+                                        case 7:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_3?.comision3_3 || '0'; // comision3_3
+                                            break;
+                                        case 8:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_4?.comision3_4 || '0'; // comision3_4
+                                            break;
+                                        case 9:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_5?.comision3_5 || '0'; // comision3_5
+                                            break;
+                                        case 10:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_6?.comision3_6 || '0'; // comision3_6
+                                            break;
+                                        case 11:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_7?.comision3_7 || '0'; // comision3_7
+                                            break;
+                                        case 12:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_8?.comision3_8 || '0'; // comision3_8
+                                            break;
+                                        case 13:
+                                            comisionCell.innerHTML = comisiones[i].toString(); // Valor calculado
+                                            break;
+                                        case 15:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_9?.comision3_9 || '0'; // comision3_9
+                                            break;
+                                        case 16:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_10?.comision3_10 || '0'; // comision3_10
+                                            break;
+                                        case 17:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_11?.comision3_11 || '0'; // comision3_11
+                                            break;
+                                        case 18:
+                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
+                                            break;
+                                        case 20:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_12?.comision3_12 || '0'; // comision3_12
+                                            break;
+                                        case 21:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_13?.comision3_13 || '0'; // comision3_13
+                                            break;
+                                        case 22:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_14?.comision3_14 || '0'; // comision3_14
+                                            break;
+                                        case 23:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_15?.comision3_15 || '0'; // comision3_15
+                                            break;
+                                        case 24:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_16?.comision3_16 || '0'; // comision3_16
+                                            break;
+                                        case 25:
+                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
+                                            break;
+                                        case 27:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_17?.comision3_17 || '0'; // comision3_17
+                                            break;
+                                        case 28:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_18?.comision3_18; // comision3_18
+                                            break;
+                                        case 29:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_19?.comision3_19; // comision3_19
+                                            break;
+                                        case 30:
+                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
+                                            break;
+                                        case 31:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break;
+                                        case 32:
+                                            comisionCell.innerHTML = comisiones[i] || data.form2?.comision1; // Asignación estándar
+                                            break;
+                                        case 33: comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision;
+                                            break;
+                                        case 34:
+                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
+                                            break;
+                                        case 35:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break;
+                                        case 36:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break;                                            
+                                        default:
+                                            comisionCell.innerHTML = '0'; // Valor por defecto si no coincide con ningún caso
+                                    }
+                                }
+
+
+                                console.log(comisionCell.innerHTML);
+                                console.log(comisiones.toString());
+
+                                actualizarResultados(comisiones[4], totalLogrado);
+
+
+
                             }
                         }
                     } catch (error) {
                         console.error("Error al procesar los datos:", error);
+                    }
+
+                     }
+                    else {
+                        console.error('Error fetching docente data:', error);
                     }
                 }
             });
