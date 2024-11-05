@@ -479,311 +479,7 @@ $newLocale = str_replace('_', '-', $locale);
         });
 
         /*
-    document.addEventListener('DOMContentLoaded', async () => {
-        const userType = @json($userType); 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const user_identity = @json($user_identity);
-        const docenteSelect = document.getElementById('docenteSelect');
-        const dictaminadorSelect = document.getElementById('dictaminadorSelect');
-        const formContainer = document.getElementById('formContainer');
-        constdataContainer = document.getElementById(data');
-       
-        
-
-        if (docenteSelect) {
-            // Cuando el usuario es dictaminador
-            if (userType === 'dictaminador') {
-                try {
-                    const response = await fetch('/get-docentes');
-
-                    const docentes = await response.json();
-
-                    docentes.forEach(docente => {
-                        const option = document.createElement('option');
-                        option.value = docente.email;
-                        option.textContent = docente.email;
-                        docenteSelect.appendChild(option);
-                    });
-
-                    docenteSelect.addEventListener('change', async (event) => {
-                        const email = event.target.value;
-
-                        if (email) {
-                            axios.get('/get-docente-data', { params: { email } })
-                                .then(response => {
-                                    const data = response.data;
-
-                                    // Actualizar convocatoria
-
-                                    // Verifica si la respuesta contiene los datos esperados
-                                    if (data.docente) {
-                                        const convocatoriaElement = document.getElementById('convocatoria');
-
-                                        // Mostrar la convocatoria si existe
-                                        if (convocatoriaElement) {
-                                            if (data.docente.convocatoria) {
-                                                convocatoriaElement.textContent = data.docente.convocatoria;
-                                            } else {
-                                                convocatoriaElement.textContent = 'Convocatoria no disponible';
-                                            }
-                                        }
-                                    }
-                                });
-                            // Lógica para obtener datos de DictaminatorsResponseForm
-                            try {
-                                const response = await fetch('/get-dictaminators-responses');
-                                const dictaminatorResponses = await response.json();
-                                const formKeys = [
-                                    'selectedResponseForm2', 'selectedResponseForm2_2', 'selectedResponseForm3_1',
-                                    'selectedResponseForm3_2', 'selectedResponseForm3_3', 'selectedResponseForm3_4',
-                                    'selectedResponseForm3_5', 'selectedResponseForm3_6', 'selectedResponseForm3_7',
-                                    'selectedResponseForm3_8', 'selectedResponseForm3_9', 'selectedResponseForm3_10',
-                                    'selectedResponseForm3_11', 'selectedResponseForm3_12', 'selectedResponseForm3_13',
-                                    'selectedResponseForm3_14', 'selectedResponseForm3_15', 'selectedResponseForm3_16',
-                                    'selectedResponseForm3_17', 'selectedResponseForm3_18', 'selectedResponseForm3_19'
-                                ];
-                                const selectedResponses = {};
-                                const elements = {};
-
-                                const suffixes = Array.from({ length: 19 }, (_, i) => i + 1); // Genera sufijos del 1 al 19
-
-                                suffixes.forEach(i => {
-                                    const dictKey = `form3_${i}`;
-                                    const selectedKey = `dictForm3_${i}`;
-                                    const elementKey = `comision3_${i}`;
-
-                                    selectedResponses[selectedKey] = dictaminatorResponses[dictKey]?.find(res => res.email === email);
-                                    elements[elementKey] = document.getElementById(elementKey);
-                                });
-
-                                suffixes.forEach(i => {
-                                    const selectedKey = `dictForm3_${i}`;
-                                    const elementKey = `comision3_${i}`;
-
-                                    if (elements[elementKey]) {
-                                        elements[elementKey].textContent = selectedResponses[selectedKey]?.[`comision3_${i}`] || '0';
-                                    } else {
-                                        console.warn(`Elemento con ID ${elementKey} no encontrado`);
-                                    }
-                                });
-    
-
-                                if (dictaminatorResponses) {
-                                    // Actualizar los valores de los inputs
-                                    document.querySelector('input[name="dictaminador_id"]').value = dictaminatorResponses.dictaminador_id || '0';
-                                    document.querySelector('input[name="user_id"]').value = dictaminatorResponses.user_id || '';
-                                    document.querySelector('input[name="email"]').value = dictaminatorResponses.email || '';
-                                    document.querySelector('input[name="user_type"]').value = dictaminatorResponses.user_type || '';
-
-                                    document.getElementById('comision1').textContent = selectedResponses.selectedResponseForm2?.comision1 || '0';
-                                    document.getElementById('actv2Comision').textContent = selectedResponses.selectedResponseForm2_2?.actv2Comision || '0';
-                                    document.getElementById('actv3Comision').textContent = selectedResponses.selectedResponseForm3_1?.actv3Comision || '0';
-
-                            } else {
-                                console.error('No form data found for the selected docente.');
-
-                                // Reset input values if no data found
-                                document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                document.querySelector('input[name="user_id"]').value = '0';
-                                document.querySelector('input[name="email"]').value = '';
-                                document.querySelector('input[name="user_type"]').value = '';
-
-
-
-                            }
-                            }  catch (error) {
-                                console.error('Error fetching dictaminators responses:', error);
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error fetching docentes:', error);
-                    alert('No se pudo cargar la lista de docentes.');
-                }
-
-               /* docenteSelect.addEventListener('change', async (event) => {
-                    const dictaminadorId = event.target.value;
-                    const email = event.target.options[event.target.selectedIndex].dataset.email;  // Get email from selected option
-
-                    if (email) {
-                        
-                        try {
-
-                            const response = await fetch(`/dictaminador-final-data?email=${email}`);
-                            constdata = await response.json();
-
-                        dataContainer.innerHTML = ''; // Limpiar datos anteriores
-                            formContainer.style.display = 'block'; // Mostrar el formulario
-
-                           
-                            const comisiones = [
-                            data['comision1'],       // Valor de 'comision1'
-                            data['comision1'],       // Valor de 'comision1'
-                            data['actv2Comision'],   // Valor de 'actv2Comision'
-                            data['actv2Comision'],
-                            data[''],    // Valor de 'actv2Comision'          // Total de las actividades 3 (cálculo)
-                            data['actv3Comision'],   // Valor de 'actv3Comision'
-                            data['comision3_2'],      // Valor de 'comision3_2'
-                            data['comision3_3'],
-                            data['comision3_4'],
-                            data['comision3_5'],
-                            data['comision3_6'],
-                            data['comision3_7'],
-                            data['comision3_8'],
-                            data[''],
-                            data[''],
-                            data['comision3_9'],
-                            data['comision3_10'],
-                            data['comision3_11'],
-                            data[''],
-                            data[''],
-                            data['comision3_12'],
-                            data['comision3_13'],
-                            data['comision3_14'],
-                            data['comision3_15'],
-                            data['comision3_16'],
-                            data[''],
-                            data[''],
-                            data['comision3_17'],
-                            data['comision3_18'],
-                            data['comision3_19'],
-                            data[''],
-                            data[''], //31
-                            data['comision1'], //32
-                            data['actv2Comision'],
-                            data[''],       
-                            data[''],   //35                                                                                        
-
-                            ];
-
-                          // Generar las filas
-                            let sumaComision3 = 0;
-                            let comisionSubtotal1 = 0;
-                            let comisionSubtotal2 = 0;
-                            let comisionSubtotal3 = 0;
-                            let comisionSubtotal4 = 0;
-                            let totalLogrado = 0;
-
-                            // Primero, calcular los subtotales
-                            for (let i = 0; i < labels.length; i++) {
-                                if (labels[i] === 'Subtotal ' || labels[i] === 'Subtotal') {
-                                    // Sumar las comisiones del índice 5 al 12
-                                    if (i === 13) {
-                                        for (let index = 5; index <= 12; index++) {
-                                            comisionSubtotal1 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal1;
-                                        comisiones[13] = comisionSubtotal1; // Asignar el subtotal calculado
-                                    }
-
-                                    // Sumar las comisiones del índice 15 al 17
-                                    if (i === 18) {
-                                        for (let index = 15; index <= 17; index++) {
-                                            comisionSubtotal2 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal2;
-                                        comisiones[18] = comisionSubtotal2; // Asignar el subtotal calculado
-                                    }
-
-                                    // Sumar las comisiones del índice 20 al 24
-                                    if (i === 25) {
-                                        for (let index = 20; index <= 24; index++) {
-                                            comisionSubtotal3 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal3;
-                                        comisiones[25] = comisionSubtotal3; // Asignar el subtotal calculado
-                                    }
-
-                                    // Sumar las comisiones del índice 27 al 29
-                                    if (i === 30) {
-                                        for (let index = 27; index <= 29; index++) {
-                                            comisionSubtotal4 += parseInt(comisiones[index]) || 0; // Asegurarse de que comisiones[index] sea un número
-                                        }
-                                        sumaComision3 += comisionSubtotal4;
-                                        comisiones[30] = comisionSubtotal4; // Asignar el subtotal calculado
-                                    }
-                                }
-                            }
-
-                            // Limitar sumaComision3 a 700 usando Math.min
-                            sumaComision3 = Math.min(sumaComision3, 700);
-
-                            // Asignar el valor de sumaComision3 al índice 4
-                            comisiones[4] = sumaComision3;
-
-                            // Calcular totalLogrado sumando comisiones[0], comisiones[2], y comisiones[4]
-                            totalLogrado = (parseInt(comisiones[0]) || 0) + (parseInt(comisiones[2]) || 0) + (parseInt(comisiones[4]) || 0);
-
-                            // Limitar totalLogrado a 700 usando Math.min
-                            totalLogrado = Math.min(totalLogrado, 700);
-
-                            // Asignar el valor de totalLogrado al índice 31
-                            comisiones[31] = totalLogrado;
-                            comisiones [34] = comisiones[4];
-                            comisiones[35] = comisiones [31];
-
-                            // Luego, generar las filas
-                            for (let i = 0; i < labels.length; i++) {
-                                const row = document.createElement('tr');
-                                let labelCell = document.createElement('td');
-                                let valueCell = document.createElement('td');
-                                let comisionCell = document.createElement('td');
-
-                                labelCell.textContent = labels[i];
-                                valueCell.textContent = values[i];
-                                comisionCell.textContent = comisiones[i];
-
-                                // Aplicar estilos a los elementos específicos
-                                if (['Subtotal ', 'Subtotal', 'Tutorias', 'Investigación', 'Cuerpos colegiados', 'Total logrado en la evaluación', 'Total de puntaje obtenido en la evaluación'].includes(labels[i])) {
-                                    labelCell.style.fontWeight = 'bold';
-                                    labelCell.style.textAlign = 'center';
-                                }
-
-                                // Excluir ciertos elementos de ser pintados
-                                if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
-                                    comisionCell.style.backgroundColor = '#f6c667';
-                                }
-
-                                if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
-                                    comisionCell.style.fontWeight = 'bold';
-                                }
-
-                                if([35].includes(i)){
-                                    comisionCell.style.backgroundColor = 'transparent';
-                                }
-
-                                row.appendChild(labelCell);
-                                row.appendChild(valueCell);
-                                row.appendChild(comisionCell);
-                            dataContainer.appendChild(row);
-
-                                // Asegurarse de que el valor de sumaComision3 se muestre en el índice 4
-                                if (i === 4) {
-                                    comisionCell.textContent = sumaComision3.toString();
-                                }
-
-                                // Asegurarse de que los subtotales se muestren en las celdas correspondientes
-                                if (i === 13) {
-                                    comisionCell.textContent = comisionSubtotal1.toString();
-                                } else if (i === 18) {
-                                    comisionCell.textContent = comisionSubtotal2.toString();
-                                } else if (i === 25) {
-                                    comisionCell.textContent = comisionSubtotal3.toString();
-                                } else if (i === 30) {
-                                    comisionCell.textContent = comisionSubtotal4.toString();
-                                } else if (i === 31) {
-                                    comisionCell.textContent = totalLogrado.toString();
-                                }
-
-                                comisionCell.style.textAlign = 'center';
-                            }
-
-                           
-                           const minimaCalidad = evaluarCalidad(sumaComision3);
-                           const  minimaTotal = evaluarTotal(totalLogrado);
-
-                            document.getElementById('minimaCalidad').textContent = minimaCalidad;
-                            document.getElementById('minimaTotal').textContent = minimaTotal;
+ 
 
 
                             //form5
@@ -1323,10 +1019,182 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error fetching docentes:', error);
             alert('No se pudo cargar la lista de docentes.');
         }
+
+        
     }else{
         console.warn("El elemento docenteSelect no se encontró en el DOM.");
     }
 });
+
+//metodos para user secretaria y user_dictaminador -> caso POST
+if(userType === ''){
+    const email = event.target.options[event.target.selectedIndex].dataset.email;
+
+
+    axios.get('/get-evaluator-signature', {
+        params: {
+            email: email,
+
+        }
+    })
+        .then(function (response) {
+            const evaluatorResponse = response.data;
+            if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
+                document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
+
+
+                document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
+
+                document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
+
+
+
+                // Mostrar las imágenes de las firmas
+                const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
+                if (imgFirma1 && evaluatorResponse.signature_path_1) {
+                    imgFirma1.src = evaluatorResponse.signature_path_1;
+                    imgFirma1.style.display = 'block';
+                    imgFirma1.style.height = '100px';
+                } else if (imgFirma1) {
+                    imgFirma1.style.display = 'none';
+                }
+
+                const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
+                if (imgFirma2 && evaluatorResponse.signature_path_2) {
+                    imgFirma2.src = evaluatorResponse.signature_path_2;
+                    imgFirma2.style.display = 'block';
+                    imgFirma2.style.height = '100px';
+                } else if (imgFirma2) {
+                    imgFirma2.style.display = 'none';
+                }
+
+                const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
+                if (imgFirma3 && evaluatorResponse.signature_path_3) {
+                    imgFirma3.src = evaluatorResponse.signature_path_3;
+                    imgFirma3.style.display = 'block';
+                    imgFirma3.style.height = '100px';
+                } else if (imgFirma3) {
+                    imgFirma3.style.display = 'none';
+
+                    document.getElementById('signature_path_1').src = '/storage/' + (evaluatorResponse.signature_path_1 || 'default.png');
+                    document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
+                    document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
+                }
+            } else {
+                console.error('Evaluator signature not found');
+            }
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
+}
+async function submitForm(url, formId) {
+    const form = document.getElementById(formId);
+    if (!form) {
+        console.error(`Form with id "${formId}" not found.`);
+        return;
+    }
+
+    if (formId === 'form4') {
+        let dataValues = getCommodataValues(form);
+        dataValues['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
+        
+        // Obtener valores de los labels y spans
+        dataValues['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
+        dataValues['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
+        dataValues['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
+        dataValues['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
+        dataValues['minima_total'] = document.getElementById('minimaTotal').textContent;
+        dataValues['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
+
+        // Log form data to check values
+        console.log('Form data for form4: ', dataValues);
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataValues),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+            console.log('Response received from server:', responseData);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    } else if (formId === 'form5') {
+        let dataValues = new FormData(form);
+        document.getElementById('reportLink').classList.remove('d-none');
+
+        // Agregar los campos comunes
+        let commonData = getCommodataValues(form);
+        for (let key in commonData) {
+            dataValues.append(key, commonData[key]);
+        }
+
+        // evaluator names
+        dataValues.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
+        dataValues.set('evaluator_name_2', form.querySelector('#personaEvaluadora2').value);
+        dataValues.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
+
+        // Add files to dataValues
+        ['firma1', 'firma2', 'firma3'].forEach((firma) => {
+            let fileInput = form.querySelector(`#${firma}`);
+            if (fileInput.files.length > 0) {
+                dataValues.append(firma, fileInput.files[0]);
+            }
+        });
+
+        try {
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: dataValues,
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const contentType = response.headers.get('Content-Type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Invalid JSON response');
+            }
+
+            let data = await response.json();
+            console.log('Response received from server:', data);
+
+            // Mostrar todas las firmas
+            if (data.signature_urls) {
+                const firmas = ['firma1', 'firma2', 'firma3'];
+                firmas.forEach(firma => {
+                    const img = document.querySelector(`img[data-firma="${firma}"]`);
+                    if (data.signature_urls[firma]) {
+                        img.src = data.signature_urls[firma];
+                        img.style.display = 'block';
+                        img.style.maxWidth = '200px';
+                        img.style.height = '100px';
+                    } else {
+                        img.style.display = 'none';
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+}
+window.submitForm = submitForm;
+
 
     async function fetchData(url, params = {}) {
         const queryString = new URLSearchParams(params).toString();
