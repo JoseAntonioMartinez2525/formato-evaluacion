@@ -1026,23 +1026,102 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 if (email) {
                     // Mantenemos la solicitud a /get-docente-data para obtener los datos del docente
-                    axios.get('/get-docente-data', { params: { email } })
-                        .then(async response => {
-                            const data = response.data;
+                    const response = await axios.get('/get-docente-data', { params: { email } });
+                    const data = response.data;
 
                             //cambiar la logica para acceder a las comisiones desde el id del docente
-                            const comisiones = await fetch('/get-comisiones', {
+                           //const comisiones = await fetch('/get-comisiones', {
                                 //implementar switch para casos de uso para evitar formularios nulos
 
-                            switch(response.data){
-                                case: 'form2': let actv1 = response.data.form2.comision1;
-                                break;
-                                
-                                case: 'form2_2': let actv2 = response.data.form2_2.actv2Comision;
-                                break;
+                            switch (data) {
+                                    case 'form2':
+                                        let actv1 = response.data.form2 && response.data.form2.comision1 ? response.data.form2.comision1 : 0;
+                                        break;
 
-                                case: 'form3_1': let actv3_1 = response.data.form3_1.actv3Comision;
-                            }
+                                    case 'form2_2':
+                                        let actv2 = response.data.form2_2 && response.data.form2_2.actv2Comision ? response.data.form2_2.actv2Comision : 0;
+                                        break;
+
+                                    case 'form3_1':
+                                        let actv3_1 = response.data.form3_1 && response.data.form3_1.actv3Comision ? response.data.form3_1.actv3Comision : 0;
+                                        break;
+
+                                    case 'form3_2':
+                                        let actv3_2 = response.data.form3_2 && response.data.form3_2.comision3_2 ? response.data.form3_2.comision3_2 : 0;
+                                        break;
+
+                                    case 'form3_3':
+                                        let actv3_3 = response.data.form3_3 && response.data.form3_3.comision3_3 ? response.data.form3_3.comision3_3 : 0;
+                                        break;
+
+                                    case 'form3_4':
+                                        let actv3_4 = response.data.form3_4 && response.data.form3_4.comision3_4 ? response.data.form3_4.comision3_4 : 0;
+                                        break;
+
+                                    case 'form3_5':
+                                        let actv3_5 = response.data.form3_5 && response.data.form3_5.comision3_5 ? response.data.form3_5.comision3_5 : 0;
+                                        break;
+
+                                    case 'form3_6':
+                                        let actv3_6 = response.data.form3_6 && response.data.form3_6.comision3_6 ? response.data.form3_6.comision3_6 : 0;
+                                        break;
+
+                                    case 'form3_7':
+                                        let actv3_7 = response.data.form3_7 && response.data.form3_7.comision3_7 ? response.data.form3_7.comision3_7 : 0;
+                                        break;
+
+                                    case 'form3_8':
+                                        let actv3_8 = response.data.form3_8 && response.data.form3_8.comision3_8 ? response.data.form3_8.comision3_8 : 0;
+                                        break;
+
+                                    case 'form3_9':
+                                        let actv3_9 = response.data.form3_9 && response.data.form3_9.comision3_9 ? response.data.form3_9.comision3_9 : 0;
+                                        break;
+
+                                    case 'form3_10':
+                                        let actv3_10 = response.data.form3_10 && response.data.form3_10.comision3_10 ? response.data.form3_10.comision3_10 : 0;
+                                        break;
+
+                                    case 'form3_11':
+                                        let actv3_11 = response.data.form3_11 && response.data.form3_11.comision3_11 ? response.data.form3_11.comision3_11 : 0;
+                                        break;
+
+                                    case 'form3_12':
+                                        let actv3_12 = response.data.form3_12 && response.data.form3_12.comision3_12 ? response.data.form3_12.comision3_12 : 0;
+                                        break;
+
+                                    case 'form3_13':
+                                        let actv3_13 = response.data.form3_13 && response.data.form3_13.comision3_13 ? response.data.form3_13.comision3_13 : 0;
+                                        break;
+
+                                    case 'form3_14':
+                                        let actv3_14 = response.data.form3_14 && response.data.form3_14.comision3_14 ? response.data.form3_14.comision3_14 : 0;
+                                        break;
+
+                                    case 'form3_15':
+                                        let actv3_15 = response.data.form3_15 && response.data.form3_15.comision3_15 ? response.data.form3_15.comision3_15 : 0;
+                                        break;
+
+                                    case 'form3_16':
+                                        let actv3_16 = response.data.form3_16 && response.data.form3_16.comision3_16 ? response.data.form3_16.comision3_16 : 0;
+                                        break;
+
+                                    case 'form3_17':
+                                        let actv3_17 = response.data.form3_17 && response.data.form3_17.comision3_17 ? response.data.form3_17.comision3_17 : 0;
+                                        break;
+
+                                    case 'form3_18':
+                                        let actv3_18 = response.data.form3_18 && response.data.form3_18.comision3_18 ? response.data.form3_18.comision3_18 : 0;
+                                        break;
+
+                                    case 'form3_19':
+                                        let actv3_19 = response.data.form3_19 && response.data.form3_19.comision3_19 ? response.data.form3_19.comision3_19 : 0;
+                                        break;
+
+                                    default:
+                                        console.log('No hay formularios');
+                                        break;
+                                }
                             
                             
                             let actividades = {};
@@ -1328,19 +1407,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                                                     console.error('Elemento con ID "convocatoria" no encontrado.');
                               
                                                 }
-                                            } else {
-        console.error("Error fetching data:", dictaminatorData.error);
-    }
+                                            } 
                                         
                                             } else {
                                     console.error('No se pudo encontrar el user_id para el email seleccionado.');
                                 }
 
-                                 //await saveConsolidatedData(data);
-                            } catch (error) {
-                                console.error('Error fetching dictaminators responses:', error);
-                            }
-                        })
+                                 
+                            } 
+                        //})
                         .catch(error => {
                             console.error('Error fetching docente data:', error);
                         });
