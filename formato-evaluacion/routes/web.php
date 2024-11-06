@@ -23,6 +23,7 @@ use App\Http\Controllers\DictaminatorForm3_7Controller;
 use App\Http\Controllers\DictaminatorForm3_8Controller;
 use App\Http\Controllers\DictaminatorForm3_9Controller;
 use App\Http\Controllers\DictaminatorFormsGroupsController;
+use App\Http\Controllers\EvaluatorSignatureController1;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
 use App\Http\Controllers\ReportsController;
@@ -148,7 +149,7 @@ Route::post('/store317', [ResponseForm3_17Controller::class, 'store317']);
 Route::post('/store318', [ResponseForm3_18Controller::class, 'store318']);
 Route::post('/store319', [ResponseForm3_19Controller::class, 'store319']);
 Route::post('/store-resume', [ResumeController::class, 'storeResume']);
-Route::post('/store-evaluator-signature', [EvaluatorSignatureController::class, 'store'])->name('store-evaluator-signature');
+Route::post('/store-evaluator-signature', [EvaluatorSignatureController1::class, 'store'])->name('store-evaluator-signature');
 
 // Dictaminadores
 Route::post('/store-form2', [DictaminatorForm2_Controller::class, 'storeform2'])->withoutMiddleware('auth');
@@ -208,7 +209,7 @@ Route::get('/get-data-319', [ResponseForm3_19Controller::class, 'getData319'])->
 Route::get('/get-form-data2', [DictaminatorForm2_Controller::class, 'getFormData2'])->name('getFormData2');
 Route::get('/get-form-data', [DictaminatorFormsGroupsController::class, 'getDictaminadorData']);
 Route::get('/get-data-resume', [ResumeController::class, 'getDataResume'])->name('get-data-resume');
-Route::get('/get-evaluator-signature', [EvaluatorSignatureController::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
+Route::get('/get-evaluator-signature', [EvaluatorSignatureController1::class, 'getEvaluatorSignature'])->name('get-evaluator-signature');
 
 Route::get('/get-dictaminators-responses', [ResponseJson::class, 'getDictaminatorResponses']);
 Route::get('/get-dictaminators-responses-id', [ResponseJson::class, 'getDictaminatorResponsesId']);

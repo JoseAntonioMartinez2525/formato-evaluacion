@@ -152,6 +152,7 @@ $newLocale = str_replace('_', '-', $locale);
                     </center>
                     </div>
                     </form>
+
                         <form id="form5" method="POST" enctype="multipart/form-data"
                             onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
                             @csrf
@@ -163,119 +164,87 @@ $newLocale = str_replace('_', '-', $locale);
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="evaluadores">
-                                            <!--*Implementacion en caso que el usuario sea vacio-->
+                                    <th class="evaluadores">
                                         @if($userType === '')
-                                            <span class="personaEvaluadora1" type="text" id="personaEvaluadora1" ></span>
+                                            <span class="personaEvaluadora" type="text" id="personaEvaluadora"></span>
                                         @elseif($userType === 'dictaminador')
-                                            <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;
-                    border: 15px rgba(0, 0, 0, 0);">
+                                            <!-- Implementación en caso que el usuario sea 'dictaminador' -->
+                                            @if(empty($personaEvaluadora))
+                                                <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;border: 15px rgba(0, 0, 0, 0);">
+                                            @else
+                                                <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;border: 15px rgba(0, 0, 0, 0);"> 
+                                                @if(!empty($personaEvaluadora2))
+                                                    <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;border: 15px rgba(0, 0, 0, 0);">               
+                                                @endif
+                                            @endif
                                         @endif
-                                        </th>
-                                        <th>
+                                    </th>
+                                    <th>
                                         @if($userType === 'dictaminador')
-                                            <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
+                                            @if(empty($firma1))
+                                                <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
+                                            @else
+                                                <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
+                                            @endif
                                         @endif
-                                        </th>
-                                        <th>
-                                            <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
-                                    @if(isset($signature_path_1))  
-                                        <img id="signature_path_1" src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1"
-                                            style="display:block;">
-                                    @else
-                                        <img src="" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:none;">
-                                    @endif
-                                        </th>
+                                    </th>
+                                    <th>
+                                        <!-- Aquí se mostrará la firma 1 si ya ha sido subida -->
+                                        @if(isset($signature_path_1))  
+                                            <img id="signature_path_1" src="{{ $signature_path_1 }}" alt="Firma 1" class="imgFirma" data-firma="firma1" style="display:block;">
+                                            @if(!empty($signature_path_1))
+                                                <img id="signature_path_2" src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:block;">
+                                            @elseif(!empty($signature_path_2))
+                                                <img id="signature_path_3" src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:block;">
+                                            @endif
+                                        @endif
+                                    </th>
                                     </tr>
                                     <tr>
-
                                         <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
                                         <td></td>
                                         <td class="p-2"><span id="firmaTexto">Firma</span>
-                                        @if($userType === 'dictaminador')
-                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                            @if($userType === 'dictaminador')
+                                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                            @endif
                                         </td>
-                                    @endif
-
                                     </tr>
                                     <tr>
                                         <th class="evaluadores">
-                                        @if($userType !== '')   
-                                        <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;
-                                                border: 15px rgba(0, 0, 0, 0);">
-                                        @else
-                                        <span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span>
-                                        @endif
-                                        </th>
-                                        <th>
-                                        @if($userType === 'dictaminador')
-                                            <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
+                                            @if($userType !== '')  
+                                                <span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span>
                                             @endif
                                         </th>
-                                        <th>
-                                            <!-- Aquí se mostrará la firma 2 si ya ha sido subida -->
-                                            @if(isset($signature_path_2))  
-                                                <img id="signature_path_2" src="{{ $signature_path_2 }}" alt="Firma 2" class="imgFirma" data-firma="firma2"
-                                                    style="display:block;">
-                                            @else
-                                            <img src="" alt="Firma 2" class="imgFirma" data-firma="firma2" style="display:none;">
-                                        @endif
-
-                                        </th>
                                     </tr>
                                     <tr>
-
-                                        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
-                                        <td></td>
-                                        <td class="p-2"><span id="firmaTexto2">Firma</span>
-                                        @if($userType === 'dictaminador')
-                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                                        </td>
-                                    @endif
+                                        @if($userType === '')
+                                            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+                                            <td></td>
+                                            <td class="p-2"><span id="firmaTexto2">Firma</span>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <th class="evaluadores">
-                                        @if($userType !== '')   
-                                        <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;
-                                                border: 15px rgba(0, 0, 0, 0);">
-                                        @else
-                                            <span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span>
-                                        @endif
+                                            @if($userType === '')   
+                                                <span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span>
+                                            @endif
                                         </th>
-                                        <th>
-                                        @if($userType === 'dictaminador')
-                                            <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
-                                        @endif
-                                        </th>
-                                        <th>
-                                            <!-- Aquí se mostrará la firma 3 si ya ha sido subida -->
-                                        @if(isset($signature_path_3))
-                                        <img id="signature_path_3" src="{{ $signature_path_3 }}" alt="Firma 3" class="imgFirma" data-firma="firma3"
-                                        style="display:block;">
-                                        @else
-                                        <img src="" alt="Firma 3" class="imgFirma" data-firma="firma3" style="display:none;">
-                                        @endif
-                                        </th>
-
-
                                     </tr>
                                     <tr>
-                                        <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
-                                        <td></td>
-                                        <td class="p-2"><span id="firmaTexto3">Firma</span>
-                                        @if($userType === 'dictaminador')
-                                            <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                                        </td>
+                                        @if($userType === '')
+                                            <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
+                                            <td></td>
+                                            <td class="p-2"><span id="firmaTexto3">Firma</span>
                                         @endif
-
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 600px;">
-                                        @if(Auth::user()->user_type === 'dictaminador')
-                                        <button type="submit" class="btn custom-btn buttonSignature2">Enviar</button>
-                                        @endif
+                                            @if(Auth::user()->user_type === 'dictaminador')
+                                                <button type="submit" class="btn custom-btn buttonSignature2">Enviar</button>
+                                            @endif
                                         </td>
                                     </tr>
+@endif
                                 </thead>
                             </table><br>
                             <footer id="convocatoria"></footer>
@@ -283,7 +252,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                         </main>
 
-        @endif
+
     </div>
 
     <div>
@@ -1095,41 +1064,7 @@ async function submitForm(url, formId) {
         return;
     }
 
-    if (formId === 'form4') {
-        let dataValues = getCommodataValues(form);
-        dataValues['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-        
-        // Obtener valores de los labels y spans
-        dataValues['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
-        dataValues['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
-        dataValues['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
-        dataValues['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
-        dataValues['minima_total'] = document.getElementById('minimaTotal').textContent;
-        dataValues['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
-
-        // Log form data to check values
-        console.log('Form data for form4: ', dataValues);
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataValues),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const responseData = await response.json();
-            console.log('Response received from server:', responseData);
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    } else if (formId === 'form5') {
+if (formId === 'form5') {
         let dataValues = new FormData(form);
         document.getElementById('reportLink').classList.remove('d-none');
 

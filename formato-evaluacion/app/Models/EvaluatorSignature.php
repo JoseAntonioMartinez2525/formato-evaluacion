@@ -14,26 +14,27 @@ class EvaluatorSignature extends Model
         //'docente_id',
         'user_id',
         'email',
-        'evaluator_name_1',
-        'evaluator_name_2',
+        'evaluator_name',
+        /*'evaluator_name_2',
         'evaluator_name_3',
         'signature_path_1',
         'signature_path_2',
-        'signature_path_3',
+        */
+        'signature_path',
         'user_type',
     ];
 
 
-    protected $table = 'evaluator_signatures';
+    protected $table = 'evaluador_por_firmas';
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'dictaminador_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->table = 'evaluator_signatures';
+        $this->table = 'evaluador_por_firmas';
         $this->connection = 'mysql';
     }
 
