@@ -29,11 +29,11 @@ class EvaluatorSignatureController1 extends Controller
                 'firma' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'user_type' => 'nullable|in:docente,dictaminador,'
             ]);
-
+/*
             $signaturePaths = [];
-            foreach (['firma'] as $fileKey) {
-                if ($request->hasFile($fileKey)) {
-                    $signaturePaths[$fileKey] = $request->file($fileKey)->store('signatures', 'public');
+            for ($i = 1; $i <= 3; $i++) {
+                if ($request->hasFile('firma' . $i)) {
+                    $signaturePaths['firma' . $i] = $request->file('firma' . $i)->store('signatures', 'public');
                 }
             }
 
@@ -52,7 +52,50 @@ class EvaluatorSignatureController1 extends Controller
                 'message' => 'Form submitted successfully!',
                 'signature_urls' => array_map(fn($path) => asset('storage/' . $path), $signaturePaths),
             ], 200);
-            
+                        */
+            // Cargar o crear una entrada de firma de dictaminador
+            $evaluatorSignature = EvaluatorSignature::firstOrNew([
+                'user_id' => $validatedData['user_id'],
+                'email' => $validatedData['email']
+            ]);
+
+            $evaluatorNames = EvaluatorSignature::firstOrNew([
+                'user_id' => $validatedData['user_id'],
+                'email' => $validatedData['email']
+            ]);
+
+            // Comprobar si existe espacio para otra firma
+            if (!$evaluatorSignature->hasAvailableSignatureSlot()) {
+                return response()->json([
+                    'message' => 'Ya se han registrado las tres firmas necesarias.'
+                ], 400);
+            }
+
+            if (!$evaluatorNames->hasAvailableEvaluatorName()) {
+                return response()->json([
+                    'message' => 'Ya se han registrado los tres nombres necesarios.'
+                ], 400);
+            }
+
+            // Guardar la nueva firma
+            $signaturePath = $request->file('firma')->store('signatures', 'public');
+            $evaluatorSignature->addSignaturePath($signaturePath);
+
+
+
+            return response()->json([
+                'message' => 'Firma guardada exitosamente.',
+                'evaluator_names'=>[
+                    'evaluator_name' => $evaluatorSignature->evaluator_name,
+                    'evaluator_name_2' => $evaluatorSignature->evaluator_name_2,
+                    'evaluator_name_3' => $evaluatorSignature->evaluator_name_3,
+                ],
+                'signature_urls' => [
+                    'firma' => asset('storage/' . $evaluatorSignature->signature_path),
+                    'firma2' => asset('storage/' . $evaluatorSignature->signature_path_2),
+                    'firma3' => asset('storage/' . $evaluatorSignature->signature_path_3),
+                ]
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Error storing evaluator signature', ['error' => $e->getMessage()]);
             return response()->json([
@@ -60,6 +103,7 @@ class EvaluatorSignatureController1 extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+
     }
 
     public function getEvaluatorSignature1(Request $request){

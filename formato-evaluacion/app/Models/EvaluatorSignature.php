@@ -15,12 +15,11 @@ class EvaluatorSignature extends Model
         'user_id',
         'email',
         'evaluator_name',
-        /*'evaluator_name_2',
+        'evaluator_name_2',
         'evaluator_name_3',
-        'signature_path_1',
-        'signature_path_2',
-        */
         'signature_path',
+        'signature_path_2',
+        'signature_path_3',
         'user_type',
     ];
 
@@ -31,6 +30,29 @@ class EvaluatorSignature extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function hasAvailableSignatureSlot()
+    {
+        return empty($this->signature_path) || empty($this->signature_path_2) || empty($this->signature_path_3);
+    }
+
+    public function hasAvailableEvaluatorName()
+    {
+        return empty($this->evaluator_name) || empty($this->evaluator_name_2) || empty($this->evaluator_name_3);
+    }
+
+    public function addSignaturePath($path)
+    {
+        if (empty($this->signature_path)) {
+            $this->signature_path = $path;
+        } elseif (empty($this->signature_path_2)) {
+            $this->signature_path_2 = $path;
+        } elseif (empty($this->signature_path_3)) {
+            $this->signature_path_3 = $path;
+        }
+        $this->save();
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

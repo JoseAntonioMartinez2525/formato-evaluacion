@@ -15,3 +15,9 @@ import './bootstrap';
 
 import TablaAdvanced from '../../resources/components/TablaAdvanced';
 import '../../resources/components/TablaHeader';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SignatureForm from '../../components/SignatureForm';
+
+ReactDOM.render(<SignatureForm />, document.getElementById('app'));
