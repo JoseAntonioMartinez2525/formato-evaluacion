@@ -23,7 +23,7 @@
 [class^="personaEvaluadora"]{
     background-color: rgb(232, 240, 254);
     width: 300px;
-    margin-left: 180px;
+    margin-left: 10px;
 }
 #firma1, #firma2, #firma3{
     background-color: rgb(232, 240, 254);
@@ -37,6 +37,10 @@
         display: none;
         width: fit-content;
 }}
+
+.text-muted{
+    font-size: .7em;
+}
 
 @media print{
     #seleccionDictaminador, #seleccionDocente, #navPrint{
