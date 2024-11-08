@@ -31,10 +31,10 @@ class EvaluatorSignature extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function hasAvailableSignatureSlot()
-    {
-        return empty($this->signature_path) || empty($this->signature_path_2) || empty($this->signature_path_3);
-    }
+public function hasAvailableSignatureSlot()
+{
+    return $this->signature_path_1 === null || $this->signature_path_2 === null || $this->signature_path_3 === null;
+}
 
     public function hasAvailableEvaluatorName()
     {
