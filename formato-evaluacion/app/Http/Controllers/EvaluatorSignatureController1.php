@@ -9,49 +9,22 @@ use Illuminate\Http\Request;
 
 class EvaluatorSignatureController1 extends Controller
 {
-    public function store(Request $request)
+    public function storeEvaluatorSignature(Request $request)
     {
         try {
             // Log de entrada de solicitud
             Log::info('Received request to store evaluator signature', $request->all());
             // Validate the request data
             $validatedData = $request->validate([
-                //'docente_id' => 'required|numeric',
+                //'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
                 'evaluator_name' => 'required|string|max:255',
-                /*
-                'evaluator_name_2' => 'required|string|max:255',
-                'evaluator_name_3' => 'required|string|max:255',
-                'firma1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'firma2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                */
                 'firma' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'user_type' => 'nullable|in:docente,dictaminador,'
             ]);
 /*
-            $signaturePaths = [];
-            for ($i = 1; $i <= 3; $i++) {
-                if ($request->hasFile('firma' . $i)) {
-                    $signaturePaths['firma' . $i] = $request->file('firma' . $i)->store('signatures', 'public');
-                }
-            }
-
-            EvaluatorSignature::create([
-                //'dictaminador_id' => $validatedData['dictaminador_id'],
-                'user_id' => $validatedData['user_id'],
-                'email' => $validatedData['email'],
-                'evaluator_name' => $validatedData['evaluator_name_'],
-                'signature_path' => $signaturePaths['firma'] ?? null,
-
-                'user_type' => $validatedData['user_type'],
-                
-            ]);
-
-            return response()->json([
-                'message' => 'Form submitted successfully!',
-                'signature_urls' => array_map(fn($path) => asset('storage/' . $path), $signaturePaths),
-            ], 200);
+          
                         */
             // Cargar o crear una entrada de firma de dictaminador
             $evaluatorSignature = EvaluatorSignature::firstOrNew([
@@ -79,7 +52,9 @@ class EvaluatorSignatureController1 extends Controller
 
             // Guardar la nueva firma
             $signaturePath = $request->file('firma')->store('signatures', 'public');
+            $evaluatorSignature->evaluator_name = $validatedData['evaluator_name'];
             $evaluatorSignature->addSignaturePath($signaturePath);
+            $evaluatorSignature->save();
 
 
 
