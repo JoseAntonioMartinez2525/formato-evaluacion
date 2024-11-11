@@ -81,7 +81,7 @@ class EvaluatorSignatureController1 extends Controller
 
     }
 
-    public function getEvaluatorSignature1(Request $request){
+    public function getEvaluatorSignature(Request $request){
         Log::info('Received request for evaluator signature', $request->all());
         // Suponiendo que estás buscando por user_id o email
         //$userId = $request->input('user_id');
@@ -95,12 +95,17 @@ class EvaluatorSignatureController1 extends Controller
         $email = $request->input('email');
         //$userType = $request->input('user_type');
         // Buscamos el user_id y user_type asociados a ese email
-        $user = User::where('email', $email)->first();
-
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found',
-            ], 404);
+       
+        if ($request->has('user_id')) {
+            $userId = $request->input('user_id');
+        } else {
+            $user = User::where('email', $email)->first();
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found',
+                ], 404);
+            }
+            $userId = $user->id;
         }
         // Extraemos el user_id y user_type
         $userId = $user->id;
@@ -135,7 +140,7 @@ class EvaluatorSignatureController1 extends Controller
         // Devuelve los datos con las URLs completas de las firmas
         return response()->json([
             'evaluator_name' => $evaluatorSignature->evaluator_name_1,
-            'signature_path' => asset('storage/' . $evaluatorSignature->signature_path_1),
+            'signature_path' => asset('storage/' . $evaluatorSignature->signature_path),
 
         ]);
 

@@ -93,6 +93,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                             @php
     $user = Auth::user();
     $userType = $user->user_type;
+    $user_email = $user->email;
     $user_identity = $user->id; 
                                                             @endphp
                                                                 <div class="container mt-4" id="seleccionDocente">
@@ -188,7 +189,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                                                             </th>
                                                                                             <th>
                                                                                             @if($userType === 'dictaminador')
-                                                                                                @if(empty($signature_path_1))
+                                                                                                @if(empty($signature_path))
                                                                                                     <input type="file" class="form-control" id="firma1" name="firma" accept="image/*">
                                                                                                 @elseif(empty($signature_path_2))
                                                                                                     <input type="file" class="form-control" id="firma2" name="firma" accept="image/*">
@@ -688,6 +689,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dataContainer = document.getElementById('data');
 
     if (docenteSelect) {
+        
         try {
             const response = await fetch('/get-docentes');
             const docentes = await response.json();
@@ -739,6 +741,64 @@ document.addEventListener('DOMContentLoaded', async () => {
                         }
 
                             formContainer.style.display = 'block'; // Mostrar formulario
+
+                            // **Evaluator signature retrieval logic:**
+
+                        if (userType === '') { // Only proceed if user type is empty (presumably for evaluators)
+                            axios.get('/get-evaluator-signature', {
+                                params: {
+                                    email: email,
+                                }
+                            })
+                                .then(function (response) {
+                                    const evaluatorResponse = response.data;
+                                    if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
+                                        document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
+                                        document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
+                                        document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
+
+                                        // Mostrar las imágenes de las firmas (assuming image elements exist)
+                                        const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
+                                        if (imgFirma1 && evaluatorResponse.signature_path) {
+                                            imgFirma1.src = evaluatorResponse.signature_path;
+                                            imgFirma1.style.display = 'block';
+                                            imgFirma1.style.height = '100px';
+                                        } else if (imgFirma1) {
+                                            imgFirma1.style.display = 'none';
+                                        }
+
+
+                                        const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
+                                        if (imgFirma2 && evaluatorResponse.signature_path_2) {
+                                            imgFirma2.src = evaluatorResponse.signature_path_2;
+                                            imgFirma2.style.display = 'block';
+                                            imgFirma2.style.height = '100px';
+                                        } else if (imgFirma2) {
+                                            imgFirma2.style.display = 'none';
+                                        }
+
+                                        const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
+                                        if (imgFirma3 && evaluatorResponse.signature_path_3) {
+                                            imgFirma3.src = evaluatorResponse.signature_path_3;
+                                            imgFirma3.style.display = 'block';
+                                            imgFirma3.style.height = '100px';
+                                        } else if (imgFirma3) {
+                                            imgFirma3.style.display = 'none';
+
+                                            document.getElementById('signature_path').src = '/storage/' + (evaluatorResponse.signature_path || 'default.png');
+                                            document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
+                                            document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
+                                        }
+
+                                    } else {
+                                        console.error('Evaluator signature not found');
+                                    }
+                                })
+                                .catch(function (error) {
+                                    console.error('Error:', error);
+                                });
+                        } // End of evaluator signature retrieval logic
+                            
 
                             // Aquí realizamos la solicitud para obtener las comisiones de los dictaminadores
 
@@ -984,11 +1044,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 actualizarResultados(comisiones[4], totalLogrado);
 
                             // Enviar el formulario después de generar la tabla
-                                //await submitForm('store-evaluator-signature', 'form5');
+                                await submitForm('store-evaluator-signature', 'form5', user_identity, email);
 
 
                             }
-                            //await submitForm('store-evaluator-signature', 'form5');
+                            //wait submitForm('store-evaluator-signature', 'form5');
 
                         }
 
@@ -1001,7 +1061,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     else {
                         console.error('Error fetching docente data:', error);
                     }
+                    
                 }
+
+                
             });
         } catch (error) {
             console.error('Error fetching docentes:', error);
@@ -1077,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error:', error);
         });
 } */
-    async function submitForm(url, formId) {
+    async function submitForm(url, formId, id, email) {
         const form = document.getElementById(formId);
         let dataValues = new FormData(form);
         //let dictaminadorId = document.querySelector('input[name="dictaminador_id"]').value;
@@ -1100,6 +1163,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (let key in commonData) {
             dataValues.append(key, commonData[key]);
         }
+
+    dataValues.append('user_id', id); // Assuming 'id' contains the user ID
+    dataValues.append('email', email);
 
         //dataValues.append('dictaminador_id', dictaminadorId);
         try {
@@ -1171,8 +1237,8 @@ window.submitForm = submitForm;
                 let imgFirma3 = document.getElementById('Firma3');
                 const img = document.querySelector(`img[data-firma="${firma}"]`);
 
-                if (data.signature_path_1 && imgFirma1) {
-                    imgFirma1.src = data.signature_path_1;
+                if (data.signature_path && imgFirma1) {
+                    imgFirma1.src = data.signature_path;
                     imgFirma1.style.display = 'block';
                     imgFirma1.style.maxWidth = '200px';
                     imgFirma1.style.height = '100px';
@@ -1199,8 +1265,8 @@ window.submitForm = submitForm;
     function getCommodataValues(form) {
         const data = {};
 
-        data['user_id'] = form.querySelector('input[name="user_id"]').value;
-        data['email'] = form.querySelector('input[name="email"]').value;
+        //data['user_id'] = form.querySelector('input[name="user_id"]').value;
+        //data['email'] = form.querySelector('input[name="email"]').value;
         data['user_type'] = form.querySelector('input[name="user_type"]').value;
         console.log('user_type value: ',data['user_type']);
         return data;
