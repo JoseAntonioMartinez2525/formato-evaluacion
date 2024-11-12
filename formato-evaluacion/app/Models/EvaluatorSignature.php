@@ -11,7 +11,7 @@ class EvaluatorSignature extends Model
 
     // Definir los campos que se pueden llenar masivamente
     protected $fillable = [
-        'dictaminador_id',
+        //'dictaminador_id',
         'user_id',
         'email',
         'evaluator_name',
@@ -38,7 +38,7 @@ public function hasAvailableSignatureSlot()
 
     public function hasAvailableEvaluatorName()
     {
-        return empty($this->evaluator_name) || empty($this->evaluator_name_2) || empty($this->evaluator_name_3);
+        return $this->evaluator_name === null || $this->evaluator_name_2 === null || $this->evaluator_name_3 === null;
     }
 
     public function addSignaturePath($path)
@@ -50,9 +50,20 @@ public function hasAvailableSignatureSlot()
         } elseif (empty($this->signature_path_3)) {
             $this->signature_path_3 = $path;
         }
-        $this->save();
+        //$this->save();
     }
 
+    public function addEvaluatorName($name)
+    {
+        if (empty($this->evaluator_name)) {
+            $this->evaluator_name = $name;
+        } elseif (empty($this->evaluator_name_2)) {
+            $this->evaluator_name_2 = $name;
+        } elseif (empty($this->evaluator_name_3)) {
+            $this->evaluator_name_3 = $name;
+        }
+        //$this->save();
+    }
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

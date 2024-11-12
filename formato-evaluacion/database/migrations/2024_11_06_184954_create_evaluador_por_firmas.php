@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('evaluador_por_firmas', function (Blueprint $table) {
             //$table->bigInteger('dictaminador_id')->unsigned();
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email');
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->string('signature_path_2')->nullable();
             $table->string('signature_path_3')->nullable();
             // Campo para indicar el orden de las firmas enviadas
-            $table->boolean('signature_order')->default(0);
+            $table->boolean('signature_order')->default(0); //0 significa verdader 
             $table->enum('user_type', ['docente', 'dictaminador', ''])->nullable();
             $table->timestamps();
         });

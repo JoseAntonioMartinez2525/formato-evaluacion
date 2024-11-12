@@ -27,15 +27,18 @@ class EvaluatorSignatureController1 extends Controller
           
                         */
             // Cargar o crear una entrada de firma de dictaminador
-            $evaluatorSignature = EvaluatorSignature::firstOrNew([
+            $evaluatorSignature = EvaluatorSignature::updateOrCreate(
+            [
                 'user_id' => $validatedData['user_id'],
                 'email' => $validatedData['email']
             ]);
 
-            $evaluatorNames = EvaluatorSignature::firstOrNew([
+            $evaluatorNames = EvaluatorSignature::updateOrCreate([
                 'user_id' => $validatedData['user_id'],
                 'email' => $validatedData['email']
             ]);
+
+            
 
             // Comprobar si existe espacio para otra firma
             if (!$evaluatorSignature->hasAvailableSignatureSlot()) {
@@ -52,9 +55,11 @@ class EvaluatorSignatureController1 extends Controller
 
             // Guardar la nueva firma
             $signaturePath = $request->file('firma')->store('signatures', 'public');
-            $evaluatorSignature->evaluator_name = $validatedData['evaluator_name'];
+            $evaluatorSignature->addEvaluatorName($validatedData['evaluator_name']);
             $evaluatorSignature->addSignaturePath($signaturePath);
             $evaluatorSignature->save();
+
+            //verificar que los nombres se puedan repetir en caso de que se evalue a otro docente
 
 
 
