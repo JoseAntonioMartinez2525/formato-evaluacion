@@ -95,10 +95,10 @@ class EvaluatorSignatureController1 extends Controller
             'email' => 'required|exists:users,email',
             'evaluator_name'=>'exists:evaluador_por_firmas,evaluator_name',
             'evaluator_name_2' => 'exists:evaluador_por_firmas,evaluator_name_2',
-            'evaluator_name_3' => 'exists:evaluador_por_firma,evaluator_name_3',
-            'signature_path' => 'exists:evaluador_por_firma,signature_path',
-            'signature_path_2' => 'exists:evaluador_por_firma,signature_path_2',
-            'signature_path_3' => 'exists:evaluador_por_firma,signature_path_3',
+            'evaluator_name_3' => 'exists:evaluador_por_firmas,evaluator_name_3',
+            'signature_path' => 'exists:evaluador_por_firmas,signature_path',
+            'signature_path_2' => 'exists:evaluador_por_firmas,signature_path_2',
+            'signature_path_3' => 'exists:evaluador_por_firmas,signature_path_3',
 
         ]);
 
@@ -136,6 +136,10 @@ class EvaluatorSignatureController1 extends Controller
 
         // Ejecuta la consulta
         $evaluatorSignature = $evaluatorSignatureQuery->first();
+
+        Log::info('Received email:', ['email' => $email]);
+        Log::info('User ID:', ['user_id' => $userId]);
+        Log::info('User Type:', ['user_type' => $userType]);
 
         // Maneja el caso en el que no se encuentra el registro
         if (!$evaluatorSignature) {
