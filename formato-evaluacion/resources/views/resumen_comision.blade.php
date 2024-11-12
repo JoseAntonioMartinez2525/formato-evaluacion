@@ -752,7 +752,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 .then(function (response) {
                                     const evaluatorResponse = response.data;
                                     if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
-                                        document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
+                                        document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name || 'No evaluator name found';
                                         document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
                                         document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
 

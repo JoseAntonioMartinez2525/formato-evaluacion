@@ -91,9 +91,14 @@ class EvaluatorSignatureController1 extends Controller
         // Suponiendo que estás buscando por user_id o email
         //$userId = $request->input('user_id');
         $request->validate([
-
+            //'user_id'=> 'required|exists:users,id',
             'email' => 'required|exists:users,email',
-
+            'evaluator_name'=>'exists:evaluador_por_firmas,evaluator_name',
+            'evaluator_name_2' => 'exists:evaluador_por_firmas,evaluator_name_2',
+            'evaluator_name_3' => 'exists:evaluador_por_firma,evaluator_name_3',
+            'signature_path' => 'exists:evaluador_por_firma,signature_path',
+            'signature_path_2' => 'exists:evaluador_por_firma,signature_path_2',
+            'signature_path_3' => 'exists:evaluador_por_firma,signature_path_3',
 
         ]);
 
@@ -134,9 +139,10 @@ class EvaluatorSignatureController1 extends Controller
 
         // Maneja el caso en el que no se encuentra el registro
         if (!$evaluatorSignature) {
-            Log::warning('Evaluator signature not found', ['user_id' => $userId, 'email' => $email]);
+            Log::warning('Evaluator signature not found', ['email' => $email]);
+            
             return response()->json([
-                'message' => 'Evaluator signature not found',
+                'message' => "Evaluator signature not found for `$email`",
             ], 404);
         }
         // Log data to check
@@ -144,8 +150,14 @@ class EvaluatorSignatureController1 extends Controller
         // Devuelve los datos como JSON
         // Devuelve los datos con las URLs completas de las firmas
         return response()->json([
-            'evaluator_name' => $evaluatorSignature->evaluator_name_1,
+            //'user_id'=> $evaluatorSignature->userId,
+            'email'=>$evaluatorSignature->email,
+            'evaluator_name' => $evaluatorSignature->evaluator_name,
+            'evaluator_name_2' => $evaluatorSignature->evaluator_name_2,
+            'evaluator_name_3' => $evaluatorSignature->evaluator_name_3,
             'signature_path' => asset('storage/' . $evaluatorSignature->signature_path),
+            'signature_path_2' => asset('storage/' . $evaluatorSignature->signature_path_2),
+            'signature_path_3' => asset('storage/' . $evaluatorSignature->signature_path_3),
 
         ]);
 
