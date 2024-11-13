@@ -16,6 +16,18 @@
     margin-left: 100px;
 }
 
+#signature_path{
+    margin-left: -140px;
+}
+
+#signature_path_2{
+    margin-left: 100px;
+}
+
+#signature_path_{
+    margin-left: 100px;
+}
+
 [class^="imgFirma"], .imgSection{
     background-color: rgb(232, 240, 254);
 }
