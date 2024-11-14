@@ -38,264 +38,265 @@ $newLocale = str_replace('_', '-', $locale);
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-                                                                                                        @if (Auth::check())
-                                                                                                            <section role="region" aria-label="Response form">
-                                                                                                                <form class="printButtonClass">
-                                                                                                                    @csrf
-                                                                                                                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                                                                                        <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                                                                                            <li class="nav-item">
-                                                                                                                                <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                                                                                                                    <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                                                                                                </a>
-                                                                                                                            </li>
-                                                                                                                            <li style="list-style: none; margin-right: 20px;">
-                                                                                                                                <a href="{{ route('login') }}">
-                                                                                                                                    <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                                                                                </a>
-                                                                                                                            </li>
-                                                                                                                        </div>
-                                                                                                                        <li class="nav-item">
-                                                                                                                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                                                                                                                                REGLAMENTO
-                                                                                                                                PEDPD</a>
-                                                                                                                        </li>
-                                                                                                                        <li class="nav-item">
-                                                                                                                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
-                                                                                                                                llenado
-                                                                                                                                por la
-                                                                                                                                Comisión del PEDPD)</a>
-                                                                                                                        </li><br>
-                                                                                                                        <li id="reportLink" class="nav-item d-none">
-                                                                                                                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                                                                                                                Reporte</a>
-                                                                                                                        </li>
-                                                                                                                        <li class="nav-item">
-                                                                                                                            @if(Auth::user()->user_type === 'dictaminador')
-                                                                                                                                <a class="nav-link active enlaceSN" style="width: 200px;"
-                                                                                                                                    href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                                                                                                            @else
-                                                                                                                                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                                                                                                                    Formatos</a>
-                                                                                                                            @endif
-                                                                                                                        </li>
-                                                                                                                        <li id="jsonDataLink" class="d-none">
-                                                                                                                            <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
-                                                                                                                                Usuarios</a>
-                                                                                                                        </li>
-                                                                                                                    </nav>
-                                                                                                                </form>
-                                                                                                            </section>
-                                                                                                        @endif
+        @if (Auth::check())
+            <section role="region" aria-label="Response form">
+                <form class="printButtonClass">
+                    @csrf
+                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                        <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                            <li class="nav-item">
+                                <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                    <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                </a>
+                            </li>
+                            <li style="list-style: none; margin-right: 20px;">
+                                <a href="{{ route('login') }}">
+                                    <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                </a>
+                            </li>
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                REGLAMENTO
+                                PEDPD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
+                                llenado
+                                por la
+                                Comisión del PEDPD)</a>
+                        </li><br>
+                        <li id="reportLink" class="nav-item d-none">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
+                                Reporte</a>
+                        </li>
+                        <li class="nav-item">
+                            @if(Auth::user()->user_type === 'dictaminador')
+                                <a class="nav-link active enlaceSN" style="width: 200px;"
+                                    href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                            @else
+                                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                    Formatos</a>
+                            @endif
+                        </li>
+                        <li id="jsonDataLink" class="d-none">
+                            <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
+                                Usuarios</a>
+                        </li>
+                    </nav>
+                </form>
+            </section>
+        @endif
 
-                                                                                                    </div>
-                                                                                                    <x-general-header />
-                                                                                            @php
-            $user = Auth::user();
-            $userType = $user->user_type;
-            $user_email = $user->email;
-            $user_identity = $user->id; 
-                                                                                            @endphp
-                                                                                            <div class="container mt-4" id="seleccionDocente">
-                                                                                            @if($userType !== 'docente')
-                                                                                            <!-- Select para dictaminador seleccionando docentes -->
-                                                                                            <label for="docenteSelect">Seleccionar Docente:</label>
-                                                                                            <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
-                                                                                            <option value="">Seleccionar un docente</option>
-                                                                                            <!-- Aquí se llenarán los docentes con JavaScript -->
-                                                                                            </select>
-                                                                                            @endif
-                                                                                            </div>
-                                                                                            <main class="container" id="formContainer" style="display: none;">
-                                                                                            <form id="form4" method="POST" enctype="multipart/form-data"
-                                                                                            onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
-                                                                                            @csrf
-                                                                                            <div>
-                                                                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                                                                            <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-                                                                                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                                                                            <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
-                                                                                            <center>
-                                                                                            <h2 id="resumen">Resumen</h2>
-                                                                                            <h4>A ser llenado por la Comisión del PEDPD</h4>
-                                                                                            </center>
-                                                                                            <table class="resumenTabla">
-                                                                                            <thead>
-                                                                                            <tr>
-                                                                                            <th id="actv">Actividad</th>
-                                                                                            <th id="pMaximo">Puntaje máximo</th>
-                                                                                            <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                                                                                            </tr>
-                                                                                            </thead>
-                                                                                            <tbody id="data">
-                                                                                            <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
-                                                                                            </tbody>
-                                                                                            </table>
-                                                                                            <table>
-                                                                                            <thead>
-                                                                                            <tr>
-                                                                                            <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
-                                                                                            <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
-                                                                                            <th colspan="2" id="minimaCalidad"></th>
-                                                                                            </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                            <th style="padding-right: 200px;"></th>
-                                                                                            <th class="minima">Mínima Total</th>
-                                                                                            <th id="minimaTotal"></th>
-                                                                                            <thead>
-                                                                                            <!--
-                                                                                            <tr>
-                                                                                            <th style="margin-right:800px;">
-                                                                                                @if(Auth::user()->user_type === 'dictaminador')
-                                                                                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                                                                                            @endif                                                                                   
-                                                                                            </th>
+    </div>
+    <x-general-header />
+@php
+$user = Auth::user();
+$userType = $user->user_type;
+$user_email = $user->email;
+$user_identity = $user->id; 
+@endphp
+<div class="container mt-4" id="seleccionDocente">
+@if($userType !== 'docente')
+<!-- Select para dictaminador seleccionando docentes -->
+<label for="docenteSelect">Seleccionar Docente:</label>
+<select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+<option value="">Seleccionar un docente</option>
+<!-- Aquí se llenarán los docentes con JavaScript -->
+</select>
+@endif
+</div>
+<main class="container" id="formContainer" style="display: none;">
+<form id="form4" method="POST" enctype="multipart/form-data"
+onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
+@csrf
+<div>
+<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+<input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+<input type="hidden" name="email" value="{{ auth()->user()->email }}">
+<input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+<center>
+<h2 id="resumen">Resumen</h2>
+<h4>A ser llenado por la Comisión del PEDPD</h4>
+</center>
+<table class="resumenTabla">
+<thead>
+<tr>
+<th id="actv">Actividad</th>
+<th id="pMaximo">Puntaje máximo</th>
+<th id="pComision">Puntaje otorgado Comisión PEDPD</th>
+</tr>
+</thead>
+<tbody id="data">
+<!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
+<th colspan="1" id="minimaLabel">Mínima de Calidad</th>
+<th colspan="2" id="minimaCalidad"></th>
+</tr>
+</thead>
+<tbody>
+<th style="padding-right: 200px;"></th>
+<th class="minima">Mínima Total</th>
+<th id="minimaTotal"></th>
+<thead>
+<!--
+<tr>
+<th style="margin-right:800px;">
+@if(Auth::user()->user_type === 'dictaminador')
+<button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+@endif                                                                                   
+</th>
 
-                                                                                            </tr>-->
-                                                                                            </thead>
-                                                                                            </tbody>
-                                                                                            </table>
+</tr>-->
+</thead>
+</tbody>
+</table>
 
-                                                                                            </div>
-                                                                                            </form>
+</div>
+</form>
 
-                                                                                            <form id="form5" method="POST" enctype="multipart/form-data"
-                                                                                            onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
-                                                                                            @csrf
-                                                                                                <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
-                                                                                                <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
-                                                                                                <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
-                                                                                                <input type="hidden" name="dictaminador_id" value="{{ $user_identity }}">
+<form id="form5" method="POST" enctype="multipart/form-data"
+onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+@csrf
+<input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+<input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+<input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
+<input type="hidden" name="dictaminador_id" value="{{ $user_identity }}">
 
 
-                                                                                             <table>
-                                                                                                <thead>
-                                                                                                    <tr id="eva1">
-                                                                                                    <th class="evaluadores">
-                                                                                                        @if($userType === '')
-                                                                                                             <center><span class="personaEvaluadora" type="text" id="personaEvaluadora"></span></center>
+<table>
+<thead>
+    <tr id="eva1">
+    <th class="evaluadores">
+        @if($userType === '')
+                <center><span class="personaEvaluadora" type="text" id="personaEvaluadora"></span></center>
 
-                                                                                                        @elseif($userType === 'dictaminador')
-                                                                                                            <!-- Implementación en caso que el usuario sea 'dictaminador' -->
-                                                                                                            @if(empty($personaEvaluadora))
-                                                                                                                <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name" required>
-                                                                                                            @elseif(!empty($personaEvaluadora) && empty($personaEvaluadora2))
-                                                                                                                <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_2" required> 
-                                                                                                            @elseif((!empty($personaEvaluadora1)) && (!empty($personaEvaluadora2)))
-                                                                                                                    <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_3" required>                                                                                                                              
-                                                                                                            @endif
-                                                                                                        @endif
-                                                                                                    </th>
-                                                                                                    <th>
-                                                                                                    @if($userType === 'dictaminador')
-                                                                                                        @if(empty($firma))
-                                                                                                            <input type="file" class="form-control" id="firma1" name="firma" accept="image/*">
-                                                                                                        @elseif(empty($firma2))
-                                                                                                            <input type="file" class="form-control" id="firma2" name="firma" accept="image/*">
-                                                                                                        @elseif(empty($firma3))
-                                                                                                            <input type="file" class="form-control" id="firma3" name="firma" accept="image/*">
-                                                                                                        @else
-                                                                                                            <span>Ya se han completado las firmas requeridas.</span>
-                                                                                                        @endif
-                                                                                                    @endif
-                                                                                                    </th>
-                                                                                                    <th>
-                                                                                                @if($userType === '')
-                                                                                                    @if(!empty($signature_path))
-                                                                                                        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
-                                                                                                    @else
-                                                                                                        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
-                                                                                                    @endif
-                                                                                                @endif
-                                                                                                    </th>
-                                                                                                    <th>
-                                                                                                        <!-- Aquí se mostrará las firmas si ya han sido subidas -->
-                                                                                                    @if($userType === 'dictaminador')
-                                                                                                    @if(!empty($signature_path))
-                                                                                                        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
-                                                                                                    @else
-                                                                                                        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
-                                                                                                    @endif
-                                                                                                    @if(!empty($signature_path_2))
-                                                                                                        <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
-                                                                                                    @else
-                                                                                                        <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
-                                                                                                            style="display:none;">
-                                                                                                    @endif
-                                                                                                    @if(!empty($signature_path_3))
-                                                                                                        <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
-                                                                                                    @else
-                                                                                                        <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
-                                                                                                            style="display:none;">
-                                                                                                    @endif
-                                                                                                    @endif
-                                                                                                    </th>
+        @elseif($userType === 'dictaminador')
+            <!-- Implementación en caso que el usuario sea 'dictaminador' -->
+            @if(empty($personaEvaluadora))
+                <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name" required>
+            @elseif(!empty($personaEvaluadora) && empty($personaEvaluadora2))
+                <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_2" required> 
+            @elseif((!empty($personaEvaluadora1)) && (!empty($personaEvaluadora2)))
+                    <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_3" required>                                                                                                                              
+            @endif
+        @endif
+    </th>
+    <th>
+    @if($userType === 'dictaminador')
+        @if(empty($firma))
+            <input type="file" class="form-control" id="firma1" name="firma" accept="image/*">
+        @elseif(empty($firma2))
+            <input type="file" class="form-control" id="firma2" name="firma" accept="image/*">
+        @elseif(empty($firma3))
+            <input type="file" class="form-control" id="firma3" name="firma" accept="image/*">
+        @else
+            <span>Ya se han completado las firmas requeridas.</span>
+        @endif
+    @endif
+    </th>
+    <th>
+@if($userType === '')
+    @if(!empty($signature_path))
+        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
+    @else
+        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
+    @endif
+@endif
+    </th>
+    <th>
+        <!-- Aquí se mostrará las firmas si ya han sido subidas -->
+    @if($userType === 'dictaminador')
+    @if(!empty($signature_path))
+        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
+    @else
+        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
+    @endif
+    @if(!empty($signature_path_2))
+        <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
+    @else
+        <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
+            style="display:none;">
+    @endif
+    @if(!empty($signature_path_3))
+        <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
+    @else
+        <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
+            style="display:none;">
+    @endif
+    @endif
+    </th>
 
-                                                                                                    </tr>
-                                                                                                    <tr>
-                                                                                                        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+    </tr>
+    <tr>
+        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
 
-                                                                                                        <td class="p-2"><span id="firmaTexto">Firma</span>
-                                                                                                            @if($userType === 'dictaminador')
-                                                                                                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                                                                                                            @endif
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                    @if($userType === '')
-                                                                                                        <tr id=eva2>
-                                                                                                            <th class="evaluadores">
-                                                                                                                    <center><span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span></center>
-                                                                                                            </th>
-                                                                                                            <th>
-                                                                                                                @if(!empty($signature_path_2))
-                                                                                                                    <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
-                                                                                                                @else
-                                                                                                                    <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
-                                                                                                                        style="display:none;">
-                                                                                                                @endif
-                                                                                                            </th>
-                                                                                                        </tr>
-                                                                                                    @endif
-                                                                                                    <tr>
-                                                                                                        @if($userType === '')
-                                                                                                            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+        <td class="p-2"><span id="firmaTexto">Firma</span>
+            @if($userType === 'dictaminador')
+                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+            @endif
+        </td>
+    </tr>
+    @if($userType === '')
+        <tr id=eva2>
+            <th class="evaluadores">
+                    <center><span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span></center>
+            </th>
+            <th>
+                @if(!empty($signature_path_2))
+                    <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
+                @else
+                    <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
+                        style="display:none;">
+                @endif
+            </th>
+        </tr>
+    @endif
+    <tr>
+        @if($userType === '')
+            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
 
-                                                                                                            <td class="p-2"><span id="firmaTexto2">Firma</span>
-                                                                                                        @endif
-                                                                                                    </tr>
-                                                                                                    @if($userType === '')
-                                                                                                        <tr id="eva3">
-                                                                                                            <th class="evaluadores">
-                                                                                                            <center><span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span></center>
-                                                                                                        </th>
-                                                                                                        <th>
-                                                                                                        @if(!empty($signature_path_3))
-                                                                                                            <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
-                                                                                                        @else
-                                                                                                            <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
-                                                                                                                style="display:none;">
-                                                                                                        @endif
-                                                                                                        </th>
-                                                                                                    </tr>@endif
-                                                                                                    <tr>
-                                                                                                        @if($userType === '')
-                                                                                                            <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
+            <td class="p-2"><span id="firmaTexto2">Firma</span>
+        @endif
+    </tr>
+    @if($userType === '')
+        <tr id="eva3">
+            <th class="evaluadores">
+            <center><span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span></center>
+        </th>
+        <th>
+        @if(!empty($signature_path_3))
+            <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
+        @else
+            <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
+                style="display:none;">
+        @endif
+        </th>
+    </tr>@endif
+    <tr>
+        @if($userType === '')
+            <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
 
-                                                                                                            <td class="p-2"><span id="firmaTexto3">Firma</span>
-                                                                                                        @endif
-                                                                                                    </tr>
-                                                                                                    <tr>
-                                                                                                        <td style="padding-left: 600px;">
-                                                                                                            @if(Auth::user()->user_type === 'dictaminador')
-                                                                                                                <button type="submit" id="submitButton" class="btn custom-btn buttonSignature2">Enviar</button>
-                                                                                                            @endif
-                                                                                                        </td>
-                                                                                                    </tr>
+            <td class="p-2"><span id="firmaTexto3">Firma</span>
+        @endif
+    </tr>
+    <tr>
+        <td style="padding-left: 600px;">
+            @if(Auth::user()->user_type === 'dictaminador')
+                <button type="submit" id="submitButton" class="btn custom-btn buttonSignature2">Enviar</button>
+            @endif
+        </td>
+    </tr>
         @endif
 </thead>
 </table><br>
 <footer id="convocatoria"></footer>
+
 </form>
 
                         </main>
@@ -495,222 +496,7 @@ $newLocale = str_replace('_', '-', $locale);
             }
         });
 
-        /*
- 
-
-
-                            //form5
-                         if(userType === ''){
-                             
-                             const email = event.target.options[event.target.selectedIndex].dataset.email;
-                            
-
-                             axios.get('/get-evaluator-signature', {
-                                 params: {
-                                     email: email,
-
-                                 }
-                             })
-                                 .then(function (response) {
-                                     const evaluatorResponse = response.data;
-                                     if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
-                                         document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
-                            
-
-                                         document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
-                        
-                                         document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
-                        
-
-
-                                         // Mostrar las imágenes de las firmas
-                                         const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
-                                         if (imgFirma1 && evaluatorResponse.signature_path_1) {
-                                             imgFirma1.src = evaluatorResponse.signature_path_1;
-                                             imgFirma1.style.display = 'block';
-                                             imgFirma1.style.height = '100px';
-                                         } else if (imgFirma1) {
-                                             imgFirma1.style.display = 'none';
-                                         }
-
-                                         const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
-                                         if (imgFirma2 && evaluatorResponse.signature_path_2) {
-                                             imgFirma2.src = evaluatorResponse.signature_path_2;
-                                             imgFirma2.style.display = 'block';
-                                             imgFirma2.style.height = '100px';
-                                         } else if (imgFirma2) {
-                                             imgFirma2.style.display = 'none';
-                                         }
-
-                                         const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
-                                         if (imgFirma3 && evaluatorResponse.signature_path_3) {
-                                             imgFirma3.src = evaluatorResponse.signature_path_3;
-                                             imgFirma3.style.display = 'block';
-                                             imgFirma3.style.height = '100px';
-                                         } else if (imgFirma3) {
-                                             imgFirma3.style.display = 'none';
-
-                                             document.getElementById('signature_path_1').src = '/storage/' + (evaluatorResponse.signature_path_1 || 'default.png');
-                                             document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
-                                             document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
-                                         }
-                                     } else {
-                                         console.error('Evaluator signature not found');
-                                     }
-                                 })
-                                 .catch(function (error) {
-                                     console.error('Error:', error);
-                                 });
-
-                                 
-                             async function fetchConvocatoria(dictaminadorId) {
-                                 try {
-                                     const response = await axios.get(`/fetch-convocatoria/${dictaminadorId}`, {
-                                         headers: {
-                                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                             'Content-Type': 'application/json',
-                                         }
-                                     });
-
-                                     console.log('Response:', response); // Verificar la respuesta
-                                     console.log('Data:', response.data); // Verificar los datos
-                                     document.getElementById('convocatoria').textContent = response.data.convocatoria;
-
-                                     return response.data.convocatoria;
-
-                                 } catch (error) {
-                                     console.error('There was a problem fetching the convocatoria:', error.message);
-                                 }
-                             }
-
-
-                             fetchConvocatoria(dictaminadorId);
-                                }
-
-
-                        else if(userType === 'dictaminador'){
-                             async function submitForm(url, formId) {
-                                 const form = document.getElementById(formId);
-                                 if (!form) {
-                                     console.error(`Form with id "${formId}" not found.`);
-                                     return;
-                                 }
-
-                                 if (formId === 'form4') {
-                                     letdataValues = getCommodataValues(form);
-                                    dataValues['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-                                     // Obtener valores de los labels y spans
-                                    dataValues['comision_actividad_1_total'] = document.getElementById('totalComision1').textContent;
-                                    dataValues['comision_actividad_2_total'] = document.getElementById('totalComision2').textContent;
-                                    dataValues['comision_actividad_3_total'] = document.getElementById('totalComision3').textContent;
-                                    dataValues['total_puntaje'] = document.getElementById('totalComisionRepetido').textContent;
-                                    dataValues['minima_total'] = document.getElementById('minimaTotal').textContent;
-                                    dataValues['minima_calidad'] = document.getElementById('minimaCalidad').textContent;
-
-                                     // Log form data to check values
-                                     console.log('Form data for form4: ',dataValues);
-
-                                     try {
-                                         const response = await fetch(url, {
-                                             method: 'POST',
-                                             headers: {
-                                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                                 'Content-Type': 'application/json',
-                                             },
-                                             body: JSON.stringifydataValues),
-                                         });
-
-                                         if (!response.ok) {
-                                             throw new Error('Network response was not ok');
-                                         }
-
-                                         const responseData = await response.json();
-                                         console.log('Response received from server:', responseData);
-                                     } catch (error) {
-                                         console.error('There was a problem with the fetch operation:', error);
-                                     }
-                                 } else if (formId === 'form5') {
-                                     letdataValues = newdata(form);
-                                     document.getElementById('reportLink').classList.remove('d-none');
-
-                                     // Agregar los campos comunes
-                                     let commonData = getCommodataValues(form);
-                                     for (let key in commonData) {
-                                        dataValues.append(key, commonData[key]);
-                                     }
-
-
-                                     // evaluator names
-                                    dataValues.set('evaluator_name_1', form.querySelector('#personaEvaluadora1').value);
-                                    dataValues.set('evaluator_name_2', form.querySelector('#personaEvaluadora2').value);
-                                    dataValues.set('evaluator_name_3', form.querySelector('#personaEvaluadora3').value);
-
-                                     // Add files todataValues
-                                     ['firma1', 'firma2', 'firma3'].forEach((firma) => {
-                                         let fileInput = form.querySelector(`#${firma}`);
-                                         if (fileInput.files.length > 0) {
-                                            dataValues.append(firma, fileInput.files[0]);
-                                         }
-                                     });
-
-                                     try {
-                                         let response = await fetch(url, {
-                                             method: 'POST',
-                                             headers: {
-                                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                             },
-                                             body:dataValues,
-                                         });
-
-                                         if (!response.ok) {
-                                             throw new Error('Network response was not ok');
-                                         }
-
-                                         const contentType = response.headers.get('Content-Type');
-                                         if (!contentType || !contentType.includes('application/json')) {
-                                             throw new Error('Invalid JSON response');
-                                         }
-
-                                         let data = await response.json();
-                                         console.log('Response received from server:', data);
-
-
-                                         // Mostrar todas las firmas
-                                         if (data.signature_urls) { // Verifica que existan las URLs de las firmas
-                                             const firmas = ['firma1', 'firma2', 'firma3']; // Define tus firmas
-
-                                             firmas.forEach(firma => {
-                                                 const img = document.querySelector(`img[data-firma="${firma}"]`); // Selecciona la imagen correspondiente
-                                                 if (data.signature_urls[firma]) {
-                                                     img.src = data.signature_urls[firma]; // Establece la URL de la firma
-                                                     img.style.display = 'block'; // Muestra la imagen
-                                                     img.style.maxWidth = '200px'; // Ajusta a 100px
-                                                     img.style.height = '100px'; // Mantiene proporción
-                                                 } else {
-                                                     img.style.display = 'none'; // Oculta la imagen si no hay firma
-                                                 }
-                                             });
-                                         }
-                                     } catch (error) {
-                                         console.error('There was a problem with the fetch operation:', error);
-                                     }
-                                 }
-
-                             }
-                             window.submitForm = submitForm; 
-                        }
-                        } catch (error) {
-                            console.error('Error fetching data:', error);
-                        }
-                        
-                    } else {
-                        formContainer.style.display = 'none'; // Ocultar el formulario si no hay selección
-                    }
-                    //await fetchConvocatoria(dictaminadorId);
-                });
-            } 
-        }
-    }); */
+      
 
     
 document.addEventListener('DOMContentLoaded', async () => {
@@ -776,9 +562,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             formContainer.style.display = 'block'; // Mostrar formulario
 
-                            // **Evaluator signature retrieval logic:**
-
- // End of evaluator signature retrieval logic
                             
 
                             // Aquí realizamos la solicitud para obtener las comisiones de los dictaminadores
@@ -1132,68 +915,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-//metodos para user secretaria y user_dictaminador -> caso POST
-/*if(userType === ''){
-    const email = event.target.options[event.target.selectedIndex].dataset.email;
-
-
-    axios.get('/get-evaluator-signature', {
-        params: {
-            email: email,
-
-        }
-    })
-        .then(function (response) {
-            const evaluatorResponse = response.data;
-            if (evaluatorResponse && evaluatorResponse.message !== 'Evaluator signature not found') {
-                document.getElementById('personaEvaluadora1').innerText = evaluatorResponse.evaluator_name_1 || 'No evaluator name found';
-
-
-                document.getElementById('personaEvaluadora2').innerText = evaluatorResponse.evaluator_name_2 || 'No evaluator name found';
-
-                document.getElementById('personaEvaluadora3').innerText = evaluatorResponse.evaluator_name_3 || 'No evaluator name found';
-
-
-
-                // Mostrar las imágenes de las firmas
-                const imgFirma1 = document.querySelector('img[data-firma="firma1"]');
-                if (imgFirma1 && evaluatorResponse.signature_path_1) {
-                    imgFirma1.src = evaluatorResponse.signature_path_1;
-                    imgFirma1.style.display = 'block';
-                    imgFirma1.style.height = '100px';
-                } else if (imgFirma1) {
-                    imgFirma1.style.display = 'none';
-                }
-
-                const imgFirma2 = document.querySelector('img[data-firma="firma2"]');
-                if (imgFirma2 && evaluatorResponse.signature_path_2) {
-                    imgFirma2.src = evaluatorResponse.signature_path_2;
-                    imgFirma2.style.display = 'block';
-                    imgFirma2.style.height = '100px';
-                } else if (imgFirma2) {
-                    imgFirma2.style.display = 'none';
-                }
-
-                const imgFirma3 = document.querySelector('img[data-firma="firma3"]');
-                if (imgFirma3 && evaluatorResponse.signature_path_3) {
-                    imgFirma3.src = evaluatorResponse.signature_path_3;
-                    imgFirma3.style.display = 'block';
-                    imgFirma3.style.height = '100px';
-                } else if (imgFirma3) {
-                    imgFirma3.style.display = 'none';
-
-                    document.getElementById('signature_path_1').src = '/storage/' + (evaluatorResponse.signature_path_1 || 'default.png');
-                    document.getElementById('signature_path_2').src = '/storage/' + (evaluatorResponse.signature_path_2 || 'default.png');
-                    document.getElementById('signature_path_3').src = '/storage/' + (evaluatorResponse.signature_path_3 || 'default.png');
-                }
-            } else {
-                console.error('Evaluator signature not found');
-            }
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-        });
-} */
+    //Enviar formulario
     async function submitForm(url, formId, user_id, email) {
         const form = document.getElementById(formId);
         let dataValues = new FormData(form);

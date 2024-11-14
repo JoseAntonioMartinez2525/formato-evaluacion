@@ -89,6 +89,41 @@ $user_identity = $user->id;
         <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
             @csrf
             <div>
+             <div style="margin-left:100px;">
+                <label for="convocatoria">Convocatoria:</label>
+                <span class="input-header" id="convocatoria2"></span><br>
+
+                <label for="periodo">Periodo de evaluación:</label>
+                <span id="periodo" type="text" class="input-header"></span><br>
+
+                <label for="nombre">Nombre del personal académico:</label>
+                <span id="nombre" class="input-header"></span><br>
+
+                <label for="area">Área de Conocimiento:</label>
+                <span id="area" class="input-header"></span><br>
+
+                <label for="departamento">Departamento Académico:</label>
+                <span id="departamento" class="input-header"></span>
+             </div><br>   
+            
+            
+            <center><h4>Instrucciones</h4></center>
+            
+            <div class="container flex">
+                <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la información en
+                    cantidades u horas en los campos
+                    marcados en <u>color gris</u>. <br>
+                    2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
+                    subtotales, según sea el caso). <br>
+                    3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
+                    4 Este formato deberá presentarse en forma independiente de la documentación que acrediten las
+                    actividades realizadas. <b>Para la evaluación no es necesario entregar las obras completas-libros,
+                    manuales, publicaciones,etc.,</b> sino entregar el documento probatorio que se indique en la Guía de
+                    definiciones. <br>
+                    5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
+                    formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
+            </div><br>
+            <div>
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4" for="">100</label>
                 </h4>
@@ -207,9 +242,20 @@ $user_identity = $user->id;
 
                                     // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
+                                    const convocatoriaHeader = document.getElementById('convocatoria2');
+                                    const periodo = document.getElementById('periodo');
+                                    const nombre = document.getElementById('nombre');
+                                    const area = document.getElementById('area');
+                                    const departamento = document.getElementById('departamento');
+
                                     if (convocatoriaElement) {
                                         if (data.form1) {
                                             convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                            convocatoriaHeader.textContent = data.form1.convocatoria || '';
+                                            periodo.textContent = data.form1.periodo || '';
+                                            nombre.textContent = data.form1.nombre || '';
+                                            area.textContent = data.form1.area || '';
+                                            departamento.textContent = data.form1.departamento || '';
                                         } else {
                                             console.error('form1 no está definido en la respuesta.');
                                         }
@@ -256,11 +302,20 @@ $user_identity = $user->id;
                                                     // Verifica si la respuesta contiene los datos esperados
                                     if (data.docente) {
                                         const convocatoriaElement = document.getElementById('convocatoria');
-
+                                        const convocatoriaHeader = document.getElementById('convocatoria2');
+                                        const periodo = document.getElementById('periodo');
+                                        const nombre = document.getElementById('nombre');
+                                        const area = document.getElementById('area');
+                                        const departamento = document.getElementById('departamento');
                                         // Mostrar la convocatoria si existe
                                         if (convocatoriaElement) {
                                             if (data.docente.convocatoria) {
                                                 convocatoriaElement.textContent = data.docente.convocatoria;
+                                                convocatoriaHeader.textContent = data.docente.convocatoria || '';
+                                                periodo.textContent = data.docente.periodo || '';
+                                                nombre.textContent = data.docente.nombre || '';
+                                                area.textContent = data.docente.area || '';
+                                                departamento.textContent = data.docente.departamento || '';
                                             } else {
                                                 convocatoriaElement.textContent = 'Convocatoria no disponible';
                                             }

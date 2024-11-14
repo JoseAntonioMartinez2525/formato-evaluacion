@@ -759,6 +759,18 @@ input[id^="rc"]{
 }
 
 
+#convocatoria2, #nombre{
+    margin-left: 50px;
+}
+
+#departamento{
+margin-left: 220px;
+}
+
+#periodo, #area{
+    margin-left: 250px;
+}
+
 
 
 

@@ -47,6 +47,10 @@ class DictaminatorController extends Controller
 
         $formData1 = UsersResponseForm1::where('user_id', $docente->id)->first();
         $convocatoria = UsersResponseForm1::where('user_id', $docente->id)->first();
+        $periodo = UsersResponseForm1::where('user_id', $docente->id)->first();
+        $nombre = UsersResponseForm1::where('user_id', $docente->id)->first();
+        $area = UsersResponseForm1::where('user_id', $docente->id)->first();
+        $departamento = UsersResponseForm1::where('user_id', $docente->id)->first();
         $form2Data = UsersResponseForm2::where('user_id', $docente->id)->first();
         $form2_2Data = UsersResponseForm2_2::where('user_id', $docente->id)->first();
         $form3_1Data = UsersResponseForm3_1::where('user_id', $docente->id)->first();
@@ -75,6 +79,10 @@ class DictaminatorController extends Controller
                 'id' => $docente->id,
                 'email' => $docente->email,
                 'convocatoria'=>$convocatoria->convocatoria,
+                'periodo'=>$periodo->periodo,
+                'nombre'=>$nombre->nombre,
+                'area'=>$area->area,
+                'departamento'=>$departamento->departamento,
             ],
             'form1'=>$formData1,
             'form2' => $form2Data,    // existing fields can still be accessed
