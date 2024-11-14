@@ -110,9 +110,7 @@ $newLocale = str_replace('_', '-', $locale);
 
                     <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
                 </div>
-                <!--
-@component('components.pie-pag', ['number' => '0'])
-@endcomponent-->
+
             </footer>
 
         </div>
@@ -308,11 +306,7 @@ $newLocale = str_replace('_', '-', $locale);
                             formData['hours'] = hoursLabel.innerText;
                         }
 
-                        /*if (!actv2ComisionLabel) {
-                          console.error('Label with id "actv2Comision" not found.');
-                        } else {
-                          formData['actv2Comision'] = actv2ComisionLabel.innerText;
-                        }*/
+
 
                         formData['obs2'] = form.querySelector('input[name="obs2"]').value;
                         formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;

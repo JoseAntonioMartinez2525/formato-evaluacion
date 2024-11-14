@@ -368,41 +368,7 @@ $user_identity = $user->id;
             }
 
 
-            /*
-            async function asignarDocentes(dictaminadorId, docenteEmail) {
-                try {
-                    const response = await fetch(`/asignar-docentes/${dictaminadorId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ docentes: docenteEmail })
-                    });
-                    const data = await response.json();
-                    console.log('Docentes asignados correctamente:', data);
-                } catch (error) {
-                    console.error('Error asignando docentes:', error);
-                }
-            }
-            
-            async function agregarDocente(dictaminadorId, docenteEmail) {
-                try {
-                    const response = await fetch(`/agregar-docente/${dictaminadorId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ docente_email: docenteEmail })
-                    });
-                    const data = await response.json();
-                    console.log('Docente agregado correctamente:', data);
-                } catch (error) {
-                    console.error('Error agregando docente:', error);
-                }
-            }
-                    */
+           
         });
 
         // Function to handle form submission
