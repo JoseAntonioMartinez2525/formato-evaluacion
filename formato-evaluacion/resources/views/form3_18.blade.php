@@ -474,6 +474,9 @@ $user_identity = $user->id;
             @endif
         </footer>
     </center>
+    <footer>
+        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 20 de 22</div>
+    </footer>
     <script>
         let cant3_18 = ['cantComOrgInt', 'cantComOrgNac', 'cantComOrgReg', 'cantComApoyoInt', 'cantComApoyoNac', 'cantComApoyoReg', 'cantCicloComOrgInt', 'cantCicloComOrgNac', 'cantCicloComOrgReg', 'cantCicloComApoyoInt', 'cantCicloComApoyoNac', 'cantCicloComApoyoReg'];
         let subtotal3_18 = ['subtotalComOrgInt', 'subtotalComOrgNac', 'subtotalComOrgReg', 'subtotalComApoyoInt', 'subtotalComApoyoNac', 'subtotalComApoyoReg', 'subtotalCicloComOrgInt', 'subtotalCicloComOrgNac', 'subtotalCicloComOrgReg', 'subtotalCicloComApoyoInt', 'subtotalCicloComApoyoNac', 'subtotalCicloComApoyoReg'];

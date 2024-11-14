@@ -208,7 +208,14 @@ $user_identity = $user->id;
         <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
     </div>
 @endif
+
 </footer></center>
+
+<footer>
+        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 1 de 22</div>
+</footer>
+
+
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {

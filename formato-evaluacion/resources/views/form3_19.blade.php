@@ -661,6 +661,9 @@ $user_identity = $user->id;
             @endif
         </footer>
     </center>
+        <footer>
+            <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 21 de 22</div>
+        </footer>
     <script>
     let cant3_19 = [
         'cantCGUtitular', 'cantCGUespecial', 'cantCGUpermanente',

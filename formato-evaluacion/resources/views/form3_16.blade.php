@@ -356,6 +356,9 @@ $user_identity = $user->id;
             @endif
         </footer>
     </center>
+    <footer>
+        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 18 de 22</div>
+    </footer>
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS

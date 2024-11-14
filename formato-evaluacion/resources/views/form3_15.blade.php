@@ -205,6 +205,9 @@ $user_identity = $user->id;
                 </div>
             @endif
         </footer>
+        <footer>
+            <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 17 de 22</div>
+        </footer>
     </center>
     <script>
 

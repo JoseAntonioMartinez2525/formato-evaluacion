@@ -91,10 +91,10 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <x-general-header />
 @php
-$user = Auth::user();
-$userType = $user->user_type;
-$user_email = $user->email;
-$user_identity = $user->id; 
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_email = $user->email;
+    $user_identity = $user->id; 
 @endphp
 <div class="container mt-4" id="seleccionDocente">
 @if($userType !== 'docente')
@@ -298,7 +298,9 @@ onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form
 <footer id="convocatoria"></footer>
 
 </form>
-
+    <footer>
+        <div id="piedepagina" style="margin-left: 500px;margin-top:100px;">página 22 de 22</div>
+    </footer>
                         </main>
 
 
