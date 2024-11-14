@@ -73,7 +73,7 @@ $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
 
-<div class="container mt-4">
+<div class="container mt-4 printButtonClass">
     @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
         <label for="docenteSelect">Seleccionar Docente:</label>

@@ -1,6 +1,37 @@
+@media print{
 .printButtonClass {
     display: none;
     width:fit-content;
     margin-top: -50px;
     
+}}
+
+.mostrar{
+  margin-top: 50px;  
+}
+
+.instrucciones{
+    width:1200px; 
+    margin-left: -10px; 
+    font-size: .9rem;
+    height:200px;
+}
+
+
+@media print {
+.mostrar {
+    margin-top: 50px;
+    width:fit-content;
+    margin-left: -200px;
+    
+}}
+
+@media print {
+.printCenter{
+    margin-left:300px;
+}}
+@media print {
+.printHeader{
+    margin-left: 200px;
+}
 }

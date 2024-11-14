@@ -20,9 +20,9 @@ $newLocale = str_replace('_', '-', $locale);
             @if (Auth::check())
 
                 <section role="region" aria-label="Response form">
-                    <form>
+                    <form class="printButtonClass">
                         @csrf
-                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;" id="navPrint">
                         <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                             <li class="nav-item">
                                 <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
@@ -72,7 +72,7 @@ $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
 
-<div class="container mt-4">
+<div class="container mt-4 printButtonClass">
     @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
         <label for="docenteSelect">Seleccionar Docente:</label>
@@ -83,13 +83,13 @@ $user_identity = $user->id;
     @endif
 </div>
 
-
+<form class="mostrar">
     <main class="container">
         <!-- Form for Part 2 -->
         <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
             @csrf
-            <div>
-             <div style="margin-left:100px;">
+            <div><br>
+             <div style="margin-left:80px;">
                 <label for="convocatoria">Convocatoria:</label>
                 <span class="input-header" id="convocatoria2"></span><br>
 
@@ -107,10 +107,10 @@ $user_identity = $user->id;
              </div><br>   
             
             
-            <center><h4>Instrucciones</h4></center>
+            <center class="printCenter"><h5>Instrucciones</h5></center>
             
             <div class="container flex">
-                <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la información en
+                <p class="instrucciones">1 La persona a ser evaluada deberá completar la información en
                     cantidades u horas en los campos
                     marcados en <u>color gris</u>. <br>
                     2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
@@ -123,6 +123,7 @@ $user_identity = $user->id;
                     5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
                     formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
             </div><br>
+            </div>
             <div>
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4" for="">100</label>
@@ -197,6 +198,8 @@ $user_identity = $user->id;
             </table>
         </form>
     </main>
+
+    </form>
     <center><footer id="convocatoria">
     <!-- Mostrar convocatoria -->
 @if(isset($convocatoria))
