@@ -144,15 +144,7 @@ onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
 <th class="minima">Mínima Total</th>
 <th id="minimaTotal"></th>
 <thead>
-<!--
-<tr>
-<th style="margin-right:800px;">
-@if(Auth::user()->user_type === 'dictaminador')
-<button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-@endif                                                                                   
-</th>
 
-</tr>-->
 </thead>
 </tbody>
 </table>

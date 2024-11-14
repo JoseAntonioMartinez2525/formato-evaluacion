@@ -94,16 +94,16 @@ $user_identity = $user->id;
                 <span class="input-header" id="convocatoria2"></span><br>
 
                 <label for="periodo">Periodo de evaluación:</label>
-                <span id="periodo" type="text" class="input-header"></span><br>
+                <span id="periodo2" type="text" class="input-header"></span><br>
 
                 <label for="nombre">Nombre del personal académico:</label>
-                <span id="nombre" class="input-header"></span><br>
+                <span id="nombre2" class="input-header"></span><br>
 
                 <label for="area">Área de Conocimiento:</label>
-                <span id="area" class="input-header"></span><br>
+                <span id="area2" class="input-header"></span><br>
 
                 <label for="departamento">Departamento Académico:</label>
-                <span id="departamento" class="input-header"></span>
+                <span id="departamento2" class="input-header"></span>
              </div><br>   
             
             
@@ -253,10 +253,10 @@ $user_identity = $user->id;
                                     // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
                                     const convocatoriaHeader = document.getElementById('convocatoria2');
-                                    const periodo = document.getElementById('periodo');
-                                    const nombre = document.getElementById('nombre');
-                                    const area = document.getElementById('area');
-                                    const departamento = document.getElementById('departamento');
+                                    const periodo = document.getElementById('periodo2');
+                                    const nombre = document.getElementById('nombre2');
+                                    const area = document.getElementById('area2');
+                                    const departamento = document.getElementById('departamento2');
 
                                     if (convocatoriaElement) {
                                         if (data.form1) {
@@ -313,10 +313,10 @@ $user_identity = $user->id;
                                     if (data.docente) {
                                         const convocatoriaElement = document.getElementById('convocatoria');
                                         const convocatoriaHeader = document.getElementById('convocatoria2');
-                                        const periodo = document.getElementById('periodo');
-                                        const nombre = document.getElementById('nombre');
-                                        const area = document.getElementById('area');
-                                        const departamento = document.getElementById('departamento');
+                                        const periodo = document.getElementById('periodo2');
+                                        const nombre = document.getElementById('nombre2');
+                                        const area = document.getElementById('area2');
+                                        const departamento = document.getElementById('departamento2');
                                         // Mostrar la convocatoria si existe
                                         if (convocatoriaElement) {
                                             if (data.docente.convocatoria) {

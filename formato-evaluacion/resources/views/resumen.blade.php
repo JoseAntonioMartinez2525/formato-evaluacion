@@ -72,7 +72,7 @@ $newLocale = str_replace('_', '-', $locale);
                                                 <select id="formSelect" class="form-select">
                                                     <option value=""></option>
                                                     <option value="resumen_comision">Resumen general de las comisiones</option>
-                                                    <option value="form5">Resumen de la PEDPD(solo firmas)</option>
+                                                    <!--<option value="form5">Resumen de la PEDPD(solo firmas)</option>-->
                                                 </select>
                                             </div>
                             @endif

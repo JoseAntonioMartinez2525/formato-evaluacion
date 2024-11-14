@@ -759,15 +759,15 @@ input[id^="rc"]{
 }
 
 
-#convocatoria2, #nombre{
+#convocatoria2, #nombre2{
     margin-left: 30px;
 }
 
-#departamento{
+#departamento2{
 margin-left: 220px;
 }
 
-#periodo, #area{
+#periodo2, #area2{
     margin-left: 250px;
 }
 
