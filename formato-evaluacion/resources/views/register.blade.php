@@ -36,23 +36,8 @@
                     <form id="registerForm" method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="text-center mb-3">
-                            <p>Registrarse</p>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-link btn-floating mx-1">
-                                <i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-link btn-floating mx-1">
-                                <i class="fab fa-google"></i>
-                            </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-link btn-floating mx-1">
-                                <i class="fab fa-twitter"></i>
-                            </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-link btn-floating mx-1">
-                                <i class="fab fa-github"></i>
-                            </button>
+                            <p class="mb-2">Registrarse</p>
+                           
                         </div>
                         <!-- Name input -->
                         <div data-mdb-input-init class="form-outline mb-4">

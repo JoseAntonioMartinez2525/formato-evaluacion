@@ -39,7 +39,7 @@ $newLocale = str_replace('_', '-', $locale);
                                         </a>
                                     </li>
                                     <li style="list-style: none; margin-right: 20px;">
-                                        <a class="enlaceSN" id="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); clearCredentials();">
+                                        <a class="enlaceSN" href="{{ route('login') }}">
                                             <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
                                         </a>
                                     </li>
@@ -117,10 +117,6 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     </div>
     </div>
-
-    <form id="logout" action="{{ route('login') }}" method="POST" style="display: none;"> 
-        @csrf 
-    </form>
 
     <script>
 

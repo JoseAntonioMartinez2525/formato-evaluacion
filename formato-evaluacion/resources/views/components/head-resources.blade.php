@@ -14,7 +14,6 @@
 <script src="{{ asset('js/comisiones.js') }}"></script>
 <script src="{{ asset('js/minimos.js') }}"></script>
 <script src="{{ asset('js/privileges.js') }}"></script>
-<script src="{{ asset('js/logout.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

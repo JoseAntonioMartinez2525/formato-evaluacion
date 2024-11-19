@@ -66,10 +66,7 @@ $newLocale = str_replace('_', '-', $locale);
                                 por la
                                 Comisión del PEDPD)</a>
                         </li><br>
-                        <li id="reportLink" class="nav-item d-none">
-                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar
-                                Reporte</a>
-                        </li>
+                    
                         <li class="nav-item">
                             @if(Auth::user()->user_type === 'dictaminador')
                                 <a class="nav-link active enlaceSN" style="width: 200px;"

@@ -96,21 +96,23 @@ $newLocale = str_replace('_', '-', $locale);
       @foreach ($departamentoOptions as $option)
       <option option value="{{ $option }}">{{ $option }}</option>
       @endforeach
-      </select>
+      </select><br><br>
 
-      <h3>Instrucciones</h3>
-      <div class="container flex">
-      <p style="width:1100px; margin-left: -20px;">1 La persona a ser evaluada deberá completar la información en cantidades u horas en los campos
-      marcados en color gris. <br>
-      2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
-      subtotales, según sea el caso). <br>
-      3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
-      4 Este formato deberá presentarse en forma independiente de la documentación que acrediten las
-      actividades realizadas. Para la evaluación no es necesario entregar las obras completas-libros,
-      manuales, publicaciones,etc., sino entregar el documento probatorio que se indique en la Guía de
-      definiciones. <br>
-      5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
-      formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
+       <center class="printCenter"><h5>Instrucciones</h5></center>
+
+        <div class="container flex">
+          <p class="instrucciones">1 La persona a ser evaluada deberá completar la información en
+            cantidades u horas en los campos
+            marcados en <u><b>color gris</b></u>. <br>
+            2 La Comisión Dictaminadora deberá llenar los campos marcados en color azul cielo (puntajes totales o
+            subtotales, según sea el caso). <br>
+            3 No se deberán modificar fórmulas, ni agregar o quitar renglones. <br>
+            4 Este formato deberá presentarse en forma independiente de la documentación que acrediten las
+            actividades realizadas. <b>Para la evaluación no es necesario entregar las obras completas-libros,
+            manuales, publicaciones,etc.,</b> sino entregar el documento probatorio que se indique en la Guía de
+            definiciones. <br>
+            5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
+            formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
       <center><button type="submit" class="btn custom-btn" id="btn1">Enviar</button>
       </center>
       </div>
