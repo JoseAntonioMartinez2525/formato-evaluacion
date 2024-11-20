@@ -1367,5 +1367,9 @@ console.log("docencia 3:", docencia);
 
 }
 
+        if (/WebKit/.test(navigator.userAgent)) {
+            document.body.classList.add('webkit-print');
+        }
+
 
 

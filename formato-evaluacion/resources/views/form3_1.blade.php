@@ -369,23 +369,33 @@ $user_identity = $user->id;
                 </thead>
             </table>
         </form>
-    </main><br>
+    </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
+    <footer id="footerForm3_1">
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
-        </footer>
-
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
+            </div>
+        </center>
+    
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">página <span id="page-number"></span> de 22</div>
+    </footer>
     </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 3 de 22</div>
-            </footer>
     <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageNumberElement = document.getElementById('page-number');
+        const totalPages = 22; // Total de páginas
+
+        let currentPage = 3;
+
+        pageNumberElement.innerText = currentPage;
+    });        
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
             const user_identity = @json($user_identity);

@@ -651,20 +651,32 @@ $user_identity = $user->id;
                 </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
-
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+        <footer>
+            <center>
+                <div id="convocatoria">
+                    <!-- Mostrar convocatoria -->
+                    @if(isset($convocatoria))
+                        <div style="margin-right: -700px;">
+                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </center>
+    
+            <div id="piedepagina" style="margin-left: 500px; margin-top: 10px;">página <span id="page-number"></span> de 22
+            </div>
         </footer>
     </center>
-        <footer>
-            <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 21 de 22</div>
-        </footer>
+
     <script>
+         document.addEventListener("DOMContentLoaded", function () {
+                const pageNumberElement = document.getElementById('page-number');
+                const totalPages = 22; // Total de páginas
+
+                let currentPage = 21;
+
+                pageNumberElement.innerText = currentPage;
+            });
     let cant3_19 = [
         'cantCGUtitular', 'cantCGUespecial', 'cantCGUpermanente',
         'cantCAACtitular', 'cantCAACintegCom', 'cantComDepart',

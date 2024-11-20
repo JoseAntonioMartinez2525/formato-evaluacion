@@ -221,26 +221,23 @@ $user_identity = $user->id;
     </main>
 
     </form>
-    
-<footer>
-<center>
-    <div id="convocatoria">
-    <!-- Mostrar convocatoria -->
-    @if(isset($convocatoria))
+    <center>
+    <footer>
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria ?? 'No disponible' }}</h1>
+                    </div>
+                @endif
+            </div>
+        </center>
 
-        <div style="margin-right: -700px;">
-            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+        <div id="piedepagina" style="margin-left: 500px; margin-top: 10px;"><span>Página <span class="page-number"></span> de <span class="total-pages"></span></span>
         </div>
-    @endif
-    </div>
+    </footer>
 </center>
-
-<div id="piedepagina" style="margin-left: 800px;margin-top:10px;">página 1 de 22</div>
-</footer>
-
-
-
-
 
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
@@ -398,41 +395,6 @@ $user_identity = $user->id;
             }
   
 
-        /*
-        async function asignarDocentes(dictaminadorId, docenteEmail) {
-            try {
-                const response = await fetch(`/asignar-docentes/${dictaminadorId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ docentes: docenteEmail })
-                });
-                const data = await response.json();
-                console.log('Docentes asignados correctamente:', data);
-            } catch (error) {
-                console.error('Error asignando docentes:', error);
-            }
-        }
-        
-        async function agregarDocente(dictaminadorId, docenteEmail) {
-            try {
-                const response = await fetch(`/agregar-docente/${dictaminadorId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ docente_email: docenteEmail })
-                });
-                const data = await response.json();
-                console.log('Docente agregado correctamente:', data);
-            } catch (error) {
-                console.error('Error agregando docente:', error);
-            }
-        }
-             */
         });
 
         async function submitForm(url, formId) {
@@ -493,7 +455,22 @@ $user_identity = $user->id;
             }
         });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // Aseguramos que las páginas físicas se calculen en el momento de impresión
+        window.addEventListener('beforeprint', () => {
+            const totalPagesElement = document.querySelectorAll('.total-pages');
+            totalPagesElement.forEach(el => {
+                el.textContent = Math.ceil(document.body.offsetHeight / window.innerHeight);
+            });
+        });
 
+        // Mostrar el número actual de página en cada footer
+        const footers = document.querySelectorAll('#piedepagina');
+        footers.forEach((footer, index) => {
+            const pageNumberElement = footer.querySelector('.page-number');
+            pageNumberElement.textContent = index + 1;
+        });
+    });
 
 
 
