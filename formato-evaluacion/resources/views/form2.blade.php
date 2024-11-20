@@ -234,7 +234,7 @@ $user_identity = $user->id;
             </div>
         </center>
 
-        <div id="piedepagina" style="margin-left: 500px; margin-top: 10px;"><span>Página <span class="page-number"></span> de <span class="total-pages"></span></span>
+        <div id="piedepagina" style="margin-left: 500px; margin-top: 10px;"><span>Página <span class="page-number"></span></span>
         </div>
     </footer>
 </center>
