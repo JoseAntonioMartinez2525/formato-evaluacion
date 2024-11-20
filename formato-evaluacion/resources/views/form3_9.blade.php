@@ -167,7 +167,7 @@ $user_identity = $user->id;
                         <th class="acreditacion">Cantidad</th>
                         <th class="acreditacion">Subtotal</th>
                         <th class="table-ajust" scope="col"></th>
-                        <th class="acreditacion">Observaciones</th>
+                        <th class="acreditacionObsv">Observaciones</th>
                     </tr>
                 </thead>
                 <tbody>

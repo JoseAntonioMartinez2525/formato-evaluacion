@@ -176,20 +176,22 @@ $user_identity = $user->id;
                     </form>
                 </main>
                 <center>
-                    <footer id="convocatoria">
-                        <!-- Mostrar convocatoria -->
-                        @if(isset($convocatoria))
+<footer>
+    <center>
+        <div id="convocatoria">
+            <!-- Mostrar convocatoria -->
+            @if(isset($convocatoria))
 
-                            <div style="margin-right: -200px;">
-                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                            </div>
-                        @endif
-                    </footer>
+                <div style="margin-right: -700px;">
+                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                </div>
+            @endif
+        </div>
+    </center>
 
-                </center>
-                                    <footer>
-                                        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 2 de 22</div>
-                                    </footer>
+    <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">página 2 de 22</div>
+</footer>
+</center>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS

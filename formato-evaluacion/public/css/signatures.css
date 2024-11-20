@@ -85,7 +85,13 @@ background-color: transparent;
 }
 
 @media print{
-    .topHeader, #form4, #form5{
+     #form4, #form5{
         margin-left: -200px;
+    }
+}
+
+@media print{
+    .topHeader{
+        margin-left: -300px;
     }
 }

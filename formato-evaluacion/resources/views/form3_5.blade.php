@@ -19,7 +19,7 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
             @if (Auth::check())
-                <section role="region" aria-label="Response form" class="menu">
+                <section role="region" aria-label="Response form">
                     <form class="printButtonClass">
                         @csrf
                     <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">

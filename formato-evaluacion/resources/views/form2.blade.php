@@ -13,7 +13,28 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
 </head>
+<style>
+    .datosPrimarios{
+        margin-left: 50px;
+    }
 
+    @media print{
+    .datosPrimarios{
+        margin-left: 100px;
+        font-size: .8rem;
+    }
+}
+
+    .datosConvocatoria{
+        margin-left:80px;
+    }
+    @media print{
+        .datosConvocatoria{
+            font-size: .8rem;
+            margin-left: 100px;
+        }
+    }
+</style>
 <body class="bg-gray-50 text-black/50">
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
@@ -89,7 +110,7 @@ $user_identity = $user->id;
         <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
             @csrf
             <div><br>
-             <div style="margin-left:80px;">
+             <div class="datosConvocatoria">
                 <label for="convocatoria">Convocatoria:</label>
                 <span class="input-header" id="convocatoria2"></span><br>
 
@@ -122,9 +143,9 @@ $user_identity = $user->id;
                     definiciones. <br>
                     5 La Comisión Dictaminadora no tomará en cuenta documentación que no esté contemplada dentro del
                     formato de evaluación, asimismo no se aceptará documentación presentada de forma extemporánea.
-            </div><br>
             </div>
-            <div>
+            </div>
+            <div class="datosPrimarios">
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4" for="">100</label>
                 </h4>
@@ -134,7 +155,7 @@ $user_identity = $user->id;
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
             <input type="hidden" id="puntajeEvaluarInput" name="puntajeEvaluar" value="0">
-            <table class="table table-sm">
+            <table class="table table-sm datosPrimarios">
                 <thead>
                     <tr>
                         <th scope="col">Actividad</th>
@@ -185,7 +206,7 @@ $user_identity = $user->id;
                     </tr>
                 </tbody>
             </table>
-            <table>
+            <table class="datosPrimarios">
                 <thead>
                     <tr>
                         <th style="font-weight: normal; text-size: 20px;" scope="col">Acreditación: </th>
@@ -200,20 +221,24 @@ $user_identity = $user->id;
     </main>
 
     </form>
-    <center><footer id="convocatoria">
-    <!-- Mostrar convocatoria -->
-@if(isset($convocatoria))
-
-    <div style="margin-right: -700px;">
-        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-    </div>
-@endif
-
-</footer></center>
-
+    
 <footer>
-        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 1 de 22</div>
+<center>
+    <div id="convocatoria">
+    <!-- Mostrar convocatoria -->
+    @if(isset($convocatoria))
+
+        <div style="margin-right: -700px;">
+            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+        </div>
+    @endif
+    </div>
+</center>
+
+<div id="piedepagina" style="margin-left: 800px;margin-top:10px;">página 1 de 22</div>
 </footer>
+
+
 
 
 
