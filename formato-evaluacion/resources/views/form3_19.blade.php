@@ -732,16 +732,7 @@ $user_identity = $user->id;
 
     <script>
 
-        window.onload = function () {
-                var userAgent = navigator.userAgent;
-                if (userAgent.indexOf('Chrome') > -1 && userAgent.indexOf('Edge') === -1) {
-                    // Si es Chrome
-                    document.body.classList.add('chrome');
-                } else if (userAgent.indexOf('Edg') > -1) {
-                    // Si es Edge
-                    document.body.classList.add('edge');
-                }
-            }
+
     window.onload = function () {
         const footerHeight = document.querySelector('footer').offsetHeight;
         const elements = document.querySelectorAll('.prevent-overlap');
@@ -755,6 +746,7 @@ $user_identity = $user->id;
                 element.style.pageBreakBefore = "always";
             }
         });
+        
     };
 
     let cant3_19 = [

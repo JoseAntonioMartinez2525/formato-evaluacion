@@ -10,10 +10,12 @@
 <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
 <link href="{{ asset('css/signatures.css') }}" rel="stylesheet">
 <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
+<link href="{{ asset('css/chrome.css') }}" rel="stylesheet">
 <script src="{{ asset('js/subtotales.js') }}"></script>
 <script src="{{ asset('js/comisiones.js') }}"></script>
 <script src="{{ asset('js/minimos.js') }}"></script>
 <script src="{{ asset('js/privileges.js') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
