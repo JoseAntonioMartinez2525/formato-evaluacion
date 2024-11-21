@@ -14,13 +14,21 @@ $newLocale = str_replace('_', '-', $locale);
     <x-head-resources />
 </head>
 <style>
+    body.chrome @media print {
+    #convocatoria {
+        font-size: 1.2rem;
+        color: blue; /* Ejemplo de estilo específico para Chrome */
+    }
+}
+
+
     @media print {
     body {
         margin-left: 200px ;
         margin-top: -10px;
         padding: 0;
         font-size: .9rem;
-        counter-reset: page-counter;
+       
     }
 
     footer {
@@ -38,8 +46,6 @@ $newLocale = str_replace('_', '-', $locale);
     }
 
     footer::after {
-            counter-increment: page-counter; /* Incrementa el contador automáticamente */
-            content: "Página " counter(page-counter); /* Muestra el número de página */
             position: fixed;
             bottom: 0;
             left: 50%;
@@ -66,6 +72,11 @@ $newLocale = str_replace('_', '-', $locale);
     @page {
         size: landscape;
         margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+    @page :right {
+        content: "Página " counter(page);
     }
 }
 
@@ -720,6 +731,17 @@ $user_identity = $user->id;
 
 
     <script>
+
+        window.onload = function () {
+                var userAgent = navigator.userAgent;
+                if (userAgent.indexOf('Chrome') > -1 && userAgent.indexOf('Edge') === -1) {
+                    // Si es Chrome
+                    document.body.classList.add('chrome');
+                } else if (userAgent.indexOf('Edg') > -1) {
+                    // Si es Edge
+                    document.body.classList.add('edge');
+                }
+            }
     window.onload = function () {
         const footerHeight = document.querySelector('footer').offsetHeight;
         const elements = document.querySelectorAll('.prevent-overlap');
