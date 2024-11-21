@@ -13,7 +13,48 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
 </head>
+<style>
+    @media print {
+    body {
+        margin-left: 200px ;
+        margin-top: -10px;
+        padding: 0;
+        font-size: .9rem;
+    }
 
+    footer {
+        position: fixed;
+        font-size: .9rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        background-color: white; /* Para asegurar que el footer no interfiera visualmente */
+        z-index: 10;
+        padding: 5px 0;
+        border-top: 1px solid #ccc;
+    }
+
+    .prevent-overlap {
+        page-break-before: always;
+    }
+
+    #convocatoria {
+        margin: 0;
+    }
+
+    #piedepagina {
+        margin: 0;
+    }
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+    }
+}
+
+</style>
 <body class="bg-gray-50 text-black/50">
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
@@ -261,7 +302,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="prevent-overlap">
                             <td>f)</td>
                             <td>Comisiones</td>
                             <td></td>
@@ -578,7 +619,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="prevent-overlap">
                             <td>q1)</td>
                             <td>Cuerpo académico registrado ante PRODEP</td>
                             <td>Consolidado</td>
@@ -652,31 +693,43 @@ $user_identity = $user->id;
     </main>
     <center>
         <footer>
-            <center>
-                <div id="convocatoria">
-                    <!-- Mostrar convocatoria -->
-                    @if(isset($convocatoria))
-                        <div style="margin-right: -700px;">
-                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                        </div>
-                    @endif
-                </div>
-            </center>
-    
-            <div id="piedepagina" style="margin-left: 500px; margin-top: 10px;">página <span id="page-number"></span> de 22
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
+                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                @endif
             </div>
+            <div id="piedepagina"style="margin-left: 500px; margin-top: 10px;" >página <span id="page-number"></span></div>
         </footer>
     </center>
 
+
     <script>
-         document.addEventListener("DOMContentLoaded", function () {
-                const pageNumberElement = document.getElementById('page-number');
-                const totalPages = 22; // Total de páginas
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const elements = document.querySelectorAll('.prevent-overlap');
+        const totalPages = Math.ceil(document.body.scrollHeight / window.innerHeight);
+        const footer = document.querySelector('footer');
 
-                let currentPage = 21;
+        for (let i = 1; i <= totalPages; i++) {
+            const pageFooter = footer.cloneNode(true);
+            const pageNumber = pageFooter.querySelector('#page-number');
+            if (pageNumber) {
+                pageNumber.textContent = i;
+            }
+            document.body.appendChild(pageFooter);
+        }
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
 
-                pageNumberElement.innerText = currentPage;
-            });
+            // Verifica si el elemento está demasiado cerca del footer
+            if (rect.bottom > viewportHeight - footerHeight) {
+                element.style.pageBreakBefore = "always";
+            }
+        });
+    };
+
     let cant3_19 = [
         'cantCGUtitular', 'cantCGUespecial', 'cantCGUpermanente',
         'cantCAACtitular', 'cantCAACintegCom', 'cantComDepart',
