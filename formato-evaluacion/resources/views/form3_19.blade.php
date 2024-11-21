@@ -20,6 +20,7 @@ $newLocale = str_replace('_', '-', $locale);
         margin-top: -10px;
         padding: 0;
         font-size: .9rem;
+        counter-reset: page-counter;
     }
 
     footer {
@@ -35,6 +36,20 @@ $newLocale = str_replace('_', '-', $locale);
         padding: 5px 0;
         border-top: 1px solid #ccc;
     }
+
+    footer::after {
+            counter-increment: page-counter; /* Incrementa el contador automáticamente */
+            content: "Página " counter(page-counter); /* Muestra el número de página */
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
 
     .prevent-overlap {
         page-break-before: always;
@@ -699,7 +714,7 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina"style="margin-left: 500px; margin-top: 10px;" >página <span id="page-number"></span></div>
+            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp<span id="page-number"></span></div>
         </footer>
     </center>
 
@@ -708,17 +723,7 @@ $user_identity = $user->id;
     window.onload = function () {
         const footerHeight = document.querySelector('footer').offsetHeight;
         const elements = document.querySelectorAll('.prevent-overlap');
-        const totalPages = Math.ceil(document.body.scrollHeight / window.innerHeight);
-        const footer = document.querySelector('footer');
 
-        for (let i = 1; i <= totalPages; i++) {
-            const pageFooter = footer.cloneNode(true);
-            const pageNumber = pageFooter.querySelector('#page-number');
-            if (pageNumber) {
-                pageNumber.textContent = i;
-            }
-            document.body.appendChild(pageFooter);
-        }
         elements.forEach(element => {
             const rect = element.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
