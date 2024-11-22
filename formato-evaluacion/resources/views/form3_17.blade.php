@@ -110,17 +110,13 @@ $user_identity = $user->id;
                             <h3></h3>
                         </th>
                         <th>
-                            <h3 style="width: 350px;">Cuerpos Colegiados</h3>
+                            <h3 style="width: 350px;" id="cuerpos_colegiados">Cuerpos Colegiados</h3>
                         </th>
                     </tr>
                 </thead>
                 <thead>
                     <tr>
-                        <th scope="col" colspan=2>Actividad</th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
+                        <th scope="col" colspan=6>Actividad</th>
                         <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
                         <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
                     </tr>
@@ -130,7 +126,7 @@ $user_identity = $user->id;
                         <th id="seccion3_17" class="acreditacion" colspan=3> 3.17 Proyectos académicos de
                             extensión y
                             difusión</th>
-                        <th class="acreditacion">Puntaje</th>
+                        <th class="acreditacion" colspan="1">Puntaje</th>
                         <th class="acreditacion">Cantidad</th>
                         <th></th>
                         <th id="score3_17">0</th>
@@ -141,8 +137,8 @@ $user_identity = $user->id;
                 <tbody>
                     <tr>
                         <td>a)</td>
-                        <td>Inicio de proyectos de extensión y difusión con financiamiento externo</td>
-                        <td></td>
+                        <td id="form3_17_a">Inicio de proyectos de extensión y difusión con financiamiento externo</td>
+                        <td style="padding:0;"></td>
                         <td id="puntajeDifusionExt"><b>15</b></td>
                         <td id="cantDifusionExt"></td>
                         <td></td>
