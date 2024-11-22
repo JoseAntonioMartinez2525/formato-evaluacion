@@ -58,9 +58,14 @@
         margin-top: -20px;
     }
 
-    #form3_3{
+    #form3_3, #form3_9, #form3_12{
         font-size: .8rem;
     }
+
+    #form4, #form5{
+        font-size: .95rem;
+    }
+
 
     #footerForm3_3{
         margin-top: 20px;

@@ -758,7 +758,10 @@ input[id^="rc"]{
 #puntajeSinNac,
 #puntajeAutor,
 #puntajeEditor,
-#puntajeWeb{
+#puntajeWeb,
+#puntajeTraduccion,
+#puntajeDivulgacion,
+#puntajeCientificos{
     font-weight: bold;
 }
 

@@ -12,6 +12,45 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <style>
+        body.chrome @media print {
+            #convocatoria {
+                font-size: 1.2rem;
+                color: blue;
+                /* Ejemplo de estilo específico para Chrome */
+            }
+        }
+    
+        @media print {
+    
+            footer {
+                position: fixed;
+                font-size: .9rem;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 10px;
+                background-color: white;
+                /* Para asegurar que el footer no interfiera visualmente */
+                z-index: 10;
+                padding: 5px 0;
+                border-top: 1px solid #ccc;
+            }
+    
+            footer::after {
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 12px;
+                background: white;
+                padding: 5px;
+                z-index: 10;
+            }
+    
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -310,7 +349,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>g)</td>
                         <td>Dirección trabajo terminado</td>
                         <td>Tesis</td>
@@ -585,20 +624,32 @@ $user_identity = $user->id;
         </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
-
-                <div style="margin-right: -700px;">
+        <footer>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
+                @endif
+            </div>
+            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">&nbsp<span id="page-number"></span></div>
         </footer>
     </center>
-    <footer>
-        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 11 de 22</div>
-    </footer>
     <script>
+          window.onload = function () {
+                const footerHeight = document.querySelector('footer').offsetHeight;
+                const elements = document.querySelectorAll('.prevent-overlap');
+
+                elements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+
+                    // Verifica si el elemento está demasiado cerca del footer
+                    if (rect.bottom > viewportHeight - footerHeight) {
+                        element.style.pageBreakBefore = "always";
+                    }
+                });
+
+            };
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);
