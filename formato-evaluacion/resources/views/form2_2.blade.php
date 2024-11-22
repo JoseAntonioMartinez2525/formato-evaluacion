@@ -189,13 +189,14 @@ $user_identity = $user->id;
             </div>
         </center>
 
-        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">página <span id="page-number"></span> de 22</div>
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">página <span id="page-number"></span></div>
     </footer>
 </center>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            
             const pageNumberElement = document.getElementById('page-number');
-            const totalPages = 22; // Total de páginas
+            //const totalPages = 22; // Total de páginas
 
             // Suponiendo que obtienes el número de página actual de alguna forma
             let currentPage = 2;

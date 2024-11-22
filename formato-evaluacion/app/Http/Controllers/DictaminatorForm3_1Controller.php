@@ -132,4 +132,14 @@ class DictaminatorForm3_1Controller extends TransferController
             $userResponse->save();
         }
     }
+
+    public function showForm31(Request $request)
+    {
+        // Definir el número de páginas (ajústalo según sea necesario)
+        $currentPage = 3;  // La página actual para este formulario
+        $totalPages = 2;   // Total de páginas en el formulario form3_1 (ajústalo según corresponda)
+
+        // Pasar los valores de paginación a la vista
+        return view('form3_1', compact('currentPage', 'totalPages'));
+    }
 }

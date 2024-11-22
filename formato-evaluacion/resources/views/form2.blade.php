@@ -33,6 +33,8 @@ $newLocale = str_replace('_', '-', $locale);
             font-size: .8rem;
             margin-left: 100px;
         }
+
+        
     }
 </style>
 <body class="bg-gray-50 text-black/50">

@@ -384,7 +384,7 @@ $user_identity = $user->id;
             </div>
         </center>
     
-        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">página <span id="page-number"></span> de 22</div>
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;"><span>Página {{ $currentPage }} de {{ $totalPages }}</span></div>
     </footer>
     </center>
     <script>

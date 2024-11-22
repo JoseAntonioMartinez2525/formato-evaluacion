@@ -78,6 +78,9 @@ $newLocale = str_replace('_', '-', $locale);
     @page :right {
         content: "Página " counter(page);
     }
+    .page-number:after {
+        content: "Página " counter(page);
+    }
 }
 
 </style>

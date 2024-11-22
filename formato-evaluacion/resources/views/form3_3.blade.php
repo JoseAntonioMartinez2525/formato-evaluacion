@@ -12,6 +12,43 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <style>
+        body.chrome @media print {
+    #convocatoria {
+        font-size: 1.2rem;
+        color: blue; /* Ejemplo de estilo específico para Chrome */
+    }
+}
+
+@media print{
+
+    footer {
+        position: fixed;
+        font-size: .9rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        background-color: white; /* Para asegurar que el footer no interfiera visualmente */
+        z-index: 10;
+        padding: 5px 0;
+        border-top: 1px solid #ccc;
+    }
+
+    footer::after {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
+    }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -119,11 +156,8 @@ $user_identity = $user->id;
                 <tbody>
                     <thead>
                         <tr>
-                            <td id="seccion3_3">3.3 Publicaciones relacionadas con la docencia</td>
-                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
-                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
-                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
-                            <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+                            <td id="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
+
                             <td id="score3_3" for="">0</td>
                             <td id="comision3_3">0</td>
                         </tr>
@@ -230,7 +264,7 @@ $user_identity = $user->id;
                             @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="prevent-overlap">
                             <td>d)</td>
                             <td>1. Traducción de libro, 2.Traducción de material de apoyo didáctico,
                                 3. Traducciones
@@ -264,7 +298,7 @@ $user_identity = $user->id;
             <!--Tabla informativa Acreditacion Actividad 3.3-->
             <table>
                 <thead>
-                    <tr><br>
+                    <tr>
                         <th class="acreditacion" scope="col">Acreditacion: </th>
             
                         <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
@@ -278,22 +312,36 @@ $user_identity = $user->id;
             </table>
         </form>
     </main>
-    <center>
-        <footer id="convocatoria">
+<center>
+    <footer>
+        <div id="convocatoria">
             <!-- Mostrar convocatoria -->
             @if(isset($convocatoria))
-
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
+                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
             @endif
-        </footer>
-
-    </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 5 de 22</div>
-            </footer>
+        </div>
+        <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">&nbsp<span id="page-number"></span></div>
+    </footer>
+</center>
     <script>
+
+
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const elements = document.querySelectorAll('.prevent-overlap');
+
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Verifica si el elemento está demasiado cerca del footer
+            if (rect.bottom > viewportHeight - footerHeight) {
+                element.style.pageBreakBefore = "always";
+            }
+        });
+
+    };
+
 document.addEventListener('DOMContentLoaded', async () => {
     const userType = @json($userType);  // Inject user type from backend to JS
     const user_identity = @json($user_identity);

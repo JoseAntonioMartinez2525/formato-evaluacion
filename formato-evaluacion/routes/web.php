@@ -125,6 +125,8 @@ Route::get('/dictaminador-final-data', [ResumenComisionController::class, 'getDi
 Route::get('/convocatoria/{dictaminadorId}', [DictaminatorController::class, 'getConvocatoria']);
 
 
+Route::get('/form3_1', [DictaminatorForm3_1Controller::class, 'showForm31']);
+
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
 Route::post('/store2', [ResponseForm2Controller::class, 'store2'])->name('store2');
