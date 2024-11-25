@@ -12,6 +12,78 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />    
+    <style>
+ body.chrome @media print {
+    #convocatoria {
+        font-size: 1.2rem;
+        color: blue; /* Ejemplo de estilo específico para Chrome */
+    }
+}
+
+
+    @media print {
+    body {
+        margin-left: 200px ;
+        margin-top: -10px;
+        padding: 0;
+        font-size: .7rem;
+       
+    }
+
+    footer {
+        position: fixed;
+        font-size: .9rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        background-color: white; /* Para asegurar que el footer no interfiera visualmente */
+        z-index: 10;
+        padding: 5px 0;
+        border-top: 1px solid #ccc;
+    }
+
+    footer::after {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
+
+    .prevent-overlap {
+        page-break-before: always;
+    }
+
+    #convocatoria {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    #piedepagina {
+        margin: 0;
+    }
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+    @page :right {
+        content: "Página " counter(page);
+    }
+    .page-number:after {
+        content: "Página " counter(page);
+    }
+}
+
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -183,7 +255,7 @@ $user_identity = $user->id;
                                     @endif
                                     </td>
                                     <thead>
-                                        <tr>
+                                        <tr class="prevent-overlap">
                                             <td>b)
                                                 <label for="">&nbsp</label><label for="">&nbsp</label><label
                                                     for="">&nbsp</label><label for="">&nbsp</label><label
@@ -384,18 +456,27 @@ $user_identity = $user->id;
             </div>
         </center>
     
-        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;"><span>Página {{ $currentPage }} de {{ $totalPages }}</span></div>
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+                <x-form-renderer :forms="[['view' => 'form3_1', 'startPage' => 3, 'endPage' => 4]]"/>
+        </div>
     </footer>
     </center>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const pageNumberElement = document.getElementById('page-number');
-        const totalPages = 22; // Total de páginas
+        window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
 
-        let currentPage = 3;
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
 
-        pageNumberElement.innerText = currentPage;
-    });        
+                // Verifica si el elemento está demasiado cerca del footer
+                if (rect.bottom > viewportHeight - footerHeight) {
+                    element.style.pageBreakBefore = "always";
+                }
+            });
+
+        };       
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
             const user_identity = @json($user_identity);

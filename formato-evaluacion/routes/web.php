@@ -222,6 +222,8 @@ Route::get('/general', [ReportsController::class, 'index'])->name('general');
 Route::get('/show-profile', [ReportsController::class, 'showProfile'])->name('show-profile');
 //Route::get('/perfil', [ProfileController::class, 'showProfile'])->name('perfil.show');
 
+Route::get('/forms', [FormsController::class, 'showForms']);
+
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
 

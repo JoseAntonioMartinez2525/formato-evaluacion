@@ -161,4 +161,32 @@ public function getDictaminadorData(Request $request)
     }
 
 
+     public function showForms()
+    {
+        // Define las vistas y los rangos de páginas manualmente
+        $forms = [
+            ['view' => 'form2', 'startPage' => 1, 'endPage' => 1],
+            ['view' => 'form2_2', 'startPage' => 2, 'endPage' => 2],
+            ['view' => 'form3_1', 'startPage' => 3, 'endPage' => 4],
+            ['view' => 'form3_2', 'startPage' => 5, 'endPage' => 5],
+            ['view' => 'form3_3', 'startPage' => 6, 'endPage' => 6],
+            ['view' => 'form3_4', 'startPage' => 7, 'endPage' => 7],
+            ['view' => 'form3_5', 'startPage' => 8, 'endPage' => 8],
+            ['view' => 'form3_6', 'startPage' => 9, 'endPage' => 9],
+            ['view' => 'form3_7', 'startPage' => 10, 'endPage' => 10],
+            ['view' => 'form3_8', 'startPage' => 11, 'endPage' => 11],
+            ['view' => 'form3_9', 'startPage' => 12, 'endPage' => 13],
+            ['view' => 'form3_10', 'startPage' => 14, 'endPage' => 14],
+            ['view' => 'form3_11', 'startPage' => 15, 'endPage' => 15],
+            ['view' => 'form3_12', 'startPage' => 16, 'endPage' => 17],
+            ['view' => 'form3_13', 'startPage' => 18, 'endPage' => 18],
+            ['view' => 'form3_14', 'startPage' => 19, 'endPage' => 19],
+            ['view' => 'form3_15', 'startPage' => 20, 'endPage' => 20],
+            ['view' => 'form3_16', 'startPage' => 21, 'endPage' => 21],
+        ];
+
+        return view('components.form-renderer', compact('forms'));
+    }
+
+
 }
