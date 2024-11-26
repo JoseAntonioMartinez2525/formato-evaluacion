@@ -186,7 +186,7 @@ public function getDictaminadorData(Request $request)
         ];
 
         // Debug de los datos
-        dd($forms);
+    
 
         return view('components.form-renderer', compact('forms'));
     }

@@ -12,8 +12,17 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
 </head>
-
+<style>
+     body.chrome @media print {
+        #convocatoria {
+            font-size: 1.2rem;
+            color: blue;
+            /* Ejemplo de estilo específico para Chrome */
+        }
+    }
+</style>
 <body class="bg-gray-50 text-black/50">
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
@@ -191,21 +200,42 @@ $user_identity = $user->id;
             </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
+        <footer id="footerForm3_4">
+            <center>
+                <div id="convocatoria">
+                    <!-- Mostrar convocatoria -->
+                    @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        <div style="margin-right: -700px;">
+                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        </div>
+                    @endif
                 </div>
-            @endif
+            </center>
+        
+            <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+                <x-form-renderer :forms="[['view' => 'form3_5', 'startPage' => 8, 'endPage' => 8]]" />
+            </div>
         </footer>
-
-    </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 7 de 22</div>
-            </footer>
+        
+        </center>
     <script>
+
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const elements = document.querySelectorAll('.prevent-overlap');
+
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+            if (rect.bottom + footerHeight > viewportHeight) {
+                element.style.pageBreakBefore = "always"; // Forzar salto antes
+            }
+        });
+
+    };   
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
             const user_identity = @json($user_identity);

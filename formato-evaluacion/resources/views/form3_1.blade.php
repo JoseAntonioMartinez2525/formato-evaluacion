@@ -667,8 +667,6 @@ $user_identity = $user->id;
 
             }
 
-
-          
         });
 
 

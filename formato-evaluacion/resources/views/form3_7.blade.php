@@ -12,6 +12,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -172,7 +173,9 @@ $user_identity = $user->id;
             </form>
     </main>
     <center>
-        <footer id="convocatoria">
+<footer id="footerForm3_4">
+    <center>
+        <div id="convocatoria">
             <!-- Mostrar convocatoria -->
             @if(isset($convocatoria))
 
@@ -180,13 +183,30 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 </div>
             @endif
-        </footer>
-
+        </div>
     </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 9 de 22</div>
-            </footer>
+
+    <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+        <x-form-renderer :forms="[['view' => 'form3_7', 'startPage' => 10, 'endPage' => 10]]" />
+    </div>
+</footer>
     <script>
+     window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
+
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
+
+        }; 
+               
 document.addEventListener('DOMContentLoaded', async () => {
     const userType = @json($userType);  // Inject user type from backend to JS
     const user_identity = @json($user_identity);
