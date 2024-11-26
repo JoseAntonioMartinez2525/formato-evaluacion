@@ -12,6 +12,83 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <style>
+
+    body.chrome @media print {
+    #convocatoria {
+        font-size: 1.2rem;
+        color: blue;
+        /* Ejemplo de estilo específico para Chrome */
+    }
+}
+    @media print{
+    .datosPrimarios{
+
+        font-size: .9rem;
+    }
+
+    .descripcionCAAC{
+        font-size: .75rem;
+    }
+
+footer {
+    position: absolute; /* Usar absolute en lugar de fixed */
+    font-size: .8rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    z-index: 10;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+}
+
+    footer::after {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
+
+    .prevent-overlap {
+        page-break-before: always;
+    }
+
+    #convocatoria {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    #piedepagina {
+        margin: 0;
+         page-break-inside: avoid; /* Evitar saltos dentro del pie de página */
+    }
+
+    div {
+        /* page-break-after: avoid; Evitar saltos después de los divs */
+    }
+    
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+
+    .page-number:after {
+        content: "Página " counter(page);
+    }
+
+}
+
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -98,7 +175,7 @@ $user_identity = $user->id;
             <input type="hidden" name="user_type" value="">
             <div>
                 <!-- 3.4 Distinciones académicas recibidas por el docente  -->
-                <h4>Puntaje máximo
+                <h4 class="datosPrimarios">Puntaje máximo
                     <label class="bg-black text-white px-4 mt-3" for="">60</label>
                 </h4>
             </div>
@@ -116,7 +193,7 @@ $user_identity = $user->id;
                 </thead>
                 <tbody>
                     <tr>
-                        <th id="seccion3_4" colspan="2" class="punto3_4" scope="col" style="padding:30px;">3.4 Distinciones
+                        <th id="seccion3_4" colspan="2" class="punto3_4" scope="col" style="padding:5px;">3.4 Distinciones
                             académicas recibidas por el docente</th>
                         <td class="punto3_4">Puntaje</td>
                         <td class="punto3_4">Cantidad</td>
@@ -206,39 +283,55 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <!--Tabla informativa Acreditacion Actividad 3.4-->
-            <table>
-                <thead>
-                    <tr><br>
-                        <th class="acreditacion" scope="col">Acreditacion: </th>
-                        <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-                        <th>@if($userType != '')
+                    <tr><!--Tabla informativa Acreditacion Actividad 3.4-->
+                        <td class="acreditacion" scope="col">Acreditacion: </td>
+                        <td class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></td>
+                        <td>@if($userType != '')
                             <button id="btn3_4" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                            @endif
-                        </th>
+                        @endif
+                        </td>
                     </tr>
-                </thead>
+                </tbody>
             </table>
             </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
+    <footer id="footerForm3_4">
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
-        </footer>
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
+            </div>
+        </center>
+    
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+            <x-form-renderer :forms="[['view' => 'form3_4', 'startPage' => 7, 'endPage' => 7]]" />
+        </div>
+    </footer>
 
     </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 6 de 22</div>
-            </footer>
+
     <script>
+     window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
+
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
+
+        };    
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);

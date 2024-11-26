@@ -21,10 +21,11 @@ $newLocale = str_replace('_', '-', $locale);
         }
     }
 
+#piedepagina { display: none; }
 
     @media print {
         #piedepagina{
-            display: block;
+            display: block !important;
         }
         body {
             margin-left: 200px;
@@ -311,7 +312,7 @@ $user_identity = $user->id;
                 </div>
             @endif
             </center>
-            <div id="piedepagina" style="margin-left: 800px;margin-top:90px;">
+            <div id="piedepagina" style="margin-left: 800px;margin-top:-200px;">
                 <x-form-renderer :forms="[['view' => 'form3_2', 'startPage' => 5, 'endPage' => 5]]" />
             
             </div>
@@ -335,7 +336,24 @@ $user_identity = $user->id;
                     }
                 });
 
-            };       
+            };    
+            
+                document.addEventListener("DOMContentLoaded", function () {
+                        // Aseguramos que las páginas físicas se calculen en el momento de impresión
+                        window.addEventListener('beforeprint', () => {
+            const totalPagesElement = document.querySelectorAll('.total-pages');
+                        totalPagesElement.forEach(el => {
+                            el.textContent = Math.ceil(document.body.offsetHeight / window.innerHeight);
+                        });
+                    });
+
+                    // Mostrar el número actual de página en cada footer
+                    const footers = document.querySelectorAll('#piedepagina');
+                    footers.forEach((footer, index) => {
+                        const pageNumberElement = footer.querySelector('.page-number');
+                        pageNumberElement.textContent = index + 1;
+                    });
+    });
             document.addEventListener('DOMContentLoaded', async () => {
                 const userType = @json($userType);  // Inject user type from backend to JS
                 const user_identity = @json($user_identity);

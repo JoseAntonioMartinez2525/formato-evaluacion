@@ -1,10 +1,18 @@
 @props(['forms'])
 
+{{-- Iteramos sobre los formularios --}}
 @foreach ($forms as $form)
-    @for ($page = $form['startPage']; $page <= $form['endPage']; $page++)
+    {{-- Solo una página si startPage y endPage son iguales --}}
+    @if ($form['startPage'] === $form['endPage'])
         <div>
-            {{-- Mostrar los números de página en la vista actual --}}
-            <p>Página {{ $page }} de {{ $form['endPage'] }}</p>
+            <p>Página {{ $form['startPage'] }} de {{ $form['endPage'] }}</p>
         </div>
-    @endfor
+    @else
+        {{-- Varias páginas si los valores son diferentes --}}
+        @for ($page = $form['startPage']; $page <= $form['endPage']; $page++)
+            <div>
+                <p>Página {{ $page }} de {{ $form['endPage'] }}</p>
+            </div>
+        @endfor
+    @endif
 @endforeach

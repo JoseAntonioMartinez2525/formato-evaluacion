@@ -10,7 +10,6 @@
 <link href="{{ asset('css/form3.css') }}" rel="stylesheet">
 <link href="{{ asset('css/signatures.css') }}" rel="stylesheet">
 <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
-<link href="{{ asset('css/chrome.css') }}" rel="stylesheet">
 <script src="{{ asset('js/subtotales.js') }}"></script>
 <script src="{{ asset('js/comisiones.js') }}"></script>
 <script src="{{ asset('js/minimos.js') }}"></script>
