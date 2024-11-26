@@ -35,61 +35,63 @@ $newLocale = str_replace('_', '-', $locale);
 
         }
 
-        footer {
-            position: fixed;
-            font-size: .9rem;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            background-color: white;
-            /* Para asegurar que el footer no interfiera visualmente */
-            z-index: 10;
-            padding: 5px 0;
-            border-top: 1px solid #ccc;
-        }
+       footer {
+    position: absolute; /* Usar absolute en lugar de fixed */
+    font-size: .8rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    z-index: 10;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+}
 
-        footer::after {
+    footer::after {
             position: fixed;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 12px;
+            
             background: white;
             padding: 5px;
             z-index: 10;
         }
 
 
-        .prevent-overlap {
-            page-break-before: always;
-        }
-
-        #convocatoria {
-            margin: 0;
-            font-size: .8rem;
-        }
-
-        #piedepagina {
-            margin: 0;
-        }
-
-        @page {
-            size: landscape;
-            margin: 20mm;
-            /* Ajusta según sea necesario */
-
-        }
-
-        @page :right {
-            content: "Página " counter(page);
-        }
-
-        .page-number:after {
-            content: "Página " counter(page);
-        }
+    .prevent-overlap {
+        page-break-before: always;
     }
+
+    #convocatoria {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    #piedepagina {
+        margin: 0;
+         page-break-inside: avoid; /* Evitar saltos dentro del pie de página */
+    }
+
+    div {
+        page-break-after: avoid;
+        page-break-before: avoid;
+    }
+    
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+
+    .page-number:after {
+        content: "Página " counter(page);
+    }
+
+}
 </style>
 </head>
 
@@ -302,58 +304,45 @@ $user_identity = $user->id;
         </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-             <center>
-            @if(isset($convocatoria))
+    <footer id="footerForm3_4">
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
-            </center>
-            <div id="piedepagina" style="margin-left: 800px;margin-top:-200px;">
-                <x-form-renderer :forms="[['view' => 'form3_2', 'startPage' => 5, 'endPage' => 5]]" />
-            
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
             </div>
-        </footer>
+        </center>
+    
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+            <x-form-renderer :forms="[['view' => 'form3_2', 'startPage' => 5, 'endPage' => 5]]" />
+        </div>
+    </footer>
 
     </center>
 
     <script>
 
-          window.onload = function () {
-                const footerHeight = document.querySelector('footer').offsetHeight;
-                const elements = document.querySelectorAll('.prevent-overlap');
+        window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
 
-                elements.forEach(element => {
-                    const rect = element.getBoundingClientRect();
-                    const viewportHeight = window.innerHeight;
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
 
-                    // Verifica si el elemento está demasiado cerca del footer
-                    if (rect.bottom > viewportHeight - footerHeight) {
-                        element.style.pageBreakBefore = "always";
-                    }
-                });
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
 
-            };    
+        };   
             
-                document.addEventListener("DOMContentLoaded", function () {
-                        // Aseguramos que las páginas físicas se calculen en el momento de impresión
-                        window.addEventListener('beforeprint', () => {
-            const totalPagesElement = document.querySelectorAll('.total-pages');
-                        totalPagesElement.forEach(el => {
-                            el.textContent = Math.ceil(document.body.offsetHeight / window.innerHeight);
-                        });
-                    });
 
-                    // Mostrar el número actual de página en cada footer
-                    const footers = document.querySelectorAll('#piedepagina');
-                    footers.forEach((footer, index) => {
-                        const pageNumberElement = footer.querySelector('.page-number');
-                        pageNumberElement.textContent = index + 1;
-                    });
-    });
             document.addEventListener('DOMContentLoaded', async () => {
                 const userType = @json($userType);  // Inject user type from backend to JS
                 const user_identity = @json($user_identity);

@@ -71,7 +71,8 @@ footer {
     }
 
     div {
-        /* page-break-after: avoid; Evitar saltos después de los divs */
+        page-break-after: avoid;
+        page-break-before: avoid;
     }
     
 
