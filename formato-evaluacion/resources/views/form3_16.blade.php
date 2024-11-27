@@ -12,6 +12,15 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
+    <style>
+
+    @media print{
+    .datosPrimarios{
+        font-size: .9rem;
+    }
+}
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -97,9 +106,11 @@ $user_identity = $user->id;
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
         <!--3.16 Actividades de arbitraje, revisión, correción y edición -->
+           <div>
             <h4>Puntaje máximo
                 <label class="bg-black text-white px-4 mt-3" for="">30</label>
             </h4>
+           </div>
             <table class="table table-sm tutorias">
                 <thead>
                     <tr>
@@ -110,7 +121,7 @@ $user_identity = $user->id;
                             <h3></h3>
                         </th>
                         <th>
-                            <h3>Investigación</h3>
+                            <h3 class="datosPrimarios">Investigación</h3>
                         </th>
                     </tr>
                 </thead>
@@ -139,7 +150,7 @@ $user_identity = $user->id;
                 <thead>
                     <tr>
                         <th class="acreditacion">Incisos</th>
-                        <th class="acreditacion">Actividad</th>
+                        <th class="acreditacion" colspan=1>Actividad</th>
                         <th class="acreditacion">Nivel</th>
                         <th class="acreditacion">Puntaje</th>
                         <th class="acreditacion">Cantidad</th>
@@ -275,7 +286,7 @@ $user_identity = $user->id;
                         @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>f)</td>
                         <td>Revisor(a) de libros, corrector(a)</td>
                         <td>Nacional</td>
@@ -346,19 +357,41 @@ $user_identity = $user->id;
             </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
+    <footer id="footerForm3_4">
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
-            <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 18 de 22</div>
-        </footer>
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
+            </div>
+        </center>
+
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+            <x-form-renderer :forms="[['view' => 'form3_16', 'startPage' => 21, 'endPage' => 22]]" />
+        </div>
+    </footer>
     </center>
 
     <script>
+        window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
+
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
+
+        };  
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);

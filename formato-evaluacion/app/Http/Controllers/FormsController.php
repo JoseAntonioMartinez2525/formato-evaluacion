@@ -182,7 +182,8 @@ public function getDictaminadorData(Request $request)
             ['view' => 'form3_13', 'startPage' => 18, 'endPage' => 18],
             ['view' => 'form3_14', 'startPage' => 19, 'endPage' => 19],
             ['view' => 'form3_15', 'startPage' => 20, 'endPage' => 20],
-            ['view' => 'form3_16', 'startPage' => 21, 'endPage' => 21],
+            ['view' => 'form3_16', 'startPage' => 21, 'endPage' => 22],
+            ['view' => 'form3_17', 'startPage' => 23, 'endPage' => 23],
         ];
 
         // Debug de los datos
