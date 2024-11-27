@@ -12,6 +12,73 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <style>
+        #piedepagina { display: none; }
+
+    @media print {
+        #piedepagina{
+            display: block !important;
+        }
+
+       footer {
+    position: absolute; /* Usar absolute en lugar de fixed */
+    font-size: .8rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    z-index: 10;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+}
+
+    footer::after {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
+
+    .prevent-overlap {
+        page-break-before: always;
+    }
+
+    #convocatoria {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    #piedepagina {
+        margin: 0;
+         page-break-inside: avoid; /* Evitar saltos dentro del pie de página */
+    }
+
+    div {
+        page-break-after: avoid;
+        page-break-before: avoid;
+    }
+    
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+
+    .page-number:after {
+        content: "Página " counter(page);
+    }
+
+}
+    </style>
+    
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -339,7 +406,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>i)</td>
                         <td>Ciclo de conferencias, simposio, coloquio, etc.</td>
                         <td>Comité organizador</td>
@@ -464,20 +531,41 @@ $user_identity = $user->id;
         </form>
     </main>
     <center>
-        <footer id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
+    <footer id="footerForm3_4">
+        <center>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
 
-                <div style="margin-right: -700px;">
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                </div>
-            @endif
-        </footer>
-    </center>
-    <footer>
-        <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 20 de 22</div>
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
+            </div>
+        </center>
+
+        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+            <x-form-renderer :forms="[['view' => 'form3_18', 'startPage' => 24, 'endPage' => 25]]" />
+        </div>
     </footer>
+    </center>
+
     <script>
+        window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
+
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
+
+        };          
         let cant3_18 = ['cantComOrgInt', 'cantComOrgNac', 'cantComOrgReg', 'cantComApoyoInt', 'cantComApoyoNac', 'cantComApoyoReg', 'cantCicloComOrgInt', 'cantCicloComOrgNac', 'cantCicloComOrgReg', 'cantCicloComApoyoInt', 'cantCicloComApoyoNac', 'cantCicloComApoyoReg'];
         let subtotal3_18 = ['subtotalComOrgInt', 'subtotalComOrgNac', 'subtotalComOrgReg', 'subtotalComApoyoInt', 'subtotalComApoyoNac', 'subtotalComApoyoReg', 'subtotalCicloComOrgInt', 'subtotalCicloComOrgNac', 'subtotalCicloComOrgReg', 'subtotalCicloComApoyoInt', 'subtotalCicloComApoyoNac', 'subtotalCicloComApoyoReg'];
         let comision3_18 = ['comisionComOrgInt', 'comisionComOrgNac', 'comisionComOrgReg', 'comisionComApoyoInt', 'comisionComApoyoNac', 'comisionComApoyoReg', 'comisionCicloComOrgInt', 'comisionCicloComOrgNac', 'comisionCicloComOrgReg', 'comisionCicloComApoyoInt', 'comisionCicloComApoyoNac', 'comisionCicloComApoyoReg'];
