@@ -91,6 +91,8 @@ $newLocale = str_replace('_', '-', $locale);
         content: "Página " counter(page);
     }
 
+        page-break-after: auto; /* La última página no necesita salto extra */
+
 }
 </style>
 </head>

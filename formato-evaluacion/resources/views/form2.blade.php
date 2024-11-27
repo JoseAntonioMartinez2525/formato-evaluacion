@@ -34,8 +34,11 @@ $newLocale = str_replace('_', '-', $locale);
             margin-left: 100px;
         }
 
-        
+
+        page-break-after: auto; /* La última página no necesita salto extra */  
     }
+
+    
 </style>
 <body class="bg-gray-50 text-black/50">
     <div class="relative min-h-screen flex flex-col items-center justify-center">

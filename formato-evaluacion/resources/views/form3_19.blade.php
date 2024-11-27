@@ -75,12 +75,28 @@ $newLocale = str_replace('_', '-', $locale);
         
     }
 
-    @page :right {
+    @page:right {
         content: "Página " counter(page);
     }
-    .page-number:after {
-        content: "Página " counter(page);
-    }
+
+            /* Footer de la primera página */
+        .page:first-of-type #piedepagina {
+            content: "Página 26 de 28";
+        }
+
+        /* Footer de páginas pares */
+        .page:nth-of-type(even) #piedepagina {
+            content: "Página 27 de 28";
+        }
+
+        /* Footer de páginas impares */
+        .page:nth-of-type(odd) #piedepagina {
+            content: "Página 28 de 28";
+        }
+
+        page-break-after: auto; /* La última página no necesita salto extra */
+        
+   
 }
 
 </style>
@@ -307,7 +323,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="prevent-overlap">
                             <td>e)</td>
                             <td>Representante del profesorado ante CAAC</td>
                             <td></td>
@@ -331,7 +347,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr class="prevent-overlap">
+                        <tr>
                             <td>f)</td>
                             <td>Comisiones</td>
                             <td></td>
@@ -623,7 +639,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="prevent-overlap">
                             <td>p2)</td>
                             <td>Cuerpo académico registrado ante PRODEP</td>
                             <td>En consolidación</td>
@@ -648,7 +664,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
-                        <tr class="prevent-overlap">
+                        <tr>
                             <td>q1)</td>
                             <td>Cuerpo académico registrado ante PRODEP</td>
                             <td>Consolidado</td>
@@ -728,8 +744,9 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp<span id="page-number"></span></div>
+            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 28</span></div>
         </footer>
+        
     </center>
 
 
