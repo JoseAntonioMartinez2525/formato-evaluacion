@@ -63,7 +63,7 @@
         font-size: .8rem;
     }
 
-    #form4, #form5, #form3_13, #form3_14, #cuerpos_colegiados {
+    #form4, #form5, #form3_14, #cuerpos_colegiados {
         font-size: .95rem;
     }
 
@@ -86,6 +86,10 @@
 
     #form3_17{
         margin-left: -350px;
+    }
+
+    #form3_13{
+        font-size: .75rem;
     }
     
 

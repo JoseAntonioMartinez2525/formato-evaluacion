@@ -153,3 +153,15 @@ nav {
 #actvCant, #cantidadTd{
     text-align: right;
 }
+
+#obsCongresoInt, #obsCongresoNac, #obsCongresoLoc, #obsArbInt, #obsArbNac, #obsPubInt, #obsPubNac, #obsRevInt, #obsRevNac, #obsRevista, #obsPatentes, #obsPrototipos, #obsInicioFinancimientoExt, #obsInicioInvInterno, #obsReporteFinanciamExt, #obsReporteInvInt, #obsDifusionExt, #obsDifusionInt, #obsRepDifusionExt, #obsRepDifusionInt, 
+#obsComOrgInt, #obsComOrgNac, #obsComOrgReg, #obsComApoyoInt, #obsComApoyoNac, #obsComApoyoReg, #obsCicloComOrgInt, #obsCicloComOrgNac, #obsCicloComOrgReg, #obsCicloComApoyoInt, #obsCicloComApoyoNac, #obsCicloComApoyoReg, #obsCGUtitular, #obsCGUespecial, #obsCGUpermanente, #obsCAACtitular, #obsCAACintegCom, #obsComDepart, #obsComPEDPD, 
+#obsComPartPos, #obsRespPos, #obsRespCarrera, #obsRespProd, #obsRespLab, #obsExamProf, #obsExamAcademicos, #obsPRODEPformResp, #obsPRODEPformInteg, #obsPRODEPenconsResp, #obsPRODEPenconsInteg, #obsPRODEPconsResp, #obsPRODEPconsInteg{
+    font-size: .7rem;
+}
+
+    #obsReporteFinanciamExt{
+        text-align: right;
+        margin-left: 20px;
+    }
+
