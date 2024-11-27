@@ -12,6 +12,79 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+   <style>
+    #piedepagina { display: none; }
+
+    @media print {
+        #piedepagina{
+            display: block !important;
+        }
+        body {
+            margin-left: 450px;
+            margin-top: -10px;
+            padding: 0;
+            font-size: .9rem;
+
+        }
+
+       footer {
+    position: absolute; /* Usar absolute en lugar de fixed */
+    font-size: .8rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    z-index: 10;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+}
+
+    footer::after {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            background: white;
+            padding: 5px;
+            z-index: 10;
+        }
+
+
+    .prevent-overlap {
+        page-break-before: always;
+    }
+
+    #convocatoria {
+        margin: 0;
+        font-size: .8rem;
+    }
+
+    #piedepagina {
+        margin: 0;
+         page-break-inside: avoid; /* Evitar saltos dentro del pie de página */
+    }
+
+    div {
+        page-break-after: avoid;
+        page-break-before: avoid;
+    }
+    
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        
+    }
+
+
+    .page-number:after {
+        content: "Página " counter(page);
+    }
+
+}
+   </style> 
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -137,8 +210,7 @@ $user_identity = $user->id;
                 <tbody>
                     <tr>
                         <td>a)</td>
-                        <td id="form3_17_a">Inicio de proyectos de extensión y difusión con financiamiento externo</td>
-                        <td style="padding:0;"></td>
+                        <td id="form3_17_a"colspan="2">Inicio de proyectos de extensión y difusión con financiamiento externo</td>
                         <td id="puntajeDifusionExt"><b>15</b></td>
                         <td id="cantDifusionExt"></td>
                         <td></td>
@@ -160,9 +232,8 @@ $user_identity = $user->id;
                     </tr>
                     <tr>
                         <td>b)</td>
-                        <td>Inicio de proyectos de extensión y difusión internos, aprobados por CAAC
+                        <td colspan="2">Inicio de proyectos de extensión y difusión internos, aprobados por CAAC
                         </td>
-                        <td></td>
                         <td id="puntajeDifusionInt"><b>10</b></td>
                         <td id="cantDifusionInt"></td>
                         <td></td>
@@ -184,11 +255,10 @@ $user_identity = $user->id;
                     </tr>
                     <tr>
                         <td>c)</td>
-                        <td>Reporte cumplido del periodo anual de proyecto de extensión y difusión con
+                        <td colspan="2">Reporte cumplido del periodo anual de proyecto de extensión y difusión con
                             financiamiento
                             externo
                         </td>
-                        <td></td>
                         <td id="puntajeRepDifusionExt"><b>35</b></td>
                         <td id="cantRepDifusionExt" ></td>
                         <td></td>
@@ -210,10 +280,9 @@ $user_identity = $user->id;
                     </tr>
                     <tr>
                         <td>d)</td>
-                        <td>Reporte cumplido del periodo anual de proyecto de extensión y difusión
+                        <td colspan="2">Reporte cumplido del periodo anual de proyecto de extensión y difusión
                             internos, aprobados por
                             CAAC</td>
-                        <td></td>
                         <td id="puntajeRepDifusionInt"><b>20</b></td>
                         <td id="cantRepDifusionInt">
                         </td>
@@ -242,14 +311,18 @@ $user_identity = $user->id;
                     <tr>
                         <th class="acreditacion" scope="col">Acreditacion: </th>
                         <th class="descripcion"><b>CAAC, DDCEU</b></th>
+                        @if($userType == 'dictaminador')
                         <th><button id="btn3_17" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
+                        @endif
                     </tr>
                 </thead>
             </table>
             </form>
     </main>
     <center>
-        <footer id="convocatoria">
+<footer id="footerForm3_4">
+    <center>
+        <div id="convocatoria">
             <!-- Mostrar convocatoria -->
             @if(isset($convocatoria))
 
@@ -257,13 +330,30 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 </div>
             @endif
-        </footer>
-        <footer>
-            <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 19 de 22</div>
-        </footer>
+        </div>
+    </center>
+
+    <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+        <x-form-renderer :forms="[['view' => 'form3_17', 'startPage' => 23, 'endPage' => 23]]" />
+    </div>
+</footer>
     </center>
     <script>
+        window.onload = function () {
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const elements = document.querySelectorAll('.prevent-overlap');
 
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+                if (rect.bottom + footerHeight > viewportHeight) {
+                    element.style.pageBreakBefore = "always"; // Forzar salto antes
+                }
+            });
+
+        };  
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);

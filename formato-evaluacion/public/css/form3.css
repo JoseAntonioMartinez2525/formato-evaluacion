@@ -165,3 +165,7 @@ nav {
         margin-left: 20px;
     }
 
+
+        td[id^="form3_17_"] {
+    width: 200px;
+        }

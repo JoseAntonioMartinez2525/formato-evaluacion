@@ -59,7 +59,7 @@
         margin-top: -20px;
     }
 
-    #form3_3, #form3_9, #form3_12, #form3_16, #form3_17, #form3_4, #form3_8, #form3_10{
+    #form3_3, #form3_9, #form3_12, #form3_16, #form3_4, #form3_8, #form3_10{
         font-size: .8rem;
     }
 
@@ -92,6 +92,9 @@
         font-size: .75rem;
     }
     
+    td[id^="form3_17_"] {
+    width: 200px;
+}
 
     
 }
