@@ -12,6 +12,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -118,11 +119,8 @@ $user_identity = $user->id;
                 <tbody>
                     <thead>
                         <tr>
-                            <td id="seccion3_8" colspan=1 class="punto3_8" scope=col style="padding:20px;">3.8
-                                Impartición de cursos,
-                                diplomados, seminarios, talleres extracurriculares, de educación,
-                                continua o de formación y
-                                capacitación docente </td>
+                            <td id="seccion3_8" colspan=1 class="punto3_8" scope=col style="padding:-60px;">3.8  Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación,
+continua o de formación y capacitación docente </td>
                             <td class="punto3_8">Factor</td>
                             <td class="punto3_8">Horas</td>
                             <td id="score3_8" for="">0</td>
@@ -160,7 +158,7 @@ $user_identity = $user->id;
                             <tr>
                                 <th class="acreditacion" scope="col">Acreditacion: </th>
             
-                                <th class="descripcion"><b>
+                                <th class="descripcion" id="form3_8Acreditacion"><b>
                                     *JD,CAAC, DDCE, DDIE, SA,DIIP, según
                                         corresponda. Cuando sea en
                                         instituciones externas, presentar constancia de la
@@ -179,8 +177,11 @@ $user_identity = $user->id;
             </table>
             </form>
     </main>
+<center>
+
+<footer id="footerForm3_4">
     <center>
-        <footer id="convocatoria">
+        <div id="convocatoria">
             <!-- Mostrar convocatoria -->
             @if(isset($convocatoria))
 
@@ -188,13 +189,30 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 </div>
             @endif
-        </footer>
-
+        </div>
     </center>
-            <footer>
-                <div id="piedepagina" style="margin-left: 800px;margin-top:100px;">página 10 de 22</div>
-            </footer>
+
+    <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+        <x-form-renderer :forms="[['view' => 'form3_8', 'startPage' => 11, 'endPage' => 11]]" />
+    </div>
+</footer>
+</center>
     <script>
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const elements = document.querySelectorAll('.prevent-overlap');
+
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Verifica si el elemento está demasiado cerca del footer y aplica page-break-before si es necesario
+            if (rect.bottom + footerHeight > viewportHeight) {
+                element.style.pageBreakBefore = "always"; // Forzar salto antes
+            }
+        });
+
+    };
 document.addEventListener('DOMContentLoaded', async () => {
 const userType = @json($userType);  // Inject user type from backend to JS
 const user_identity = @json($user_identity);

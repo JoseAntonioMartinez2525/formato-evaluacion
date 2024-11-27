@@ -59,12 +59,16 @@
         margin-top: -20px;
     }
 
-    #form3_3, #form3_9, #form3_12, #form3_16, #form3_17, #form3_4{
+    #form3_3, #form3_9, #form3_12, #form3_16, #form3_17, #form3_4, #form3_8{
         font-size: .8rem;
     }
 
-    #form4, #form5, #form3_13, #form3_14, #cuerpos_colegiados{
+    #form4, #form5, #form3_13, #form3_14, #cuerpos_colegiados {
         font-size: .95rem;
+    }
+
+    #form3_8Acreditacion{
+        padding: 20px;
     }
 
     #cuerpos_colegiados{
