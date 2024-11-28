@@ -181,7 +181,7 @@ $user_identity = $user->id;
             <input type="hidden" name="user_type" value="">
             <div>
             <!-- Actividad 3.2 Calidad del desempeño docente evaluada por el alumnado -->
-            <h4>Puntaje máximo
+            <h4 id="puntajeMaxForm3_2">Puntaje máximo
                 <label class="bg-black text-white px-4 mt-3" for="">50</label>
             </h4>
             </div>
