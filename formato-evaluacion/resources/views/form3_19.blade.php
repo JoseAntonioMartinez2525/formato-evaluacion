@@ -161,6 +161,7 @@ $newLocale = str_replace('_', '-', $locale);
 $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id; 
+$page_counter = 29;
 @endphp
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')
@@ -322,7 +323,25 @@ $user_identity = $user->id;
                                     <span id="obsCAACtitular" name="obsCAACtitular"></span>
                                 @endif
                             </td>
+                            <td>
+                                    <center>
+        <footer>
+            <div id="convocatoria">
+                <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
+                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                @endif
+            </div>
+            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 28</span></div>
+        </footer>
+        
+    </center>
+                            </td>
                         </tr>
+                        @php
+                            $page_counter++;
+                        @endphp
+                        @if($page_counter===30)
                         <tr class="prevent-overlap">
                             <td>e)</td>
                             <td>Representante del profesorado ante CAAC</td>
@@ -639,6 +658,7 @@ $user_identity = $user->id;
                                 @endif
                             </td>
                         </tr>
+                        @endif
                         <tr class="prevent-overlap">
                             <td>p2)</td>
                             <td>Cuerpo académico registrado ante PRODEP</td>
