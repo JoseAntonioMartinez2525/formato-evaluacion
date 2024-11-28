@@ -50,6 +50,8 @@ $newLocale = str_replace('_', '-', $locale);
 
             .piedepagina{
                 display: block;
+        margin: 0;
+         page-break-inside: avoid; /* Evitar saltos dentro del pie de página */
             }
 }
 
@@ -108,10 +110,10 @@ $newLocale = str_replace('_', '-', $locale);
                                         </div>
                                         <x-general-header />
                                     @php
-            $user = Auth::user();
-            $userType = $user->user_type;
-            $user_email = $user->email;
-            $user_identity = $user->id; 
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_email = $user->email;
+    $user_identity = $user->id; 
                                     @endphp
                                     <div class="container mt-4" id="seleccionDocente">
                                     @if($userType !== 'docente')
