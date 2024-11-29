@@ -27,6 +27,11 @@ class ResponseController extends Controller
             // Llamar al método estático para crear la respuesta
             $response = UsersResponseForm1::createResponse($data);
 
+            // Obtener convocatoria para compartirla globalmente
+            $convocatoria = $response->convocatoria;
+
+            // Compartir la convocatoria con todas las vistas
+            view()->share('convocatoria', $convocatoria);
             // Devolver una respuesta exitosa en formato JSON
             return response()->json(['success' => true, 'data' => $response], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
