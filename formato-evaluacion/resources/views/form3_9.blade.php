@@ -1,6 +1,38 @@
 @php
 $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
+
+// Asume que tienes una función que calcula el número de páginas
+function calculatePageNumbers($elements)
+{
+    $footerHeight = 50; // Altura del footer en px
+    $pageHeight = 800; // Altura de una página en px (estimado para impresión)
+    $currentPage = 12; // Página inicial
+    $totalPages = 31;
+
+    foreach ($elements as $element) {
+        $elementHeight = $element['height']; // Altura del elemento
+
+        // Si el elemento no cabe en la página actual, se mueve a la siguiente
+        if ($elementHeight > $pageHeight - $footerHeight) {
+            $currentPage++;
+        }
+    }
+
+    return [
+        'currentPage' => $currentPage,
+        'totalPages' => $totalPages
+    ];
+}
+
+// Simulación de elementos
+$elements = [
+    ['height' => 300], // Elemento 1
+    ['height' => 400], // Elemento 2
+    ['height' => 600], // Elemento 3
+];
+
+$pageInfo = calculatePageNumbers($elements);
 @endphp
 <!DOCTYPE html>
 <html lang="">
@@ -48,7 +80,9 @@ $newLocale = str_replace('_', '-', $locale);
                 padding: 5px;
                 z-index: 10;
             }
-    
+            #piedepagina{
+                display: block;
+            }
         }
     </style>
 </head>
@@ -139,32 +173,11 @@ $user_identity = $user->id;
                 <!--3.9 Trabajos dirigidos para la titulación de estudiantes-->
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4 mt-3" for="">200</label>
+                    <center><h3>Tutorias</h3></center>
+                    
                 </h4>
             </div>
             <table class="table table-sm tutorias">
-                <thead>
-                    <tr>
-                        <th>
-                            <h3></h3>
-                        </th>
-                        <th>
-                            <h3></h3>
-                        </th>
-                        <th>
-                            <h3></h3>
-                        </th>
-                        <th>
-                            <h3></h3>
-                        </th>
-                        <th>
-                            <h3></h3>
-                        </th>
-                        <th>
-                            <h3>Tutorias</h3>
-                        </th>
-
-                    </tr>
-                </thead>
                 <thead>
                     <tr>
                         <th scope="col">Actividad</th>
@@ -174,8 +187,8 @@ $user_identity = $user->id;
                         <th class="table-ajust" scope="col"></th>
                         <th class="table-ajust" scope="col"></th>
                         <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
-                        </th>
+                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
+                        <th class="table-ajust cd" scope="col">Observaciones</th>
                     </tr>
                 </thead>
                 <thead>
@@ -206,7 +219,7 @@ $user_identity = $user->id;
                         <th class="acreditacion">Cantidad</th>
                         <th class="acreditacion">Subtotal</th>
                         <th class="table-ajust" scope="col"></th>
-                        <th class="acreditacionObsv">Observaciones</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
@@ -326,7 +339,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>f)</td>
                         <td>Dirección trabajo en realización</td>
                         <td>Tesis y otras</td>
@@ -349,7 +362,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr class="prevent-overlap">
+                    <tr>
                         <td>g)</td>
                         <td>Dirección trabajo terminado</td>
                         <td>Tesis</td>
@@ -631,25 +644,51 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">&nbsp<span id="page-number"></span></div>
+            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;"><span id="page-number">
+                Página {{ $pageInfo['currentPage'] }} de {{ $pageInfo['totalPages'] }}
+            </span></div>
         </footer>
     </center>
+    
     <script>
-          window.onload = function () {
-                const footerHeight = document.querySelector('footer').offsetHeight;
-                const elements = document.querySelectorAll('.prevent-overlap');
 
-                elements.forEach(element => {
-                    const rect = element.getBoundingClientRect();
-                    const viewportHeight = window.innerHeight;
 
-                    // Verifica si el elemento está demasiado cerca del footer
-                    if (rect.bottom > viewportHeight - footerHeight) {
-                        element.style.pageBreakBefore = "always";
-                    }
-                });
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const totalPages = 31; // Número total de páginas
+        let currentPage = 12;  // Página inicial
 
+        // Obtén las alturas de los elementos
+        const elements = Array.from(document.querySelectorAll('.prevent-overlap')).map(element => {
+            return {
+                element: element,
+                height: element.offsetHeight
             };
+        });
+
+        elements.forEach(({ element, height }) => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Verifica si el elemento está demasiado cerca del footer
+            if (rect.bottom > viewportHeight - footerHeight) {
+                element.style.pageBreakBefore = "always";
+                currentPage++; // Incrementa el número de página
+            }
+        });
+
+        // Actualiza el número de página del pie de página dinámicamente
+        const pageNumberElement = document.querySelector('#page-number');
+        pageNumberElement.textContent = `${currentPage} de ${totalPages}`;
+
+        // Asegura que el contenido del pie de página esté listo antes de imprimir
+        window.matchMedia('print').addListener(() => {
+            setTimeout(() => {
+                pageNumberElement.textContent = `${currentPage} de ${totalPages}`;
+            }, 100); // Asegura que se actualice justo antes de imprimir
+        });
+    };
+
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);
