@@ -51,7 +51,11 @@ $newLocale = str_replace('_', '-', $locale);
             #piedepagina{
                 display: block;
             }
+
+            
         }
+
+
     </style>
 </head>
 
@@ -141,7 +145,7 @@ $user_identity = $user->id;
                 <!--3.9 Trabajos dirigidos para la titulación de estudiantes-->
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4 mt-3" for="">200</label>
-                    <h3 style="margin-left:500px;">Tutorias</h3>
+                    <h3 style="margin-left:400px;">Tutorias</h3>
                 </h4>
             </div>
             <table class="table table-sm tutorias">
