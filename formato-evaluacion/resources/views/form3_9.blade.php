@@ -48,9 +48,10 @@ $newLocale = str_replace('_', '-', $locale);
                 padding: 5px;
                 z-index: 10;
             }
-            #piedepagina{
-                display: block;
-            }
+    #piedepagina, #convocatoria {
+        visibility: visible !important;
+        display: block !important;
+    }
 
             
         }
@@ -633,6 +634,10 @@ $user_identity = $user->id;
                     }
                 });
 
+                       // Múltiples eventos para mayor compatibilidad
+              window.addEventListener('beforeprint', updatePageNumberOnPrint);
+              window.matchMedia('print').addListener(updatePageNumberOnPrint);
+
             };
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
@@ -929,6 +934,12 @@ $user_identity = $user->id;
 
 
         }
+
+          window.addEventListener('afterprint', function () {
+                // Opcional: Restaurar estado original
+                document.querySelector('footer').style.display = 'none';
+            });
+        
     </script>
 
 </body>
