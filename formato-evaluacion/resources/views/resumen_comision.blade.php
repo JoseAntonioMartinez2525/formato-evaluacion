@@ -55,6 +55,39 @@ $newLocale = str_replace('_', '-', $locale);
             }
 }
 
+@media screen {
+    .print-only,
+    [data-print-footer] {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    #convocatoria2, #piedepagina2{
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+@media print {
+    .print-only,
+    [data-print-footer] {
+        display: table-footer-group !important;
+        visibility: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    #convocatoria2{
+        display: table-footer-group !important;
+        visibility: visible !important;
+    }
+}
+
+
 </style>
 <body class="bg-gray-50 text-black/50">
 
@@ -149,18 +182,7 @@ $newLocale = str_replace('_', '-', $locale);
                                     <tbody id="data">
                                     <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
                                     </tbody>
-                                    <tfoot class="datosConvocatoria"> <!-- Contenido del footer -->
-                                        <tr>
-                                            <td colspan="3">
-                                                <div id="convocatoria1"> @if(isset($convocatoria))
-                                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1> @endif
-                                                </div>
-                                                <div id="piedepagina1" style="margin-top:10px;">
-                                                    Página 29 de 31
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
+                
                                     </table>
                                     <table>
                                     <thead>
@@ -367,6 +389,22 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 
     <script>
+    window.addEventListener('beforeprint', () => {
+        const printElements = document.querySelectorAll('.print-only');
+        printElements.forEach(el => {
+            el.style.display = 'table-footer-group';
+            el.style.visibility = 'visible';
+        });
+    });
+
+    window.addEventListener('afterprint', () => {
+        const printElements = document.querySelectorAll('.print-only');
+        printElements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+        });
+    });
+
         window.onload = function () {
             const footerHeight = document.querySelector('footer').offsetHeight;
             const elements = document.querySelectorAll('.prevent-overlap');
@@ -716,7 +754,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     const row = document.createElement('tr');
                                     const labelCell = document.createElement('td');
                                     const valueCell = document.createElement('td');
-                                     comisionCell = document.createElement('td');
+                                    comisionCell = document.createElement('td');
 
                                     labelCell.textContent = label;
                                     valueCell.textContent = values[i];
@@ -751,7 +789,54 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     row.appendChild(valueCell);
                                     row.appendChild(comisionCell);
                                     dataContainer.appendChild(row);
+
+                                    if (i === 16) {
+                                        const footerRow = document.createElement('tfoot');
+                                        footerRow.className = 'datosConvocatoria print-only';
+                                        footerRow.setAttribute('data-print-footer', 'true');
+
+                                        const footerMainRow = document.createElement('tr');
+                                        const footerCell = document.createElement('td');
+                                        footerCell.setAttribute('colspan', '4');
+
+                                        // Crear div para convocatoria
+                                        const convocatoriaDiv = document.createElement('div');
+                                        convocatoriaDiv.id = 'convocatoria1';
+                                        if (data.form1 && data.form1.convocatoria) {
+                                            const convocatoriaTitle = document.createElement('h1');
+                                            convocatoriaTitle.style.width = '900px';
+                                            convocatoriaTitle.style.textAlign = 'right'; // Alinear texto a la derecha
+                                            convocatoriaTitle.style.paddingRight = '400px'; // Ajusta el margen derecho
+                                            convocatoriaTitle.style.fontSize = "16px";
+                                            convocatoriaTitle.style.fontWeight = "bold";
+                                            convocatoriaTitle.textContent = 'Convocatoria: ' + data.form1.convocatoria;
+                                            convocatoriaDiv.appendChild(convocatoriaTitle);
+                                        }
+
+                                        const piedePaginaDiv = document.createElement('div');
+                                        piedePaginaDiv.id = 'piedepagina1';
+                                        piedePaginaDiv.style.textAlign = 'right'; // Alinear texto a la derecha
+                                        piedePaginaDiv.style.paddingRight = '600px'; // Ajusta el margen derecho
+                                        piedePaginaDiv.style.fontSize = "16px";
+                                        piedePaginaDiv.textContent = 'Página 29 de 31';
+
+                                        // Agregar divs a la celda
+                                        footerCell.appendChild(convocatoriaDiv);
+                                        footerCell.appendChild(piedePaginaDiv);
+
+                                        // Agregar celda a la fila
+                                        footerMainRow.appendChild(footerCell);
+
+                                        // Ya no necesitas crear otro tfoot
+                                        footerRow.appendChild(footerMainRow);
+
+                                        // Agregar al contenedor de datos
+                                        dataContainer.appendChild(footerRow);
+                                    }
+
+
                                 });
+
 
                                                                 // Actualizar convocatoria
                                 const convocatoriaElement = document.getElementById('convocatoria');
@@ -759,9 +844,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 const convocatoriaElement2 = document.getElementById('convocatoria2');
                                 if (convocatoriaElement) {
                                     if (data.form1) {
+                                        convocatoriaElement.style.fontWeight = "bold";
                                         convocatoriaElement.textContent = data.form1.convocatoria || '';
                                         // Asegurarse de que convocatoriaElement1 y convocatoriaElement2 existen antes de asignarles el mismo contenido 
-                                        if (convocatoriaElement1) { convocatoriaElement1.textContent = data.form1.convocatoria || ''; } if (convocatoriaElement2) { convocatoriaElement2.textContent = data.form1.convocatoria || ''; }
+                                        if (convocatoriaElement1) { 
+                                            convocatoriaElement1.style.fontWeight = "bold"; convocatoriaElement1.textContent = data.form1.convocatoria || ''; } if (convocatoriaElement2) { convocatoriaElement2.style.fontWeight = "bold"; convocatoriaElement2.textContent = data.form1.convocatoria || ''; }
 
                                     } else {
                                         console.error('form1 no está definido en la respuesta.');
