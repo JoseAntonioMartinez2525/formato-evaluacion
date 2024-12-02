@@ -488,6 +488,10 @@ padding: 0 30px;
 
 }
 
+#elaboracion{
+padding-left: 100px; 
+}
+
 
 
 #elaboracionSubTotal1 label, #elaboracionSubTotal3 label, #elaboracionSubTotal4 label, #elaboracionSubTotal5 label{
@@ -511,6 +515,7 @@ text-align: center;
     width: 100px;
     background-color: #c1cfd3;
     text-align: right;
+    
 }
 
 .scoreRight td{
@@ -726,9 +731,13 @@ td[id^="puntaje3_9_"]{
 }
 
 @media (min-width: 1024px){
-#puntaje60, #puntaje40, #puntaje10, #puntaje20, #p10{
+#puntaje60{
     margin-left: 70px;
     
+}
+
+#puntaje40, #puntaje10, #puntaje20, #p10{
+    margin-left: 5px;
 }
 #cantidadActv, #cantidadform3_3{
     margin-left: 350px;
@@ -776,6 +785,13 @@ margin-left: 220px;
 
 #periodo2, #area2{
     margin-left: 250px;
+}
+
+.form3_1LabelActv{
+    height:84px; width: 170px;
+}
+.form3_1LabelDoc{
+height:94px; width: 180px;
 }
 
 

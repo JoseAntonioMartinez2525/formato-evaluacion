@@ -178,7 +178,7 @@ $user_identity = $user->id;
                 <thead>
                     <tr>
                         <th scope="col">Actividad</th>
-                        <th class="table-ajust2" scope="col"></th>
+                        <th class="table-ajust2" scope="col" colspan="4"></th>
                         <th class="table-ajust2 cd" scope="col">Puntaje a evaluar</th>
                         <th class="table-ajust2 cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
                         <th class="table-ajust2" scope="col">Observaciones</th>
@@ -186,155 +186,120 @@ $user_identity = $user->id;
                 </thead>
                 <tbody>
                     <tr>
-                        <td><b>3. Calidad en la docencia</b></td>
-                        <td for=""></td>
-                        <td for="" id="docencia"></td>
-                        <td id="actv3Comision" for=""></td>
-        
-                        <thead>
-                            <tr>
-                                <td id="seccion3_1">3.1 Participación en actividades de diseño curricular
-                                </td>
-                                <td for=""></td>
-                                <td id="score3_1" for=""></td>
-                            </tr>
-                            <thead>
-                                <tr>
-        
-                                <tr>
-                                    <td scope="col">
-                                        <span class="actividades">Incisos</span>
-                                        <span class="actividades">&nbsp &nbsp &nbsp &nbsp Documento</span>
-                                        <span class="actividades">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                            &nbsp
-                                            Actividad</span>
-                                        <span class="actividades"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                            &nbsp &nbsp &nbsp
-                                            &nbsp
-                                            Puntaje</span>
-                                    </td>
-                                    <td id="actvCant"><label class="actividades">Cantidad</label></td>
-                                    <td><label class="actividades">Subtotal</label></td>
-                                </tr>
-                                <tr>
-                                    <td>a) <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                            for="">&nbsp</label><label for="">&nbsp</label><label for="">&nbsp</label><label
-                                            for="">&nbsp</label><label for="">&nbsp</label><label for="">&nbsp</label>
-                                        <label style="height:84px; width: 170px;">Plan de estudios de una
-                                            carrera o posgrado
-                                            nuevo
-                                            o
-                                            actualización</label>
-                                        <label style="height:94px; width: 180px;">Responsable de la Comisión
-                                            para la elaboración
-                                            del
-                                            documento</label>
-                                        <label for=""></label>
-                                        <label for=""></label>
-                                        <label for=""></label>
-                                        <label for=""></label>
-                                        <label id="puntaje60" for=""><b>60</b></label>
-        
-                                    </td>
-        
-                                    <td class="elabInput"><span id="elaboracion">0</span></td>
-                                    <td><span id="elaboracionSubTotal1" for="" type="text"></span></td>
-                                    <td class="comision actv">
-                                    @if($userType == 'dictaminador')
-                                        <input id="comisionIncisoA" for="" type="number" step="0.01"
-                                                oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoA') }}"></input>
-                                    @else
-                                        <label id="comisionIncisoA" name="comisionIncisoA"></label>
-                                    @endif                                    
-                                    </td>
-                                    <td>
-                                    @if($userType == 'dictaminador')
-                                    <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
-                                    @else
-                                    <label id="obs3_1_1"name="obs3_1_1" class="table-header"></label>
-                                    @endif
-                                    </td>
-                                    <thead>
-                                        <tr class="prevent-overlap">
-                                            <td>b)
-                                                <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label>
-                                                <label style="height:84px; width: 170px;">Plan de estudios
-                                                    de una carrera o posgrado
-                                                    nuevo
-                                                    o actualización</label>
-                                                <label style="height:84px; width: 180px;">Colaboración en la
-                                                    Comisión para la
-                                                    elaboración
-                                                    del documento</label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label id="puntaje40" for=""><b>40</b></label>
-                                            </td>
-                                            <td class="elabInput"><span id="elaboracion2">0</span></td>
-                                            <td><span id="elaboracionSubTotal2" for="" type="text"></span>
-                                            </td>
-                                            <td class="comision actv">
-                                            @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoB" for="" type="number" step="0.01"
-                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoB') }}"></input>
-                                            @else
-                                                <label id="comisionIncisoB" name="comisionIncisoB"></label>                                            
-                                            @endif
-                                            </td>
-                                            <td>
-                                            @if($userType == 'dictaminador')
-                                            <input id="obs3_1_2" name="obs3_1_2" class="table-header" type="text">
-                                            @else
-                                            <label id="obs3_1_2"name="obs3_1_2" class="table-header"></label>
-                                            @endif
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <thead>
-                                        <tr>
-                                            <td>c)
-                                                <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label>
-                                                <label style="height:84px; width: 170px;">Plan de estudios
-                                                    de una carrera o posgrado
-                                                    nuevo
-                                                    o actualización</label>
-                                                <label style="height:84px; width: 180px;">Elaboración de
-                                                    contenidos mínimos</label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label id="puntaje10" for=""><b>10</b></label>
-                                            </td>
-                                            <td class="elabInput"><span id="elaboracion3">0</span></td>
-                                            <td><span id="elaboracionSubTotal3" for="" type="text"></span>
-                                            </td>
-                                            <td class="comision actv">
-                                            @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoC" for="" type="number" step="0.01"
-                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
-                                            @else
-                                                <label id="comisionIncisoC" name="comisionIncisoC"></label>
-                                            @endif
-                                            </td>
-                                            <td>
-                                            @if($userType == 'dictaminador')
-                                            <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">  
-                                            @else
-                                            <label id="obs3_1_3"name="obs3_1_3" class="table-header"></label>
-                                            @endif
-                                            </td>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <thead>
+                        <td colspan="5"><b>3. Calidad en la docencia</b></td>
+                        <td id="docencia"></td>
+                        <td id="actv3Comision"></td>
+                        <td></td>
+                    </tr>
+                    <!-- Sub-encabezados -->
+                    <tr>
+                    <td class="p2" colspan="5">3.1 Participación en actividades de diseño curricular</td>
+                    <td id="score3_1"></td>
+                    <td colspan="6"></td>
+                    </tr>
+                    <tr>
+                        <th class="actividades">Incisos</th>
+                        <th class="actividades">Documento</th>
+                        <th class="actividades">Actividad</th>
+                        <th class="actividades">Puntaje</th>
+                        <th class="actividades">Cantidad</th>
+                        <th class="actividades">Subtotal</th>
+                        
+                    </tr>
+                    <!-- Contenido -->
+                    <tr>
+                        <td>a)</td>
+                        <td>
+                            <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo o
+                                actualización</label>
+                        </td>
+                        <td>
+                            <label style="height:94px; width: 180px;">Responsable de la Comisión para la elaboración del
+                                documento</label>
+                        </td>
+                        <td id="puntaje60"><b>60</b></td>
+                        <td class="elabInput"><span id="elaboracion">0</span></td>
+                        <td><span id="elaboracionSubTotal1"></span></td>
+                        <td class="comision actv">
+                            @if($userType == 'dictaminador')
+                                <input id="comisionIncisoA" type="number" step="0.01" oninput="onActv3Comision()"
+                                    value="{{ oldValueOrDefault('comisionIncisoA') }}">
+                            @else
+                                <label id="comisionIncisoA"></label>
+                            @endif
+                        </td>
+                        <td>
+                            @if($userType == 'dictaminador')
+                                <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
+                            @else
+                                <label id="obs3_1_1" class="table-header"></label>
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr class="prevent-overlap">
+                        <td>b)</td>
+                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                        <td><label class="form3_1LabelDoc" for="">Colaboración en la Comisión para la elaboración del documento</label></td>
+                        <td><span id="puntaje40"><b>40</b></span></td>
+                        <td><span id="elaboracionSubTotal2"></span></td>
+                        <td>
+                            @if($userType == 'dictaminador')
+                                <input id="comisionIncisoB" type="number" step="0.01" oninput="onActv3Comision()"
+                                    value="{{ oldValueOrDefault('comisionIncisoB') }}">
+                            @else
+                                <label id="comisionIncisoB"></label>
+                            @endif
+                        </td>
+                        <td>
+                            @if($userType == 'dictaminador')
+                                <input id="obs3_1_2" name="obs3_1_2" type="text">
+                            @else
+                                <label id="obs3_1_2"></label>
+                            @endif
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>c)
+                            <label for="">&nbsp</label><label for="">&nbsp</label><label
+                                for="">&nbsp</label><label for="">&nbsp</label><label
+                                for="">&nbsp</label><label for="">&nbsp</label><label
+                                for="">&nbsp</label><label for="">&nbsp</label>
+                            <label style="height:84px; width: 170px;">Plan de estudios
+                                de una carrera o posgrado
+                                nuevo
+                                o actualización</label>
+                            <label style="height:84px; width: 180px;">Elaboración de
+                                contenidos mínimos</label>
+                            <label for=""></label>
+                            <label for=""></label>
+                            <label for=""></label>
+                            <label for=""></label>
+                            <label id="puntaje10" for=""><b>10</b></label>
+                        </td>
+                        <td class="elabInput"><span id="elaboracion3">0</span></td>
+                        <td><span id="elaboracionSubTotal3" for="" type="text"></span>
+                        </td>
+                        <td class="comision actv">
+                        @if($userType == 'dictaminador')
+                            <input id="comisionIncisoC" for="" type="number" step="0.01"
+                                    oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
+                        @else
+                            <label id="comisionIncisoC" name="comisionIncisoC"></label>
+                        @endif
+                        </td>
+                        <td>
+                        @if($userType == 'dictaminador')
+                        <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">  
+                        @else
+                        <label id="obs3_1_3"name="obs3_1_3" class="table-header"></label>
+                        @endif
+                        </td>
+                        
+                    </tr>
+
+
                                         <tr>
                                             <td>d)
                                                 <label for="">&nbsp</label><label for="">&nbsp</label><label
@@ -374,8 +339,8 @@ $user_identity = $user->id;
                                             @endif
                                             </td>
                                         </tr>
-                                    </thead>
-                                    <thead>
+
+
                                         <tr>
                                             <td>e)
                                                 <label for="">&nbsp</label><label for="">&nbsp</label><label
@@ -413,12 +378,6 @@ $user_identity = $user->id;
                                             @endif
                                             </td>
                                         </tr>
-                                    </thead>
-                                </tr>
-                    </tr>
-                    </tr>
-        
-                    </thead>
                 </tbody>
             </table>
         
