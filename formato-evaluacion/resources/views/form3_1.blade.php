@@ -261,23 +261,10 @@ $user_identity = $user->id;
                     </tr>
                     
                     <tr>
-                        <td>c)
-                            <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                for="">&nbsp</label><label for="">&nbsp</label><label
-                                for="">&nbsp</label><label for="">&nbsp</label><label
-                                for="">&nbsp</label><label for="">&nbsp</label>
-                            <label style="height:84px; width: 170px;">Plan de estudios
-                                de una carrera o posgrado
-                                nuevo
-                                o actualización</label>
-                            <label style="height:84px; width: 180px;">Elaboración de
-                                contenidos mínimos</label>
-                            <label for=""></label>
-                            <label for=""></label>
-                            <label for=""></label>
-                            <label for=""></label>
-                            <label id="puntaje10" for=""><b>10</b></label>
-                        </td>
+                        <td>c)</td>
+                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                        <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
+                        <td><label id="puntaje10" for=""><b>10</b></label></td>
                         <td class="elabInput"><span id="elaboracion3">0</span></td>
                         <td><span id="elaboracionSubTotal3" for="" type="text"></span>
                         </td>
