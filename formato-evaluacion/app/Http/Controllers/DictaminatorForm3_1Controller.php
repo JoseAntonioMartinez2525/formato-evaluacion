@@ -142,4 +142,25 @@ class DictaminatorForm3_1Controller extends TransferController
         // Pasar los valores de paginación a la vista
         return view('form3_1', compact('currentPage', 'totalPages'));
     }
+
+    function htmlToPdf(string $html): string
+    {
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        injectPageNumbers($dompdf);
+        return $dompdf->output();
+    }
+    function injectPageNumbers(Dompdf $dompdf): void
+    {
+        $canvas = $dompdf->getCanvas();
+        $pdf = $canvas->get_cpdf();
+        $totalPages = 31;
+        for ($pageNumber = 1; $pageNumber <= $totalPages; $pageNumber++) {
+            $canvas->page_text(520, 820, "Page $pageNumber of $totalPages", null, 31, array(0, 0, 0));
+        }
+    }
 }
+
+

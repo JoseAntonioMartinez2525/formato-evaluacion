@@ -31,6 +31,7 @@ use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumenComisionController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\DictaminatorsResponseForm3_6;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
@@ -126,6 +127,15 @@ Route::get('/convocatoria/{dictaminadorId}', [DictaminatorController::class, 'ge
 
 
 Route::get('/form3_1', [DictaminatorForm3_1Controller::class, 'showForm31']);
+
+Route::get('/test-dompdf', function () {
+    try {
+        $dompdf = new Dompdf();
+        return 'Dompdf está disponible y funcionando.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');

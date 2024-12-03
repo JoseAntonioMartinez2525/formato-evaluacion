@@ -81,6 +81,7 @@ $newLocale = str_replace('_', '-', $locale);
     .page-number:after {
         content: "Página " counter(page);
     }
+    
 }
 
     </style>
@@ -144,9 +145,10 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <x-general-header />
 @php
-$user = Auth::user();
-$userType = $user->user_type;
-$user_identity = $user->id; 
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_identity = $user->id;
+
 @endphp
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')
