@@ -286,85 +286,55 @@ $user_identity = $user->id;
                         
                     </tr>
 
+                    <tr>
+                    <td>d)</td>
+                    <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                    <td><label class="form3_1LabelDoc">Elaboración de programas de asignatura</label></td>
+                    <td><label id="puntaje20" for=""><b>20</b></label></td>
+                    <td class="elabInput"><span id="elaboracion4">0</span></td>
+                    <td><span id="elaboracionSubTotal4"></span>
+                    </td>
+                    <td class="comision actv">
+                    @if($userType == 'dictaminador')
 
-                                        <tr>
-                                            <td>d)
-                                                <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label>
-                                                <label style="height:84px; width: 170px;">Plan de estudios
-                                                    de una carrera o posgrado
-                                                    nuevo
-                                                    o actualización</label>
-                                                <label style="height:84px; width: 180px;">Elaboración de
-                                                    programas de
-                                                    asignatura</label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-        
-                                                <label id="puntaje20" for=""><b>20</b></label>
-                                            </td>
-                                            <td class="elabInput"><span id="elaboracion4">0</span></td>
-                                            <td><span id="elaboracionSubTotal4"></span>
-                                            </td>
-                                            <td class="comision actv">
-                                            @if($userType == 'dictaminador')
+                        <input id="comisionIncisoD" for="" type="number" step="0.01"
+                                oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}"></input>
+                    @else
+                        <label id="comisionIncisoD" name="comisionIncisoD"></label>
+                    @endif                                               
+                    </td>
+                    <td>
+                    @if($userType == 'dictaminador')
+                        <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
+                    @else
+                    <label id="obs3_1_4"name="obs3_1_4"class="table-header"></label>
+                    @endif
+                    </td>
+                    </tr>
 
-                                                <input id="comisionIncisoD" for="" type="number" step="0.01"
-                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}"></input>
-                                            @else
-                                                <label id="comisionIncisoD" name="comisionIncisoD"></label>
-                                            @endif                                               
-                                            </td>
-                                            <td>
-                                            @if($userType == 'dictaminador')
-                                                <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
-                                            @else
-                                            <label id="obs3_1_4"name="obs3_1_4"class="table-header"></label>
-                                            @endif
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>e)
-                                                <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label><label
-                                                    for="">&nbsp</label><label for="">&nbsp</label>
-                                                <label style="height:84px; width: 170px;">Plan de estudios
-                                                    de una carrera o posgrado
-                                                    nuevo
-                                                    o actualización</label>
-                                                <label style="height:84px; width: 180px;">Actualización de
-                                                    programas de
-                                                    asignatura</label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label for=""></label>
-                                                <label id="p10" for=""><b>10</b></label>
-                                            </td>
-                                            <td class="elabInput"><span id="elaboracion5">0</span></td>
-                                            <td><span id="elaboracionSubTotal5"></span></td>
-                                            <td class="comision actv">
-                                            @if($userType == 'dictaminador')
-                                                <input id="comisionIncisoE" for="" type="number" step="0.01"
-                                                        oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
-                                            @else
-                                             <label id="comisionIncisoE" name="comisionIncisoE"></label>
-                                             @endif
-                                            </td>
-                                            <td>
-                                            @if($userType == 'dictaminador')
-                                            <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
-                                            @else
-                                            <label id="obs3_1_5"name="obs3_1_5"class="table-header"></label>
-                                            @endif
-                                            </td>
-                                        </tr>
+                    <tr>
+                        <td>e)</td>
+                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                        <td><label class="form3_1LabelDoc">Actualización de programas de asignatura</label></td>
+                        <td><label id="p10" for=""><b>10</b></label></td>
+                        <td class="elabInput"><span id="elaboracion5">0</span></td>
+                        <td><span id="elaboracionSubTotal5"></span></td>
+                        <td class="comision actv">
+                        @if($userType == 'dictaminador')
+                            <input id="comisionIncisoE" for="" type="number" step="0.01"
+                                    oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
+                        @else
+                            <label id="comisionIncisoE" name="comisionIncisoE"></label>
+                            @endif
+                        </td>
+                        <td>
+                        @if($userType == 'dictaminador')
+                        <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
+                        @else
+                        <label id="obs3_1_5"name="obs3_1_5"class="table-header"></label>
+                        @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         

@@ -112,7 +112,7 @@ $userType = Auth::user()->user_type;
                                     <thead>
                                         <tr>
                                             <th scope="col">Actividad</th>
-                                            <th class="table-ajust2" scope="col"></th>
+                                            <th class="table-ajust2" scope="col" colspan="4"></th>
                                             <th class="table-ajust2 cd" scope="col">Puntaje a evaluar</th>
                                             <th class="table-ajust2 cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
                                             <th class="table-ajust2" scope="col">Observaciones</th>
@@ -120,188 +120,103 @@ $userType = Auth::user()->user_type;
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><b>3. Calidad en la docencia</b></td>
-                                            <td for=""></td>
-                                            <td for="" id="docencia"></td>
-                                            <td id="actv3Comision" for=""></td>
-
-                                            <thead>
-                                                <tr>
-                                                    <td id="seccion3_1">3.1 Participación en actividades de diseño curricular
-                                                    </td>
-                                                    <td for=""></td>
-                                                    <td id="score3_1" for=""></td>
-                                                </tr>
-                                                <thead>
-                                                    <tr>
-
-                                                    <tr>
-                                                        <td scope="col">
-                                                            <span class="actividades">Incisos</span>
-                                                            <span class="actividades">&nbsp &nbsp &nbsp &nbsp Documento</span>
-                                                            <span class="actividades">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                                &nbsp
-                                                                Actividad</span>
-                                                            <span class="actividades"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                                                &nbsp &nbsp &nbsp
-                                                                &nbsp
-                                                                Puntaje</span>
-                                                        </td>
-                                                        <td><label class="actividades" id="cantidadActv">Cantidad</label></td>
-                                                        <td><label class="actividades">Subtotal</label></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>a) <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                for="">&nbsp</label><label for="">&nbsp</label>
-                                                            <label style="height:84px; width: 170px;">Plan de estudios de una
-                                                                carrera o posgrado
-                                                                nuevo
-                                                                o
-                                                                actualización</label>
-                                                            <label style="height:94px; width: 180px;">Responsable de la Comisión
-                                                                para la elaboración
-                                                                del
-                                                                documento</label>
-                                                            <label for=""></label>
-                                                            <label for=""></label>
-                                                            <label for=""></label>
-                                                            <label for=""></label>
-                                                            <label id="puntaje60" for=""><b>60</b></label>
-
-                                                        </td>
-
-                                                        <td class="elabInput"><input id="elaboracion" name="elaboracion" type="number"
-                                                                oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion') }}"></td>
-                                                        <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
-                                                        <td class="comision actv"><input id="comisionIncisoA" placeholder="0"
-                                                                for="" oninput="onActv3Comision()"></input></td>
-                                                        <td><input id="obs3_1_1" class="table-header" type="text"></td>
-                                                        <thead>
-                                                            <tr>
-                                                                <td>b)
-                                                                    <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label>
-                                                                    <label style="height:84px; width: 170px;">Plan de estudios
-                                                                        de una carrera o posgrado
-                                                                        nuevo
-                                                                        o actualización</label>
-                                                                    <label style="height:84px; width: 180px;">Colaboración en la
-                                                                        Comisión para la
-                                                                        elaboración
-                                                                        del documento</label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label id="puntaje40" for=""><b>40</b></label>
-                                                                </td>
-                                                                <td class="elabInput"><input id="elaboracion2" name="elaboracion2" type="number"
-                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion2') }}"></td>
-                                                                <td><label id="elaboracionSubTotal2" for="" type="text"></label>
-                                                                </td>
-                                                                <td class="comision actv"><input id="comisionIncisoB"
-                                                                        placeholder="0" for=""
-                                                                        oninput="onActv3Comision()"></input></td>
-                                                                <td><input id="obs3_1_2" class="table-header" type="text"></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                                <td>c)
-                                                                    <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label>
-                                                                    <label style="height:84px; width: 170px;">Plan de estudios
-                                                                        de una carrera o posgrado
-                                                                        nuevo
-                                                                        o actualización</label>
-                                                                    <label style="height:84px; width: 180px;">Elaboración de
-                                                                        contenidos mínimos</label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label id="puntaje10" for=""><b>10</b></label>
-                                                                </td>
-                                                                <td class="elabInput"><input id="elaboracion3" name="elaboracion3" type="number"
-                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion3') }}"></td>
-                                                                <td><label id="elaboracionSubTotal3" for="" type="text"></label>
-                                                                </td>
-                                                                <td class="comision actv"><input id="comisionIncisoC"
-                                                                        placeholder="0" for=""
-                                                                        oninput="onActv3Comision()"></input></td>
-                                                                <td><input id="obs3_1_3" class="table-header" type="text"></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                                <td>d)
-                                                                    <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label>
-                                                                    <label style="height:84px; width: 170px;">Plan de estudios
-                                                                        de una carrera o posgrado
-                                                                        nuevo
-                                                                        o actualización</label>
-                                                                    <label style="height:84px; width: 180px;">Elaboración de
-                                                                        programas de
-                                                                        asignatura</label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-
-                                                                    <label id="puntaje20" for=""><b>20</b></label>
-                                                                </td>
-                                                                <td class="elabInput"><input id="elaboracion4" name="elaboracion4" type="number"
-                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion4') }}"></td>
-                                                                <td><label id="elaboracionSubTotal4" for="" type="text"></label>
-                                                                </td>
-                                                                <td class="comision actv"><input id="comisionIncisoD"
-                                                                        placeholder="0" for=""
-                                                                        oninput="onActv3Comision()"></input></td>
-                                                                <td><input id="obs3_1_4" class="table-header" type="text"></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <thead>
-                                                            <tr>
-                                                                <td>e)
-                                                                    <label for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label><label
-                                                                        for="">&nbsp</label><label for="">&nbsp</label>
-                                                                    <label style="height:84px; width: 170px;">Plan de estudios
-                                                                        de una carrera o posgrado
-                                                                        nuevo
-                                                                        o actualización</label>
-                                                                    <label style="height:84px; width: 180px;">Actualización de
-                                                                        programas de
-                                                                        asignatura</label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label for=""></label>
-                                                                    <label id="p10" for=""><b>10</b></label>
-                                                                </td>
-                                                                <td class="elabInput"><input id="elaboracion5" name="elaboracion5" type="number"
-                                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion5') }}"></td>
-                                                                <td><label id="elaboracionSubTotal5" for="" type="text"></label>
-                                                                </td>
-                                                                <td class="comision actv"><input id="comisionIncisoE"
-                                                                        placeholder="0" for=""
-                                                                        oninput="onActv3Comision()"></input></td>
-                                                                <td><input id="obs3_1_5" class="table-header" type="text"></td>
-                                                            </tr>
-                                                        </thead>
-                                                    </tr>
+                                            <td colspan="5"><b>3. Calidad en la docencia</b></td>
+                                            <td id="docencia"></td>
+                                            <td id="actv3Comision"></td>
+                                            <td></td>
                                         </tr>
+                                        <!-- Sub-encabezados -->
+                                        <tr>
+                                            <td class="p2" colspan="5">3.1 Participación en actividades de diseño curricular</td>
+                                            <td id="score3_1"></td>
+                                            <td colspan="6"></td>
                                         </tr>
+                                        <tr>
+                                            <th class="actividades">Incisos</th>
+                                            <th class="actividades">Documento</th>
+                                            <th class="actividades">Actividad</th>
+                                            <th class="actividades">Puntaje</th>
+                                            <th class="actividades">Cantidad</th>
+                                            <th class="actividades">Subtotal</th>
 
-                                        </thead>
+                                        </tr>
+                                                        <!-- Contenido -->
+                                        <tr>
+                                            <td>a)</td>
+                                            <td>
+                                                <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo o
+                                                    actualización</label>
+                                            </td>
+                                            <td>
+                                                <label style="height:94px; width: 180px;">Responsable de la Comisión para la elaboración del
+                                                    documento</label>
+                                            </td>
+                                            <td id="puntaje60"><b>60</b></td>
+
+                                            <td class="elabInput"><input id="elaboracion" name="elaboracion" type="number"
+                                                    oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion') }}"></td>
+                                            <td><label id="elaboracionSubTotal1" for="" type="text"></label></td>
+                                            <td class="comision actv"><input id="comisionIncisoA" placeholder="0"
+                                                    for="" oninput="onActv3Comision()"></input></td>
+                                            <td><input id="obs3_1_1" class="table-header" type="text"></td>
+                                          </tr>   
+                                            <tr>
+                                                <td>b)</td>
+                                                <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                                                <td><label class="form3_1LabelDoc" for="">Colaboración en la Comisión para la elaboración del documento</label></td>
+                                                <td><span id="puntaje40"><b>40</b></span></td>
+                                                <td class="elabInput"><input id="elaboracion2" name="elaboracion2" type="number"
+                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion2') }}"></td>
+                                                <td><label id="elaboracionSubTotal2" for="" type="text"></label>
+                                                </td>
+                                                <td class="comision actv"><input id="comisionIncisoB"
+                                                        placeholder="0" for=""
+                                                        oninput="onActv3Comision()"></input></td>
+                                                <td><input id="obs3_1_2" class="table-header" type="text"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>c)</td>
+                                                <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                                                <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
+                                                <td><label id="puntaje10" for=""><b>10</b></label></td>
+                                                <td class="elabInput"><input id="elaboracion3" name="elaboracion3" type="number"
+                                                        oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion3') }}"></td>
+                                                <td><label id="elaboracionSubTotal3" for="" type="text"></label>
+                                                </td>
+                                                <td class="comision actv"><input id="comisionIncisoC"
+                                                        placeholder="0" for=""
+                                                        oninput="onActv3Comision()"></input></td>
+                                                <td><input id="obs3_1_3" class="table-header" type="text"></td>
+                                            </tr>
+
+                                            <tr>
+                                            <td>d)</td>
+                                            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                                            <td><label class="form3_1LabelDoc">Elaboración de programas de asignatura</label></td>
+                                            <td><label id="puntaje20" for=""><b>20</b></label></td>
+                                            <td class="elabInput"><input id="elaboracion4" name="elaboracion4" type="number"
+                                                    oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion4') }}"></td>
+                                            <td><label id="elaboracionSubTotal4" for="" type="text"></label>
+                                            </td>
+                                            <td class="comision actv"><input id="comisionIncisoD"
+                                                    placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input></td>
+                                            <td><input id="obs3_1_4" class="table-header" type="text"></td>
+                                            </tr>
+                                            <tr>
+                                            <td>e)</td>
+                                            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+                                            <td><label class="form3_1LabelDoc">Actualización de programas de asignatura</label></td>
+                                            <td><label id="p10" for=""><b>10</b></label></td>
+                                            <td class="elabInput"><input id="elaboracion5" name="elaboracion5" type="number"
+                                                    oninput="onActv3Subtotal()" value="{{ oldValueOrDefault('elaboracion5') }}"></td>
+                                            <td><label id="elaboracionSubTotal5" for="" type="text"></label>
+                                            </td>
+                                            <td class="comision actv"><input id="comisionIncisoE"
+                                                    placeholder="0" for=""
+                                                    oninput="onActv3Comision()"></input></td>
+                                            <td><input id="obs3_1_5" class="table-header" type="text"></td>
+                                            </tr>
                                     </tbody>
                                 </table>
 
