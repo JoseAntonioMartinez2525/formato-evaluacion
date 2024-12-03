@@ -202,7 +202,7 @@ $user_identity = $user->id;
                         <th class="actividades">Documento</th>
                         <th class="actividades">Actividad</th>
                         <th class="actividades">Puntaje</th>
-                        <th class="actividades">Cantidad</th>
+                        <th class="actividades" id="cantidadForm3_1">Cantidad</th>
                         <th class="actividades">Subtotal</th>
                         
                     </tr>
@@ -220,7 +220,7 @@ $user_identity = $user->id;
                         <td id="puntaje60"><b>60</b></td>
                         <td class="elabInput"><span id="elaboracion">0</span></td>
                         <td><span id="elaboracionSubTotal1"></span></td>
-                        <td class="comision actv">
+                        <td class="comision actv comEstilos">
                             @if($userType == 'dictaminador')
                                 <input id="comisionIncisoA" type="number" step="0.01" oninput="onActv3Comision()"
                                     value="{{ oldValueOrDefault('comisionIncisoA') }}">
@@ -228,7 +228,7 @@ $user_identity = $user->id;
                                 <label id="comisionIncisoA"></label>
                             @endif
                         </td>
-                        <td>
+                        <td class="comEstilos">
                             @if($userType == 'dictaminador')
                                 <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
                             @else
@@ -237,13 +237,14 @@ $user_identity = $user->id;
                         </td>
                     </tr>
 
-                    <tr class="prevent-overlap">
+                    <tr>
                         <td>b)</td>
                         <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
                         <td><label class="form3_1LabelDoc" for="">Colaboración en la Comisión para la elaboración del documento</label></td>
                         <td><span id="puntaje40"><b>40</b></span></td>
-                        <td><span id="elaboracionSubTotal2"></span></td>
-                        <td>
+                        <td class="elabInput"><span id="elaboracion2">0</span></td>
+                        <td><span id="elaboracionSubTotal2" for="" type="text"></span></td>
+                        <td class="comEstilos">
                             @if($userType == 'dictaminador')
                                 <input id="comisionIncisoB" type="number" step="0.01" oninput="onActv3Comision()"
                                     value="{{ oldValueOrDefault('comisionIncisoB') }}">
@@ -260,7 +261,7 @@ $user_identity = $user->id;
                         </td>
                     </tr>
                     
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>c)</td>
                         <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
                         <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
@@ -268,7 +269,7 @@ $user_identity = $user->id;
                         <td class="elabInput"><span id="elaboracion3">0</span></td>
                         <td><span id="elaboracionSubTotal3" for="" type="text"></span>
                         </td>
-                        <td class="comision actv">
+                        <td class="comision actv comEstilos">
                         @if($userType == 'dictaminador')
                             <input id="comisionIncisoC" for="" type="number" step="0.01"
                                     oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
@@ -276,7 +277,7 @@ $user_identity = $user->id;
                             <label id="comisionIncisoC" name="comisionIncisoC"></label>
                         @endif
                         </td>
-                        <td>
+                        <td class="comEstilos">
                         @if($userType == 'dictaminador')
                         <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">  
                         @else
@@ -294,7 +295,7 @@ $user_identity = $user->id;
                     <td class="elabInput"><span id="elaboracion4">0</span></td>
                     <td><span id="elaboracionSubTotal4"></span>
                     </td>
-                    <td class="comision actv">
+                    <td class="comision actv comEstilos">
                     @if($userType == 'dictaminador')
 
                         <input id="comisionIncisoD" for="" type="number" step="0.01"
@@ -303,7 +304,7 @@ $user_identity = $user->id;
                         <label id="comisionIncisoD" name="comisionIncisoD"></label>
                     @endif                                               
                     </td>
-                    <td>
+                    <td class="comEstilos">
                     @if($userType == 'dictaminador')
                         <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
                     @else
@@ -319,7 +320,7 @@ $user_identity = $user->id;
                         <td><label id="p10" for=""><b>10</b></label></td>
                         <td class="elabInput"><span id="elaboracion5">0</span></td>
                         <td><span id="elaboracionSubTotal5"></span></td>
-                        <td class="comision actv">
+                        <td class="comision actv comEstilos">
                         @if($userType == 'dictaminador')
                             <input id="comisionIncisoE" for="" type="number" step="0.01"
                                     oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
@@ -327,7 +328,7 @@ $user_identity = $user->id;
                             <label id="comisionIncisoE" name="comisionIncisoE"></label>
                             @endif
                         </td>
-                        <td>
+                        <td class="comEstilos">
                         @if($userType == 'dictaminador')
                         <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
                         @else
@@ -524,16 +525,16 @@ $user_identity = $user->id;
                                         document.getElementById('elaboracion5').textContent = selectedResponseForm3_1.elaboracion5 || '0';
                                         document.getElementById('elaboracionSubTotal5').textContent = selectedResponseForm3_1.elaboracionSubTotal5 || '0';
                                         document.getElementById('actv3Comision').textContent = selectedResponseForm3_1.actv3Comision || '0';
-                                        document.querySelector('label[name="comisionIncisoA"]').textContent = selectedResponseForm3_1.comisionIncisoA || '0';
-                                        document.querySelector('label[name="comisionIncisoB"]').textContent = selectedResponseForm3_1.comisionIncisoB || '0';
-                                        document.querySelector('label[name="comisionIncisoC"]').textContent = selectedResponseForm3_1.comisionIncisoC || '0';
-                                        document.querySelector('label[name="comisionIncisoD"]').textContent = selectedResponseForm3_1.comisionIncisoD || '0';
-                                        document.querySelector('label[name="comisionIncisoE"]').textContent = selectedResponseForm3_1.comisionIncisoE || '0';
-                                        document.querySelector('label[name="obs3_1_1"]').textContent = selectedResponseForm3_1.obs3_1_1 || '';
-                                        document.querySelector('label[name="obs3_1_2"]').textContent = selectedResponseForm3_1.obs3_1_2 || '';
-                                        document.querySelector('label[name="obs3_1_3"]').textContent = selectedResponseForm3_1.obs3_1_3 || '';
-                                        document.querySelector('label[name="obs3_1_4"]').textContent = selectedResponseForm3_1.obs3_1_4 || '';
-                                        document.querySelector('label[name="obs3_1_5"]').textContent = selectedResponseForm3_1.obs3_1_5 || '';
+                                        document.querySelector('label[id="comisionIncisoA"]').textContent = selectedResponseForm3_1.comisionIncisoA || '0';
+                                        document.querySelector('label[id="comisionIncisoB"]').textContent = selectedResponseForm3_1.comisionIncisoB || '0';
+                                        document.querySelector('label[id="comisionIncisoC"]').textContent = selectedResponseForm3_1.comisionIncisoC || '0';
+                                        document.querySelector('label[id="comisionIncisoD"]').textContent = selectedResponseForm3_1.comisionIncisoD || '0';
+                                        document.querySelector('label[id="comisionIncisoE"]').textContent = selectedResponseForm3_1.comisionIncisoE || '0';
+                                        document.querySelector('label[id="obs3_1_1"]').textContent = selectedResponseForm3_1.obs3_1_1 || 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_2"]').textContent = selectedResponseForm3_1.obs3_1_2 || 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_3"]').textContent = selectedResponseForm3_1.obs3_1_3 || 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_4"]').textContent = selectedResponseForm3_1.obs3_1_4 || 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_5"]').textContent = selectedResponseForm3_1.obs3_1_5 || 'sin comentarios';
 
                                     } else {
 
@@ -555,16 +556,16 @@ $user_identity = $user->id;
                                         document.getElementById('elaboracion5').textContent = '0';
                                         document.getElementById('elaboracionSubTotal5').textContent = '0';
                                         document.getElementById('actv3Comision').textContent = '0';
-                                        document.querySelector('label[name="comisionIncisoA"]').textContent = '0';
-                                        document.querySelector('label[name="comisionIncisoB"]').textContent = '0';
-                                        document.querySelector('label[name="comisionIncisoC"]').textContent = '0';
-                                        document.querySelector('label[name="comisionIncisoD"]').textContent = '0';
-                                        document.querySelector('label[name="comisionIncisoE"]').textContent = '0';
-                                        document.querySelector('label[name="obs3_1_1"]').textContent = '';
-                                        document.querySelector('label[name="obs3_1_2"]').textContent = '';
-                                        document.querySelector('label[name="obs3_1_3"]').textContent = '';
-                                        document.querySelector('label[name="obs3_1_4"]').textContent = '';
-                                        document.querySelector('label[name="obs3_1_5"]').textContent = '';
+                                        document.querySelector('label[id="comisionIncisoA"]').textContent = '0';
+                                        document.querySelector('label[id="comisionIncisoB"]').textContent = '0';
+                                        document.querySelector('label[id="comisionIncisoC"]').textContent = '0';
+                                        document.querySelector('label[id="comisionIncisoD"]').textContent = '0';
+                                        document.querySelector('label[id="comisionIncisoE"]').textContent = '0';
+                                        document.querySelector('label[id="obs3_1_1"]').textContent = 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_2"]').textContent = 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_3"]').textContent = 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_4"]').textContent = 'sin comentarios';
+                                        document.querySelector('label[id="obs3_1_5"]').textContent = 'sin comentarios';
                                     }
                                 } catch (error) {
                                     console.error('Error fetching dictaminators responses:', error);

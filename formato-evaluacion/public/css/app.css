@@ -379,6 +379,9 @@ header{
     height: 100%;
 }
 
+.comEstilos{
+    background-color: #d6fff7;
+}
 .horasActv2 input {
 
     text-align: right;
@@ -428,6 +431,10 @@ header{
     background-color: #d6fff7;
 }
 
+#comisionIncisoB{
+margin-left: 40px;
+}
+
 #docencia {
     background-color: #002b4e;
     color: white;
@@ -463,6 +470,9 @@ header{
 
 .actividades{border-right: black;}
 
+#cantidadForm3_1{
+    text-align: center;
+}
 .label-container {
     display: flex;
     flex-direction: column;
@@ -488,7 +498,7 @@ padding: 0 30px;
 
 }
 
-#elaboracion{
+#elaboracion, #elaboracion2, #elaboracion3, #elaboracion4, #elaboracion5{
 padding-left: 100px; 
 }
 
@@ -497,6 +507,7 @@ padding-left: 100px;
 #elaboracionSubTotal1 label, #elaboracionSubTotal3 label, #elaboracionSubTotal4 label, #elaboracionSubTotal5 label{
 border: none;
 text-align: right;
+padding-left: 100px;
 
 }
 
@@ -699,6 +710,9 @@ form[id^="form3_"] {
 
 [id^="obs3_1_"]{
     width: 140px;
+    text-align: right;
+    border-color: transparent;
+    background-color: #d6fff7;
 }
 
 #comisionDict3_6, #comisionDict3_7, #obs3_6_1, #obs3_7_1, #comisionDict3_8, #obs3_8_1{
@@ -719,6 +733,11 @@ form[id^="form3_"] {
     outline: none;
     border: none;
     box-shadow: none;
+}
+
+[id^="comisionInciso"] {
+    text-align: right;
+    border-color: transparent;
 }
 
 td[id^="puntaje3_9_"]{
