@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Events\EvaluationCompleted;
 use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\UsersResponseForm3_1;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
+
 
 class DictaminatorForm3_1Controller extends TransferController
 {
@@ -143,16 +145,16 @@ class DictaminatorForm3_1Controller extends TransferController
         return view('form3_1', compact('currentPage', 'totalPages'));
     }
 
-    function htmlToPdf(string $html): string
+    public function htmlToPdf(string $html): string
     {
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        injectPageNumbers($dompdf);
+        $this->injectPageNumbers($dompdf);
         return $dompdf->output();
     }
-    function injectPageNumbers(Dompdf $dompdf): void
+    public function injectPageNumbers(Dompdf $dompdf): void
     {
         $canvas = $dompdf->getCanvas();
         $pdf = $canvas->get_cpdf();
