@@ -21,7 +21,9 @@ $newLocale = str_replace('_', '-', $locale);
     }
 }
 
-
+#convocatoria, #piedepagina {
+    display:none;
+}
     @media print {
     body {
         margin-left: 200px ;
@@ -63,10 +65,12 @@ $newLocale = str_replace('_', '-', $locale);
 
     #convocatoria {
         margin: 0;
+        display:block;
     }
 
     #piedepagina {
         margin: 0;
+        display:block;
     }
 
     @page {
@@ -160,7 +164,7 @@ $newLocale = str_replace('_', '-', $locale);
 @php
 $user = Auth::user();
 $userType = $user->user_type;
-$user_identity = $user->id; 
+$user_identity = $user->id;
 $page_counter = 29;
 @endphp
 <div class="container mt-4" id="seleccionDocente">
@@ -339,9 +343,9 @@ $page_counter = 29;
                             </td>
                         </tr>
                         @php
-                            $page_counter++;
+$page_counter++;
                         @endphp
-                        @if($page_counter===30)
+                        @if($page_counter === 30)
                         <tr class="prevent-overlap">
                             <td>e)</td>
                             <td>Representante del profesorado ante CAAC</td>
