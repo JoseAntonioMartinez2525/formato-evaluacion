@@ -18,6 +18,21 @@ $newLocale = str_replace('_', '-', $locale);
         font-size: 1.2rem;
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
+
+    footer{
+        margin-bottom: -300px;
+    }
+}
+
+body.chrome @media screen{
+       #convocatoria {
+        font-size: 1.2rem;
+        color: blue; /* Ejemplo de estilo específico para Chrome */
+    }
+
+    footer{
+        margin-bottom: -300px;
+    } 
 }
 
 
@@ -97,8 +112,9 @@ $newLocale = str_replace('_', '-', $locale);
   counter-reset: page 2; /* Initialize the counter to 2 for the first page */
 }
 
-@page:nth-child(n) {
-  content: "Página " counter(page) " de 31"; /* Dynamically display the page number */
+@page:nth-child(n+2) {
+  counter-reset: page 3;/* Dynamically display the page number */
+   content: "Página " counter(page) " de 31";
 }
     .page-number:after {
         content: "Página " counter(page);
