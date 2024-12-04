@@ -22,6 +22,9 @@ $newLocale = str_replace('_', '-', $locale);
     footer{
         margin-bottom: -300px;
     }
+    @html{
+        font-size: 2rem;
+    }
 }
 
 body.chrome @media screen{
@@ -112,9 +115,9 @@ body.chrome @media screen{
   counter-reset: page 2; /* Initialize the counter to 2 for the first page */
 }
 
-@page:nth-child(n+2) {
+@page:nth-child(-n+1) {
   counter-reset: page 3;/* Dynamically display the page number */
-   content: "Página " counter(page) " de 31";
+
 }
     .page-number:after {
         content: "Página " counter(page);
