@@ -23,11 +23,19 @@ $newLocale = str_replace('_', '-', $locale);
 
     @media print {
     body {
+        
         margin-left: 200px ;
         margin-top: -10px;
         padding: 0;
         font-size: .7rem;
        
+    }
+        #footerForm3_1 {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
     }
 
     footer {
@@ -55,10 +63,10 @@ $newLocale = str_replace('_', '-', $locale);
             z-index: 10;
         }
 
-
-    .prevent-overlap {
-        page-break-before: always;
-    }
+.prevent-overlap {
+    page-break-before: always;
+    page-break-inside: avoid; 
+}
 
     #convocatoria {
         margin: 0;
@@ -72,14 +80,39 @@ $newLocale = str_replace('_', '-', $locale);
     @page {
         size: landscape;
         margin: 20mm; /* Ajusta según sea necesario */
+         content: "Página " counter(page) " de 31"; 
+        counter-increment: page;
+        
         
     }
 
-    @page :right {
-        content: "Página " counter(page);
+@page:right {
+        @bottom-center {
+            content: "Página " counter(page) " de 31";
+        }
     }
+
+
+@page:first {
+  counter-reset: page 2; /* Initialize the counter to 2 for the first page */
+}
+
+@page:nth-child(n) {
+  content: "Página " counter(page) " de 31"; /* Dynamically display the page number */
+}
     .page-number:after {
         content: "Página " counter(page);
+    }
+    
+    .page-number-display {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        position: fixed;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
     }
     
 }
@@ -145,9 +178,9 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
     <x-general-header />
 @php
-    $user = Auth::user();
-    $userType = $user->user_type;
-    $user_identity = $user->id;
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id;
 
 @endphp
 <div class="container mt-4" id="seleccionDocente">
@@ -362,40 +395,115 @@ $newLocale = str_replace('_', '-', $locale);
         </form>
     </main>
     <center>
-    <footer id="footerForm3_1">
-        <center>
+        <footer id="footerForm3_1">
             <div id="convocatoria">
-                <!-- Mostrar convocatoria -->
                 @if(isset($convocatoria))
-
                     <div style="margin-right: -700px;">
-                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        <h1>Convocatoria: </h1>
                     </div>
                 @endif
             </div>
-        </center>
-    
-        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+
+            <!--<div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
                 <x-form-renderer :forms="[['view' => 'form3_1', 'startPage' => 3, 'endPage' => 4]]"/>
-        </div>
-    </footer>
+            </div>-->
+        </footer>
     </center>
     <script>
-        window.onload = function () {
-            const footerHeight = document.querySelector('footer').offsetHeight;
+  window.onload = function () {
+        function updatePagination() {
+            const forms = document.querySelectorAll('.page-number');
+
+            forms.forEach((pageNumberElement, index) => {
+                const startPage = parseInt(pageNumberElement.getAttribute('data-start-page'));
+                const currentPage = pageNumberElement.getAttribute('data-current-page')
+                    ? parseInt(pageNumberElement.getAttribute('data-current-page'))
+                    : startPage;
+
+                // Update page number display
+                pageNumberElement.setAttribute('data-page-number', currentPage);
+
+                // Ensure the page number is visible in the element
+                let pageNumberDisplay = pageNumberElement.querySelector('.page-number-display');
+                if (!pageNumberDisplay) {
+                    pageNumberDisplay = document.createElement('div');
+                    pageNumberDisplay.classList.add('page-number-display');
+                    pageNumberElement.appendChild(pageNumberDisplay);
+                }
+
+                pageNumberDisplay.textContent = `Página ${currentPage} de 31`;
+
+                // Debug logging
+                console.log(`Page Number Element:`, {
+                    startPage,
+                    currentPage,
+                    pageNumberDisplay: pageNumberDisplay.textContent
+                });
+            });
+        }
+
+        function preventOverlap() {
+            const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
             const elements = document.querySelectorAll('.prevent-overlap');
 
             elements.forEach(element => {
                 const rect = element.getBoundingClientRect();
                 const viewportHeight = window.innerHeight;
 
-                // Verifica si el elemento está demasiado cerca del footer
                 if (rect.bottom > viewportHeight - footerHeight) {
                     element.style.pageBreakBefore = "always";
                 }
             });
+        }
 
-        };       
+        function handlePrintPageNumbers() {
+            const footers = document.querySelectorAll('footer');
+
+            footers.forEach(footer => {
+                const pageNumberElements = footer.querySelectorAll('.page-number');
+
+                pageNumberElements.forEach((pageNumberElement, index) => {
+                    const pageNumber = pageNumberElement.getAttribute('data-page-number');
+
+                    // Create or update page number display
+                    let pageNumberDisplay = pageNumberElement.querySelector('.page-number-display');
+                    if (!pageNumberDisplay) {
+                        pageNumberDisplay = document.createElement('div');
+                        pageNumberDisplay.classList.add('page-number-display');
+                        pageNumberElement.appendChild(pageNumberDisplay);
+                    }
+
+                    pageNumberDisplay.textContent = `Página ${pageNumber} de 31`;
+
+                    // Debug logging
+                    console.log(`Footer Page Number:`, {
+                        pageNumber,
+                        displayText: pageNumberDisplay.textContent
+                    });
+                });
+            });
+        }
+
+        // Initial setup
+        updatePagination();
+        preventOverlap();
+
+        // Print event listeners
+        window.addEventListener('beforeprint', () => {
+            console.log('Before Print Event Triggered');
+            updatePagination();
+            handlePrintPageNumbers();
+        });
+
+        window.matchMedia('print').addListener(function (mql) {
+            if (mql.matches) {
+                console.log('Print Media Query Matched');
+                updatePagination();
+                handlePrintPageNumbers();
+            }
+        });
+    }
+
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
             const user_identity = @json($user_identity);
