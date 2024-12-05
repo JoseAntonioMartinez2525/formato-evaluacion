@@ -57,7 +57,7 @@ body.chrome @media screen{
     }
 
     footer {
-        position: fixed;
+        position: relative;
         font-size: .9rem;
         bottom: 0;
         left: 0;
@@ -65,7 +65,7 @@ body.chrome @media screen{
         text-align: center;
         font-size: 12px;
         background-color: white; /* Para asegurar que el footer no interfiera visualmente */
-        z-index: 10;
+        z-index: 100;
         padding: 5px 0;
         border-top: 1px solid #ccc;
     }
@@ -78,7 +78,7 @@ body.chrome @media screen{
             font-size: 12px;
             background: white;
             padding: 5px;
-            z-index: 10;
+            z-index: 100;
         }
 
 .prevent-overlap {
@@ -113,6 +113,7 @@ body.chrome @media screen{
 
 @page:first {
   counter-reset: page 2; /* Initialize the counter to 2 for the first page */
+  counter-increment: page;
 }
 
 
@@ -130,6 +131,7 @@ body.chrome @media screen{
         width: 100%;
         z-index: 1000;
     }
+    
     
 }
 
@@ -420,9 +422,20 @@ $user_identity = $user->id;
                 @endif
             </div>
 
-            <!--<div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                <x-form-renderer :forms="[['view' => 'form3_1', 'startPage' => 3, 'endPage' => 4]]"/>
-            </div>-->
+
+            <div id="app">
+<Pagination :total-pages="$totalPages"></Pagination>
+</div>
+
+<script>
+import Pagination from './js/components/Pagination.vue';
+
+export default {
+  components: {
+    Pagination
+  }
+}
+</script>
         </footer>
     </center>
     <script>
