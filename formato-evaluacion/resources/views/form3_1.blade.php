@@ -115,12 +115,9 @@ body.chrome @media screen{
   counter-reset: page 2; /* Initialize the counter to 2 for the first page */
 }
 
-@page:nth-child(-n+1) {
-  counter-reset: page 3;/* Dynamically display the page number */
 
-}
     .page-number:after {
-        content: "Página " counter(page);
+        content: "Página " counter(page) " de 31";
     }
     
     .page-number-display {
@@ -432,6 +429,9 @@ $user_identity = $user->id;
   window.onload = function () {
         function updatePagination() {
             const forms = document.querySelectorAll('.page-number');
+                document.querySelectorAll('.page-number').forEach((el, index) => {
+                el.textContent = `Página ${index + 1} de 31`;
+            });
 
             forms.forEach((pageNumberElement, index) => {
                 const startPage = parseInt(pageNumberElement.getAttribute('data-start-page'));

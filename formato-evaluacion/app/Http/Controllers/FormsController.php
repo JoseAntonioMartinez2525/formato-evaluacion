@@ -30,6 +30,9 @@ use App\Models\DictaminatorsResponseForm2_2;
 use App\Models\DictaminatorsResponseForm3_1;
 use App\Models\DictaminatorsResponseForm3_2;
 use Illuminate\Support\Facades\DB;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 class FormsController extends Controller
 {
     
@@ -194,6 +197,43 @@ public function getDictaminadorData(Request $request)
 
         return view('components.form-renderer', compact('forms'));
     }
+
+
+
+
+function renderHtmlWithPageNumbers($htmlContent)
+{
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isRemoteEnabled', true);
+
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($htmlContent);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+
+    $canvas = $dompdf->getCanvas();
+    $pageCount = $canvas->get_page_count();
+
+    // Ajustar la posición del texto para que no colisione con otros elementos
+    $xPosition = 520; // Posición X (ajusta según el ancho de tu diseño)
+    $yPosition = 550; // Posición Y (ajusta según la altura de tu footer en landscape)
+    $fontSize = 12;   // Tamaño de fuente
+
+    for ($page = 1; $page <= $pageCount; $page++) {
+        $canvas->page_text(
+            $xPosition,
+            $yPosition,
+            "Página $page de $pageCount", // Texto dinámico
+            null, // Fuente por defecto
+            $fontSize,
+            [0, 0, 0] // Color (negro)
+        );
+    }
+
+    return $dompdf->output();
+}
+
 
 
 }
