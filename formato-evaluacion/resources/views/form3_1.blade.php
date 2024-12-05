@@ -427,15 +427,6 @@ $user_identity = $user->id;
 <Pagination :total-pages="$totalPages"></Pagination>
 </div>
 
-<script>
-import Pagination from './js/components/Pagination.vue';
-
-export default {
-  components: {
-    Pagination
-  }
-}
-</script>
         </footer>
     </center>
     <script>
@@ -801,6 +792,15 @@ export default {
             return Math.min(sum, 200);
 
 
+        }
+    </script>
+    <script>
+        import Pagination from './js/components/Pagination.vue';
+
+        export default {
+            components: {
+                Pagination
+            }
         }
     </script>
 
