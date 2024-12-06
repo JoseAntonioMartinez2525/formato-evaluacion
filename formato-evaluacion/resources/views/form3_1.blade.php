@@ -11,7 +11,9 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <x-head-resources />    
+    <x-head-resources />  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
  body.chrome @media print {
     #convocatoria {
@@ -40,12 +42,25 @@ body.chrome @media screen{
 
 
     @media print {
+    .page-footer {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 12px;
+        background-color: white;
+        padding: 10px 0;
+        border-top: 1px solid #ccc;
+        page-break-after: always; /* Asegura el salto de página después del footer */
+    }
     body {
         
         margin-left: 200px ;
         margin-top: -10px;
         padding: 0;
         font-size: .7rem;
+        padding-bottom: 50px;
        
     }
         #footerForm3_1 {
@@ -133,6 +148,16 @@ body.chrome @media screen{
     }
     
     
+}
+
+.page-footer.hidden-footer {
+    display: none !important;
+}
+
+@media print {
+    hidden-footer {
+        display: none !important;
+    }
 }
 
     </style>
@@ -420,52 +445,42 @@ $user_identity = $user->id;
                         <h1>Convocatoria: </h1>
                     </div>
                 @endif
-            </div>
-
-
-            <div id="app">
-<Pagination :total-pages="$totalPages"></Pagination>
-</div>
+            </div><br>
+<div class="page-footer"></div>
 
         </footer>
     </center>
     <script>
-  window.onload = function () {
+
+    window.onload = function () {
         function updatePagination() {
-            const forms = document.querySelectorAll('.page-number');
-                document.querySelectorAll('.page-number').forEach((el, index) => {
-                el.textContent = `Página ${index + 1} de 31`;
-            });
+            const pageHeight = 1122; // Altura aproximada de una página A4 en puntos (landscape)
+            const totalHeight = document.body.scrollHeight;
+            const totalPages = Math.ceil(totalHeight / pageHeight);
+            const startPage = 3; // Inicia la numeración desde la página 3
 
-            forms.forEach((pageNumberElement, index) => {
-                const startPage = parseInt(pageNumberElement.getAttribute('data-start-page'));
-                const currentPage = pageNumberElement.getAttribute('data-current-page')
-                    ? parseInt(pageNumberElement.getAttribute('data-current-page'))
-                    : startPage;
+            // Agregar footers dinámicamente
+         for (let i = 1; i <= totalPages; i++) {
+                const footer = document.createElement('div');
+                footer.className = 'page-footer';
+                footer.textContent = `Página ${startPage + i - 1} de 31`;
+                footer.style.position = 'fixed';
+                footer.style.bottom = '0';
+                footer.style.left = '0';
+                footer.style.right = '0';
+                footer.style.textAlign = 'center';
+                footer.style.background = 'white';
+                footer.style.fontSize = '14px';
+                footer.style.padding = '10px';
+                footer.style.zIndex = '9999';
 
-                // Update page number display
-                pageNumberElement.setAttribute('data-page-number', currentPage);
+                // Insertar el footer en el DOM
+                document.body.appendChild(footer);
+            }
 
-                // Ensure the page number is visible in the element
-                let pageNumberDisplay = pageNumberElement.querySelector('.page-number-display');
-                if (!pageNumberDisplay) {
-                    pageNumberDisplay = document.createElement('div');
-                    pageNumberDisplay.classList.add('page-number-display');
-                    pageNumberElement.appendChild(pageNumberDisplay);
-                }
-
-                pageNumberDisplay.textContent = `Página ${currentPage} de 31`;
-
-                // Debug logging
-                console.log(`Page Number Element:`, {
-                    startPage,
-                    currentPage,
-                    pageNumberDisplay: pageNumberDisplay.textContent
-                });
-            });
         }
 
-        function preventOverlap() {
+                function preventOverlap() {
             const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
             const elements = document.querySelectorAll('.prevent-overlap');
 
@@ -479,53 +494,12 @@ $user_identity = $user->id;
             });
         }
 
-        function handlePrintPageNumbers() {
-            const footers = document.querySelectorAll('footer');
-
-            footers.forEach(footer => {
-                const pageNumberElements = footer.querySelectorAll('.page-number');
-
-                pageNumberElements.forEach((pageNumberElement, index) => {
-                    const pageNumber = pageNumberElement.getAttribute('data-page-number');
-
-                    // Create or update page number display
-                    let pageNumberDisplay = pageNumberElement.querySelector('.page-number-display');
-                    if (!pageNumberDisplay) {
-                        pageNumberDisplay = document.createElement('div');
-                        pageNumberDisplay.classList.add('page-number-display');
-                        pageNumberElement.appendChild(pageNumberDisplay);
-                    }
-
-                    pageNumberDisplay.textContent = `Página ${pageNumber} de 31`;
-
-                    // Debug logging
-                    console.log(`Footer Page Number:`, {
-                        pageNumber,
-                        displayText: pageNumberDisplay.textContent
-                    });
-                });
-            });
-        }
-
-        // Initial setup
-        updatePagination();
         preventOverlap();
 
-        // Print event listeners
-        window.addEventListener('beforeprint', () => {
-            console.log('Before Print Event Triggered');
-            updatePagination();
-            handlePrintPageNumbers();
-        });
+        // Actualizar la paginación antes de imprimir
+        window.addEventListener('beforeprint', updatePagination);
+    };
 
-        window.matchMedia('print').addListener(function (mql) {
-            if (mql.matches) {
-                console.log('Print Media Query Matched');
-                updatePagination();
-                handlePrintPageNumbers();
-            }
-        });
-    }
 
         document.addEventListener('DOMContentLoaded', async () => {
             const userType = @json($userType);  // Inject user type from backend to JS
@@ -627,6 +601,7 @@ $user_identity = $user->id;
                                             if (convocatoriaElement) {
                                                 if (data.docente.convocatoria) {
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
+                                                    document.querySelector("#btn3_1").addEventListener("click", generatePDF);
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
                                                 }
@@ -794,15 +769,9 @@ $user_identity = $user->id;
 
         }
     </script>
-    <script>
-        import Pagination from './js/components/Pagination.vue';
+        
+    
 
-        export default {
-            components: {
-                Pagination
-            }
-        }
-    </script>
 
 </body>
 
