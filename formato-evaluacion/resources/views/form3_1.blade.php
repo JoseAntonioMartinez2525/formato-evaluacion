@@ -131,10 +131,6 @@ body.chrome @media screen{
   counter-increment: page;
 }
 
-
-    .page-number:after {
-        content: "Página " counter(page) " de 31";
-    }
     
     .page-number-display {
         display: block;
