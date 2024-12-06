@@ -31,7 +31,6 @@
         "express": "^4.19.2",
         "html2canvas": "^1.4.1",
         "jquery": "^3.7.1",
-        "jspdf": "^2.5.2",
-        "pspdfkit": "^2024.8.0"
+        "jspdf": "^2.5.2"
     }
 }
