@@ -165,7 +165,7 @@ $newLocale = str_replace('_', '-', $locale);
 $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id;
-$page_counter = 29;
+$page_counter = 32;
 @endphp
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')
@@ -345,7 +345,7 @@ $page_counter = 29;
                         @php
 $page_counter++;
                         @endphp
-                        @if($page_counter === 30)
+                        @if($page_counter === 31)
                         <tr class="prevent-overlap">
                             <td>e)</td>
                             <td>Representante del profesorado ante CAAC</td>
@@ -768,7 +768,7 @@ $page_counter++;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 28</span></div>
+            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 31</span></div>
         </footer>
         
     </center>

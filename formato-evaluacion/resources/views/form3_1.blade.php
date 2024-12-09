@@ -162,7 +162,7 @@ body.chrome @media screen{
         /* Remove this rule: page-break-after: auto; */
     }
     .page-break[data-page="4"] {
-        page-break-before: always;
+        page-break-before: avoid;
     }
 
     /* Prevent page breaks within table rows */
@@ -708,6 +708,7 @@ $user_identity = $user->id;
 
 
             }
+
 
         });
 
