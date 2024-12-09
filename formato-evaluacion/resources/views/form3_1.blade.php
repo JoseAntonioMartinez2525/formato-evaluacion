@@ -300,7 +300,7 @@ $user_identity = $user->id;
                         
                     </tr>
                     <!-- Contenido -->
-                    <tr class="page-break" data-page="3">
+                    <tbody class="page-break" data-page="3">
                     <tr>
                         <td>a)</td>
                         <td>
@@ -353,8 +353,8 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                </tr>
-                <tr class="page-break" data-page="4">
+                </tbody>
+                <tbody class="page-break" data-page="4">
                     <tr class="prevent-overlap">
                         <td>c)</td>
                         <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
@@ -429,7 +429,7 @@ $user_identity = $user->id;
                         @endif
                         </td>
                     </tr>
-                    </tr>
+                    </tb>
                 </tbody>
             </table>
         
@@ -462,6 +462,9 @@ $user_identity = $user->id;
                     </div>
                 @endif
             </div><br>
+            <div class="page-break" data-page="1">Content for Page 1</div>
+            <div class="page-break" data-page="2">Content for Page 2</div>
+            <div class="page-break" data-page="3">Content for Page 3</div>
 <div class="page-footer"></div>
 
         </footer>
