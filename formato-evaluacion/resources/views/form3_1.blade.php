@@ -29,6 +29,7 @@ $newLocale = str_replace('_', '-', $locale);
     }
 }
 
+
 body.chrome @media screen{
        #convocatoria {
         font-size: 1.2rem;
@@ -154,7 +155,25 @@ body.chrome @media screen{
     hidden-footer {
         display: none !important;
     }
+
+    @media print {
+
+    .page-break[data-page="3"] {
+        /* Remove this rule: page-break-after: auto; */
+    }
+    .page-break[data-page="4"] {
+        page-break-before: always;
+    }
+
+    /* Prevent page breaks within table rows */
+    table tr {
+        page-break-inside: avoid;
+    }
+
 }
+
+}
+
 
     </style>
 </head>
@@ -234,7 +253,7 @@ $user_identity = $user->id;
 </div>
 
     <main class="container">
-        <!-- Form for Part 3_1 -->
+        <!--Form for Part 3_1 -->
         <form id="form3_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form31', 'form3_1');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
@@ -242,12 +261,12 @@ $user_identity = $user->id;
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
-            <div>
+            <tbody>
                 <!-- Actividad 3.1 Participación en actividades de diseño curricular -->
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4" id="pMax60" for="">60</label>
                 </h4>
-            </div>
+            </tbody>
             <table class="table table-sm">
                 <thead>
                     <tr>
@@ -258,7 +277,7 @@ $user_identity = $user->id;
                         <th class="table-ajust2" scope="col">Observaciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                
                     <tr>
                         <td colspan="5"><b>3. Calidad en la docencia</b></td>
                         <td id="docencia"></td>
@@ -281,6 +300,7 @@ $user_identity = $user->id;
                         
                     </tr>
                     <!-- Contenido -->
+                    <tr class="page-break" data-page="3">
                     <tr>
                         <td>a)</td>
                         <td>
@@ -310,7 +330,6 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-
                     <tr>
                         <td>b)</td>
                         <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
@@ -334,7 +353,8 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    
+                </tr>
+                <tr class="page-break" data-page="4">
                     <tr class="prevent-overlap">
                         <td>c)</td>
                         <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
@@ -360,7 +380,6 @@ $user_identity = $user->id;
                         </td>
                         
                     </tr>
-
                     <tr>
                     <td>d)</td>
                     <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
@@ -410,12 +429,13 @@ $user_identity = $user->id;
                         @endif
                         </td>
                     </tr>
+                    </tr>
                 </tbody>
             </table>
         
             <!--Tabla informativa Acreditacion Actividad 3.1-->
             <table>
-                <thead>
+            
                     <tr><br>
         
                         <th class="acreditacion" scope="col">Acreditacion: </th>
@@ -428,9 +448,9 @@ $user_identity = $user->id;
                         </th>
                     </tr>
         
-        
                 </thead>
             </table>
+           
         </form>
     </main>
     <center>
@@ -449,7 +469,8 @@ $user_identity = $user->id;
     <script>
 
     window.onload = function () {
-        function updatePagination() {
+
+       /* function updatePagination() {
             const pageHeight = 1122; // Altura aproximada de una página A4 en puntos (landscape)
             const totalHeight = document.body.scrollHeight;
             const totalPages = Math.ceil(totalHeight / pageHeight);
@@ -474,7 +495,7 @@ $user_identity = $user->id;
                 document.body.appendChild(footer);
             }
 
-        }
+        } */
 
                 function preventOverlap() {
             const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
@@ -493,7 +514,7 @@ $user_identity = $user->id;
         preventOverlap();
 
         // Actualizar la paginación antes de imprimir
-        window.addEventListener('beforeprint', updatePagination);
+        // window.addEventListener('beforeprint', updatePagination);
     };
 
 
@@ -597,7 +618,7 @@ $user_identity = $user->id;
                                             if (convocatoriaElement) {
                                                 if (data.docente.convocatoria) {
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
-                                                    document.querySelector("#btn3_1").addEventListener("click", generatePDF);
+                                                    //document.querySelector("#btn3_1").addEventListener("click", generatePDF);
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
                                                 }
