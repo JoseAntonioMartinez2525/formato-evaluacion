@@ -42,6 +42,7 @@ body.chrome @media screen{
 }
 
 
+
     @media print {
     .page-footer {
         position: relative;
@@ -174,7 +175,6 @@ body.chrome @media screen{
 
 }
 
-
     </style>
 </head>
 
@@ -261,178 +261,166 @@ $user_identity = $user->id;
             <input type="hidden" name="user_id" value="">
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
-            <tbody>
+           
                 <!-- Actividad 3.1 Participación en actividades de diseño curricular -->
                 <h4>Puntaje máximo
                     <label class="bg-black text-white px-4" id="pMax60" for="">60</label>
                 </h4>
-            </tbody>
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Actividad</th>
-                        <th class="table-ajust2" scope="col" colspan="4"></th>
-                        <th class="table-ajust2 cd" scope="col">Puntaje a evaluar</th>
-                        <th class="table-ajust2 cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                        <th class="table-ajust2" scope="col">Observaciones</th>
-                    </tr>
-                </thead>
-                
-                    <tr>
-                        <td colspan="5"><b>3. Calidad en la docencia</b></td>
-                        <td id="docencia"></td>
-                        <td id="actv3Comision"></td>
-                        <td></td>
-                    </tr>
-                    <!-- Sub-encabezados -->
-                    <tr>
-                    <td class="p2" colspan="5">3.1 Participación en actividades de diseño curricular</td>
-                    <td id="score3_1"></td>
-                    <td colspan="6"></td>
-                    </tr>
-                    <tr>
-                        <th class="actividades">Incisos</th>
-                        <th class="actividades">Documento</th>
-                        <th class="actividades">Actividad</th>
-                        <th class="actividades">Puntaje</th>
-                        <th class="actividades" id="cantidadForm3_1">Cantidad</th>
-                        <th class="actividades">Subtotal</th>
-                        
-                    </tr>
-                    <!-- Contenido -->
-                    <tbody class="page-break" data-page="3">
-                    <tr>
-                        <td>a)</td>
-                        <td>
-                            <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo o
-                                actualización</label>
-                        </td>
-                        <td>
-                            <label style="height:94px; width: 180px;">Responsable de la Comisión para la elaboración del
-                                documento</label>
-                        </td>
-                        <td id="puntaje60"><b>60</b></td>
-                        <td class="elabInput"><span id="elaboracion">0</span></td>
-                        <td><span id="elaboracionSubTotal1"></span></td>
-                        <td class="comision actv comEstilos">
-                            @if($userType == 'dictaminador')
-                                <input id="comisionIncisoA" type="number" step="0.01" oninput="onActv3Comision()"
-                                    value="{{ oldValueOrDefault('comisionIncisoA') }}">
-                            @else
-                                <label id="comisionIncisoA"></label>
-                            @endif
-                        </td>
-                        <td class="comEstilos">
-                            @if($userType == 'dictaminador')
-                                <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
-                            @else
-                                <label id="obs3_1_1" class="table-header"></label>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>b)</td>
-                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
-                        <td><label class="form3_1LabelDoc" for="">Colaboración en la Comisión para la elaboración del documento</label></td>
-                        <td><span id="puntaje40"><b>40</b></span></td>
-                        <td class="elabInput"><span id="elaboracion2">0</span></td>
-                        <td><span id="elaboracionSubTotal2" for="" type="text"></span></td>
-                        <td class="comEstilos">
-                            @if($userType == 'dictaminador')
-                                <input id="comisionIncisoB" type="number" step="0.01" oninput="onActv3Comision()"
-                                    value="{{ oldValueOrDefault('comisionIncisoB') }}">
-                            @else
-                                <label id="comisionIncisoB"></label>
-                            @endif
-                        </td>
-                        <td>
-                            @if($userType == 'dictaminador')
-                                <input id="obs3_1_2" name="obs3_1_2" type="text">
-                            @else
-                                <label id="obs3_1_2"></label>
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody class="page-break" data-page="4">
-                    <tr class="prevent-overlap">
-                        <td>c)</td>
-                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
-                        <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
-                        <td><label id="puntaje10" for=""><b>10</b></label></td>
-                        <td class="elabInput"><span id="elaboracion3">0</span></td>
-                        <td><span id="elaboracionSubTotal3" for="" type="text"></span>
-                        </td>
-                        <td class="comision actv comEstilos">
-                        @if($userType == 'dictaminador')
-                            <input id="comisionIncisoC" for="" type="number" step="0.01"
-                                    oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}"></input>
-                        @else
-                            <label id="comisionIncisoC" name="comisionIncisoC"></label>
-                        @endif
-                        </td>
-                        <td class="comEstilos">
-                        @if($userType == 'dictaminador')
-                        <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">  
-                        @else
-                        <label id="obs3_1_3"name="obs3_1_3" class="table-header"></label>
-                        @endif
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                    <td>d)</td>
-                    <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
-                    <td><label class="form3_1LabelDoc">Elaboración de programas de asignatura</label></td>
-                    <td><label id="puntaje20" for=""><b>20</b></label></td>
-                    <td class="elabInput"><span id="elaboracion4">0</span></td>
-                    <td><span id="elaboracionSubTotal4"></span>
-                    </td>
-                    <td class="comision actv comEstilos">
-                    @if($userType == 'dictaminador')
+            
+<table class="table table-sm">
+    <x-table-header />
 
-                        <input id="comisionIncisoD" for="" type="number" step="0.01"
-                                oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}"></input>
-                    @else
-                        <label id="comisionIncisoD" name="comisionIncisoD"></label>
-                    @endif                                               
-                    </td>
-                    <td class="comEstilos">
-                    @if($userType == 'dictaminador')
-                        <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
-                    @else
-                    <label id="obs3_1_4"name="obs3_1_4"class="table-header"></label>
-                    @endif
-                    </td>
-                    </tr>
+    <tr>
+        <td colspan="5"><b>3. Calidad en la docencia</b></td>
+        <td id="docencia"></td>
+        <td class="actv3Comision" style="background-color: #ffcc6d; text-align: center; border: none; font-weight: bold;"></td>
+        <td></td>
+    </tr>
+    <!-- Sub-encabezados -->
+    <x-sub-headers-form3_1 />
 
-                    <tr>
-                        <td>e)</td>
-                        <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
-                        <td><label class="form3_1LabelDoc">Actualización de programas de asignatura</label></td>
-                        <td><label id="p10" for=""><b>10</b></label></td>
-                        <td class="elabInput"><span id="elaboracion5">0</span></td>
-                        <td><span id="elaboracionSubTotal5"></span></td>
-                        <td class="comision actv comEstilos">
-                        @if($userType == 'dictaminador')
-                            <input id="comisionIncisoE" for="" type="number" step="0.01"
-                                    oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}"></input>
-                        @else
-                            <label id="comisionIncisoE" name="comisionIncisoE"></label>
-                            @endif
-                        </td>
-                        <td class="comEstilos">
-                        @if($userType == 'dictaminador')
-                        <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
-                        @else
-                        <label id="obs3_1_5"name="obs3_1_5"class="table-header"></label>
-                        @endif
-                        </td>
-                    </tr>
-                    </tb>
-                </tbody>
-            </table>
-        
+    <!-- Contenido Incisos a) y b) -->
+    <tbody class="page-break" data-page="3">
+        <tr>
+            <td>a)</td>
+            <td>
+                <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo o
+                    actualización</label>
+            </td>
+            <td>
+                <label style="height:94px; width: 180px;">Responsable de la Comisión para la elaboración del
+                documento</label>
+            </td>
+            <td id="puntaje60"><b>60</b></td>
+            <td class="elabInput"><span id="elaboracion">0</span></td>
+            <td><span id="elaboracionSubTotal1"></span></td>
+            <td class="comision actv comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="comisionIncisoA" type="number" step="0.01" oninput="onActv3Comision()"
+                        value="{{ oldValueOrDefault('comisionIncisoA') }}">
+                @else
+                    <label id="comisionIncisoA"></label>
+                @endif
+            </td>
+            <td class="comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="obs3_1_1" name="obs3_1_1" class="table-header" type="text">
+                @else
+                    <label id="obs3_1_1" class="table-header"></label>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>b)</td>
+            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o
+                    actualización</label></td>
+            <td><label class="form3_1LabelDoc" for="">Colaboración en la Comisión para la elaboración del
+                    documento</label></td>
+            <td><span id="puntaje40"><b>40</b></span></td>
+            <td class="elabInput"><span id="elaboracion2">0</span></td>
+            <td><span id="elaboracionSubTotal2" for="" type="text"></span></td>
+            <td class="comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="comisionIncisoB" type="number" step="0.01" oninput="onActv3Comision()"
+                        value="{{ oldValueOrDefault('comisionIncisoB') }}">
+                @else
+                    <label id="comisionIncisoB"></label>
+                @endif
+            </td>
+            <td>
+                @if($userType == 'dictaminador')
+                    <input id="obs3_1_2" name="obs3_1_2" type="text">
+                @else
+                    <label id="obs3_1_2"></label>
+                @endif
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table table-sm">
+    <x-table-header />
+    
+    <tr>
+        <td colspan="5"><b>3. Calidad en la docencia</b></td>
+        <td id="docencia"></td>
+        <td class="actv3Comision" style="background-color: #ffcc6d; text-align: center; border: none; font-weight: bold;"></td>
+        <td></td>
+    </tr>
+    <!--Sub Encabezados-->
+    <x-sub-headers-form3_1 />
+    
+    <!-- Contenido Incisos c), d) y e) -->
+    <tbody class="page-break" data-page="4">
+        <tr class="prevent-overlap">
+            <td>c)</td>
+            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+            <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
+            <td><label id="puntaje10" for=""><b>10</b></label></td>
+            <td class="elabInput"><span id="elaboracion3">0</span></td>
+            <td><span id="elaboracionSubTotal3" for="" type="text"></span></td>
+            <td class="comision actv comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="comisionIncisoC" for="" type="number" step="0.01" oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoC') }}">
+                @else
+                    <label id="comisionIncisoC" name="comisionIncisoC"></label>
+                @endif
+            </td>
+            <td class="comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="obs3_1_3" name="obs3_1_3" class="table-header" type="text">
+                @else
+                    <label id="obs3_1_3" name="obs3_1_3" class="table-header"></label>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>d)</td>
+            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+            <td><label class="form3_1LabelDoc">Elaboración de programas de asignatura</label></td>
+            <td><label id="puntaje20" for=""><b>20</b></label></td>
+            <td class="elabInput"><span id="elaboracion4">0</span></td>
+            <td><span id="elaboracionSubTotal4"></span></td>
+            <td class="comision actv comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="comisionIncisoD" for="" type="number" step="0.01" oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoD') }}">
+                @else
+                    <label id="comisionIncisoD" name="comisionIncisoD"></label>
+                @endif
+            </td>
+            <td class="comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="obs3_1_4" name="obs3_1_4" class="table-header" type="text">
+                @else
+                    <label id="obs3_1_4" name="obs3_1_4" class="table-header"></label>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>e)</td>
+            <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
+            <td><label class="form3_1LabelDoc">Actualización de programas de asignatura</label></td>
+            <td><label id="p10" for=""><b>10</b></label></td>
+            <td class="elabInput"><span id="elaboracion5">0</span></td>
+            <td><span id="elaboracionSubTotal5"></span></td>
+            <td class="comision actv comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="comisionIncisoE" for="" type="number" step="0.01" oninput="onActv3Comision()" value="{{ oldValueOrDefault('comisionIncisoE') }}">
+                @else
+                    <label id="comisionIncisoE" name="comisionIncisoE"></label>
+                @endif
+            </td>
+            <td class="comEstilos">
+                @if($userType == 'dictaminador')
+                    <input id="obs3_1_5" name="obs3_1_5" class="table-header" type="text">
+                @else
+                    <label id="obs3_1_5" name="obs3_1_5" class="table-header"></label>
+                @endif
+            </td>
+        </tr>
+    </tbody>
+</table>
+   
             <!--Tabla informativa Acreditacion Actividad 3.1-->
             <table>
             
@@ -462,9 +450,6 @@ $user_identity = $user->id;
                     </div>
                 @endif
             </div><br>
-            <div class="page-break" data-page="1">Content for Page 1</div>
-            <div class="page-break" data-page="2">Content for Page 2</div>
-            <div class="page-break" data-page="3">Content for Page 3</div>
 <div class="page-footer"></div>
 
         </footer>
@@ -547,7 +532,10 @@ $user_identity = $user->id;
                                 axios.get('/get-docente-data', { params: { email } })
                                     .then(response => {
                                          const data = response.data;
-                                        document.getElementById('score3_1').textContent = data.form3_1.score3_1 || '0';
+                                        const scoreElements = document.querySelectorAll('.score3_1');
+                                        scoreElements.forEach(element => {
+                                            element.textContent = data.form3_1.score3_1 || '0';
+                                        });
                                         document.getElementById('elaboracion').textContent = data.form3_1.elaboracion || '0';
                                         document.getElementById('elaboracionSubTotal1').textContent = data.form3_1.elaboracionSubTotal1 || '0';
                                         document.getElementById('elaboracion2').textContent = data.form3_1.elaboracion2 || '0';
@@ -641,7 +629,10 @@ $user_identity = $user->id;
                                         document.querySelector('input[name="email"]').value = selectedResponseForm3_1.email || '';
                                         document.querySelector('input[name="user_type"]').value = selectedResponseForm3_1.user_type || '';
 
-                                        document.getElementById('score3_1').textContent = selectedResponseForm3_1.score3_1 || '0';
+                                        const scoreElements = document.querySelectorAll('.score3_1'); // Selecciona todos los elementos con la clase 'score3_1'
+                                        scoreElements.forEach(element => {
+                                            element.textContent = selectedResponseForm3_1.score3_1 || '0'; // Asigna el valor o '0' como fallback
+                                        });
                                         document.getElementById('elaboracion').textContent = selectedResponseForm3_1.elaboracion || '0';
                                         document.getElementById('elaboracionSubTotal1').textContent = selectedResponseForm3_1.elaboracionSubTotal1 || '0';
                                         document.getElementById('elaboracion2').textContent = selectedResponseForm3_1.elaboracion2 || '0';
@@ -652,7 +643,11 @@ $user_identity = $user->id;
                                         document.getElementById('elaboracionSubTotal4').textContent = selectedResponseForm3_1.elaboracionSubTotal4 || '0';
                                         document.getElementById('elaboracion5').textContent = selectedResponseForm3_1.elaboracion5 || '0';
                                         document.getElementById('elaboracionSubTotal5').textContent = selectedResponseForm3_1.elaboracionSubTotal5 || '0';
-                                        document.getElementById('actv3Comision').textContent = selectedResponseForm3_1.actv3Comision || '0';
+                                        
+                                        const actv3ComisionElements = document.querySelectorAll('.actv3Comision');
+                                        actv3ComisionElements.forEach(element => {
+                                            element.textContent = selectedResponseForm3_1.actv3Comision || '0'; // Asigna el valor o '0' como fallback
+                                        });
                                         document.querySelector('label[id="comisionIncisoA"]').textContent = selectedResponseForm3_1.comisionIncisoA || '0';
                                         document.querySelector('label[id="comisionIncisoB"]').textContent = selectedResponseForm3_1.comisionIncisoB || '0';
                                         document.querySelector('label[id="comisionIncisoC"]').textContent = selectedResponseForm3_1.comisionIncisoC || '0';
@@ -672,7 +667,10 @@ $user_identity = $user->id;
                                         document.querySelector('input[name="user_id"]').value = '0';
                                         document.querySelector('input[name="email"]').value = '';
                                         document.querySelector('input[name="user_type"]').value = '';
-                                        document.getElementById('score3_1').textContent = '0';
+                                        const scoreElements = document.querySelectorAll('.score3_1'); 
+                                        scoreElements.forEach(element => {
+                                            element.textContent = '0'; 
+                                        });
                                         document.getElementById('elaboracion').textContent = '0';
                                         document.getElementById('elaboracionSubTotal1').textContent = '0';
                                         document.getElementById('elaboracion2').textContent = '0';
@@ -683,7 +681,11 @@ $user_identity = $user->id;
                                         document.getElementById('elaboracionSubTotal4').textContent = '0';
                                         document.getElementById('elaboracion5').textContent = '0';
                                         document.getElementById('elaboracionSubTotal5').textContent = '0';
-                                        document.getElementById('actv3Comision').textContent = '0';
+                                       
+                                        const actv3ComisionElements = document.querySelectorAll('.actv3Comision');
+                                        actv3ComisionElements.forEach(element => {
+                                            element.textContent = '0'; // Asigna '0' cuando no haya datos
+                                        });
                                         document.querySelector('label[id="comisionIncisoA"]').textContent = '0';
                                         document.querySelector('label[id="comisionIncisoB"]').textContent = '0';
                                         document.querySelector('label[id="comisionIncisoC"]').textContent = '0';
@@ -711,6 +713,9 @@ $user_identity = $user->id;
 
 
             }
+
+            const pages = document.querySelectorAll(".page-break");
+           
 
 
         });
@@ -751,8 +756,16 @@ $user_identity = $user->id;
             formData['comisionIncisoC'] = form.querySelector('input[id="comisionIncisoC"]').value;
             formData['comisionIncisoD'] = form.querySelector('input[id="comisionIncisoD"]').value;   
             formData['comisionIncisoE'] = form.querySelector('input[id="comisionIncisoE"]').value;                      
-            formData['score3_1'] = document.getElementById('score3_1').textContent;
-            formData['actv3Comision'] = document.getElementById('actv3Comision').textContent;
+            const scores = document.querySelectorAll('.score3_1'); // Selecciona todos los elementos con la clase 'score3_1'
+
+            scores.forEach((element, index) => {
+                formData[`score3_1_${index}`] = element.textContent; // Asigna los valores dinámicamente con un índice
+            });
+
+            const actv3ComisionElements = document.querySelectorAll('.actv3Comision');
+            actv3ComisionElements.forEach((element, index) => {
+                formData[`actv3Comision_${index}`] = element.textContent; // Asigna los valores dinámicamente con un índice
+            });
 
             // Observations
             formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;

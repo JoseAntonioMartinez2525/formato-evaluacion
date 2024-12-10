@@ -411,6 +411,7 @@ header{
     border: none;
     font-weight: bold;
 }
+
 .table td.actv3{
     background-color: #ffcc6d;
     text-align: center;
@@ -457,7 +458,7 @@ margin-left: 40px;
     margin-top: 20px;
 }
 
-#score3_1,#score3_2, #score3_3, #score3_4, #score3_5, #score3_6, #score3_7, #score3_8, #score3_9, #score3_10, 
+.score3_1, #score3_1, #score3_2, #score3_3, #score3_4, #score3_5, #score3_6, #score3_7, #score3_8, #score3_9, #score3_10, 
 #score3_11, #score3_12, #score3_13, #score3_14, #score3_15, #score3_16,#score3_17, #score3_18, #score3_19 {
     white-space: nowrap;
     background-color: #0b5967;
@@ -498,8 +499,12 @@ padding: 0 30px;
 
 }
 
-#elaboracion, #elaboracion2, #elaboracion3, #elaboracion4, #elaboracion5{
-padding-left: 100px; 
+#elaboracion, #elaboracion2{
+padding-left: 20px; 
+}
+
+#elaboracion3, #elaboracion4, #elaboracion5{
+    padding-left: 30px;
 }
 
 
