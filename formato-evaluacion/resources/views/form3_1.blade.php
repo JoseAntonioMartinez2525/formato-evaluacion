@@ -160,7 +160,7 @@ body.chrome @media screen{
     @media print {
 
     .page-break[data-page="3"] {
-        /* Remove this rule: page-break-after: auto; */
+       /*page-break-after: auto;*/
     }
     .page-break[data-page="4"] {
         page-break-before: avoid;
@@ -170,6 +170,11 @@ body.chrome @media screen{
     table tr {
         page-break-inside: avoid;
     }
+
+    .table-wrap{
+      height: 100px;  
+    }
+
 
 }
 
@@ -281,7 +286,7 @@ $user_identity = $user->id;
 
     <!-- Contenido Incisos a) y b) -->
     <tbody class="page-break" data-page="3">
-        <tr>
+        <tr class="table-wrap">
             <td>a)</td>
             <td>
                 <label style="height:84px; width: 170px;">Plan de estudios de una carrera o posgrado nuevo o
@@ -310,7 +315,7 @@ $user_identity = $user->id;
                 @endif
             </td>
         </tr>
-        <tr>
+        <tr  class="table-wrap">
             <td>b)</td>
             <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o
                     actualización</label></td>
@@ -352,7 +357,7 @@ $user_identity = $user->id;
     
     <!-- Contenido Incisos c), d) y e) -->
     <tbody class="page-break" data-page="4">
-        <tr class="prevent-overlap">
+        <tr class="table-rap">
             <td>c)</td>
             <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
             <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
@@ -374,7 +379,7 @@ $user_identity = $user->id;
                 @endif
             </td>
         </tr>
-        <tr>
+        <tr  class="table-wrap">
             <td>d)</td>
             <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
             <td><label class="form3_1LabelDoc">Elaboración de programas de asignatura</label></td>
@@ -396,7 +401,7 @@ $user_identity = $user->id;
                 @endif
             </td>
         </tr>
-        <tr>
+        <tr  class="table-wrap">
             <td>e)</td>
             <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
             <td><label class="form3_1LabelDoc">Actualización de programas de asignatura</label></td>
