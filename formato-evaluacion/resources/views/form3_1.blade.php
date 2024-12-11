@@ -21,9 +21,7 @@ $newLocale = str_replace('_', '-', $locale);
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
 
-    footer{
-        margin-bottom: -300px;
-    }
+
     @html{
         font-size: 2rem;
     }
@@ -31,17 +29,45 @@ $newLocale = str_replace('_', '-', $locale);
 
 
 body.chrome @media screen{
-       #convocatoria {
+       #convocatoria, #convocatoria2 {
         font-size: 1.2rem;
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
 
-    footer{
-        margin-bottom: -300px;
-    } 
 }
 
 
+
+@media print {
+    .print-footer { /* Estilos comunes para ambos footers en la impresión */
+        display: table-footer-group !important; /* Asegura que se muestre como footer */
+        position: fixed; /* Para que se pegue al final de la página */
+        bottom: 0;
+        width: 100%;
+    }
+    .first-page-footer {
+        /* Estilos específicos para el footer de la primera página */
+    }
+    .second-page-footer {
+        /* Estilos específicos para el footer de la segunda página */
+    }
+    /* Oculta el footer que no corresponde a la página actual */
+    .first-page-footer {
+        display: table-footer-group;
+    }
+    .second-page-footer {
+        display: none;
+    }
+    table:nth-of-type(2) ~ table .second-page-footer { /* Selecciona el segundo footer solo cuando hay dos tablas antes */
+        display: table-footer-group;
+    }
+    table:nth-of-type(2) ~ table .first-page-footer { /* Oculta el primer footer cuando hay dos tablas antes */
+        display: none;
+    }
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+}
 
     @media print {
     .page-footer {
@@ -65,7 +91,7 @@ body.chrome @media screen{
         padding-bottom: 50px;
        
     }
-        #footerForm3_1 {
+        .footerForm3_1 {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -73,37 +99,12 @@ body.chrome @media screen{
         text-align: center;
     }
 
-    footer {
-        position: relative;
-        font-size: .9rem;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 12px;
-        background-color: white; /* Para asegurar que el footer no interfiera visualmente */
-        z-index: 100;
-        padding: 5px 0;
-        border-top: 1px solid #ccc;
-    }
-
-    footer::after {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            background: white;
-            padding: 5px;
-            z-index: 100;
-        }
-
 .prevent-overlap {
     page-break-before: always;
     page-break-inside: avoid; 
 }
 
-    #convocatoria {
+    #convocatoria, #convocatoria2 {
         margin: 0;
         font-size: .8rem;
     }
@@ -115,23 +116,11 @@ body.chrome @media screen{
     @page {
         size: landscape;
         margin: 20mm; /* Ajusta según sea necesario */
-         content: "Página " counter(page) " de 31"; 
-        counter-increment: page;
-        
+            counter-increment: page;
+
         
     }
 
-@page:right {
-        @bottom-center {
-            content: "Página " counter(page) " de 31";
-        }
-    }
-
-
-@page:first {
-  counter-reset: page 2; /* Initialize the counter to 2 for the first page */
-  counter-increment: page;
-}
 
     
     .page-number-display {
@@ -159,22 +148,29 @@ body.chrome @media screen{
 
     @media print {
 
-    .page-break[data-page="3"] {
-       /*page-break-after: auto;*/
-    }
-    .page-break[data-page="4"] {
-        page-break-before: avoid;
-    }
-
     /* Prevent page breaks within table rows */
     table tr {
         page-break-inside: avoid;
     }
 
     .table-wrap{
-      height: 100px;  
+      height: 100px; 
+      page-break-inside: avoid; 
     }
 
+
+    /* Página 4 */
+    .page-break[data-page="4"] .first-page-footer {
+        display: none;
+    }
+    .page-break[data-page="4"] .second-page-footer {
+        display: table-footer-group;
+    }
+
+    .page-number:before {
+  content: "Página " counter(page) " de 31";
+}
+    
 
 }
 
@@ -341,6 +337,21 @@ $user_identity = $user->id;
             </td>
         </tr>
     </tbody>
+    <tfoot class="footerForm3_1 first-page-footer print-footer">
+        <tr>
+            <td id="convocatoria" colspan="8">
+                @if(isset($convocatoria))
+                    <span style="margin-right: 700px; display: inline-block;">
+                        <h1>Convocatoria: </h1>
+                    </span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">Página 3 de 31</td>
+        </tr>
+    </tfoot>    
+
 </table>
 
 <table class="table table-sm">
@@ -357,7 +368,7 @@ $user_identity = $user->id;
     
     <!-- Contenido Incisos c), d) y e) -->
     <tbody class="page-break" data-page="4">
-        <tr class="table-rap">
+        <tr class="table-wrap">
             <td>c)</td>
             <td><label class="form3_1LabelActv" for="">Plan de estudios de una carrera o posgrado nuevo o actualización</label></td>
             <td><label class="form3_1LabelDoc">Elaboración de contenidos mínimos</label></td>
@@ -442,53 +453,21 @@ $user_identity = $user->id;
                     </tr>
         
                 </thead>
+                <tbody></tbody>
+                <tfoot class="footerForm3_1 second-page-footer print-footer">
+                    <tr>
+                        <td colspan="3">Página 4 de 31</td>
+                    </tr>
+                </tfoot>
             </table>
            
         </form>
     </main>
-    <center>
-        <footer id="footerForm3_1">
-            <div id="convocatoria">
-                @if(isset($convocatoria))
-                    <div style="margin-right: -700px;">
-                        <h1>Convocatoria: </h1>
-                    </div>
-                @endif
-            </div><br>
-<div class="page-footer"></div>
-
-        </footer>
-    </center>
     <script>
 
     window.onload = function () {
 
-       /* function updatePagination() {
-            const pageHeight = 1122; // Altura aproximada de una página A4 en puntos (landscape)
-            const totalHeight = document.body.scrollHeight;
-            const totalPages = Math.ceil(totalHeight / pageHeight);
-            const startPage = 3; // Inicia la numeración desde la página 3
-
-            // Agregar footers dinámicamente
-         for (let i = 1; i <= totalPages; i++) {
-                const footer = document.createElement('div');
-                footer.className = 'page-footer';
-                footer.textContent = `Página ${startPage + i - 1} de 31`;
-                footer.style.position = 'fixed';
-                footer.style.bottom = '0';
-                footer.style.left = '0';
-                footer.style.right = '0';
-                footer.style.textAlign = 'center';
-                footer.style.background = 'white';
-                footer.style.fontSize = '14px';
-                footer.style.padding = '10px';
-                footer.style.zIndex = '9999';
-
-                // Insertar el footer en el DOM
-                document.body.appendChild(footer);
-            }
-
-        } */
+    
 
                 function preventOverlap() {
             const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
@@ -560,9 +539,11 @@ $user_identity = $user->id;
 
                                         // Actualizar convocatoria
                                         const convocatoriaElement = document.getElementById('convocatoria');
+                                        // const convocatoriaElement2 = document.getElementById('convocatoria2');
                                         if (convocatoriaElement) {
                                             if (data.form1) {
                                                 convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                                // convocatoriaElement2.textContent = data.form1.convocatoria || '';
                                             } else {
                                                 console.error('form1 no está definido en la respuesta.');
                                             }
@@ -609,11 +590,13 @@ $user_identity = $user->id;
                                         // Verifica si la respuesta contiene los datos esperados
                                         if (data.docente) {
                                             const convocatoriaElement = document.getElementById('convocatoria');
+                                            // const convocatoriaElement2 = document.getElementById('convocatoria2');
 
                                             // Mostrar la convocatoria si existe
                                             if (convocatoriaElement) {
                                                 if (data.docente.convocatoria) {
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
+            
                                                     //document.querySelector("#btn3_1").addEventListener("click", generatePDF);
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
@@ -720,6 +703,23 @@ $user_identity = $user->id;
             }
 
             const pages = document.querySelectorAll(".page-break");
+            const isPrinting = window.matchMedia('print').matches;
+
+            if (isPrinting) {
+                const firstFooter = document.querySelector('.first-page-footer');
+                const secondFooter = document.querySelector('.second-page-footer');
+
+                // Ocultar/mostrar los pies de página según el contenido visible
+                if (document.querySelector('.page-break[data-page="3"]')) {
+                    firstFooter.style.display = 'table-footer-group';
+                    secondFooter.style.display = 'none';
+                }
+
+                if (document.querySelector('.page-break[data-page="4"]')) {
+                    firstFooter.style.display = 'none';
+                    secondFooter.style.display = 'table-footer-group';
+                }
+            }
            
 
 
