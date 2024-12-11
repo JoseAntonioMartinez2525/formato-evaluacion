@@ -340,47 +340,20 @@ $user_identity = $user->id;
             </td>
         </tr>
     </tbody>
-<?php
-// Suponiendo que los datos necesarios están en una variable $data
-$convocatoria = isset($data['form1']['convocatoria']) ? $data['form1']['convocatoria'] : 'Sin convocatoria';
-$paginacion = 'Página 3 de 31'; // Esto puede ser calculado dinámicamente si es necesario
-
-// Aquí empieza la tabla
-echo '<table>';
-
-// Resto del contenido de la tabla
-echo '<thead>';
-// Aquí iría el encabezado de la tabla si lo tienes
-echo '</thead>';
-
-echo '<tbody>';
-// Aquí va el cuerpo de la tabla con los datos dinámicos
-echo '</tbody>';
-
-// Pie de página de la tabla
-echo '<tfoot class="datosConvocatoria print-only" data-print-footer="true">';
-echo '<tr>';
-echo '<td colspan="4">';
-
-// Crear el div para la convocatoria
-echo '<div id="convocatoria1">';
-echo '<h1 style="width: 900px; text-align: right; padding-right: 400px; font-size: 16px; font-weight: bold;">';
-echo 'Convocatoria: ' . htmlspecialchars($convocatoria);
-echo '</h1>';
-echo '</div>';
-
-// Crear el div para el pie de página
-echo '<div id="piedepagina1" style="text-align: right; padding-right: 600px; font-size: 16px;">';
-echo $paginacion;
-echo '</div>';
-
-echo '</td>';
-echo '</tr>';
-echo '</tfoot>';
-
-// Cerrar la tabla
-echo '</table>';
-?>
+    <tfoot class="footerForm3_1 first-page-footer print-footer">
+        <tr>
+            <td id="convocatoria" colspan="8">
+                @if(isset($convocatoria))
+                    <span style="margin-right: 700px; display: inline-block;">
+                        <h1>Convocatoria: </h1>
+                    </span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">Página 3 de 31</td>
+        </tr>
+    </tfoot>    
 
 </table>
 
