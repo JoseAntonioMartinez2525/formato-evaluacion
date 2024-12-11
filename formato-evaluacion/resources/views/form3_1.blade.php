@@ -36,8 +36,6 @@ body.chrome @media screen{
 
 }
 
-
-
 @media print {
     .print-footer { /* Estilos comunes para ambos footers en la impresión */
         display: table-footer-group !important; /* Asegura que se muestre como footer */
@@ -116,13 +114,16 @@ body.chrome @media screen{
     @page {
         size: landscape;
         margin: 20mm; /* Ajusta según sea necesario */
-            counter-increment: page;
-
+        counter-increment: page;
         
     }
-
-
     
+    @page:first {
+  counter-reset: page 2; /* Initialize the counter to 2 for the first page */
+  counter-increment: page;
+}
+
+
     .page-number-display {
         display: block;
         text-align: center;
@@ -160,17 +161,19 @@ body.chrome @media screen{
 
 
     /* Página 4 */
-    .page-break[data-page="4"] .first-page-footer {
-        display: none;
+/* Mostrar el footer correcto según la página */
+    .page-break[data-page="3"] .first-page-footer {
+        display: table-footer-group !important;
     }
+
     .page-break[data-page="4"] .second-page-footer {
-        display: table-footer-group;
+        display: table-footer-group !important;
     }
 
     .page-number:before {
   content: "Página " counter(page) " de 31";
 }
-    
+
 
 }
 
@@ -703,26 +706,24 @@ $user_identity = $user->id;
             }
 
             const pages = document.querySelectorAll(".page-break");
-            const isPrinting = window.matchMedia('print').matches;
+             const isPrinting = window.matchMedia('print').matches;
+           if (isPrinting) {
+                const pages = document.querySelectorAll(".page-break");
 
-            if (isPrinting) {
-                const firstFooter = document.querySelector('.first-page-footer');
-                const secondFooter = document.querySelector('.second-page-footer');
+                pages.forEach(page => {
+                    const pageNumber = page.getAttribute('data-page');
+                    const firstFooter = page.querySelector('.first-page-footer');
+                    const secondFooter = page.querySelector('.second-page-footer');
 
-                // Ocultar/mostrar los pies de página según el contenido visible
-                if (document.querySelector('.page-break[data-page="3"]')) {
-                    firstFooter.style.display = 'table-footer-group';
-                    secondFooter.style.display = 'none';
-                }
+                    if (firstFooter) {
+                        firstFooter.style.display = pageNumber === '3' ? 'table-footer-group' : 'none';
+                    }
 
-                if (document.querySelector('.page-break[data-page="4"]')) {
-                    firstFooter.style.display = 'none';
-                    secondFooter.style.display = 'table-footer-group';
-                }
+                    if (secondFooter) {
+                        secondFooter.style.display = pageNumber === '4' ? 'table-footer-group' : 'none';
+                    }
+                });
             }
-           
-
-
         });
 
 
