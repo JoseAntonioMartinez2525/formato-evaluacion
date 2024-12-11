@@ -340,20 +340,47 @@ $user_identity = $user->id;
             </td>
         </tr>
     </tbody>
-    <tfoot class="footerForm3_1 first-page-footer print-footer">
-        <tr>
-            <td id="convocatoria" colspan="8">
-                @if(isset($convocatoria))
-                    <span style="margin-right: 700px; display: inline-block;">
-                        <h1>Convocatoria: </h1>
-                    </span>
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8">Página 3 de 31</td>
-        </tr>
-    </tfoot>    
+<?php
+// Suponiendo que los datos necesarios están en una variable $data
+$convocatoria = isset($data['form1']['convocatoria']) ? $data['form1']['convocatoria'] : 'Sin convocatoria';
+$paginacion = 'Página 3 de 31'; // Esto puede ser calculado dinámicamente si es necesario
+
+// Aquí empieza la tabla
+echo '<table>';
+
+// Resto del contenido de la tabla
+echo '<thead>';
+// Aquí iría el encabezado de la tabla si lo tienes
+echo '</thead>';
+
+echo '<tbody>';
+// Aquí va el cuerpo de la tabla con los datos dinámicos
+echo '</tbody>';
+
+// Pie de página de la tabla
+echo '<tfoot class="datosConvocatoria print-only" data-print-footer="true">';
+echo '<tr>';
+echo '<td colspan="4">';
+
+// Crear el div para la convocatoria
+echo '<div id="convocatoria1">';
+echo '<h1 style="width: 900px; text-align: right; padding-right: 400px; font-size: 16px; font-weight: bold;">';
+echo 'Convocatoria: ' . htmlspecialchars($convocatoria);
+echo '</h1>';
+echo '</div>';
+
+// Crear el div para el pie de página
+echo '<div id="piedepagina1" style="text-align: right; padding-right: 600px; font-size: 16px;">';
+echo $paginacion;
+echo '</div>';
+
+echo '</td>';
+echo '</tr>';
+echo '</tfoot>';
+
+// Cerrar la tabla
+echo '</table>';
+?>
 
 </table>
 
@@ -441,8 +468,6 @@ $user_identity = $user->id;
 </table>
    
             <!--Tabla informativa Acreditacion Actividad 3.1-->
-            <table>
-            
                     <tr><br>
         
                         <th class="acreditacion" scope="col">Acreditacion: </th>
@@ -456,15 +481,28 @@ $user_identity = $user->id;
                     </tr>
         
                 </thead>
-                <tbody></tbody>
-                <tfoot class="footerForm3_1 second-page-footer print-footer">
-                    <tr>
-                        <td colspan="3">Página 4 de 31</td>
-                    </tr>
-                </tfoot>
             </table>
            
         </form>
+
+            <footer>
+                <center>
+                    <div id="convocatoria2">
+                        <!-- Mostrar convocatoria -->
+                @if(isset($convocatoria))
+
+                    <div style="margin-right: -700px;">
+                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                    </div>
+                @endif
+                    </div>
+                </center>
+            
+                <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
+                    Página 4 de 31
+                </div>
+            </footer>
+            </div>
     </main>
     <script>
 
@@ -705,9 +743,26 @@ $user_identity = $user->id;
 
             }
 
-            const pages = document.querySelectorAll(".page-break");
-             const isPrinting = window.matchMedia('print').matches;
-           if (isPrinting) {
+           const pages = document.querySelectorAll(".page-break");
+            const isPrinting = window.matchMedia('print').matches;
+
+            if (isPrinting) {
+                const firstFooter = document.querySelector('.first-page-footer');
+                const secondFooter = document.querySelector('.second-page-footer');
+
+                // Ocultar/mostrar los pies de página según el contenido visible
+                pages.forEach((page) => {
+                    if (page.dataset.page === "3") {
+                        firstFooter.style.display = 'table-footer-group';
+                        secondFooter.style.display = 'none';
+                    } else if (page.dataset.page === "4") {
+                        firstFooter.style.display = 'none';
+                        secondFooter.style.display = 'table-footer-group';
+                    }
+                });
+            }
+
+                    window.addEventListener('beforeprint', () => {
                 const pages = document.querySelectorAll(".page-break");
 
                 pages.forEach(page => {
@@ -723,7 +778,7 @@ $user_identity = $user->id;
                         secondFooter.style.display = pageNumber === '4' ? 'table-footer-group' : 'none';
                     }
                 });
-            }
+            });
         });
 
 
@@ -808,11 +863,8 @@ $user_identity = $user->id;
 
 
         }
+
     </script>
-        
-    
-
-
 </body>
 
 </html>
