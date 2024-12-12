@@ -101,9 +101,9 @@ body.chrome @media screen{
     page-break-inside: avoid; 
 }
 
-    #convocatoria, #convocatoria2 {
+    #convocatoria, #convocatoria2, #piedepagina1, #piedepagina2 {
         margin: 0;
-        font-size: .8rem;
+        font-size: .7rem;
     }
 
     #piedepagina {
@@ -272,7 +272,6 @@ $user_identity = $user->id;
             
 <table class="table table-sm">
     <x-table-header />
-
     <tr>
         <td colspan="5"><b>3. Calidad en la docencia</b></td>
         <td id="docencia"></td>
