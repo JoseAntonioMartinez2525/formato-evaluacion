@@ -32,8 +32,9 @@ function onActv3Comision(){
     const comisionE = parseFloat(document.getElementById("comisionIncisoE").value);
 
     let ms = min60(comisionA,comisionB,comisionC,comisionD,comisionE).toFixed(2);
-    document.getElementById("actv3Comision") .innerHTML= ms;
-    console.log(ms);
+    document.querySelectorAll(".actv3Comision").forEach(function (element) {
+        element.innerHTML = ms;
+    });
 
 }
 

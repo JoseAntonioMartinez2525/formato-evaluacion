@@ -16,7 +16,7 @@ $newLocale = str_replace('_', '-', $locale);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
  body.chrome @media print {
-    #convocatoria {
+    #convocatoria, #convocatoria2 {
         font-size: 1.2rem;
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
@@ -26,7 +26,6 @@ $newLocale = str_replace('_', '-', $locale);
         font-size: 2rem;
     }
 }
-
 
 body.chrome @media screen{
        #convocatoria, #convocatoria2 {
@@ -300,7 +299,7 @@ $user_identity = $user->id;
             <td><span id="elaboracionSubTotal1"></span></td>
             <td class="comision actv comEstilos">
                 @if($userType == 'dictaminador')
-                    <input id="comisionIncisoA" type="number" step="0.01" oninput="onActv3Comision()"
+                    <input id="comisionIncisoA" class="actv3Comision" type="number" step="0.01" oninput="onActv3Comision()"
                         value="{{ oldValueOrDefault('comisionIncisoA') }}">
                 @else
                     <label id="comisionIncisoA"></label>
@@ -339,8 +338,6 @@ $user_identity = $user->id;
                 @endif
             </td>
         </tr>
-    </tbody>
-    <tfoot class="footerForm3_1 first-page-footer print-footer">
         <tr>
             <td id="convocatoria" colspan="8">
                 @if(isset($convocatoria))
@@ -351,10 +348,11 @@ $user_identity = $user->id;
             </td>
         </tr>
         <tr>
-            <td colspan="8">Página 3 de 31</td>
+            <td colspan="8">
+            <span id="piedepagina1" style="display: inline-block;margin-left:800px;">Página 3 de 31</span>
+            </td>        
         </tr>
-    </tfoot>    
-
+    </tbody>
 </table>
 
 <table class="table table-sm">
@@ -454,34 +452,28 @@ $user_identity = $user->id;
                     </tr>
         
                 </thead>
-            </table>
-           
-        </form>
-
-            <footer>
-                <center>
-                    <div id="convocatoria2">
-                        <!-- Mostrar convocatoria -->
+            </table><br>
+        <center>
+            <div id="convocatoria2">
+                <!-- Mostrar convocatoria -->
                 @if(isset($convocatoria))
 
                     <div style="margin-right: -700px;">
                         <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                     </div>
                 @endif
-                    </div>
-                </center>
-            
-                <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-                    Página 4 de 31
-                </div>
-            </footer>
+            </div>
+        </center>
+        
+        <div id="piedepagina2" style="margin-left: 800px;margin-top:10px;">
+            Página 4 de 31
+        </div>
+        </form>
             </div>
     </main>
     <script>
 
     window.onload = function () {
-
-    
 
                 function preventOverlap() {
             const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
@@ -553,11 +545,11 @@ $user_identity = $user->id;
 
                                         // Actualizar convocatoria
                                         const convocatoriaElement = document.getElementById('convocatoria');
-                                        // const convocatoriaElement2 = document.getElementById('convocatoria2');
+                                        const convocatoriaElement2 = document.getElementById('convocatoria2');
                                         if (convocatoriaElement) {
                                             if (data.form1) {
                                                 convocatoriaElement.textContent = data.form1.convocatoria || '';
-                                                // convocatoriaElement2.textContent = data.form1.convocatoria || '';
+                                                convocatoriaElement2.textContent = data.form1.convocatoria || '';
                                             } else {
                                                 console.error('form1 no está definido en la respuesta.');
                                             }
@@ -604,13 +596,13 @@ $user_identity = $user->id;
                                         // Verifica si la respuesta contiene los datos esperados
                                         if (data.docente) {
                                             const convocatoriaElement = document.getElementById('convocatoria');
-                                            // const convocatoriaElement2 = document.getElementById('convocatoria2');
+                                            const convocatoriaElement2 = document.getElementById('convocatoria2');
 
                                             // Mostrar la convocatoria si existe
                                             if (convocatoriaElement) {
                                                 if (data.docente.convocatoria) {
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
-            
+                                                    convocatoriaElement2.textContent = data.docente.convocatoria;
                                                     //document.querySelector("#btn3_1").addEventListener("click", generatePDF);
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
