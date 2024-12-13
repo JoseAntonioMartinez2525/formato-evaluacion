@@ -30,6 +30,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumenComisionController;
 use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\ThemeController;
 use App\Models\DictaminatorsResponseForm3_6;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
@@ -244,6 +245,9 @@ Route::get('/test-event/{user_id}', function ($user_id) {
     event(new \App\Events\EvaluationCompleted($user_id));
     return 'Evento disparado para user_id: ' . $user_id;
 });
+
+// Ruta para cambiar el modo oscuro
+Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 
 
 

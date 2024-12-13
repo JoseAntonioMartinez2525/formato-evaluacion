@@ -83,4 +83,10 @@ class SessionsController extends Controller
         return view('welcome', compact('user'));
     }
 
+    public function showLoginForm()
+    {
+        // Verifica si el modo oscuro está habilitado para este usuario
+        return view('auth.login', ['darkMode' => session('dark_mode', false)]);
+    }
+
 }
