@@ -35,6 +35,11 @@ body.chrome @media screen{
 
 }
 
+#convocatoria2{
+    font-weight: bold;
+    
+}
+
 @media print {
     .print-footer { /* Estilos comunes para ambos footers en la impresión */
         display: table-footer-group !important; /* Asegura que se muestre como footer */
@@ -146,8 +151,6 @@ body.chrome @media screen{
         display: none !important;
     }
 
-    @media print {
-
     /* Prevent page breaks within table rows */
     table tr {
         page-break-inside: avoid;
@@ -173,10 +176,45 @@ body.chrome @media screen{
   content: "Página " counter(page) " de 31";
 }
 
-
+.secretaria-style {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+    
 }
 
+.secretaria-style #piedepagina1 {
+    float: right;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: normal; /* Opcional, si quieres menos énfasis */
+    color: #000;
 }
+
+.dictaminador-style {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.dictaminador-style#piedepagina2 {
+    margin-left: 800px;
+    margin-top: 10px;
+    font-weight: normal!important;
+}
+
+/* Estilo para secretaria o userType vacío */
+.secretaria-style#piedepagina2 {
+    margin-left: 600px;
+    margin-top: 0;
+    font-weight: normal!important;
+    display: inline-block;
+}
+}
+
+
 
     </style>
 </head>
@@ -338,17 +376,28 @@ $user_identity = $user->id;
             </td>
         </tr>
         <tr>
-            <td id="convocatoria" colspan="8">
+            <td id="convocatoria" colspan="8" class="{{ $userType == 'dictaminador' ? 'dictaminador-style' : 'secretaria-style' }}">
                 @if(isset($convocatoria))
-                    <span style="margin-right: 700px; display: inline-block;">
-                        <h1>Convocatoria: </h1>
-                    </span>
+                       @if($userType == 'dictaminador')
+                        <span style="margin-right: 700px; display: inline-block;">
+                            <h1>Convocatoria: </h1>
+                        </span>
+                        @elseif($userType == '')
+                            <span style="margin-right: 60px; margin-left: 100px; display:nonek;padding-right: 12px; text-align:left;">
+                                <h1>Convocatoria: </h1>
+                            </span>
+                            <span id="piedepagina1" style="display: none; margin-left: 20px;">
+                                Página 3 de 31
+                            </span>
+                        @endif
                 @endif
             </td>
         </tr>
         <tr>
             <td colspan="8">
-            <span id="piedepagina1" style="display: inline-block;margin-left:800px;">Página 3 de 31</span>
+            @if($userType == 'dictaminador')
+            <span id="piedepagina1" style="display: none;margin-left:800px;">Página 3 de 31</span>
+            @endif
             </td>        
         </tr>
     </tbody>
@@ -464,9 +513,11 @@ $user_identity = $user->id;
             </div>
         </center>
         
-        <div id="piedepagina2" style="margin-left: 800px;margin-top:10px;">
-            Página 4 de 31
-        </div>
+<div id="piedepagina2"
+    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+    Página 4 de 31
+</div>
+
         </form>
             </div>
     </main>
@@ -600,9 +651,19 @@ $user_identity = $user->id;
                                             // Mostrar la convocatoria si existe
                                             if (convocatoriaElement) {
                                                 if (data.docente.convocatoria) {
+                                                    
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
                                                     convocatoriaElement2.textContent = data.docente.convocatoria;
-                                                    //document.querySelector("#btn3_1").addEventListener("click", generatePDF);
+                                                    const existingSpan = convocatoriaElement.querySelector('span#piedepagina1');
+
+                                                    if (!existingSpan) {
+                                                    const piedepaginaSpan = document.createElement('span');
+                                                    piedepaginaSpan.id = 'piedepagina1';
+                                                    piedepaginaSpan.textContent = ' Página 3 de 31';
+                                                    convocatoriaElement.appendChild(piedepaginaSpan);
+                                                    }
+                                                    convocatoriaElement.firstChild.textContent = data.docente.convocatoria;
+                                                  
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
                                                 }
