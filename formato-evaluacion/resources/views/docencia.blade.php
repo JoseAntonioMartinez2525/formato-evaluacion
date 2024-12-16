@@ -67,6 +67,7 @@ $userType = Auth::user()->user_type;
                 </li>
                 <li><a href="#seccion3_8">3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de
                         educación, continua o de formación y capacitación docente</a></li>
+                <li><a href="#seccion3_8_1">3.8.1 RSU </a></li>
                 <li><a href="#seccion3_9">3.9 Trabajos dirigidos para la titulación de estudiantes</a></li>
                 <li><a href="#seccion3_10">3.10 Tutorías a estudiantes</a></li>
                 <li><a href="#seccion3_11">3.11 Asesoría a estudiantes</a></li>
@@ -827,6 +828,69 @@ $userType = Auth::user()->user_type;
                                                                 la
                                                                 UABCS.</b> </th>
                                                         <th><button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </tbody>
+                                    </table>
+                                </form>
+                                <form id="form3_8_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store381', 'form3_8_1');">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    @csrf
+                                    <div>
+                                        <!--3.8.1 RSU -->
+                                        @if($userType != '') <!-- fetch puntajeMaximo form3_8_1 -->
+                                            <span class="bg-black text-white px-4 mt-3" id="puntajeMaximo" for=""></span>
+                                        @endif
+                                        </h4>
+                                    </div>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Actividad</th>
+                                                <th class="table-ajust" scope="col"></th>
+                                                <th class="table-ajust" scope="col"></th>
+
+                                                <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
+                                                <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
+                                                </th>
+                                                <th class="table-ajust" scope="col">Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <thead>
+                                                <tr>
+                                                    <th id="seccion3_8_1" colspan=1 class="punto3_8_1" scope=col style="padding:30px;">3.8.1 RSU</th>
+                                                    <td class="punto3_8_1">Factor</td>
+                                                    <td class="punto3_8_1">Horas</td>
+                                                    <td id="score3_8_1" for="">0</td>
+                                                    <td id="comision3_8_1">0</td>
+
+                                                </tr>
+                                            </thead>
+                                            <thead>
+                                                <tr>
+                                                    <td>1 por cada hora</td>
+                                                    <td id="p3_8_1">1</td>
+                                                    <td><input type="number" placeholder="0" id="puntaje3_8_1" oninput="onActv3SubTotal3_8_1()"
+                                                            value="{{ oldValueOrDefault('puntaje3_8_1') }}"></td>
+                                                    <td id="puntajeHoras3_8_1"></td>
+                                                    <td><input type="text" placeholder="0" id="comisionDict3_8_1" oninput="onActv3Comision3_8_1()">
+                                                    </td>
+                                                    <td><input class="table-header" id="obs3_8_1" type="text"></td>
+                                                </tr>
+                                            </thead>
+                                            <!--Tabla informativa Acreditacion Actividad 3.8-->
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th class="acreditacion" scope="col">Acreditacion: </th>
+
+                                                        <th class="descripcion"><b>*RSU</b> </th>
+                                                        <th><button id="btn3_8_1" type="submit" class="btn custom-btn printButtonClass">Enviar
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -2928,6 +2992,8 @@ $userType = Auth::user()->user_type;
                     comision3_6: comision3_6,
                     score3_8: score3_8,
                     comision3_8: comision3_8,
+                    score3_8_1: score3_8_1,
+                    comision3_8_1: comision3_8_1,
                     score3_9: score3_9,
                     comision3_9: comision3_9,
                     score3_10: score3_10,
@@ -3261,6 +3327,15 @@ $userType = Auth::user()->user_type;
                                 formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
 
                                 break;
+                                
+                            case 'form3_8_1':
+                                let score3_8_1Label = form.querySelector('td[id="score3_8_1"]');
+                                formData['score3_8_1'] = parseInt(score3_8_1Label.innerText, 10) || 0;
+                                formData['puntaje3_8_1'] = document.getElementById('puntaje3_8_1').value;
+                                formData['puntajeHoras3_8_1'] = document.getElementById('puntajeHoras3_8_1').textContent;
+                                formData['obs3_8_1'] = form.querySelector('input[id="obs3_8_1"]').value;
+
+                                break;                                
 
                             case 'form3_9':
                                 let score3_9Label = form.querySelector('th[id="score3_9"]');

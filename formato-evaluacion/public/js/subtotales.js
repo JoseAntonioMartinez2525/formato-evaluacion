@@ -411,6 +411,27 @@ if (!isNaN(score3_8)) {
  data.score3_8 = score3_8;
 }
 
+function onActv3SubTotal3_8_1(){
+//Horas
+  const puntaje3_8_1 =  parseFloat(document.getElementById("puntaje3_8_1").value);
+
+  //Factor
+  const p3_8_1 = parseFloat(document.getElementById("p3_8_1").textContent);
+
+const puntajeHoras3_8_1 = puntaje3_8_1 * p3_8_1;
+ document.getElementById("puntajeHoras3_8_1").innerHTML= puntajeHoras3_8_1;
+
+const puntajeMaximo = parseFloat(document.getElementById("puntajeMaximo").textContent);
+ const score3_8_1 = Math.min(puntajeHoras3_8_1,puntajeMaximo);
+ document.getElementById("score3_8_1").innerHTML= score3_8_1;
+
+if (!isNaN(score3_8_1)) {
+    docencia += score3_8_1;
+}
+ document.getElementById("docencia").innerHTML = docencia;
+ data.score3_8_1 = score3_8_1;
+}
+
 
 //Actividad 9
 function onActv3SubTotal3_9(){

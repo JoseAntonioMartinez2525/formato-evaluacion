@@ -13,7 +13,7 @@ class ConsolidatedResponseController extends Controller
         $consolidatedResponses = DB::table('consolidated_responses')->get();
         
         // Calcular subtotales para las secciones
-        $subtotal3_1To3_8 = $consolidatedResponses->reduce(function ($carry, $response) {
+        $subtotal3_1To3_8_1 = $consolidatedResponses->reduce(function ($carry, $response) {
             return $carry + $response->actv3Comision + $response->comision3_2 + $response->comision3_3 + $response->comision3_4 + $response->comision3_5 + $response->comision3_6 + $response->comision3_7 + $response->comision3_8;
         }, 0);
 
@@ -30,7 +30,7 @@ class ConsolidatedResponseController extends Controller
         }, 0);
 
         $total = min(
-            $subtotal3_1To3_8 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19, 
+            $subtotal3_1To3_8_1 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19, 
             700
         );
 
@@ -62,7 +62,8 @@ class ConsolidatedResponseController extends Controller
                 ['label' => '3.6 Capacitación y actualización pedagógica recibida', 'value' => 40, 'comision' => $consolidatedResponses->first()->comision3_6 ?? 0],
                 ['label' => '3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento', 'value' => 40, 'comision' => $consolidatedResponses->first()->comision3_7 ?? 0],
                 ['label' => '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente', 'value' => 40, 'comision' => $consolidatedResponses->first()->comision3_8 ?? 0],
-                ['label' => 'Subtotal', 'value' => '', 'comision' => $subtotal3_1To3_8, 'is_subtotal' => true],
+                ['label' => '3.8_1 RSU', 'value' => 40, 'comision' => $consolidatedResponses->first()->comision3_8_1 ?? 0],
+                ['label' => 'Subtotal', 'value' => '', 'comision' => $subtotal3_1To3_8_1, 'is_subtotal' => true],
                 // Datos de las secciones 3.9 a 3.11
                 ['label' => '3.9 Trabajos dirigidos para la titulación de estudiantes', 'value' => 200, 'comision' => $consolidatedResponses->first()->comision3_9 ?? 0],
                 ['label' => '3.10 Tutorías a estudiantes', 'value' => 115, 'comision' => $consolidatedResponses->first()->comision3_10 ?? 0],
@@ -94,7 +95,7 @@ class ConsolidatedResponseController extends Controller
 
         return view('resumen_comision', [
             'sections' => $sections,
-            'subtotal3_1To3_8' => $subtotal3_1To3_8,
+            'subtotal3_1To3_8_1' => $subtotal3_1To3_8_1,
             'subtotal3_9To3_11' => $subtotal3_9To3_11,
             'subtotal3_12To3_16' => $subtotal3_12To3_16,
             'subtotal3_17To3_19' => $subtotal3_17To3_19,
@@ -197,7 +198,7 @@ class ConsolidatedResponseController extends Controller
         ]);
 
         // Calcular subtotales
-        $subtotal3_1To3_8 = $request->only(['actv3Comision', 'comision3_2', 'comision3_3', 'comision3_4', 'comision3_5', 'comision3_6', 'comision3_7', 'comision3_8'])
+        $subtotal3_1To3_8_1 = $request->only(['actv3Comision', 'comision3_2', 'comision3_3', 'comision3_4', 'comision3_5', 'comision3_6', 'comision3_7', 'comision3_8'])
             ->sum();
         $subtotal3_9To3_11 = $request->only(['comision3_9', 'comision3_10', 'comision3_11'])
             ->sum();
@@ -208,10 +209,10 @@ class ConsolidatedResponseController extends Controller
 
         // Calcular el total y agregarlo a los datos validados
         $total = min(
-            $subtotal3_1To3_8 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19,
+            $subtotal3_1To3_8_1 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19,
             700
         );
-        $validatedData['subtotal3_1To3_8'] = $subtotal3_1To3_8;
+        $validatedData['subtotal3_1To3_8_1'] = $subtotal3_1To3_8_1;
         $validatedData['subtotal3_9To3_11'] = $subtotal3_9To3_11;
         $validatedData['subtotal3_12To3_16'] = $subtotal3_12To3_16;
         $validatedData['subtotal3_17To3_19'] = $subtotal3_17To3_19;

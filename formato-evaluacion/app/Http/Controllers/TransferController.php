@@ -14,6 +14,7 @@ use App\Models\DictaminatorsResponseForm3_5;
 use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
+use App\Models\DictaminatorsResponseForm3_8_1;
 use App\Models\DictaminatorsResponseForm3_9;
 use App\Models\DictaminatorsResponseForm3_10;
 use App\Models\DictaminatorsResponseForm3_11;
@@ -57,6 +58,8 @@ class TransferController extends Controller
                 return DB::table('dictaminators_response_form3_7')->whereNotNull('comision3_7')->exists();
             case 'DictaminatorsResponseForm3_8':
                 return DB::table('dictaminators_response_form3_8')->whereNotNull('comision3_8')->exists();
+            case 'DictaminatorsResponseForm3_8_1':
+                return DB::table('dictaminators_response_form3_8_1')->whereNotNull('comision3_8_1')->exists();                
             case 'DictaminatorsResponseForm3_9':
                 return DB::table('dictaminators_response_form3_9')->whereNotNull('comision3_9')->exists();
             case 'DictaminatorsResponseForm3_10':

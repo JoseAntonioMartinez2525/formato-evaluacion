@@ -60,6 +60,11 @@ class TransferComisionDataListener
             'destinationModel' => \App\Models\UsersResponseForm3_8::class,
             'destinationField' => 'comision3_8',
         ],
+        \App\Models\DictaminatorsResponseForm3_8_1::class => [
+            'sourceField' => 'comision3_8_1',
+            'destinationModel' => \App\Models\UsersResponseForm3_8_1::class,
+            'destinationField' => 'comision3_8_1',
+        ],
         \App\Models\DictaminatorsResponseForm3_9::class => [
             'sourceField' => 'comision3_9',
             'destinationModel' => \App\Models\UsersResponseForm3_9::class,

@@ -77,6 +77,7 @@ $newLocale = str_replace('_', '-', $locale);
                     <option value="form3_7">  3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
                     <option value="form3_8">  3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
                     capacitación docente</option>
+                    <option value="form3_8_1"> 3.8 RSU</option>
                     <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
                     <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
                     <option value="form3_11"> 3.11 Asesoría a estudiantes</option>

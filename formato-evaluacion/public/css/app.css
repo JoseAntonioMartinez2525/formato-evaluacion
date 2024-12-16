@@ -4,6 +4,18 @@ body {
     font-size: 1rem;
 
 }
+.pmax{
+    background-color: rgba(86, 148, 210, 1);
+    border: 1px solid transparent; /* Borde inicial */
+    outline: none; /* Elimina el borde predeterminado del navegador */
+}
+
+.pmax:focus {
+    border: 2px solid rgba(86, 148, 210, 0.8); /* Cambia el color y grosor del borde */
+}
+
+
+
 @media (min-width: 768px) {
     body {
         font-size: .8rem;
