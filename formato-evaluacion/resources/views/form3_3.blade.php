@@ -13,41 +13,208 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
     <style>
-        body.chrome @media print {
-    #convocatoria {
+    <style>
+ body.chrome @media print {
+    #convocatoria, #convocatoria2 {
         font-size: 1.2rem;
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
+
+
+    @html{
+        font-size: 2rem;
+    }
 }
 
-@media print{
+body.chrome @media screen{
+       #convocatoria, #convocatoria2 {
+        font-size: 1.2rem;
+        color: blue; /* Ejemplo de estilo específico para Chrome */
+    }
 
-    footer {
-        position: fixed;
-        font-size: .9rem;
+}
+
+#convocatoria2{
+    font-weight: bold;
+    
+}
+
+@media print {
+    .print-footer { /* Estilos comunes para ambos footers en la impresión */
+        display: table-footer-group !important; /* Asegura que se muestre como footer */
+        position: fixed; /* Para que se pegue al final de la página */
+        bottom: 0;
+        width: 100%;
+    }
+    .first-page-footer {
+        /* Estilos específicos para el footer de la primera página */
+    }
+    .second-page-footer {
+        /* Estilos específicos para el footer de la segunda página */
+    }
+    /* Oculta el footer que no corresponde a la página actual */
+    .first-page-footer {
+        display: table-footer-group;
+    }
+    .second-page-footer {
+        display: none;
+    }
+    table:nth-of-type(2) ~ table .second-page-footer { /* Selecciona el segundo footer solo cuando hay dos tablas antes */
+        display: table-footer-group;
+    }
+    table:nth-of-type(2) ~ table .first-page-footer { /* Oculta el primer footer cuando hay dos tablas antes */
+        display: none;
+    }
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+    @media print {
+    .page-footer {
+        position: relative;
         bottom: 0;
         left: 0;
-        width: 100%;
+        right: 0;
         text-align: center;
-        font-size: 10px;
-        background-color: white; /* Para asegurar que el footer no interfiera visualmente */
-        z-index: 10;
-        padding: 5px 0;
+        font-size: 12px;
+        background-color: white;
+        padding: 10px 0;
         border-top: 1px solid #ccc;
+        page-break-after: always; /* Asegura el salto de página después del footer */
+    }
+    body {
+        
+        margin-left: 200px ;
+        margin-top: -10px;
+        padding: 0;
+        font-size: .7rem;
+        padding-bottom: 50px;
+       
+    }
+        .footerForm3_1 {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
     }
 
-    footer::after {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            background: white;
-            padding: 5px;
-            z-index: 10;
-        }
+.prevent-overlap {
+    page-break-before: always;
+    page-break-inside: avoid; 
+}
 
+    #convocatoria, #convocatoria2, #piedepagina1, #piedepagina2 {
+        margin: 0;
+        font-size: .7rem;
     }
+
+    #piedepagina {
+        margin: 0;
+    }
+
+    @page {
+        size: landscape;
+        margin: 20mm; /* Ajusta según sea necesario */
+        counter-increment: page;
+        
+    }
+    
+    @page:first {
+  counter-reset: page 2; /* Initialize the counter to 2 for the first page */
+  counter-increment: page;
+}
+
+
+    .page-number-display {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        position: fixed;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    
+    
+}
+
+.page-footer.hidden-footer {
+    display: none !important;
+}
+
+@media print {
+    hidden-footer {
+        display: none !important;
+    }
+
+    /* Prevent page breaks within table rows */
+    table tr {
+        page-break-inside: avoid;
+    }
+
+    .table-wrap{
+      height: 100px; 
+      page-break-inside: avoid; 
+    }
+
+
+    /* Página 4 */
+/* Mostrar el footer correcto según la página */
+    .page-break[data-page="6"] .first-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-break[data-page="7"] .second-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-number:before {
+  content: "Página " counter(page) " de 31";
+}
+
+.secretaria-style {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+    
+}
+
+.secretaria-style #piedepagina1 {
+    float: right;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: normal; /* Opcional, si quieres menos énfasis */
+    color: #000;
+}
+
+.dictaminador-style {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.dictaminador-style#piedepagina2 {
+    margin-left: 800px;
+    margin-top: 10px;
+    font-weight: normal!important;
+}
+
+/* Estilo para secretaria o userType vacío */
+.secretaria-style#piedepagina2 {
+    margin-left: 600px;
+    margin-top: 0;
+    font-weight: normal!important;
+    display: inline-block;
+}
+}
+
+
+
     </style>
 </head>
 
@@ -178,7 +345,7 @@ $user_identity = $user->id;
                         </tr>
                     </thead>
                     <thead>
-                        <tr>
+                        <tr class="page-break" data-page="6">
                             <td>a)</td>
                             <td>Libro de texto con editorial de reconocido prestigio</td>
                             <td>Autor(a)</td>
@@ -230,7 +397,7 @@ $user_identity = $user->id;
                             @endif
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="page-break" data-page="7">
                             <td>c)</td>
                             <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio o
                                 instructivos, 3. Diseño
@@ -327,19 +494,25 @@ $user_identity = $user->id;
 
 
     window.onload = function () {
-        const footerHeight = document.querySelector('footer').offsetHeight;
-        const elements = document.querySelectorAll('.prevent-overlap');
 
-        elements.forEach(element => {
-            const rect = element.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
+        function preventOverlap() {
+            const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
+            const elements = document.querySelectorAll('.prevent-overlap');
 
-            // Verifica si el elemento está demasiado cerca del footer
-            if (rect.bottom > viewportHeight - footerHeight) {
-                element.style.pageBreakBefore = "always";
-            }
-        });
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
 
+                if (rect.bottom > viewportHeight - footerHeight) {
+                    element.style.pageBreakBefore = "always";
+                }
+            });
+        }
+
+        preventOverlap();
+
+        // Actualizar la paginación antes de imprimir
+        // window.addEventListener('beforeprint', updatePagination);
     };
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -523,7 +696,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     }
 
+    const pages = document.querySelectorAll(".page-break");
+    const isPrinting = window.matchMedia('print').matches;
 
+    if (isPrinting) {
+        const firstFooter = document.querySelector('.first-page-footer');
+        const secondFooter = document.querySelector('.second-page-footer');
+
+        // Ocultar/mostrar los pies de página según el contenido visible
+        pages.forEach((page) => {
+            if (page.dataset.page === "6") {
+                firstFooter.style.display = 'table-footer-group';
+                secondFooter.style.display = 'none';
+            } else if (page.dataset.page === "7") {
+                firstFooter.style.display = 'none';
+                secondFooter.style.display = 'table-footer-group';
+            }
+        });
+    }
+
+    window.addEventListener('beforeprint', () => {
+        const pages = document.querySelectorAll(".page-break");
+
+        pages.forEach(page => {
+            const pageNumber = page.getAttribute('data-page');
+            const firstFooter = page.querySelector('.first-page-footer');
+            const secondFooter = page.querySelector('.second-page-footer');
+
+            if (firstFooter) {
+                firstFooter.style.display = pageNumber === '6' ? 'table-footer-group' : 'none';
+            }
+
+            if (secondFooter) {
+                secondFooter.style.display = pageNumber === '7' ? 'table-footer-group' : 'none';
+            }
+        });
+    });
     
 });
 

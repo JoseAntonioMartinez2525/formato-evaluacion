@@ -83,10 +83,6 @@ footer {
     }
 
 
-    .page-number:after {
-        content: "Página " counter(page);
-    }
-
 }
 
     </style>

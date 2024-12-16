@@ -87,10 +87,6 @@ $newLocale = str_replace('_', '-', $locale);
     }
 
 
-    .page-number:after {
-        content: "Página " counter(page);
-    }
-
         page-break-after: auto; /* La última página no necesita salto extra */
 
 }
