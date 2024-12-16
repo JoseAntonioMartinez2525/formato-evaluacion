@@ -306,162 +306,151 @@ $user_identity = $user->id;
                     <label class="bg-black text-white px-4 mt-3" for="">100</label>
                 </h4>
             </div>
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Actividad</th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora
-                        </th>
-                        <th class="table-ajust" scope="col">Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <thead>
-                        <tr>
-                            <td id="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
+<table class="table table-sm">
+    <x-table-header />
+    <tbody class="page-break" data-page="6">
+        <tr>
+            <td class="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
+            <td class="score3_3">0</td>
+            <td class="comision3_3">0</td>
+        </tr>
+        <tr>
+            <td colspan="6"></td>
+        </tr>
+        <tr>
+            <td class="incisos">Incisos</td>
+            <td class="obra">Obra</td>
+            <td>Actividad</td>
+            <td>Puntaje</td>
+            <td class="cantidad">Cantidad</td>
+            <td>SubTotal</td>
+        </tr>
+        <!-- Primera tabla: Incisos a) y b) -->
+        <tr>
+            <td>a)</td>
+            <td>Libro de texto con editorial de reconocido prestigio</td>
+            <td>Autor(a)</td>
+            <td>
+                <center><b>100</b></center>
+            </td>
+            <td class="elabInput"><span class="rc1"></span></td>
+            <td class="stotal1"></td>
+            <td class="comision actv">
+                @if($userType == 'dictaminador')
+                    <input type="number" step="0.01" class="comIncisoA" oninput="onActv3Comision3()"
+                        value="{{ oldValueOrDefault('comIncisoA') }}">
+                @else
+                    <span class="comIncisoA"></span>
+                @endif
+            </td>
+            <td>
+                @if($userType == 'dictaminador')
+                    <input class="obs3_3_1" type="text">
+                @else
+                    <span class="obs3_3_1"></span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>b)</td>
+            <td>1. Paquete didáctico, 2. Manual de operaciones</td>
+            <td>Autor(a)</td>
+            <td>
+                <center><b>50</b></center>
+            </td>
+            <td class="elabInput"><span class="rc2"></span></td>
+            <td class="stotal2"></td>
+            <td class="comision actv">
+                @if($userType == 'dictaminador')
+                    <input class="comIncisoB" type="number" step="0.01" oninput="onActv3Comision3()"
+                        value="{{ oldValueOrDefault('comIncisoB') }}">
+                @else
+                    <span class="comIncisoB"></span>
+                @endif
+            </td>
+            <td>
+                @if($userType == 'dictaminador')
+                    <input class="obs3_3_2" type="text">
+                @else
+                    <span class="obs3_3_2"></span>
+                @endif
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-                            <td id="score3_3" for="">0</td>
-                            <td id="comision3_3">0</td>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <td colspan=6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="incisos">Incisos</td>
-                            <td class="obra">Obra</td>
-                            <td>Actividad</td>
-                            <td>Puntaje</td>
-                            <td id="cantidadTd">Cantidad</td>
-                            <td>SubTotal</td>
-            
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr class="page-break" data-page="6">
-                            <td>a)</td>
-                            <td>Libro de texto con editorial de reconocido prestigio</td>
-                            <td>Autor(a)</td>
-                            <td id="p100">
-                                <center><b>100</b></center>
-                            </td>
-                            <td class="elabInput"><span id="rc1"></span>
-                            </td>
-                            <td id="stotal1"></td>
-                            <td class="comision actv">
-                            @if($userType == 'dictaminador')
-                                <input  type="number" step="0.01" id="comIncisoA" for=""
-                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoA') }}">
-                                </input>
-                            @else
-                            <span id="comIncisoA" name="comIncisoA"></span>
-                            @endif
-                            </td>
-                            <td>
-                            @if($userType == 'dictaminador')
-                                <input id="obs3_3_1" name="obs3_3_1" class="table-header" type="text">
-                            @else 
-                            <span id="obs3_3_1" name="obs3_3_1"></span>
-                            @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>b)</td>
-                            <td>1. Paquete didáctico, 2. Manual de operaciones</td>
-                            <td>Autor(a)</td>
-                            <td id="p50">
-                                <center><b>50</b></center>
-                            </td>
-                            <td class="elabInput"><span id="rc2" name="rc2"></span></td>
-                            <td id="stotal2"></td>
-                            <td class="comision actv">
-                             @if($userType == 'dictaminador')   
-                                <input id="comIncisoB" for="" type="number" step="0.01"
-                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoB') }}"></input>
-                             @else    
-                             <span id="comIncisoB" name="comIncisoB"></span>
-                             @endif
-                            </td>
-                            <td>
-                            @if($userType == 'dictaminador')
-                                <input id="obs3_3_2" name="obs3_3_2" class="table-header" type="text">
-                            @else  
-                            <span id="obs3_3_2" name="obs3_3_2"></span>
-                            @endif
-                            </td>
-                        </tr>
-                        <tr class="page-break" data-page="7">
-                            <td>c)</td>
-                            <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio o
-                                instructivos, 3. Diseño
-                                y
-                                construcción de equipo de laboratorio, 4. Elaboración de material
-                                audiovisual, 5.
-                                Elaboración
-                                de
-                                software educativo, 6. Notas de curso, 7. Antología comentada, 8.
-                                Monografía.</td>
-                            <td>Autor(a)</td>
-                            <td id="p30">
-                                <center><b>30</b></center>
-                            </td>
-                            <td class="elabInput"><span id="rc3"></span></td>
-                            <td id="stotal3"></td>
-                            <td class="comision actv">
-                            @if($userType == 'dictaminador')    
-                                <input id="comIncisoC" for="" type="number" step="0.01"
-                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoC') }}">
-                                </input>
-                            @else 
-                            <span id="comIncisoC" name="comIncisoC"></span>
-                            @endif
-                            </td>
-                            <td>
-                            @if($userType == 'dictaminador')    
-                                <input id="obs3_3_3" name="obs3_3_3" class="table-header" type="text">
-                            @else 
-                                 <span id="obs3_3_3" name="obs3_3_3"></span>
-                            @endif
-                            </td>
-                        </tr>
-                        <tr class="prevent-overlap">
-                            <td>d)</td>
-                            <td>1. Traducción de libro, 2.Traducción de material de apoyo didáctico,
-                                3. Traducciones
-                                publicadas de artículos.</td>
-                            <td>Autor(a)</td>
-                            <td id="p25">
-                                <center><b>25</b></center>
-                            </td>
-                            <td class="elabInput"><span id="rc4"></span>
-                            </td>
-                            <td id="stotal4"></td>
-                            <td class="comision actv">
-                            @if($userType == 'dictaminador')
-                                <input id="comIncisoD"  for="" type="number" step="0.01"
-                                    oninput="onActv3Comision3()" value="{{ oldValueOrDefault('comIncisoD') }}"></input>
-                            @else 
-                                <span id="comIncisoD" name="comIncisoD"></span>
-                            @endif
-                            </td>
-                            <td>
-                            @if($userType == 'dictaminador')    
-                                <input id="obs3_3_4" name="obs3_3_4" class="table-header" type="text">
-                            @else 
-                                <span id="obs3_3_4" name="obs3_3_4"></span>
-                            @endif
-                            </td>
-                        </tr>
-                    </thead>
-                </tbody>
-            </table>
+<table class="table table-sm">
+    <x-table-header />
+    <tbody class="page-break" data-page="7">
+        <tr>
+            <td class="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
+            <td class="score3_3">0</td>
+            <td class="comision3_3">0</td>
+        </tr>
+        <tr>
+            <td colspan="6"></td>
+        </tr>
+        <tr>
+            <td class="incisos">Incisos</td>
+            <td class="obra">Obra</td>
+            <td>Actividad</td>
+            <td>Puntaje</td>
+            <td class="cantidad">Cantidad</td>
+            <td>SubTotal</td>
+        </tr>
+        <!-- Segunda tabla: Incisos c) y d) -->
+        <tr>
+            <td>c)</td>
+            <td>1. Capítulo de libro, 2. Elaboración de Manuales de laboratorio...</td>
+            <td>Autor(a)</td>
+            <td>
+                <center><b>30</b></center>
+            </td>
+            <td class="elabInput"><span class="rc3"></span></td>
+            <td class="stotal3"></td>
+            <td class="comision actv">
+                @if($userType == 'dictaminador')
+                    <input class="comIncisoC" type="number" step="0.01" oninput="onActv3Comision3()"
+                        value="{{ oldValueOrDefault('comIncisoC') }}">
+                @else
+                    <span class="comIncisoC"></span>
+                @endif
+            </td>
+            <td>
+                @if($userType == 'dictaminador')
+                    <input class="obs3_3_3" type="text">
+                @else
+                    <span class="obs3_3_3"></span>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>d)</td>
+            <td>1. Traducción de libro, 2. Traducción de material de apoyo didáctico...</td>
+            <td>Autor(a)</td>
+            <td>
+                <center><b>25</b></center>
+            </td>
+            <td class="elabInput"><span class="rc4"></span></td>
+            <td class="stotal4"></td>
+            <td class="comision actv">
+                @if($userType == 'dictaminador')
+                    <input class="comIncisoD" type="number" step="0.01" oninput="onActv3Comision3()"
+                        value="{{ oldValueOrDefault('comIncisoD') }}">
+                @else
+                    <span class="comIncisoD"></span>
+                @endif
+            </td>
+            <td>
+                @if($userType == 'dictaminador')
+                    <input class="obs3_3_4" type="text">
+                @else
+                    <span class="obs3_3_4"></span>
+                @endif
+            </td>
+        </tr>
+    </tbody>
+</table>
             <!--Tabla informativa Acreditacion Actividad 3.3-->
             <table>
                 <thead>
@@ -541,7 +530,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         axios.get('/get-docente-data', { params: { email } })
                             .then(response => {
                                 const data = response.data; 
-                                document.getElementById('score3_3').textContent = data.form3_3.score3_3 || '0';
+                                document.querySelector('.score3_3').textContent = data.form3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
@@ -631,7 +620,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.querySelector('input[name="email"]').value = selectedResponseForm3_3.email || '';
                                 document.querySelector('input[name="user_type"]').value = selectedResponseForm3_3.user_type || '';
 
-                                document.getElementById('score3_3').textContent = selectedResponseForm3_3.score3_3 || '0';
+                                document.querySelector('.score3_3').textContent = selectedResponseForm3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = selectedResponseForm3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = selectedResponseForm3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = selectedResponseForm3_3.rc3 || '0';
@@ -640,7 +629,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.getElementById('stotal2').textContent = selectedResponseForm3_3.stotal2 || '0';
                                 document.getElementById('stotal3').textContent = selectedResponseForm3_3.stotal3 || '0';
                                 document.getElementById('stotal4').textContent = selectedResponseForm3_3.stotal4 || '0';
-                                document.getElementById('comision3_3').textContent = selectedResponseForm3_3.comision3_3 || '0';
+                                document.querySelector('.comision3_3').textContent = selectedResponseForm3_3.comision3_3 || '0';
                                 document.querySelector('span[name="comIncisoA"]').textContent = selectedResponseForm3_3.comIncisoA || '0';
                                 document.querySelector('span[name="comIncisoB"]').textContent = selectedResponseForm3_3.comIncisoB || '0';
                                 document.querySelector('span[name="comIncisoC"]').textContent = selectedResponseForm3_3.comIncisoC || '0';
@@ -660,7 +649,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.querySelector('input[name="email"]').value = '';
                                 document.querySelector('input[name="user_type"]').value = '';
 
-                                document.getElementById('score3_3').textContent = '0';
+                                document.querySelector('.score3_3').textContent = '0';
                                 document.getElementById('rc1').textContent = '0';
                                 document.getElementById('rc2').textContent = '0';
                                 document.getElementById('rc3').textContent = '0';
@@ -669,7 +658,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.getElementById('stotal2').textContent = '0';
                                 document.getElementById('stotal3').textContent = '0';
                                 document.getElementById('stotal4').textContent = '0';
-                                document.getElementById('comision3_3').textContent = '0';
+                                document.querySelector('.comision3_3').textContent = '0';
                                 document.querySelector('span[name="comIncisoA"]').textContent = '0';
                                 document.querySelector('span[name="comIncisoB"]').textContent = '0';
                                 document.querySelector('span[name="comIncisoC"]').textContent = '0';
@@ -767,8 +756,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData['comIncisoB'] = form.querySelector('input[id="comIncisoB"]').value;
             formData['comIncisoC'] = form.querySelector('input[id="comIncisoC"]').value;
             formData['comIncisoD'] = form.querySelector('input[id="comIncisoD"]').value;
-            formData['score3_3'] = document.getElementById('score3_3').textContent;
-            formData['comision3_3'] = document.getElementById('comision3_3').textContent;
+            formData['score3_3'] = document.querySelector('.score3_3').textContent;
+            formData['comision3_3'] = document.querySelector('.comision3_3').textContent;
 
             // Observations
             formData['obs3_3_1'] = form.querySelector('input[name="obs3_3_1"]').value;
