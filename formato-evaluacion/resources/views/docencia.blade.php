@@ -842,6 +842,7 @@ $userType = Auth::user()->user_type;
                                     @csrf
                                     <div>
                                         <!--3.8.1 RSU -->
+                                        <h4>Puntaje máximo 
                                         @if($userType != '') <!-- fetch puntajeMaximo form3_8_1 -->
                                             <span class="bg-black text-white px-4 mt-3" id="puntajeMaximo" for="">{{ $puntajeMaximo }}</span>
                                         @endif
