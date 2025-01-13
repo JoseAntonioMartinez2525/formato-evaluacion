@@ -29,14 +29,14 @@ class ResponseForm3_8_1Controller extends Controller
                 //'comision3_8_1' => 'required|numeric',
                 'puntaje3_8_1' => 'required|numeric',
                 'puntajeHoras3_8_1' => 'required|numeric',
-                'obs3_8_1_1' => 'nullable|string',
+                'obs3_8_1' => 'nullable|string',
                 'user_type' => 'required|in:user,docente,dictaminator',
 
             ]);
 
             $validatedData['form_type'] = 'form3_8_1';
             // Assign default value if not provided
-            $validatedData['obs3_8_1_1'] = $validatedData['obs3_8_1_1'] ?? 'sin comentarios';
+            $validatedData['obs3_8_1'] = $validatedData['obs3_8_1'] ?? 'sin comentarios';
 
             $docenteData = DB::table('dictaminators_response_form3_8_1')
                 ->where('user_id', $validatedData['user_id'])
