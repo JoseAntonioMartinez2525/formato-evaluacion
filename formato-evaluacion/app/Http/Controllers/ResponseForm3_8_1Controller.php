@@ -8,6 +8,16 @@ use App\Models\UsersResponseForm3_8_1;
 use Illuminate\Support\Facades\DB;
 class ResponseForm3_8_1Controller extends Controller
 {
+    public function showForm3_8_1() {
+    // Recupera el valor de puntajeMaximo
+    $puntajeMaximo = DB::table('puntajes_maximos')
+                        ->where('id', 1)
+                        ->value('valor');
+
+
+    // Pasa el valor a la vista
+    return view('docencia', compact('puntajeMaximo'));
+}
     public function store381(Request $request)
     {
         try {
@@ -78,5 +88,12 @@ class ResponseForm3_8_1Controller extends Controller
             ], 500);
         }
     }
+
+    public function getPuntajeMaximo()
+{
+    $puntajeMaximo = DB::table('puntajes_maximos')->where('clave', 'puntajeMaximo')->value('valor');
+
+    return response()->json(['puntajeMaximo' => $puntajeMaximo]);
+}
 }
 

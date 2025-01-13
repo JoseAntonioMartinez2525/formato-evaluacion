@@ -140,6 +140,28 @@ function onActv3Comision3_8() {
 
 }
 
+function onActv3Comision3_8_1() {
+  const comisionHoras3_8_1 = parseFloat(document.getElementById("comisionDict3_8_1").value);
+  console.log("comisionHoras3_8_1:", comisionHoras3_8_1);
+
+  const puntajeMaximoElement = document.getElementById("puntajeMaximo");
+    let puntajeMaximo;
+
+    if (puntajeMaximoElement.tagName === "INPUT") {
+        puntajeMaximo = parseFloat(puntajeMaximoElement.value);
+    } else {
+        puntajeMaximo = parseFloat(puntajeMaximoElement.textContent);
+    }
+    
+  const comisionDict3_8_1 = Math.min(comisionHoras3_8_1, puntajeMaximo);
+  console.log("comisionDict3_8_1:", comisionDict3_8_1);
+
+  document.getElementById("comision3_8_1").innerHTML = comisionDict3_8_1;
+  console.log(comisionDict3_8_1);
+
+
+}
+
 
 function onActv3Comision3_9() {
   const comisionInputs = document.querySelectorAll('input[id^="tutoriasComision"]');

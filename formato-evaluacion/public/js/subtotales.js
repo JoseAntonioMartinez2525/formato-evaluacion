@@ -421,11 +421,20 @@ function onActv3SubTotal3_8_1(){
 const puntajeHoras3_8_1 = puntaje3_8_1 * p3_8_1;
  document.getElementById("puntajeHoras3_8_1").innerHTML= puntajeHoras3_8_1;
 
-const puntajeMaximo = parseFloat(document.getElementById("puntajeMaximo").textContent);
+const puntajeMaximoElement = document.getElementById("puntajeMaximo");
+    let puntajeMaximo;
+
+    if (puntajeMaximoElement.tagName === "INPUT") {
+        puntajeMaximo = parseFloat(puntajeMaximoElement.value);
+    } else {
+        puntajeMaximo = parseFloat(puntajeMaximoElement.textContent);
+    }
+
  const score3_8_1 = Math.min(puntajeHoras3_8_1,puntajeMaximo);
  document.getElementById("score3_8_1").innerHTML= score3_8_1;
 
 if (!isNaN(score3_8_1)) {
+
     docencia += score3_8_1;
 }
  document.getElementById("docencia").innerHTML = docencia;

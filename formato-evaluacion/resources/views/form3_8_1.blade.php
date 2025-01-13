@@ -6,7 +6,7 @@ $newLocale = str_replace('_', '-', $locale);
 <html lang="">
 
 <head>
-    <title>3_8_1_1 </title>
+    <title>3_8_1 RSU </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,7 +14,9 @@ $newLocale = str_replace('_', '-', $locale);
     <x-head-resources />
     <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
 <style>
-
+.punto3_8_1{
+    font-weight: none;
+}
 </style>
 </head>
 
@@ -77,12 +79,12 @@ $user_identity = $user->id;
                 <tbody>
                     <thead>
                         <tr>
-                            <td id="seccion3_8_1_1" colspan=1 class="punto3_8_1_1" scope=col style="padding:-60px;">
-                                3.8.1 RSU</td>
-                            <td class="punto3_8_1_1">Factor</td>
-                            <td class="punto3_8_1_1">Horas</td>
-                            <td id="score3_8_1_1" for="">0</td>
-                            <td id="comision3_8_1_1">0</td>
+                            <td id="seccion3_8_1" colspan=1 class="punto3_8_1" scope=col style="padding:-60px;">
+                                <b>3.8.1</b> RSU</td>
+                            <td class="punto3_8_1">Factor</td>
+                            <td class="punto3_8_1">Horas</td>
+                            <td id="score3_8_1" for="">0</td>
+                            <td id="comision3_8_1">0</td>
 
                         </tr>
                     </thead>
@@ -90,23 +92,23 @@ $user_identity = $user->id;
                         <tr>
                             <td>1 por cada hora</td>
                             <td id="p3_8_1_1">1</td>
-                            <td id="puntaje3_8_1_1"></td>
-                            <td id="puntajeHoras3_8_1_1" class="rightSelect"></td>
+                            <td id="puntaje3_8_1"></td>
+                            <td id="puntajeHoras3_8_1" class="rightSelect"></td>
                             <td class="rightSelect">
                                 @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comisionDict3_8_1_1" name="comisionDict3_8_1_1"
+                                    <input type="number" step="0.01" id="comisionDict3_8_1" name="comisionDict3_8_1"
                                         oninput="onActv3Comision3_8_1_1()"
-                                        value="{{ oldValueOrDefault('comisionDict3_8_1_1') }}">
+                                        value="{{ oldValueOrDefault('comisionDict3_8_1') }}">
                                 @else
-                                    <span id="comisionDict3_8_1_1" name="comisionDict3_8_1_1"></span>
+                                    <span id="comisionDict3_8_1" name="comisionDict3_8_1"></span>
                                 @endif
 
                             </td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input class="table-header" id="obs3_8_1_1_1" name="obs3_8_1_1_1" type="text">
+                                    <input class="table-header" id="obs3_8_1" name="obs3_8_1" type="text">
                                 @else
-                                    <span id="obs3_8_1_1_1" name="obs3_8_1_1_1"></span>
+                                    <span id="obs3_8_1" name="obs3_8_1"></span>
                                 @endif
 
                             </td>
@@ -401,8 +403,33 @@ $user_identity = $user->id;
         const elemento = document.getElementById(idElemento);
         elemento.setAttribute('readonly', true);
         elemento.style.backgroundColor = '#353e4e'; // Fondo deshabilitado
-        puntajeMaximoGlobal = elemento.value;
-        alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
+        const puntajeMaximo = elemento.value;
+
+        // Enviar el puntaje máximo al backend
+    // Enviar el puntaje máximo al backend
+    fetch('/update-puntaje-maximo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+            puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
+            alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
+        })
+        .catch(error => {
+            console.error('Error al actualizar el puntaje máximo:', error);
+            alert('Hubo un error al actualizar el puntaje máximo.');
+        });
     }
 
     // Actualiza el puntaje máximo dinámicamente

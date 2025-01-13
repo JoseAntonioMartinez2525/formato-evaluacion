@@ -843,7 +843,7 @@ $userType = Auth::user()->user_type;
                                     <div>
                                         <!--3.8.1 RSU -->
                                         @if($userType != '') <!-- fetch puntajeMaximo form3_8_1 -->
-                                            <span class="bg-black text-white px-4 mt-3" id="puntajeMaximo" for=""></span>
+                                            <span class="bg-black text-white px-4 mt-3" id="puntajeMaximo" for="">{{ $puntajeMaximo }}</span>
                                         @endif
                                         </h4>
                                     </div>
@@ -3026,6 +3026,7 @@ $userType = Auth::user()->user_type;
                     obs3_2_2: obs3_2_2,
                     obs3_2_3: obs3_2_3,
 
+
                 };
 
                 const dse = document.querySelector("#DSE");
@@ -3329,6 +3330,15 @@ $userType = Auth::user()->user_type;
                                 break;
                                 
                             case 'form3_8_1':
+                            fetch('/get-puntaje-maximo')
+                            .then(response => response.json())
+                            .then(data => {
+                                let puntajeMaximo = document.getElementById('puntajeMaximo').textContent || '40'; // Valor por defecto
+                                document.getElementById('PuntajeMaximo').textContent = puntajeMaximo;
+                            })
+                            .catch(error => {
+                                console.error('Error al obtener el puntaje máximo:', error);
+                            });
                                 let score3_8_1Label = form.querySelector('td[id="score3_8_1"]');
                                 formData['score3_8_1'] = parseInt(score3_8_1Label.innerText, 10) || 0;
                                 formData['puntaje3_8_1'] = document.getElementById('puntaje3_8_1').value;

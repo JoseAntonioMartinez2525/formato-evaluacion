@@ -48,6 +48,7 @@ use App\Http\Controllers\ResponseForm3_5Controller;
 use App\Http\Controllers\ResponseForm3_6Controller;
 use App\Http\Controllers\ResponseForm3_7Controller;
 use App\Http\Controllers\ResponseForm3_8Controller;
+use App\Http\Controllers\ResponseForm3_8_1_Controller;
 use App\Http\Controllers\ResponseForm3_9Controller;
 use App\Http\Controllers\ResponseForm3_10Controller;
 use App\Http\Controllers\ResponseForm3_11Controller;
@@ -66,6 +67,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EvaluatorSignatureController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DictaminatorController;
+use App\Http\Controllers\PuntajeMaximosController;
 
 Route::get('/', function () {
     return view('login');
@@ -246,6 +248,10 @@ Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('jso
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::post('/update-puntaje-maximo', [PuntajeMaximosController::class, 'updatePuntajeMaximo']);
+Route::get('/get-puntaje-maximo', [ResponseForm3_8_1Controller::class, 'getPuntajeMaximo']);
+Route::get('/docencia', [ResponseForm3_8_1Controller::class, 'showForm3_8_1'])->name('showForm3_8_1');
 
 Route::get('/test-event/{user_id}', function ($user_id) {
     event(new \App\Events\EvaluationCompleted($user_id));
