@@ -24,6 +24,7 @@ use App\Http\Controllers\DictaminatorForm3_8_1Controller;
 use App\Http\Controllers\DictaminatorForm3_8Controller;
 use App\Http\Controllers\DictaminatorForm3_9Controller;
 use App\Http\Controllers\DictaminatorFormsGroupsController;
+use App\Http\Controllers\DynamicFormController;
 use App\Http\Controllers\EvaluatorSignatureController1;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\FormContentController;
@@ -113,6 +114,8 @@ Route::get('form5', function () {return view('form5'); })->name('form5');
 Route::get('resumen_comision', function () {return view('resumen_comision'); })->name('resumen_comision');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
+//Route::get('dynamic_form', function () {return view('dynamic_form'); })->name('dynamic_form');
+
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
 
 
@@ -260,6 +263,9 @@ Route::get('/test-event/{user_id}', function ($user_id) {
 
 // Ruta para cambiar el modo oscuro
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
+Route::resource('dynamic-forms', DynamicFormController::class);
+Route::post('/dynamic-forms/{form}/store-data', [DynamicFormController::class, 'storeFormData'])->name('store.dynamic.form');
+
 
 
 

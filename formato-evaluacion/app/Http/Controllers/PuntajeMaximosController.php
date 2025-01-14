@@ -21,7 +21,7 @@ public function updatePuntajeMaximo(Request $request)
 
         return response()->json(['message' => 'Puntaje máximo actualizado correctamente.']);
     } catch (\Exception $e) {
-        Log::error('Error al actualizar el puntaje máximo: ' . $e->getMessage());
+        //Log::error('Error al actualizar el puntaje máximo: ' . $e->getMessage());
         return response()->json(['message' => 'Error al actualizar el puntaje máximo.'], 500);
     }
 }

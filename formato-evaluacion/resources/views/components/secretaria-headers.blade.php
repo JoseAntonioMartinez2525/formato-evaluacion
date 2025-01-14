@@ -46,6 +46,9 @@
                                         Formatos</a>
                                 @endif
                             </li>
+                             @if(Auth::user()->user_type === '')
+                                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('dynamic_form') }}">Añadir nuevo formulario</a>
+                             @endif
                         </nav>
                     </form>
                 </section>
