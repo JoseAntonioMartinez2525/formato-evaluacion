@@ -18,6 +18,37 @@ $newLocale = str_replace('_', '-', $locale);
                 content: "1";
             }
         }
+
+        .table input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#formName, #numColumns, #numRows{
+    width: 300px;
+}
+
+#actividadPrincipal{
+    width: 380px;
+}
+
+#puntajeAEvaluar, #puntajeComision{
+    width: 150px;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+#puntajeAEvaluar,{
+    color: white;
+
+}
+
+
     </style>
 
 </head>
@@ -65,71 +96,87 @@ $newLocale = str_replace('_', '-', $locale);
 
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                    <div class="container mt-4">
-                    <!--Llenado de los campos-->
-                    <h3>Ingrese los nuevos campos</h3>
-                    <form action=""><input type="text" placeholder="nombre del formulario">
-                        <div>
+@php
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
+@endphp
 
-                            <h4>Puntaje máximo
-                                @if($userType == '') <!-- usuario secretaria -->
-                                    <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="40" readonly
-                                        oninput="actualizarPuntajeMaximo(this.value);"">
-                                                    <button class=" btn custom-btn printButtonClass"
-                                        onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
-                                    <button class="btn custom-btn printButtonClass" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                                <!--Llenado de los campos-->
+    <div class="container mt-4">
+        <!-- Título -->
+        <h3>Generador de Formulario Dinámico</h3>
 
-                                @else
-                                    <span id="PuntajeMaximo"></span>
-                                @endif
-                            </h4>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <!--Permitir editar la edicion del campo Actividad-->
-                                    <th scope="col"><input type="text" placeholder="Ingrese la actividad principal"></th>  
-                             
-                                    <!---->
-                                    <th class="table-ajust2 cd" scope="col">Puntaje a evaluar</th>
-                                    <th class="table-ajust2 cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                                    <th class="table-ajust2" scope="col">Observaciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <span>Ingrese los sub encabezados</span>
-                                @foreach ($activities as $activity)
-                                    <tr>
-                                        <td>{{ $activity->name }}</td>
-                                        @foreach ($activity->columns as $column)
-                                            <td>{{ $column->value }}</td>
-                                        @endforeach
-                                        <td><input type="number" name="score_{{ $activity->id }}" value="0"></td>
-                                        <td><input type="number" name="commission_score_{{ $activity->id }}" value="0"></td>
-                                        <td><input type="text" name="observation_{{ $activity->id }}"></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+        <!-- Nombre del formulario -->
+        <form id="dynamicForm" method="POST">
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+            @csrf
+            <label for="formName">Nombre del formulario:</label>
+            <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
 
-                        </table>
-                    </form>
-                    </div>
+            <!-- Puntaje máximo -->
+            <div class="mt-3">
+                <h4>Puntaje máximo</h4>
+                @if($userType == '') <!-- usuario secretaria -->
+                    <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
+                    <button type="button" class="btn custom-btn" onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
+                    <button type="button" class="btn custom-btn" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                @else
+                    <span id="puntajeMaximoLabel"></span>
+                @endif
+            </div>
+
+            <!-- Configuración dinámica -->
+            <div class="mt-4">
+                <h5>Configuración de la tabla</h5>
+                <label for="numColumns">Número de columnas:</label>
+                <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
+
+                <label for="numRows">Número de filas:</label>
+                <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
+
+                <button type="button" class="btn btn-primary" onclick="generateTable()">Generar Tabla</button>
+            </div>
+
+            <!-- Tabla dinámica -->
+            <table id="dynamicTable" class="table mt-4">
+                <thead>
+                    <tr id="defaultHeader">
+                        <th><input type="text" id="actividadPrincipal" placeholder="Ingrese la actividad principal"></th>
+                        <th>Puntaje a evaluar</th>
+                        <th>Puntaje de la Comisión Dictaminadora</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ></td>
+                        <td style="background-color: #0b5967"><span id="puntajeAEvaluar"></span></td>
+
+                        <td style="background-color: #ffcc6d"><span id="puntajeComision"></span></td>
+                    </tr>
+                    <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
 
 
+                </tbody>
+            </table>
+
+            <!-- Botones de acción -->
+            <div class="mt-4">
+                <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
+                <button type="reset" class="btn btn-danger">Eliminar</button>
+            </div>
+        </form>
+    </div>
 
 
-            @endif
+@endif
         </div>
         </main>
 
-        <div>
 
-            <footer>
-
-
-            </footer>
-
-        </div>
     </div>
     </div>
     </div>
@@ -365,56 +412,6 @@ $newLocale = str_replace('_', '-', $locale);
             label.textContent = `Convocatoria: ${convocatoria}, Período: ${periodo}`;
         }
 
-        // Captura la convocatoria y periodo de evaluación al enviar el formulario form1
-        document.addEventListener('DOMContentLoaded', function () {
-            const form1 = document.getElementById('form1');
-            form1.addEventListener('submit', function (event) {
-                event.preventDefault(); // Evita el envío del formulario para manejarlo con JavaScript
-
-                // Captura los valores del formulario form1
-                const convocatoria = document.getElementById('convocatoria').value;
-                const periodo = document.getElementById('periodo').value;
-
-                // Actualiza el label en el footer con los valores capturados
-                actualizarLabelConvocatoriaPeriodo(convocatoria, periodo);
-                console.log(label);
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the canvas element
-            var canvas = document.getElementById('convocatoriaCanvas');
-            var context = canvas.getContext('2d');
-
-            // Function to update the canvas with 'Convocatoria' value
-            function updateCanvas(text) {
-                // Clear the canvas
-                context.clearRect(200, 100, canvas.width, canvas.height);
-
-                // Set text properties
-                context.font = '20px Arial';
-                context.fillStyle = 'black';
-                context.textAlign = 'right';
-                context.textBaseline = 'middle';
-
-                // Draw the text
-                context.fillText(text, canvas.width / 2, canvas.height / 2);
-            }
-
-            // Get the input element with id 'convocatoria'
-            var convocatoriaInput = document.getElementById('convocatoria');
-            if (convocatoriaInput) {
-                // Update the canvas initially with the placeholder value or empty
-                updateCanvas(convocatoriaInput.placeholder);
-
-                // Listen for input events to dynamically update the canvas
-                convocatoriaInput.addEventListener('input', function () {
-                    var newValue = convocatoriaInput.value;
-                    updateCanvas(newValue);
-                });
-            }
-        });
-
 
         document.addEventListener('DOMContentLoaded', function () {
             const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
@@ -455,18 +452,23 @@ $newLocale = str_replace('_', '-', $locale);
          let puntajeMaximoGlobal = 40; // Estado global inicial
 
             // Habilita la edición del input
-            function habilitarEdicion(idElemento) {
-                const elemento = document.getElementById(idElemento);
-                elemento.removeAttribute('readonly');
-                //elemento.style.backgroundColor = 'white';
-            }
+    function habilitarEdicion(id) {
+        const input = document.getElementById(id);
+        input.removeAttribute('readonly');
+        input.focus();
+    }
 
             // Guarda el valor editado y bloquea el campo
-            function guardarEdicion(idElemento) {
-                const elemento = document.getElementById(idElemento);
-                elemento.setAttribute('readonly', true);
-                elemento.style.backgroundColor = '#353e4e'; // Fondo deshabilitado
+            function guardarEdicion(id) {
+                /*const elemento = document.getElementById(id);
+                elemento.setAttribute('readonly', true);*/
+                const input = document.getElementById(id);
+                input.setAttribute('readonly', true);
+                input.style.backgroundColor = '#353e4e'; 
+                // Fondo deshabilitado
+                /*
                 const puntajeMaximo = elemento.value;
+                elemento.style.backgroundColor = '#353e4e'; 
 
                 // Enviar el puntaje máximo al backend
                 // Enviar el puntaje máximo al backend
@@ -492,14 +494,146 @@ $newLocale = str_replace('_', '-', $locale);
                     .catch(error => {
                         console.error('Error al actualizar el puntaje máximo:', error);
                         alert('Hubo un error al actualizar el puntaje máximo.');
-                    });
+                    });*/
             }
-
+/*
             // Actualiza el puntaje máximo dinámicamente
             function actualizarPuntajeMaximo(valor) {
                 puntajeMaximoGlobal = valor;
                 console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
             }
+*/
+           function generateTable() {
+                const numColumns = parseInt(document.getElementById('numColumns').value);
+                const numRows = parseInt(document.getElementById('numRows').value);
+                const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
+
+                // Limpia filas anteriores
+                
+               const puntajesRow = tableBody.querySelector('tr.puntajes');
+               puntajesRow.innerHTML = ''; 
+
+                // Genera filas y columnas dinámicamente
+                for (let i = 0; i < numRows; i++) {
+                    const row = document.createElement('tr');
+
+                    // Primera columna: Nombre de la actividad
+                    const activityCell = document.createElement('td');
+                    activityCell.innerHTML = `<input type="text" placeholder="Nombre de la actividad">`;
+                    row.appendChild(activityCell);
+
+                    // Columnas dinámicas
+                    for (let j = 0; j < numColumns; j++) {
+                        const col = document.createElement('td');
+                        col.innerHTML = `<input type="text" placeholder="Valor">`;
+                        row.appendChild(col);
+                    }
+
+                    // Puntaje, comisión y observaciones
+                    row.innerHTML += `
+            <td><input type="number" name="score[]" value="0"></td>
+            <td><input type="number" name="commission_score[]" value="0"></td>
+            <td><input type="text" name="observation[]"></td>
+        `;
+
+                    puntajesRow.insertAdjacentElement('afterend', row);
+                }
+            }
+
+            function guardarTabla() {
+                const formName = document.getElementById('formName').value;
+                const puntajeMaximo = document.getElementById('puntajeMaximo').value;
+                const tableData = [];
+
+                // Recolecta datos de la tabla
+                const rows = document.querySelectorAll('#dynamicTable tbody tr');
+                rows.forEach((row) => {
+                    const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
+                    tableData.push(rowData);
+                });
+                // Prepara los datos para enviar
+                const formData = {
+                    form_name: formName,
+                    puntaje_maximo: puntajeMaximo,
+                    table_data: tableData,
+                    user_id: document.querySelector('input[name="user_id"]').value,
+                    email: document.querySelector('input[name="email"]').value,
+                    user_type: document.querySelector('input[name="user_type"]').value,
+                };
+
+                // Enviar datos al servidor
+                fetch('/dynamic-form/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    },
+                    body: JSON.stringify(formData),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert('Formulario guardado exitosamente.');
+                        } else {
+                            alert('Error al guardar el formulario.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert('Error al guardar el formulario.');
+                    });
+
+                console.log({
+                    formName,
+                    puntajeMaximo,
+                    tableData,
+                });
+
+                alert('Formulario guardado exitosamente.');
+
+
+            }
+
+            function loadFormData(userId) {
+                    fetch(`/dynamic-form/${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const form = data.form;
+
+                                // Rellenar los datos del formulario
+                                document.getElementById('formName').value = form.form_name;
+                                document.getElementById('puntajeMaximo').value = form.puntaje_maximo;
+
+                                // Recuperar y generar la tabla
+                                const tableData = JSON.parse(form.table_data);
+                                const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
+                                tableBody.innerHTML = ''; // Limpiar tabla actual
+
+                                tableData.forEach((rowData) => {
+                                    const row = document.createElement('tr');
+
+                                    // Crear celdas con los datos de la tabla
+                                    row.innerHTML = `
+                        <td><input type="text" value="${rowData[0]}" disabled></td>
+                        <td><input type="text" value="${rowData[1]}" disabled></td>
+                        <td><input type="number" value="${rowData[2]}" disabled></td>
+                        <td><input type="number" value="${rowData[3]}" disabled></td>
+                        <td><input type="text" value="${rowData[4]}" disabled></td>
+                    `;
+
+                                    tableBody.appendChild(row);
+                                });
+                            } else {
+                                alert('Formulario no encontrado.');
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            alert('Error al cargar el formulario.');
+                        });
+                }
+
 
     </script>
 

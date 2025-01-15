@@ -7,20 +7,48 @@ use Illuminate\Http\Request;
 
 class DynamicFormController extends Controller
 {
-    public function storeForm(Request $request)
+    public function store(Request $request)
     {
-        // Cálculos de puntajes, comisiones y validaciones
-        $formData = $request->all();
+        // Valida los datos
+        $validatedData = $request->validate([
+            'form_name' => 'required|string|max:255',
+            'puntaje_maximo' => 'required|numeric|min:0',
+            'table_data' => 'required|array',
+            'user_id' => 'required|integer',
+            'email' => 'required|email',
+            'user_type' => 'required|string',
+        ]);
 
-        foreach ($formData['activities'] as $activity) {
-            // Aquí puedes realizar cálculos de los puntajes, como la división por promedio, etc.
-            $activityScore = $this->calculateScore($activity);
-            // Guardar los datos en la base de datos o pasar al siguiente paso
-            $this->saveActivityData($activity, $activityScore);
-        }
-        return redirect()->route('form.success');
+        // Procesar los datos (puedes guardar en la base de datos aquí)
+        // Ejemplo de almacenamiento en base de datos:
+        \DB::table('dynamic_forms')->insert([
+            'user_id' => $validatedData['user_id'],
+            'email' => $validatedData['email'],
+            'user_type' => $validatedData['user_type'],
+            'form_name' => $validatedData['form_name'],
+            'puntaje_maximo' => $validatedData['puntaje_maximo'],
+            'table_data' => json_encode($validatedData['table_data']),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Responder al cliente
+        return response()->json(['success' => true]);
     }
 
+    // Método para recuperar el formulario del usuario
+    public function getForm($userId)
+    {
+        $form = DynamicForm::where('user_id', $userId)->first();
+        if ($form) {
+            return response()->json([
+                'success' => true,
+                'form' => $form,
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
+        }
+    }
     public function calculateScore($activity)
     {
         // Ejemplo de cálculo dinámico

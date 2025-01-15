@@ -114,7 +114,7 @@ Route::get('form5', function () {return view('form5'); })->name('form5');
 Route::get('resumen_comision', function () {return view('resumen_comision'); })->name('resumen_comision');
 
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
-//Route::get('dynamic_form', function () {return view('dynamic_form'); })->name('dynamic_form');
+Route::get('dynamic_forms', function () {return view('dynamic_forms'); })->name('dynamic_forms');
 
 Route::get('/secretaria', [SecretariaController::class, 'showSecretaria'])->name('secretaria');
 
@@ -263,8 +263,9 @@ Route::get('/test-event/{user_id}', function ($user_id) {
 
 // Ruta para cambiar el modo oscuro
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
-Route::resource('dynamic-forms', DynamicFormController::class);
-Route::post('/dynamic-forms/{form}/store-data', [DynamicFormController::class, 'storeFormData'])->name('store.dynamic.form');
+//Route::resource('dynamic-forms', DynamicFormController::class);
+Route::post('/dynamic-form/save', [DynamicFormController::class, 'store'])->name('dynamic-form.save');
+Route::get('/dynamic-form/{userId}', [DynamicFormController::class, 'getForm']);
 
 
 

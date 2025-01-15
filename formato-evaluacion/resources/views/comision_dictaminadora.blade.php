@@ -199,6 +199,8 @@ $newLocale = str_replace('_', '-', $locale);
             }
         });
 
+
+
         document.addEventListener('DOMContentLoaded', function () {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {
@@ -337,6 +339,37 @@ $newLocale = str_replace('_', '-', $locale);
                 document.getElementById('jsonDataLink').classList.remove('d-none');
             }
         });
+
+        // Función para agregar un nuevo formulario al select, manteniendo el orden
+            function addFormOption(newFormId, newFormLabel) {
+                const selectElement = document.getElementById('formSelect');
+                const newOption = document.createElement('option');
+                newOption.value = newFormId;
+                newOption.textContent = newFormLabel;
+
+                // Encontrar la posición correcta para insertar el nuevo formulario
+                const existingOptions = Array.from(selectElement.options);
+                let insertBeforeOption = null;
+
+                // Recorre las opciones para encontrar la correcta en la lista
+                for (let i = 0; i < existingOptions.length; i++) {
+                    if (existingOptions[i].value > newFormId) {
+                        insertBeforeOption = existingOptions[i];
+                        break;
+                    }
+                }
+
+                // Insertar la nueva opción en el lugar correcto
+                if (insertBeforeOption) {
+                    selectElement.insertBefore(newOption, insertBeforeOption);
+                } else {
+                    selectElement.appendChild(newOption);
+                }
+            }
+
+            // Ejemplo de uso para agregar un nuevo formulario
+            addFormOption('form3_3_1', '3.3.1 Nuevas Publicaciones relacionadas con la docencia');
+
     </script>
 
 </body>

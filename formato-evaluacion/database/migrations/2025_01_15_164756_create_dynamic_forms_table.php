@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dynamic_form_fields', function (Blueprint $table) {
+        Schema::create('dynamic_forms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained('dynamic_forms')->onDelete('cascade');
-            $table->string('field_name');
-            $table->string('field_type');
-            $table->boolean('is_required')->default(false);
+            $table->unsignedBigInteger('user_id');
+            $table->string('email');
+            $table->string('user_type');
+            $table->string('form_name');
+            $table->decimal('puntaje_maximo', 8, 2);
+            $table->json('table_data');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dynamic_form_fields');
+        Schema::dropIfExists('dynamic_forms');
     }
 };
