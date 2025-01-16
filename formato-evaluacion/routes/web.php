@@ -264,7 +264,7 @@ Route::get('/test-event/{user_id}', function ($user_id) {
 // Ruta para cambiar el modo oscuro
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 //Route::resource('dynamic-forms', DynamicFormController::class);
-Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.save');
+Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
 Route::get('/dynamic-form/{userId}', [DynamicFormController::class, 'getForm']);
 
 
