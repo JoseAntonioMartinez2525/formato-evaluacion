@@ -52,7 +52,11 @@ $newLocale = str_replace('_', '-', $locale);
                                     <li class="nav-item">
                                         <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
                                             llenado por la Comisión del PEDPD)</a>
-                                    </li><br>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
+                                    </li>
+                                    <br>
                                 </nav>
                     </form>
                 @endif
