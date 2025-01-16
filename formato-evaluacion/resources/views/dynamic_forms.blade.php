@@ -182,6 +182,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 
     <script>
+        let tableData = [];
 
 
         function handleClick(event) {
@@ -509,7 +510,7 @@ $newLocale = str_replace('_', '-', $locale);
         subheader.classList.add('subheader');
 
         // Celda vacía bajo "Actividad Principal"
-        subheader.innerHTML = `<td colspan="${numColumns}" id="encabezado_actividad_principal"><input placeholder="Nombre de Apartado"></td></tr>`;
+        subheader.innerHTML = `<td colspan="${numColumns}" id="encabezado_actividad_principal"><input placeholder="Nombre de Apartado"></td>`;
 
         // Generar subencabezados dinámicos
         for (let i = 0; i < numColumns; i++) {
@@ -571,7 +572,7 @@ $newLocale = str_replace('_', '-', $locale);
             function guardarTabla() {
                 const formName = document.getElementById('formName').value;
                 const puntajeMaximo = document.getElementById('puntajeMaximo').value;
-                const tableData = [];
+                
 
                 // Recolecta datos de la tabla
                 const rows = document.querySelectorAll('#dynamicTable tbody tr');
@@ -590,7 +591,7 @@ $newLocale = str_replace('_', '-', $locale);
                 };
 
                 // Enviar datos al servidor
-                fetch('/dynamic-form/save', {
+                fetch('/dynamic-form/store', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
