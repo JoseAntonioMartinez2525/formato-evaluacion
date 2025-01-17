@@ -44,10 +44,35 @@ class DynamicFormController extends Controller
             'updated_at' => now(),
         ]);
     }
+            // Inserta cada elemento en dynamic_form_items, separando valores en columnas distintas
+            foreach ($validatedData['table_data'] as $key => $value) {
+                if (is_array($value)) {
+                    // Si el valor es un arreglo, lo desglosamos y almacenamos en columnas separadas
+                    foreach ($value as $subKey => $subValue) {
+                        \DB::table('dynamic_form_items')->insert([
+                            'dynamic_form_id' => $formId,
+                            'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                            'key' => $key . '.' . $subKey,  // Usamos una clave combinada para la subclave
+                            'value' => $subValue,  // El valor individual
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
+                } else {
+                    // Si no es un arreglo, lo insertamos tal cual
+                    \DB::table('dynamic_form_items')->insert([
+                        'dynamic_form_id' => $formId,
+                        'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                        'key' => $key,  // La clave original
+                        'value' => $value,  // El valor
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
 
-
-        // Responder al cliente
-        return response()->json(['success' => true]);
+            // Responder al cliente
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             // Captura errores y retorna un mensaje JSON
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);

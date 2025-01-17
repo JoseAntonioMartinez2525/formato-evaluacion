@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('dynamic_form_id'); // Clave foránea
             $table->string('key'); // Clave de cada dato
-            $table->text('value'); // Valor del dato
+            $table->text('value')->nullable(); // Valor del dato
             $table->decimal('puntaje_maximo', 8, 2);
             $table->timestamps();
 
