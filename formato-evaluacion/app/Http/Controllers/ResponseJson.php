@@ -22,6 +22,8 @@ use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
 use App\Models\DictaminatorsResponseForm3_9;
+use App\Models\DynamicForm;
+use App\Models\DynamicFormItem;
 use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
 use App\Models\UsersResponseForm1;
@@ -105,6 +107,8 @@ class ResponseJson extends Controller
 
         $responsesFinal = UserResume::all()->filter()->values();
         $responsesEvaluator = EvaluatorSignature::all()->filter()->values();
+        $newFormsGeneral = DynamicForm::all()->filter()->values();
+        $newFormsDivided = DynamicFormItem::all()->filter()->values();
 
         // Combine user and dictaminator responses for form2
         $combinedForm2Responses = $responses2->merge($dictaminators_responses2);
@@ -128,6 +132,7 @@ class ResponseJson extends Controller
         $combinedForm3_17Responses = $responses3_17->merge($dictaminators_responses3_17);
         $combinedForm3_18Responses = $responses3_18->merge($dictaminators_responses3_18);
         $combinedForm3_19Responses = $responses3_19->merge($dictaminators_responses3_19);
+        $combinedNewForms = $newFormsGeneral->merge($newFormsDivided);
  
 
         
@@ -158,6 +163,7 @@ class ResponseJson extends Controller
             'form3_19' => $combinedForm3_19Responses->toArray(),
             'form4' => $responsesFinal->toArray(),
             'form5'=> $responsesEvaluator->toArray(),
+            'nuevo_formuario' => $combinedNewForms->toArray()
 
             
         ], JSON_PRETTY_PRINT);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DynamicForm;
 use Illuminate\Http\Request;
-
+use App\Models\DynamicFormItem;
 class DynamicFormController extends Controller
 {
     public function store(Request $request)
@@ -22,7 +22,7 @@ class DynamicFormController extends Controller
 
         // Procesar los datos (puedes guardar en la base de datos aquí)
         // Ejemplo de almacenamiento en base de datos:
-        \DB::table('dynamic_forms')->insert([
+            $formId = \DB::table('dynamic_forms')->insertGetId([
             'user_id' => $validatedData['user_id'],
             'email' => $validatedData['email'],
             'user_type' => $validatedData['user_type'] ?? null,
@@ -32,6 +32,19 @@ class DynamicFormController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        // Inserta cada elemento en dynamic_form_items
+    foreach ($validatedData['table_data'] as $key => $value) {
+        \DB::table('dynamic_form_items')->insert([
+            'dynamic_form_id' => $formId,
+            'puntaje_maximo' => $validatedData['puntaje_maximo'],
+            'key' => $key,
+            'value' => is_array($value) ? json_encode($value) : $value,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
 
         // Responder al cliente
         return response()->json(['success' => true]);
