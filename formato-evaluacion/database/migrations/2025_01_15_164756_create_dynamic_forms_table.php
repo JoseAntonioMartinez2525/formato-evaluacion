@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('email');
-            $table->string('user_type');
+            $table->string('user_type')->nullable();;
             $table->string('form_name');
             $table->decimal('puntaje_maximo', 8, 2);
             $table->json('table_data');

@@ -182,7 +182,7 @@ $newLocale = str_replace('_', '-', $locale);
     </div>
 
     <script>
-        let tableData = [];
+        const tableData = [];
 
 
         function handleClick(event) {
@@ -569,59 +569,65 @@ $newLocale = str_replace('_', '-', $locale);
                 }
             }
 
-            function guardarTabla() {
-                const formName = document.getElementById('formName').value;
-                const puntajeMaximo = document.getElementById('puntajeMaximo').value;
-                
+    async function guardarTabla() {
+        try {
+            const formName = document.getElementById('formName').value;
+            const puntajeMaximo = document.getElementById('puntajeMaximo').value;
 
-                // Recolecta datos de la tabla
-                const rows = document.querySelectorAll('#dynamicTable tbody tr');
-                rows.forEach((row) => {
-                    const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
-                    tableData.push(rowData);
-                });
-                // Prepara los datos para enviar
-                const formData = {
-                    form_name: formName,
-                    puntaje_maximo: puntajeMaximo,
-                    table_data: tableData,
-                    user_id: document.querySelector('input[name="user_id"]').value,
-                    email: document.querySelector('input[name="email"]').value,
-                    user_type: document.querySelector('input[name="user_type"]').value,
-                };
+            // Recolecta datos de la tabla
+            const rows = document.querySelectorAll('#dynamicTable tbody tr');
+            tableData.length = 0;
+            rows.forEach((row) => {
+                const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
+                tableData.push(rowData);
+            });
 
-                // Enviar datos al servidor
-                fetch('/dynamic-form/store', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                    },
-                    body: JSON.stringify(formData),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.success) {
-                            alert('Formulario guardado exitosamente.');
-                        } else {
-                            alert('Error al guardar el formulario.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        alert('Error al guardar el formulario.');
-                    });
+            // Prepara los datos para enviar
+            const formData = {
+                form_name: formName,
+                puntaje_maximo: puntajeMaximo,
+                table_data: tableData,
+                user_id: document.querySelector('input[name="user_id"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                user_type: document.querySelector('input[name="user_type"]').value,
+            };
 
-                console.log({
+            // Enviar datos al servidor
+            const response = await fetch('/dynamic-form/store', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify(formData),
+            });
+
+            // Verifica si la respuesta es exitosa
+            if (!response.ok) {
+                // Intenta obtener detalles del error del cuerpo de la respuesta
+                const errorData = await response.json();
+                const errorMessage = errorData.message || 'Error al guardar el formulario.';
+                throw new Error(errorMessage);
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('Formulario guardado exitosamente.');
+                 console.log({
                     formName,
                     puntajeMaximo,
                     tableData,
                 });
-
-                alert('Formulario guardado exitosamente.');
-
-
+            } else {
+                alert('Error al guardar el formulario.');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(`Error al guardar el formulario: ${error.message}`);
+        }
+    }
+
 
             function loadFormData(userId) {
                     fetch(`/dynamic-form/${userId}`)

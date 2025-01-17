@@ -10,13 +10,14 @@ class DynamicFormController extends Controller
     public function store(Request $request)
     {
         // Valida los datos
+        try {
         $validatedData = $request->validate([
             'form_name' => 'required|string|max:255',
             'puntaje_maximo' => 'required|numeric|min:0',
             'table_data' => 'required|array',
             'user_id' => 'required|integer',
             'email' => 'required|email',
-            'user_type' => 'required|string',
+            'user_type' => 'nullable|string',
         ]);
 
         // Procesar los datos (puedes guardar en la base de datos aquí)
@@ -24,7 +25,7 @@ class DynamicFormController extends Controller
         \DB::table('dynamic_forms')->insert([
             'user_id' => $validatedData['user_id'],
             'email' => $validatedData['email'],
-            'user_type' => $validatedData['user_type'],
+            'user_type' => $validatedData['user_type'] ?? null,
             'form_name' => $validatedData['form_name'],
             'puntaje_maximo' => $validatedData['puntaje_maximo'],
             'table_data' => json_encode($validatedData['table_data']),
@@ -34,6 +35,10 @@ class DynamicFormController extends Controller
 
         // Responder al cliente
         return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Captura errores y retorna un mensaje JSON
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 
     // Método para recuperar el formulario del usuario
