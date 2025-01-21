@@ -71,6 +71,35 @@ class DynamicFormController extends Controller
                 }
             }
 
+            $validatedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $key); // Replace invalid characters
+            $validatedColumnName = is_numeric($validatedColumnName[0]) ? '_' . $validatedColumnName : $validatedColumnName;
+
+            // Inserta cada columna dinámica en dynamic_form_columns
+            $columnIds = [];
+            foreach ($validatedData['table_data'][0] as $key => $value) {
+                $columnId = \DB::table('dynamic_form_columns')->insertGetId([
+                    'dynamic_form_id' => $formId,
+                    'column_name' => $validatedColumnName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                $columnIds[] = $columnId;
+            }
+
+            // Inserta cada valor en dynamic_form_values
+            foreach ($validatedData['table_data'] as $index => $row) {
+                foreach ($row as $key => $value) {
+                    $columnId = $columnIds[array_search($key, array_keys($validatedData['table_data'][0]))];
+                    \DB::table('dynamic_form_values')->insert([
+                        'dynamic_form_id' => $formId,
+                        'dynamic_form_column_id' => $columnId,
+                        'value' => $value,
+                        'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
             // Responder al cliente
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
