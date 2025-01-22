@@ -1,6 +1,6 @@
 @php
-$locale = app()->getLocale() ?: 'en';
-$newLocale = str_replace('_', '-', $locale);
+    $locale = app()->getLocale() ?: 'en';
+    $newLocale = str_replace('_', '-', $locale);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -20,35 +20,39 @@ $newLocale = str_replace('_', '-', $locale);
         }
 
         .table input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 5px;
-}
-.table th, .table td {
-    text-align: center;
-    vertical-align: middle;
-}
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+        }
 
-#formName, #numColumns, #numRows{
-    width: 300px;
-}
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
 
-#actividadPrincipal{
-    width: 380px;
-}
+        #formName,
+        #numColumns,
+        #numRows {
+            width: 300px;
+        }
 
-#puntajeAEvaluar, #puntajeComision{
-    width: 150px;
-    background-color: transparent;
-    font-weight: bold;
-}
+        #actividadPrincipal {
+            width: 380px;
+        }
 
-#puntajeAEvaluar,{
-    color: #ffff;
+        #puntajeAEvaluar,
+        #puntajeComision {
+            width: 150px;
+            background-color: transparent;
+            font-weight: bold;
+        }
 
-}
+        #puntajeAEvaluar,
+        {
+        color: #ffff;
 
-
+        }
     </style>
 
 </head>
@@ -58,118 +62,123 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                                @if (Auth::check() && Auth::user()->user_type === '')
-                                    <section role="region" aria-label="Response form">
-                                        <form>
-                                            @csrf
-                                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                        </a>
-                                                    </li>
-                                                    <li style="list-style: none; margin-right: 20px;">
-                                                        <a class="enlaceSN" href="{{ route('login') }}">
-                                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo
-                                                        10
-                                                        REGLAMENTO
-                                                        PEDPD</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active enlaceSN" style="width: 200px;"
-                                                        href="{{route('resumen_comision')}}">Resumen (A ser
-                                                        llenado por la Comisión del PEDPD)</a>
-                                                </li><br>
-                                            </nav>
-                                        </form>
-                                @endif
-                                </section>
+                        @if (Auth::check() && Auth::user()->user_type === '')
+                            <section role="region" aria-label="Response form">
+                                <form>
+                                    @csrf
+                                    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                        <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                            <li class="nav-item">
+                                                <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                                    <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                                </a>
+                                            </li>
+                                            <li style="list-style: none; margin-right: 20px;">
+                                                <a class="enlaceSN" href="{{ route('login') }}">
+                                                    <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                </a>
+                                            </li>
+                                        </div>
+                                        <li class="nav-item">
+                                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo
+                                                10
+                                                REGLAMENTO
+                                                PEDPD</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active enlaceSN" style="width: 200px;"
+                                                href="{{route('resumen_comision')}}">Resumen (A ser
+                                                llenado por la Comisión del PEDPD)</a>
+                                        </li><br>
+                                    </nav>
+                                </form>
+                        @endif
+                        </section>
 
-                                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                        <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                            <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                            <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                @php
-    $user = Auth::user();
-    $userType = $user->user_type;
-    $user_identity = $user->id; 
-                @endphp
+                            @php
+                                $user = Auth::user();
+                                $userType = $user->user_type;
+                                $user_identity = $user->id; 
+                            @endphp
 
-                                                <!--Llenado de los campos-->
-                    <div class="container mt-4">
-                        <!-- Título -->
-                        <h3>Generador de Formulario Dinámico</h3>
+                            <!--Llenado de los campos-->
+                            <div class="container mt-4">
+                                <!-- Título -->
+                                <h3>Generador de Formulario Dinámico</h3>
 
-                        <!-- Nombre del formulario -->
-                        <form id="dynamicForm" method="POST">
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                            @csrf
-                            <label for="formName">Nombre del formulario:</label>
-                            <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
+                                <!-- Nombre del formulario -->
+                                <form id="dynamicForm" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    @csrf
+                                    <label for="formName">Nombre del formulario:</label>
+                                    <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
 
-                            <!-- Puntaje máximo -->
-                            <div class="mt-3">
-                                <h4>Puntaje máximo</h4>
-                                @if($userType == '') <!-- usuario secretaria -->
-                                    <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
-                                    <button type="button" class="btn custom-btn" onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
-                                    <button type="button" class="btn custom-btn" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
-                                @else
-                                    <span id="puntajeMaximoLabel"></span>
-                                @endif
+                                    <!-- Puntaje máximo -->
+                                    <div class="mt-3">
+                                        <h4>Puntaje máximo</h4>
+                                        @if($userType == '') <!-- usuario secretaria -->
+                                            <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
+                                            <button type="button" class="btn custom-btn"
+                                                onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
+                                            <button type="button" class="btn custom-btn"
+                                                onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                                        @else
+                                            <span id="puntajeMaximoLabel"></span>
+                                        @endif
+                                    </div>
+
+                                    <!-- Configuración dinámica -->
+                                    <div class="mt-4">
+                                        <h5>Configuración de la tabla</h5>
+                                        <label for="numColumns">Número de columnas:</label>
+                                        <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
+
+                                        <label for="numRows">Número de filas:</label>
+                                        <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
+
+                                        <button type="button" class="btn btn-primary" onclick="generateTable()">Generar
+                                            Tabla</button>
+                                    </div>
+
+                                    <!-- Tabla dinámica -->
+                                    <table id="dynamicTable" class="table mt-4">
+                                        <thead>
+                                            <tr id="defaultHeader">
+                                                <th>Actividad</th>
+                                                <th>Puntaje a evaluar</th>
+                                                <th>Puntaje de la Comisión Dictaminadora</th>
+                                                <th>Observaciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" id="actividadPrincipal"
+                                                        placeholder="Ingrese la actividad principal"></td>
+                                                <td style="background-color: #0b5967; color: #ffff;"><span
+                                                        id="puntajeAEvaluar">0</span></td>
+
+                                                <td style="background-color: #ffcc6d"><span id="puntajeComision">0</span></td>
+                                            </tr>
+                                            <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Botones de acción -->
+                                    <div class="mt-4">
+                                        <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
+                                        <button type="reset" class="btn btn-danger">Eliminar</button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <!-- Configuración dinámica -->
-                            <div class="mt-4">
-                                <h5>Configuración de la tabla</h5>
-                                <label for="numColumns">Número de columnas:</label>
-                                <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
-
-                                <label for="numRows">Número de filas:</label>
-                                <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
-
-                                <button type="button" class="btn btn-primary" onclick="generateTable()">Generar Tabla</button>
-                            </div>
-
-                            <!-- Tabla dinámica -->
-                            <table id="dynamicTable" class="table mt-4">
-                                <thead>
-                                    <tr id="defaultHeader">
-                                        <th>Actividad</th>
-                                        <th>Puntaje a evaluar</th>
-                                        <th>Puntaje de la Comisión Dictaminadora</th>
-                                        <th>Observaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" id="actividadPrincipal" placeholder="Ingrese la actividad principal"></td>
-                                        <td style="background-color: #0b5967; color: #ffff;"><span id="puntajeAEvaluar">0</span></td>
-
-                                        <td style="background-color: #ffcc6d"><span id="puntajeComision">0</span></td>
-                                    </tr>
-                                    <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
-
-
-                                </tbody>
-                            </table>
-
-                            <!-- Botones de acción -->
-                            <div class="mt-4">
-                                <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
-                                <button type="reset" class="btn btn-danger">Eliminar</button>
-                            </div>
-                        </form>
-                    </div>
 
 
             @endif
@@ -450,226 +459,189 @@ $newLocale = str_replace('_', '-', $locale);
             }
         });
 
-         let puntajeMaximoGlobal = 40; // Estado global inicial
+        let puntajeMaximoGlobal = 40; // Estado global inicial
 
-            // Habilita la edición del input
-    function habilitarEdicion(id) {
-        const input = document.getElementById(id);
-        input.removeAttribute('readonly');
-        input.focus();
-    }
-
-            // Guarda el valor editado y bloquea el campo
-            function guardarEdicion(id) {
-                /*const elemento = document.getElementById(id);
-                elemento.setAttribute('readonly', true);*/
-                const input = document.getElementById(id);
-                input.setAttribute('readonly', true);
-                input.style.backgroundColor = '#353e4e'; 
-                // Fondo deshabilitado
-                /*
-                const puntajeMaximo = elemento.value;
-                elemento.style.backgroundColor = '#353e4e'; 
-
-                // Enviar el puntaje máximo al backend
-                // Enviar el puntaje máximo al backend
-                fetch('/update-puntaje-maximo', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Error en la respuesta del servidor');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data.message);
-                        puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
-                        alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
-                    })
-                    .catch(error => {
-                        console.error('Error al actualizar el puntaje máximo:', error);
-                        alert('Hubo un error al actualizar el puntaje máximo.');
-                    });*/
-            }
-/*
-            // Actualiza el puntaje máximo dinámicamente
-            function actualizarPuntajeMaximo(valor) {
-                puntajeMaximoGlobal = valor;
-                console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
-            }
-*/
-    // Genera los subencabezados dinámicamente
-    function generateSubheaders(numColumns) {
-        const subheader = document.createElement('tr');
-        subheader.classList.add('subheader');
-
-        // Celda vacía bajo "Actividad Principal"
-        subheader.innerHTML = `<td colspan="${numColumns}" id="encabezado_actividad_principal"><input placeholder="Nombre de Apartado"></td>`;
-
-        // Generar subencabezados dinámicos
-        for (let i = 0; i < numColumns; i++) {
-            subheader.innerHTML += `<td id="encabezado_${i + 1}"><input placeholder="Subencabezado ${i + 1}"></td>`;
-
+        // Habilita la edición del input
+        function habilitarEdicion(id) {
+            const input = document.getElementById(id);
+            input.removeAttribute('readonly');
+            input.focus();
         }
 
+        // Guarda el valor editado y bloquea el campo
+        function guardarEdicion(id) {
+            /*const elemento = document.getElementById(id);
+            elemento.setAttribute('readonly', true);*/
+            const input = document.getElementById(id);
+            input.setAttribute('readonly', true);
+            input.style.backgroundColor = '#353e4e';
+            // Fondo deshabilitado
+            /*
+            const puntajeMaximo = elemento.value;
+            elemento.style.backgroundColor = '#353e4e'; 
 
-
-        return subheader;
-    }
-           function generateTable() {
-                const numColumns = parseInt(document.getElementById('numColumns').value) || 0;
-                const numRows = parseInt(document.getElementById('numRows').value) || 0;
-                const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
-                
-               tableBody.innerHtml = '';
-                // Limpia filas anteriores
-                
-               const puntajesRow = tableBody.querySelector('tr.puntajes');
-               puntajesRow.innerHTML = ''; 
-
-               // Elimina subencabezados existentes si los hay
-               const subheaderRow = tableBody.querySelector('tr.subheader');
-               if (subheaderRow) subheaderRow.remove();
-
-
-               // Inserta los subencabezados antes de las filas dinámicas
-               const subheader = generateSubheaders(numColumns);
-               puntajesRow.insertAdjacentElement('beforebegin', subheader);
-
-                // Genera filas y columnas dinámicamente
-                for (let i = 0; i < numRows; i++) {
-                    const row = document.createElement('tr');
-
-                    // Primera columna: Nombre de la actividad
-                    const activityCell = document.createElement('td');
-                    activityCell.innerHTML = `<input type="text" placeholder="Nombre de la actividad">`;
-                    row.appendChild(activityCell);
-
-                    // Columnas dinámicas
-                    for (let j = 0; j < numColumns; j++) {
-                        const col = document.createElement('td');
-                        col.innerHTML = `<input type="text" placeholder="Valor">`;
-                        row.appendChild(col);
-                    }
-
-                    // Puntaje, comisión y observaciones
-                    row.innerHTML += `
-            <td><input type="number" name="score[]" value="0"></td>
-            <td><input type="number" name="commission_score[]" value="0"></td>
-            <td><input type="text" name="observation[]"></td>
-        `;
-
-                    puntajesRow.insertAdjacentElement('afterend', row);
-                }
-            }
-
-    async function guardarTabla() {
-        try {
-            const formName = document.getElementById('formName').value;
-            const puntajeMaximo = document.getElementById('puntajeMaximo').value;
-
-            // Recolecta datos de la tabla
-            const rows = document.querySelectorAll('#dynamicTable tbody tr');
-            tableData.length = 0;
-            rows.forEach((row) => {
-                const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
-                tableData.push(rowData);
-            });
-
-            // Prepara los datos para enviar
-            const formData = {
-                form_name: formName,
-                puntaje_maximo: puntajeMaximo,
-                table_data: tableData,
-                user_id: document.querySelector('input[name="user_id"]').value,
-                email: document.querySelector('input[name="email"]').value,
-                user_type: document.querySelector('input[name="user_type"]').value,
-            };
-
-            // Enviar datos al servidor
-            const response = await fetch('/dynamic-form/store', {
+            // Enviar el puntaje máximo al backend
+            // Enviar el puntaje máximo al backend
+            fetch('/update-puntaje-maximo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify(formData),
-            });
-
-            // Verifica si la respuesta es exitosa
-            if (!response.ok) {
-                // Intenta obtener detalles del error del cuerpo de la respuesta
-                const errorData = await response.json();
-                const errorMessage = errorData.message || 'Error al guardar el formulario.';
-                throw new Error(errorMessage);
-            }
-
-            const data = await response.json();
-
-            if (data.success) {
-                alert('Formulario guardado exitosamente.');
-                 console.log({
-                    formName,
-                    puntajeMaximo,
-                    tableData,
-                });
-            } else {
-                alert('Error al guardar el formulario.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert(`Error al guardar el formulario: ${error.message}`);
+                body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data.message);
+                    puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
+                    alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
+                })
+                .catch(error => {
+                    console.error('Error al actualizar el puntaje máximo:', error);
+                    alert('Hubo un error al actualizar el puntaje máximo.');
+                });*/
         }
-    }
+        /*
+                    // Actualiza el puntaje máximo dinámicamente
+                    function actualizarPuntajeMaximo(valor) {
+                        puntajeMaximoGlobal = valor;
+                        console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
+                    }
+        */
+        // Genera los subencabezados dinámicamente
+        function generateSubheaders(numColumns) {
+            const subheader = document.createElement('tr');
+            subheader.classList.add('subheader');
+
+            // Celda vacía bajo "Actividad Principal"
+            subheader.innerHTML = `<td colspan="${numColumns}" id="encabezado_actividad_principal" data-column-name="main_section"><input placeholder="Nombre de Apartado"></td>`;
+
+            // Generar subencabezados dinámicos
+            for (let i = 0; i < numColumns; i++) {
+                subheader.innerHTML += `<td id="encabezado_${i + 1}"><input placeholder="Subencabezado ${i + 1}" data-column-name="subheader_${i + 1}"></td>`;
 
 
-            function loadFormData(userId) {
-                    fetch(`/dynamic-form/${userId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                const form = data.form;
+            }
 
-                                // Rellenar los datos del formulario
-                                document.getElementById('formName').value = form.form_name;
-                                document.getElementById('puntajeMaximo').value = form.puntaje_maximo;
 
-                                // Recuperar y generar la tabla
-                                const tableData = JSON.parse(form.table_data);
-                                const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
-                                tableBody.innerHTML = ''; // Limpiar tabla actual
 
-                                tableData.forEach((rowData) => {
-                                    const row = document.createElement('tr');
+            return subheader;
+        }
+        function generateTable() {
+            const numColumns = parseInt(document.getElementById('numColumns').value) || 0;
+            const numRows = parseInt(document.getElementById('numRows').value) || 0;
+            const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
 
-                                    // Crear celdas con los datos de la tabla
-                                    row.innerHTML = `
-                        <td><input type="text" value="${rowData[0]}" disabled></td>
-                        <td><input type="text" value="${rowData[1]}" disabled></td>
-                        <td><input type="number" value="${rowData[2]}" disabled></td>
-                        <td><input type="number" value="${rowData[3]}" disabled></td>
-                        <td><input type="text" value="${rowData[4]}" disabled></td>
-                    `;
+            // Limpia filas anteriores
 
-                                    tableBody.appendChild(row);
-                                });
-                            } else {
-                                alert('Formulario no encontrado.');
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                            alert('Error al cargar el formulario.');
-                        });
+            const puntajesRow = tableBody.querySelector('tr.puntajes');
+            puntajesRow.innerHTML = '';
+
+            // Elimina subencabezados existentes si los hay
+            const subheaderRow = tableBody.querySelector('tr.subheader');
+            if (subheaderRow) subheaderRow.remove();
+
+
+            // Inserta los subencabezados antes de las filas dinámicas
+            const subheader = generateSubheaders(numColumns);
+            puntajesRow.insertAdjacentElement('beforebegin', subheader);
+
+            // Genera filas y columnas dinámicamente
+            for (let i = 0; i < numRows; i++) {
+                const row = document.createElement('tr');
+
+                // Primera columna: Nombre de la actividad
+                const activityCell = document.createElement('td');
+                activityCell.innerHTML = `<input type="text" placeholder="Nombre de la actividad">`;
+                row.appendChild(activityCell);
+
+                // Columnas dinámicas
+                for (let j = 0; j < numColumns; j++) {
+                    const col = document.createElement('td');
+                    col.innerHTML = `<input type="text" placeholder="Valor">`;
+                    row.appendChild(col);
                 }
 
+                // Puntaje, comisión y observaciones
+                row.innerHTML += `
+            <td><input type="number" name="score[]" value="0"></td>
+            <td><input type="number" name="commission_score[]" value="0"></td>
+            <td><input type="text" name="observation[]" value=""></td> <!-- Set default value to empty string -->
+        `;
 
+                puntajesRow.insertAdjacentElement('afterend', row);
+            }
+        }
+
+        function updateSubheaderId(input, id) {
+            const subheaderCell = document.getElementById(id);
+            if (subheaderCell) {
+                subheaderCell.id = input.value || id; // Update ID based on input value
+            }
+        }
+
+        async function guardarTabla() {
+            try {
+                const formName = document.getElementById('formName').value;
+                const puntajeMaximo = document.getElementById('puntajeMaximo').value;
+
+                const rows = document.querySelectorAll('#dynamicTable tbody tr');
+                tableData.length = 0;
+                rows.forEach((row) => {
+                    const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
+                    tableData.push(rowData);
+                });
+
+                // Declare and initialize columnNames
+                const columnNames = Array.from(document.querySelectorAll('#dynamicTable .subheader input')).map(input => input.value);
+
+                const formData = {
+                    form_name: formName,
+                    puntaje_maximo: puntajeMaximo,
+                    table_data: tableData,
+                    column_names: columnNames, // Include column names
+                    user_id: document.querySelector('input[name="user_id"]').value,
+                    email: document.querySelector('input[name="email"]').value,
+                    user_type: document.querySelector('input[name="user_type"]').value,
+                };
+
+                const response = await fetch('/dynamic-form/store', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Error al guardar el formulario.';
+                    throw new Error(errorMessage);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Formulario guardado exitosamente.');
+                    console.log({
+                        formName,
+                        puntajeMaximo,
+                        tableData,
+                    });
+                } else {
+                    alert('Error al guardar el formulario.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`Error al guardar el formulario: ${error.message}`);
+            }
+        }
     </script>
 
 </body>

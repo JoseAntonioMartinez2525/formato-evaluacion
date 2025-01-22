@@ -5,78 +5,53 @@ namespace App\Http\Controllers;
 use App\Models\DynamicForm;
 use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
+
 class DynamicFormController extends Controller
 {
     public function store(Request $request)
     {
         // Valida los datos
         try {
-        $validatedData = $request->validate([
-            'form_name' => 'required|string|max:255',
-            'puntaje_maximo' => 'required|numeric|min:0',
-            'table_data' => 'required|array',
-            'user_id' => 'required|integer',
-            'email' => 'required|email',
-            'user_type' => 'nullable|string',
-        ]);
+            $validatedData = $request->validate([
+                'form_name' => 'required|string|max:255',
+                'puntaje_maximo' => 'required|numeric|min:0',
+                'table_data' => 'required|array',
+                'user_id' => 'required|integer',
+                'email' => 'required|email',
+                'user_type' => 'nullable|string',
+                'column_names' => 'required|array', // Validate column names
+            ]);
 
-        // Procesar los datos (puedes guardar en la base de datos aquí)
-        // Ejemplo de almacenamiento en base de datos:
+            // Procesar los datos (puedes guardar en la base de datos aquí)
             $formId = \DB::table('dynamic_forms')->insertGetId([
-            'user_id' => $validatedData['user_id'],
-            'email' => $validatedData['email'],
-            'user_type' => $validatedData['user_type'] ?? null,
-            'form_name' => $validatedData['form_name'],
-            'puntaje_maximo' => $validatedData['puntaje_maximo'],
-            'table_data' => json_encode($validatedData['table_data']),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+                'user_id' => $validatedData['user_id'],
+                'email' => $validatedData['email'],
+                'user_type' => $validatedData['user_type'] ?? null,
+                'form_name' => $validatedData['form_name'],
+                'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                'table_data' => json_encode($validatedData['table_data']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
-        // Inserta cada elemento en dynamic_form_items
-    foreach ($validatedData['table_data'] as $key => $value) {
-        \DB::table('dynamic_form_items')->insert([
-            'dynamic_form_id' => $formId,
-            'puntaje_maximo' => $validatedData['puntaje_maximo'],
-            'key' => $key,
-            'value' => is_array($value) ? json_encode($value) : $value,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-    }
-            // Inserta cada elemento en dynamic_form_items, separando valores en columnas distintas
+            // Inserta cada elemento en dynamic_form_items
             foreach ($validatedData['table_data'] as $key => $value) {
-                if (is_array($value)) {
-                    // Si el valor es un arreglo, lo desglosamos y almacenamos en columnas separadas
-                    foreach ($value as $subKey => $subValue) {
-                        \DB::table('dynamic_form_items')->insert([
-                            'dynamic_form_id' => $formId,
-                            'puntaje_maximo' => $validatedData['puntaje_maximo'],
-                            'key' => $key . '.' . $subKey,  // Usamos una clave combinada para la subclave
-                            'value' => $subValue,  // El valor individual
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]);
-                    }
-                } else {
-                    // Si no es un arreglo, lo insertamos tal cual
-                    \DB::table('dynamic_form_items')->insert([
-                        'dynamic_form_id' => $formId,
-                        'puntaje_maximo' => $validatedData['puntaje_maximo'],
-                        'key' => $key,  // La clave original
-                        'value' => $value,  // El valor
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
+                \DB::table('dynamic_form_items')->insert([
+                    'dynamic_form_id' => $formId,
+                    'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                    'key' => $key,
+                    'value' => is_array($value) ? json_encode($value) : $value,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
-
-            $validatedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $key); // Replace invalid characters
-            $validatedColumnName = is_numeric($validatedColumnName[0]) ? '_' . $validatedColumnName : $validatedColumnName;
 
             // Inserta cada columna dinámica en dynamic_form_columns
             $columnIds = [];
-            foreach ($validatedData['table_data'][0] as $key => $value) {
+            foreach ($validatedData['column_names'] as $columnName) {
+                $validatedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $columnName); // Replace invalid characters
+                $validatedColumnName = is_numeric($validatedColumnName[0]) ? '_' . $validatedColumnName : $validatedColumnName;
+
                 $columnId = \DB::table('dynamic_form_columns')->insertGetId([
                     'dynamic_form_id' => $formId,
                     'column_name' => $validatedColumnName,
@@ -93,13 +68,14 @@ class DynamicFormController extends Controller
                     \DB::table('dynamic_form_values')->insert([
                         'dynamic_form_id' => $formId,
                         'dynamic_form_column_id' => $columnId,
-                        'value' => $value,
+                        'value' => $value ?? '', // Replace null values with an empty string
                         'puntaje_maximo' => $validatedData['puntaje_maximo'],
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
                 }
             }
+
             // Responder al cliente
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
@@ -121,11 +97,11 @@ class DynamicFormController extends Controller
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
         }
     }
+
     public function calculateScore($activity)
     {
         // Ejemplo de cálculo dinámico
         $score = $activity['base_score'] * $activity['weight'];
         return $score;
     }
-
 }
