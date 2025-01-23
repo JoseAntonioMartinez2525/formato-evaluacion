@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DynamicForm;
+use App\Models\DynamicFormColumn;
+use App\Models\DynamicFormValue;
 use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
 
@@ -103,5 +105,31 @@ class DynamicFormController extends Controller
         // Ejemplo de cálculo dinámico
         $score = $activity['base_score'] * $activity['weight'];
         return $score;
+    }
+
+    public function showDynamicForm($formId)
+    {
+        // Fetch the form data based on the form ID
+        $form = DynamicForm::find($formId);
+
+        // Fetch the associated columns and values
+        $formColumns = DynamicFormColumn::where('dynamic_form_id', $formId)->get();
+        $formValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
+
+        // Prepare the fields for the view
+        $formFields = [];
+        foreach ($formColumns as $column) {
+            $formFields[] = [
+                'name' => $column->column_name,
+                'label' => ucfirst(str_replace('_', ' ', $column->column_name)), // Format label
+                'type' => 'text', // Adjust based on your requirements
+                'value' => $formValues->where('dynamic_form_column_id', $column->id)->first()->value ?? '', // Get the value if exists
+            ];
+        }
+
+        return view('generic_form', [
+            'formTitle' => $form->form_name, // or any title you want
+            'formFields' => $formFields,
+        ]);
     }
 }

@@ -440,6 +440,17 @@ $newLocale = str_replace('_', '-', $locale);
                     formContainer.innerHTML = '';
                 }
             });
+
+
+                // After a new form is created
+                const newFormType = response.data.form_type; // Assuming this is returned from the server
+                const newFormName = response.data.form_name; // Assuming this is the name of the new form
+                const formSelect = document.getElementById('formSelect');
+
+                const newOption = document.createElement('option');
+                newOption.value = newFormType; // Use the new form's type as the value
+                newOption.textContent = newFormName; // Display the new form's name
+                formSelect.appendChild(newOption);
     </script>
 
 </body>
