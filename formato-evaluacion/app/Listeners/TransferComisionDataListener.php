@@ -126,6 +126,9 @@ class TransferComisionDataListener
     {
         Log::info('Evento EvaluationCompleted recibido para user_id: ' . $event->user_id);
 
+        // Include dynamic model mappings
+        $this->modelMappings = array_merge($this->modelMappings, $this->getDynamicModelMappings());
+
         foreach ($this->modelMappings as $sourceModel => $mapping) {
             $sourceModelInstance = new $sourceModel;
             $tableName = $sourceModelInstance->getTable();
@@ -157,6 +160,68 @@ class TransferComisionDataListener
                 Log::warning('No se encontraron datos en ' . $tableName . ' para user_id: ' . $event->user_id);
             }
         }
+    }
+
+    protected function getDynamicModelMappings()
+    {
+        $dynamicMappings = [];
+        // Define the base model name
+        $baseModel = 'App\Models\DictaminatorsResponseForm';
+
+        // Check for models with a specific pattern
+        for ($i = 1; $i <= 30; $i++) {
+            // Check for base models without fixed mappings
+            $modelName = $baseModel . $i;
+            if (class_exists($modelName) && !in_array($modelName, $this->getFixedModels())) {
+                $dynamicMappings[$modelName] = [
+                    'sourceField' => 'comision' . $i,
+                    'destinationModel' => 'App\Models\UsersResponseForm' . $i,
+                    'destinationField' => 'comision' . $i,
+                ];
+            }
+
+            // Check for models with additional suffixes
+            for ($j = 1; $j <= 10; $j++) {
+                $suffixModelName = $baseModel . $i . '_' . $j;
+                if (class_exists($suffixModelName) && !in_array($suffixModelName, $this->getFixedModels())) {
+                    $dynamicMappings[$suffixModelName] = [
+                        'sourceField' => 'comision' . $i . '_' . $j,
+                        'destinationModel' => 'App\Models\UsersResponseForm' . $i . '_' . $j,
+                        'destinationField' => 'comision' . $i . '_' . $j,
+                    ];
+                }
+            }
+        }
+
+        return $dynamicMappings;
+    }
+
+    protected function getFixedModels()
+    {
+        return [
+            \App\Models\DictaminatorsResponseForm2::class,
+            \App\Models\DictaminatorsResponseForm2_2::class,
+            \App\Models\DictaminatorsResponseForm3_1::class,
+            \App\Models\DictaminatorsResponseForm3_2::class,
+            \App\Models\DictaminatorsResponseForm3_3::class,
+            \App\Models\DictaminatorsResponseForm3_4::class,
+            \App\Models\DictaminatorsResponseForm3_5::class,
+            \App\Models\DictaminatorsResponseForm3_6::class,
+            \App\Models\DictaminatorsResponseForm3_7::class,
+            \App\Models\DictaminatorsResponseForm3_8::class,
+            \App\Models\DictaminatorsResponseForm3_8_1::class,
+            \App\Models\DictaminatorsResponseForm3_9::class,
+            \App\Models\DictaminatorsResponseForm3_10::class,
+            \App\Models\DictaminatorsResponseForm3_11::class,
+            \App\Models\DictaminatorsResponseForm3_12::class,
+            \App\Models\DictaminatorsResponseForm3_13::class,
+            \App\Models\DictaminatorsResponseForm3_14::class,
+            \App\Models\DictaminatorsResponseForm3_15::class,
+            \App\Models\DictaminatorsResponseForm3_16::class,
+            \App\Models\DictaminatorsResponseForm3_17::class,
+            \App\Models\DictaminatorsResponseForm3_18::class,
+            \App\Models\DictaminatorsResponseForm3_19::class,
+        ];
     }
 
 }
