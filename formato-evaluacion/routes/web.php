@@ -265,7 +265,7 @@ Route::get('/test-event/{user_id}', function ($user_id) {
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 //Route::resource('dynamic-forms', DynamicFormController::class);
 Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
-Route::get('/dynamic-form/{userId}', [DynamicFormController::class, 'getForm']);
+Route::get('/dynamic-form/{formName}', [DynamicFormController::class, 'getFormByName']);
 
 
 

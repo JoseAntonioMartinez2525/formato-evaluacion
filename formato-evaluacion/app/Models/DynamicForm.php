@@ -26,5 +26,20 @@ class DynamicForm extends Model
     {
         return $this->hasMany(DynamicFormField::class, 'user_id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(DynamicFormItem::class, 'dynamic_form_id');
+    }
+
+    public function columns()
+    {
+        return $this->hasMany(DynamicFormColumn::class, 'dynamic_form_id');
+    }
+
+    public function values()
+    {
+        return $this->hasMany(DynamicFormValue::class, 'dynamic_form_id');
+    }
 }
 

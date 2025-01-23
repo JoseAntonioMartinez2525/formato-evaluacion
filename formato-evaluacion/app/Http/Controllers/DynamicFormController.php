@@ -85,9 +85,9 @@ class DynamicFormController extends Controller
     }
 
     // Método para recuperar el formulario del usuario
-    public function getForm($userId)
+    public function getFormByName($formName)
     {
-        $form = DynamicForm::where('user_id', $userId)->first();
+        $form = DynamicForm::where('form_name', $formName)->first();
         if ($form) {
             return response()->json([
                 'success' => true,
