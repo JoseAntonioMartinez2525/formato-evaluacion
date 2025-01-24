@@ -594,7 +594,7 @@ $newLocale = str_replace('_', '-', $locale);
                 const formName = document.getElementById('formName').value;
                 const puntajeMaximo = document.getElementById('puntajeMaximo').value;
                         // Extract the numeric part from formName
-                const formTypeMatch = formName.match(/^(\d+(_\d+)*)(?=\s|$)/);// Matches the numeric part
+                const formTypeMatch = formName.match(/^([\d.]+(_[\d.]+)*)?(?=\s|$)/); // Matches the numeric part with dots
                 const formType = formTypeMatch ? 'form' + formTypeMatch[0] : 'form'; // Construct formType
 
                 

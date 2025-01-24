@@ -79,9 +79,9 @@ class DynamicFormController extends Controller
             }
 
             // After inserting the form data
-            $formTypeMatch = preg_match('/^(\d+(_\d+)*)(?=\s|$)/', $validatedData['form_name'], $matches);
+            $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $validatedData['form_name'], $matches);
             $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
-            
+
             // Responder al cliente
             return response()->json([
                 'success' => true,
@@ -134,10 +134,17 @@ class DynamicFormController extends Controller
                 'value' => $formValues->where('dynamic_form_column_id', $column->id)->first()->value ?? '', // Get the value if exists
             ];
         }
+        
 
         return view('generic_form', [
             'formTitle' => $form->form_name, // or any title you want
             'formFields' => $formFields,
         ]);
+        
     }
+    public function showSecretaria()
+    {
+        $forms = DynamicForm::all(); // Fetch all forms from the database
+        return view('secretaria', compact('forms')); // Pass the forms to the view
+    }   
 }

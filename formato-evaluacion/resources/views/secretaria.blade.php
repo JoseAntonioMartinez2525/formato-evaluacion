@@ -3,6 +3,10 @@ $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
 $formType = request()->query('formType');
 $formName = request()->query('formName');
+use App\Models\DynamicForm; // Ensure to include the model
+
+$forms = DynamicForm::all(); // Fetch all forms from the database
+$existingFormNames = [];
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -29,81 +33,87 @@ $formName = request()->query('formName');
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                        <section role="region" aria-label="Response form">
-                         <form>
-                                @csrf
-                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                        </a>
-                                    </li>
-                                    <li style="list-style: none; margin-right: 20px;">
-                                        <a class="enlaceSN" href="{{ route('login') }}">
-                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                        </a>
-                                    </li>
-                                </div>
-                                    <li class="nav-item">
-                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                            REGLAMENTO
-                                            PEDPD</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
-                                            llenado por la Comisión del PEDPD)</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
-                                    </li>
-                                    <br>
-                                </nav>
-                    </form>
-                @endif
-                </section>
+                                            @if (Auth::check() && Auth::user()->user_type === '')
+                                                    <section role="region" aria-label="Response form">
+                                                     <form>
+                                                            @csrf
+                                                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                                                    </a>
+                                                                </li>
+                                                                <li style="list-style: none; margin-right: 20px;">
+                                                                    <a class="enlaceSN" href="{{ route('login') }}">
+                                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </div>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo 10
+                                                                        REGLAMENTO
+                                                                        PEDPD</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
+                                                                        llenado por la Comisión del PEDPD)</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
+                                                                </li>
+                                                                <br>
+                                                            </nav>
+                                                </form>
+                                            @endif
+                                            </section>
 
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                                            <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                                                <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                                                <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                <div class="container mt-4">
-                    <!-- Selector para elegir el formulario -->
-                    <label for="formSelect">Seleccionar Formulario:</label>
-                    <select id="formSelect" class="form-select">
-                        <option value=""></option>
-                        <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                        <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                        <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
-                        <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                        <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
-                        <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
-                        <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                        <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
-                        <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                        <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
-                        <option value="form3_8_1">  3.8.1 RSU</option>
-                        <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
-                        <option value="form3_10">   3.10 Tutorías a estudiantes</option>
-                        <option value="form3_11">   3.11 Asesoría a estudiantes</option>
-                        <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
-                        <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
-                        <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
-                        <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
-                        <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
-                        <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
-                        <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
-                        <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
+                                            <div class="container mt-4">
+                                                <!-- Selector para elegir el formulario -->
+                                                <label for="formSelect">Seleccionar Formulario:</label>
+                                                <select id="formSelect" class="form-select">
+                                                    <option value=""></option>
+                                                    <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                                                    <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                                                    <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
+                                                    <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                                                    <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
+                                                    <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
+                                                    <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                                                    <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
+                                                    <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
+                                                    <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
+                                                    <option value="form3_8_1">  3.8.1 RSU</option>
+                                                    <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
+                                                    <option value="form3_10">   3.10 Tutorías a estudiantes</option>
+                                                    <option value="form3_11">   3.11 Asesoría a estudiantes</option>
+                                                    <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                                                    <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
+                                                    <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
+                                                    <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
+                                                    <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
+                                                    <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
+                                                    <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
+                                                    <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
+                <!-- Dynamic options -->
+                @foreach($forms as $form)
+                    @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
+                        <option value="{{ $form->form_type }}">{{ $form->form_name }}</option>
+                        @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
+                    @endif
+                @endforeach
+                
+                                                </select>
+                                            </div>
 
-
-                    </select>
-                </div>
-
-                <div id="formContainer">
-                    <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                </div>
+                                            <div id="formContainer">
+                                                <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                                            </div>
 
 
             @endif
