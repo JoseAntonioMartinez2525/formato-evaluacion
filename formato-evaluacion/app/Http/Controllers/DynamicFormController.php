@@ -78,8 +78,16 @@ class DynamicFormController extends Controller
                 }
             }
 
+            // After inserting the form data
+            $formTypeMatch = preg_match('/^(\d+(_\d+)*)(?=\s|$)/', $validatedData['form_name'], $matches);
+            $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
+            
             // Responder al cliente
-            return response()->json(['success' => true]);
+            return response()->json([
+                'success' => true,
+                'form_type' => $formType,
+                'form_name' => $validatedData['form_name'],
+            ]);
         } catch (\Exception $e) {
             // Captura errores y retorna un mensaje JSON
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);

@@ -114,7 +114,13 @@ $userType = Auth::user()->user_type;
     @else
       <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
     @endif
+   
     </li>
+     @if(Auth::user()->user_type === '') 
+      <li class="nav-item">
+          <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
+      </li>
+     @endif
     <ul class="deptos">Areas de Conocimiento:
     <li>Agropecuarias</li>
     <li>Ciencias del Mar y de la Tierra</li>

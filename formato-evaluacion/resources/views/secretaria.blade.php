@@ -1,6 +1,8 @@
 @php
 $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
+$formType = request()->query('formType');
+$formName = request()->query('formName');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -441,16 +443,16 @@ $newLocale = str_replace('_', '-', $locale);
                 }
             });
 
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const formSelect = document.getElementById('formSelect');
 
-                // After a new form is created
-                const newFormType = response.data.form_type; // Assuming this is returned from the server
-                const newFormName = response.data.form_name; // Assuming this is the name of the new form
-                const formSelect = document.getElementById('formSelect');
-
-                const newOption = document.createElement('option');
-                newOption.value = newFormType; // Use the new form's type as the value
-                newOption.textContent = newFormName; // Display the new form's name
-                formSelect.appendChild(newOption);
+        if ('{{ $formType }}' && '{{ $formName }}') {
+            const newOption = document.createElement('option');
+            newOption.value = '{{ $formType }}'; // Use the new form's type as the value
+            newOption.textContent = '{{ $formName }}'; // Display the new form's name
+            formSelect.appendChild(newOption);
+        }
+    });
     </script>
 
 </body>
