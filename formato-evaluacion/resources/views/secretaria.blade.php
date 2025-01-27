@@ -433,11 +433,27 @@ $existingFormNames = [];
                 document.getElementById('jsonDataLink').classList.remove('d-none');
             }
         });
-        document.getElementById('formSelect').addEventListener('change', (event) => {
-                const selectedForm = event.target.value;
-                const formContainer = document.getElementById('formContainer');
 
-                if (selectedForm) {
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const formSelect = document.getElementById('formSelect');
+
+        if ('{{ $formType }}' && '{{ $formName }}') {
+            const newOption = document.createElement('option');
+            newOption.value = '{{ $formType }}'; // Use the new form's type as the value
+            newOption.textContent = '{{ $formName }}'; // Display the new form's name
+            formSelect.appendChild(newOption);
+        }
+
+        formSelect.addEventListener('change', (event) => {
+            const selectedForm = event.target.value;
+            const formContainer = document.getElementById('formContainer');
+
+            if (selectedForm) {
+                if (selectedForm === '{{ $formType }}') {
+                    // Redirect to the generic_form if the new option is selected
+                    window.location.href = `/generic_form?formType=${selectedForm}&formName=${encodeURIComponent('{{ $formName }}')}`;
+                } else {
+                    // Handle other form selections
                     window.location.href = `/${selectedForm}`;
                     axios.get(`/get-form-content/${selectedForm}`)
                         .then(response => {
@@ -447,21 +463,11 @@ $existingFormNames = [];
                             console.error('Error fetching form content:', error);
                             formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
                         });
-                } else {
-
-                    formContainer.innerHTML = '';
                 }
-            });
-
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const formSelect = document.getElementById('formSelect');
-
-        if ('{{ $formType }}' && '{{ $formName }}') {
-            const newOption = document.createElement('option');
-            newOption.value = '{{ $formType }}'; // Use the new form's type as the value
-            newOption.textContent = '{{ $formName }}'; // Display the new form's name
-            formSelect.appendChild(newOption);
-        }
+            } else {
+                formContainer.innerHTML = '';
+            }
+        });
     });
     </script>
 

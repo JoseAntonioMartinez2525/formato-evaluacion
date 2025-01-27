@@ -67,7 +67,7 @@ class DynamicFormController extends Controller
             foreach ($validatedData['table_data'] as $index => $row) {
                 foreach ($row as $key => $value) {
                     $columnId = $columnIds[array_search($key, array_keys($validatedData['table_data'][0]))];
-                    \DB::table('dynamic_form_values')->insert([
+                    $valueId = \DB::table('dynamic_form_values')->insert([
                         'dynamic_form_id' => $formId,
                         'dynamic_form_column_id' => $columnId,
                         'value' => $value ?? '', // Replace null values with an empty string
@@ -75,13 +75,34 @@ class DynamicFormController extends Controller
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
+
+
+                    // Fetch the form_name from dynamic_form_items using key 0
+                    $formName = \DB::table('dynamic_form_items')
+                        ->where('dynamic_form_id', $formId)
+                        ->value('key', '0') // Assuming 'key' is the column you want
+                        ->value('key');
+
+                    // Insert into dynamic_form_combined using the auto-generated valueId
+                    $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
+                    $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
+                    
+                    // Insert into dynamic_form_combined using the auto-generated valueId
+                    \DB::table('dynamic_form_combined')->insert([
+                        'dynamic_form_id' => $formId,
+                        'dynamic_form_column_id' => $columnId,
+                        'dynamic_form_value_id' => $valueId, // Use the auto-generated ID
+                        'form_name' => $formName, // Use the fetched form_name
+                        'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                        'form_type' => $formType,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
                 }
             }
 
-            // After inserting the form data
-            $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $validatedData['form_name'], $matches);
-            $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
 
+            
             // Responder al cliente
             return response()->json([
                 'success' => true,

@@ -261,6 +261,8 @@ Route::get('/test-event/{user_id}', function ($user_id) {
     return 'Evento disparado para user_id: ' . $user_id;
 });
 
+Route::get('/generic_form/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('generic_form');
+
 // Ruta para cambiar el modo oscuro
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 //Route::resource('dynamic-forms', DynamicFormController::class);

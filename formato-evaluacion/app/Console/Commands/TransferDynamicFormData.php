@@ -30,6 +30,11 @@ class TransferDynamicFormData extends Command
         $columns = DB::table('dynamic_form_columns')->get();
         $values = DB::table('dynamic_form_values')->get();
 
+        // Fetch form names based on dynamic_form_id
+        $formName = DB::table('dynamic_forms')->pluck('form_name', 'id');
+        $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
+        $formType = $formTypeMatch ? 'form' . $matches[0] : 'form';        
+
         foreach ($columns as $column) {
             foreach ($values as $value) {
                 // Insert into dynamic_form_combined
@@ -37,10 +42,11 @@ class TransferDynamicFormData extends Command
                     'dynamic_form_id' => $value->dynamic_form_id,
                     'dynamic_form_column_id' => $column->id,
                     'dynamic_form_value_id' => $value->id,
-                    'form_name' => null, // Exclude form_name as it's not in dynamic_form_values
+                    'form_name' => $formName, // Exclude form_name as it's not in dynamic_form_values
                     'puntaje_maximo' => $value->puntaje_maximo,
                     'created_at' => now(),
                     'updated_at' => now(),
+                    'form_type' => $formType,
                 ]);
             }
         }
