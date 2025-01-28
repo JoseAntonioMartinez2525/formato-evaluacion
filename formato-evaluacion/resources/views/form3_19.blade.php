@@ -86,11 +86,21 @@ $newLocale = str_replace('_', '-', $locale);
     .footer-text {
             display: none;
         }
-            @page {
-            @bottom {
-                content: none; /* Prevent default footer */
-            }
+        /* Show the appropriate footer based on the page number */
+        @page {
+            margin: 0; /* Adjust margins as needed */
         }
+        /* Use page breaks to control footer visibility */
+        .page1 .footer#footer1 {
+            display: block; /* Show footer for page 1 */
+        }
+        .page2 .footer#footer2 {
+            display: block; /* Show footer for page 2 */
+        }
+        .page3 .footer#footer3 {
+            display: block; /* Show footer for page 3 */
+        }
+        
         page-break-after: auto; /* La última página no necesita salto extra */
         
    
