@@ -83,6 +83,9 @@ $newLocale = str_replace('_', '-', $locale);
         content: "Página " counter(page);
     }
 
+    .footer-text {
+            display: none;
+        }
             /* Footer de la primera página */
         .page:first-of-type #piedepagina {
             content: "Página 26 de 28";
@@ -336,7 +339,7 @@ $page_counter = 32;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 28</span></div>
+            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" ></div>
         </footer>
         
     </center>
@@ -760,19 +763,7 @@ $page_counter++;
                 </table>
                 </form>
     </main>
-    <center>
-        <footer>
-            <div id="convocatoria">
-                <!-- Mostrar convocatoria -->
-                @if(isset($convocatoria))
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                @endif
-            </div>
-            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" >&nbsp Página 26<span id="page-number"> de 31</span></div>
-        </footer>
-        
-    </center>
-
+    
 
     <script>
 
@@ -792,6 +783,22 @@ $page_counter++;
         });
         
     };
+
+    window.onload = function () {
+            const pageCount = 3; // Total number of pages
+            const currentPage = window.printPageNumber || 1; // Assuming you have a way to track the current page
+            let footerText = '';
+
+            if (currentPage === 1) {
+                footerText = '&nbsp;Página 26';
+            } else if (currentPage === 2) {
+                footerText = '&nbsp;Página 28';
+            } else if (currentPage === 3) {
+                footerText = '&nbsp;Página 28';
+            }
+
+            document.getElementById('piedepagina').innerHTML = footerText;
+        };
 
     let cant3_19 = [
         'cantCGUtitular', 'cantCGUespecial', 'cantCGUpermanente',
