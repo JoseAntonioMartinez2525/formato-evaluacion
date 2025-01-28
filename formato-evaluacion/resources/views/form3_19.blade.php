@@ -86,21 +86,11 @@ $newLocale = str_replace('_', '-', $locale);
     .footer-text {
             display: none;
         }
-            /* Footer de la primera página */
-        .page:first-of-type #piedepagina {
-            content: "Página 26 de 28";
+            @page {
+            @bottom {
+                content: none; /* Prevent default footer */
+            }
         }
-
-        /* Footer de páginas pares */
-        .page:nth-of-type(even) #piedepagina {
-            content: "Página 27 de 28";
-        }
-
-        /* Footer de páginas impares */
-        .page:nth-of-type(odd) #piedepagina {
-            content: "Página 28 de 28";
-        }
-
         page-break-after: auto; /* La última página no necesita salto extra */
         
    
@@ -339,7 +329,15 @@ $page_counter = 32;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina"style="margin-left: 600px; margin-top: 10px;" ></div>
+            <div class="footer" id="footer1" style="display: block;">
+                &nbsp;Página 26 de 28
+            </div>
+            <div class="footer" id="footer2" style="display: none;">
+                Página 27 de 28
+            </div>
+            <div class="footer" id="footer3" style="display: none;">
+                Página 28 de 28
+            </div>
         </footer>
         
     </center>
@@ -788,17 +786,18 @@ $page_counter++;
             const pageCount = 3; // Total number of pages
             const currentPage = window.printPageNumber || 1; // Assuming you have a way to track the current page
             let footerText = '';
+        // Hide all footers
+        document.querySelectorAll('.footer').forEach(footer => footer.style.display = 'none');
 
-            if (currentPage === 1) {
-                footerText = '&nbsp;Página 26';
-            } else if (currentPage === 2) {
-                footerText = '&nbsp;Página 28';
-            } else if (currentPage === 3) {
-                footerText = '&nbsp;Página 28';
-            }
-
-            document.getElementById('piedepagina').innerHTML = footerText;
-        };
+        // Show the appropriate footer based on the current page
+        if (currentPage === 1) {
+            document.getElementById('footer1').style.display = 'block';
+        } else if (currentPage === 2) {
+            document.getElementById('footer2').style.display = 'block';
+        } else if (currentPage === 3) {
+            document.getElementById('footer3').style.display = 'block';
+        }
+    };
 
     let cant3_19 = [
         'cantCGUtitular', 'cantCGUespecial', 'cantCGUpermanente',
