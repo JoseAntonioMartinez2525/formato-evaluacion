@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dynamic_form_combined', function (Blueprint $table) {
-            $table->integer('id')->change();
+            $table->increments('id')->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dynamic_form_combined', function (Blueprint $table) {
-            $table->increments('id')->change();
+            $table->integer('id')->change();
         });
     }
 };
