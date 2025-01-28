@@ -345,7 +345,7 @@ $page_counter = 32;
                         @php
 $page_counter++;
                         @endphp
-                        @if($page_counter === 31)
+                        @if($page_counter === 33)
                         <tr class="prevent-overlap">
                             <td>e)</td>
                             <td>Representante del profesorado ante CAAC</td>
