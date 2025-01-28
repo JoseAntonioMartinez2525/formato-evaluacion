@@ -24,25 +24,30 @@ class TransferDynamicFormData extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         // Fetch all dynamic form columns and values
         $columns = DB::table('dynamic_form_columns')->get();
         $values = DB::table('dynamic_form_values')->get();
 
-        // Fetch form names based on dynamic_form_id
-        $formName = DB::table('dynamic_forms')->pluck('form_name', 'id');
-        $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
-        $formType = $formTypeMatch ? 'form' . $matches[0] : 'form';        
 
         foreach ($columns as $column) {
             foreach ($values as $value) {
+                // Fetch the specific form name based on dynamic_form_id
+                $formName = DB::table('dynamic_form_values')
+                    ->where('dynamic_form_id', $value->dynamic_form_id)
+                    ->value('value'); // Fetch the specific value based on dynamic_form_id
+
+                // Construct the form type
+                $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
+                $formType = $formTypeMatch ? 'form' . str_replace('.', '_', $matches[0]) : 'form';
+
                 // Insert into dynamic_form_combined
                 DB::table('dynamic_form_combined')->insert([
                     'dynamic_form_id' => $value->dynamic_form_id,
                     'dynamic_form_column_id' => $column->id,
                     'dynamic_form_value_id' => $value->id,
-                    'form_name' => $formName, // Exclude form_name as it's not in dynamic_form_values
+                    'form_name' => $formName, // Use the fetched form_name
                     'puntaje_maximo' => $value->puntaje_maximo,
                     'created_at' => now(),
                     'updated_at' => now(),
