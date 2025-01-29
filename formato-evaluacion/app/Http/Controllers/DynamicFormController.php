@@ -175,20 +175,5 @@ class DynamicFormController extends Controller
         return view('secretaria', compact('forms')); // Pass the forms to the view
     }
 
-    public function generatePdf(Request $request)
-    {
-        $userType = Auth::user()->user_type;
-
-        if ($userType !== 'docente') {
-            // Fetch the necessary data
-            $dataResponse = $this->getData319($request);
-            $data = json_decode($dataResponse->getContent(), true); // Decode the JSON response
-
-            // Load the existing view for PDF generation
-            $pdf = PDF::loadView('form3_19', ['data' => $data]); // Pass the decoded data
-            return $pdf->download('form3_19.pdf');
-        }
-
-        return redirect()->back()->with('error', 'PDF generation is not allowed for this user type.');
-    }
+    
 }
