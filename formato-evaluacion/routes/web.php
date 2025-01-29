@@ -267,6 +267,7 @@ Route::get('/generic_form/{formId}', [DynamicFormController::class, 'showDynamic
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 //Route::resource('dynamic-forms', DynamicFormController::class);
 Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
+Route::post('/generate-pdf', [ResponseForm3_19Controller::class, 'generatePdf'])->name('generate.pdf');
 Route::get('/dynamic-form/{formName}', [DynamicFormController::class, 'getFormByName']);
 
 

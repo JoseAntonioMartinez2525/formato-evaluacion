@@ -7,6 +7,8 @@ use App\Models\DynamicFormColumn;
 use App\Models\DynamicFormValue;
 use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF; // Corrected line without extraneous character
 
 class DynamicFormController extends Controller
 {
@@ -86,7 +88,7 @@ class DynamicFormController extends Controller
                     // Insert into dynamic_form_combined using the auto-generated valueId
                     $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
                     $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
-                    
+
                     // Insert into dynamic_form_combined using the auto-generated valueId
                     \DB::table('dynamic_form_combined')->updateOrInsert(
                         [
@@ -106,7 +108,7 @@ class DynamicFormController extends Controller
             }
 
 
-            
+
             // Responder al cliente
             return response()->json([
                 'success' => true,
@@ -159,17 +161,34 @@ class DynamicFormController extends Controller
                 'value' => $formValues->where('dynamic_form_column_id', $column->id)->first()->value ?? '', // Get the value if exists
             ];
         }
-        
+
 
         return view('generic_form', [
             'formTitle' => $form->form_name, // or any title you want
             'formFields' => $formFields,
         ]);
-        
+
     }
     public function showSecretaria()
     {
         $forms = DynamicForm::all(); // Fetch all forms from the database
         return view('secretaria', compact('forms')); // Pass the forms to the view
-    }   
+    }
+
+    public function generatePdf(Request $request)
+    {
+        $userType = Auth::user()->user_type;
+
+        if ($userType !== 'docente') {
+            // Fetch the necessary data
+            $dataResponse = $this->getData319($request);
+            $data = json_decode($dataResponse->getContent(), true); // Decode the JSON response
+
+            // Load the existing view for PDF generation
+            $pdf = PDF::loadView('form3_19', ['data' => $data]); // Pass the decoded data
+            return $pdf->download('form3_19.pdf');
+        }
+
+        return redirect()->back()->with('error', 'PDF generation is not allowed for this user type.');
+    }
 }

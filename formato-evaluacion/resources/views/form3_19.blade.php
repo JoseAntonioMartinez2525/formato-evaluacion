@@ -339,15 +339,21 @@ $page_counter = 32;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
+            
             <div class="footer" id="footer1" style="display: block;">
                 &nbsp;Página 26 de 28
             </div>
-            <div class="footer" id="footer2" style="display: none;">
+            
+           
+            <div class="footer" id="footer2" style="display: block;">
                 Página 27 de 28
             </div>
-            <div class="footer" id="footer3" style="display: none;">
-                Página 28 de 28
-            </div>
+           
+            
+                <div class="footer" id="footer3" style="display: block;">
+                    Página 28 de 28
+                </div>
+            
         </footer>
         
     </center>
@@ -764,6 +770,8 @@ $page_counter++;
                             <th>
                             @if ($userType != '')
                                 <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                            @else
+                                <button id="button319" type="button" class="btn custom-btn">Generar Pdf</button>
                             @endif
                             </th>
                         </tr>
@@ -794,7 +802,7 @@ $page_counter++;
 
     window.onload = function () {
             const pageCount = 3; // Total number of pages
-            const currentPage = window.printPageNumber || 1; // Assuming you have a way to track the current page
+            const currentPage = Math.ceil(window.printPageNumber || 1); // Assuming you have a way to track the current page
             let footerText = '';
         // Hide all footers
         document.querySelectorAll('.footer').forEach(footer => footer.style.display = 'none');
@@ -802,10 +810,13 @@ $page_counter++;
         // Show the appropriate footer based on the current page
         if (currentPage === 1) {
             document.getElementById('footer1').style.display = 'block';
+            document.getElementById('footer1').textContent = "Página 26 de 28";
         } else if (currentPage === 2) {
             document.getElementById('footer2').style.display = 'block';
+            document.getElementById('footer2').textContent = "Página 27 de 28";
         } else if (currentPage === 3) {
             document.getElementById('footer3').style.display = 'block';
+            document.getElementById('footer3').textContent = "Página 28 de 28";
         }
     };
 
@@ -1228,6 +1239,43 @@ $page_counter++;
 
 
         }
+
+        document.getElementById('button319').addEventListener('click', function () {
+            const selectedEmail = document.getElementById('docenteSelect').value;
+            // Create a new FormData object
+            const formData = new FormData();
+            formData.append('email', selectedEmail);
+
+            // Add any other necessary data that you need for the PDF generation
+            formData.append('user_id', document.querySelector('input[name="user_id"]').value); // Add user_id if needed
+            formData.append('user_type', document.querySelector('input[name="user_type"]').value); // Add user_type if needed            
+            // Send an AJAX request to generate the PDF
+            fetch('{{ route('generate.pdf') }}', {
+                method: 'POST',
+                body: formData, 
+        headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token for security
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.blob(); // Get the PDF as a blob
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'form3_19.pdf'; // Set the file name
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
     </script>
 
 </body>

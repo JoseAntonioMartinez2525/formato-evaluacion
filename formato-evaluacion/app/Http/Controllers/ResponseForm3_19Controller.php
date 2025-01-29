@@ -6,6 +6,8 @@ use App\Events\EvaluationCompleted;
 use App\Models\UsersResponseForm3_19;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF; // Corrected line without extraneous character
 
 class ResponseForm3_19Controller extends Controller
 {
@@ -166,5 +168,26 @@ class ResponseForm3_19Controller extends Controller
                 'message' => 'Error retrieving data: ' . $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function generatePdf(Request $request)
+    {
+        $userType = Auth::user()->user_type;
+
+        if ($userType !== 'docente') {
+            // Fetch the user data based on the email from the request
+            $email = $request->input('email');
+            $userData = UsersResponseForm3_19::where('email', $email)->first();
+
+            if (!$userData) {
+                return response()->json(['error' => 'User data not found'], 404);
+            }
+
+            // Load the existing view for PDF generation
+            $pdf = PDF::loadView('form3_19', ['data' => $userData]); // Pass the user data
+            return $pdf->download('form3_19.pdf');
+        }
+
+        return redirect()->back()->with('error', 'PDF generation is not allowed for this user type.');
     }
 }
