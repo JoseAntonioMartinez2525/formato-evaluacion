@@ -771,7 +771,7 @@ $page_counter++;
                             @if ($userType != '')
                                 <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                             @else
-                                <a href="{{ route('generate.pdf') }}" class="btn custom-btn">Generar Pdf</a>
+                                <form action="" method="POST" onsubmit="event.preventDefault(); submitForm('/generate-pdf', 'form3_19');"></form>
                             @endif
                             </th>
                         </tr>
