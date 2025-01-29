@@ -771,7 +771,7 @@ $page_counter++;
                             @if ($userType != '')
                                 <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                             @else
-                                <button id="button319" type="button" class="btn custom-btn">Generar Pdf</button>
+                                <a href="{{ route('generate.pdf') }}" class="btn custom-btn">Generar Pdf</a>
                             @endif
                             </th>
                         </tr>
@@ -1270,7 +1270,7 @@ $page_counter++;
                     a.download = 'form3_19.pdf'; // Set the file name
                     document.body.appendChild(a);
                     a.click();
-                    a.remove();
+
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);

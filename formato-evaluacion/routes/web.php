@@ -191,13 +191,12 @@ Route::post('/store-form311', [DictaminatorForm3_11Controller::class, 'storeform
 Route::post('/store-form312', [DictaminatorForm3_12Controller::class, 'storeform312'])->withoutMiddleware('auth');
 Route::post('/store-form313', [DictaminatorForm3_13Controller::class, 'storeform313'])->withoutMiddleware('auth');
 Route::post('/store-form314', [DictaminatorForm3_14Controller::class, 'storeform314'])->withoutMiddleware('auth');
-Route::post('/store-form315', [DictaminatorForm3_15Controller::class, 'storeform315'])->withoutMiddleware('auth');
-Route::post('/store-form316', [DictaminatorForm3_16Controller::class, 'storeform316'])->withoutMiddleware('auth');
-Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'storeform317'])->withoutMiddleware('auth');
-Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'storeform318'])->withoutMiddleware('auth');
-Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'storeform319'])->withoutMiddleware('auth');
-
-
+Route::post('/store-form315', [DictaminatorForm3_15Controller::class, 'store315'])->withoutMiddleware('auth');
+Route::post('/store-form316', [DictaminatorForm3_16Controller::class, 'store316'])->withoutMiddleware('auth');
+Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'store317'])->withoutMiddleware('auth');
+Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'store318'])->withoutMiddleware('auth');
+Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'store319'])->withoutMiddleware('auth');
+Route::post('/generate-pdf', [ResponseForm3_19Controller::class, 'generatePdf'])->name('generate.pdf');
 // Ruta para asignar varios docentes a un dictaminador
 Route::post('/asignar-docentes/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'asignarDocentes'])
     ->name('asignar.docentes');
@@ -208,6 +207,7 @@ Route::post('/agregar-docente/{dictaminador_id}', [DictaminatorForm2_Controller:
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
 Route::get('/get-data2', [ResponseForm2Controller::class, 'getData2'])->name('getData2');
+Route::get('/get-data22', [ResponseForm2_2Controller::class, 'getData22'])->name('getData22');
 Route::get('/get-data22', [ResponseForm2_2Controller::class, 'getData22'])->name('getData22');
 Route::get('/get-data-31', [ResponseForm3_1Controller::class, 'getData31'])->name('getData31');
 Route::get('/get-data-32', [ResponseForm3_2Controller::class, 'getData32'])->name('getData32');
@@ -267,7 +267,7 @@ Route::get('/generic_form/{formId}', [DynamicFormController::class, 'showDynamic
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 //Route::resource('dynamic-forms', DynamicFormController::class);
 Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
-Route::post('/generate-pdf', [ResponseForm3_19Controller::class, 'generatePdf'])->name('generate.pdf');
+
 Route::get('/dynamic-form/{formName}', [DynamicFormController::class, 'getFormByName']);
 
 
