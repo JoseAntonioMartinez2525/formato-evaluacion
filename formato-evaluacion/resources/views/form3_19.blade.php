@@ -1247,70 +1247,143 @@ $page_counter++;
 
 
         }
-        
-    async function generatePdf() {
-        const formData = new FormData();
-        const userType = @json($userType); // Inject user type from backend to JS
-        
-        // Only proceed if userType is an empty string
-        if (userType === '') {
-            const docenteSelect = document.getElementById('docenteSelect');
-            const email = docenteSelect.value; // Get selected docente email
+   async function generatePdf() {
+        const userType = @json($userType);  // Inject user type from backend to JS
+       const user_identity = @json($user_identity);
+       const docenteSelect = document.getElementById('docenteSelect');
+       
+         const email = docenteSelect.value; // Get selected docente email
 
-            console.log('Selected Docente Email:', email); // Debugging log
+        if (email) {
+            try {
+                const response = await axios.get('/get-docente-data', { params: { email } });
+                const data = response.data;
 
-            if (email) {
-                try {
-                    const response = await axios.get('/get-docente-data', { params: { email } });
-                    const data = response.data;
-
-                    console.log('Fetched Data:', data); // Debugging log
-
-                    // Check if data is returned
-                    if (!data || !data.email) {
-                        console.error('User data not found for the selected docente.');
-                        return; 
-                    }
-
-                    // Populate formData with the fetched data
-                    formData.append('email', data.email);
-                formData.append('user_id', data.user_id);
-                    formData.append('user_type', data.user_type);
-
-                    const responsePdf = await fetch('{{ route('generate.pdf') }}', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    });
-
-                    if (!responsePdf.ok) {
-                        throw new Error('Network response was not ok.');
-                    }
-
-                    const result = await responsePdf.json();
-                    // Create PDF using pdfmake
-                    const docDefinition = {
-                        content: [
-                            { text: 'User Data', fontSize: 15 },
-                            { text: `Email: ${result.data.email}`, fontSize: 12 },
-                            // Add more user data as needed
-                        ]
-                    };
-
-                    pdfMake.createPdf(docDefinition).download('form3_19.pdf');
-                } catch (error) {
-                    console.error('Error fetching docente data:', error);
+                if (!data || !data.form3_19) {
+                    console.error('User data not found for the selected docente.');
+                    return;
                 }
-            } else {
-                console.error('No docente selected.');
+
+                const formData = new FormData();
+                formData.append('email', email); // Use the email from docenteSelect
+                formData.append('user_id', data.form3_19.user_id);
+                formData.append('user_type', data.form3_19.user_type);
+
+                const responsePdf = await fetch('{{ route('generate.pdf') }}', {
+                method: 'POST',
+                    body: formData,
+                    headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            if (!responsePdf.ok) {
+                throw new Error('Network response was not ok.');
             }
-        } else {
-            console.error('generatePdf function should not be called for dictaminador user type.');
+
+            const result = await responsePdf.json();
+            const docDefinition = {
+                content: [
+                    { text: 'User Data', fontSize: 15 },
+                    { text: `ID: ${data.form3_19.id}`, fontSize: 12 },
+                    { text: `Dictaminador ID: ${data.form3_19.dictaminador_id}`, fontSize: 12 },
+                    { text: `User ID: ${data.form3_19.user_id}`, fontSize: 12 },
+                    { text: `Email: ${email}`, fontSize: 12 }, // Match email from docenteSelect
+                    { text: `Score: ${data.form3_19.score3_19}`, fontSize: 12 },
+                    { text: `Cantidad CGU Titular: ${data.form3_19.cantCGUtitular}`, fontSize: 12 },
+                    { text: `Subtotal CGU Titular: ${data.form3_19.subtotalCGUtitular}`, fontSize: 12 },
+                    { text: `Comisión CGU Titular: ${data.form3_19.comCGUtitular}`, fontSize: 12 },
+                    { text: `Observaciones CGU Titular: ${data.form3_19.obsCGUtitular}`, fontSize: 12 },
+                    { text: `Cantidad CGU Especial: ${data.form3_19.cantCGUespecial}`, fontSize: 12 },
+                    { text: `Subtotal CGU Especial: ${data.form3_19.subtotalCGUespecial}`, fontSize: 12 },
+                    { text: `Comisión CGU Especial: ${data.form3_19.comCGUespecial}`, fontSize: 12 },
+                    { text: `Observaciones CGU Especial: ${data.form3_19.obsCGUespecial}`, fontSize: 12 },
+                    { text: `Cantidad CGU Permanente: ${data.form3_19.cantCGUpermanente}`, fontSize: 12 },
+                    { text: `Subtotal CGU Permanente: ${data.form3_19.subtotalCGUpermanente}`, fontSize: 12 },
+                    { text: `Comisión CGU Permanente: ${data.form3_19.comCGUpermanente}`, fontSize: 12 },
+                    { text: `Observaciones CGU Permanente: ${data.form3_19.obsCGUpermanente}`, fontSize: 12 },
+                    { text: `Cantidad CAAC Titular: ${data.form3_19.cantCAACtitular}`, fontSize: 12 },
+                    { text: `Subtotal CAAC Titular: ${data.form3_19.subtotalCAACtitular}`, fontSize: 12 },
+                    { text: `Comisión CAAC Titular: ${data.form3_19.comCAACtitular}`, fontSize: 12 },
+                    { text: `Observaciones CAAC Titular: ${data.form3_19.obsCAACtitular}`, fontSize: 12 },
+                    { text: `Cantidad CAAC Integrante: ${data.form3_19.cantCAACintegCom}`, fontSize: 12 },
+                    { text: `Subtotal CAAC Integrante: ${data.form3_19.subtotalCAACintegCom}`, fontSize: 12 },
+                    { text: `Comisión CAAC Integrante: ${data.form3_19.comCAACintegCom}`, fontSize: 12 },
+                    { text: `Observaciones CAAC Integrante: ${data.form3_19.obsCAACintegCom}`, fontSize: 12 },
+                    { text: `Cantidad Comisiones Departamentales: ${data.form3_19.cantComDepart}`, fontSize: 12 },
+                    { text: `Subtotal Comisiones Departamentales: ${data.form3_19.subtotalComDepart}`, fontSize: 12 },
+                    { text: `Comisión Comisiones Departamentales: ${data.form3_19.comComDepart}`, fontSize: 12 },
+                    { text: `Observaciones Comisiones Departamentales: ${data.form3_19.obsComDepart}`, fontSize: 12 },
+                    { text: `Cantidad Comisiones PEDPD: ${data.form3_19.cantComPEDPD}`, fontSize: 12 },
+                    { text: `Subtotal Comisiones PEDPD: ${data.form3_19.subtotalComPEDPD}`, fontSize: 12 },
+                    { text: `Comisión Comisiones PEDPD: ${data.form3_19.comComPEDPD}`, fontSize: 12 },
+                    { text: `Observaciones Comisiones PEDPD: ${data.form3_19.obsComPEDPD}`, fontSize: 12 },
+                    { text: `Cantidad Comisiones Parte Pos: ${data.form3_19.cantComPartPos}`, fontSize: 12 },
+                    { text: `Subtotal Comisiones Parte Pos: ${data.form3_19.subtotalComPartPos}`, fontSize: 12 },
+                    { text: `Comisión Comisiones Parte Pos: ${data.form3_19.comComPartPos}`, fontSize: 12 },
+                    { text: `Observaciones Comisiones Parte Pos: ${data.form3_19.obsComPartPos}`, fontSize: 12 },
+                    { text: `Cantidad Responsable Pos: ${data.form3_19.cantRespPos}`, fontSize: 12 },
+                    { text: `Subtotal Responsable Pos: ${data.form3_19.subtotalRespPos}`, fontSize: 12 },
+                    { text: `Comisión Responsable Pos: ${data.form3_19.comRespPos}`, fontSize: 12 },
+                    { text: `Observaciones Responsable Pos: ${data.form3_19.obsRespPos}`, fontSize: 12 },
+                    { text: `Cantidad Responsable Carrera: ${data.form3_19.cantRespCarrera}`, fontSize: 12 },
+                    { text: `Subtotal Responsable Carrera: ${data.form3_19.subtotalRespCarrera}`, fontSize: 12 },
+                    { text: `Comisión Responsable Carrera: ${data.form3_19.comRespCarrera}`, fontSize: 12 },
+                    { text: `Observaciones Responsable Carrera: ${data.form3_19.obsRespCarrera}`, fontSize: 12 },
+                    { text: `Cantidad Responsable Prod: ${data.form3_19.cantRespProd}`, fontSize: 12 },
+                    { text: `Subtotal Responsable Prod: ${data.form3_19.subtotalRespProd}`, fontSize: 12 },
+                    { text: `Comisión Responsable Prod: ${data.form3_19.comRespProd}`, fontSize: 12 },
+                    { text: `Observaciones Responsable Prod: ${data.form3_19.obsRespProd}`, fontSize: 12 },
+                    { text: `Cantidad Responsable Lab: ${data.form3_19.cantRespLab}`, fontSize: 12 },
+                    { text: `Subtotal Responsable Lab: ${data.form3_19.subtotalRespLab}`, fontSize: 12 },
+                    { text: `Comisión Responsable Lab: ${data.form3_19.comRespLab}`, fontSize: 12 },
+                    { text: `Observaciones Responsable Lab: ${data.form3_19.obsRespLab}`, fontSize: 12 },
+                    { text: `Cantidad Exam Prof: ${data.form3_19.cantExamProf}`, fontSize: 12 },
+                    { text: `Subtotal Exam Prof: ${data.form3_19.subtotalExamProf}`, fontSize: 12 },
+                    { text: `Comisión Exam Prof: ${data.form3_19.comExamProf}`, fontSize: 12 },
+                    { text: `Observaciones Exam Prof: ${data.form3_19.obsExamProf}`, fontSize: 12 },
+                    { text: `Cantidad Exam Académicos: ${data.form3_19.cantExamAcademicos}`, fontSize: 12 },
+                    { text: `Subtotal Exam Académicos: ${data.form3_19.subtotalExamAcademicos}`, fontSize: 12 },
+                    { text: `Comisión Exam Académicos: ${data.form3_19.comExamAcademicos}`, fontSize: 12 },
+                    { text: `Observaciones Exam Académicos: ${data.form3_19.obsExamAcademicos}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Form Resp: ${data.form3_19.cantPRODEPformResp}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Form Resp: ${data.form3_19.subtotalPRODEPformResp}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Form Resp: ${data.form3_19.comPRODEPformResp}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Form Resp: ${data.form3_19.obsPRODEPformResp}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Form Integ: ${data.form3_19.cantPRODEPformInteg}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Form Integ: ${data.form3_19.subtotalPRODEPformInteg}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Form Integ: ${data.form3_19.comPRODEPformInteg}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Form Integ: ${data.form3_19.obsPRODEPformInteg}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Encons Resp: ${data.form3_19.cantPRODEPenconsResp}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Encons Resp: ${data.form3_19.subtotalPRODEPenconsResp}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Encons Resp: ${data.form3_19.comPRODEPenconsResp}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Encons Resp: ${data.form3_19.obsPRODEPenconsResp}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Encons Integ: ${data.form3_19.cantPRODEPenconsInteg}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Encons Integ: ${data.form3_19.subtotalPRODEPenconsInteg}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Encons Integ: ${data.form3_19.comPRODEPenconsInteg}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Encons Integ: ${data.form3_19.obsPRODEPenconsInteg}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Cons Resp: ${data.form3_19.cantPRODEPconsResp}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Cons Resp: ${data.form3_19.subtotalPRODEPconsResp}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Cons Resp: ${data.form3_19.comPRODEPconsResp}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Cons Resp: ${data.form3_19.obsPRODEPconsResp}`, fontSize: 12 },
+                    { text: `Cantidad PRODEP Cons Integ: ${data.form3_19.cantPRODEPconsInteg}`, fontSize: 12 },
+                    { text: `Subtotal PRODEP Cons Integ: ${data.form3_19.subtotalPRODEPconsInteg}`, fontSize: 12 },
+                    { text: `Comisión PRODEP Cons Integ: ${data.form3_19.comPRODEPconsInteg}`, fontSize: 12 },
+                    { text: `Observaciones PRODEP Cons Integ: ${data.form3_19.obsPRODEPconsInteg}`, fontSize: 12 },
+                    { text: `Comisión 3.19: ${data.form3_19.comision3_19}`, fontSize: 12 }
+                ]
+            };
+
+            pdfMake.createPdf(docDefinition).download('form3_19.pdf');
+        } catch (error) {
+            console.error('Error fetching docente data:', error);
         }
+    } else {
+        console.error('No docente selected.');
     }
-    </script>
+}
+
+   </script>
 
 </body>
 
