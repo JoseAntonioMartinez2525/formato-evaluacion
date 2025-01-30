@@ -770,14 +770,22 @@ $page_counter++;
                             <th>
                             @if ($userType != '')
                                 <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                            @else
-                                <form action="" method="POST" onsubmit="event.preventDefault(); generatePdf('/generate-pdf', 'form3_19');"></form>
+
                             @endif
                             </th>
                         </tr>
                     </thead>
                 </table>
                 </form>
+                @if ($userType == '')
+                    <form action="{{ route('generate.pdf') }}" id="button3_19" method="POST" onsubmit="generatePdf('button3_19');">
+                        @csrf
+                        <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+                        <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Generar PDF</button>
+                    </form>
+                @endif
     </main>
     
 
@@ -1239,40 +1247,69 @@ $page_counter++;
 
 
         }
+        
+    async function generatePdf() {
+        const formData = new FormData();
+        const userType = @json($userType); // Inject user type from backend to JS
+        
+        // Only proceed if userType is an empty string
+        if (userType === '') {
+            const docenteSelect = document.getElementById('docenteSelect');
+            const email = docenteSelect.value; // Get selected docente email
 
-        async function generatePdf(formId) {
-                const formData = new FormData();
-                formData.append('email', document.querySelector('input[name="email"]').value);
-                formData.append('user_id', document.querySelector('input[name="user_id"]').value);
-                formData.append('user_type', document.querySelector('input[name="user_type"]').value);
+            console.log('Selected Docente Email:', email); // Debugging log
 
-                fetch('{{ route('generate.pdf') }}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        }
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            
-                            return response.blob();
+            if (email) {
+                try {
+                    const response = await axios.get('/get-docente-data', { params: { email } });
+                    const data = response.data;
+
+                    console.log('Fetched Data:', data); // Debugging log
+
+                    // Check if data is returned
+                    if (!data || !data.email) {
+                        console.error('User data not found for the selected docente.');
+                        return; 
+                    }
+
+                    // Populate formData with the fetched data
+                    formData.append('email', data.email);
+                formData.append('user_id', data.user_id);
+                    formData.append('user_type', data.user_type);
+
+                    const responsePdf = await fetch('{{ route('generate.pdf') }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         }
-                        throw new Error('Network response was not ok.');
-                    })
-                    .then(blob => {
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'form3_19.pdf';
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
                     });
+
+                    if (!responsePdf.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+
+                    const result = await responsePdf.json();
+                    // Create PDF using pdfmake
+                    const docDefinition = {
+                        content: [
+                            { text: 'User Data', fontSize: 15 },
+                            { text: `Email: ${result.data.email}`, fontSize: 12 },
+                            // Add more user data as needed
+                        ]
+                    };
+
+                    pdfMake.createPdf(docDefinition).download('form3_19.pdf');
+                } catch (error) {
+                    console.error('Error fetching docente data:', error);
+                }
+            } else {
+                console.error('No docente selected.');
             }
+        } else {
+            console.error('generatePdf function should not be called for dictaminador user type.');
+        }
+    }
     </script>
 
 </body>

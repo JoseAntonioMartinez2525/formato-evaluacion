@@ -5,6 +5,11 @@
  */
 
 import './bootstrap';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 /**
  * Next, we will create a fresh React component instance and attach it to
