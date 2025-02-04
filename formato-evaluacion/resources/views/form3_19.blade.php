@@ -341,7 +341,7 @@ $page_counter = 32;
             </div>
             
             <div class="footer" id="footer1" style="display: block;">
-                &nbsp;Página 26 de 28
+                &nbsp;
             </div>
             
            
@@ -360,7 +360,8 @@ $page_counter = 32;
                             </td>
                         </tr>
                         @php
-$page_counter++;
+                            $page_counter++;
+                            $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                         @endphp
                         @if($page_counter === 33)
                         <tr class="prevent-overlap">
@@ -776,6 +777,9 @@ $page_counter++;
                         </tr>
                     </thead>
                 </table>
+                <div id="pdf-generator">
+                    <PdfGenerator />
+                </div>
                 </form>
                 <!--
                 @if ($userType == '')
@@ -820,7 +824,7 @@ $page_counter++;
         // Show the appropriate footer based on the current page
         if (currentPage === 1) {
             document.getElementById('footer1').style.display = 'block';
-            document.getElementById('footer1').textContent = "Página 26 de 28";
+            document.getElementById('footer1').textContent = " ";
         } else if (currentPage === 2) {
             document.getElementById('footer2').style.display = 'block';
             document.getElementById('footer2').textContent = "Página 27 de 28";
