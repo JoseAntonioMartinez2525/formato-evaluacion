@@ -777,6 +777,7 @@ $page_counter++;
                     </thead>
                 </table>
                 </form>
+                <!--
                 @if ($userType == '')
                     <form action="{{ route('generate.pdf') }}" id="button3_19" method="POST" onsubmit="generatePdf('button3_19');">
                         @csrf
@@ -786,6 +787,7 @@ $page_counter++;
                         <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Generar PDF</button>
                     </form>
                 @endif
+                -->
     </main>
     
 
