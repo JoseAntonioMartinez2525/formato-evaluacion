@@ -66,6 +66,7 @@ $newLocale = str_replace('_', '-', $locale);
     #convocatoria {
         margin: 0;
         display:block;
+        margin-top: -80px;
     }
 
     #piedepagina {
@@ -234,549 +235,548 @@ $page_counter = 32;
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>a)</td>
-                            <td>Representante del profesorado ante H. CGU</td>
-                            <td></td>
-                            <td>Titular o suplente</td>
-                            <td id="puntajeCGUtitular"><b>20</b></td>
-                            <td id="cantCGUtitular"></td>
-                            <td></td>
-                            <td id="subtotalCGUtitular"></td>
-                            <td>
-                            @if ($userType == 'dictaminador')
-                                <input type="number" step="0.01" id="comCGUtitular" name="comCGUtitular" value="{{ oldValueOrDefault('comCGUtitular') }}" oninput="onActv3Comision3_19()">
-                            @else
-                                   <span id="comCGUtitular" name="comCGUtitular"></span> 
-                            @endif
-                            </td>
-                            <td>
-                             @if ($userType == 'dictaminador')
-                                <input class="table-header" type="text" id="obsCGUtitular" name="obsCGUtitular">
-                            @else
-                                <span id="obsCGUtitular" name="obsCGUtitular"></span>
-                            @endif                            
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>b)</td>
-                            <td>Representante del profesorado ante H. CGU</td>
-                            <td></td>
-                            <td>Participación como miembro de comisión especial</td>
-                            <td id="puntajeCGUespecial"><b>15</b></td>
-                            <td id="cantCGUespecial"></td>
-                            <td></td>
-                            <td id="subtotalCGUespecial"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comCGUespecial" name="comCGUespecial" value="{{ oldValueOrDefault('comCGUespecial') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comCGUespecial" name="comCGUespecial"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsCGUespecial" name="obsCGUespecial">
-                                @else
-                                    <span id="obsCGUespecial" name="obsCGUespecial"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>c)</td>
-                            <td>Representante del profesorado ante H. CGU</td>
-                            <td></td>
-                            <td>Participación como miembro en comisión permanente</td>
-                            <td id="puntajeCGUpermanente"><b>10</b></td>
-                            <td id="cantCGUpermanente"></td>
-                            <td></td>
-                            <td id="subtotalCGUpermanente"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comCGUpermanente" name="comCGUpermanente" value="{{ oldValueOrDefault('comCGUpermanente') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comCGUpermanente" name="comCGUpermanente"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsCGUpermanente" name="obsCGUpermanente">
-                                @else
-                                    <span id="obsCGUpermanente" name="obsCGUpermanente"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>d)</td>
-                            <td>Representante del profesorado ante CAAC</td>
-                            <td></td>
-                            <td>Titular o suplente</td>
-                            <td id="puntajeCAACtitular"><b>10</b></td>
-                            <td id="cantCAACtitular"></td>
-                            <td></td>
-                            <td id="subtotalCAACtitular"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comCAACtitular" name="comCAACtitular" value="{{ oldValueOrDefault('comCAACtitular') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comCAACtitular" name="comCAACtitular"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsCAACtitular" name="obsCAACtitular">
-                                @else
-                                    <span id="obsCAACtitular" name="obsCAACtitular"></span>
-                                @endif
-                            </td>
-                            <td>
-                                    <center>
-        <footer>
-            <div id="convocatoria">
-                <!-- Mostrar convocatoria -->
-                @if(isset($convocatoria))
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                @endif
-            </div>
-            
-            <div class="footer" id="footer1" style="display: block;">
-                &nbsp;
-            </div>
-            
-           
-            <div class="footer" id="footer2" style="display: block;">
-                Página 27 de 28
-            </div>
-           
-            
-                <div class="footer" id="footer3" style="display: block;">
-                    Página 28 de 28
-                </div>
-            
-        </footer>
-        
-    </center>
-                            </td>
-                        </tr>
-                        @php
-                            $page_counter++;
-                            $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
-                        @endphp
-                        @if($page_counter === 33)
-                        <tr class="prevent-overlap">
-                            <td>e)</td>
-                            <td>Representante del profesorado ante CAAC</td>
-                            <td></td>
-                            <td>Participación como integrante de comisión</td>
-                            <td id="puntajeCAACintegCom"><b>5</b></td>
-                            <td id="cantCAACintegCom"></td>
-                            <td></td>
-                            <td id="subtotalCAACintegCom"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comCAACintegCom" name="comCAACintegCom" value="{{ oldValueOrDefault('comCAACintegCom') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comCAACintegCom" name="comCAACintegCom"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsCAACintegCom" name="obsCAACintegCom">
-                                @else
-                                    <span id="obsCAACintegCom" name="obsCAACintegCom"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>f)</td>
-                            <td>Comisiones</td>
-                            <td></td>
-                            <td>Departamentales</td>
-                            <td id="puntajeComDepart"><b>15</b></td>
-                            <td id="cantComDepart"></td>
-                            <td></td>
-                            <td id="subtotalComDepart"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comComDepart" name="comComDepart" value="{{ oldValueOrDefault('comComDepart') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comComDepart" name="comComDepart"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsComDepart" name="obsComDepart">
-                                @else
-                                    <span id="obsComDepart" name="obsComDepart"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>g)</td>
-                            <td>Comisiones</td>
-                            <td></td>
-                            <td>Dictaminadora del PEDPD</td>
-                            <td id="puntajeComPEDPD"><b>15</b></td>
-                            <td id="cantComPEDPD"></td>
-                            <td></td>
-                            <td id="subtotalComPEDPD"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comComPEDPD" name="comComPEDPD" value="{{ oldValueOrDefault('comComPEDPD') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comComPEDPD" name="comComPEDPD"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsComPEDPD" name="obsComPEDPD">
-                                @else
-                                    <span id="obsComPEDPD" name="obsComPEDPD"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>h)</td>
-                            <td>Comisiones</td>
-                            <td></td>
-                            <td>Participación como integrante del Comité Académico de Posgrado</td>
-                            <td id="puntajeComPartPos"><b>5</b></td>
-                            <td id="cantComPartPos"></td>
-                            <td></td>
-                            <td id="subtotalComPartPos"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comComPartPos" name="comComPartPos" value="{{ oldValueOrDefault('comComPartPos') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comComPartPos" name="comComPartPos"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsComPartPos" name="obsComPartPos">
-                                @else
-                                    <span id="obsComPartPos" name="obsComPartPos"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>i)</td>
-                            <td>Responsable</td>
-                            <td></td>
-                            <td>De posgrado</td>
-                            <td id="puntajeRespPos"><b>25</b></td>
-                            <td id="cantRespPos"></td>
-                            <td></td>
-                            <td id="subtotalRespPos"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comRespPos" name="comRespPos" value="{{ oldValueOrDefault('comRespPos') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comRespPos" name="comRespPos"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsRespPos" name="obsRespPos">
-                                @else
-                                    <span id="obsRespPos" name="obsRespPos"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>j)</td>
-                            <td>Responsable</td>
-                            <td></td>
-                            <td>De carrera</td>
-                            <td id="puntajeRespCarrera"><b>15</b></td>
-                            <td id="cantRespCarrera"></td>
-                            <td></td>
-                            <td id="subtotalRespCarrera"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comRespCarrera" name="comRespCarrera" value="{{ oldValueOrDefault('comRespCarrera') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comRespCarrera" name="comRespCarrera"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsRespCarrera" name="obsRespCarrera">
-                                @else
-                                    <span id="obsRespCarrera" name="obsRespCarrera"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>k)</td>
-                            <td>Responsable</td>
-                            <td></td>
-                            <td>De unidad de producción</td>
-                            <td id="puntajeRespProd"><b>20</b></td>
-                            <td id="cantRespProd"></td>
-                            <td></td>
-                            <td id="subtotalRespProd"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comRespProd" name="comRespProd" value="{{ oldValueOrDefault('comRespProd') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comRespProd" name="comRespProd"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsRespProd" name="obsRespProd">
-                                @else
-                                    <span id="obsRespProd" name="obsRespProd"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>l)</td>
-                            <td>Responsable</td>
-                            <td></td>
-                            <td>De laboratorio de docencia e investigación</td>
-                            <td id="puntajeRespLab"><b>15</b></td>
-                            <td id="cantRespLab"></td>
-                            <td></td>
-                            <td id="subtotalRespLab"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comRespLab" name="comRespLab" value="{{ oldValueOrDefault('comRespLab') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comRespLab" name="comRespLab"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsRespLab" name="obsRespLab">
-                                @else
-                                    <span id="obsRespLab" name="obsRespLab"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>m)</td>
-                            <td>Sinodalías de examen de oposición</td>
-                            <td></td>
-                            <td>Profesorado</td>
-                            <td id="puntajeExamProf"><b>15</b></td>
-                            <td id="cantExamProf"></td>
-                            <td></td>
-                            <td id="subtotalExamProf"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comExamProf" name="comExamProf" value="{{ oldValueOrDefault('comExamProf') }}" oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comExamProf" name="comExamProf"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsExamProf" name="obsExamProf">
-                                @else
-                                    <span id="obsExamProf" name="obsExamProf"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>n)</td>
-                            <td>Sinodalías de examen de oposición</td>
-                            <td></td>
-                            <td>Ayudantes académicos</td>
-                            <td id="puntajeExamAcademicos"><b>5</b></td>
-                            <td id="cantExamAcademicos"></td>
-                            <td></td>
-                            <td id="subtotalExamAcademicos"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comExamAcademicos" name="comExamAcademicos" value="{{ oldValueOrDefault('comExamAcademicos') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comExamAcademicos" name="comExamAcademicos"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsExamAcademicos" name="obsExamAcademicos">
-                                @else
-                                    <span id="obsExamAcademicos" name="obsExamAcademicos"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>o1)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>En formación</td>
-                            <td>Responsable</td>
-                            <td id="puntajePRODEPformResp"><b>15</b></td>
-                            <td id="cantPRODEPformResp"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPformResp"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPformResp" name="comPRODEPformResp" value="{{ oldValueOrDefault('comPRODEPformResp') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPformResp" name="comPRODEPformResp"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPformResp" name="obsPRODEPformResp">
-                                @else
-                                    <span id="obsPRODEPformResp" name="obsPRODEPformResp"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>o2)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>En formación</td>
-                            <td>Integrante</td>
-                            <td id="puntajePRODEPformInteg"><b>10</b></td>
-                            <td id="cantPRODEPformInteg"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPformInteg"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPformInteg" name="comPRODEPformInteg" value="{{ oldValueOrDefault('comPRODEPformInteg') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPformInteg" name="comPRODEPformInteg"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPformInteg" name="obsPRODEPformInteg">
-                                @else
-                                    <span id="obsPRODEPformInteg" name="obsPRODEPformInteg"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>p1)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>En consolidación</td>
-                            <td>Responsable</td>
-                            <td id="puntajePRODEPenconsResp"><b>25</b></td>
-                            <td id="cantPRODEPenconsResp"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPenconsResp"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPenconsResp" name="comPRODEPenconsResp" value="{{ oldValueOrDefault('comPRODEPenconsResp') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPenconsResp" name="comPRODEPenconsResp"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPenconsResp" name="obsPRODEPenconsResp">
-                                @else
-                                    <span id="obsPRODEPenconsResp" name="obsPRODEPenconsResp"></span>
-                                @endif
-                            </td>
-                        </tr>
+                        @if ($page_counter === 32)
+                                                <tr>
+                                                    <td>a)</td>
+                                                    <td>Representante del profesorado ante H. CGU</td>
+                                                    <td></td>
+                                                    <td>Titular o suplente</td>
+                                                    <td id="puntajeCGUtitular"><b>20</b></td>
+                                                    <td id="cantCGUtitular"></td>
+                                                    <td></td>
+                                                    <td id="subtotalCGUtitular"></td>
+                                                    <td>
+                                                    @if ($userType == 'dictaminador')
+                                                        <input type="number" step="0.01" id="comCGUtitular" name="comCGUtitular" value="{{ oldValueOrDefault('comCGUtitular') }}" oninput="onActv3Comision3_19()">
+                                                    @else
+                                                           <span id="comCGUtitular" name="comCGUtitular"></span> 
+                                                    @endif
+                                                    </td>
+                                                    <td>
+                                                     @if ($userType == 'dictaminador')
+                                                        <input class="table-header" type="text" id="obsCGUtitular" name="obsCGUtitular">
+                                                    @else
+                                                        <span id="obsCGUtitular" name="obsCGUtitular"></span>
+                                                    @endif                            
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>b)</td>
+                                                    <td>Representante del profesorado ante H. CGU</td>
+                                                    <td></td>
+                                                    <td>Participación como miembro de comisión especial</td>
+                                                    <td id="puntajeCGUespecial"><b>15</b></td>
+                                                    <td id="cantCGUespecial"></td>
+                                                    <td></td>
+                                                    <td id="subtotalCGUespecial"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comCGUespecial" name="comCGUespecial" value="{{ oldValueOrDefault('comCGUespecial') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comCGUespecial" name="comCGUespecial"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsCGUespecial" name="obsCGUespecial">
+                                                        @else
+                                                            <span id="obsCGUespecial" name="obsCGUespecial"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>c)</td>
+                                                    <td>Representante del profesorado ante H. CGU</td>
+                                                    <td></td>
+                                                    <td>Participación como miembro en comisión permanente</td>
+                                                    <td id="puntajeCGUpermanente"><b>10</b></td>
+                                                    <td id="cantCGUpermanente"></td>
+                                                    <td></td>
+                                                    <td id="subtotalCGUpermanente"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comCGUpermanente" name="comCGUpermanente" value="{{ oldValueOrDefault('comCGUpermanente') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comCGUpermanente" name="comCGUpermanente"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsCGUpermanente" name="obsCGUpermanente">
+                                                        @else
+                                                            <span id="obsCGUpermanente" name="obsCGUpermanente"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>d)</td>
+                                                    <td>Representante del profesorado ante CAAC</td>
+                                                    <td></td>
+                                                    <td>Titular o suplente</td>
+                                                    <td id="puntajeCAACtitular"><b>10</b></td>
+                                                    <td id="cantCAACtitular"></td>
+                                                    <td></td>
+                                                    <td id="subtotalCAACtitular"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comCAACtitular" name="comCAACtitular" value="{{ oldValueOrDefault('comCAACtitular') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comCAACtitular" name="comCAACtitular"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsCAACtitular" name="obsCAACtitular">
+                                                        @else
+                                                            <span id="obsCAACtitular" name="obsCAACtitular"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
                         @endif
-                        <tr class="prevent-overlap">
-                            <td>p2)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>En consolidación</td>
-                            <td>Integrante</td>
-                            <td id="puntajePRODEPenconsInteg"><b>15</b></td>
-                            <td id="cantPRODEPenconsInteg"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPenconsInteg"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" value="{{ oldValueOrDefault('comPRODEPenconsInteg') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPenconsInteg" name="comPRODEPenconsInteg"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg">
-                                @else
-                                    <span id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>q1)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>Consolidado</td>
-                            <td>Responsable</td>
-                            <td id="puntajePRODEPconsResp"><b>35</b></td>
-                            <td id="cantPRODEPconsResp"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPconsResp"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPconsResp" name="comPRODEPconsResp" value="{{ oldValueOrDefault('comPRODEPconsResp') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPconsResp" name="comPRODEPconsResp"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPconsResp" name="obsPRODEPconsResp">
-                                @else
-                                    <span id="obsPRODEPconsResp" name="obsPRODEPconsResp"></span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>q2)</td>
-                            <td>Cuerpo académico registrado ante PRODEP</td>
-                            <td>Consolidado</td>
-                            <td>Integrante</td>
-                            <td id="puntajePRODEPconsInteg"><b>25</b></td>
-                            <td id="cantPRODEPconsInteg"></td>
-                            <td></td>
-                            <td id="subtotalPRODEPconsInteg"></td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input type="number" step="0.01" id="comPRODEPconsInteg" name="comPRODEPconsInteg" value="{{ oldValueOrDefault('comPRODEPconsInteg') }}"
-                                        oninput="onActv3Comision3_19()">
-                                @else
-                                    <span id="comPRODEPconsInteg" name="comPRODEPconsInteg"></span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($userType == 'dictaminador')
-                                    <input class="table-header" type="text" id="obsPRODEPconsInteg" name="obsPRODEPconsInteg">
-                                @else
-                                    <span id="obsPRODEPconsInteg" name="obsPRODEPconsInteg"></span>
-                                @endif
-                            </td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
-                <!--Tabla informativa Acreditacion Actividad 3.19-->
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="acreditacion" scope="col" colspan=2> **Coparticipación técnica
-                                y/o académica y/o
-                                financiera de institución extranjera</th>
-                            <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
-                            <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
-                            <th>
-                            @if ($userType != '')
-                                <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                                                @php
+$page_counter++;
+$topMargin = ($page_counter === 33) ? '150mm' : '20mm';
+                                                @endphp
+                                                @if($page_counter === 33)
+                                                <tr class="prevent-overlap">
+                                                    <td>e)</td>
+                                                    <td>Representante del profesorado ante CAAC</td>
+                                                    <td></td>
+                                                    <td>Participación como integrante de comisión</td>
+                                                    <td id="puntajeCAACintegCom"><b>5</b></td>
+                                                    <td id="cantCAACintegCom"></td>
+                                                    <td></td>
+                                                    <td id="subtotalCAACintegCom"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comCAACintegCom" name="comCAACintegCom" value="{{ oldValueOrDefault('comCAACintegCom') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comCAACintegCom" name="comCAACintegCom"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsCAACintegCom" name="obsCAACintegCom">
+                                                        @else
+                                                            <span id="obsCAACintegCom" name="obsCAACintegCom"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>f)</td>
+                                                    <td>Comisiones</td>
+                                                    <td></td>
+                                                    <td>Departamentales</td>
+                                                    <td id="puntajeComDepart"><b>15</b></td>
+                                                    <td id="cantComDepart"></td>
+                                                    <td></td>
+                                                    <td id="subtotalComDepart"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comComDepart" name="comComDepart" value="{{ oldValueOrDefault('comComDepart') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comComDepart" name="comComDepart"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsComDepart" name="obsComDepart">
+                                                        @else
+                                                            <span id="obsComDepart" name="obsComDepart"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>g)</td>
+                                                    <td>Comisiones</td>
+                                                    <td></td>
+                                                    <td>Dictaminadora del PEDPD</td>
+                                                    <td id="puntajeComPEDPD"><b>15</b></td>
+                                                    <td id="cantComPEDPD"></td>
+                                                    <td></td>
+                                                    <td id="subtotalComPEDPD"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comComPEDPD" name="comComPEDPD" value="{{ oldValueOrDefault('comComPEDPD') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comComPEDPD" name="comComPEDPD"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsComPEDPD" name="obsComPEDPD">
+                                                        @else
+                                                            <span id="obsComPEDPD" name="obsComPEDPD"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>h)</td>
+                                                    <td>Comisiones</td>
+                                                    <td></td>
+                                                    <td>Participación como integrante del Comité Académico de Posgrado</td>
+                                                    <td id="puntajeComPartPos"><b>5</b></td>
+                                                    <td id="cantComPartPos"></td>
+                                                    <td></td>
+                                                    <td id="subtotalComPartPos"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comComPartPos" name="comComPartPos" value="{{ oldValueOrDefault('comComPartPos') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comComPartPos" name="comComPartPos"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsComPartPos" name="obsComPartPos">
+                                                        @else
+                                                            <span id="obsComPartPos" name="obsComPartPos"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>i)</td>
+                                                    <td>Responsable</td>
+                                                    <td></td>
+                                                    <td>De posgrado</td>
+                                                    <td id="puntajeRespPos"><b>25</b></td>
+                                                    <td id="cantRespPos"></td>
+                                                    <td></td>
+                                                    <td id="subtotalRespPos"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comRespPos" name="comRespPos" value="{{ oldValueOrDefault('comRespPos') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comRespPos" name="comRespPos"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsRespPos" name="obsRespPos">
+                                                        @else
+                                                            <span id="obsRespPos" name="obsRespPos"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>j)</td>
+                                                    <td>Responsable</td>
+                                                    <td></td>
+                                                    <td>De carrera</td>
+                                                    <td id="puntajeRespCarrera"><b>15</b></td>
+                                                    <td id="cantRespCarrera"></td>
+                                                    <td></td>
+                                                    <td id="subtotalRespCarrera"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comRespCarrera" name="comRespCarrera" value="{{ oldValueOrDefault('comRespCarrera') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comRespCarrera" name="comRespCarrera"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsRespCarrera" name="obsRespCarrera">
+                                                        @else
+                                                            <span id="obsRespCarrera" name="obsRespCarrera"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>k)</td>
+                                                    <td>Responsable</td>
+                                                    <td></td>
+                                                    <td>De unidad de producción</td>
+                                                    <td id="puntajeRespProd"><b>20</b></td>
+                                                    <td id="cantRespProd"></td>
+                                                    <td></td>
+                                                    <td id="subtotalRespProd"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comRespProd" name="comRespProd" value="{{ oldValueOrDefault('comRespProd') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comRespProd" name="comRespProd"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsRespProd" name="obsRespProd">
+                                                        @else
+                                                            <span id="obsRespProd" name="obsRespProd"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>l)</td>
+                                                    <td>Responsable</td>
+                                                    <td></td>
+                                                    <td>De laboratorio de docencia e investigación</td>
+                                                    <td id="puntajeRespLab"><b>15</b></td>
+                                                    <td id="cantRespLab"></td>
+                                                    <td></td>
+                                                    <td id="subtotalRespLab"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comRespLab" name="comRespLab" value="{{ oldValueOrDefault('comRespLab') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comRespLab" name="comRespLab"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsRespLab" name="obsRespLab">
+                                                        @else
+                                                            <span id="obsRespLab" name="obsRespLab"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>m)</td>
+                                                    <td>Sinodalías de examen de oposición</td>
+                                                    <td></td>
+                                                    <td>Profesorado</td>
+                                                    <td id="puntajeExamProf"><b>15</b></td>
+                                                    <td id="cantExamProf"></td>
+                                                    <td></td>
+                                                    <td id="subtotalExamProf"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comExamProf" name="comExamProf" value="{{ oldValueOrDefault('comExamProf') }}" oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comExamProf" name="comExamProf"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsExamProf" name="obsExamProf">
+                                                        @else
+                                                            <span id="obsExamProf" name="obsExamProf"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>n)</td>
+                                                    <td>Sinodalías de examen de oposición</td>
+                                                    <td></td>
+                                                    <td>Ayudantes académicos</td>
+                                                    <td id="puntajeExamAcademicos"><b>5</b></td>
+                                                    <td id="cantExamAcademicos"></td>
+                                                    <td></td>
+                                                    <td id="subtotalExamAcademicos"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comExamAcademicos" name="comExamAcademicos" value="{{ oldValueOrDefault('comExamAcademicos') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comExamAcademicos" name="comExamAcademicos"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsExamAcademicos" name="obsExamAcademicos">
+                                                        @else
+                                                            <span id="obsExamAcademicos" name="obsExamAcademicos"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>o1)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>En formación</td>
+                                                    <td>Responsable</td>
+                                                    <td id="puntajePRODEPformResp"><b>15</b></td>
+                                                    <td id="cantPRODEPformResp"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPformResp"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPformResp" name="comPRODEPformResp" value="{{ oldValueOrDefault('comPRODEPformResp') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPformResp" name="comPRODEPformResp"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPformResp" name="obsPRODEPformResp">
+                                                        @else
+                                                            <span id="obsPRODEPformResp" name="obsPRODEPformResp"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>o2)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>En formación</td>
+                                                    <td>Integrante</td>
+                                                    <td id="puntajePRODEPformInteg"><b>10</b></td>
+                                                    <td id="cantPRODEPformInteg"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPformInteg"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPformInteg" name="comPRODEPformInteg" value="{{ oldValueOrDefault('comPRODEPformInteg') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPformInteg" name="comPRODEPformInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPformInteg" name="obsPRODEPformInteg">
+                                                        @else
+                                                            <span id="obsPRODEPformInteg" name="obsPRODEPformInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>p1)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>En consolidación</td>
+                                                    <td>Responsable</td>
+                                                    <td id="puntajePRODEPenconsResp"><b>25</b></td>
+                                                    <td id="cantPRODEPenconsResp"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPenconsResp"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPenconsResp" name="comPRODEPenconsResp" value="{{ oldValueOrDefault('comPRODEPenconsResp') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPenconsResp" name="comPRODEPenconsResp"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPenconsResp" name="obsPRODEPenconsResp">
+                                                        @else
+                                                            <span id="obsPRODEPenconsResp" name="obsPRODEPenconsResp"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                                <tr class="prevent-overlap">
+                                                    <td>p2)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>En consolidación</td>
+                                                    <td>Integrante</td>
+                                                    <td id="puntajePRODEPenconsInteg"><b>15</b></td>
+                                                    <td id="cantPRODEPenconsInteg"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPenconsInteg"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" value="{{ oldValueOrDefault('comPRODEPenconsInteg') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPenconsInteg" name="comPRODEPenconsInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg">
+                                                        @else
+                                                            <span id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>q1)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>Consolidado</td>
+                                                    <td>Responsable</td>
+                                                    <td id="puntajePRODEPconsResp"><b>35</b></td>
+                                                    <td id="cantPRODEPconsResp"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPconsResp"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPconsResp" name="comPRODEPconsResp" value="{{ oldValueOrDefault('comPRODEPconsResp') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPconsResp" name="comPRODEPconsResp"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPconsResp" name="obsPRODEPconsResp">
+                                                        @else
+                                                            <span id="obsPRODEPconsResp" name="obsPRODEPconsResp"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>q2)</td>
+                                                    <td>Cuerpo académico registrado ante PRODEP</td>
+                                                    <td>Consolidado</td>
+                                                    <td>Integrante</td>
+                                                    <td id="puntajePRODEPconsInteg"><b>25</b></td>
+                                                    <td id="cantPRODEPconsInteg"></td>
+                                                    <td></td>
+                                                    <td id="subtotalPRODEPconsInteg"></td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input type="number" step="0.01" id="comPRODEPconsInteg" name="comPRODEPconsInteg" value="{{ oldValueOrDefault('comPRODEPconsInteg') }}"
+                                                                oninput="onActv3Comision3_19()">
+                                                        @else
+                                                            <span id="comPRODEPconsInteg" name="comPRODEPconsInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($userType == 'dictaminador')
+                                                            <input class="table-header" type="text" id="obsPRODEPconsInteg" name="obsPRODEPconsInteg">
+                                                        @else
+                                                            <span id="obsPRODEPconsInteg" name="obsPRODEPconsInteg"></span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
 
-                            @endif
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
+                                            </tbody>
+                                        </table>
+                                        <!--Tabla informativa Acreditacion Actividad 3.19-->
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="acreditacion" scope="col" colspan=2> **Coparticipación técnica
+                                                        y/o académica y/o
+                                                        financiera de institución extranjera</th>
+                                                    <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
+                                                    <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
+                                                    <th>
+                                                    @if ($userType != '')
+                                                        <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+
+                                                    @endif
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <center>
+                                            <footer>
+                                                <div id="convocatoria">
+                                                    <!-- Mostrar convocatoria -->
+                                        @if(isset($convocatoria))
+                                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                                        @endif
+                                                </div>
+                                        @if(session('page_counter') === 2)
+                                            <div class="footer" id="footer2" style="display: block;">
+                                                Página 27 de 28
+                                            </div>
+                                        @elseif(session('page_counter') === 3)
+                                            <div class="footer" id="footer3" style="display: block;">
+                                                Página 28 de 28
+                                            </div>
+                                        @else
+                                            <div class="footer" id="footer1" style="display: block;">
+                                                &nbsp; Página 26 de 28
+                                            </div>
+                                        @endif
+                
+                    </footer>
+                
+                </center>
                 <div id="pdf-generator">
                     <PdfGenerator />
                 </div>
@@ -814,24 +814,66 @@ $page_counter = 32;
         
     };
 
+     // Function to determine the current page number
+        function getCurrentPageNumber() {
+            const pageBreaks = document.querySelectorAll('.prevent-overlap');
+            let currentPage = 1;
+
+            pageBreaks.forEach((breakElement, index) => {
+                const rect = breakElement.getBoundingClientRect();
+                if (rect.top < 0) {
+                    currentPage = index + 2; // +2 because the first page is 1 and the first break is at page 2
+                }
+            });
+            return currentPage;
+        }
+
+          // Update footer based on the current page number
+            function updateFooter() {
+                const footer1 = document.getElementById('footer1');
+                const footer2 = document.getElementById('footer2');
+                const footer3 = document.getElementById('footer3');
+                const preventOverlapElements = document.querySelectorAll('.prevent-overlap');
+
+// Hide all footers initially
+    if (footer1) footer1.style.display = 'none';
+    if (footer2) footer2.style.display = 'none';
+    if (footer3) footer3.style.display = 'none';
+
+                // Check if preventOverlapElements has any elements
+                if (preventOverlapElements.length > 0) {
+                    // Check for specific elements to determine the footer
+                    if (preventOverlapElements[0].querySelector('td')?.textContent.includes('e)')) {
+                        if (footer2) {
+                            footer2.style.display = 'block';
+                            footer2.textContent = "Página 27 de 28";
+                        }
+                    } else if (preventOverlapElements[0].querySelector('td')?.textContent.includes('p2)')) {
+                        if (footer2) {
+                            footer2.style.display = 'block';
+                            footer2.textContent = "Página 27 de 28";
+                        }
+                    }
+
+                    if (preventOverlapElements.length > 1) {
+                        if (footer3) {
+                            footer3.style.display = 'block';
+                            footer3.textContent = "Página 28 de 28";
+                        }
+                    }
+                }
+            }
+
+    // Call updateFooter on window load
+
     window.onload = function () {
             const pageCount = 3; // Total number of pages
             const currentPage = Math.ceil(window.printPageNumber || 1); // Assuming you have a way to track the current page
             let footerText = '';
         // Hide all footers
         document.querySelectorAll('.footer').forEach(footer => footer.style.display = 'none');
-
-        // Show the appropriate footer based on the current page
-        if (currentPage === 1) {
-            document.getElementById('footer1').style.display = 'block';
-            document.getElementById('footer1').textContent = " ";
-        } else if (currentPage === 2) {
-            document.getElementById('footer2').style.display = 'block';
-            document.getElementById('footer2').textContent = "Página 27 de 28";
-        } else if (currentPage === 3) {
-            document.getElementById('footer3').style.display = 'block';
-            document.getElementById('footer3').textContent = "Página 28 de 28";
-        }
+        sendCurrentPageToServer(currentPage);
+        setTimeout(updateFooter, 100);
     };
 
     let cant3_19 = [
@@ -1389,6 +1431,23 @@ $page_counter = 32;
     }
 }
 
+    function sendCurrentPageToServer(currentPage) {
+        fetch('/update-page-counter', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ page: currentPage }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Page counter updated:', data);
+            })
+            .catch(error => {
+                console.error('Error updating page counter:', error);
+            });
+    }
    </script>
 
 </body>

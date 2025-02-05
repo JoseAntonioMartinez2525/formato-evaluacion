@@ -37,6 +37,7 @@ use App\Http\Controllers\ThemeController;
 use App\Models\DictaminatorsResponseForm3_6;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponseJson;
 use App\Http\Controllers\ResponseForm2Controller;
@@ -269,6 +270,18 @@ Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
 
 Route::get('/dynamic-form/{formName}', [DynamicFormController::class, 'getFormByName']);
+
+Route::post('/update-page-counter', function (Request $request) {
+    try {
+        $page = $request->input('page');
+        \Log::info('Page counter received:', ['page' => $page]);
+        session(['page_counter' => $page]);
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        \Log::error('Error updating page counter: ' . $e->getMessage());
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
+});
 
 
 
