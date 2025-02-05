@@ -765,13 +765,13 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                 Página 27 de 28
                                             </div>
                                         @elseif(session('page_counter') === 3)
-                                            <div class="footer" id="footer3" style="display: block;">
-                                                Página 28 de 28
-                                            </div>
-                                        @else
-                                            <div class="footer" id="footer1" style="display: block;">
-                                                &nbsp; Página 26 de 28
-                                            </div>
+                                                <div class="footer" id="footer3" style="display: block;">
+                                                    Página 28 de 28
+                                                </div>
+                                            @elseif(session('page_counter') === 1)
+                                                <div class="footer" id="footer1" style="display: block;">
+                                                    &nbsp; Página 26 de 28
+                                                </div>
                                         @endif
                 
                     </footer>
@@ -880,6 +880,12 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                     footer3.style.display = 'block';
                     footer3.textContent = "Página 28 de 28";
                 }
+            }else{
+                console.log('Showing footer1'); // Debugging log
+                if (footer1) {
+                    footer1.style.display = 'block';
+                    footer1.textContent = "Página 26 de 28"; // Adjust as necessary
+                }
             } 
         }
     }
@@ -887,7 +893,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
 
     window.onload = function () {
             const pageCount = 3; // Total number of pages
-            const currentPage = Math.ceil(window.printPageNumber || 1); // Assuming you have a way to track the current page
+            const currentPage = Math.ceil(window.printPageNumber || 1 ); // Assuming you have a way to track the current page
             let footerText = '';
         // Hide all footers
         document.querySelectorAll('.footer').forEach(footer => footer.style.display = 'none');
