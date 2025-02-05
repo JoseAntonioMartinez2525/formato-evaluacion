@@ -828,42 +828,61 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
             return currentPage;
         }
 
-          // Update footer based on the current page number
-            function updateFooter() {
-                const footer1 = document.getElementById('footer1');
-                const footer2 = document.getElementById('footer2');
-                const footer3 = document.getElementById('footer3');
-                const preventOverlapElements = document.querySelectorAll('.prevent-overlap');
+    function updateFooter() {
+        const footer1 = document.getElementById('footer1');
+        const footer2 = document.getElementById('footer2');
+        const footer3 = document.getElementById('footer3');
+        const preventOverlapElements = document.querySelectorAll('.prevent-overlap');
 
-// Hide all footers initially
-    if (footer1) footer1.style.display = 'none';
-    if (footer2) footer2.style.display = 'none';
-    if (footer3) footer3.style.display = 'none';
+        // Hide all footers initially
+        if (footer1) footer1.style.display = 'none';
+        if (footer2) footer2.style.display = 'none';
+        if (footer3) footer3.style.display = 'none';
 
-                // Check if preventOverlapElements has any elements
-                if (preventOverlapElements.length > 0) {
-                    // Check for specific elements to determine the footer
-                    if (preventOverlapElements[0].querySelector('td')?.textContent.includes('e)')) {
+        // Check if preventOverlapElements has any elements
+        if (preventOverlapElements.length > 0) {
+            console.log('Prevent Overlap Elements:', preventOverlapElements); // Debugging log
+
+            // Check for specific elements to determine the footer
+            preventOverlapElements.forEach((element, index) => {
+                const tdElement = element.querySelector('td');
+                if (tdElement) {
+                    console.log(`Element ${index} TD Content:`, tdElement.textContent); // Log the content of each TD
+
+                    if (tdElement.textContent.includes('e)')) {
+                        console.log('Showing footer2 for e)'); // Debugging log
                         if (footer2) {
                             footer2.style.display = 'block';
                             footer2.textContent = "Página 27 de 28";
                         }
-                    } else if (preventOverlapElements[0].querySelector('td')?.textContent.includes('p2)')) {
+                    } else if (tdElement.textContent.includes('p2)')) {
+                        console.log('Showing footer2 for p2)'); // Debugging log
                         if (footer2) {
                             footer2.style.display = 'block';
                             footer2.textContent = "Página 27 de 28";
                         }
                     }
-
-                    if (preventOverlapElements.length > 1) {
-                        if (footer3) {
-                            footer3.style.display = 'block';
-                            footer3.textContent = "Página 28 de 28";
-                        }
-                    }
+                    else if(tdElement.textContent.includes('a)')) {
+                // Default case to show footer1 if no other conditions are met
+                console.log('Showing footer1'); // Debugging log
+                if (footer1) {
+                    footer1.style.display = 'block';
+                    footer1.textContent = "Página 26 de 28"; // Adjust as necessary
                 }
             }
+                }
+            });
 
+            // Check if there are more than one preventOverlapElements
+            if (preventOverlapElements.length > 1) {
+                console.log('Showing footer3'); // Debugging log
+                if (footer3) {
+                    footer3.style.display = 'block';
+                    footer3.textContent = "Página 28 de 28";
+                }
+            } 
+        }
+    }
     // Call updateFooter on window load
 
     window.onload = function () {
