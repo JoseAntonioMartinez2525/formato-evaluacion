@@ -86,6 +86,7 @@ Route::get('docencia', function () {return view('docencia'); })->name('docencia'
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
 Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
+Route::get('edit_delete_form', [DynamicFormController::class, 'showSecretaria'])->name('edit_delete_form');
 
 //formularios
 Route::get('form2', function () {return view('form2'); })->name('form2');
@@ -282,6 +283,10 @@ Route::post('/update-page-counter', function (Request $request) {
         return response()->json(['error' => 'Internal Server Error'], 500);
     }
 });
+
+
+Route::get('/dynamic-form/columns/{formId}', [DynamicFormController::class, 'getColumns'])->name('dynamic-form.columns');
+Route::delete('/dynamic-form/{id}', [DynamicFormController::class, 'destroy'])->name('dynamic-form.destroy');
 
 
 

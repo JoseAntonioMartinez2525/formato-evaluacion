@@ -62,7 +62,9 @@ $existingFormNames = [];
                                                                 <li class="nav-item">
                                                                     <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
                                                                 </li>
-                                                                <br>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('edit_delete_form')}}">Editar/Eliminar formulario</a>
+                                                                </li><br>
                                                             </nav>
                                                 </form>
                                             @endif
@@ -107,7 +109,7 @@ $existingFormNames = [];
                         @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
                     @endif
                 @endforeach
-                
+
                                                 </select>
                                             </div>
 

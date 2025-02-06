@@ -175,5 +175,61 @@ class DynamicFormController extends Controller
         return view('secretaria', compact('forms')); // Pass the forms to the view
     }
 
+    public function edit($id, $columnId)
+    {
+        $form = DynamicForm::findOrFail($id);
+        $column = DynamicFormColumn::findOrFail($columnId);
+        $value = DynamicFormValue::where('dynamic_form_id', $id)
+            ->where('dynamic_form_column_id', $columnId)
+            ->first();
+
+        return view('edit_delete_form', compact('form', 'column', 'value'));
+    }
+
+
+    public function update(Request $request, $id, $columnId)
+    {
+        $validatedData = $request->validate([
+            'columnName' => 'required|string|max:255',
+            'value' => 'required', // Assuming value is a string
+            'puntajeMaximo' => 'required|numeric|min:0',
+        ]);
+
+        // Update the main form's maximum score
+        $form = DynamicForm::findOrFail($id);
+        $form->puntaje_maximo = $validatedData['puntajeMaximo'];
+        $form->save();
+
+        // Update the specific column
+        $column = DynamicFormColumn::findOrFail($columnId);
+        $column->column_name = $validatedData['columnName'];
+        $column->save();
+
+        // Update the corresponding value
+        $dynamicValue = DynamicFormValue::where('dynamic_form_id', $id)
+            ->where('dynamic_form_column_id', $columnId)
+            ->first();
+        if ($dynamicValue) {
+            $dynamicValue->value = $validatedData['value'];
+            $dynamicValue->save();
+        }
+
+        return redirect()->route('secretaria')->with('success', 'Formulario actualizado exitosamente.');
+    }
+
+    public function destroy($id)
+    {
+        $form = DynamicForm::findOrFail($id);
+        $form->delete();
+
+        return response()->json(['success' => true, 'message' => 'Formulario eliminado exitosamente.']);
+    }
+
+    public function getColumns($formId)
+    {
+        $columns = DynamicFormColumn::where('dynamic_form_id', $formId)->get();
+        return response()->json(['columns' => $columns]);
+    }
+
     
 }
