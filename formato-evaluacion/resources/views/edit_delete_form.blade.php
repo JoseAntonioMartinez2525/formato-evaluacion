@@ -11,6 +11,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Editar/Eliminar Formulario</title>
     <x-head-resources />
+    <link href="{{ asset('css/edit_delete_form.css') }}" rel="stylesheet">
 </head>
 
 <body class="font-sans antialiased">
@@ -34,12 +35,12 @@ $newLocale = str_replace('_', '-', $locale);
 
 @foreach($columns as $column)
     <label for="column_name_{{ $column->id }}">Nombre de la Columna:</label>
-        <input type="text" id="column_name_{{ $column->id }}" name="columns[{{ $column->id }}]" value="{{ $values->firstWhere('key', $column->column_name)->value ?? '' }}" required> <br>
+        <input type="text" id="column_name_{{ $column->id }}" style="margin-bottom:1rem;" name="columns[{{ $column->id }}]" value="{{ $values->firstWhere('key', $column->column_name)->value ?? '' }}" required> <br>
 @endforeach 
 
     @foreach($values as $value)
         <label for="value_{{ $value->id }}">Valor:</label>
-        <input type="text" id="value_{{ $value->id }}" name="value[]" value="{{ $value->value ?? '' }}" required><br>
+        <input type="text" id="value_{{ $value->id }}" style="margin-bottom:1rem;" name="value[]" value="{{ $value->value ?? '' }}" required><br>
     @endforeach
 
 <label for="puntajeMaximo">Puntaje Máximo:</label>
