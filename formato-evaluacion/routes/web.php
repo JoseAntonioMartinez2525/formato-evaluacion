@@ -263,7 +263,7 @@ Route::get('/test-event/{user_id}', function ($user_id) {
     return 'Evento disparado para user_id: ' . $user_id;
 });
 
-Route::get('/generic_form/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('generic_form');
+Route::get('/edit_delete_form/', [DynamicFormController::class, 'showDynamicForm'])->name('edit_delete_form');
 
 // Ruta para cambiar el modo oscuro
 Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
@@ -286,7 +286,10 @@ Route::post('/update-page-counter', function (Request $request) {
 
 
 Route::get('/dynamic-form/columns/{formId}', [DynamicFormController::class, 'getColumns'])->name('dynamic-form.columns');
-Route::delete('/dynamic-form/{id}', [DynamicFormController::class, 'destroy'])->name('dynamic-form.destroy');
+Route::get('/form/edit/{form_name}', [DynamicFormController::class, 'edit'])->name('form.edit');
+Route::put('/form/{id}', [DynamicFormController::class, 'update'])->name('form.update');
+
+Route::delete('/form/delete/{form_name}', [DynamicFormController::class, 'destroy'])->name('form.destroy');
 
 Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('get-form-content');
 

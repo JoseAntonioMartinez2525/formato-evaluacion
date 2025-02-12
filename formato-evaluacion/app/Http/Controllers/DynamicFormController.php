@@ -142,32 +142,22 @@ class DynamicFormController extends Controller
         return $score;
     }
 
-    public function showDynamicForm($formId)
+    public function showDynamicForm()
     {
-        // Fetch the form data based on the form ID
-        $form = DynamicForm::find($formId);
-
-        // Fetch the associated columns and values
-        $formColumns = DynamicFormColumn::where('dynamic_form_id', $formId)->get();
-        $formValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
-
-        // Prepare the fields for the view
-        $formFields = [];
-        foreach ($formColumns as $column) {
-            $formFields[] = [
-                'name' => $column->column_name,
-                'label' => ucfirst(str_replace('_', ' ', $column->column_name)), // Format label
-                'type' => 'text', // Adjust based on your requirements
-                'value' => $formValues->where('dynamic_form_column_id', $column->id)->first()->value ?? '', // Get the value if exists
-            ];
+        
+        $form = \DB::table('dynamic_forms')->first();
+        if (!$form) {
+            return redirect()->route('edit_delete_form')->with('error', 'Formulario no encontrado.');
         }
+        // Obtener las columnas y valores para este formulario
+        $columns = \DB::table('dynamic_form_columns')->where('dynamic_form_id', $form->id)->get();
+        $values = \DB::table('dynamic_form_items')->where('dynamic_form_id', $form->id)->get();
 
-
-        return view('generic_form', [
-            'formTitle' => $form->form_name, // or any title you want
-            'formFields' => $formFields,
+        return view('edit_delete_form', [
+            'form' => $form,
+            'columns' => $columns,
+            'values' => $values
         ]);
-
     }
     public function showSecretaria()
     {
@@ -175,47 +165,72 @@ class DynamicFormController extends Controller
         return view('secretaria', compact('forms')); // Pass the forms to the view
     }
 
-    public function edit($id, $columnId)
+    public function edit($formName, $columnId)
     {
-        $form = DynamicForm::findOrFail($id);
-        $column = DynamicFormColumn::findOrFail($columnId);
-        $value = DynamicFormValue::where('dynamic_form_id', $id)
-            ->where('dynamic_form_column_id', $columnId)
-            ->first();
+        $form = DynamicForm::with(['columns', 'values'])
+            ->where('form_name', $formName)
+            ->firstOrFail();
 
+        $column = $form->columns->where('id', $columnId)->firstOrFail();        $value = $form->values->where('dynamic_form_column_id', $columnId)->first();
+
+
+        dd($form, $column, $value); // Esto mostrará los datos en la pantalla
         return view('edit_delete_form', compact('form', 'column', 'value'));
     }
 
 
     public function update(Request $request, $id, $columnId)
     {
+
+        // Debugging: Log the incoming request data
+        \Log::info('Updating Form:', $request->all());
+
         $validatedData = $request->validate([
-            'columnName' => 'required|string|max:255',
-            'value' => 'required', // Assuming value is a string
+            'form_name' => 'required|string|max:255',
+            'column_name' => 'required|string|max:255',
+            'value' => 'nullable', // Assuming value is a string
             'puntajeMaximo' => 'required|numeric|min:0',
         ]);
 
+        try{
+            
         // Update the main form's maximum score
         $form = DynamicForm::findOrFail($id);
+        $form->form_name = $validatedData['form_name']; 
         $form->puntaje_maximo = $validatedData['puntajeMaximo'];
         $form->save();
 
         // Update the specific column
         $column = DynamicFormColumn::findOrFail($columnId);
-        $column->column_name = $validatedData['columnName'];
+        $column->column_name = $validatedData['column_name'];
         $column->save();
 
         // Update the corresponding value
         $dynamicValue = DynamicFormValue::where('dynamic_form_id', $id)
             ->where('dynamic_form_column_id', $columnId)
             ->first();
+
         if ($dynamicValue) {
             $dynamicValue->value = $validatedData['value'];
+            
+        } else {
+                $dynamicValue = new DynamicFormValue([
+                    'dynamic_form_id' => $id,
+                    'dynamic_form_column_id' => $columnId,
+                    'value' => $validatedData['value'],
+                ]);
+            }
+
             $dynamicValue->save();
-        }
 
         return redirect()->route('secretaria')->with('success', 'Formulario actualizado exitosamente.');
+   
+    }catch (\Exception $e) {
+        \Log::error('Error updating form:', ['message' => $e->getMessage()]);
+        return back()->withErrors(['error' => 'No se pudo actualizar el formulario.']);
     }
+    }
+    
 
     public function destroy($id)
     {

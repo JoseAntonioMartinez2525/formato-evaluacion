@@ -10,7 +10,6 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Editar/Eliminar Formulario</title>
-
     <x-head-resources />
 </head>
 
@@ -20,64 +19,60 @@ $newLocale = str_replace('_', '-', $locale);
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             <div class="container mt-4">
                 <h3>Editar/Eliminar Formulario</h3>
-<form id="editDeleteForm" method="POST" action="{{ route('dynamic-form.update', [$form->id, $column->id]) }}">
-    @csrf
-    @method('PUT')
-    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
-    <label for="formSelect">Seleccionar Formulario:</label>
-    <select id="formSelect" name="formId" onchange="updateColumns(this.value)">
-        @foreach($forms as $form)
-            <option value="{{ $form->id }}">{{ $form->form_name }}</option>
-        @endforeach
-    </select>
+    <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
+                    @csrf
+                    
 
-    <label for="columnSelect">Seleccionar Columna:</label>
-    <select id="columnSelect" name="columnId">
-        <!-- Options will be populated based on the selected form -->
-    </select>
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                    <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-    <div class="mt-4">
-        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-        <button type="button" class="btn btn-danger" onclick="deleteForm()">Eliminar Formulario</button>
-    </div>
-</form>
+                    <label for="form_name">Introduce el nombre de formulario:</label>
+<input type="text" id="form_name" name="form_name" value="{{ $form->form_name }}" required> <br>
 
-    <script>
-    function updateColumns(formId) {
-        // Fetch columns based on the selected form ID
-        fetch(`/dynamic-form/columns/${formId}`)
-            .then(response => response.json())
-            .then(data => {
-                const columnSelect = document.getElementById('columnSelect');
-                columnSelect.innerHTML = ''; // Clear existing options
-                data.columns.forEach(column => {
-                    const option = document.createElement('option');
-                    option.value = column.id;
-                    option.textContent = column.column_name;
-                    columnSelect.appendChild(option);
-                }); 
-            });
-    }        
-        function deleteForm(formId, columnId) {
-            if (confirm('¿Estás seguro de que deseas eliminar este formulario?')) {
-                fetch(`/dynamic-form/${formId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('Formulario eliminado exitosamente.');
-                            window.location.href = '{{ route('secretaria') }}';
-                        } else {
-                            alert('Error al eliminar el formulario.');
+@foreach($columns as $column)
+    <label for="column_name_{{ $column->id }}">Nombre de la Columna:</label>
+        <input type="text" id="column_name_{{ $column->id }}" name="columns[{{ $column->id }}]" value="{{ $values->firstWhere('key', $column->column_name)->value ?? '' }}" required> <br>
+@endforeach 
+
+    @foreach($values as $value)
+        <label for="value_{{ $value->id }}">Valor:</label>
+        <input type="text" id="value_{{ $value->id }}" name="value[]" value="{{ $value->value ?? '' }}" required><br>
+    @endforeach
+
+<label for="puntajeMaximo">Puntaje Máximo:</label>
+<input type="number" id="puntajeMaximo" name="puntajeMaximo" value="{{ $form->puntaje_maximo }}" required>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
+                    </div>
+                </form>
+
+                <script>
+                    function deleteForm(formId) {
+                        if (confirm('¿Estás seguro de que deseas eliminar este formulario?')) {
+                            fetch(`/dynamic-form/${formId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                }
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert('Formulario eliminado exitosamente.');
+                                    window.location.href = '{{ route('secretaria') }}';
+                                } else {
+                                    alert('Error al eliminar el formulario.');
+                                }
+                            });
                         }
-                    });
-            }
-        }
-    </script>
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
