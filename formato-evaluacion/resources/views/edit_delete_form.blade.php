@@ -30,9 +30,12 @@ $newLocale = str_replace('_', '-', $locale);
                     <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
                     <input type="hidden" name="form_id" value="{{ $form->id }}">
 
+                   <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+                   
                     <label for="form_name">Introduce el nombre de formulario:</label>
 <input type="text" id="form_name" name="form_name" value="{{ $form->form_name }}" required> <br>
 
+<!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
 @foreach($columns as $column)
     <label for="column_name_{{ $column->id }}">Nombre de la Columna:</label>
         <input type="text" id="column_name_{{ $column->id }}" style="margin-bottom:1rem;" name="columns[{{ $column->id }}]" value="{{ $values->firstWhere('key', $column->column_name)->value ?? '' }}" required> <br>
