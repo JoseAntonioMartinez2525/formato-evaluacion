@@ -25,41 +25,43 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
 @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                <x-rutas-secretaria/>
-                @endif
-                        <div class="container mt-4">
-                            <h3>Editar/Eliminar Formulario</h3>
+                    @if (Auth::check() && Auth::user()->user_type === '')
+                    <x-rutas-secretaria/>
+                    @endif
+                            <div class="container mt-4">
+                                <h3>Editar/Eliminar Formulario</h3>
 
-                        <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
-                                @csrf
+                            <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
+                            @csrf
+                                @method('PUT')
 
 
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                               <!--<input type="hidden" name="form_id" value="{{ $form->id }}"> -->
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                   <!--<input type="hidden" name="form_id" value="{{ $form->id }}"> -->
 
-                               <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
 
-            <label for="formSelect">Seleccionar Formulario:</label>
-    <select id="formSelect">
-        <option value="">Selecciona un formulario</option>
-        @foreach($forms as $form)
-            <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
-        @endforeach
-    </select>
-            </select> <br>
-        <div id="formContainer">
-            <!-- Here the form fields will be dynamically populated -->
-        </div>
-            <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+                                   <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
 
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                    <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
-                                </div>
-                            </form>
+                <label for="formSelect">Seleccionar Formulario:</label>
+        <select id="formSelect">
+            <option value="">Selecciona un formulario</option>
+            @foreach($forms as $form)
+                <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
+            @endforeach
+        </select>
+                </select> <br>
+            <div id="formContainer">
+                <!-- Here the form fields will be dynamically populated -->
+            </div>
+                <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
+                                    </div>
+                                </form>
 @endif
                 <script>
                     const formSelect = document.getElementById('formSelect');

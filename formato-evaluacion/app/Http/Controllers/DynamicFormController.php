@@ -174,7 +174,8 @@ class DynamicFormController extends Controller
             ->where('form_name', $formName)
             ->firstOrFail();
 
-        $column = $form->columns->where('id', $columnId)->firstOrFail();        $value = $form->values->where('dynamic_form_column_id', $columnId)->first();
+        $column = $form->columns->where('id', $columnId)->firstOrFail();        
+        $value = $form->values->where('dynamic_form_column_id', $columnId)->first();
 
 
         dd($form, $column, $value); // Esto mostrará los datos en la pantalla
@@ -182,7 +183,7 @@ class DynamicFormController extends Controller
     }
 
 
-    public function update(Request $request, $id, $columnId)
+    public function update(Request $request, $id)
     {
 
         // Debugging: Log the incoming request data
@@ -203,14 +204,18 @@ class DynamicFormController extends Controller
         $form->puntaje_maximo = $validatedData['puntajeMaximo'];
         $form->save();
 
+        // Retrieve the columnId using form_name
+        $column = DynamicFormColumn::where('dynamic_form_id', $id)
+            ->where('column_name', $validatedData['column_name'])
+            ->firstOrFail();
+
         // Update the specific column
-        $column = DynamicFormColumn::findOrFail($columnId);
         $column->column_name = $validatedData['column_name'];
         $column->save();
 
         // Update the corresponding value
         $dynamicValue = DynamicFormValue::where('dynamic_form_id', $id)
-            ->where('dynamic_form_column_id', $columnId)
+            ->where('dynamic_form_column_id', $column->$id)
             ->first();
 
         if ($dynamicValue) {
@@ -219,7 +224,7 @@ class DynamicFormController extends Controller
         } else {
                 $dynamicValue = new DynamicFormValue([
                     'dynamic_form_id' => $id,
-                    'dynamic_form_column_id' => $columnId,
+                    'dynamic_form_column_id' => $column->id,
                     'value' => $validatedData['value'],
                 ]);
             }
