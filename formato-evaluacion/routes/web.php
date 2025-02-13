@@ -293,7 +293,7 @@ Route::delete('/form/delete/{form_name}', [DynamicFormController::class, 'destro
 
 Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('get-form-content');
 
-
+Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
 
 
 

@@ -153,10 +153,13 @@ class DynamicFormController extends Controller
         $columns = \DB::table('dynamic_form_columns')->where('dynamic_form_id', $form->id)->get();
         $values = \DB::table('dynamic_form_items')->where('dynamic_form_id', $form->id)->get();
 
+        // Fetch all forms from the database
+        $forms = DynamicForm::all();
         return view('edit_delete_form', [
             'form' => $form,
             'columns' => $columns,
-            'values' => $values
+            'values' => $values,
+            'forms' => $forms // Pass the forms to the view
         ]);
     }
     public function showSecretaria()
@@ -244,6 +247,24 @@ class DynamicFormController extends Controller
     {
         $columns = DynamicFormColumn::where('dynamic_form_id', $formId)->get();
         return response()->json(['columns' => $columns]);
+    }
+
+    public function getFormData($formName)
+    {
+        $form = DynamicForm::where('form_name', $formName)->first();
+        if ($form) {
+            $columns = DynamicFormColumn::where('id', $form->id)->get();
+            $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
+
+            return response()->json([
+                'success' => true,
+                'columns' => $columns,
+                'values' => $values,
+                'puntaje_maximo' => $form->puntaje_maximo,
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
+        }
     }
 
     
