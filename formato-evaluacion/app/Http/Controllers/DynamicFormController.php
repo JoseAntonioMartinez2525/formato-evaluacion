@@ -215,7 +215,7 @@ class DynamicFormController extends Controller
 
         // Update the corresponding value
         $dynamicValue = DynamicFormValue::where('dynamic_form_id', $id)
-            ->where('dynamic_form_column_id', $column->$id)
+            ->where('dynamic_form_column_id', $column->id)
             ->first();
 
         if ($dynamicValue) {
