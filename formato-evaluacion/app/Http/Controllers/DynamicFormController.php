@@ -218,7 +218,7 @@ class DynamicFormController extends Controller
         // Update the corresponding value
             DynamicFormValue::updateOrInsert(
                 ['dynamic_form_id' => $id, 'dynamic_form_column_id' => $column->id],
-                ['value' => $validatedData['value']]
+                ['value' => $validatedData['value'] || $validatedData['']]
             );
 
 
