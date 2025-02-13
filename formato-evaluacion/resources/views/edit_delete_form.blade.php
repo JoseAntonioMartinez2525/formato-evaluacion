@@ -136,6 +136,25 @@ $existingFormNames = [];
                             });
                         }
                     }
+
+    document.getElementById("editDeleteForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        let formData = new FormData(this);
+        console.log("Form Data:", Object.fromEntries(formData)); // Log data being sent
+
+        fetch(this.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+            .then(response => response.json())
+            .then(data => console.log("Server Response:", data))
+            .catch(error => console.error("Error:", error));
+    });
                 </script>
             </div>
         </div>

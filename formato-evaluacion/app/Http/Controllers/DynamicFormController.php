@@ -200,8 +200,10 @@ class DynamicFormController extends Controller
             
         // Update the main form's maximum score
         $form = DynamicForm::findOrFail($id);
-        $form->form_name = $validatedData['form_name']; 
-        $form->puntaje_maximo = $validatedData['puntajeMaximo'];
+            $form->update([
+                'form_name' => $validatedData['form_name'],
+                'puntaje_maximo' => $validatedData['puntajeMaximo']
+            ]);
         $form->save();
 
         // Retrieve the columnId using form_name
@@ -210,26 +212,15 @@ class DynamicFormController extends Controller
             ->firstOrFail();
 
         // Update the specific column
-        $column->column_name = $validatedData['column_name'];
+            $column->update(['column_name' => $validatedData['column_name']]);
         $column->save();
 
         // Update the corresponding value
-        $dynamicValue = DynamicFormValue::where('dynamic_form_id', $id)
-            ->where('dynamic_form_column_id', $column->id)
-            ->first();
+            DynamicFormValue::updateOrInsert(
+                ['dynamic_form_id' => $id, 'dynamic_form_column_id' => $column->id],
+                ['value' => $validatedData['value']]
+            );
 
-        if ($dynamicValue) {
-            $dynamicValue->value = $validatedData['value'];
-            
-        } else {
-                $dynamicValue = new DynamicFormValue([
-                    'dynamic_form_id' => $id,
-                    'dynamic_form_column_id' => $column->id,
-                    'value' => $validatedData['value'],
-                ]);
-            }
-
-            $dynamicValue->save();
 
         return redirect()->route('secretaria')->with('success', 'Formulario actualizado exitosamente.');
    
