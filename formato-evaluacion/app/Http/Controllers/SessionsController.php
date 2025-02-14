@@ -46,8 +46,10 @@ class SessionsController extends Controller
                 return redirect()->route('comision_dictaminadora');
             }else if ($user->user_type === ''){
                 return redirect()->route('secretaria');
+            }else if($user->user_type === 'docente'){
+                return redirect()->intended('welcome'); 
             }
-                return redirect()->intended('/welcome');
+               
         }
 
         // Regular login process
