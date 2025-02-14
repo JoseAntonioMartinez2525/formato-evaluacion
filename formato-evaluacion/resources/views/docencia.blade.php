@@ -35,8 +35,10 @@ $userType = Auth::user()->user_type;
                     </li>
                 </div>
 
-           </li>@endif
+           </li>
+           @endif
             </li>
+            
             <li class="nav-item">
             @if(Auth::user()->user_type === 'dictaminador')
                 <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
@@ -72,8 +74,7 @@ $userType = Auth::user()->user_type;
                 <li><a href="#seccion3_10">3.10 Tutorías a estudiantes</a></li>
                 <li><a href="#seccion3_11">3.11 Asesoría a estudiantes</a></li>
                 <li><a href="#seccion3_12">3.12 Publicaciones de investigación relacionadas con el contenido de los PE que
-                        imparte
-                        el docente</a></li>
+                        imparte el docente</a></li>
                 <li><a href="#seccion3_13">3.13 Proyectos académicos de investigación</a></li>
                 <li><a href="#seccion3_14">3.14 Participación como ponente en congresos o eventos académicos del
                         Área de Conocimiento o afines del docente</a></li>
@@ -82,8 +83,7 @@ $userType = Auth::user()->user_type;
                 <li><a href="#seccion3_16">3.16 Actividades de arbitraje, revisión, correción y edición </a></li>
                 <li><a href="#seccion3_17">3.17 Proyectos académicos de extensión y difusión </a></li>
                 <li><a href="#seccion3_18">3.18 Organización de congresos o eventos institucionales del área de conocimiento de
-                        la o
-                        el Docente </a></li>
+                        la ó el Docente </a></li>
                 <li><a href="#seccion3_19">3.19 Participación en cuerpos colegiados</a></li>
             </ul>
         </nav>
