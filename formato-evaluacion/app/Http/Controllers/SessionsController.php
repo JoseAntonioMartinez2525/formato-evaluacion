@@ -43,11 +43,20 @@ class SessionsController extends Controller
             // Log in the user
             Auth::login($user);
             if ($user->user_type === 'dictaminador') {
-                return redirect()->route('comision_dictaminadora');
+                return redirect()->route('comision_dictaminadora')
+                    ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                    ->header('Pragma', 'no-cache')
+                    ->header('Expires', '0');
             }else if ($user->user_type === ''){
-                return redirect()->route('secretaria');
+                return redirect()->route('secretaria')
+                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
             }else if($user->user_type === 'docente'){
-                return redirect()->intended('welcome'); 
+                return redirect()->intended('welcome')
+                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0'); 
             }
                
         }
@@ -56,11 +65,20 @@ class SessionsController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
             if ($user->user_type === 'dictaminador') {
-                return view('comision_dictaminadora');
+                return view('comision_dictaminadora')
+                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
             }else if ($user->user_type === '') {
-                return view('secretaria');
+                return view('secretaria')
+                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
             }else{
-            return redirect()->intended('/welcome');
+            return redirect()->intended('/welcome')
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
         }
     }
         return back()->withErrors([
@@ -75,7 +93,10 @@ class SessionsController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
     public function welcome(Request $request)
     {

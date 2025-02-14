@@ -292,10 +292,11 @@ Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormD
 
 });
 Route::post('/logout', function () {
-    Auth::logout();
-    Session::flush();
-    Session::regenerate();
-    return redirect('/login');
+    Auth::logout();  // Logs the user out
+    Session::flush(); // Removes all session data
+    Session::invalidate(); // Invalidates the session
+    Session::regenerateToken(); // Regenerates the CSRF token
+    return redirect('/')->with('message', 'You have been logged out'); // Redirect to login
 })->name('logout');
 
 Route::get('/test-dompdf', function () {

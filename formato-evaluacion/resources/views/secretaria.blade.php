@@ -45,9 +45,12 @@ $existingFormNames = [];
                                                                     </a>
                                                                 </li>
                                                                 <li style="list-style: none; margin-right: 20px;">
-                                                                    <a class="enlaceSN" href="{{ route('login') }}">
-                                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                    </a>
+                                                                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                                                                        @csrf
+                                                                        <button type="submit" class="enlaceSN" style="background: none; border: none; cursor: pointer;">
+                                                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                                        </button>
+                                                                    </form>
                                                                 </li>
                                                             </div>
                                                                 <li class="nav-item">
