@@ -64,8 +64,11 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" style="display:inline;">
                                         @csrf
+                                        <button type="submit" class="enlaceSN" style="background:none; border:none;">
+                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </li>

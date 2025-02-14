@@ -77,10 +77,12 @@ Route::get('/', function () {
 
 Route::get('/', [SessionsController::class, 'index'])->name('login');
 Route::post('/login', [SessionsController::class, 'login'])->name('login.post');
-
+ 
+Route::middleware(['auth'])->group(function (){
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/welcome', [HomeController::class, 'showWelcome'])->name('welcome');
 Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+
 Route::get('rules', function () {return view('rules'); })->name('rules');
 Route::get('docencia', function () {return view('docencia'); })->name('docencia');
 Route::get('resumen', function () {return view('resumen'); })->name('resumen');
@@ -139,14 +141,7 @@ Route::get('/convocatoria/{dictaminadorId}', [DictaminatorController::class, 'ge
 
 Route::get('/form3_1', [DictaminatorForm3_1Controller::class, 'showForm31']);
 
-Route::get('/test-dompdf', function () {
-    try {
-        $dompdf = new Dompdf();
-        return 'Dompdf está disponible y funcionando.';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
+
 
 //POST formularios
 Route::post('/store', [ResponseController::class, 'store'])->name('store');
@@ -295,6 +290,19 @@ Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDyn
 
 Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
 
+});
+Route::post('/logout', function () {
+    Auth::logout();
+    Session::flush();
+    Session::regenerate();
+    return redirect('/login');
+})->name('logout');
 
-
-
+Route::get('/test-dompdf', function () {
+    try {
+        $dompdf = new Dompdf();
+        return 'Dompdf está disponible y funcionando.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
