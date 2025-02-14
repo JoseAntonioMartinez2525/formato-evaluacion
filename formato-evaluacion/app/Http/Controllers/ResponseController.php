@@ -39,7 +39,7 @@ class ResponseController extends Controller
             view()->share('convocatoria', $convocatoria);
             // Devolver una respuesta exitosa en formato JSON
             return response()->json(['success' => true, 'data' => $response], 201);
-        } catch (\Illuminate\Validation\ValidationException $e) {
+        } catch (ValidationException $e) {
             // Manejar errores de validación
             return response()->json(['success' => false, 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
