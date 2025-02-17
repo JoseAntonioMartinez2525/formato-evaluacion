@@ -25,43 +25,42 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
 @if (Route::has('login'))
-                    @if (Auth::check() && Auth::user()->user_type === '')
-                    <x-rutas-secretaria/>
-                    @endif
-                            <div class="container mt-4">
-                                <h3>Editar/Eliminar Formulario</h3>
+                @if (Auth::check() && Auth::user()->user_type === '')
+                <x-rutas-secretaria/>
+                @endif
+                        <div class="container mt-4">
+                            <h3>Editar/Eliminar Formulario</h3>
 
-                            <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
-                            @csrf
-                                @method('PUT')
-
-
-                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                                   <!--<input type="hidden" name="form_id" value="{{ $form->id }}"> -->
+                        <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
+                        @csrf
+                            @method('PUT')
 
 
-                                   <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
 
-                <label for="formSelect">Seleccionar Formulario:</label>
-        <select id="formSelect">
-            <option value="">Selecciona un formulario</option>
-            @foreach($forms as $form)
-                <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
-            @endforeach
-        </select>
-                </select> <br>
-            <div id="formContainer">
-                <!-- Here the form fields will be dynamically populated -->
-            </div>
-                <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
 
-                                    <div class="mt-4">
-                                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                        <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
-                                    </div>
-                                </form>
+                               <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+
+            <label for="formSelect">Seleccionar Formulario:</label>
+    <select id="formSelect" name="form_name">
+        <option value="">Selecciona un formulario</option>
+        @foreach($forms as $form)
+            <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
+        @endforeach
+    </select>
+            </select> <br>
+        <div id="formContainer">
+            <!-- Here the form fields will be dynamically populated -->
+        </div>
+            <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
+                                </div>
+                            </form>
 @endif
                 <script>
                     const formSelect = document.getElementById('formSelect');
@@ -89,8 +88,8 @@ $existingFormNames = [];
                             console.log('Column Data:', column); // Log each column data
 
                             formContainer.innerHTML += `
-                            <label for="column_name_${column.id}">Nombre de la Columna:</label>
-                            <input type="text" id="column_name_${column.id}" name="columns[${column.id}]" value="${column.value}" style="margin-bottom: 1rem;" required><br>
+                <input type="hidden" name="column_name[]" value="${column.column_name}">  <-- Corrected -->
+                <label for="value_${column.id}">Nombre de la Columna: ${column.column_name}</label> <br> <--- Display the Column Name
                         `;
                         });
 
@@ -104,6 +103,7 @@ $existingFormNames = [];
 
                          // Set the maximum score
                         formContainer.innerHTML += `
+                         <input type="hidden" name="form_name" value="${selectedForm}">
                         <label for="puntajeMaximo">Puntaje Máximo:</label>
                         <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
                     `;
@@ -155,6 +155,8 @@ $existingFormNames = [];
             .then(data => console.log("Server Response:", data))
             .catch(error => console.error("Error:", error));
     });
+
+    
                 </script>
             </div>
         </div>

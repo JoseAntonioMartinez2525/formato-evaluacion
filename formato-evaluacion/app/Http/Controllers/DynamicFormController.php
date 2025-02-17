@@ -191,11 +191,17 @@ class DynamicFormController extends Controller
 
         $validatedData = $request->validate([
             'form_name' => 'required|string|max:255',
-            'column_name' => 'required|string|max:255',
-            'value' => 'nullable', // Assuming value is a string
+            //'column_name' => 'required|string|max:255',
+            //'value' => 'nullable', // Assuming value is a string
             'puntajeMaximo' => 'required|numeric|min:0',
         ]);
 
+        $columnNames = $request->input('column_name');
+        $values = $request->input('value');
+
+        if (!is_array($columnNames) || !is_array($values) || count($columnNames) !== count($values)) {
+            return back()->withErrors(['error' => 'Invalid column names or values.']);
+        }
         try{
             
         // Update the main form's maximum score
@@ -207,23 +213,24 @@ class DynamicFormController extends Controller
         $form->save();
 
         // Retrieve the columnId using form_name
-        $column = DynamicFormColumn::where('dynamic_form_id', $id)
-            ->where('column_name', $validatedData['column_name'])
-            ->firstOrFail();
+            for ($i = 0; $i < count($columnNames); $i++) {
+                $columnName = $columnNames[$i];
+                $value = $values[$i];
 
-        // Update the specific column
-            $column->update(['column_name' => $validatedData['column_name']]);
-        $column->save();
+                $column = DynamicFormColumn::where('dynamic_form_id', $id)
+                    ->where('column_name', $columnName)
+                    ->firstOrFail();
 
-        // Update the corresponding value
-            DynamicFormValue::updateOrInsert(
-                ['dynamic_form_id' => $id, 'dynamic_form_column_id' => $column->id],
-                ['value' => $validatedData['value'] || $validatedData['']]
-            );
+                $column->update(['column_name' => $columnName]); // Might be redundant
+                $column->save();
 
+                DynamicFormValue::updateOrInsert(
+                    ['dynamic_form_id' => $id, 'dynamic_form_column_id' => $column->id],
+                    ['value' => $value]
+                );
+            }
 
-        return redirect()->route('secretaria')->with('success', 'Formulario actualizado exitosamente.');
-   
+            return response()->json(['success' => true, 'message' => 'Formulario actualizado exitosamente.']);   
     }catch (\Exception $e) {
         \Log::error('Error updating form:', ['message' => $e->getMessage()]);
         return back()->withErrors(['error' => 'No se pudo actualizar el formulario.']);
