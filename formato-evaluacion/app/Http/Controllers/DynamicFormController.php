@@ -190,11 +190,14 @@ class DynamicFormController extends Controller
         \Log::info('Updating Form:', $request->all());
 
         $validatedData = $request->validate([
-            'form_name' => 'required|string|max:255',
-            //'column_name' => 'required|string|max:255',
-            //'value' => 'nullable', // Assuming value is a string
-            'puntajeMaximo' => 'required|numeric|min:0',
+            'form_name' => 'required|string',
+            'column_name' => 'required|array',
+            'column_name.*' => 'required|string',
+            'value' => 'required|array',
+            'value.*' => 'required|string',
+            'puntajeMaximo' => 'required|numeric'
         ]);
+
 
         $columnNames = $request->input('column_name');
         $values = $request->input('value');
@@ -219,7 +222,7 @@ class DynamicFormController extends Controller
 
                 $column = DynamicFormColumn::where('dynamic_form_id', $id)
                     ->where('column_name', $columnName)
-                    ->firstOrFail();
+                    ->first();
 
                 $column->update(['column_name' => $columnName]); // Might be redundant
                 $column->save();
@@ -231,10 +234,12 @@ class DynamicFormController extends Controller
             }
 
             return response()->json(['success' => true, 'message' => 'Formulario actualizado exitosamente.']);   
-    }catch (\Exception $e) {
-        \Log::error('Error updating form:', ['message' => $e->getMessage()]);
-        return back()->withErrors(['error' => 'No se pudo actualizar el formulario.']);
-    }
+    } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error updating form: ' . $e->getMessage()
+            ], 422);
+        }
     }
     
 

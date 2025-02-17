@@ -87,17 +87,31 @@ $existingFormNames = [];
                         data.columns.forEach(column => {
                             console.log('Column Data:', column); // Log each column data
 
-                            formContainer.innerHTML += `
-                <input type="hidden" name="column_name[]" value="${column.column_name}">  <-- Corrected -->
-                <label for="value_${column.id}">Nombre de la Columna: ${column.column_name}</label> <br> <--- Display the Column Name
+                             formContainer.innerHTML += `
+                            <div class="form-group mb-3">
+                                <label for="column_name_${column.id}">Nombre de la Columna:</label>
+                                <input type="text" 
+                                    class="form-control"
+                                    id="column_name_${column.id}" 
+                                    name="column_name[]" 
+                                    value="${column.column_name}" 
+                                    required>
+                            </div>
                         `;
                         });
 
                         // Populate values
                         data.values.forEach(value => {
                             formContainer.innerHTML += `
-                            <label for="value_${value.id}">Valor:</label>
-                            <input type="text" id="value_${value.id}" name="value[]" value="${value.value}" style="margin-bottom: 1rem;" required><br>
+                            <div class="form-group mb-3">
+                                <label for="value_${value.id}">Valor:</label>
+                                <input type="text" 
+                                    class="form-control"
+                                    id="value_${value.id}" 
+                                    name="value[]" 
+                                    value="${value.value}" 
+                                    required>
+                            </div>
                         `;
                         });
 
@@ -143,20 +157,64 @@ $existingFormNames = [];
         let formData = new FormData(this);
         console.log("Form Data:", Object.fromEntries(formData)); // Log data being sent
 
-        fetch(this.action, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                "X-Requested-With": "XMLHttpRequest"
+        // Convert FormData to JSON object
+        let formDataObject = {
+            _token: formData.get('_token'),
+            _method: formData.get('_method'),
+            user_id: formData.get('user_id'),
+            email: formData.get('email'),
+            user_type: formData.get('user_type'),
+            form_name: formData.get('form_name'),
+            puntajeMaximo: formData.get('puntajeMaximo'),
+            column_name: [],
+            value: []
+        };
+        formData.forEach((value, key) => {
+            // Handle array inputs
+            if (key.endsWith('[]')) {
+                let arrayKey = key.slice(0, -2);
+                if (!formDataObject[arrayKey]) {
+                    formDataObject[arrayKey] = [];
+                }
+                formDataObject[arrayKey].push(value);
+            } else {
+                formDataObject[key] = value;
             }
+        });
+
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "X-Requested-With": "XMLHttpRequest",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(formDataObject)
         })
-            .then(response => response.json())
-            .then(data => console.log("Server Response:", data))
-            .catch(error => console.error("Error:", error));
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || 'Server error');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Server Response:", data);
+                if (data.success) {
+                    alert('Form updated successfully');
+                    window.location.reload();
+                } else {
+                    alert('Error updating form: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert('Error updating form: ' + error.message);
+            });
     });
 
-    
                 </script>
             </div>
         </div>
