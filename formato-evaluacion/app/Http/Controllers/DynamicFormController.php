@@ -8,7 +8,8 @@ use App\Models\DynamicFormValue;
 use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade as PDF; // Corrected line without extraneous character
+use Barryvdh\DomPDF\Facade as PDF; 
+use Illuminate\Support\Facades\Validator;// Corrected line without extraneous character
 
 class DynamicFormController extends Controller
 {
@@ -188,16 +189,35 @@ class DynamicFormController extends Controller
 
         // Debugging: Log the incoming request data
         \Log::info('Updating Form:', $request->all());
-
-        $validatedData = $request->validate([
+        // Get the values first
+        $values = $request->input('value');
+        
+        $rules= [
             'form_name' => 'required|string',
-            'column_name' => 'required|array',
-            'column_name.*' => 'required|string',
+            'column_name' => 'nullable|array',
+            'column_name.*' => 'nullable|string',
             'value' => 'required|array',
-            'value.*' => 'required|string',
+            'value.*' => 'string',
             'puntajeMaximo' => 'required|numeric'
-        ]);
+        ];
 
+        // Add custom validation rules for values
+        foreach ($values as $key => $value) {
+            if ($key === array_key_last($values) && empty($value)) {
+                $rules["value.{$key}"] = 'nullable|string';
+            } else {
+                $rules["value.{$key}"] = 'required|string';
+            }
+        }
+
+        // Validate using the custom rules
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $validator->validated();
 
         $columnNames = $request->input('column_name');
         $values = $request->input('value');

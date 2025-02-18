@@ -94,14 +94,16 @@ $existingFormNames = [];
                                     class="form-control"
                                     id="column_name_${column.id}" 
                                     name="column_name[]" 
-                                    value="${column.column_name}" 
-                                    required>
+                                    value="${column.column_name}">
                             </div>
                         `;
                         });
 
                         // Populate values
-                        data.values.forEach(value => {
+                        data.values.forEach((value, index) => {
+                            const isLastElement = index === data.values.length - 1;
+                            const isRequired = isLastElement ? (value.value ? 'required' : '') : 'required';
+                            
                             formContainer.innerHTML += `
                             <div class="form-group mb-3">
                                 <label for="value_${value.id}">Valor:</label>
@@ -110,7 +112,7 @@ $existingFormNames = [];
                                     id="value_${value.id}" 
                                     name="value[]" 
                                     value="${value.value}" 
-                                    required>
+                                    ${isRequired}>
                             </div>
                         `;
                         });
