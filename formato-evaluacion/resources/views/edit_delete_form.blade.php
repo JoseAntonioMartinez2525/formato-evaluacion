@@ -31,11 +31,11 @@ $existingFormNames = [];
                         <div class="container mt-4">
                             <h3>Editar/Eliminar Formulario</h3>
 
-                        <form id="editDeleteForm" method="POST" action="{{ route('form.update', $form->id) }}">
+                        <form id="editDeleteForm" method="POST" action="">
                         @csrf
-                            @method('PUT')
 
 
+                                <input type="hidden" name="_method" id="formMethod" value="PUT">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="email" value="{{ auth()->user()->email }}">
                                 <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
@@ -47,7 +47,7 @@ $existingFormNames = [];
     <select id="formSelect" name="form_name">
         <option value="">Selecciona un formulario</option>
         @foreach($forms as $form)
-            <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
+            <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
         @endforeach
     </select>
             </select> <br>
@@ -57,8 +57,8 @@ $existingFormNames = [];
             <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
 
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                    <button type="button" class="btn btn-danger" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
+                                    <button type="submit" class="btn btn-success" id="updateBtn">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
                                 </div>
                             </form>
 @endif
@@ -135,23 +135,23 @@ $existingFormNames = [];
     });                   
                     
     function deleteForm(formId) {
-                        if (confirm('¿Estás seguro de que deseas eliminar este formulario?')) {
-                            fetch(`/dynamic-form/${formId}`, {
-                                method: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                }
-                            })
-                            .then(response => {
-                                if (response.ok) {
-                                    alert('Formulario eliminado exitosamente.');
-                                    window.location.href = '{{ route('secretaria') }}';
-                                } else {
-                                    alert('Error al eliminar el formulario.');
-                                }
-                            });
-                        }
+        if (confirm('Are you sure you want to delete this form?')) {
+            $.ajax({
+                url: `/forms/${formId}`,
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.success) {
+                        alert('Form deleted successfully');
+                        location.reload();
                     }
+                },
+                error: function (xhr) {
+                    
+                    alert('Error deleting form: ' + xhr.responseJSON.message);
+                }
+            });
+        }
+    }
 
     document.getElementById("editDeleteForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent default form submission
@@ -171,6 +171,7 @@ $existingFormNames = [];
             column_name: [],
             value: []
         };
+        //Process form Data
         formData.forEach((value, key) => {
             // Handle array inputs
             if (key.endsWith('[]')) {
@@ -184,8 +185,15 @@ $existingFormNames = [];
             }
         });
 
-        fetch(this.action, {
-            method: 'POST',
+        const formName = formData.get('form_name');
+        const isDelete = formData.get('_method').toLowerCase() === 'delete';
+
+            // Determine the appropriate endpoint and method
+        const endpoint = `/forms/${encodeURIComponent(formName)}`;
+        const method = isDelete ? 'DELETE' : 'PUT';
+
+        fetch(endpoint, {
+            method: method,
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),

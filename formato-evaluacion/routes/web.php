@@ -282,11 +282,12 @@ Route::post('/update-page-counter', function (Request $request) {
 
 Route::get('/dynamic-form/columns/{formId}', [DynamicFormController::class, 'getColumns'])->name('dynamic-form.columns');
 Route::get('/form/edit/{form_name}', [DynamicFormController::class, 'edit'])->name('form.edit');
-Route::put('/form/{id}', action: [DynamicFormController::class, 'update'])->name('form.update');
+    Route::put('/forms/{formName}', [DynamicFormController::class, 'update'])->name('forms.update');
 
-Route::delete('/form/delete/{form_name}', [DynamicFormController::class, 'destroy'])->name('form.destroy');
+    Route::delete('/forms/{formName}', [DynamicFormController::class, 'destroy'])->name('forms.destroy');
 
-Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('get-form-content');
+
+    Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('get-form-content');
 
 Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
 

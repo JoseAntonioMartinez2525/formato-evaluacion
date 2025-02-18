@@ -186,75 +186,48 @@ class DynamicFormController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        $form = DynamicForm::find($id);
         // Debugging: Log the incoming request data
         \Log::info('Updating Form:', $request->all());
         // Get the values first
-        $values = $request->input('value');
-        
-        $rules= [
-            'form_name' => 'required|string',
-            'column_name' => 'nullable|array',
-            'column_name.*' => 'nullable|string',
-            'value' => 'required|array',
-            'value.*' => 'string',
-            'puntajeMaximo' => 'required|numeric'
-        ];
-
-        // Add custom validation rules for values
-        foreach ($values as $key => $value) {
-            if ($key === array_key_last($values) && empty($value)) {
-                $rules["value.{$key}"] = 'nullable|string';
-            } else {
-                $rules["value.{$key}"] = 'required|string';
-            }
-        }
-
-        // Validate using the custom rules
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        $validatedData = $validator->validated();
-
-        $columnNames = $request->input('column_name');
-        $values = $request->input('value');
-
-        if (!is_array($columnNames) || !is_array($values) || count($columnNames) !== count($values)) {
-            return back()->withErrors(['error' => 'Invalid column names or values.']);
-        }
-        try{
-            
-        // Update the main form's maximum score
-        $form = DynamicForm::findOrFail($id);
-            $form->update([
-                'form_name' => $validatedData['form_name'],
-                'puntaje_maximo' => $validatedData['puntajeMaximo']
+        try {
+            $validator = Validator::make($request->all(), [
+                'form_name' => 'required|string',
+                'column_name' => 'nullable|array',
+                'column_name.*' => 'nullable|string',
+                'value' => 'required|array',
+                'value.*' => 'nullable|string',
+                'puntajeMaximo' => 'required|numeric'
             ]);
-        $form->save();
 
-        // Retrieve the columnId using form_name
-            for ($i = 0; $i < count($columnNames); $i++) {
-                $columnName = $columnNames[$i];
-                $value = $values[$i];
-
-                $column = DynamicFormColumn::where('dynamic_form_id', $id)
-                    ->where('column_name', $columnName)
-                    ->first();
-
-                $column->update(['column_name' => $columnName]); // Might be redundant
-                $column->save();
-
-                DynamicFormValue::updateOrInsert(
-                    ['dynamic_form_id' => $id, 'dynamic_form_column_id' => $column->id],
-                    ['value' => $value]
-                );
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
-            return response()->json(['success' => true, 'message' => 'Formulario actualizado exitosamente.']);   
-    } catch (\Exception $e) {
+            $data = [
+                'form_name' => $request->form_name,
+                'puntajeMaximo' => $request->puntajeMaximo,
+                'columns' => $request->column_name,
+                'values' => $request->value
+            ];
+
+            \Artisan::call('form:update', [
+                'action' => 'update',
+                'formName' => $request->form_name,
+                '--data' => [json_encode($data)]
+            ]);
+
+            $form->update([
+                'form_name' => $request->form_name,
+                'puntajeMaximo' => $request->puntajeMaximo,
+                'columns' => $request->column_name,
+                'values' => $request->value
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Form updated successfully'
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error updating form: ' . $e->getMessage()
@@ -263,12 +236,24 @@ class DynamicFormController extends Controller
     }
     
 
-    public function destroy($id)
+    public function destroy($formName)
     {
-        $form = DynamicForm::findOrFail($id);
-        $form->delete();
+        try {
+            \Artisan::call('form:update', [
+                'action' => 'delete',
+                'formName' => $formName
+            ]);
 
-        return response()->json(['success' => true, 'message' => 'Formulario eliminado exitosamente.']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Form deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting form: ' . $e->getMessage()
+            ], 422);
+        }
     }
 
     public function getColumns($formId)
@@ -293,6 +278,17 @@ class DynamicFormController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
         }
+    }
+
+    public function getFormId($formName)
+    {
+        $form = DynamicForm::where('form_name', $formName)->first();
+
+        if ($form) {
+            return $form->id; // This is your dynamic_form_id
+        }
+
+        return null;
     }
 
     
