@@ -189,7 +189,8 @@ $existingFormNames = [];
         const isDelete = formData.get('_method').toLowerCase() === 'delete';
 
             // Determine the appropriate endpoint and method
-        const endpoint = `/forms/${encodeURIComponent(formName)}`;
+        const formId = formData.get('form_id');
+        const endpoint = `/forms/${formId}`;
         const method = isDelete ? 'DELETE' : 'PUT';
 
         fetch(endpoint, {

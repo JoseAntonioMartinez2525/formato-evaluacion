@@ -281,15 +281,18 @@ class DynamicFormController extends Controller
     }
 
     public function getFormId($formName)
-    {
-        $form = DynamicForm::where('form_name', $formName)->first();
+{   // Extract only numbers and dots from formName using regex
+        $formId = preg_replace('/[^0-9.]/', '', $formName);
 
-        if ($form) {
-            return $form->id; // This is your dynamic_form_id
-        }
-
-        return null;
+    if (!$formId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Formulario no encontrado.'
+            ]);
     }
+    
+    return $formId;
+}
 
     
 }
