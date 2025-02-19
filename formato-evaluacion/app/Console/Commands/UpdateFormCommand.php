@@ -43,30 +43,46 @@ class UpdateFormCommand extends Command
 
         \DB::transaction(function () use ($form, $formData) {
             // Update main form
-            $form->update([
-                'form_name' => $formData['form_name'],
-                'puntaje_maximo' => $formData['puntajeMaximo']
-            ]);
+            // Only update form attributes if they are provided and different
+            if (isset($formData['form_name']) && $form->form_name !== $formData['form_name']) {
+                $form->form_name = $formData['form_name'];
+            }
 
-            // Update columns and values
-            // Delete existing columns and values
-            DynamicFormColumn::where('id', $form->id)->delete();
-            DynamicFormValue::where('dynamic_form_id', $form->id)->delete();
+            if (isset($formData['puntajeMaximo']) && $form->puntaje_maximo !== $formData['puntajeMaximo']) {
+                $form->puntaje_maximo = $formData['puntajeMaximo'];
+            }
 
-            // Create new columns and values
-            foreach ($formData['column_name'] as $index => $columnName) {
-                $column = DynamicFormColumn::create([
-                    'dynamic_form_id' => $form->id,
-                    'column_name' => $columnName
-                ]);
+            // Save form changes if any
+            if ($form->isDirty()) {
+                $form->save();
+            }
 
-                DynamicFormValue::create([
-                    'dynamic_form_id' => $form->id,
-                    'dynamic_form_column_id' => $column->id,
-                    'value' => $formData['value'][$index]
-                ]);
+            // Update only specific columns and values if provided
+            if (isset($formData['column_name']) && isset($formData['value'])) {
+                foreach ($formData['column_name'] as $index => $columnName) {
+                    // Find existing column or create new one
+                    $column = DynamicFormColumn::firstOrCreate(
+                        [
+                            'dynamic_form_id' => $form->id,
+                            'column_name' => $columnName
+                        ]
+                    );
+
+                    // Update or create value
+                    DynamicFormValue::updateOrCreate(
+                        [
+                            'dynamic_form_id' => $form->id,
+                            'dynamic_form_column_id' => $column->id
+                        ],
+                        [
+                            'value' => $formData['value'][$index]
+                        ]
+                    );
+                }
             }
         });
+
+        $this->info('Form updated successfully');
     }
 
     private function deleteForm($form)

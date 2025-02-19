@@ -188,7 +188,9 @@ class DynamicFormController extends Controller
     {
         $form = DynamicForm::find($id);
 
-
+            if (!$form) {
+                return response()->json(['success' => false, 'message' => 'Formulario no encontrado'], 404);
+            }
         // Debugging: Log the incoming request data
         \Log::info('Updating Form:', $request->all());
         // Get the values first
@@ -206,6 +208,15 @@ class DynamicFormController extends Controller
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
+            // Begin transaction
+            \DB::beginTransaction();
+            // Check if values have changed
+        $hasChanges = $form->form_name !== $request->form_name ||
+                     $form->puntajeMaximo !== $request->puntajeMaximo ||
+                     json_encode($form->columns) !== json_encode($request->column_name) ||
+                     json_encode($form->values) !== json_encode($request->value);
+
+        if ($hasChanges) {
             $data = [
                 'form_name' => $request->form_name,
                 'puntajeMaximo' => $request->puntajeMaximo,
@@ -213,25 +224,43 @@ class DynamicFormController extends Controller
                 'values' => $request->value
             ];
 
-            \Artisan::call('form:update', [
-                'action' => 'update',
-                'formName' => $request->form_name,
-                '--data' => [json_encode($data)]
-            ]);
-
-            if (!$form) {
-                return response()->json(['success' => false, 'message' => 'Formulario no encontrado'], 404);
-            }
-            $form->update([
+                $form->update([
                 'form_name' => $request->form_name,
                 'puntajeMaximo' => $request->puntajeMaximo,
                 'columns' => $request->column_name,
                 'values' => $request->value
             ]);
+
+            // Execute the command with the same data
+            $exitCode = \Artisan::call('form:update', [
+                'action' => 'update',
+                'formName' => $request->form_name,
+                '--data' => [json_encode($data)]
+            ]);
+
+            // Check if the command executed successfully
+            if ($exitCode !== 0) {
+                \DB::rollBack();
+                throw new \Exception('Command execution failed');
+            }
+
+            \DB::commit();
+
+
+  
             return response()->json([
                 'success' => true,
-                'message' => 'Form updated successfully'
+                'message' => 'Form updated successfully',
+                'changes'=> true
             ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No changes detected',
+                    'changes'=> false
+                ]);
+            }
+            
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
