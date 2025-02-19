@@ -25,42 +25,43 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
 @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                <x-rutas-secretaria/>
-                @endif
-                        <div class="container mt-4">
-                            <h3>Editar/Eliminar Formulario</h3>
+                    @if (Auth::check() && Auth::user()->user_type === '')
+                    <x-rutas-secretaria/>
+                    @endif
+                            <div class="container mt-4">
+                                <h3>Editar/Eliminar Formulario</h3>
 
-                        <form id="editDeleteForm" method="POST" action="">
-                        @csrf
-
-
-                                <input type="hidden" name="_method" id="formMethod" value="PUT">
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                            <form id="editDeleteForm" method="POST" action="">
+                            @csrf
 
 
-                               <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+                                    <input type="hidden" name="_method" id="formMethod" value="PUT">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    <input type="hidden" name="form_id" id="form_id">
 
-            <label for="formSelect">Seleccionar Formulario:</label>
-    <select id="formSelect" name="form_name">
-        <option value="">Selecciona un formulario</option>
-        @foreach($forms as $form)
-            <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
-        @endforeach
-    </select>
-            </select> <br>
-        <div id="formContainer">
-            <!-- Here the form fields will be dynamically populated -->
-        </div>
-            <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
 
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-success" id="updateBtn">Guardar Cambios</button>
-                                    <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
-                                </div>
-                            </form>
+                                   <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+
+                <label for="formSelect">Seleccionar Formulario:</label>
+        <select id="formSelect" name="form_name">
+            <option value="">Selecciona un formulario</option>
+            @foreach($forms as $form)
+                <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
+            @endforeach
+        </select>
+                </select> <br>
+            <div id="formContainer">
+                <!-- Here the form fields will be dynamically populated -->
+            </div>
+                <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-success" id="updateBtn">Guardar Cambios</button>
+                                        <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteForm({{ $form->id }})">Eliminar Formulario</button>
+                                    </div>
+                                </form>
 @endif
                 <script>
                     const formSelect = document.getElementById('formSelect');
@@ -68,8 +69,11 @@ $existingFormNames = [];
 
  formSelect.addEventListener('change', function () {
 
-        const selectedForm = this.value;
+        const selectedForm = this.options[this.selectedIndex];
         const formContainer = document.getElementById('formContainer');
+        const formId = selectedOption.getAttribute('data-id'); 
+        document.getElementById('form_id').value = formId; 
+        console.log('Selected Form ID:', formId);
 
             console.log('Selected Form Type:', selectedForm); // Log the selected form type
 
@@ -189,7 +193,12 @@ $existingFormNames = [];
         const isDelete = formData.get('_method').toLowerCase() === 'delete';
 
             // Determine the appropriate endpoint and method
+
         const formId = formData.get('form_id');
+        if (!formId) {
+            alert('Error: No se seleccionó un formulario válido.');
+            return;
+        }
         const endpoint = `/forms/${formId}`;
         const method = isDelete ? 'DELETE' : 'PUT';
 

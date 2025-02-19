@@ -187,6 +187,8 @@ class DynamicFormController extends Controller
     public function update(Request $request, $id)
     {
         $form = DynamicForm::find($id);
+
+
         // Debugging: Log the incoming request data
         \Log::info('Updating Form:', $request->all());
         // Get the values first
@@ -217,6 +219,9 @@ class DynamicFormController extends Controller
                 '--data' => [json_encode($data)]
             ]);
 
+            if (!$form) {
+                return response()->json(['success' => false, 'message' => 'Formulario no encontrado'], 404);
+            }
             $form->update([
                 'form_name' => $request->form_name,
                 'puntajeMaximo' => $request->puntajeMaximo,
