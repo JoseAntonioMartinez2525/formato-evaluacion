@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use App\Models\DynamicForm;
 use App\Models\DynamicFormColumn;
 use App\Models\DynamicFormValue;
@@ -208,59 +209,68 @@ class DynamicFormController extends Controller
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
-            // Begin transaction
-            \DB::beginTransaction();
-            // Check if values have changed
-        $hasChanges = $form->form_name !== $request->form_name ||
-                     $form->puntajeMaximo !== $request->puntajeMaximo ||
-                     json_encode($form->columns) !== json_encode($request->column_name) ||
-                     json_encode($form->values) !== json_encode($request->value);
+            // Call the helper method for automatic execution
+            $this->checkAndUpdateForm($request->form_name, $request->all(), $action='update');
 
-        if ($hasChanges) {
-            $data = [
-                'form_name' => $request->form_name,
-                'puntajeMaximo' => $request->puntajeMaximo,
-                'columns' => $request->column_name,
-                'values' => $request->value
-            ];
+            /*
+                        // Begin transaction
+                        \DB::beginTransaction();
+                        // Check if values have changed
+                    $hasChanges = $form->form_name !== $request->form_name ||
+                                 $form->puntajeMaximo !== $request->puntajeMaximo ||
+                                 json_encode($form->columns) !== json_encode($request->column_name) ||
+                                 json_encode($form->values) !== json_encode($request->value);
+                        
+                    if ($hasChanges) {
+                        $data = [
+                            'form_name' => $request->form_name,
+                            'puntajeMaximo' => $request->puntajeMaximo,
+                            'columns' => $request->column_name,
+                            'values' => $request->value
+                        ];
 
-                $form->update([
-                'form_name' => $request->form_name,
-                'puntajeMaximo' => $request->puntajeMaximo,
-                'columns' => $request->column_name,
-                'values' => $request->value
-            ]);
+                            $form->update([
+                            'form_name' => $request->form_name,
+                            'puntajeMaximo' => $request->puntajeMaximo,
+                            'columns' => $request->column_name,
+                            'values' => $request->value
+                        ]);
 
-            // Execute the command with the same data
-            $exitCode = \Artisan::call('form:update', [
-                'action' => 'update',
-                'formName' => $request->form_name,
-                '--data' => [json_encode($data)]
-            ]);
+                        // Execute the command with the same data
+                        $exitCode = \Artisan::call('form:update', [
+                            'action' => 'update',
+                            'formName' => $request->form_name,
+                            '--data' => [json_encode($data)]
+                        ]);
 
-            // Check if the command executed successfully
-            if ($exitCode !== 0) {
-                \DB::rollBack();
-                throw new \Exception('Command execution failed');
-            }
+                        // Check if the command executed successfully
+                        if ($exitCode !== 0) {
+                            \DB::rollBack();
+                            throw new \Exception('Command execution failed');
+                        }
 
-            \DB::commit();
+                        \DB::commit();
 
 
-  
+              
+                        return response()->json([
+                            'success' => true,
+                            'message' => 'Form updated successfully',
+                            'changes'=> true
+                        ]);
+                        
+                        } else {
+                            return response()->json([
+                                'success' => true,
+                                'message' => 'No changes detected',
+                                'changes'=> false
+                            ]);
+                        }*/
             return response()->json([
-                'success' => true,
-                'message' => 'Form updated successfully',
-                'changes'=> true
-            ]);
-            } else {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'No changes detected',
-                    'changes'=> false
-                ]);
-            }
-            
+            'success' => true,
+            'message' => 'Form updated successfully',
+            'changes'=> true
+        ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -273,10 +283,12 @@ class DynamicFormController extends Controller
     public function destroy($formName)
     {
         try {
+            $this->checkAndUpdateForm($formName, [], 'delete');
+            /*
             \Artisan::call('form:update', [
                 'action' => 'delete',
                 'formName' => $formName
-            ]);
+            ]);*/
 
             return response()->json([
                 'success' => true,
@@ -328,5 +340,33 @@ class DynamicFormController extends Controller
     return $formId;
 }
 
-    
+//transfer the update functionality, directly 
+protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
+{
+
+        // Add logging
+        \Log::info("Checking and updating form: {$formName}, Action: {$action}");
+   try {
+        // Add your conditions here if needed
+        if (isset($data['user_type']) && $data['user_type'] === '') {
+                \Log::debug("Executing Artisan command for form update");
+
+                $exitCode = Artisan::call('form:update', [
+                'action' => $action,
+                'formName' => $formName,
+                '--data' => $action === 'update' ? [json_encode($data)] : []
+            ]);
+                if ($exitCode !== 0) {
+                    throw new \Exception("Artisan command failed with exit code: {$exitCode}");
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error("Error in checkAndUpdateForm: " . $e->getMessage());
+            throw $e;
+        }
+    }
 }
+
+
+    
+
