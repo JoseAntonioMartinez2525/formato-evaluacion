@@ -116,6 +116,7 @@ class DynamicFormController extends Controller
                 'success' => true,
                 'form_type' => $formType,
                 'form_name' => $validatedData['form_name'],
+                'vaue_id'=> $valueId
             ]);
         } catch (\Exception $e) {
             // Captura errores y retorna un mensaje JSON
@@ -210,7 +211,7 @@ class DynamicFormController extends Controller
             }
 
             // Call the helper method for automatic execution
-            $this->checkAndUpdateForm($request->form_name, $request->all(), $action='update');
+            //$this->checkAndUpdateForm($request->form_name, $request->all(), 'update');
 
             /*
                         // Begin transaction
@@ -266,6 +267,8 @@ class DynamicFormController extends Controller
                                 'changes'=> false
                             ]);
                         }*/
+            //$form->save();     
+            $this->updateDynamicFormValues($id, $request->value);
             return response()->json([
             'success' => true,
             'message' => 'Form updated successfully',
@@ -363,6 +366,21 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         } catch (\Exception $e) {
             \Log::error("Error in checkAndUpdateForm: " . $e->getMessage());
             throw $e;
+        }
+    }
+
+    protected function updateDynamicFormValues($formId, $newValues)
+    {
+        // Obtener los registros existentes de dynamic_form_values para este formulario
+        $existingValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
+
+        // Recorrer los nuevos valores y actualizar los registros correspondientes
+        foreach ($newValues as $index => $newValue) {
+            if (isset($existingValues[$index])) {
+                $existingValue = $existingValues[$index];
+                $existingValue->value = $newValue;
+                $existingValue->save();
+            }
         }
     }
 }
