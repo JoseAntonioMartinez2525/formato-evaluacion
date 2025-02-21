@@ -373,7 +373,8 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
     {
         // Obtener los registros existentes de dynamic_form_values para este formulario
         $existingValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
-
+        $existingScore = DynamicForm::find($formId);
+        
         // Recorrer los nuevos valores y actualizar los registros correspondientes
         foreach ($newValues as $index => $newValue) {
             if (isset($existingValues[$index])) {
@@ -382,6 +383,12 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
                 $existingValue->save();
             }
         }
+        // Actualizar el puntaje máximo si el modelo existe
+        if ($existingScore) {
+            $existingScore->puntaje_maximo = request('puntajeMaximo'); // Obtener el nuevo puntaje del request
+            $existingScore->save();
+        }
+        
     }
 }
 
