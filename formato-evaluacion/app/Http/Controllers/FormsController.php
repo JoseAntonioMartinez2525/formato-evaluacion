@@ -18,6 +18,7 @@ use App\Models\DictaminatorsResponseForm3_5;
 use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
+use App\Models\DictaminatorsResponseForm3_8_1;
 use App\Models\DictaminatorsResponseForm3_9;
 use App\Models\EvaluatorSignature;
 use App\Models\UserResume;
@@ -72,6 +73,7 @@ public function getDictaminadorData(Request $request)
         $form3_6Data = DictaminatorsResponseForm3_6::where('user_id', $user_id)->first();
         $form3_7Data = DictaminatorsResponseForm3_7::where('user_id', $user_id)->first();
         $form3_8Data = DictaminatorsResponseForm3_8::where('user_id', $user_id)->first();
+        $form3_8_1Data = DictaminatorsResponseForm3_8_1::where('user_id', $user_id)->first();
         $form3_9Data = DictaminatorsResponseForm3_9::where('user_id', $user_id)->first();
         $form3_10Data = DictaminatorsResponseForm3_10::where('user_id', $user_id)->first();
         $form3_11Data = DictaminatorsResponseForm3_11::where('user_id', $user_id)->first();
@@ -114,6 +116,7 @@ public function getDictaminadorData(Request $request)
             'form3_6' => $form3_6Data,
             'form3_7' => $form3_7Data,
             'form3_8' => $form3_8Data,
+            'form3_8_1' => $form3_8_1Data,
             'form3_9' => $form3_9Data,
             'form3_10' => $form3_10Data,
             'form3_11' => $form3_11Data,
@@ -179,18 +182,19 @@ public function getDictaminadorData(Request $request)
             ['view' => 'form3_7', 'startPage' => 10, 'endPage' => 10],
             ['view' => 'form3_8', 'startPage' => 11, 'endPage' => 11],
             ['view' => 'form3_8', 'startPage' => 12, 'endPage' => 12],
-            ['view' => 'form3_9', 'startPage' => 13, 'endPage' => 14],
-            ['view' => 'form3_10', 'startPage' => 15, 'endPage' => 15],
-            ['view' => 'form3_11', 'startPage' => 16, 'endPage' => 16],
-            ['view' => 'form3_12', 'startPage' => 17, 'endPage' => 18],
-            ['view' => 'form3_13', 'startPage' => 19, 'endPage' => 19],
-            ['view' => 'form3_14', 'startPage' => 20, 'endPage' => 20],
-            ['view' => 'form3_15', 'startPage' => 21, 'endPage' => 21],
-            ['view' => 'form3_16', 'startPage' => 22, 'endPage' => 23],
-            ['view' => 'form3_17', 'startPage' => 24, 'endPage' => 24],
-            ['view' => 'form3_18', 'startPage' => 25, 'endPage' => 26],
-            ['view' => 'form3_19', 'startPage' => 27, 'endPage' => 29],
-            ['view' => 'resumen_comision', 'startPage' => 31, 'endPage' => 31],
+            ['view' => 'form3_8_1', 'startPage' => 13, 'endPage' => 13],            
+            ['view' => 'form3_9', 'startPage' => 14, 'endPage' => 15],
+            ['view' => 'form3_10', 'startPage' => 16, 'endPage' => 17],
+            ['view' => 'form3_11', 'startPage' => 18, 'endPage' => 18],
+            ['view' => 'form3_12', 'startPage' => 19, 'endPage' => 20],
+            ['view' => 'form3_13', 'startPage' => 21, 'endPage' => 21],
+            ['view' => 'form3_14', 'startPage' => 22, 'endPage' => 22],
+            ['view' => 'form3_15', 'startPage' => 23, 'endPage' => 23],
+            ['view' => 'form3_16', 'startPage' => 24, 'endPage' => 25],
+            ['view' => 'form3_17', 'startPage' => 26, 'endPage' => 26],
+            ['view' => 'form3_18', 'startPage' => 27, 'endPage' => 28],
+            ['view' => 'form3_19', 'startPage' => 29, 'endPage' => 31],
+            ['view' => 'resumen_comision', 'startPage' => 32, 'endPage' => 32],
         ];
 
         // Debug de los datos

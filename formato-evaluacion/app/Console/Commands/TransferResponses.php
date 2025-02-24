@@ -22,6 +22,7 @@ use App\Models\DictaminatorsResponseForm3_5;
 use App\Models\DictaminatorsResponseForm3_6;
 use App\Models\DictaminatorsResponseForm3_7;
 use App\Models\DictaminatorsResponseForm3_8;
+use App\Models\DictaminatorsResponseForm3_8_1;
 use App\Models\DictaminatorsResponseForm3_9;
 
 
@@ -61,6 +62,7 @@ class TransferResponses extends Command
             DictaminatorsResponseForm3_6::class,
             DictaminatorsResponseForm3_7::class,
             DictaminatorsResponseForm3_8::class,
+            DictaminatorsResponseForm3_8_1::class,
             DictaminatorsResponseForm3_9::class,
             DictaminatorsResponseForm3_10::class,
             DictaminatorsResponseForm3_11::class,
@@ -97,6 +99,7 @@ class TransferResponses extends Command
                         'comision3_6' => 0,
                         'comision3_7' => 0,
                         'comision3_8' => 0,
+                        'comision3_8_1' => 0,
                         'comision3_9' => 0,
                         'comision3_10' => 0,
                         'comision3_11' => 0,
@@ -123,6 +126,7 @@ class TransferResponses extends Command
                 $consolidatedData[$response->user_id]['comision3_6'] += $response->comision3_6 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_7'] += $response->comision3_7 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_8'] += $response->comision3_8 ?? 0;
+                $consolidatedData[$response->user_id]['comision3_8_1'] += $response->comision3_8_1 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_9'] += $response->comision3_9 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_10'] += $response->comision3_10 ?? 0;
                 $consolidatedData[$response->user_id]['comision3_11'] += $response->comision3_11 ?? 0;
@@ -149,6 +153,7 @@ class TransferResponses extends Command
                 'comision3_6',
                 'comision3_7',
                 'comision3_8',
+                'comision3_8_1',
                 'comision3_9',
                 'comision3_10',
                 'comision3_11',
