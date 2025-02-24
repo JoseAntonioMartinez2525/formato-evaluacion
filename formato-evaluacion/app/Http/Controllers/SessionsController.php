@@ -69,10 +69,7 @@ class SessionsController extends Controller
             $expiresZero = '0';
 
             if ($user->user_type === 'dictaminador') {
-                return response()->view('comision_dictaminadora')
-                    ->header('Cache-Control', $noCache)
-                    ->header('Pragma', $pragmaNoCache)
-                    ->header('Expires', $expiresZero);
+                return response()->view('comision_dictaminadora');
             } else if ($user->user_type === 'secretaria') {
                 return response()->view('secretaria')
                     ->header('Cache-Control', $noCache)

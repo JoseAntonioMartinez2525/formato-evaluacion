@@ -17,6 +17,15 @@ $newLocale = str_replace('_', '-', $locale);
 .punto3_8_1{
     font-weight: none;
 }
+
+#PuntajeMaximo{
+    color: #ffff;
+    background-color: black;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+
+}
 </style>
 </head>
 
@@ -50,6 +59,7 @@ $user_identity = $user->id;
             <input type="hidden" name="email" value="">
             <input type="hidden" name="user_type" value="">
             <div>
+                <br>
                 <!--3.8.1 RSU-->
                 <h4>Puntaje máximo
                     @if($userType == '') <!-- usuario secretaria -->
@@ -59,7 +69,8 @@ $user_identity = $user->id;
                         <button class="btn custom-btn printButtonClass" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
 
                     @else
-                        <span id="PuntajeMaximo"></span>
+                        <span id="PuntajeMaximo">{{ $puntajeMaximoGlobal }}</span>
+                        
                     @endif
                 </h4>
             </div>

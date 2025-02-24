@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\UsersResponseForm1;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -33,5 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 view()->share('convocatoria', $convocatoria->convocatoria);
             }
         }
+
+        // Puntaje máximo global
+        View::share('puntajeMaximoGlobal', DB::table('puntajes_maximos')
+            ->where('clave', 'puntajeMaximo')
+            ->value('valor'));
+        
     }
 }
