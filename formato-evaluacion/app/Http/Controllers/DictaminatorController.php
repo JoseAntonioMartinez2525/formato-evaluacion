@@ -23,6 +23,7 @@ use App\Models\UsersResponseForm3_5;
 use App\Models\UsersResponseForm3_6;
 use App\Models\UsersResponseForm3_7;
 use App\Models\UsersResponseForm3_8;
+use App\Models\UsersResponseForm3_8_1;
 use App\Models\UsersResponseForm3_9;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
@@ -60,7 +61,8 @@ class DictaminatorController extends Controller
         $form3_5Data = UsersResponseForm3_5::where('user_id', $docente->id)->first();
         $form3_6Data = UsersResponseForm3_6::where('user_id', $docente->id)->first();
         $form3_7Data = UsersResponseForm3_7::where('user_id', $docente->id)->first();
-        $form2_8Data = UsersResponseForm3_8::where('user_id', $docente->id)->first();
+        $form3_8Data = UsersResponseForm3_8::where('user_id', $docente->id)->first();
+        $form3_8_1Data = UsersResponseForm3_8_1::where('user_id', $docente->id)->first();
         $form3_9Data = UsersResponseForm3_9::where('user_id', $docente->id)->first();
         $form3_10Data = UsersResponseForm3_10::where('user_id', $docente->id)->first();
         $form3_11Data = UsersResponseForm3_11::where('user_id', $docente->id)->first();
@@ -94,7 +96,8 @@ class DictaminatorController extends Controller
             'form3_5' => $form3_5Data,
             'form3_6' => $form3_6Data,
             'form3_7' => $form3_7Data,
-            'form3_8' => $form2_8Data,
+            'form3_8' => $form3_8Data,
+            'form3_8_1' => $form3_8_1Data,
             'form3_9' => $form3_9Data,
             'form3_10' => $form3_10Data,
             'form3_11' => $form3_11Data,

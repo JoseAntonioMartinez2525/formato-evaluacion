@@ -14,7 +14,7 @@ class ConsolidatedResponseController extends Controller
         
         // Calcular subtotales para las secciones
         $subtotal3_1To3_8_1 = $consolidatedResponses->reduce(function ($carry, $response) {
-            return $carry + $response->actv3Comision + $response->comision3_2 + $response->comision3_3 + $response->comision3_4 + $response->comision3_5 + $response->comision3_6 + $response->comision3_7 + $response->comision3_8;
+            return $carry + $response->actv3Comision + $response->comision3_2 + $response->comision3_3 + $response->comision3_4 + $response->comision3_5 + $response->comision3_6 + $response->comision3_7 + $response->comision3_8 + $response->comision3_8_1;
         }, 0);
 
         $subtotal3_9To3_11 = $consolidatedResponses->reduce(function ($carry, $response) {
@@ -180,6 +180,7 @@ class ConsolidatedResponseController extends Controller
             'comision3_6' => 'numeric',
             'comision3_7' => 'numeric',
             'comision3_8' => 'numeric',
+            'comision3_8_1' => 'numeric',
             'comision3_9' => 'numeric',
             'comision3_10' => 'numeric',
             'comision3_11' => 'numeric',
@@ -198,7 +199,7 @@ class ConsolidatedResponseController extends Controller
         ]);
 
         // Calcular subtotales
-        $subtotal3_1To3_8_1 = $request->only(['actv3Comision', 'comision3_2', 'comision3_3', 'comision3_4', 'comision3_5', 'comision3_6', 'comision3_7', 'comision3_8'])
+        $subtotal3_1To3_8_1 = $request->only(['actv3Comision', 'comision3_2', 'comision3_3', 'comision3_4', 'comision3_5', 'comision3_6', 'comision3_7', 'comision3_8', 'comision3_8_1'])
             ->sum();
         $subtotal3_9To3_11 = $request->only(['comision3_9', 'comision3_10', 'comision3_11'])
             ->sum();
