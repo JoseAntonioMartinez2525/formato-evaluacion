@@ -64,22 +64,26 @@ class SessionsController extends Controller
         // Regular login process
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = Auth::user();
+            $noCache = 'no-cache, no-store, must-revalidate';
+            $pragmaNoCache = 'no-cache';
+            $expiresZero = '0';
+
             if ($user->user_type === 'dictaminador') {
-                return view('comision_dictaminadora')
-                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                ->header('Pragma', 'no-cache')
-                ->header('Expires', '0');
-            }else if ($user->user_type === '') {
-                return view('secretaria')
-                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                ->header('Pragma', 'no-cache')
-                ->header('Expires', '0');
-            }else{
-            return redirect()->intended('/welcome')
-            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', '0');
-        }
+                return response()->view('comision_dictaminadora')
+                    ->header('Cache-Control', $noCache)
+                    ->header('Pragma', $pragmaNoCache)
+                    ->header('Expires', $expiresZero);
+            } else if ($user->user_type === 'secretaria') {
+                return response()->view('secretaria')
+                    ->header('Cache-Control', $noCache)
+                    ->header('Pragma', $pragmaNoCache)
+                    ->header('Expires', $expiresZero);
+            } else {
+                return redirect()->intended('/welcome')
+                    ->header('Cache-Control', $noCache)
+                    ->header('Pragma', $pragmaNoCache)
+                    ->header('Expires', $expiresZero);
+            }
     }
         return back()->withErrors([
             'email' => 'Credenciales incorrectas, por favor intente de nuevo',
