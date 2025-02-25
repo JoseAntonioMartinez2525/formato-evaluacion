@@ -432,6 +432,7 @@ $newLocale = str_replace('_', '-', $locale);
         '3.6 Capacitación y actualización pedagógica recibida',
         '3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento',
         '3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente',
+        '3.8.1 RSU',
         'Subtotal ',
         'Tutorias',
         '3.9 Trabajos dirigidos para la titulación de estudiantes',
@@ -457,7 +458,7 @@ $newLocale = str_replace('_', '-', $locale);
         'Total de puntaje obtenido en la evaluación',
     ];
 
-    const values = [100, 100, 200, 200, 700, 60, 50, 100, 60, 75, 40, 40, 40, null, null,
+    const values = [100, 100, 200, 200, 700, 60, 50, 100, 60, 75, 40, 40, 40, 40, null, null,
         200, 115, 95, null, null, 150, 130, 40, 60, 30, null, null, 50, 40, 40, null, null, 100, 200, 700, null];
 
         function handleClick(event) {
@@ -699,7 +700,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 comisiones[10] = data.form3_6?.comision3_6 || '0';
                                 comisiones[11] = data.form3_7?.comision3_7 || '0';
                                 comisiones[12] = data.form3_8?.comision3_8 || '0';
-                                comisiones[14] = '';
+
+                                //agregar 3.8.1
+                                /*
+                                                                const subtotales = [
+                                    { range: [5, 13], position: 14 }, // Subtotal 1
+                                    { range: [15, 17], position: 18 }, // Subtotal 2
+                                    { range: [20, 24], position: 25 }, // Subtotal 3
+                                    { range: [27, 29], position: 30 }  // Subtotal 4
+                                ];*/ 
+                                comisiones[13] = data.form3_8_1?.comision3_8_1 || '0';
+                                //subtotal 1 -> position [14]
+                                comisiones[15] = '';
+                                
                                 comisiones[15] = data.form3_9?.comision3_9 || '0';
                                 comisiones[16] = data.form3_10?.comision3_10 || '0';
                                 comisiones[17] = data.form3_11?.comision3_11 || '0';
