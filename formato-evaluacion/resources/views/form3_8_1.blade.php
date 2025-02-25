@@ -108,7 +108,7 @@ $user_identity = $user->id;
                             <td class="rightSelect">
                                 @if ($userType == 'dictaminador')
                                     <input type="number" step="0.01" id="comisionDict3_8_1" name="comisionDict3_8_1"
-                                        oninput="onActv3Comision3_8_1_1()"
+                                        oninput="onActv3Comision3_8_1()"
                                         value="{{ oldValueOrDefault('comisionDict3_8_1') }}">
                                 @else
                                     <span id="comisionDict3_8_1" name="comisionDict3_8_1"></span>
@@ -117,9 +117,9 @@ $user_identity = $user->id;
                             </td>
                             <td>
                                 @if ($userType == 'dictaminador')
-                                    <input class="table-header" id="obs3_8_1" name="obs3_8_1" type="text">
+                                    <input class="table-header" id="obs3_8_1_1" name="obs3_8_1_1" type="text">
                                 @else
-                                    <span id="obs3_8_1" name="obs3_8_1"></span>
+                                    <span id="obs3_8_1_1" name="obs3_8_1_1"></span>
                                 @endif
 
                             </td>
@@ -168,6 +168,7 @@ $user_identity = $user->id;
         </footer>
     </center>
     <script>
+        let userType = "{{ $userType }}";
         window.onload = function () {
             const footerHeight = document.querySelector('footer').offsetHeight;
             const elements = document.querySelectorAll('.prevent-overlap');
@@ -341,113 +342,175 @@ $user_identity = $user->id;
         });
 
         // Function to handle form submission
-        async function submitForm(url, formId) {
-            const formData = {};
-            const form = document.getElementById(formId);
+async function submitForm(url, formId) {
+    if (userType === '') return; 
+    const formData = {};
+    const form = document.getElementById(formId);
 
-            if (!form) {
-                console.error(`Form with id "${formId}" not found.`);
+    if (!form) {
+        console.error(`Form with id "${formId}" not found.`);
+        showNotification('Formulario no enviado', 'error');
+        return;
+    }
+
+    try {
+         // Form data collection with validation
+        const requiredFields = {
+            'dictaminador_id': form.querySelector('input[name="dictaminador_id"]')?.value,
+            'user_id': form.querySelector('input[name="user_id"]')?.value,
+            'email': form.querySelector('input[name="email"]')?.value,
+            'user_type': form.querySelector('input[name="user_type"]')?.value,
+            'puntaje3_8_1': document.getElementById('puntaje3_8_1')?.textContent,
+            'puntajeHoras3_8_1': document.getElementById('puntajeHoras3_8_1')?.textContent,
+            'comisionDict3_8_1': form.querySelector('input[id="comisionDict3_8_1"]')?.value,
+            'score3_8_1': document.getElementById('score3_8_1')?.textContent,
+            'comision3_8_1': document.getElementById('comision3_8_1')?.textContent
+        };
+
+        // Debug log to check values
+        console.log('Required fields values:', requiredFields);
+
+        // Check for empty or whitespace-only values
+        for (let [field, value] of Object.entries(requiredFields)) {
+            if (!value || value.trim() === '') {
+                console.log(`Empty field detected: ${field}`);
+                showNotification('Formulario no enviado - Campos requeridos vacíos', 'error');
                 return;
             }
-
-            // Gather all related information from the form
-            formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-            formData['email'] = form.querySelector('input[name="email"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-            formData['puntaje3_8_1'] = document.getElementById('puntaje3_8_1').textContent;
-            formData['puntajeHoras3_8_1'] = document.getElementById('puntajeHoras3_8_1').textContent;
-            formData['comisionDict3_8_1'] = form.querySelector('input[id="comisionDict3_8_1"]').value;
-            formData['score3_8_1'] = document.getElementById('score3_8_1').textContent;
-            formData['comision3_8_1'] = document.getElementById('comision3_8_1').textContent;
-
-            // Observations
-            formData['obs3_8_1_1'] = form.querySelector('input[name="obs3_8_1_1"]').value;
-
-            console.log('Form data:', formData);
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const responseData = await response.json();
-                console.log('Response received from server:', responseData);
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
+            formData[field] = value;
         }
+
+        // Add optional field
+        formData['obs3_8_1_1'] = document.getElementById('obs3_8_1_1')?.textContent || '';
+
+        console.log('Final form data:', formData);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+            showNotification('Formulario enviado con éxito', 'success');
+            const responseData = await response.json();
+            console.log('Response received from server:', responseData);
+        } else {
+            showNotification('Formulario no enviado', 'error');
+        }
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        //showNotification('Formulario no enviado', 'error');
+    }
+}
         function minWithSum(value1, value2) {
             const sum = value1 + value2;
             return Math.min(sum, 200);
 
 
         }
+
+         function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.cssText = `
+        position: fixed;
+        top: 500px;
+        right: 500px;
+        padding: 15px;
+        background-color: ${type === 'success' ? '#4CAF50' : '#f44336'};
+        color: white;
+        border-radius: 10px;
+        z-index: 1000;
+    `;
+             // Add animation keyframes
+             const style = document.createElement('style');
+             style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    `;
+             document.head.appendChild(style);
+
+             // Add to document
+             document.body.appendChild(notification);
+
+             // Remove after 3 seconds
+             setTimeout(() => {
+                 notification.style.animation = 'slideOut 0.3s ease-in forwards';
+                 setTimeout(() => {
+                     notification.remove();
+                     style.remove();
+                 }, 300);
+             }, 3000);
+         }
+
+          let puntajeMaximoGlobal = 40; // Estado global inicial
+
+            // Habilita la edición del input
+            function habilitarEdicion(idElemento) {
+                if (userType !== '') return;
+                const elemento = document.getElementById(idElemento);
+                elemento.removeAttribute('readonly');
+                //elemento.style.backgroundColor = 'white';
+            }
+
+            // Guarda el valor editado y bloquea el campo
+            function guardarEdicion(idElemento) {
+                if (userType !== '') return;
+                const elemento = document.getElementById(idElemento);
+                elemento.setAttribute('readonly', true);
+                elemento.style.backgroundColor = '#353e4e'; // Fondo deshabilitado
+                const puntajeMaximo = elemento.value;
+
+                // Enviar el puntaje máximo al backend
+                // Enviar el puntaje máximo al backend
+                fetch('/update-puntaje-maximo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.message);
+                        puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
+                        alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
+                    })
+                    .catch(error => {
+                        console.error('Error al actualizar el puntaje máximo:', error);
+                        alert('Hubo un error al actualizar el puntaje máximo.');
+                    });
+            }
+
+            // Actualiza el puntaje máximo dinámicamente
+            function actualizarPuntajeMaximo(valor) {
+                if (userType !== '') return;
+                puntajeMaximoGlobal = valor;
+                console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
+            }
+
     </script>
 
 </body>
 
 </html>
 
-
-<script>
-    let puntajeMaximoGlobal = 40; // Estado global inicial
-
-    // Habilita la edición del input
-    function habilitarEdicion(idElemento) {
-        const elemento = document.getElementById(idElemento);
-        elemento.removeAttribute('readonly');
-        //elemento.style.backgroundColor = 'white';
-    }
-
-    // Guarda el valor editado y bloquea el campo
-    function guardarEdicion(idElemento) {
-        const elemento = document.getElementById(idElemento);
-        elemento.setAttribute('readonly', true);
-        elemento.style.backgroundColor = '#353e4e'; // Fondo deshabilitado
-        const puntajeMaximo = elemento.value;
-
-        // Enviar el puntaje máximo al backend
-    // Enviar el puntaje máximo al backend
-    fetch('/update-puntaje-maximo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data.message);
-            puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
-            alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
-        })
-        .catch(error => {
-            console.error('Error al actualizar el puntaje máximo:', error);
-            alert('Hubo un error al actualizar el puntaje máximo.');
-        });
-    }
-
-    // Actualiza el puntaje máximo dinámicamente
-    function actualizarPuntajeMaximo(valor) {
-        puntajeMaximoGlobal = valor;
-        console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
-    }
-
-
-</script>
