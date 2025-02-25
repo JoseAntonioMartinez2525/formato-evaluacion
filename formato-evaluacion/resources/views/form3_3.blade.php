@@ -172,7 +172,7 @@ body.chrome @media screen{
     }
 
     .page-number:before {
-  content: "Página " counter(page) " de 31";
+  content: "Página " counter(page) " de 32";
 }
 
 .secretaria-style {

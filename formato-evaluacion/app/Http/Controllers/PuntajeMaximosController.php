@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DictaminatorsResponseForm3_8_1;
+use App\Models\UsersResponseForm3_8_1;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,13 +30,18 @@ public function updatePuntajeMaximo(Request $request)
 
 public function showForm3_8_1() {
     // Recupera el valor de puntajeMaximo
-    $puntajeMaximo = DB::table('puntajes_maximo')
-                        ->where('user_type', '')
-                        ->id(1)
+    $puntajeMaximo = DB::table('puntajes_maximos')
+                        //->where('user_type', '')
+                        ->where('clave', 'puntajeMaximo') // Cambiado a 'clave'
                         ->value('valor');
 
+        // Verifica si existen datos de dictaminador o docente
+        $existenDatosDictaminador = DictaminatorsResponseForm3_8_1::exists();
+        $existenDatosDocente = UsersResponseForm3_8_1::exists();
 
-    // Pasa el valor a la vista
-    return view('form3_8_1', compact('puntajeMaximo'));
-}
+        $mostrarSoloSpan = $existenDatosDictaminador || $existenDatosDocente;
+
+        // Pasa el valor a la vista
+        return view('form3_8_1', compact('puntajeMaximo', 'mostrarSoloSpan'));
+    }
 }

@@ -215,7 +215,7 @@ $newLocale = str_replace('_', '-', $locale);
         </center>
 
         <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-            Página 30 de 31
+            Página 30 de 32
         </div>
     </footer>
         </div>
@@ -371,7 +371,7 @@ $newLocale = str_replace('_', '-', $locale);
             </center>
     
             <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                Página 31 de 31
+                Página 31 de 32
             </div>
         </footer>
     </center>
@@ -816,7 +816,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         piedePaginaDiv.style.textAlign = 'right'; // Alinear texto a la derecha
                                         piedePaginaDiv.style.paddingRight = '600px'; // Ajusta el margen derecho
                                         piedePaginaDiv.style.fontSize = "16px";
-                                        piedePaginaDiv.textContent = 'Página 29 de 31';
+                                        piedePaginaDiv.textContent = 'Página 29 de 32';
 
                                         // Agregar divs a la celda
                                         footerCell.appendChild(convocatoriaDiv);

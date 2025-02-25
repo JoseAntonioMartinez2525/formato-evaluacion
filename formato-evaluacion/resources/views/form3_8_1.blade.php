@@ -63,14 +63,17 @@ $user_identity = $user->id;
                 <!--3.8.1 RSU-->
                 <h4>Puntaje máximo
                     @if($userType == '') <!-- usuario secretaria -->
-                        <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="40" readonly
-                            oninput="actualizarPuntajeMaximo(this.value);"">
-                        <button class="btn custom-btn printButtonClass" onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
-                        <button class="btn custom-btn printButtonClass" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
-
+                        @if($mostrarSoloSpan)
+                            <span id="PuntajeMaximo">{{ $puntajeMaximo }}</span>
+                        @else
+                            <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="{{ $puntajeMaximo }}" readonly
+                                oninput="actualizarPuntajeMaximo(this.value);"">
+                            <button class="btn custom-btn printButtonClass" onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
+                            <button class="btn custom-btn printButtonClass" onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                        @endif
                     @else
-                        <span id="PuntajeMaximo">{{ $puntajeMaximoGlobal }}</span>
-                        
+                        <span id="PuntajeMaximo">{{ $puntajeMaximo }}</span>
+
                     @endif
                 </h4>
             </div>
@@ -163,7 +166,7 @@ $user_identity = $user->id;
             </center>
 
             <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                <x-form-renderer :forms="[['view' => 'form3_8_1', 'startPage' => 12, 'endPage' => 12]]" />
+                <x-form-renderer :forms="[['view' => 'form3_8_1', 'startPage' => 13, 'endPage' => 13]]" />
             </div>
         </footer>
     </center>

@@ -250,6 +250,8 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/update-puntaje-maximo', [PuntajeMaximosController::class, 'updatePuntajeMaximo']);
+
+Route::get('/form3_8_1', [PuntajeMaximosController::class, 'showForm3_8_1']);
 Route::get('/get-puntaje-maximo', [ResponseForm3_8_1Controller::class, 'getPuntajeMaximo']);
 Route::get('/docencia', [ResponseForm3_8_1Controller::class, 'showForm3_8_1'])->name('showForm3_8_1');
 Route::get('/test-event/{user_id}', function ($user_id) {

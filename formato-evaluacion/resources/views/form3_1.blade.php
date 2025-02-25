@@ -173,7 +173,7 @@ body.chrome @media screen{
     }
 
     .page-number:before {
-  content: "Página " counter(page) " de 31";
+  content: "Página " counter(page) " de 32";
 }
 
 .secretaria-style {
@@ -387,7 +387,7 @@ $user_identity = $user->id;
                                 <h1>Convocatoria: </h1>
                             </span>
                             <span id="piedepagina1" style="display: none; margin-left: 20px;">
-                                Página 3 de 31
+                                Página 3 de 32
                             </span>
                         @endif
                 @endif
@@ -396,7 +396,7 @@ $user_identity = $user->id;
         <tr>
             <td colspan="8">
             @if($userType == 'dictaminador')
-            <span id="piedepagina1" style="display: none;margin-left:800px;">Página 3 de 31</span>
+            <span id="piedepagina1" style="display: none;margin-left:800px;">Página 3 de 32</span>
             @endif
             </td>        
         </tr>
@@ -515,7 +515,7 @@ $user_identity = $user->id;
         
 <div id="piedepagina2"
     class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-    Página 4 de 31
+    Página 4 de 32
 </div>
 
         </form>
@@ -659,7 +659,7 @@ $user_identity = $user->id;
                                                     if (!existingSpan) {
                                                     const piedepaginaSpan = document.createElement('span');
                                                     piedepaginaSpan.id = 'piedepagina1';
-                                                    piedepaginaSpan.textContent = ' Página 3 de 31';
+                                                    piedepaginaSpan.textContent = ' Página 3 de 32';
                                                     convocatoriaElement.appendChild(piedepaginaSpan);
                                                     }
                                                     convocatoriaElement.firstChild.textContent = data.docente.convocatoria;

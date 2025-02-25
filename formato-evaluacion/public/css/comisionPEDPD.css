@@ -59,17 +59,17 @@
 
             /* Footer de la primera página */
         .page:first-of-type #piedepagina {
-            content: "Página 29 de 31";
+            content: "Página 29 de 32";
         }
 
         /* Footer de páginas pares */
         .page:nth-of-type(even) #piedepagina {
-            content: "Página 30 de 31";
+            content: "Página 30 de 32";
         }
 
         /* Footer de páginas impares */
         .page:nth-of-type(odd) #piedepagina {
-            content: "Página 31 de 31";
+            content: "Página 31 de 32";
         }
 
         .footerFormResumen{
