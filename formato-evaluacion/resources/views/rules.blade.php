@@ -165,11 +165,11 @@ $userType = Auth::user()->user_type;
       <tbody>
       <tr>
       <td>301</td>
-      <td>377</td>
+      <td>377.99</td>
       <td>I</td>
       </tr>
       <?php
-    $minima = [378, 455, 456, 533, 534, 611, 612, 689, 690, 767, 768, 845, 846, 923, 924, 1000];
+    $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
     $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
     for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
@@ -184,7 +184,7 @@ $userType = Auth::user()->user_type;
       </tbody>
       <?php
     $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-    $puntuacion_maxima = [264, 319, 374, 429, 484, 539, 594, 649, 704];
+    $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
     $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
