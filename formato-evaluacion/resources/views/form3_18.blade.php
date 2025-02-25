@@ -599,41 +599,41 @@ $user_identity = $user->id;
                                     const data = response.data;
 
                                     // Populate fields with fetched data
-                                    document.getElementById('score3_18').textContent = selectedResponseForm3_18.score3_18 || '0';
+                                    document.getElementById('score3_18').textContent = data.form3_18.score3_18 || '0';
 
                                     // Cantidades
-                                    document.getElementById('cantComOrgInt').textContent = selectedResponseForm3_18.cantComOrgInt || '0';
-                                    document.getElementById('cantComOrgNac').textContent = selectedResponseForm3_18.cantComOrgNac || '0';
-                                    document.getElementById('cantComApoyoInt').textContent = selectedResponseForm3_18.cantComApoyoInt || '0';
-                                    document.getElementById('cantComApoyoNac').textContent = selectedResponseForm3_18.cantComApoyoNac || '0';
-                                    document.getElementById('cantComApoyoReg').textContent = selectedResponseForm3_18.cantComApoyoReg || '0';
-                                    document.getElementById('cantCicloComOrgInt').textContent = selectedResponseForm3_18.cantCicloComOrgInt || '0';
-                                    document.getElementById('cantCicloComOrgNac').textContent = selectedResponseForm3_18.cantCicloComOrgNac || '0';
-                                    document.getElementById('cantCicloComOrgReg').textContent = selectedResponseForm3_18.cantCicloComOrgReg || '0';
-                                    document.getElementById('cantCicloComApoyoInt').textContent = selectedResponseForm3_18.cantCicloComApoyoInt || '0';
-                                    document.getElementById('cantCicloComApoyoNac').textContent = selectedResponseForm3_18.cantCicloComApoyoNac || '0';
-                                    document.getElementById('cantCicloComApoyoReg').textContent = selectedResponseForm3_18.cantCicloComApoyoReg || '0';
-                                    document.getElementById('cantComOrgReg').textContent = selectedResponseForm3_18.cantComOrgReg || '0';
+                                    document.getElementById('cantComOrgInt').textContent = data.form3_18.cantComOrgInt || '0';
+                                    document.getElementById('cantComOrgNac').textContent = data.form3_18.cantComOrgNac || '0';
+                                    document.getElementById('cantComApoyoInt').textContent = data.form3_18.cantComApoyoInt || '0';
+                                    document.getElementById('cantComApoyoNac').textContent = data.form3_18.cantComApoyoNac || '0';
+                                    document.getElementById('cantComApoyoReg').textContent = data.form3_18.cantComApoyoReg || '0';
+                                    document.getElementById('cantCicloComOrgInt').textContent = data.form3_18.cantCicloComOrgInt || '0';
+                                    document.getElementById('cantCicloComOrgNac').textContent = data.form3_18.cantCicloComOrgNac || '0';
+                                    document.getElementById('cantCicloComOrgReg').textContent = data.form3_18.cantCicloComOrgReg || '0';
+                                    document.getElementById('cantCicloComApoyoInt').textContent = data.form3_18.cantCicloComApoyoInt || '0';
+                                    document.getElementById('cantCicloComApoyoNac').textContent = data.form3_18.cantCicloComApoyoNac || '0';
+                                    document.getElementById('cantCicloComApoyoReg').textContent = data.form3_18.cantCicloComApoyoReg || '0';
+                                    document.getElementById('cantComOrgReg').textContent = data.form3_18.cantComOrgReg || '0';
 
                                     // Subtotales
-                                    document.getElementById('subtotalComOrgInt').textContent = selectedResponseForm3_18.subtotalComOrgInt || '0';
-                                    document.getElementById('subtotalComOrgNac').textContent = selectedResponseForm3_18.subtotalComOrgNac || '0';
-                                    document.getElementById('subtotalComOrgReg').textContent = selectedResponseForm3_18.subtotalComOrgReg || '0';
-                                    document.getElementById('subtotalComApoyoInt').textContent = selectedResponseForm3_18.subtotalComApoyoInt || '0';
-                                    document.getElementById('subtotalComApoyoNac').textContent = selectedResponseForm3_18.subtotalComApoyoNac || '0';
-                                    document.getElementById('subtotalComApoyoReg').textContent = selectedResponseForm3_18.subtotalComApoyoReg || '0';
-                                    document.getElementById('subtotalCicloComOrgInt').textContent = selectedResponseForm3_18.subtotalCicloComOrgInt || '0';
-                                    document.getElementById('subtotalCicloComOrgNac').textContent = selectedResponseForm3_18.subtotalCicloComOrgNac || '0';
-                                    document.getElementById('subtotalCicloComOrgReg').textContent = selectedResponseForm3_18.subtotalCicloComOrgReg || '0';
-                                    document.getElementById('subtotalCicloComApoyoInt').textContent = selectedResponseForm3_18.subtotalCicloComApoyoInt || '0';
-                                    document.getElementById('subtotalCicloComApoyoNac').textContent = selectedResponseForm3_18.subtotalCicloComApoyoNac || '0';
-                                    document.getElementById('subtotalCicloComApoyoReg').textContent = selectedResponseForm3_18.subtotalCicloComApoyoReg || '0';
+                                    document.getElementById('subtotalComOrgInt').textContent = data.form3_18.subtotalComOrgInt || '0';
+                                    document.getElementById('subtotalComOrgNac').textContent = data.form3_18.subtotalComOrgNac || '0';
+                                    document.getElementById('subtotalComOrgReg').textContent = data.form3_18.subtotalComOrgReg || '0';
+                                    document.getElementById('subtotalComApoyoInt').textContent = data.form3_18.subtotalComApoyoInt || '0';
+                                    document.getElementById('subtotalComApoyoNac').textContent = data.form3_18.subtotalComApoyoNac || '0';
+                                    document.getElementById('subtotalComApoyoReg').textContent = data.form3_18.subtotalComApoyoReg || '0';
+                                    document.getElementById('subtotalCicloComOrgInt').textContent = data.form3_18.subtotalCicloComOrgInt || '0';
+                                    document.getElementById('subtotalCicloComOrgNac').textContent = data.form3_18.subtotalCicloComOrgNac || '0';
+                                    document.getElementById('subtotalCicloComOrgReg').textContent = data.form3_18.subtotalCicloComOrgReg || '0';
+                                    document.getElementById('subtotalCicloComApoyoInt').textContent = data.form3_18.subtotalCicloComApoyoInt || '0';
+                                    document.getElementById('subtotalCicloComApoyoNac').textContent = data.form3_18.subtotalCicloComApoyoNac || '0';
+                                    document.getElementById('subtotalCicloComApoyoReg').textContent = data.form3_18.subtotalCicloComApoyoReg || '0';
 
 
                                     // Populate hidden inputs
-                                    document.querySelector('input[name="user_id"]').value = selectedResponseForm3_18.user_id || '';
-                                    document.querySelector('input[name="email"]').value = selectedResponseForm3_18.email || '';
-                                    document.querySelector('input[name="user_type"]').value = selectedResponseForm3_18.user_type || '';
+                                    document.querySelector('input[name="user_id"]').value = data.form3_18.user_id || '';
+                                    document.querySelector('input[name="email"]').value = data.form3_18.email || '';
+                                    document.querySelector('input[name="user_type"]').value = data.form3_18.user_type || '';
 
                                     // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
@@ -697,7 +697,7 @@ $user_identity = $user->id;
                                         }
                                     }
                                 });
-                            // Lógica para obtener datos de DictaminatorsResponseForm2
+                            // Lógica para obtener datos de DictaminatorsResponseForm3_18
                             try {
                                 const response = await fetch('/get-dictaminators-responses');
                                 const dictaminatorResponses = await response.json();
