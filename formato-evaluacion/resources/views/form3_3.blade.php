@@ -12,8 +12,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
-    <style>
-    <style>
+<style>
  body.chrome @media print {
     #convocatoria, #convocatoria2 {
         font-size: 1.2rem;
@@ -24,15 +23,15 @@ $newLocale = str_replace('_', '-', $locale);
     @html{
         font-size: 2rem;
     }
-}
 
-body.chrome @media screen{
+    @media screen{
        #convocatoria, #convocatoria2 {
         font-size: 1.2rem;
         color: blue; /* Ejemplo de estilo específico para Chrome */
     }
-
 }
+ }
+
 
 #convocatoria2{
     font-weight: bold;
@@ -144,6 +143,7 @@ body.chrome @media screen{
 .page-footer.hidden-footer {
     display: none !important;
 }
+
 
 @media print {
     hidden-footer {
@@ -311,8 +311,8 @@ $user_identity = $user->id;
     <tbody class="page-break" data-page="6">
         <tr>
             <td class="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
-            <td class="score3_3">0</td>
-            <td class="comision3_3">0</td>
+            <td id="score3_3">0</td>
+            <td class="comision3_3" style="background-color: #ffcc6d; text-align: center; border: none; font-weight: bold;">0</td>
         </tr>
         <tr>
             <td colspan="6"></td>
@@ -333,14 +333,14 @@ $user_identity = $user->id;
             <td>
                 <center><b>100</b></center>
             </td>
-            <td class="elabInput"><span class="rc1"></span></td>
-            <td class="stotal1"></td>
+            <td class="elabInput"><span class="rc1" id="rc1"></span></td>
+            <td class="stotal1" id="stotal1"></td>
             <td class="comision actv">
                 @if($userType == 'dictaminador')
-                    <input type="number" step="0.01" class="comIncisoA" oninput="onActv3Comision3()"
+                    <input type="number" step="0.01" class="comIncisoA" name="comIncisoA" oninput="onActv3Comision3()"
                         value="{{ oldValueOrDefault('comIncisoA') }}">
                 @else
-                    <span class="comIncisoA"></span>
+                    <span name="comIncisoA" class="comIncisoA"></span>
                 @endif
             </td>
             <td>
@@ -358,8 +358,8 @@ $user_identity = $user->id;
             <td>
                 <center><b>50</b></center>
             </td>
-            <td class="elabInput"><span class="rc2"></span></td>
-            <td class="stotal2"></td>
+            <td class="elabInput"><span class="rc2" id="rc2"></span></td>
+            <td class="stotal2" id="stotal2"></td>
             <td class="comision actv">
                 @if($userType == 'dictaminador')
                     <input class="comIncisoB" type="number" step="0.01" oninput="onActv3Comision3()"
@@ -377,15 +377,15 @@ $user_identity = $user->id;
             </td>
         </tr>
     </tbody>
-</table>
+</table><br>
 
 <table class="table table-sm">
     <x-table-header />
     <tbody class="page-break" data-page="7">
         <tr>
             <td class="seccion3_3" colspan="5">3.3 Publicaciones relacionadas con la docencia</td>
-            <td class="score3_3">0</td>
-            <td class="comision3_3">0</td>
+            <td id="score3_3_copy">0</td>
+            <td class="comision3_3_copy" style="background-color: #ffcc6d; text-align: center; border: none; font-weight: bold;">0</td>
         </tr>
         <tr>
             <td colspan="6"></td>
@@ -406,8 +406,8 @@ $user_identity = $user->id;
             <td>
                 <center><b>30</b></center>
             </td>
-            <td class="elabInput"><span class="rc3"></span></td>
-            <td class="stotal3"></td>
+            <td class="elabInput"><span class="rc3" id="rc3"></span></td>
+            <td class="stotal3" id="stotal3"></td>
             <td class="comision actv">
                 @if($userType == 'dictaminador')
                     <input class="comIncisoC" type="number" step="0.01" oninput="onActv3Comision3()"
@@ -431,8 +431,8 @@ $user_identity = $user->id;
             <td>
                 <center><b>25</b></center>
             </td>
-            <td class="elabInput"><span class="rc4"></span></td>
-            <td class="stotal4"></td>
+            <td class="elabInput"><span class="rc4" id="rc4"></span></td>
+            <td class="stotal4" id="stotal4"></td>
             <td class="comision actv">
                 @if($userType == 'dictaminador')
                     <input class="comIncisoD" type="number" step="0.01" oninput="onActv3Comision3()"
@@ -530,7 +530,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         axios.get('/get-docente-data', { params: { email } })
                             .then(response => {
                                 const data = response.data; 
-                                document.querySelector('.score3_3').textContent = data.form3_3.score3_3 || '0';
+                                document.getElementById('.score3_3').textContent = data.form3_3.score3_3 || '0';
+                                document.getElementById('.score3_3_copy').textContent = data.form3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
@@ -620,7 +621,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.querySelector('input[name="email"]').value = selectedResponseForm3_3.email || '';
                                 document.querySelector('input[name="user_type"]').value = selectedResponseForm3_3.user_type || '';
 
-                                document.querySelector('.score3_3').textContent = selectedResponseForm3_3.score3_3 || '0';
+                                document.getElementById('score3_3').textContent = selectedResponseForm3_3.score3_3 || '0';
+                                document.getElementById('score3_3_copy').textContent = selectedResponseForm3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = selectedResponseForm3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = selectedResponseForm3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = selectedResponseForm3_3.rc3 || '0';
@@ -630,14 +632,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.getElementById('stotal3').textContent = selectedResponseForm3_3.stotal3 || '0';
                                 document.getElementById('stotal4').textContent = selectedResponseForm3_3.stotal4 || '0';
                                 document.querySelector('.comision3_3').textContent = selectedResponseForm3_3.comision3_3 || '0';
-                                document.querySelector('span[name="comIncisoA"]').textContent = selectedResponseForm3_3.comIncisoA || '0';
-                                document.querySelector('span[name="comIncisoB"]').textContent = selectedResponseForm3_3.comIncisoB || '0';
-                                document.querySelector('span[name="comIncisoC"]').textContent = selectedResponseForm3_3.comIncisoC || '0';
-                                document.querySelector('span[name="comIncisoD"]').textContent = selectedResponseForm3_3.comIncisoD || '0';
-                                document.querySelector('span[name="obs3_3_1"]').textContent = selectedResponseForm3_3.obs3_3_1 || '';
-                                document.querySelector('span[name="obs3_3_2"]').textContent = selectedResponseForm3_3.obs3_3_2 || '';
-                                document.querySelector('span[name="obs3_3_3"]').textContent = selectedResponseForm3_3.obs3_3_3 || '';
-                                document.querySelector('span[name="obs3_3_4"]').textContent = selectedResponseForm3_3.obs3_3_4 || '';
+                                document.querySelector('.comision3_3_copy').textContent = selectedResponseForm3_3.comision3_3 || '0';
+
+                                document.querySelector('span[class="comIncisoA"]').textContent = selectedResponseForm3_3.comIncisoA || '0';
+                                document.querySelector('span[class="comIncisoB"]').textContent = selectedResponseForm3_3.comIncisoB || '0';
+                                document.querySelector('span[class="comIncisoC"]').textContent = selectedResponseForm3_3.comIncisoC || '0';
+                                document.querySelector('span[class="comIncisoD"]').textContent = selectedResponseForm3_3.comIncisoD || '0';
+                                document.querySelector('span[class="obs3_3_1"]').textContent = selectedResponseForm3_3.obs3_3_1 || '';
+                                document.querySelector('span[class="obs3_3_2"]').textContent = selectedResponseForm3_3.obs3_3_2 || '';
+                                document.querySelector('span[class="obs3_3_3"]').textContent = selectedResponseForm3_3.obs3_3_3 || '';
+                                document.querySelector('span[class="obs3_3_4"]').textContent = selectedResponseForm3_3.obs3_3_4 || '';
 
 
                             } else {
@@ -649,20 +653,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.querySelector('input[name="email"]').value = '';
                                 document.querySelector('input[name="user_type"]').value = '';
 
-                                document.querySelector('.score3_3').textContent = '0';
-                                document.getElementById('rc1').textContent = '0';
-                                document.getElementById('rc2').textContent = '0';
-                                document.getElementById('rc3').textContent = '0';
-                                document.getElementById('rc4').textContent = '0';
-                                document.getElementById('stotal1').textContent = '0';
-                                document.getElementById('stotal2').textContent = '0';
-                                document.getElementById('stotal3').textContent = '0';
-                                document.getElementById('stotal4').textContent = '0';
-                                document.querySelector('.comision3_3').textContent = '0';
-                                document.querySelector('span[name="comIncisoA"]').textContent = '0';
-                                document.querySelector('span[name="comIncisoB"]').textContent = '0';
-                                document.querySelector('span[name="comIncisoC"]').textContent = '0';
-                                document.querySelector('span[name="comIncisoD"]').textContent = '0';
+                                document.getElementById('score3_3').textContent = '0';
+                                document.getElementById('score3_3_copy').textContent = '0';
+                                document.getElementById('rc1').value = '0';
+                                document.getElementById('rc2').value = '0';
+                                document.getElementById('rc3').value = '0';
+                                document.getElementById('rc4').value = '0';
+                                document.getElementById('stotal1').value = '0';
+                                document.getElementById('stotal2').value = '0';
+                                document.getElementById('stotal3').value = '0';
+                                document.getElementById('stotal4').value = '0';
+                                document.querySelector('.comision3_3').value = '0';
+                                document.querySelector('.comision3_3_copy').value = '0';
+                                document.querySelector('span[name="comIncisoA"]').value = '0';
+                                document.querySelector('span[name="comIncisoB"]').value = '0';
+                                document.querySelector('span[name="comIncisoC"]').value = '0';
+                                document.querySelector('span[name="comIncisoD"]').value = '0';
                                 document.querySelector('span[name="obs3_3_1"]').textContent = '';
                                 document.querySelector('span[name="obs3_3_2"]').textContent = '';
                                 document.querySelector('span[name="obs3_3_3"]').textContent = '';
@@ -756,7 +762,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData['comIncisoB'] = form.querySelector('input[id="comIncisoB"]').value;
             formData['comIncisoC'] = form.querySelector('input[id="comIncisoC"]').value;
             formData['comIncisoD'] = form.querySelector('input[id="comIncisoD"]').value;
-            formData['score3_3'] = document.querySelector('.score3_3').textContent;
+            formData['score3_3'] = document.getElementById('score3_3').textContent;
             formData['comision3_3'] = document.querySelector('.comision3_3').textContent;
 
             // Observations

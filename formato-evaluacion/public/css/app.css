@@ -324,7 +324,7 @@ header{
 }
 
 .table-header, #prom90_100, #prom80_90, #prom70_80, #comIncisoA,#comIncisoB,#comIncisoC,#comIncisoD,
-#comInternacional,#comNacional,#comRegional,#comPreparacion{
+#comInternacional,#comNacional,#comRegional,#comPreparacion, .comIncisoA, .comIncisoB, .comIncisoC, .comIncisoD{
     background-color: #d6fff7;
     border: none;
     text-align: right;
@@ -470,8 +470,8 @@ margin-left: 40px;
     margin-top: 20px;
 }
 
-.score3_1, #score3_1, #score3_2, #score3_3, #score3_4, #score3_5, #score3_6, #score3_7, #score3_8, #score3_8_1, #score3_9, #score3_10, 
-#score3_11, #score3_12, #score3_13, #score3_14, #score3_15, #score3_16,#score3_17, #score3_18, #score3_19 {
+.score3_1, #score3_1, #score3_2, #score3_3, #score3_3_copy, #score3_4, #score3_5, #score3_6, #score3_7, #score3_8, #score3_8_1, #score3_9, #score3_10, 
+#score3_11, #score3_12, #score3_13, #score3_14, #score3_15, #score3_16,#score3_17, #score3_18, #score3_19{
     white-space: nowrap;
     background-color: #0b5967;
     color: white;
@@ -479,6 +479,7 @@ margin-left: 40px;
     border: none;
     font-weight: bold;
 }
+
 
 
 .actividades{border-right: black;}
