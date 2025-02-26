@@ -371,7 +371,7 @@ $newLocale = str_replace('_', '-', $locale);
             </center>
     
             <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                Página 31 de 32
+                Página 32 de 32
             </div>
         </footer>
     </center>
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             if (dictaminatorResponse.ok) {
                                 // Inicializar comisiones con valores predeterminados
-                                let comisiones = Array(35).fill('0');
+                                let comisiones = Array(40).fill('0');
 
                                 // Asignación de valores con cortocircuito
                                 comisiones[0] = data.form2?.comision1 || '0';
@@ -700,42 +700,50 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 comisiones[10] = data.form3_6?.comision3_6 || '0';
                                 comisiones[11] = data.form3_7?.comision3_7 || '0';
                                 comisiones[12] = data.form3_8?.comision3_8 || '0';
-
+                                comisiones[13] = data.form3_8_1?.comision3_8_1 || '0';
                                 //agregar 3.8.1
                                 /*
                                                                 const subtotales = [
                                     { range: [5, 13], position: 14 }, // Subtotal 1
-                                    { range: [15, 17], position: 18 }, // Subtotal 2
-                                    { range: [20, 24], position: 25 }, // Subtotal 3
-                                    { range: [27, 29], position: 30 }  // Subtotal 4
+                                    { range: [16, 18], position: 19 }, // Subtotal 2
+                                    { range: [21, 25], position: 26 }, // Subtotal 3
+                                    { range: [28, 30], position: 31 }  // Subtotal 4
                                 ];*/ 
-                                comisiones[13] = data.form3_8_1?.comision3_8_1 || '0';
-                                //subtotal 1 -> position [14]
-                                comisiones[15] = '';
                                 
-                                comisiones[15] = data.form3_9?.comision3_9 || '0';
-                                comisiones[16] = data.form3_10?.comision3_10 || '0';
-                                comisiones[17] = data.form3_11?.comision3_11 || '0';
-                                comisiones[19] = '';
-                                comisiones[20] = data.form3_12?.comision3_12 || '0';
-                                comisiones[21] = data.form3_13?.comision3_13 || '0';
-                                comisiones[22] = data.form3_14?.comision3_14 || '0';
-                                comisiones[23] = data.form3_15?.comision3_15 || '0';
-                                comisiones[24] = data.form3_16?.comision3_16 || '0';
-                                comisiones[26] = '';
-                                comisiones[27] = data.form3_17?.comision3_17 || '0';
-                                comisiones[28] = data.form3_18?.comision3_18 || '0';
-                                comisiones[29] = data.form3_19?.comision3_19 || '0';
-                                comisiones[32] = data.form2?.comision1 || '0';
-                                comisiones[33] = data.form2_2?.actv2Comision || '0';
+                                //subtotal 1 -> position [14]
+                                comisiones[15] = '';   //Tutorias
+                                
+                                comisiones[16] = data.form3_9?.comision3_9 || '0';
+                                comisiones[17] = data.form3_10?.comision3_10 || '0';
+                                comisiones[18] = data.form3_11?.comision3_11 || '0';
+                                
+                                // Subtotal 2 -> position[19]
+                                comisiones[20] = '';    //Investigación
+                                
+                                comisiones[21] = data.form3_12?.comision3_12 || '0';
+                                comisiones[22] = data.form3_13?.comision3_13 || '0';
+                                comisiones[23] = data.form3_14?.comision3_14 || '0';
+                                comisiones[24] = data.form3_15?.comision3_15 || '0';
+                                comisiones[25] = data.form3_16?.comision3_16 || '0';
+                                // SubTotal 3 -> position[26]
 
+                                comisiones[27] = '';    //Cuerpos colegiados
+                                comisiones[28] = data.form3_17?.comision3_17 || '0';
+                                comisiones[29] = data.form3_18?.comision3_18 || '0';
+                                comisiones[30] = data.form3_19?.comision3_19 || '0';
+
+                                 //SubTotal 4 -> position [31] 
+                                 //comisiones[32] = ''; //Total logrado en la evaluación
+                                comisiones[33] = data.form2?.comision1 || '0';
+                                comisiones[34] = data.form2_2?.actv2Comision || '0';
+                                //comisiones[35] Total calidad docencia
                                 // Cálculo de subtotales
                                 
                                 const subtotales = [
-                                    { range: [5, 12], position: 13 }, // Subtotal 1
-                                    { range: [15, 17], position: 18 }, // Subtotal 2
-                                    { range: [20, 24], position: 25 }, // Subtotal 3
-                                    { range: [27, 29], position: 30 }  // Subtotal 4
+                                    { range: [5, 13], position: 14 }, // Subtotal 1
+                                    { range: [16, 18], position: 19 }, // Subtotal 2
+                                    { range: [21, 25], position: 26 }, // Subtotal 3
+                                    { range: [28, 30], position: 31 }  // Subtotal 4
                                 ];
 
                                 subtotales.forEach(({ range, position }) => {
@@ -747,18 +755,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     
                                 });
 
-                                const sumaComision3 = Math.min(comisiones[13] + comisiones[18] + comisiones[25] + comisiones[30], 700);
+                                const sumaComision3 = Math.min(comisiones[14] + comisiones[19] + comisiones[26] + comisiones[31], 700);
 
                                 comisiones[4] = sumaComision3;
-                                comisiones[34] = comisiones[4];
+                                comisiones[35] = comisiones[4];
 
                                 let tLogrado = parseFloat(comisiones[1]) + parseFloat(comisiones[3]) + parseFloat(comisiones[4]);
                                 tLogrado = tLogrado.toFixed(2); 
 
                                 const totalLogrado = tLogrado >= 700 ? Math.min(tLogrado, 700) : tLogrado;
                                 
-                                comisiones[31] = totalLogrado;
-                                comisiones[35] = totalLogrado;
+                                //total logrado position
+                                comisiones[32] = totalLogrado;
+                                comisiones[36] = totalLogrado;
                                 let comisionCell;
                                 // Generar las filas en la tabla
                                 labels.forEach((label, i) => {
@@ -777,23 +786,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         labelCell.style.textAlign = 'center';
                                     }
 
-                                    if (![0, 2, 4, 13, 14, 18, 19, 25, 26, 30, 31].includes(i)) {
+                                    if (![0, 2, 4, 14, 15, 19, 20, 26, 27, 31, 32, 36].includes(i)) {
                                         comisionCell.style.backgroundColor = '#f6c667';
                                         comisionCell[i] = comisiones[i].toString();
                                     }
 
-                                    if ([0, 2, 4, 13, 18, 25, 30, 31, 35].includes(i)) {
+                                    if ([0, 2, 4, 14, 19, 26, 31, 36].includes(i)) {
                                         comisionCell.style.fontWeight = 'bold';
                                     }
 
-                                    if (i === 35) {
+                                    if (i === 37) {
                                         comisionCell.style.backgroundColor = 'transparent';
                                     }
 
                                     // Insertar valores específicos
                                     if (i === 4) comisionCell.textContent = sumaComision3.toString();
-                                    if ([13, 18, 25, 30].includes(i)) comisionCell.textContent = comisiones[i];
-                                    if (i === 31) comisionCell.textContent = totalLogrado.toString();
+                                    if ([14, 19, 26, 31].includes(i)) comisionCell.textContent = comisiones[i];
+                                    if (i === 32) comisionCell.textContent = totalLogrado.toString();
 
                                     comisionCell.style.textAlign = 'center';
                                     row.appendChild(labelCell);
@@ -829,7 +838,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         piedePaginaDiv.style.textAlign = 'right'; // Alinear texto a la derecha
                                         piedePaginaDiv.style.paddingRight = '600px'; // Ajusta el margen derecho
                                         piedePaginaDiv.style.fontSize = "16px";
-                                        piedePaginaDiv.textContent = 'Página 29 de 32';
+                                        piedePaginaDiv.textContent = 'Página 32 de 32';
 
                                         // Agregar divs a la celda
                                         footerCell.appendChild(convocatoriaDiv);
