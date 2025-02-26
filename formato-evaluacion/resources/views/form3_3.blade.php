@@ -38,6 +38,11 @@ $newLocale = str_replace('_', '-', $locale);
     
 }
 
+.espaciadoConvocatoria{
+        margin-top: 100px;
+    }
+
+
 @media print {
     .print-footer { /* Estilos comunes para ambos footers en la impresión */
         display: table-footer-group !important; /* Asegura que se muestre como footer */
@@ -66,6 +71,10 @@ $newLocale = str_replace('_', '-', $locale);
     }
     body {
         -webkit-print-color-adjust: exact;
+    }
+
+    .espaciadoConvocatoria{
+        margin-top: 100px;
     }
 }
 
@@ -206,10 +215,11 @@ $newLocale = str_replace('_', '-', $locale);
 
 /* Estilo para secretaria o userType vacío */
 .secretaria-style#piedepagina2 {
-    margin-left: 600px;
-    margin-top: 0;
-    font-weight: normal!important;
+    float: right;
     display: inline-block;
+    margin-left: 5px;
+    font-weight: normal; /* Opcional, si quieres menos énfasis */
+    color: #000;
 }
 }
 
@@ -377,7 +387,31 @@ $user_identity = $user->id;
             </td>
         </tr>
     </tbody>
-</table><br>
+</table>
+<div class="espaciadoConvocatoria">
+    <div id="convocatoria" colspan="8"
+        class="{{ $userType == 'dictaminador' ? 'dictaminador-style' : 'secretaria-style' }}">
+        @if(isset($convocatoria))
+            @if($userType == 'dictaminador')
+                <span style="margin-right: 700px; display: inline-block;">
+                    <h1>Convocatoria: </h1>
+                </span>
+            @elseif($userType == '')
+                <span style="margin-right: 60px; margin-left: 100px; display:nonek;padding-right: 12px; text-align:left;">
+                    <h1>Convocatoria: </h1>
+                </span>
+                <span id="piedepagina1" style="display: none; margin-left: 20px;">
+                    Página 3 de 32
+                </span>
+            @endif
+        @endif
+    </div>
+<div colspan="8">
+    @if($userType == 'dictaminador')
+        <span id="piedepagina1" style="display: none;margin-left:800px;">Página 6 de 32</span>
+    @endif
+</div>
+</div><br><br>
 
 <table class="table table-sm">
     <x-table-header />
@@ -451,34 +485,40 @@ $user_identity = $user->id;
         </tr>
     </tbody>
 </table>
-            <!--Tabla informativa Acreditacion Actividad 3.3-->
-            <table>
-                <thead>
-                    <tr>
-                        <th class="acreditacion" scope="col">Acreditacion: </th>
-            
-                        <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-                        <th>
-                        @if ($userType != '')
-                            <button id="btn3_3" type="submit" class="btn custom-btn printButtonClass">Enviar
-                        @endif
-                            </th>
-                    </tr>
-                </thead>
-            </table>
-        </form>
-    </main>
-<center>
-    <footer>
-        <div id="convocatoria">
-            <!-- Mostrar convocatoria -->
-            @if(isset($convocatoria))
-                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+<!--Tabla informativa Acreditacion Actividad 3.3-->
+<table>
+    <thead>
+        <tr>
+            <th class="acreditacion" scope="col">Acreditacion: </th>
+
+            <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
+            <th>
+            @if ($userType != '')
+                <button id="btn3_3" type="submit" class="btn custom-btn printButtonClass">Enviar
             @endif
+                </th>
+        </tr>
+    </thead>
+</table>
+<div class="espaciadoConvocatoria">
+<div id="convocatoria2">
+    <!-- Mostrar convocatoria -->
+    @if(isset($convocatoria))
+
+        <div style="margin-right: -700px;">
+            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
         </div>
-        <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">&nbsp<span id="page-number"></span></div>
-    </footer>
-</center>
+    @endif
+</div>
+
+<div id="piedepagina2"
+    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+    Página 7 de 32
+</div>
+
+</div>            
+</form>
+    </main>
     <script>
 
 
@@ -530,8 +570,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         axios.get('/get-docente-data', { params: { email } })
                             .then(response => {
                                 const data = response.data; 
-                                document.getElementById('.score3_3').textContent = data.form3_3.score3_3 || '0';
-                                document.getElementById('.score3_3_copy').textContent = data.form3_3.score3_3 || '0';
+                                document.getElementById('score3_3').textContent = data.form3_3.score3_3 || '0';
+                                document.getElementById('score3_3_copy').textContent = data.form3_3.score3_3 || '0';
                                 document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
                                 document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
                                 document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
@@ -548,9 +588,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 // Actualizar convocatoria
                                 const convocatoriaElement = document.getElementById('convocatoria');
+                                const convocatoriaElement2 = document.getElementById('convocatoria2');
                                 if (convocatoriaElement) {
                                     if (data.form1) {
                                         convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                        convocatoriaElement2.textContent = data.form1.convocatoria || '';
                                     } else {
                                         console.error('form1 no está definido en la respuesta.');
                                     }
@@ -596,12 +638,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 // Verifica si la respuesta contiene los datos esperados
                                 if (data.docente) {
-                                    const convocatoriaElement = document.getElementById('convocatoria');
+                                   const convocatoriaElement = document.getElementById('convocatoria');
+                                    const convocatoriaElement2 = document.getElementById('convocatoria2');
 
                                     // Mostrar la convocatoria si existe
                                     if (convocatoriaElement) {
                                         if (data.docente.convocatoria) {
+
                                             convocatoriaElement.textContent = data.docente.convocatoria;
+                                            convocatoriaElement2.textContent = data.docente.convocatoria;
+                                            const existingSpan = convocatoriaElement.querySelector('span#piedepagina1');
+
+                                            if (!existingSpan) {
+                                                const piedepaginaSpan = document.createElement('span');
+                                                piedepaginaSpan.id = 'piedepagina1';
+                                                piedepaginaSpan.textContent = ' Página 6 de 32';
+                                                convocatoriaElement.appendChild(piedepaginaSpan);
+                                            }
+                                            convocatoriaElement.firstChild.textContent = data.docente.convocatoria;
+
                                         } else {
                                             convocatoriaElement.textContent = 'Convocatoria no disponible';
                                         }
