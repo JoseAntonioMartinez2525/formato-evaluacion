@@ -246,9 +246,6 @@ Route::get('/forms', [FormsController::class, 'showForms']);
 Route::get('/generate-json', [ResponseController::class, 'generateJson'])->name('generate-json');
 Route::get('/json-generator', [ResponseJson::class, 'jsonGenerator'])->name('json-generator');
 
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-
 Route::post('/update-puntaje-maximo', [PuntajeMaximosController::class, 'updatePuntajeMaximo']);
 
 Route::get('/form3_8_1', [PuntajeMaximosController::class, 'showForm3_8_1']);
@@ -258,6 +255,9 @@ Route::get('/test-event/{user_id}', function ($user_id) {
     event(new \App\Events\EvaluationCompleted($user_id));
     return 'Evento disparado para user_id: ' . $user_id;
 });
+
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/edit_delete_form/', [DynamicFormController::class, 'showDynamicForm'])->name('edit_delete_form');
 

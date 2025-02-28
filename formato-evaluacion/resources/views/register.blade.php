@@ -42,7 +42,7 @@
                         <!-- Name input -->
                         <div data-mdb-input-init class="form-outline mb-4">
                             <input type="text" id="registerName" name="registerName" class="form-control" style="padding-right: 300px;"/>
-                            <label class="form-label" for="registerName">Nombre</label>
+                            <label class="form-label" for="registerName">Nombre (nombre de pila ó nombre completo)</label>
                         </div>
                         <!-- Usertype input -->
                         <div data-mdb-input-init class="form-outline mb-4">
