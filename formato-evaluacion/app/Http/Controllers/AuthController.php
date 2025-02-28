@@ -22,7 +22,14 @@ class AuthController extends Controller
             'registerUsertype' => 'required|in:dictaminador,docente',
             'registerEmail' => 'required|string|email|max:255|unique:users,email',
             'registerPassword' => 'required|string|min:6|confirmed',
-        ]);
+        ],[
+            'registerName.required' => 'El nombre es obligatorio.',
+            'registerUsertype.required' => 'El tipo de usuario es obligatorio.',
+            'registerEmail.required' => 'El correo electrónico es obligatorio.',
+            'registerPassword.required' => 'La contraseña es obligatoria.',
+            'registerPassword.min' => 'La contraseña debe tener al menos 6 caracteres.',
+            'registerPassword.confirmed' => 'Las contraseñas no coinciden.',
+    ]);
 
 
         // Create the new user

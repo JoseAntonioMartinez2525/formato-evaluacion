@@ -43,6 +43,11 @@
                         <div data-mdb-input-init class="form-outline mb-4">
                             <input type="text" id="registerName" name="registerName" class="form-control" style="padding-right: 300px;"/>
                             <label class="form-label" for="registerName">Nombre (nombre de pila ó nombre completo)</label>
+                            @error('registerName')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <!-- Usertype input -->
                         <div data-mdb-input-init class="form-outline mb-4">
@@ -52,20 +57,25 @@
                                 <option value="docente">Docente</option>
                             </select>
                             <label class="form-label" for="registerUsertype" id="labelRegister">Usuario (Haz click aquí y selecciona)</label>
-                            
+                                @error('registerUsertype')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                         </div>
                         <!-- Email input -->
                         <div data-mdb-input-init class="mb-4">
                             <input type="email" id="registerEmail" name="registerEmail" class="form-control" />
                             <label class="form-label" for="registerEmail">Correo electrónico</label>
+                                @error('registerEmail')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                         </div>
                         <!-- Password input -->
                         <div data-mdb-input-init class="mb-4">
                             <input type="password" id="registerPassword" name="registerPassword" class="form-control" />
                             <label class="form-label" for="registerPassword">Contraseña</label>
-                                @error('registerPassword')
-                                    <div class="alert alert-danger">{{ 'La contraseña debe de tener al menos 6 caracteres' }}</div>
-                                @enderror
+                            @error('registerPassword')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <!-- Repeat Password input -->
                         <div data-mdb-input-init class="form-outline mb-4">
@@ -73,7 +83,7 @@
                                 class="form-control" />
                             <label class="form-label" for="registerRepeatPassword">Repetir contraseña</label>
                                 @error('registerRepeatPassword')
-                                    <div class="alert alert-danger">{{ 'La contraseña debe de tener al menos 6 caracteres' }}</div>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                         </div>
                         <!-- Checkbox -->
