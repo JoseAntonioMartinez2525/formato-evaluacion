@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             if (dictaminatorResponse.ok) {
                                 // Inicializar comisiones con valores predeterminados
-                                let comisiones = Array(40).fill('0');
+                                let comisiones = Array(38).fill('0');
 
                                 // Asignación de valores con cortocircuito
                                 comisiones[0] = data.form2?.comision1 || '0';
@@ -768,6 +768,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 //total logrado position
                                 comisiones[32] = totalLogrado;
                                 comisiones[36] = totalLogrado;
+                                comisiones[37] = totalLogrado;
                                 let comisionCell;
                                 // Generar las filas en la tabla
                                 labels.forEach((label, i) => {
@@ -795,14 +796,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         comisionCell.style.fontWeight = 'bold';
                                     }
 
-                                    if (i === 37) {
+                                    if (i === 37 || i===38) {
                                         comisionCell.style.backgroundColor = 'transparent';
                                     }
 
                                     // Insertar valores específicos
                                     if (i === 4) comisionCell.textContent = sumaComision3.toString();
                                     if ([14, 19, 26, 31].includes(i)) comisionCell.textContent = comisiones[i];
-                                    if (i === 32) comisionCell.textContent = totalLogrado.toString();
+                                    if (i === 32 || i===36 || i===37) comisionCell.textContent = totalLogrado.toString();
 
                                     comisionCell.style.textAlign = 'center';
                                     row.appendChild(labelCell);
@@ -917,67 +918,73 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             comisionCell.innerHTML = comisiones[i] || data.form3_8?.comision3_8 || '0'; // comision3_8
                                             break;
                                         case 13:
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_8_1?.comision3_8_1 || '0'; // comision3_8_1
+                                            break;
+                                        case 14:
                                             comisionCell.innerHTML = comisiones[i].toString(); // Valor calculado
                                             break;
-                                        case 15:
+                                        case 16:
                                             comisionCell.innerHTML = comisiones[i] || data.form3_9?.comision3_9 || '0'; // comision3_9
                                             break;
-                                        case 16:
+                                        case 17:
                                             comisionCell.innerHTML = comisiones[i] || data.form3_10?.comision3_10 || '0'; // comision3_10
                                             break;
-                                        case 17:
+                                        case 18:
                                             comisionCell.innerHTML = comisiones[i] || data.form3_11?.comision3_11 || '0'; // comision3_11
                                             break;
-                                        case 18:
+                                        case 19:
                                             comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
-                                            break;
-                                        case 20:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_12?.comision3_12 || '0'; // comision3_12
                                             break;
                                         case 21:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_13?.comision3_13 || '0'; // comision3_13
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_12?.comision3_12 || '0'; // comision3_12
                                             break;
                                         case 22:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_14?.comision3_14 || '0'; // comision3_14
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_13?.comision3_13 || '0'; // comision3_13
                                             break;
                                         case 23:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_15?.comision3_15 || '0'; // comision3_15
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_14?.comision3_14 || '0'; // comision3_14
                                             break;
                                         case 24:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_16?.comision3_16 || '0'; // comision3_16
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_15?.comision3_15 || '0'; // comision3_15
                                             break;
                                         case 25:
-                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_16?.comision3_16 || '0'; // comision3_16
                                             break;
-                                        case 27:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_17?.comision3_17 || '0'; // comision3_17
+                                        case 26:
+                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
                                             break;
                                         case 28:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_18?.comision3_18; // comision3_18
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_17?.comision3_17 || '0'; // comision3_17
                                             break;
                                         case 29:
-                                            comisionCell.innerHTML = comisiones[i] || data.form3_19?.comision3_19; // comision3_19
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_18?.comision3_18; // comision3_18
                                             break;
                                         case 30:
-                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
+                                            comisionCell.innerHTML = comisiones[i] || data.form3_19?.comision3_19; // comision3_19
                                             break;
                                         case 31:
-                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            comisionCell.innerHTML =  comisiones[i].toString(); // Valor calculado
                                             break;
                                         case 32:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break;
+                                        case 33:
                                             comisionCell.innerHTML = comisiones[i] || data.form2?.comision1; // Asignación estándar
                                             break;
-                                        case 33: comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision;
-                                            break;
-                                        case 34:
-                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
+                                        case 34: comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision;
                                             break;
                                         case 35:
-                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
                                             break;
                                         case 36:
                                             comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
-                                            break;                                            
+                                            break;  
+                                        case 37:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break; 
+                                        case 38:
+                                            comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado
+                                            break;                                                                                       
                                         default:
                                             comisionCell.innerHTML = '0'; // Valor por defecto si no coincide con ningún caso
                                     }
