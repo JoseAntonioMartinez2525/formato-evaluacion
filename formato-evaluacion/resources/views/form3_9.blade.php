@@ -12,6 +12,7 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <x-head-resources />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body.chrome @media print {
             #convocatoria {
@@ -288,7 +289,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr class="prevent-overlap">
+                    <tr>
                         <td>e)</td>
                         <td>Dirección trabajo en realización</td>
                         <td>Tesis</td>
@@ -380,7 +381,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="prevent-overlap">
                         <td>i)</td>
                         <td>Dirección trabajo terminado</td>
                         <td>Tesis y otras</td>
