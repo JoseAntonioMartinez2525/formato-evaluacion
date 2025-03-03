@@ -214,6 +214,9 @@ body.chrome @media screen{
 }
 }
 
+.table2{
+    margin-top: 300px;
+}
 
 
     </style>
@@ -403,7 +406,7 @@ $user_identity = $user->id;
     </tbody>
 </table>
 
-<table class="table table-sm">
+<table class="table table-sm table2">
     <x-table-header />
     
     <tr>

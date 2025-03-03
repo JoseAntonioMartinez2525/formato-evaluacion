@@ -32,6 +32,9 @@ $newLocale = str_replace('_', '-', $locale);
 }
  }
 
+ .table3_3_2{
+    margin-top: 200px;
+ }
 
 #convocatoria2{
     font-weight: bold;
@@ -413,7 +416,7 @@ $user_identity = $user->id;
 </div>
 </div><br><br>
 
-<table class="table table-sm">
+<table class="table table-sm table3_3_2">
     <x-table-header />
     <tbody class="page-break" data-page="7">
         <tr>

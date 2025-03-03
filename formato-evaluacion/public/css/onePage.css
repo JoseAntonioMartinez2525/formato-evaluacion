@@ -66,8 +66,8 @@
     }
 
 
-    .page-number:after {
+    /*.page-number:after {
         content: "Página " counter(page);
-    }
+    }*/
 
 }
