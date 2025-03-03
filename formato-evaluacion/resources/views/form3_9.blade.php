@@ -616,7 +616,7 @@ $user_identity = $user->id;
                     <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                 @endif
             </div>
-            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">Página <span id="page-number">12 de 32</span></div>
+            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">Página <span id="page-number">14 de 32</span></div>
         </footer>
     </center>
     <script>

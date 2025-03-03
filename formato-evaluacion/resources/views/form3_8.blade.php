@@ -193,7 +193,7 @@ continua o de formación y capacitación docente </td>
     </center>
 
     <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-        <x-form-renderer :forms="[['view' => 'form3_8', 'startPage' => 11, 'endPage' => 11]]" />
+        <x-form-renderer :forms="[['view' => 'form3_8', 'startPage' => 12, 'endPage' => 12]]" />
     </div>
 </footer>
 </center>
