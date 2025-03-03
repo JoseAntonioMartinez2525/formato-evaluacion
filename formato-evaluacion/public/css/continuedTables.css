@@ -14,13 +14,6 @@
         width: 100%;
     }
 
-    .first-page-footer {
-        /* Estilos específicos para el footer de la primera página */
-    }
-
-    .second-page-footer {
-        /* Estilos específicos para el footer de la segunda página */
-    }
 
     /* Oculta el footer que no corresponde a la página actual */
     .first-page-footer {
@@ -41,9 +34,6 @@
         display: none;
     }
 
-    body {
-        -webkit-print-color-adjust: exact;
-    }
 }
 
 @media print {
@@ -147,8 +137,8 @@
     }
 
     .secretaria-style #piedepagina1 {
-        float: right;
-        display: inline-block;
+        display: flex;
+        justify-content: flex-end;
         margin-left: 5px;
         font-weight: normal;
         /* Opcional, si quieres menos énfasis */

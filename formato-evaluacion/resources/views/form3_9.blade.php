@@ -54,9 +54,82 @@ $newLocale = str_replace('_', '-', $locale);
         display: block !important;
     }
 
+        /* Mostrar el footer correcto según la página */
+    .page-break[data-page="14"] .first-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-break[data-page="15"] .second-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-number:before {
+        content: "Página " counter(page) " de 32";
+    }
             
         }
 
+        .table2{
+    margin-top: 300px;
+
+    @media print {
+    
+
+.prevent-overlap {
+    page-break-before: always;
+    page-break-inside: avoid; 
+}
+
+    #convocatoria, #convocatoria2, #piedepagina1, #piedepagina2 {
+        margin: 0;
+        font-size: .7rem;
+    }
+
+
+
+    .page-number:before {
+  content: "Página " counter(page) " de 32";
+}
+
+.secretaria-style {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+    
+}
+
+.secretaria-style #piedepagina1 {
+    float: right;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: normal; /* Opcional, si quieres menos énfasis */
+    color: #000;
+}
+
+.dictaminador-style {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.dictaminador-style#piedepagina2 {
+    margin-left: 800px;
+    margin-top: 10px;
+    font-weight: normal!important;
+}
+
+/* Estilo para secretaria o userType vacío */
+.secretaria-style#piedepagina2 {
+    margin-left: 600px;
+    margin-top: 0;
+    font-weight: normal!important;
+    display: inline-block;
+}
+}
+
+}
 
     </style>
 </head>
@@ -151,51 +224,8 @@ $user_identity = $user->id;
                 </h4>
             </div>
             <table class="table table-sm tutorias">
-                <thead>
-                    <tr>
-                        <th scope="col">Actividad</th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust cd" scope="col">Puntaje a evaluar</th>
-                        <th class="table-ajust cd" scope="col">Puntaje de la Comisión Dictaminadora</th>
-                        <th class="table-ajust cd" scope="col">Observaciones</th>
-                    </tr>
-                </thead>
-                <thead>
-                    <tr>
-                        <th id="seccion3_9" scope="col" class="p3_9" colspan=9>3.9 Trabajos dirigidos
-                            para la
-                            titulación de estudiantes
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th class="table-ajust" scope="col"></th>
-                        <th id="score3_9">0</th>
-                        <th id="comision3_9">0</th>
-                    </tr>
-                </thead>
-                <thead>
-                    <tr>
-                        <th class="acreditacion">Incisos</th>
-                        <th class="acreditacion">Actividad</th>
-                        <th class="acreditacion">Obra</th>
-                        <th class="acreditacion">Nivel</th>
-                        <th class="acreditacion">Puntaje</th>
-                        <th class="acreditacion">Cantidad</th>
-                        <th class="acreditacion">Subtotal</th>
-                        <th class="table-ajust" scope="col"></th>
-                      
-                    </tr>
-                </thead>
-                <tbody>
+            <x-sub-headers-form3_9 :componentIndex="0" />
+                <tbody data-page="14">
                     <tr>
                         <td>a)</td>
                         <td>Revisión de</td>
@@ -381,8 +411,28 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                    <tr class="prevent-overlap">
-                        <td>i)</td>
+                </tbody>
+            </table>
+<center>
+    <div id="convocatoria">
+        <!-- Mostrar convocatoria -->
+        @if(isset($convocatoria))
+
+            <div style="margin-right: -700px;">
+                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+            </div>
+        @endif
+    </div>
+</center>
+
+<div id="piedepagina1"
+    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+    Página 14 de 32
+</div>
+            <table class="table table-sm tutorias table2">
+            <x-sub-headers-form3_9 :componentIndex="1" />
+                <tbody data-page="15">
+                    <td>i)</td>
                         <td>Dirección trabajo terminado</td>
                         <td>Tesis y otras</td>
                         <td>TSU, Lic y especialidad</td>
@@ -588,25 +638,40 @@ $user_identity = $user->id;
                         @endif
                     </td>
                 </tr>
-
-                    <!--Tabla informativa Acreditacion Actividad 3.9-->
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="acreditacion" scope="col">Acreditacion: </th>
-
-                                <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
-                                </th>
-                                <th>
-                                    @if ($userType != '')
-                                        <button id="btn3_9" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                                    @endif    
-                                </th>
-                            </tr>
-                        </thead>
-                    </table>
                 </tbody>
             </table>
+            <!--Tabla informativa Acreditacion Actividad 3.9-->
+            <table>
+                <thead>
+                    <tr>
+                        <th class="acreditacion" scope="col">Acreditacion: </th>
+
+                        <th class="descripcion"><b>DSE para pregrado, DIIP para posgrado</b>
+                        </th>
+                        <th>
+                            @if ($userType != '')
+                                <button id="btn3_9" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                            @endif    
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+<center>
+    <div id="convocatoria2">
+        <!-- Mostrar convocatoria -->
+        @if(isset($convocatoria))
+
+            <div style="margin-right: -700px;">
+                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+            </div>
+        @endif
+    </div>
+</center>
+
+<div id="piedepagina2"
+    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+    Página 15 de 32
+</div>
         </form>
     </main>
     <center>
@@ -620,26 +685,26 @@ $user_identity = $user->id;
             <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">Página <span id="page-number">14 de 32</span></div>
         </footer>
     </center>
-    <script>
-          window.onload = function () {
-                const footerHeight = document.querySelector('footer').offsetHeight;
-                const elements = document.querySelectorAll('.prevent-overlap');
+<script>
+    window.onload = function () {
+        const footerHeight = document.querySelector('footer').offsetHeight;
+        const elements = document.querySelectorAll('.prevent-overlap');
 
-                elements.forEach(element => {
-                    const rect = element.getBoundingClientRect();
-                    const viewportHeight = window.innerHeight;
+        elements.forEach(element => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
 
-                    // Verifica si el elemento está demasiado cerca del footer
-                    if (rect.bottom > viewportHeight - footerHeight) {
-                        element.style.pageBreakBefore = "always";
-                    }
-                });
+            // Verifica si el elemento está demasiado cerca del footer
+            if (rect.bottom > viewportHeight - footerHeight) {
+                element.style.pageBreakBefore = "always";
+            }
+        });
 
-                       // Múltiples eventos para mayor compatibilidad
-              window.addEventListener('beforeprint', updatePageNumberOnPrint);
-              window.matchMedia('print').addListener(updatePageNumberOnPrint);
+        // Múltiples eventos para mayor compatibilidad
+        window.addEventListener('beforeprint', updatePageNumberOnPrint);
+        window.matchMedia('print').addListener(updatePageNumberOnPrint);
 
-            };
+    };
     document.addEventListener('DOMContentLoaded', async () => {
         const userType = @json($userType);  // Inject user type from backend to JS
         const user_identity = @json($user_identity);
@@ -666,9 +731,14 @@ $user_identity = $user->id;
                             axios.get('/get-docente-data', { params: { email } })
                                 .then(response => {
                                     const data = response.data;
-                                   document.getElementById('score3_9').textContent = data.form3_9.score3_9 || '0';
 
-                                    //puntaje
+                                    // Update all elements with the class 'score3_9'
+                                    const scoreElements = document.querySelectorAll('.score3_9');
+                                    scoreElements.forEach(element => {
+                                        element.textContent = data.form3_9.score3_9 || '0';
+                                    });  
+                                    
+                                                                      //puntaje
                                     for (let i = 1; i <= 17; i++) {
                                         const elementId = `puntaje3_9_${i}`;
                                         const value = data.form3_9[`puntaje3_9_${i}`] || '0';
@@ -796,8 +866,17 @@ $user_identity = $user->id;
                                         }
                                     }
 
-                                    document.getElementById('score3_9').textContent = selectedResponseForm3_9.score3_9 || '0';
-                                    document.getElementById('comision3_9').textContent = selectedResponseForm3_9.comision3_9 || '0';
+                                    // Update all elements with the class 'score3_9'
+                                    const scoreElements = document.querySelectorAll('.score3_9');
+                                    scoreElements.forEach(element => {
+                                        element.textContent = selectedResponseForm3_9.score3_9 || '0';
+                                    });
+
+                                    // Update all elements with the class 'comision3_9'
+                                    const comisionElements = document.querySelectorAll('.comision3_9');
+                                    comisionElements.forEach(element => {
+                                        element.textContent = selectedResponseForm3_9.comision3_9 || '0';
+                                    });
 
 
                                 } else {
@@ -808,7 +887,7 @@ $user_identity = $user->id;
                                     document.querySelector('input[name="email"]').value = '';
                                     document.querySelector('input[name="user_type"]').value = '';
 
-                                    document.getElementById('score3_9').textContent = '0';
+                                    document.querySelector('.score3_9').textContent = '0';
 
                                     for (let i = 1; i <= 17; i++) {
                                         const elementId = `puntaje3_9_${i}`;
@@ -842,7 +921,8 @@ $user_identity = $user->id;
                                         }
                                     }
 
-                                    document.getElementById('comision3_9').textContent = '0';
+                                    document.querySelector('.comision3_9').textContent = '0';
+
 
 
                                 }
@@ -864,84 +944,85 @@ $user_identity = $user->id;
         }
 
 
-       
+
     });
 
-        // Function to handle form submission
-        async function submitForm(url, formId) {
-            const formData = {};
-            const form = document.getElementById(formId);
+    // Function to handle form submission
+    async function submitForm(url, formId) {
+        const formData = {};
+        const form = document.getElementById(formId);
 
-            if (!form) {
-                console.error(`Form with id "${formId}" not found.`);
-                return;
-            }
-
-            formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
-            formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-            formData['email'] = form.querySelector('input[name="email"]').value;
-            formData['user_type'] = form.querySelector('input[name="user_type"]').value;
-
-            //puntajes
-            for (let i = 1; i <= 17; i++) {
-                formData[`puntaje3_9_${i}`] = document.getElementById(`puntaje3_9_${i}`)?.textContent || '';
-            }
-
-            // tutorias
-            for (let j = 1; j <= 17; j++) {
-                formData[`tutorias${j}`] = document.getElementById(`tutorias${j}`)?.textContent || '';
-            }
-
-            // tutoriasComision
-            for (let i = 1; i <= 17; i++) {
-                formData[`tutoriasComision${i}`] = form.querySelector(`input[id="tutoriasComision${i}"]`)?.value || '';
-            }
-
-            // observationes
-            for (let i = 1; i <= 17; i++) {
-                formData[`obs3_9_${i}`] = form.querySelector(`input[name="obs3_9_${i}"]`)?.value || '';
-            }
-
-            formData['score3_9'] = document.getElementById('score3_9').textContent;
-            formData['comision3_9'] = document.getElementById('comision3_9').textContent;
-
-            // Observations
-
-            console.log('Form data:', formData);
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const responseData = await response.json();
-                console.log('Response received from server:', responseData);
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-        function minWithSum(value1, value2) {
-            const sum = value1 + value2;
-            return Math.min(sum, 200);
-
-
+        if (!form) {
+            console.error(`Form with id "${formId}" not found.`);
+            return;
         }
 
-          window.addEventListener('afterprint', function () {
-                // Opcional: Restaurar estado original
-                document.querySelector('footer').style.display = 'none';
+        formData['dictaminador_id'] = form.querySelector('input[name="dictaminador_id"]').value;
+        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
+        formData['email'] = form.querySelector('input[name="email"]').value;
+        formData['user_type'] = form.querySelector('input[name="user_type"]').value;
+
+        //puntajes
+        for (let i = 1; i <= 17; i++) {
+            formData[`puntaje3_9_${i}`] = document.getElementById(`puntaje3_9_${i}`)?.textContent || '';
+        }
+
+        // tutorias
+        for (let j = 1; j <= 17; j++) {
+            formData[`tutorias${j}`] = document.getElementById(`tutorias${j}`)?.textContent || '';
+        }
+
+        // tutoriasComision
+        for (let i = 1; i <= 17; i++) {
+            formData[`tutoriasComision${i}`] = form.querySelector(`input[id="tutoriasComision${i}"]`)?.value || '';
+        }
+
+        // observationes
+        for (let i = 1; i <= 17; i++) {
+            formData[`obs3_9_${i}`] = form.querySelector(`input[name="obs3_9_${i}"]`)?.value || '';
+        }
+
+        formData['score3_9'] = document.querySelector('.score3_9').textContent;
+        formData['comision3_9'] = document.querySelector('.comision3_9').textContent;
+
+        // Observations
+
+        console.log('Form data:', formData);
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
-        
-    </script>
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+            console.log('Response received from server:', responseData);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    function minWithSum(value1, value2) {
+        const sum = value1 + value2;
+        return Math.min(sum, 200);
+
+
+    }
+
+    window.addEventListener('afterprint', function () {
+        // Opcional: Restaurar estado original
+        document.querySelector('footer').style.display = 'none';
+    });
+
+</script>
+
 
 </body>
 
