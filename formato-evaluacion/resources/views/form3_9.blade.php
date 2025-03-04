@@ -96,13 +96,11 @@ $newLocale = str_replace('_', '-', $locale);
     font-size: 14px;
     margin-top: 10px;
     text-align: left;
-    
 }
 
 .secretaria-style #piedepagina1 {
-    float: right;
-    display: inline-block;
-    margin-left: 5px;
+    display: flex;
+    justify-content: flex-end;
     font-weight: normal; /* Opcional, si quieres menos énfasis */
     color: #000;
 }
@@ -115,19 +113,23 @@ $newLocale = str_replace('_', '-', $locale);
 }
 
 .dictaminador-style#piedepagina2 {
-    margin-left: 800px;
+    display: flex;
+    justify-content: flex-end;
     margin-top: 10px;
-    font-weight: normal!important;
+    font-weight: normal !important;
 }
 
 /* Estilo para secretaria o userType vacío */
 .secretaria-style#piedepagina2 {
-    margin-left: 600px;
+    display: flex;
+    justify-content: flex-end;
     margin-top: 0;
-    font-weight: normal!important;
+    font-weight: normal !important;
     display: inline-block;
 }
+
 }
+
 
 }
 
@@ -413,22 +415,24 @@ $user_identity = $user->id;
                     </tr>
                 </tbody>
             </table>
-<center>
-    <div id="convocatoria">
-        <!-- Mostrar convocatoria -->
-        @if(isset($convocatoria))
+            <div style="display: flex; justify-content: space-between;padding-top: 200px;">
+                <div id="convocatoria">
+                        <!-- Mostrar convocatoria -->
+                        @if(isset($convocatoria))
 
-            <div style="margin-right: -700px;">
-                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                            <div style="margin-right: -500px;">
+                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                            </div>
+                        @endif
+                </div>
+
+
+                    <div id="piedepagina1"
+                        class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+                        Página 14 de 32
+                    </div>                
             </div>
-        @endif
-    </div>
-</center>
-
-<div id="piedepagina1"
-    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-    Página 14 de 32
-</div>
+    
             <table class="table table-sm tutorias table2">
             <x-sub-headers-form3_9 :componentIndex="1" />
                 <tbody data-page="15">
@@ -656,35 +660,26 @@ $user_identity = $user->id;
                     </tr>
                 </thead>
             </table>
-<center>
-    <div id="convocatoria2">
-        <!-- Mostrar convocatoria -->
-        @if(isset($convocatoria))
+    <div style="display: flex; justify-content: space-between;padding-top: 200px;">
+        <div id="convocatoria2">
+            <!-- Mostrar convocatoria -->
+            @if(isset($convocatoria))
 
-            <div style="margin-right: -700px;">
-                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-            </div>
-        @endif
-    </div>
-</center>
+                <div style="margin-right: -700px;">
+                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                </div>
+            @endif
+        </div>
 
-<div id="piedepagina2"
-    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-    Página 15 de 32
+
+        <div id="piedepagina2"
+            class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+            Página 15 de 32
+        </div>
 </div>
         </form>
     </main>
-    <center>
-        <footer>
-            <div id="convocatoria">
-                <!-- Mostrar convocatoria -->
-                @if(isset($convocatoria))
-                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                @endif
-            </div>
-            <div id="piedepagina" style="margin-left: 600px; margin-top: 20px;">Página <span id="page-number">14 de 32</span></div>
-        </footer>
-    </center>
+
 <script>
     window.onload = function () {
         const footerHeight = document.querySelector('footer').offsetHeight;
@@ -760,15 +755,18 @@ $user_identity = $user->id;
 
                                     // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
-                                    if (convocatoriaElement) {
-                                        if (data.form1) {
-                                            convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                    const convocatoriaElement2 = document.getElementById('convocatoria2');
+
+                                        if (convocatoriaElement) {
+                                            if (data.form1) {
+                                                convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                                convocatoriaElement2.textContent = data.form1.convocatoria || '';
+                                            } else {
+                                                console.error('form1 no está definido en la respuesta.');
+                                            }
                                         } else {
-                                            console.error('form1 no está definido en la respuesta.');
+                                            console.error('Elemento con ID "convocatoria" no encontrado.');
                                         }
-                                    } else {
-                                        console.error('Elemento con ID "convocatoria" no encontrado.');
-                                    }
                                 })
                                 .catch(error => {
                                     console.error('Error fetching docente data:', error);
@@ -809,13 +807,16 @@ $user_identity = $user->id;
                                     // Verifica si la respuesta contiene los datos esperados
                                     if (data.docente) {
                                         const convocatoriaElement = document.getElementById('convocatoria');
+                                        const convocatoriaElement2 = document.getElementById('convocatoria2');
 
                                         // Mostrar la convocatoria si existe
                                         if (convocatoriaElement) {
                                             if (data.docente.convocatoria) {
                                                 convocatoriaElement.textContent = data.docente.convocatoria;
+                                                convocatoriaElement2.textContent = data.docente.convocatoria;
                                             } else {
                                                 convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                                convocatoriaElement2.textContent = 'Convocatoria no disponible';
                                             }
                                         }
                                     }
