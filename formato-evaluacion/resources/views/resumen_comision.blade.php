@@ -1109,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const form = document.getElementById(formId);
         let dataValues = new FormData(form);
         //let dictaminadorId = document.querySelector('input[name="dictaminador_id"]').value;
-
+        
         if (!form) {
             console.error(`Form with id "${formId}" not found.`);
             return;
@@ -1165,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
+        
     }
 
 window.submitForm = submitForm;
