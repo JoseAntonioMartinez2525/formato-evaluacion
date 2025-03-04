@@ -130,7 +130,9 @@ class ConsolidatedResponseController extends Controller
             case ($total >= 540 && $total <= 594.99):
                 return 'VII';
             case ($total >= 595 && $total <= 649.99):
-                return 'FALSE';
+                return 'VIII';
+            case ($total >= 650 && $total <= 700):
+                return 'IX';
             default:
                 return 'FALSE';
         }
