@@ -763,7 +763,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 let tLogrado = parseFloat(comisiones[1]) + parseFloat(comisiones[3]) + parseFloat(comisiones[4]);
                                 tLogrado = tLogrado.toFixed(2); 
 
-                                const totalLogrado = tLogrado >= 700 ? Math.min(tLogrado, 700) : tLogrado;
+                                const totalLogrado = tLogrado <= 1000 ? Math.min(tLogrado, 1000) : tLogrado;
                                 
                                 //total logrado position
                                 comisiones[32] = totalLogrado;

@@ -38,7 +38,7 @@ class ConsolidatedResponseController extends Controller
         $totalComision2 = $consolidatedResponses->first()->actv2Comision ?? 0;
         $totalComision3 = $total; // Calculado anteriormente
 
-        $totalComisionRepetido = min($totalComision1 + $totalComision2 + $totalComision3,700);
+        $totalComisionRepetido = min($totalComision1 + $totalComision2 + $totalComision3,1000);
 
         // Evaluar la calidad mínima y el total
         $minimaCalidad = $this->evaluarCalidad($total);
