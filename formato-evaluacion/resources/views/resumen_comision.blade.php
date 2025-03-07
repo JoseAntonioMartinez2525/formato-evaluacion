@@ -12,7 +12,6 @@ $newLocale = str_replace('_', '-', $locale);
     <title>Formato de Evaluación docente</title>
 
     <x-head-resources />
-    <link href="{{ asset('css/resumenPEDPD.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/resumen_comision.js') }}"></script>
 </head>
@@ -87,7 +86,19 @@ $newLocale = str_replace('_', '-', $locale);
     }
 }
 
-
+.message-container {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
 </style>
 <body class="bg-gray-50 text-black/50">
 
@@ -215,15 +226,14 @@ $newLocale = str_replace('_', '-', $locale);
         </center>
 
         <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-            Página 30 de 32
+            Página 33 de 34
         </div>
     </footer>
         </div>
 
     </form>
 
-    <form id="form5" method="POST" enctype="multipart/form-data"
-    onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+    <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
     @csrf
     <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
     <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
@@ -251,11 +261,11 @@ $newLocale = str_replace('_', '-', $locale);
         <th>
         @if($userType === 'dictaminador')
             @if(empty($firma))
-                <input type="file" class="form-control" id="firma1" name="firma" accept="image/*">
+                <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
             @elseif(empty($firma2))
-                <input type="file" class="form-control" id="firma2" name="firma" accept="image/*">
+                <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
             @elseif(empty($firma3))
-                <input type="file" class="form-control" id="firma3" name="firma" accept="image/*">
+                <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
             @else
                 <span>Ya se han completado las firmas requeridas.</span>
             @endif
@@ -371,7 +381,7 @@ $newLocale = str_replace('_', '-', $locale);
             </center>
     
             <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                Página 32 de 32
+                Página 34 de 34
             </div>
         </footer>
     </center>
@@ -1004,7 +1014,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 if (submitButton) {
                                     submitButton.addEventListener('click', async (event) => {
                                         event.preventDefault(); // Evita el envío automático del formulario
-                                        await submitForm('store-evaluator-signature', 'form5', userId, email);
+
+                                        // Mostrar mensaje al usuario
+                                        const messageContainer = document.getElementById('messageContainer');
+                                        messageContainer.textContent = 'Enviando formulario, por favor espere...';
+                                        messageContainer.style.display = 'block';
+
+                                        try {
+                                            await submitForm('store-evaluator-signature', 'form5', userId, email);
+                                            messageContainer.textContent = 'Formulario enviado exitosamente.';
+                                            messageContainer.style.backgroundColor = '#d4edda'; // Cambiar color de fondo a verde claro
+                                            messageContainer.style.color = '#155724'; // Cambiar color de texto a verde oscuro
+                                        } catch (error) {
+                                            messageContainer.textContent = 'Hubo un error al enviar el formulario. Por favor, inténtelo de nuevo.';
+                                            messageContainer.style.backgroundColor = '#f8d7da'; // Cambiar color de fondo a rojo claro
+                                            messageContainer.style.color = '#721c24'; // Cambiar color de texto a rojo oscuro
+                                        }
+
+                                        // Ocultar el mensaje después de unos segundos
+                                        setTimeout(() => {
+                                            messageContainer.style.display = 'none';
+                                        }, 5000); // Ocultar después de 5 segundos
                                     });
                                 }
 
@@ -1116,8 +1146,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
 
-        document.getElementById('reportLink').classList.remove('d-none');
-
+        const reportLink = document.getElementById('reportLink');
+        if (reportLink) {
+            reportLink.classList.remove('d-none');
+        } else {
+            console.error('Element with id "reportLink" not found.');
+        }
+        
+        //Obtener los nombres de los evaluadores y agregarlos a los datos del formulario
         const evaluatorNames = getEvaluatorNames();
         evaluatorNames.forEach((name, index) => {
             dataValues.append(`evaluator_name_${index + 1}`, name);
@@ -1176,62 +1212,62 @@ window.submitForm = submitForm;
         const fullUrl = `${url}?${queryString}`;
 
         try {
-            const response = await axios.get(fullUrl, {
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json',
-                }
-            });
+            const response = await fetch(fullUrl);
 
-            console.log('Response:', response); // Verificar la respuesta
-            console.log('Data:', response.data); // Verificar los datos
-            return response.data;
+            if (!response.ok) {
+                throw new Error(`Request failed with status code ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('Data:', data); // Verificar los datos
+            return data;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error.message);
         }
     }
 
     async function loadSignatures() {
-            let data = await fetchData('/get-evaluator-signature', {
-                user_id: userId,
-                email: email,
-                user_type: userType
-            });
+        const userId = document.getElementById('app').getAttribute('data-user-id');
+        const email = document.getElementById('app').getAttribute('data-user-email');
+        const userType = document.getElementById('app').getAttribute('data-user-type');
 
-            if (data) {
-                // Si las URLs de las firmas están disponibles, las mostramos
-                console.log('Datos de firma recibidos:', data);
+        let data = await fetchData('/get-evaluator-signature', {
+            user_id: userId,
+            email: email,
+            user_type: userType
+        });
 
-                // Verificar si los elementos imgFirma existen antes de asignarles src
-                let imgFirma1 = document.getElementById('Firma1');
-                let imgFirma2 = document.getElementById('Firma2');
-                let imgFirma3 = document.getElementById('Firma3');
-                const img = document.querySelector(`img[data-firma="${firma}"]`);
+        if (data) {
+            // Si las URLs de las firmas están disponibles, las mostramos
+            console.log('Datos de firma recibidos:', data);
 
-                if (data.signature_path && imgFirma1) {
-                    imgFirma1.src = data.signature_path;
-                    imgFirma1.style.display = 'block';
-                    imgFirma1.style.maxWidth = '200px';
-                    imgFirma1.style.height = '100px';
-                }
-                if (data.signature_path_2 && imgFirma2) {
-                    imgFirma2.src = data.signature_path_2;
-                    imgFirma2.style.display = 'block';
-                    imgFirma2.style.maxWidth = '200px';
-                    imgFirma2.style.height = '100px';
-                }
-                if (data.signature_path_3 && imgFirma3) {
-                    imgFirma3.src = data.signature_path_3;
-                    imgFirma3.style.display = 'block';
-                    imgFirma3.style.maxWidth = '200px';
-                    imgFirma3.style.height = '100px';
-                }
-            } else {
-                console.error('Error: Signature data not found.');
-                img.style.display = 'none';
+            // Verificar si los elementos imgFirma existen antes de asignarles src
+            let imgFirma1 = document.getElementById('signature_path');
+            let imgFirma2 = document.getElementById('signature_path_2');
+            let imgFirma3 = document.getElementById('signature_path_3');
+
+            if (data.signature_path && imgFirma1) {
+                imgFirma1.src = data.signature_path;
+                imgFirma1.style.display = 'block';
+                imgFirma1.style.maxWidth = '200px';
+                imgFirma1.style.height = '100px';
             }
-
+            if (data.signature_path_2 && imgFirma2) {
+                imgFirma2.src = data.signature_path_2;
+                imgFirma2.style.display = 'block';
+                imgFirma2.style.maxWidth = '200px';
+                imgFirma2.style.height = '100px';
+            }
+            if (data.signature_path_3 && imgFirma3) {
+                imgFirma3.src = data.signature_path_3;
+                imgFirma3.style.display = 'block';
+                imgFirma3.style.maxWidth = '200px';
+                imgFirma3.style.height = '100px';
+            }
+        } else {
+            console.error('Error: Signature data not found.');
         }
+    }
 
     function getCommodataValues(form) {
         const data = {};
@@ -1244,18 +1280,17 @@ window.submitForm = submitForm;
         }
        
     function getEvaluatorNames() {
-            const evaluators = document.querySelectorAll('.personaEvaluadora');
+            const evaluators = document.querySelectorAll('.personaEvaluadora, .personaEvaluadora2, .personaEvaluadora3');
             return Array.from(evaluators).map(evaluator => evaluator.textContent.trim());
         }
     
     </script>
 
-<div id="app" data-user-id="{{ auth()->user()->id }}" data-user-email="{{ auth()->user()->email }}"
-    data-user-type="{{ auth()->user()->user_type }}"
-     style="display: none;"></div>
+<div id="app" data-user-id="{{ auth()->user()->id }}" data-user-email="{{ auth()->user()->email }}" data-user-type="{{ auth()->user()->user_type }}" style="display: none;"></div></div>
+<div id="reportLink" class="d-none">
+    <!-- Contenido del enlace de reporte -->
 </div>
-
-
+<div id="messageContainer" class="message-container" style="display: none;"></div>
 </body>
 
 </html>

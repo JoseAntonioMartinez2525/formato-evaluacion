@@ -16,12 +16,15 @@ class EvaluatorSignatureController1 extends Controller
             Log::info('Received request to store evaluator signature', $request->all());
             // Validate the request data
             $validatedData = $request->validate([
-                //'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
                 'email' => 'required|exists:users,email',
-                'evaluator_name' => 'required|string|max:255',
-                'firma' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'user_type' => 'nullable|in:docente,dictaminador,'
+                'evaluator_name' => 'nullable|string|max:255',
+                'evaluator_name_2' => 'nullable|string|max:255',
+                'evaluator_name_3' => 'nullable|string|max:255',
+                'firma1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'firma2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'firma3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'user_type' => 'nullable|in:docente,dictaminador'
             ]);
 /*
           
@@ -33,12 +36,6 @@ class EvaluatorSignatureController1 extends Controller
                 'email' => $validatedData['email']
             ]);
 
-            $evaluatorNames = EvaluatorSignature::updateOrCreate([
-                'user_id' => $validatedData['user_id'],
-                'email' => $validatedData['email']
-            ]);
-
-            
 
             // Comprobar si existe espacio para otra firma
             if (!$evaluatorSignature->hasAvailableSignatureSlot()) {
@@ -47,16 +44,30 @@ class EvaluatorSignatureController1 extends Controller
                 ], 400);
             }
 
-            if (!$evaluatorNames->hasAvailableEvaluatorName()) {
+            // Comprobar si existe espacio para otro nombre de evaluador
+            if (!$evaluatorSignature->hasAvailableEvaluatorName()) {
                 return response()->json([
                     'message' => 'Ya se han registrado los tres nombres necesarios.'
                 ], 400);
             }
 
-            // Guardar la nueva firma
-            $signaturePath = $request->file('firma')->store('signatures', 'public');
-            $evaluatorSignature->addEvaluatorName($validatedData['evaluator_name']);
-            $evaluatorSignature->addSignaturePath($signaturePath);
+            // Guardar las nuevas firmas
+            $firmas = ['firma1', 'firma2', 'firma3'];
+            foreach ($firmas as $index => $firma) {
+                if ($request->hasFile($firma)) {
+                    $signaturePath = $request->file($firma)->store('signatures', 'public');
+                    $evaluatorSignature->addSignaturePath($signaturePath);
+                }
+            }
+
+            //Guardar los nombres de los evaluadores
+            $nombres = ['evaluator_name', 'evaluator_name_2', 'evaluator_name_3'];
+            foreach ($nombres as $index => $nombre) {
+                if ($request->filled($nombre)) {
+                    $evaluatorSignature->addEvaluatorName($validatedData[$nombre]);
+                }
+            }
+
             $evaluatorSignature->save();
 
             //verificar que los nombres se puedan repetir en caso de que se evalue a otro docente
@@ -66,9 +77,9 @@ class EvaluatorSignatureController1 extends Controller
             return response()->json([
                 'message' => 'Firma guardada exitosamente.',
                 'evaluator_names'=>[
-                    'evaluator_name' => $evaluatorSignature->evaluator_name,
-                    'evaluator_name_2' => $evaluatorSignature->evaluator_name_2,
-                    'evaluator_name_3' => $evaluatorSignature->evaluator_name_3,
+                    'nombre de la persona evaluadora 1: ' => $evaluatorSignature->evaluator_name,
+                    'nombre de la persona evaluadora 2: ' => $evaluatorSignature->evaluator_name_2,
+                    'nombre de la persona evaluadora 3: ' => $evaluatorSignature->evaluator_name_3,
                 ],
                 'signature_urls' => [
                     'firma' => asset('storage/' . $evaluatorSignature->signature_path),
@@ -94,16 +105,19 @@ class EvaluatorSignatureController1 extends Controller
         $request->validate([
             'user_id' => 'exists:users,id',
             'email' => 'required|exists:users,email',
+            
+            /*
             'evaluator_name' => 'exists:evaluador_por_firmas,evaluator_name',
             'evaluator_name_2' => 'exists:evaluador_por_firmas,evaluator_name_2',
             'evaluator_name_3' => 'exists:evaluador_por_firmas,evaluator_name_3',
             'signature_path' => 'exists:evaluador_por_firmas,signature_path',
             'signature_path_2' => 'exists:evaluador_por_firmas,signature_path_2',
             'signature_path_3' => 'exists:evaluador_por_firmas,signature_path_3',
-        ]);
+            */
+            ]);
 
         $email = $request->input('email');
-
+/*
         // Obtener el user_id ya sea del request o buscando por email
         if ($request->has('user_id')) {
             $userId = $request->input('user_id');
@@ -120,7 +134,8 @@ class EvaluatorSignatureController1 extends Controller
             $userId = $user->id;
             //$userType = $user->user_type;
         }
-
+*/
+        $userId = $request->input('user_id');
         // Crear la consulta para EvaluatorSignature
         $evaluatorSignatureQuery = EvaluatorSignature::where('user_id', $userId)
             ->where('email', $email);
