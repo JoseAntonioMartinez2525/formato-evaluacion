@@ -24,6 +24,7 @@ $userType = Auth::user()->user_type;
       margin-bottom: 600px;
       display: flex;
       justify-content: space-between;
+      background-color: #f4f4f4;
 
     }
     .enlaceSN {
@@ -83,6 +84,26 @@ $userType = Auth::user()->user_type;
       justify-content: space-between;
       margin-left: 60px;
     }
+      body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  body.dark-mode .table {
+    background-color: #333333;
+    color: #ffffff;
+  }
+
+  body.dark-mode .nav {
+    background-color: #333333;
+    color: #ffffff;
+  }
+
+  body.dark-mode .btn {
+    background-color: #444444;
+    color: #ffffff;
+  }
+
   </style>
 
 </head>
@@ -114,11 +135,11 @@ $userType = Auth::user()->user_type;
     @else
       <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
     @endif
-   
+
     </li>
      @if(Auth::user()->user_type === '') 
       <li class="nav-item">
-          <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
+      <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
       </li>
      @endif
     <ul class="deptos">Areas de Conocimiento:
@@ -148,6 +169,7 @@ $userType = Auth::user()->user_type;
       <div class="flex lg:justify-center lg:col-start-2"></div>
 
       <nav class="-mx-3 flex flex-1 justify-end"></nav>
+      <button id="toggle-dark-mode" class="btn btn-secondary" style="margin-right: 100px;">Modo Obscuro</button>
       <div class="table-container">
       <table class="table table-bordered" style="margin-top: 200px;">
       <thead>
@@ -228,6 +250,25 @@ $userType = Auth::user()->user_type;
     const C56 = B56 * A40;
     const C57 = B57 * A40;
     console.log(variablesMultiplicadas);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+
+      // Guardar la preferencia del usuario en localStorage
+      const currentTheme = localStorage.getItem('theme');
+      if (currentTheme) {
+      document.body.classList.add(currentTheme);
+      }
+
+      toggleDarkModeButton.addEventListener('click', function () {
+      document.body.classList.toggle('dark-mode');
+      let theme = 'light';
+      if (document.body.classList.contains('dark-mode')) {
+      theme = 'dark';
+      }
+      localStorage.setItem('theme', theme);
+      });
+      });
     </script>
     </body>
 @endif
