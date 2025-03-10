@@ -285,6 +285,9 @@ $userType = $user->user_type;
 $user_identity = $user->id;
 
 @endphp
+
+<button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
@@ -892,6 +895,16 @@ $user_identity = $user->id;
 
         }
 
+        document.addEventListener('DOMContentLoaded', function () {
+
+                const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+                if (toggleDarkModeButton) {
+                    const widthDarkButton = window.outerWidth - 230;
+                    toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+                }
+
+                toggleDarkMode();
+            });
     </script>
 </body>
 
