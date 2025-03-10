@@ -218,7 +218,19 @@ body.chrome @media screen{
     margin-top: 300px;
 }
 
+body.dark-mode #elaboracion, body.dark-mode #elaboracion2, body.dark-mode #elaboracion3, body.dark-mode #elaboracion4, body.dark-mode #elaboracion5,
+body.dark-mode #comisionIncisoA, body.dark-mode #comisionIncisoB, body.dark-mode #comisionIncisoC, body.dark-mode #comisionIncisoD, body.dark-mode #comisionIncisoE
 
+{
+    background-color:transparent;
+    color: #ffffff;
+    }
+
+    body.dark-mode [id^="obs3_1_"]
+{
+    background-color:transparent;
+    color: #ffffff;
+    }
     </style>
 </head>
 

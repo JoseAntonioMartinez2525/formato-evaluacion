@@ -15,7 +15,11 @@ $userType = Auth::user()->user_type;
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <x-head-resources />
-
+<style>
+    #comisionIncisoB {
+        margin-left: -10px;
+    }
+</style>
 </head>
 @if (Route::has('login'))
         @csrf
@@ -38,7 +42,7 @@ $userType = Auth::user()->user_type;
            </li>
            @endif
             </li>
-            
+
             <li class="nav-item">
             @if(Auth::user()->user_type === 'dictaminador')
                 <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
@@ -90,6 +94,8 @@ $userType = Auth::user()->user_type;
 
         <body class="font-sans antialiased">
             <x-general-header />
+            <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
             <div class="bg-gray-50 text-black/50">
                 <div class="relative min-h-screen flex flex-col items-center justify-center">
                     <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -3329,7 +3335,7 @@ $userType = Auth::user()->user_type;
                                 formData['obs3_8'] = form.querySelector('input[id="obs3_8"]').value;
 
                                 break;
-                                
+
                             case 'form3_8_1':
                             fetch('/get-puntaje-maximo')
                             .then(response => response.json())
@@ -3751,7 +3757,16 @@ $userType = Auth::user()->user_type;
             }
         });
 
+    document.addEventListener('DOMContentLoaded', function () {
 
+        const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+        if (toggleDarkModeButton) {
+            const widthDarkButton = window.outerWidth - 230;
+            toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+        }
+
+        toggleDarkMode();
+    });
 
 
             </script>
