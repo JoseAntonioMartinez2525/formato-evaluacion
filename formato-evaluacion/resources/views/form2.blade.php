@@ -38,6 +38,13 @@ $newLocale = str_replace('_', '-', $locale);
         page-break-after: auto; /* La última página no necesita salto extra */  
     }
 
+    body.dark-mode #convocatoria2, body.dark-mode #periodo2, body.dark-mode #nombre2, 
+    body.dark-mode #area2, body.dark-mode #departamento2 {
+    background-color:transparent;
+    color: #ffffff;
+    font-weight: bold;
+}
+
     
 </style>
 <body class="bg-gray-50 text-black/50">
@@ -97,7 +104,7 @@ $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
-
+<button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 <div class="container mt-4 printButtonClass">
     @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
@@ -479,7 +486,16 @@ $user_identity = $user->id;
         });
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
 
+        const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+        if (toggleDarkModeButton) {
+            const widthDarkButton = window.outerWidth - 230;
+            toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+        }
+
+        toggleDarkMode();
+    });
 
     </script>
 </body>
