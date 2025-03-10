@@ -1283,7 +1283,13 @@ window.submitForm = submitForm;
             const evaluators = document.querySelectorAll('.personaEvaluadora, .personaEvaluadora2, .personaEvaluadora3');
             return Array.from(evaluators).map(evaluator => evaluator.textContent.trim());
         }
-    
+    document.addEventListener('DOMContentLoaded', function () {
+            const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+            if (toggleDarkModeButton) {
+                const widthDarkButton = window.innerWidth - 100;
+                toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+            }
+        });
     </script>
 
 <div id="app" data-user-id="{{ auth()->user()->id }}" data-user-email="{{ auth()->user()->email }}" data-user-type="{{ auth()->user()->user_type }}" style="display: none;"></div></div>

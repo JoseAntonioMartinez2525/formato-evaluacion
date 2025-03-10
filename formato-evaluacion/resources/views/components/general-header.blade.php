@@ -10,4 +10,5 @@
     <img src="{{ $logo }}" alt="Logo UABCS">
     <h1 style="margin: 0; font-size: 24px; margin-top: -90px; margin-left:200px;">{{ $title }}</h1>
     <h3 style="margin: 0; font-size: 18px; color: #666; margin-left:200px;">{{ $subtitle }}</h3>
+
 </div>

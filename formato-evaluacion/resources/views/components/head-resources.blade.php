@@ -12,6 +12,7 @@
 <link href="{{ asset('css/print.css') }}" rel="stylesheet" type="text/css" media="print" />
 <link href="{{ asset('css/darkmode.css') }}" rel="stylesheet">
 <script src="{{ asset('js/subtotales.js') }}"></script>
+<script src="{{ asset('js/dark_mode.js') }}"></script>
 <script src="{{ asset('js/comisiones.js') }}"></script>
 <script src="{{ asset('js/minimos.js') }}"></script>
 <script src="{{ asset('js/privileges.js') }}"></script>
