@@ -226,8 +226,14 @@ $newLocale = str_replace('_', '-', $locale);
 }
 }
 
+body.dark-mode [id^="rc"], body.dark-mode [class^="obs3_3_"]{
+    color: black
+}
 
-
+body.dark-mode .comIncisoA, body.dark-mode .comIncisoB, body.dark-mode .comIncisoC,
+ body.dark-mode .comIncisoD{
+    color: black;
+}
     </style>
 </head>
 
@@ -293,6 +299,9 @@ $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
+
+<button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')
         <!-- Select para dictaminador seleccionando docentes -->
@@ -857,6 +866,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
         }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+            const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+            if (toggleDarkModeButton) {
+                const widthDarkButton = window.outerWidth - 230;
+                toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+            }
+
+            toggleDarkMode();
+        });
     </script>
 
 </body>
