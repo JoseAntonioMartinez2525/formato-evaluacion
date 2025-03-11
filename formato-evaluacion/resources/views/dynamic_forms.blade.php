@@ -53,135 +53,147 @@ $newLocale = str_replace('_', '-', $locale);
         color: #ffff;
 
         }
+
+         body.dark-mode .btn-success{
+            background-color:rgb(56, 163, 79);
+         }
+
+         body.dark-mode .btn-danger{
+            background-color:rgb(218, 65, 81);
+         }
     </style>
 
 </head>
 
 <body class="font-sans antialiased">
     <x-general-header />
+    <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                                                @if (Auth::check() && Auth::user()->user_type === '')
-                                                    <section role="region" aria-label="Response form">
-                                                        <form>
-                                                            @csrf
-                                                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                                        </a>
-                                                                    </li>
-                                                                    <li style="list-style: none; margin-right: 20px;">
-                                                                        <a class="enlaceSN" href="{{ route('login') }}">
-                                                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                </div>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo
-                                                                        10
-                                                                        REGLAMENTO
-                                                                        PEDPD</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;"
-                                                                        href="{{route('resumen_comision')}}">Resumen (A ser
-                                                                        llenado por la Comisión del PEDPD)</a>
-                                                                </li><br>
-                                                                <li class="nav-item">
-                                                                <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('secretaria') }}">Seleccionar Formulario</a>
-                                                                </li>
-                                                            </nav>
-                                                        </form>
-                                                @endif
-                                                </section>
+                @if (Auth::check() && Auth::user()->user_type === '')
+                    <section role="region" aria-label="Response form">
+                        <form>
+                            @csrf
+                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                        </a>
+                                    </li>
+                                    <li style="list-style: none; margin-right: 20px;">
+                                        <a class="enlaceSN" href="{{ route('login') }}">
+                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo
+                                        10
+                                        REGLAMENTO
+                                        PEDPD</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 200px;"
+                                        href="{{route('resumen_comision')}}">Resumen (A ser
+                                        llenado por la Comisión del PEDPD)</a>
+                                </li><br>
+                                <li class="nav-item">
+                                <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('secretaria') }}">Seleccionar Formulario</a>
+                                </li>
+                            </nav>
+                        </form>
+                @endif
+                </section>
 
-                                                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                    <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                                                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                                                    @php
+@php
     $user = Auth::user();
     $userType = $user->user_type;
     $user_identity = $user->id; 
-                                                    @endphp
-
-                                                    <!--Llenado de los campos-->
-                                                    <div class="container mt-4">
-                                                        <!-- Título -->
-                                                        <h3>Generador de Formulario Dinámico</h3>
-
-                                                        <!-- Nombre del formulario -->
-                                                        <form id="dynamicForm" method="POST">
-                                                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                                                            @csrf
-                                                            <label for="formName">Nombre del formulario:</label>
-                                                            <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
-
-                                                            <!-- Puntaje máximo -->
-                                                            <div class="mt-3">
-                                                                <h4>Puntaje máximo</h4>
-                                                                @if($userType == '') <!-- usuario secretaria -->
-                                                                    <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
-                                                                    <button type="button" class="btn custom-btn"
-                                                                        onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
-                                                                    <button type="button" class="btn custom-btn"
-                                                                        onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
-                                                                @else
-                                                                    <span id="puntajeMaximoLabel"></span>
-                                                                @endif
-                                                            </div>
-
-                                                            <!-- Configuración dinámica -->
-                                                            <div class="mt-4">
-                                                                <h5>Configuración de la tabla</h5>
-                                                                <label for="numColumns">Número de columnas:</label>
-                                                                <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
-
-                                                                <label for="numRows">Número de filas:</label>
-                                                                <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
-
-                                                                <button type="button" class="btn btn-primary" onclick="generateTable()">Generar
-                                                                    Tabla</button>
-                                                            </div>
-
-                                                            <!-- Tabla dinámica -->
-                                                            <table id="dynamicTable" class="table mt-4">
-                                                                <thead>
-                                                                    <tr id="defaultHeader">
-                                                                        <th>Actividad</th>
-                                                                        <th>Puntaje a evaluar</th>
-                                                                        <th>Puntaje de la Comisión Dictaminadora</th>
-                                                                        <th>Observaciones</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td><input type="text" id="actividadPrincipal"
-                                                                                placeholder="Ingrese la actividad principal"></td>
-                                                                        <td style="background-color: #0b5967; color: #ffff;"><span
-                                                                                id="puntajeAEvaluar">0</span></td>
-
-                                                                        <td style="background-color: #ffcc6d"><span id="puntajeComision">0</span></td>
-                                                                    </tr>
-                                                                    <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
+@endphp
 
 
-                                                                </tbody>
-                                                            </table>
 
-                                                            <!-- Botones de acción -->
-                                                            <div class="mt-4">
-                                                                <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
-                                                                <button type="reset" class="btn btn-danger">Eliminar</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+        <!--Llenado de los campos-->
+        <div class="container mt-4">
+            <!-- Título -->
+            <h3>Generador de Formulario Dinámico</h3>
+
+            <!-- Nombre del formulario -->
+            <form id="dynamicForm" method="POST">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                @csrf
+                <label for="formName">Nombre del formulario:</label>
+                <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
+
+                <!-- Puntaje máximo -->
+                <div class="mt-3">
+                    <h4>Puntaje máximo</h4>
+                    @if($userType == '') <!-- usuario secretaria -->
+                        <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
+                        <button type="button" class="btn custom-btn"
+                            onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
+                        <button type="button" class="btn custom-btn"
+                            onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                    @else
+                        <span id="puntajeMaximoLabel"></span>
+                    @endif
+                </div>
+
+                <!-- Configuración dinámica -->
+                <div class="mt-4">
+                    <h5>Configuración de la tabla</h5>
+                    <label for="numColumns">Número de columnas:</label>
+                    <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
+
+                    <label for="numRows">Número de filas:</label>
+                    <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
+
+                    <button type="button" class="btn btn-primary" onclick="generateTable()">Generar
+                        Tabla</button>
+                </div>
+
+                <!-- Tabla dinámica -->
+                <table id="dynamicTable" class="table mt-4">
+                    <thead>
+                        <tr id="defaultHeader">
+                            <th>Actividad</th>
+                            <th>Puntaje a evaluar</th>
+                            <th>Puntaje de la Comisión Dictaminadora</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" id="actividadPrincipal"
+                                    placeholder="Ingrese la actividad principal"></td>
+                            <td style="background-color: #0b5967; color: #ffff;"><span
+                                    id="puntajeAEvaluar">0</span></td>
+
+                            <td style="background-color: #ffcc6d"><span id="puntajeComision">0</span></td>
+                        </tr>
+                        <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
+
+
+                    </tbody>
+                </table>
+
+                <!-- Botones de acción -->
+                <div class="mt-4">
+                    <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
+                    <button type="reset" class="btn btn-danger">Eliminar</button>
+                </div>
+            </form>
+        </div>
 
 
             @endif
@@ -339,6 +351,12 @@ $newLocale = str_replace('_', '-', $locale);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+            if (toggleDarkModeButton) {
+                const widthDarkButton = window.outerWidth - 230;
+                toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+            }
+            toggleDarkMode();
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {
                 // Get form data
@@ -654,6 +672,7 @@ $newLocale = str_replace('_', '-', $locale);
                 alert(`Error al guardar el formulario: ${error.message}`);
             }
         }
+      
     </script>
 
 </body>
