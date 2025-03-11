@@ -60,7 +60,7 @@ $newLocale = str_replace('_', '-', $locale);
                             </li>
                         </nav>
                     <x-general-header />
-            <button id="toggle-dark-mode" class="btn btn-secondary" style="margin-left: 100px;"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+            <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass" style="margin-left: 100px;"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
                     <div class="container mt-4">
                         <!-- Selector para elegir el formulario -->

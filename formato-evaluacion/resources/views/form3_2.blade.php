@@ -90,7 +90,12 @@ $newLocale = str_replace('_', '-', $locale);
         page-break-after: auto; /* La última página no necesita salto extra */
 
 }
-    body.dark-mode #r1, body.dark-mode #r2, body.dark-mode #r3 {
+    body.dark-mode #r1, body.dark-mode #r2, body.dark-mode #r3, body.dark-mode #prom90_100, 
+    body.dark-mode #prom80_90, body.dark-mode #prom70_80 {
+        color: black;
+    }
+
+    body.dark-mode [id^="obs3_2"] {
         color: black;
     }
 
@@ -160,7 +165,7 @@ $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
 
-<button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+<button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
 <div class="container mt-4" id="seleccionDocente">
     @if($userType !== 'docente')

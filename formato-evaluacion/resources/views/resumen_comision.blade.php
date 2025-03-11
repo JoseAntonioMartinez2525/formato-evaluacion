@@ -114,267 +114,267 @@ body.dark-mode img.imgFirma{
 
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
-                            @if (Auth::check())
-                                <section role="region" aria-label="Response form">
-                                    <form class="printButtonClass">
-                                        @csrf
-                                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                <li class="nav-item">
-                                                    <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
-                                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                    </a>
-                                                </li>
-                                                <li style="list-style: none; margin-right: 20px;">
-                                                    <a href="{{ route('login') }}">
-                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                    </a>
-                                                </li>
-                                            </div>
-                                            <li class="nav-item">
-                                                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
-                                                    REGLAMENTO
-                                                    PEDPD</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
-                                                    llenado
-                                                    por la
-                                                    Comisión del PEDPD)</a>
-                                            </li><br>
+                                    @if (Auth::check())
+                                        <section role="region" aria-label="Response form">
+                                            <form class="printButtonClass">
+                                                @csrf
+                                                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
+                                                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link disabled enlaceSN" style="font-size: medium;" href="#">
+                                                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                                                            </a>
+                                                        </li>
+                                                        <li style="list-style: none; margin-right: 20px;">
+                                                            <a href="{{ route('login') }}">
+                                                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10
+                                                            REGLAMENTO
+                                                            PEDPD</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}">Resumen (A ser
+                                                            llenado
+                                                            por la
+                                                            Comisión del PEDPD)</a>
+                                                    </li><br>
 
-                                            <li class="nav-item">
-                                                @if(Auth::user()->user_type === 'dictaminador')
-                                                    <a class="nav-link active enlaceSN" style="width: 200px;"
-                                                        href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                                @else
-                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
-                                                        Formatos</a>
-                                                @endif
-                                            </li>
-                                            <li id="jsonDataLink" class="d-none">
-                                                <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
-                                                    Usuarios</a>
-                                            </li>
-                                        </nav>
-                                    </form>
-                                </section>
-                            @endif
+                                                    <li class="nav-item">
+                                                        @if(Auth::user()->user_type === 'dictaminador')
+                                                            <a class="nav-link active enlaceSN" style="width: 200px;"
+                                                                href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
+                                                        @else
+                                                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de
+                                                                Formatos</a>
+                                                        @endif
+                                                    </li>
+                                                    <li id="jsonDataLink" class="d-none">
+                                                        <a class="enlaceSN" href="{{ route('json-generator') }}" class="btn btn-primary" style="display: none;">Mostrar datos de los
+                                                            Usuarios</a>
+                                                    </li>
+                                                </nav>
+                                            </form>
+                                        </section>
+                                    @endif
 
-                        </div>
-            <x-general-header />
-                <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
-
-            @php
-    $user = Auth::user();
-    $userType = $user->user_type;
-    $user_email = $user->email;
-    $user_identity = $user->id; 
-            @endphp
-                <div class="container mt-4" id="seleccionDocente">
-                @if($userType !== 'docente')
-                <!-- Select para dictaminador seleccionando docentes -->
-                <label for="docenteSelect">Seleccionar Docente:</label>
-                <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
-                <option value="">Seleccionar un docente</option>
-                <!-- Aquí se llenarán los docentes con JavaScript -->
-                </select>
-                @endif
-                </div>
-                <main class="container" id="formContainer" style="display: none;">
-                <form id="form4" method="POST" enctype="multipart/form-data"
-                onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
-                @csrf
-                <div>
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
-                <center>
-                <h2 id="resumen">Resumen</h2>
-                <h4>A ser llenado por la Comisión del PEDPD</h4>
-                </center>
-                <table class="resumenTabla">
-                <thead>
-                <tr>
-                <th id="actv">Actividad</th>
-                <th id="pMaximo">Puntaje máximo</th>
-                <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                </tr>
-                </thead>
-                <tbody id="data">
-                <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
-                </tbody>
-
-                </table>
-                <table>
-                <thead>
-                <tr>
-                <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
-                <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
-                <th colspan="2" id="minimaCalidad"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <th style="padding-right: 200px;"></th>
-                <th class="minima">Mínima Total</th>
-                <th id="minimaTotal"></th>
-                <thead>
-
-                </thead>
-                </tbody>
-                </table>
-                <footer >
-                    <center>
-                        <div id="convocatoria2">
-                            <!-- Mostrar convocatoria -->
-                            @if(isset($convocatoria))
-
-                                <div style="margin-right: -700px;">
-                                    <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
                                 </div>
-                            @endif
+                    <x-general-header />
+                        <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
+                    @php
+            $user = Auth::user();
+            $userType = $user->user_type;
+            $user_email = $user->email;
+            $user_identity = $user->id; 
+                    @endphp
+                        <div class="container mt-4" id="seleccionDocente">
+                        @if($userType !== 'docente')
+                        <!-- Select para dictaminador seleccionando docentes -->
+                        <label for="docenteSelect">Seleccionar Docente:</label>
+                        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+                        <option value="">Seleccionar un docente</option>
+                        <!-- Aquí se llenarán los docentes con JavaScript -->
+                        </select>
+                        @endif
                         </div>
-                    </center>
+                        <main class="container" id="formContainer" style="display: none;">
+                        <form id="form4" method="POST" enctype="multipart/form-data"
+                        onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');">
+                        @csrf
+                        <div>
+                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                        <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+                        <center>
+                        <h2 id="resumen">Resumen</h2>
+                        <h4>A ser llenado por la Comisión del PEDPD</h4>
+                        </center>
+                        <table class="resumenTabla">
+                        <thead>
+                        <tr>
+                        <th id="actv">Actividad</th>
+                        <th id="pMaximo">Puntaje máximo</th>
+                        <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
+                        </tr>
+                        </thead>
+                        <tbody id="data">
+                        <!-- Aquí se llenarán los datos del dictaminador con JavaScript -->
+                        </tbody>
 
-                    <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-                        Página 33 de 34
-                    </div>
-                </footer>
-                    </div>
+                        </table>
+                        <table>
+                        <thead>
+                        <tr>
+                        <th id="nivelLabel">Nivel obtenido de acuerdo al artículo 10 del Reglamento</th>
+                        <th colspan="1" id="minimaLabel">Mínima de Calidad</th>
+                        <th colspan="2" id="minimaCalidad"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th style="padding-right: 200px;"></th>
+                        <th class="minima">Mínima Total</th>
+                        <th id="minimaTotal"></th>
+                        <thead>
 
-                </form>
+                        </thead>
+                        </tbody>
+                        </table>
+                        <footer >
+                            <center>
+                                <div id="convocatoria2">
+                                    <!-- Mostrar convocatoria -->
+                                    @if(isset($convocatoria))
 
-                <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
-                @csrf
-                <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
-                <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
-                <input type="hidden" name="dictaminador_id" value="{{ $user_identity }}">
+                                        <div style="margin-right: -700px;">
+                                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                                        </div>
+                                    @endif
+                                </div>
+                            </center>
 
-                <table>
-                <thead>
-                    <tr id="eva1">
-                    <th class="evaluadores">
-                        @if($userType === '')
-                                <center><span class="personaEvaluadora" type="text" id="personaEvaluadora"></span></center>
+                            <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
+                                Página 33 de 34
+                            </div>
+                        </footer>
+                            </div>
 
-                        @elseif($userType === 'dictaminador')
-                            <!-- Implementación en caso que el usuario sea 'dictaminador' -->
-                            @if(empty($personaEvaluadora))
-                                <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name" required>
-                            @elseif(!empty($personaEvaluadora) && empty($personaEvaluadora2))
-                                <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_2" required> 
-                            @elseif((!empty($personaEvaluadora1)) && (!empty($personaEvaluadora2)))
-                                    <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_3" required>                                                                                                                              
-                            @endif
-                        @endif
-                    </th>
-                    <th>
-                    @if($userType === 'dictaminador')
-                        @if(empty($firma))
-                            <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
-                        @elseif(empty($firma2))
-                            <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
-                        @elseif(empty($firma3))
-                            <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
-                        @else
-                            <span>Ya se han completado las firmas requeridas.</span>
-                        @endif
-                    @endif
-                    </th>
-                    <th>
-                @if($userType === '')
-                    @if(!empty($signature_path))
-                        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
-                    @else
-                        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
-                    @endif
-                @endif
-                    </th>
-                    <th>
-                        <!-- Aquí se mostrará las firmas si ya han sido subidas -->
-                    @if($userType === 'dictaminador')
-                    @if(!empty($signature_path))
-                        <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
-                    @else
-                        <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
-                    @endif
-                    @if(!empty($signature_path_2))
-                        <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
-                    @else
-                        <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
-                            style="display:none;">
-                    @endif
-                    @if(!empty($signature_path_3))
-                        <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
-                    @else
-                        <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
-                            style="display:none;">
-                    @endif
-                    @endif
-                    </th>
+                        </form>
 
-                    </tr>
-                    <tr>
-                        <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+                        <form id="form5" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-evaluator-signature', 'form5');">
+                        @csrf
+                        <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                        <input type="hidden" name="user_type" id="user_type" value="{{ auth()->user()->user_type }}">
+                        <input type="hidden" name="dictaminador_id" value="{{ $user_identity }}">
 
-                        <td class="p-2"><span id="firmaTexto">Firma</span>
-                            @if($userType === 'dictaminador')
-                                <small class="text-muted">Tamaño máximo permitido: 2MB</small>
-                            @endif
-                        </td>
-                    </tr>
-                    @if($userType === '')
-                        <tr id=eva2>
+                        <table>
+                        <thead>
+                            <tr id="eva1">
                             <th class="evaluadores">
-                                    <center><span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span></center>
-                            </th>
-                            <th>
-                                @if(!empty($signature_path_2))
-                                    <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
-                                @else
-                                    <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
-                                        style="display:none;">
+                                @if($userType === '')
+                                        <center><span class="personaEvaluadora" type="text" id="personaEvaluadora"></span></center>
+
+                                @elseif($userType === 'dictaminador')
+                                    <!-- Implementación en caso que el usuario sea 'dictaminador' -->
+                                    @if(empty($personaEvaluadora))
+                                        <input class="personaEvaluadora1" type="text" id="personaEvaluadora1" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name" required>
+                                    @elseif(!empty($personaEvaluadora) && empty($personaEvaluadora2))
+                                        <input class="personaEvaluadora2" type="text" id="personaEvaluadora2" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_2" required> 
+                                    @elseif((!empty($personaEvaluadora1)) && (!empty($personaEvaluadora2)))
+                                            <input class="personaEvaluadora3" type="text" id="personaEvaluadora3" style="background:transparent;border: 15px rgba(0, 0, 0, 0);" name="evaluator_name_3" required>                                                                                                                              
+                                    @endif
                                 @endif
                             </th>
-                        </tr>
-                    @endif
-                    <tr>
-                        @if($userType === '')
-                            <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
-
-                            <td class="p-2"><span id="firmaTexto2">Firma</span>
-                        @endif
-                    </tr>
-                    @if($userType === '')
-                        <tr id="eva3">
-                            <th class="evaluadores">
-                            <center><span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span></center>
-                        </th>
-                        <th>
-                        @if(!empty($signature_path_3))
-                            <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
-                        @else
-                            <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
-                                style="display:none;">
-                        @endif
-                        </th>
-                    </tr>@endif
-                    <tr>
-                        @if($userType === '')
-                            <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
-
-                            <td class="p-2"><span id="firmaTexto3">Firma</span>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td style="padding-left: 600px;">
-                            @if(Auth::user()->user_type === 'dictaminador')
-                                <button type="submit" id="submitButton" class="btn custom-btn buttonSignature2">Enviar</button>
+                            <th>
+                            @if($userType === 'dictaminador')
+                                @if(empty($firma))
+                                    <input type="file" class="form-control" id="firma1" name="firma1" accept="image/*">
+                                @elseif(empty($firma2))
+                                    <input type="file" class="form-control" id="firma2" name="firma2" accept="image/*">
+                                @elseif(empty($firma3))
+                                    <input type="file" class="form-control" id="firma3" name="firma3" accept="image/*">
+                                @else
+                                    <span>Ya se han completado las firmas requeridas.</span>
+                                @endif
                             @endif
-                        </td>
-                    </tr>
+                            </th>
+                            <th>
+                        @if($userType === '')
+                            @if(!empty($signature_path))
+                                <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
+                            @else
+                                <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
+                            @endif
+                        @endif
+                            </th>
+                            <th>
+                                <!-- Aquí se mostrará las firmas si ya han sido subidas -->
+                            @if($userType === 'dictaminador')
+                            @if(!empty($signature_path))
+                                <img id="signature_path" src="{{ asset('storage/' . $signature_path) }}" alt="Firma 1" class="imgFirma">
+                            @else
+                                <img id="signature_path" src="{{ asset('storage/default.png') }}" alt="Firma 1" class="imgFirma" style="display:none;">
+                            @endif
+                            @if(!empty($signature_path_2))
+                                <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
+                            @else
+                                <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
+                                    style="display:none;">
+                            @endif
+                            @if(!empty($signature_path_3))
+                                <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
+                            @else
+                                <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
+                                    style="display:none;">
+                            @endif
+                            @endif
+                            </th>
+
+                            </tr>
+                            <tr>
+                                <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+
+                                <td class="p-2"><span id="firmaTexto">Firma</span>
+                                    @if($userType === 'dictaminador')
+                                        <small class="text-muted">Tamaño máximo permitido: 2MB</small>
+                                    @endif
+                                </td>
+                            </tr>
+                            @if($userType === '')
+                                <tr id=eva2>
+                                    <th class="evaluadores">
+                                            <center><span class="personaEvaluadora2" type="text" id="personaEvaluadora2"></span></center>
+                                    </th>
+                                    <th>
+                                        @if(!empty($signature_path_2))
+                                            <img id="signature_path_2" src="{{ asset('storage/' . $signature_path_2) }}" alt="Firma 2" class="imgFirma">
+                                        @else
+                                            <img id="signature_path_2" src="{{ asset('storage/default2.png') }}" alt="Firma 2" class="imgFirma"
+                                                style="display:none;">
+                                        @endif
+                                    </th>
+                                </tr>
+                            @endif
+                            <tr>
+                                @if($userType === '')
+                                    <td class="p-2 nombreLabel">Nombre de la persona evaluadora</td>
+
+                                    <td class="p-2"><span id="firmaTexto2">Firma</span>
+                                @endif
+                            </tr>
+                            @if($userType === '')
+                                <tr id="eva3">
+                                    <th class="evaluadores">
+                                    <center><span class="personaEvaluadora3" type="text" id="personaEvaluadora3"></span></center>
+                                </th>
+                                <th>
+                                @if(!empty($signature_path_3))
+                                    <img id="signature_path_3" src="{{ asset('storage/' . $signature_path_3) }}" alt="Firma 3" class="imgFirma">
+                                @else
+                                    <img id="signature_path_3" src="{{ asset('storage/default3.png') }}" alt="Firma 3" class="imgFirma"
+                                        style="display:none;">
+                                @endif
+                                </th>
+                            </tr>@endif
+                            <tr>
+                                @if($userType === '')
+                                    <td class="p-2 mr-2 nombreLabel">Nombre de la persona evaluadora</td>
+
+                                    <td class="p-2"><span id="firmaTexto3">Firma</span>
+                                @endif
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 600px;">
+                                    @if(Auth::user()->user_type === 'dictaminador')
+                                        <button type="submit" id="submitButton" class="btn custom-btn buttonSignature2">Enviar</button>
+                                    @endif
+                                </td>
+                            </tr>
         @endif
 </thead>
 </table><br>

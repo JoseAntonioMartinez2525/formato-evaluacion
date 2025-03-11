@@ -172,7 +172,7 @@ $user_identity = $user->id;
 $page_counter = 32;
 @endphp
 
-    <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+    <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
     <div class="container mt-4" id="seleccionDocente">
         @if($userType !== 'docente')
