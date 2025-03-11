@@ -245,21 +245,21 @@ $page_counter = 32;
                                                     <td></td>
                                                     <td>Titular o suplente</td>
                                                     <td id="puntajeCGUtitular"><b>20</b></td>
-                                                    <td id="cantCGUtitular"></td>
+                                                    <td id="cantCGUtitular" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalCGUtitular"></td>
                                                     <td>
                                                     @if ($userType == 'dictaminador')
                                                         <input type="number" step="0.01" id="comCGUtitular" name="comCGUtitular" value="{{ oldValueOrDefault('comCGUtitular') }}" oninput="onActv3Comision3_19()">
                                                     @else
-                                                           <span id="comCGUtitular" name="comCGUtitular"></span> 
+                                                           <span id="comCGUtitular" name="comCGUtitular" class="form3_19_dark"></span> 
                                                     @endif
                                                     </td>
                                                     <td>
                                                      @if ($userType == 'dictaminador')
                                                         <input class="table-header" type="text" id="obsCGUtitular" name="obsCGUtitular">
                                                     @else
-                                                        <span id="obsCGUtitular" name="obsCGUtitular"></span>
+                                                        <span id="obsCGUtitular" name="obsCGUtitular" class="form3_19_dark"></span>
                                                     @endif                            
                                                     </td>
                                                 </tr>
@@ -269,21 +269,21 @@ $page_counter = 32;
                                                     <td></td>
                                                     <td>Participación como miembro de comisión especial</td>
                                                     <td id="puntajeCGUespecial"><b>15</b></td>
-                                                    <td id="cantCGUespecial"></td>
+                                                    <td id="cantCGUespecial" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalCGUespecial"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comCGUespecial" name="comCGUespecial" value="{{ oldValueOrDefault('comCGUespecial') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comCGUespecial" name="comCGUespecial"></span>
+                                                            <span id="comCGUespecial" name="comCGUespecial" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsCGUespecial" name="obsCGUespecial">
                                                         @else
-                                                            <span id="obsCGUespecial" name="obsCGUespecial"></span>
+                                                            <span id="obsCGUespecial" name="obsCGUespecial" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -293,7 +293,7 @@ $page_counter = 32;
                                                     <td></td>
                                                     <td>Participación como miembro en comisión permanente</td>
                                                     <td id="puntajeCGUpermanente"><b>10</b></td>
-                                                    <td id="cantCGUpermanente"></td>
+                                                    <td id="cantCGUpermanente" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalCGUpermanente"></td>
                                                     <td>
@@ -301,14 +301,14 @@ $page_counter = 32;
                                                             <input type="number" step="0.01" id="comCGUpermanente" name="comCGUpermanente" value="{{ oldValueOrDefault('comCGUpermanente') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comCGUpermanente" name="comCGUpermanente"></span>
+                                                            <span id="comCGUpermanente" name="comCGUpermanente" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsCGUpermanente" name="obsCGUpermanente">
                                                         @else
-                                                            <span id="obsCGUpermanente" name="obsCGUpermanente"></span>
+                                                            <span id="obsCGUpermanente" name="obsCGUpermanente" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -318,21 +318,21 @@ $page_counter = 32;
                                                     <td></td>
                                                     <td>Titular o suplente</td>
                                                     <td id="puntajeCAACtitular"><b>10</b></td>
-                                                    <td id="cantCAACtitular"></td>
+                                                    <td id="cantCAACtitular" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalCAACtitular"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comCAACtitular" name="comCAACtitular" value="{{ oldValueOrDefault('comCAACtitular') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comCAACtitular" name="comCAACtitular"></span>
+                                                            <span id="comCAACtitular" name="comCAACtitular" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsCAACtitular" name="obsCAACtitular">
                                                         @else
-                                                            <span id="obsCAACtitular" name="obsCAACtitular"></span>
+                                                            <span id="obsCAACtitular" name="obsCAACtitular" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -348,21 +348,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Participación como integrante de comisión</td>
                                                     <td id="puntajeCAACintegCom"><b>5</b></td>
-                                                    <td id="cantCAACintegCom"></td>
+                                                    <td id="cantCAACintegCom" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalCAACintegCom"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comCAACintegCom" name="comCAACintegCom" value="{{ oldValueOrDefault('comCAACintegCom') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comCAACintegCom" name="comCAACintegCom"></span>
+                                                            <span id="comCAACintegCom" name="comCAACintegCom" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsCAACintegCom" name="obsCAACintegCom">
                                                         @else
-                                                            <span id="obsCAACintegCom" name="obsCAACintegCom"></span>
+                                                            <span id="obsCAACintegCom" name="obsCAACintegCom" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -372,21 +372,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Departamentales</td>
                                                     <td id="puntajeComDepart"><b>15</b></td>
-                                                    <td id="cantComDepart"></td>
+                                                    <td id="cantComDepart" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalComDepart"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comComDepart" name="comComDepart" value="{{ oldValueOrDefault('comComDepart') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comComDepart" name="comComDepart"></span>
+                                                            <span id="comComDepart" name="comComDepart" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsComDepart" name="obsComDepart">
                                                         @else
-                                                            <span id="obsComDepart" name="obsComDepart"></span>
+                                                            <span id="obsComDepart" name="obsComDepart" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -396,21 +396,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Dictaminadora del PEDPD</td>
                                                     <td id="puntajeComPEDPD"><b>15</b></td>
-                                                    <td id="cantComPEDPD"></td>
+                                                    <td id="cantComPEDPD" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalComPEDPD"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comComPEDPD" name="comComPEDPD" value="{{ oldValueOrDefault('comComPEDPD') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comComPEDPD" name="comComPEDPD"></span>
+                                                            <span id="comComPEDPD" name="comComPEDPD" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsComPEDPD" name="obsComPEDPD">
                                                         @else
-                                                            <span id="obsComPEDPD" name="obsComPEDPD"></span>
+                                                            <span id="obsComPEDPD" name="obsComPEDPD" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -420,21 +420,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Participación como integrante del Comité Académico de Posgrado</td>
                                                     <td id="puntajeComPartPos"><b>5</b></td>
-                                                    <td id="cantComPartPos"></td>
+                                                    <td id="cantComPartPos" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalComPartPos"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comComPartPos" name="comComPartPos" value="{{ oldValueOrDefault('comComPartPos') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comComPartPos" name="comComPartPos"></span>
+                                                            <span id="comComPartPos" name="comComPartPos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsComPartPos" name="obsComPartPos">
                                                         @else
-                                                            <span id="obsComPartPos" name="obsComPartPos"></span>
+                                                            <span id="obsComPartPos" name="obsComPartPos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -444,21 +444,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>De posgrado</td>
                                                     <td id="puntajeRespPos"><b>25</b></td>
-                                                    <td id="cantRespPos"></td>
+                                                    <td id="cantRespPos" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalRespPos"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comRespPos" name="comRespPos" value="{{ oldValueOrDefault('comRespPos') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comRespPos" name="comRespPos"></span>
+                                                            <span id="comRespPos" name="comRespPos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsRespPos" name="obsRespPos">
                                                         @else
-                                                            <span id="obsRespPos" name="obsRespPos"></span>
+                                                            <span id="obsRespPos" name="obsRespPos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -468,21 +468,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>De carrera</td>
                                                     <td id="puntajeRespCarrera"><b>15</b></td>
-                                                    <td id="cantRespCarrera"></td>
+                                                    <td id="cantRespCarrera" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalRespCarrera"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comRespCarrera" name="comRespCarrera" value="{{ oldValueOrDefault('comRespCarrera') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comRespCarrera" name="comRespCarrera"></span>
+                                                            <span id="comRespCarrera" name="comRespCarrera" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsRespCarrera" name="obsRespCarrera">
                                                         @else
-                                                            <span id="obsRespCarrera" name="obsRespCarrera"></span>
+                                                            <span id="obsRespCarrera" name="obsRespCarrera" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -492,21 +492,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>De unidad de producción</td>
                                                     <td id="puntajeRespProd"><b>20</b></td>
-                                                    <td id="cantRespProd"></td>
+                                                    <td id="cantRespProd" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalRespProd"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comRespProd" name="comRespProd" value="{{ oldValueOrDefault('comRespProd') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comRespProd" name="comRespProd"></span>
+                                                            <span id="comRespProd" name="comRespProd" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsRespProd" name="obsRespProd">
                                                         @else
-                                                            <span id="obsRespProd" name="obsRespProd"></span>
+                                                            <span id="obsRespProd" name="obsRespProd" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -516,21 +516,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>De laboratorio de docencia e investigación</td>
                                                     <td id="puntajeRespLab"><b>15</b></td>
-                                                    <td id="cantRespLab"></td>
+                                                    <td id="cantRespLab" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalRespLab"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comRespLab" name="comRespLab" value="{{ oldValueOrDefault('comRespLab') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comRespLab" name="comRespLab"></span>
+                                                            <span id="comRespLab" name="comRespLab" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsRespLab" name="obsRespLab">
                                                         @else
-                                                            <span id="obsRespLab" name="obsRespLab"></span>
+                                                            <span id="obsRespLab" name="obsRespLab" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -540,21 +540,21 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Profesorado</td>
                                                     <td id="puntajeExamProf"><b>15</b></td>
-                                                    <td id="cantExamProf"></td>
+                                                    <td id="cantExamProf" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalExamProf"></td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input type="number" step="0.01" id="comExamProf" name="comExamProf" value="{{ oldValueOrDefault('comExamProf') }}" oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comExamProf" name="comExamProf"></span>
+                                                            <span id="comExamProf" name="comExamProf" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsExamProf" name="obsExamProf">
                                                         @else
-                                                            <span id="obsExamProf" name="obsExamProf"></span>
+                                                            <span id="obsExamProf" name="obsExamProf" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -564,7 +564,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td></td>
                                                     <td>Ayudantes académicos</td>
                                                     <td id="puntajeExamAcademicos"><b>5</b></td>
-                                                    <td id="cantExamAcademicos"></td>
+                                                    <td id="cantExamAcademicos" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalExamAcademicos"></td>
                                                     <td>
@@ -572,14 +572,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comExamAcademicos" name="comExamAcademicos" value="{{ oldValueOrDefault('comExamAcademicos') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comExamAcademicos" name="comExamAcademicos"></span>
+                                                            <span id="comExamAcademicos" name="comExamAcademicos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsExamAcademicos" name="obsExamAcademicos">
                                                         @else
-                                                            <span id="obsExamAcademicos" name="obsExamAcademicos"></span>
+                                                            <span id="obsExamAcademicos" name="obsExamAcademicos" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -589,7 +589,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>En formación</td>
                                                     <td>Responsable</td>
                                                     <td id="puntajePRODEPformResp"><b>15</b></td>
-                                                    <td id="cantPRODEPformResp"></td>
+                                                    <td id="cantPRODEPformResp" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPformResp"></td>
                                                     <td>
@@ -597,14 +597,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPformResp" name="comPRODEPformResp" value="{{ oldValueOrDefault('comPRODEPformResp') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPformResp" name="comPRODEPformResp"></span>
+                                                            <span id="comPRODEPformResp" name="comPRODEPformResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPformResp" name="obsPRODEPformResp">
                                                         @else
-                                                            <span id="obsPRODEPformResp" name="obsPRODEPformResp"></span>
+                                                            <span id="obsPRODEPformResp" name="obsPRODEPformResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -614,7 +614,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>En formación</td>
                                                     <td>Integrante</td>
                                                     <td id="puntajePRODEPformInteg"><b>10</b></td>
-                                                    <td id="cantPRODEPformInteg"></td>
+                                                    <td id="cantPRODEPformInteg" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPformInteg"></td>
                                                     <td>
@@ -622,14 +622,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPformInteg" name="comPRODEPformInteg" value="{{ oldValueOrDefault('comPRODEPformInteg') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPformInteg" name="comPRODEPformInteg"></span>
+                                                            <span id="comPRODEPformInteg" name="comPRODEPformInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPformInteg" name="obsPRODEPformInteg">
                                                         @else
-                                                            <span id="obsPRODEPformInteg" name="obsPRODEPformInteg"></span>
+                                                            <span id="obsPRODEPformInteg" name="obsPRODEPformInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -639,7 +639,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>En consolidación</td>
                                                     <td>Responsable</td>
                                                     <td id="puntajePRODEPenconsResp"><b>25</b></td>
-                                                    <td id="cantPRODEPenconsResp"></td>
+                                                    <td id="cantPRODEPenconsResp" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPenconsResp"></td>
                                                     <td>
@@ -647,14 +647,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPenconsResp" name="comPRODEPenconsResp" value="{{ oldValueOrDefault('comPRODEPenconsResp') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPenconsResp" name="comPRODEPenconsResp"></span>
+                                                            <span id="comPRODEPenconsResp" name="comPRODEPenconsResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPenconsResp" name="obsPRODEPenconsResp">
                                                         @else
-                                                            <span id="obsPRODEPenconsResp" name="obsPRODEPenconsResp"></span>
+                                                            <span id="obsPRODEPenconsResp" name="obsPRODEPenconsResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -665,7 +665,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>En consolidación</td>
                                                     <td>Integrante</td>
                                                     <td id="puntajePRODEPenconsInteg"><b>15</b></td>
-                                                    <td id="cantPRODEPenconsInteg"></td>
+                                                    <td id="cantPRODEPenconsInteg" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPenconsInteg"></td>
                                                     <td>
@@ -673,14 +673,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" value="{{ oldValueOrDefault('comPRODEPenconsInteg') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPenconsInteg" name="comPRODEPenconsInteg"></span>
+                                                            <span id="comPRODEPenconsInteg" name="comPRODEPenconsInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg">
                                                         @else
-                                                            <span id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg"></span>
+                                                            <span id="obsPRODEPenconsInteg" name="obsPRODEPenconsInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -690,7 +690,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>Consolidado</td>
                                                     <td>Responsable</td>
                                                     <td id="puntajePRODEPconsResp"><b>35</b></td>
-                                                    <td id="cantPRODEPconsResp"></td>
+                                                    <td id="cantPRODEPconsResp" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPconsResp"></td>
                                                     <td>
@@ -698,14 +698,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPconsResp" name="comPRODEPconsResp" value="{{ oldValueOrDefault('comPRODEPconsResp') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPconsResp" name="comPRODEPconsResp"></span>
+                                                            <span id="comPRODEPconsResp" name="comPRODEPconsResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPconsResp" name="obsPRODEPconsResp">
                                                         @else
-                                                            <span id="obsPRODEPconsResp" name="obsPRODEPconsResp"></span>
+                                                            <span id="obsPRODEPconsResp" name="obsPRODEPconsResp" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -715,7 +715,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                     <td>Consolidado</td>
                                                     <td>Integrante</td>
                                                     <td id="puntajePRODEPconsInteg"><b>25</b></td>
-                                                    <td id="cantPRODEPconsInteg"></td>
+                                                    <td id="cantPRODEPconsInteg" class="form3_19_dark"></td>
                                                     <td></td>
                                                     <td id="subtotalPRODEPconsInteg"></td>
                                                     <td>
@@ -723,14 +723,14 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                             <input type="number" step="0.01" id="comPRODEPconsInteg" name="comPRODEPconsInteg" value="{{ oldValueOrDefault('comPRODEPconsInteg') }}"
                                                                 oninput="onActv3Comision3_19()">
                                                         @else
-                                                            <span id="comPRODEPconsInteg" name="comPRODEPconsInteg"></span>
+                                                            <span id="comPRODEPconsInteg" name="comPRODEPconsInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($userType == 'dictaminador')
                                                             <input class="table-header" type="text" id="obsPRODEPconsInteg" name="obsPRODEPconsInteg">
                                                         @else
-                                                            <span id="obsPRODEPconsInteg" name="obsPRODEPconsInteg"></span>
+                                                            <span id="obsPRODEPconsInteg" name="obsPRODEPconsInteg" class="form3_19_dark"></span>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -856,13 +856,13 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                         console.log('Showing footer2 for e)'); // Debugging log
                         if (footer2) {
                             footer2.style.display = 'block';
-                            footer2.textContent = "Página 27 de 28";
+                            footer2.textContent = "Página 30 de 34";
                         }
                     } else if (tdElement.textContent.includes('p2)')) {
                         console.log('Showing footer2 for p2)'); // Debugging log
                         if (footer2) {
                             footer2.style.display = 'block';
-                            footer2.textContent = "Página 27 de 28";
+                            footer2.textContent = "Página 31 de 34";
                         }
                     }
                     else if(tdElement.textContent.includes('a)')) {
@@ -870,7 +870,7 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                 console.log('Showing footer1'); // Debugging log
                 if (footer1) {
                     footer1.style.display = 'block';
-                    footer1.textContent = "Página 26 de 28"; // Adjust as necessary
+                    footer1.textContent = "Página 29 de 34"; // Adjust as necessary
                 }
             }
                 }
@@ -881,13 +881,13 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                 console.log('Showing footer3'); // Debugging log
                 if (footer3) {
                     footer3.style.display = 'block';
-                    footer3.textContent = "Página 28 de 28";
+                    footer3.textContent = "Página 31 de 34";
                 }
             }else{
                 console.log('Showing footer1'); // Debugging log
                 if (footer1) {
                     footer1.style.display = 'block';
-                    footer1.textContent = "Página 26 de 28"; // Adjust as necessary
+                    footer1.textContent = "Página 29 de 34"; // Adjust as necessary
                 }
             } 
         }
