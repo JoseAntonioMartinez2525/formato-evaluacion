@@ -32,11 +32,14 @@ $newLocale = str_replace('_', '-', $locale);
 <body class="bg-gray-50 text-black/50">
 
     <x-secretaria-headers />
-    @php
+@php
 $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id; 
-    @endphp
+@endphp
+
+    <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
     <div class="container mt-4" id="seleccionDocente">
         @if($userType !== 'docente')
             <!-- Select para dictaminador seleccionando docentes -->
@@ -510,6 +513,17 @@ async function submitForm(url, formId) {
                 puntajeMaximoGlobal = valor;
                 console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
             }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+        if (toggleDarkModeButton) {
+            const widthDarkButton = window.outerWidth - 230;
+            toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+        }
+
+        toggleDarkMode();
+    });                
 
     </script>
 

@@ -77,16 +77,19 @@ $user = Auth::user();
 $userType = $user->user_type;
 $user_identity = $user->id; 
 @endphp
-<div class="container mt-4" id="seleccionDocente">
-    @if($userType !== 'docente')
-        <!-- Select para dictaminador seleccionando docentes -->
-        <label for="docenteSelect">Seleccionar Docente:</label>
-        <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
-            <option value="">Seleccionar un docente</option>
-            <!-- Aquí se llenarán los docentes con JavaScript -->
-        </select>
-    @endif
-</div>
+
+    <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+
+    <div class="container mt-4" id="seleccionDocente">
+        @if($userType !== 'docente')
+            <!-- Select para dictaminador seleccionando docentes -->
+            <label for="docenteSelect">Seleccionar Docente:</label>
+            <select id="docenteSelect" class="form-select"> <!--name="docentes[]" multiple-->
+                <option value="">Seleccionar un docente</option>
+                <!-- Aquí se llenarán los docentes con JavaScript -->
+            </select>
+        @endif
+    </div>
 
     <main class="container">
         <!-- Form for Part 3_10 -->
@@ -464,6 +467,18 @@ $user_identity = $user->id;
 
 
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+                const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+                if (toggleDarkModeButton) {
+                    const widthDarkButton = window.outerWidth - 230;
+                    toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+                }
+
+                toggleDarkMode();
+            });  
+              
     </script>
 
 </body>
