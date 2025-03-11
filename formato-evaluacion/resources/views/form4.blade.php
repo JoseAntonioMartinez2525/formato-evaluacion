@@ -72,14 +72,15 @@ $newLocale = str_replace('_', '-', $locale);
                 @endif
             @endif
     </div>
-<x-general-header />               
-                   @php
+<x-general-header />  
+
+@php
 $userType = Auth::user()->user_type;
 $sections;
 $subtotalAdded = false;
+@endphp
+    <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
-
-                @endphp
     <div class="container mt-4 printButtonClass">
        @if($userType == '')
             <!--//Select para usuario con user_type vacío seleccionando dictaminadores-->
@@ -677,6 +678,16 @@ $subtotalAdded = false;
 
         }
 
+        document.addEventListener('DOMContentLoaded', function () {
+
+    const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+    if (toggleDarkModeButton) {
+        const widthDarkButton = window.outerWidth - 230;
+        toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+    }
+
+    toggleDarkMode();
+});    
 
     </script>
 
