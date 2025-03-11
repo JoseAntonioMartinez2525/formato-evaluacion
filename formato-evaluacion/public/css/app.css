@@ -841,6 +841,45 @@ body.dark .form-control {
     color: #fff;
 }
 
+body.dark-mode  [id^="puntaje3_"],
+body.dark-mode [id^="comisionDict3_"],
+body.dark-mode [id^="obs3_"]{
+    color: black;
+}
+
+body.dark-mode [id^="tutoriasComision"]{
+    background-color: transparent;
+}
+
+body.dark-mode #grupalesCant, body.dark-mode #comisionGrupal, body.dark-mode #obsGrupal, 
+body.dark-mode #individualCant, body.dark-mode #comisionIndividual, body.dark-mode #obsIndividual,
+body.dark-mode #cantAsesoria, body.dark-mode #cantServicio, body.dark-mode #cantPracticas, body.dark-mode #comisionAsesoria, body.dark-mode #comisionServicio, 
+body.dark-mode #comisionPracticas, body.dark-mode #obsAsesoria, body.dark-mode #obsServicio, body.dark-mode #obsPracticas{
+    color:black
+}
+
+body.dark-mode #cantCientifico, body.dark-mode #cantDivulgacion, body.dark-mode #cantTraduccion, body.dark-mode #cantArbitrajeInt, body.dark-mode #cantArbitrajeNac, 
+body.dark-mode #cantSinInt, body.dark-mode #cantSinNac, body.dark-mode #cantAutor, body.dark-mode #cantEditor, body.dark-mode #cantWeb, body.dark-mode #comisionCientifico, 
+body.dark-mode #comisionDivulgacion, body.dark-mode #comisionTraduccion, body.dark-mode #comisionArbitrajeInt, body.dark-mode #comisionArbitrajeNac, body.dark-mode #comisionSinInt, 
+body.dark-mode #comisionSinNac, body.dark-mode #comisionAutor, body.dark-mode #comisionEditor, body.dark-mode #comisionWeb, body.dark-mode #obsCientifico, body.dark-mode #obsDivulgacion, 
+body.dark-mode #obsTraduccion, body.dark-mode #obsArbitrajeInt, body.dark-mode #obsArbitrajeNac, body.dark-mode #obsSinInt, body.dark-mode #obsSinNac, body.dark-mode #obsAutor, body.dark-mode #obsEditor, body.dark-mode #obsWeb,
+body.dark-mode #comisionCientificos, body.dark-mode #obsCientificos{
+    color:black
+}
+
+body.dark-mode td.cantidad{
+    color:black
+}
+
+body.dark-mode #comisionInicioFinancimientoExt, body.dark-mode #comisionInicioInvInterno, body.dark-mode #comisionReporteFinanciamExt, body.dark-mode #comisionReporteInvInt,
+body.dark-mode #obsInicioFinancimientoExt,
+body.dark-mode #obsInicioInvInterno,
+body.dark-mode #obsReporteFinanciamExt,
+body.dark-mode #obsReporteInvInt{
+    background-color: transparent;
+}
+
+
 
 
 

@@ -22,6 +22,17 @@ $newLocale = str_replace('_', '-', $locale);
             /* Ejemplo de estilo específico para Chrome */
         }
     }
+    body.dark-mode #cantDA, body.dark-mode #cantCAAC {
+        color:black;
+    }
+
+    body.dark-mode #comDA, body.dark-mode #comNCAA{
+        background-color: transparent;
+    }
+
+    body.dark-mode [id^="obs3_5"]{
+        color: black;
+    }
 </style>
 <body class="bg-gray-50 text-black/50">
 
