@@ -867,7 +867,9 @@ body.dark-mode #comisionCientificos, body.dark-mode #obsCientificos{
     color:black
 }
 
-body.dark-mode td.cantidad{
+body.dark-mode td.cantidad, body.dark-mode #cantCongresoInt, body.dark-mode #cantCongresoNac, body.dark-mode #cantCongresoLoc, body.dark-mode #comisionCongresoLoc, body.dark-mode #comisionCongresoInt, body.dark-mode #comisionCongresoNac,
+body.dark-mode #comisionCongresoReg, body.dark-mode #obsCongresoLoc, body.dark-mode #obsCongresoInt, body.dark-mode #obsCongresoNac, body.dark-mode #cantPatentes, body.dark-mode #comisionPatententes, body.dark-mode #obsPatentes, 
+body.dark-mode #cantPrototipos, body.dark-mode #comisionPrototipos, body.dark-mode #obsPrototipos{
     color:black
 }
 
@@ -879,6 +881,21 @@ body.dark-mode #obsReporteInvInt{
     background-color: transparent;
 }
 
+body.dark-mode #cantArbInt, body.dark-mode #cantArbNac, body.dark-mode #cantArbInt, body.dark-mode #cantPubInt, body.dark-mode #cantPubNac, body.dark-mode #cantRevInt, body.dark-mode #cantRevNac, body.dark-mode #cantRevista, body.dark-mode #comisionArbInt, 
+body.dark-mode #comisionArbNac, body.dark-mode #comisionPubInt, body.dark-mode #comisionPubNac, body.dark-mode #comisionRevInt, body.dark-mode #comisionRevNac, body.dark-mode #comisionRevista, body.dark-mode #obsArbInt,
+body.dark-mode #obsArbNac, body.dark-mode #obsPubInt, body.dark-mode #obsPubNac, body.dark-mode #obsRevInt, body.dark-mode #obsRevNac, body.dark-mode #obsRevista{
+    color:black;
+}
+
+body.dark-mode #cantDifusionExt, body.dark-mode #cantDifusionInt, body.dark-mode #cantRepDifusionExt, body.dark-mode #cantRepDifusionInt, body.dark-mode #comisionDifusionExt, body.dark-mode #comisionDifusionInt, body.dark-mode #obsDifusionExt,
+body.dark-mode #obsDifusionInt, body.dark-mode #comisionRepDifusionExt, body.dark-mode #obsRepDifusionExt, body.dark-mode #comisionRepDifusionInt, body.dark-mode #obsRepDifusionInt{
+    color:black;
+}
+
+/* cantComOrgInt, cantComOrgNac, cantComOrgReg */
+body.dark-mode td.cantidad_form_3_18, body.dark-mode .form3_18_dark{
+    color: black;
+}
 
 
 
