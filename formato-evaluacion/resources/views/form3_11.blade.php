@@ -258,7 +258,7 @@ $user_identity = $user->id;
         </center>
     
         <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-            <x-form-renderer :forms="[['view' => 'form3_11', 'startPage' => 15, 'endPage' => 15]]" />
+            <x-form-renderer :forms="[['view' => 'form3_11', 'startPage' => 17, 'endPage' => 17]]" />
         </div>
     </footer>
 </center>

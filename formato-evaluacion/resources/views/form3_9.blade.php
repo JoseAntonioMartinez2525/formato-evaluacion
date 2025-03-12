@@ -393,6 +393,27 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
+                </tbody>
+            </table>
+            <div style="display: flex; justify-content: space-between;padding-top: 50px;">
+                <div id="convocatoria">
+                        <!-- Mostrar convocatoria -->
+                        @if(isset($convocatoria))
+
+                            <div style="margin-right: -500px;">
+                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                            </div>
+                        @endif
+                </div>
+                    <div id="piedepagina1"
+                        class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+                        Página 14 de 32
+                    </div>                
+            </div>
+    
+            <table class="table table-sm tutorias table2">
+            <x-sub-headers-form3_9 :componentIndex="1" />
+                <tbody data-page="15">
                     <tr>
                         <td>h)</td>
                         <td>Dirección trabajo terminado</td>
@@ -403,7 +424,8 @@ $user_identity = $user->id;
                         <td id="tutorias8">0</td>
                         <td class="rightSelect">
                             @if ($userType == 'dictaminador')
-                                <input type="number" step="0.01" id="tutoriasComision8" name="tutoriasComision8" value="{{ oldValueOrDefault('tutoriasComision8') }}" oninput="onActv3Comision3_9()">
+                                <input type="number" step="0.01" id="tutoriasComision8" name="tutoriasComision8"
+                                    value="{{ oldValueOrDefault('tutoriasComision8') }}" oninput="onActv3Comision3_9()">
                             @else
                                 <span id="tutoriasComision8" name="tutoriasComision8"></span>
                             @endif
@@ -416,29 +438,7 @@ $user_identity = $user->id;
                             @endif
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <div style="display: flex; justify-content: space-between;padding-top: 200px;">
-                <div id="convocatoria">
-                        <!-- Mostrar convocatoria -->
-                        @if(isset($convocatoria))
-
-                            <div style="margin-right: -500px;">
-                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                            </div>
-                        @endif
-                </div>
-
-
-                    <div id="piedepagina1"
-                        class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-                        Página 14 de 32
-                    </div>                
-            </div>
-    
-            <table class="table table-sm tutorias table2">
-            <x-sub-headers-form3_9 :componentIndex="1" />
-                <tbody data-page="15">
+                <tr>
                     <td>i)</td>
                         <td>Dirección trabajo terminado</td>
                         <td>Tesis y otras</td>

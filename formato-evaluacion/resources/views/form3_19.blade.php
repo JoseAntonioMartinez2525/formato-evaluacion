@@ -765,15 +765,15 @@ $topMargin = ($page_counter === 33) ? '150mm' : '20mm';
                                                 </div>
                                         @if(session('page_counter') === 2)
                                             <div class="footer" id="footer2" style="display: block;">
-                                                Página 27 de 28
+                                                Página 30 de 32
                                             </div>
                                         @elseif(session('page_counter') === 3)
                                                 <div class="footer" id="footer3" style="display: block;">
-                                                    Página 28 de 28
+                                                    Página 29 de 32
                                                 </div>
                                             @elseif(session('page_counter') === 1)
                                                 <div class="footer" id="footer1" style="display: block;">
-                                                    &nbsp; Página 26 de 28
+                                                    &nbsp; Página 28 de 32
                                                 </div>
                                         @endif
                 

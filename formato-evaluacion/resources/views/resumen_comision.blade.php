@@ -238,7 +238,7 @@ body.dark-mode img.imgFirma{
                             </center>
 
                             <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-                                Página 33 de 34
+                                Página 32 de 33
                             </div>
                         </footer>
                             </div>
@@ -393,7 +393,7 @@ body.dark-mode img.imgFirma{
             </center>
     
             <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                Página 34 de 34
+                Página 33 de 33
             </div>
         </footer>
     </center>
@@ -861,7 +861,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         piedePaginaDiv.style.textAlign = 'right'; // Alinear texto a la derecha
                                         piedePaginaDiv.style.paddingRight = '600px'; // Ajusta el margen derecho
                                         piedePaginaDiv.style.fontSize = "16px";
-                                        piedePaginaDiv.textContent = 'Página 32 de 32';
+                                        piedePaginaDiv.textContent = 'Página 31 de 33';
 
                                         // Agregar divs a la celda
                                         footerCell.appendChild(convocatoriaDiv);
