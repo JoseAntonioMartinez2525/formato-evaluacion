@@ -64,7 +64,7 @@ $newLocale = str_replace('_', '-', $locale);
     }
 
     .page-number:before {
-        content: "Página " counter(page) " de 32";
+        content: "Página " counter(page) " de 33";
     }
             
         }

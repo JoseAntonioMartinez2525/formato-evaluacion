@@ -104,6 +104,7 @@ $newLocale = str_replace('_', '-', $locale);
         
         page-break-after: auto; /* La última página no necesita salto extra */
         
+        
    
 }
 
