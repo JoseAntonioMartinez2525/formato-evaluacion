@@ -36,7 +36,10 @@ body.chrome @media screen{
 }
 
 #convocatoria2{
-    font-weight: bold;
+    font-weight: normal;
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
     
 }
 
@@ -157,7 +160,7 @@ body.chrome @media screen{
     }
 
     .table-wrap{
-      height: 100px; 
+      height: 50px; 
       page-break-inside: avoid; 
     }
 
@@ -172,12 +175,10 @@ body.chrome @media screen{
         display: table-footer-group !important;
     }
 
-    .page-number:before {
-  content: "Página " counter(page) " de 32";
-}
+
 
 .secretaria-style {
-    font-weight: bold;
+    font-weight: normal;
     font-size: 14px;
     margin-top: 10px;
     text-align: left;
@@ -193,24 +194,28 @@ body.chrome @media screen{
 }
 
 .dictaminador-style {
-    font-weight: bold;
+    font-weight: normal!important;
     font-size: 16px;
     margin-top: 10px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .dictaminador-style#piedepagina2 {
     margin-left: 800px;
     margin-top: 10px;
     font-weight: normal!important;
+    white-space: nowrap;
+    
 }
 
 /* Estilo para secretaria o userType vacío */
 .secretaria-style#piedepagina2 {
-    margin-left: 600px;
+    margin-left: 100px;
     margin-top: 0;
     font-weight: normal!important;
     display: inline-block;
+    white-space: nowrap;
 }
 }
 
@@ -231,7 +236,26 @@ body.dark-mode #comisionIncisoA, body.dark-mode #comisionIncisoB, body.dark-mode
     background-color:transparent;
     color: #ffffff;
     }
+
+        .avoid-page-break {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    }
+
+    .table td, .table th {
+    padding: 2px !important;
+    margin: 0 !important;
+    vertical-align: middle; /* Asegura que el contenido esté centrado verticalmente */
+}
+
+/* Reducir la altura de las filas */
+.table tr{
+    height: auto !important;
+}
+
     </style>
+
+
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -338,7 +362,7 @@ $user_identity = $user->id;
     <x-sub-headers-form3_1 />
 
     <!-- Contenido Incisos a) y b) -->
-    <tbody class="page-break" data-page="3">
+    <tbody data-page="3">
         <tr class="table-wrap">
             <td>a)</td>
             <td>
@@ -393,33 +417,23 @@ $user_identity = $user->id;
                 @endif
             </td>
         </tr>
-        <tr>
-            <td id="convocatoria" colspan="8" class="{{ $userType == 'dictaminador' ? 'dictaminador-style' : 'secretaria-style' }}">
-                @if(isset($convocatoria))
-                       @if($userType == 'dictaminador')
-                        <span style="margin-right: 700px; display: inline-block;">
-                            <h1>Convocatoria: </h1>
-                        </span>
-                        @elseif($userType == '')
-                            <span style="margin-right: 60px; margin-left: 100px; display:nonek;padding-right: 12px; text-align:left;">
-                                <h1>Convocatoria: </h1>
-                            </span>
-                            <span id="piedepagina1" style="display: none; margin-left: 20px;">
-                                Página 3 de 32
-                            </span>
-                        @endif
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8">
-            @if($userType == 'dictaminador')
-            <span id="piedepagina1" style="display: none;margin-left:800px;">Página 3 de 32</span>
-            @endif
-            </td>        
-        </tr>
     </tbody>
 </table>
+
+<div class="avoid-page-break" style="display: flex; justify-content: space-between; padding-top: -20px;">
+    <div id="convocatoria">
+        <!-- Mostrar convocatoria -->
+        @if(isset($convocatoria))
+            <div style="margin-right: -500px;">
+                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+            </div>
+        @endif
+    </div>
+    <div id="piedepagina1"
+        class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+        Página 3 de 33
+    </div>
+</div><br>
 
 <table class="table table-sm table2">
     <x-table-header />
@@ -503,38 +517,39 @@ $user_identity = $user->id;
         </tr>
     </tbody>
 </table>
-   
-            <!--Tabla informativa Acreditacion Actividad 3.1-->
-                    <tr><br>
-        
-                        <th class="acreditacion" scope="col">Acreditacion: </th>
-        
-                        <th class="descripcion"><b>H.CGU</b> puntos a,b y e; <b>CAAC</b> puntos d y e</th>
-                        <th>
-                        @if ($userType != '')
-                            <button id="btn3_1" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                        @endif
-                        </th>
-                    </tr>
-        
-                </thead>
-            </table><br>
-        <center>
-            <div id="convocatoria2">
-                <!-- Mostrar convocatoria -->
-                @if(isset($convocatoria))
+<table>
+    <thead>
+        <tr>
+            <!-- Tabla informativa Acreditacion Actividad 3_1 -->
 
-                    <div style="margin-right: -700px;">
-                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                    </div>
-                @endif
+            <th class="acreditacion" scope="col">Acreditacion: </th>
+
+            <th class="descripcion" style="white-space: nowrap;"><b>H.CGU</b> puntos a,b y e; <b>CAAC</b> puntos d y e</th>
+            <th>
+            @if ($userType != '')
+                <button id="btn3_1" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+            @endif
+            </th>
+            </tr>
+                </thead>
+            </table>
+<!--Convocatoria 2-->
+            <div class="avoid-page-break" style="display: flex; justify-content: space-between;padding-top: 15px;">
+                <div id="convocatoria2">
+                    <!-- Mostrar convocatoria -->
+                    @if(isset($convocatoria))
+
+                        <div style="margin-right: -200px;white-space: nowrap;">
+                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        </div>
+                    @endif
+                </div>
+
+                <div id="piedepagina2"
+                    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+                    Página 4 de 33
+                </div>
             </div>
-        </center>
-        
-<div id="piedepagina2"
-    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-    Página 4 de 32
-</div>
 
         </form>
             </div>
@@ -672,15 +687,7 @@ $user_identity = $user->id;
                                                     
                                                     convocatoriaElement.textContent = data.docente.convocatoria;
                                                     convocatoriaElement2.textContent = data.docente.convocatoria;
-                                                    const existingSpan = convocatoriaElement.querySelector('span#piedepagina1');
-
-                                                    if (!existingSpan) {
-                                                    const piedepaginaSpan = document.createElement('span');
-                                                    piedepaginaSpan.id = 'piedepagina1';
-                                                    piedepaginaSpan.textContent = ' Página 3 de 32';
-                                                    convocatoriaElement.appendChild(piedepaginaSpan);
-                                                    }
-                                                    convocatoriaElement.firstChild.textContent = data.docente.convocatoria;
+                                                    // const existingSpan = convocatoriaElement.querySelector('span#piedepagina1');
                                                   
                                                 } else {
                                                     convocatoriaElement.textContent = 'Convocatoria no disponible';
