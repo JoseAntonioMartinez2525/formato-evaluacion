@@ -1313,8 +1313,8 @@ $page_counter = 28;
                 formData[obs3_19[l]] = form.querySelector(`input[id="${obs3_19[l]}"]`)?.value || '';
             }
 
-            formData['score3_9'] = document.querySelector('.score3_19').textContent;
-            formData['comision3_9'] = document.querySelector('.comision3_19').textContent;
+            formData['score3_19'] = document.querySelector('.score3_19').textContent;
+            formData['comision3_19'] = document.querySelector('.comision3_19').textContent;
 
             // Observations
 

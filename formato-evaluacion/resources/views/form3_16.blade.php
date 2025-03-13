@@ -19,6 +19,73 @@ $newLocale = str_replace('_', '-', $locale);
     .datosPrimarios{
         font-size: .9rem;
     }
+
+            #convocatoria,
+        #convocatoria2,
+        #piedepagina1,
+        #piedepagina2 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+
+
+        .page-number:before {
+            content: "Página " counter(page) " de 33";
+        }
+
+        .secretaria-style {
+            font-weight: normal;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .secretaria-style #piedepagina1 {
+            display: flex;
+            justify-content: flex-end;
+            font-weight: normal !important;
+            /* Opcional, si quieres menos énfasis */
+            color: #000;
+            font-size: .7rem;
+        }
+
+        .dictaminador-style {
+            font-weight: normal;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .dictaminador-style #piedepagina2 {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            font-weight: normal !important;
+        }
+
+        /* Estilo para secretaria o userType vacío */
+        .secretaria-style #piedepagina2 {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            font-weight: normal !important;
+            display: inline-block;
+            font-size: .7rem;
+        }
+
+    /* Mostrar el footer correcto según la página */
+    .page-break[data-page="23"] .first-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-break[data-page="24"] .second-page-footer {
+        display: table-footer-group !important;
+    }
+
+    .page-number:before {
+        content: "Página " counter(page) " de 33";
+    }
 }
     </style>
 </head>
@@ -100,7 +167,7 @@ $user_identity = $user->id;
     </div>
 
     <main class="container">
-        <!-- Form for Part 3_1 -->
+        <!-- Form for Part 3_16 -->
         <form id="form3_16" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form316', 'form3_16');">
             @csrf
             <input type="hidden" name="dictaminador_email" value="{{ Auth::user()->email }}">
@@ -128,8 +195,8 @@ $user_identity = $user->id;
                         </th>
                     </tr>
                 </thead>
-                <x-sub-headers-form3-16 :componentIndex="0" />
-                <tbody>
+                <x-sub-headers-form3_16 :componentIndex="0" />
+                <tbody data-page="23">
                     <tr>
                         <td>a)</td>
                         <td>Arbitraje a proyectos de investigación</td>
@@ -207,6 +274,25 @@ $user_identity = $user->id;
                         @endif
                         </td>
                     </tr>
+                </tbody>
+            </table>
+            <div style="display: flex; justify-content: space-between;padding-top: 80px;">
+                <div id="convocatoria">
+                    <!-- Mostrar convocatoria -->
+                    @if(isset($convocatoria))
+                        <div style="margin-right: -500px;">
+                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        </div>
+                    @endif
+                </div>
+                <div id="piedepagina1"
+                    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+                    Página 23 de 33
+                </div>
+            </div><br>
+            <table class="table table-sm tutorias">
+                <x-sub-headers-form3_16 :componentIndex="1" />
+                <tbody data-page="24">
                     <tr>
                         <td>d)</td>
                         <td>Arbitraje de publicaciones</td>
@@ -231,7 +317,7 @@ $user_identity = $user->id;
                             <span id="obsPubNac"></span>
                         @endif
                         </td>
-                    </tr>
+                    </tr>                    
                     <tr>
                         <td>e)</td>
                         <td>Revisor(a) de libros, corrector(a)</td>
@@ -256,7 +342,7 @@ $user_identity = $user->id;
                         @endif
                         </td>
                     </tr>
-                    <tr class="prevent-overlap">
+                    <tr>
                         <td>f)</td>
                         <td>Revisor(a) de libros, corrector(a)</td>
                         <td>Nacional</td>
@@ -324,27 +410,26 @@ $user_identity = $user->id;
                     </tr>
                 </thead>
             </table> 
+
+            <!--convocatoria 2-->
+            <div style="display: flex; justify-content: space-between;padding-top: 150px;">
+                <div id="convocatoria2">
+                    <!-- Mostrar convocatoria -->
+                    @if(isset($convocatoria))
+
+                        <div style="margin-right: -700px;">
+                            <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
+                        </div>
+                    @endif
+                </div>
+
+                <div id="piedepagina2"
+                    class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
+                    Página 24 de 33
+                </div>
+            </div>
             </form>
     </main>
-    <center>
-    <footer id="footerForm3_4">
-        <center>
-            <div id="convocatoria">
-                <!-- Mostrar convocatoria -->
-                @if(isset($convocatoria))
-
-                    <div style="margin-right: -700px;">
-                        <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                    </div>
-                @endif
-            </div>
-        </center>
-
-        <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-            <x-form-renderer :forms="[['view' => 'form3_16', 'startPage' => 23, 'endPage' => 24]]" />
-        </div>
-    </footer>
-    </center>
 
     <script>
         window.onload = function () {
@@ -390,7 +475,11 @@ $user_identity = $user->id;
                                     const data = response.data;
 
                                     // Populate fields with fetched data
-                                    document.getElementById('score3_16').textContent = data.form3_16.score3_16 || '0';
+                                        // Update all elements with the class 'score3_19'
+                                        const scoreElements = document.querySelectorAll('.score3_16');
+                                        scoreElements.forEach(element => {
+                                            element.textContent = data.form3_16.score3_16 || '0';
+                                        });
 
                                     // Cantidades
                                     document.getElementById('cantArbInt').textContent = data.form3_16.cantArbInt || '0';
@@ -417,9 +506,11 @@ $user_identity = $user->id;
 
                                     // Actualizar convocatoria
                                     const convocatoriaElement = document.getElementById('convocatoria');
+                                    const convocatoriaElement2 = document.getElementById('convocatoria2');
                                     if (convocatoriaElement) {
                                         if (data.form1) {
                                             convocatoriaElement.textContent = data.form1.convocatoria || '';
+                                            convocatoriaElement2.textContent = data.form1.convocatoria || '';
                                         } else {
                                             console.error('form1 no está definido en la respuesta.');
                                         }
@@ -466,13 +557,15 @@ $user_identity = $user->id;
                                     // Verifica si la respuesta contiene los datos esperados
                                     if (data.docente) {
                                         const convocatoriaElement = document.getElementById('convocatoria');
-
+                                        const convocatoriaElement2 = document.getElementById('convocatoria2');
                                         // Mostrar la convocatoria si existe
                                         if (convocatoriaElement) {
                                             if (data.docente.convocatoria) {
                                                 convocatoriaElement.textContent = data.docente.convocatoria;
+                                                convocatoriaElement2.textContent = data.docente.convocatoria;
                                             } else {
                                                 convocatoriaElement.textContent = 'Convocatoria no disponible';
+                                                convocatoriaElement2.textContent = 'Convocatoria no disponible';
                                             }
                                         }
                                     }
@@ -489,8 +582,7 @@ $user_identity = $user->id;
                                     document.querySelector('input[name="user_id"]').value = selectedResponseForm3_16.user_id || '';
                                     document.querySelector('input[name="email"]').value = selectedResponseForm3_16.email || '';
                                     document.querySelector('input[name="user_type"]').value = selectedResponseForm3_16.user_type || '';
-                                    document.getElementById('score3_16').textContent = selectedResponseForm3_16.score3_16 || '0';
-                                    document.getElementById('comision3_16').textContent = selectedResponseForm3_16.comision3_16 || '0';
+
 
                                     // Cantidades
                                     document.getElementById('cantArbInt').textContent = selectedResponseForm3_16.cantArbInt || '0';
@@ -528,6 +620,17 @@ $user_identity = $user->id;
                                     document.querySelector('#obsRevNac').textContent = selectedResponseForm3_16.obsRevNac || '';
                                     document.querySelector('#obsRevista').textContent = selectedResponseForm3_16.obsRevista || '';
 
+                                    // Update all elements with the class 'score3_16'
+                                        const scoreElements = document.querySelectorAll('.score3_16');
+                                        scoreElements.forEach(element => {
+                                            element.textContent = selectedResponseForm3_16.score3_16 || '0';
+                                        });
+
+                                        // Update all elements with the class 'comision3_16'
+                                        const comisionElements = document.querySelectorAll('.comision3_16');
+                                        comisionElements.forEach(element => {
+                                            element.textContent = selectedResponseForm3_16.comision3_16 || '0';
+                                        });
 
                                 } else {
                                     console.error('No form3_16 data found for the selected dictaminador.');
@@ -538,7 +641,7 @@ $user_identity = $user->id;
                                     document.querySelector('input[name="email"]').value = '';
                                     document.querySelector('input[name="user_type"]').value = '';
 
-                                    document.getElementById('score3_16').textContent = '0';
+                                    document.querySelector('.score3_16').textContent = '0';
 
                                     // Cantidades
                                     document.getElementById('cantArbInt').textContent = '0';
@@ -577,7 +680,7 @@ $user_identity = $user->id;
                                     document.querySelector('#obsRevNac').textContent = '';
                                     document.querySelector('#obsRevista').textContent = '';
 
-                                    document.getElementById('comision3_16').textContent = '0';
+                                    document.querySelector('.comision3_16').textContent = '0';
                                 }
                             } catch (error) {
                                 console.error('Error fetching dictaminators responses:', error);
@@ -652,8 +755,8 @@ $user_identity = $user->id;
             formData['obsRevista'] = form.querySelector('input[id="obsRevista"]').value;
 
 
-            formData['score3_16'] = document.getElementById('score3_16').textContent;
-            formData['comision3_16'] = document.getElementById('comision3_16').textContent;
+            formData['score3_16'] = document.querySelector('.score3_19').textContent;
+            formData['comision3_16'] = document.querySelector('.comision3_19').textContent;
 
             // Observations
 
