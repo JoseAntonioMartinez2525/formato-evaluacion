@@ -123,7 +123,7 @@ $newLocale = str_replace('_', '-', $locale);
         #piedepagina1,
         #piedepagina2 {
             margin: 0;
-            font-size: .5rem;
+            font-size: 1rem;
         }
 
 
