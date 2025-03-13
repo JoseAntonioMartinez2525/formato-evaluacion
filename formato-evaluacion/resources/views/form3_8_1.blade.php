@@ -15,7 +15,7 @@ $newLocale = str_replace('_', '-', $locale);
     <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
 <style>
 .punto3_8_1{
-    font-weight: none;
+    font-weight: none!important;
 }
 
 #PuntajeMaximo{
