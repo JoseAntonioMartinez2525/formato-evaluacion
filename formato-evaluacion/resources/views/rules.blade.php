@@ -51,6 +51,7 @@ $userType = Auth::user()->user_type;
     .deptos li {
       margin-bottom: 10px;
       margin-left: 20px;
+      list-style-type: none;
     }
 
     table {
@@ -85,6 +86,20 @@ $userType = Auth::user()->user_type;
       margin-left: 60px;
     }
 
+  .nav-max-content{
+      height: max-content !important;
+      color: white;
+      width: max-content;
+
+  }
+  .nav-max-content a{
+      color: white;
+      font-size: larger;
+  } 
+  .a-font-larger a{
+      font-size: larger;
+      color: white;
+  }
   </style>
 
 </head>
@@ -92,54 +107,48 @@ $userType = Auth::user()->user_type;
     @csrf
     @if (Auth::check())
 
-    <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-      <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
+      <x-nav-menu :user="Auth::user()" navClass="nav-max-content" emailClass="a-font-larger">
+      <div>
+      <ul style="list-style: none;">
       <li class="nav-item">
-      <a class="nav-link disabled enlaceSN" href="#">
-      <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-      </a>
-      </li>
-      <li style="list-style: none; margin-right: 20px;">
-      <a class="enlaceSN" href="{{ route('login') }}">
-      <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-      </a>
-      </li>
-
-    </div>
-    @endif
-    </li>
-    <li class="nav-item">
       @if(Auth::user()->user_type === 'dictaminador')
-      <a class="nav-link active enlaceSN" style="width: 300px;font-size: 20px;" href="{{ route('comision_dictaminadora') }}">Formato de Evalucación</a>
-    @elseif(Auth::user()->user_type === '')
-      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('secretaria') }}">Formato de Evalucación</a>
-    @else
-      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;" href="{{ route('welcome') }}">Formato de Evalucación</a>
-    @endif
-
-    </li>
-     @if(Auth::user()->user_type === '') 
-      <li class="nav-item">
-      <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar Nuevo formulario</a>
+      <a class="nav-link active enlaceSN" style="width: 300px;font-size: 20px;"
+      href="{{ route('comision_dictaminadora') }}" title="Formato de Evaluación docente"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
+      @elseif(Auth::user()->user_type === '')
+      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;"  title="Formato de Evaluación docente"href="{{ route('secretaria') }}"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
+      @else
+      <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;"  title="Formato de Evaluación docente"href="{{ route('welcome') }}"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
+      @endif
       </li>
-     @endif
-    <ul class="deptos">Areas de Conocimiento:
-    <li>Agropecuarias</li>
-    <li>Ciencias del Mar y de la Tierra</li>
-    <li>Ciencias Sociales y Humanidades</li>
-    </ul>
-    <ul class="deptos">Departamentos:
-    <li>Agronomía</li>
-    <li>Ciencia Animal y Conservación del Hábitat</li>
-    <li>Ciencias de la Tierra</li>
-    <li>Ciencias Marinas y Costeras</li>
-    <li>Ciencias Sociales y Jurídicas</li>
-    <li>Economía</li>
-    <li>Humanidades</li>
-    <li>Ingeniería en Pesquerías</li>
-    <li>Sistemas Computacionales</li>
-    </ul>
-    </nav>
+
+      @if(Auth::user()->user_type === '')
+      <li class="nav-item">
+      <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
+      title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
+      </li>
+      @endif
+      </ul>
+      <ul class="deptos"><h5><i class="fa-solid fa-brain"></i>&nbspÁreas de Conocimiento:</h5>
+      <li><i class="fa-solid fa-seedling"></i>&nbspAgropecuarias</li>
+      <li><i class="fa-solid fa-water"></i> Ciencias del Mar y de la Tierra</li>
+      <li><i class="fa-solid fa-users"></i>&nbspCiencias Sociales y Humanidades</li>
+      </ul>
+      <ul class="deptos"><h5><i class="fa-solid fa-building"></i>&nbspDepartamentos:</h5>
+      <li><i class="fa-solid fa-leaf"></i>&nbspAgronomía</li>
+      <li><i class="fa-solid fa-paw"></i>&nbspCiencia Animal <br> y Conservación del Hábitat</li>
+      <li><i class="fa-solid fa-mountain"></i>&nbspCiencias de la Tierra</li>
+      <li><i class="fa-solid fa-fish"></i>&nbspCiencias Marinas y Costeras</li>
+      <li><i class="fa-solid fa-scale-balanced"></i>&nbspCiencias Sociales y Jurídicas</li>
+      <li><i class="fa-solid fa-chart-line"></i>&nbspEconomía</li>
+      <li><i class="fa-solid fa-book"></i>&nbspHumanidades</li>
+      <li><i class="fa-solid fa-anchor"></i>&nbspIngeniería en Pesquerías</li>
+      <li><i class="fa-solid fa-laptop-code"></i>&nbspSistemas Computacionales</li>
+      </ul>
+      </div>
+      </x-nav-menu>
+
+  @endif
+
 
     <body class="font-sans antialiased">
       <x-general-header />
@@ -172,23 +181,23 @@ $userType = Auth::user()->user_type;
       <td>I</td>
       </tr>
       <?php
-    $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
-    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-    for ($i = 0; $i < count($minima); $i += 2) {
+  $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
+  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-    }
+  }
       ?>
 
       </tbody>
       <?php
-    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-    $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
-    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+  $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
+  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">

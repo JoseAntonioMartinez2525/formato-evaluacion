@@ -118,7 +118,6 @@ body.dark-mode img.imgFirma{
             <x-nav-menu :user="Auth::user()" />
         @endif
 
-        </div>
     <x-general-header />
         <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
