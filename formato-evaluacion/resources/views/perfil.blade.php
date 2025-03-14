@@ -20,51 +20,13 @@ $newLocale = str_replace('_', '-', $locale);
         <x-general-header />
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                                                @if (Auth::check())
-                                                    <section role="region" aria-label="Response form">
-                                                        <form>
-                                                            @csrf
-                                                        <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                                            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link disabled enlaceSN" href="#">
-                                                                        <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                                                    </a>
-                                                                </li>
-                                                                <li style="list-style: none; margin-right: 20px;">
-                                                                    <a class="enlaceSN" href="{{ route('login') }}">
-                                                                        <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </div>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('welcome')}}">Formato Evaluación, apartados 1 y 2</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                                                        REGLAMENTO
-                                                                        PEDPD</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                                                        Calidad en la docencia</a>
-                                                                </li><br>
-                                                                <li id="jsonDataLink" class="d-none">
-                                                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los Usuarios</a>
-                                                                </li>
-                                                                <li>
-                                                                     <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-
-                                                                </li>
-
-                                                            </nav>
-                                                </form>@endif
-                                                </section>
-
-                                                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                                    <div class="flex lg:justify-center lg:col-start-2"></div>
-                                                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
-                                                </header>
+                @if (Auth::check())
+                    <x-nav-menu :user="Auth::user()" />
+                @endif
+    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+        <div class="flex lg:justify-center lg:col-start-2"></div>
+        <nav class="-mx-3 flex flex-1 justify-end"></nav>
+    </header>
                 <form id="form6" method="GET" enctype="multipart/form-data"
                     onsubmit="event.preventDefault(); submitForm('/show-profile', 'form6');">
                     @csrf

@@ -26,184 +26,137 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
                 @if (Auth::check())
-                    <section role="region" aria-label="Response form">
-                        <form>
-                            @csrf
-                            <nav class="nav flex-column printButtonClass menu">
-                                <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                    <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                        <li class="nav-item">
-                                            <a class="nav-link disabled enlaceSN" href="#">
-                                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                            </a>
-                                        </li>
-                                        <li style="list-style: none; margin-right: 20px;">
-                                            <a class="enlaceSN" href="{{ route('login') }}">
-                                                <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                            </a>
-                                        </li>
-                                    </div>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('rules') }}">Artículo 10 REGLAMENTO
-                                        PEDPD</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('docencia') }}">Apartado 3</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen') }}">Resumen (A ser llenado
-                                        por la
-                                        Comisión del PEDPD)</a>
-                                </li><br>
-                                <li id="jsonDataLink" class="d-none">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('general') }}">Mostrar datos de los
-                                        Usuarios</a>
-                                </li>
-                                <li id="reportLink" class="nav-item d-none">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}">Mostrar Reporte</a>
-                                </li>
-                                <li class="nav-item">
-                                @if(Auth::user()->user_type === 'dictaminador')
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}">Selección de Formatos</a>
-                                @else
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}">Selección de Formatos</a>
-                                @endif
-                                </li>
-                            </nav>
-                        </form>
-                    </section>
+                    <x-nav-menu :user="Auth::user()" />
                 @endif
             @endif
     </div>
-<x-general-header />               
-                   @php
-$userType = Auth::user()->user_type;
-$sections;
-$subtotalAdded = false;
+    <x-general-header />               
+@php
+    $userType = Auth::user()->user_type;
+    $sections;
+    $subtotalAdded = false; 
+@endphp
 
-
-                @endphp
-
-                    <main class="container">
-                        <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
-                            @csrf
-                            <div>
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                            <center>
-                            <h2 id="resumen">Resumen</h2>
-                            <h4>A ser llenado por la Comisión del PEDPD</h4></center>
-                            <table class="resumenTabla">
-                            <thead>
-                                
-                    <tr>
-                    <th id="actv">Actividad</th>
-                    <th id="pMaximo">Puntaje máximo</th>
-                    <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
-                    </tr>
-@if (isset($sections['data']) && is_array($sections['data']))
+    <main class="container">
+        <form id="form4" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); submitForm('/store-resume', 'form4');" >
+            @csrf
+            <div>
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+            <center>
+            <h2 id="resumen">Resumen</h2>
+            <h4>A ser llenado por la Comisión del PEDPD</h4></center>
+            <table class="resumenTabla">
+            <thead>
+                
+    <tr>
+    <th id="actv">Actividad</th>
+    <th id="pMaximo">Puntaje máximo</th>
+    <th id="pComision">Puntaje otorgado Comisión PEDPD</th>
+    </tr>
+    @if (isset($sections['data']) && is_array($sections['data']))
     @php
     $counter = 0;
     $subtotalIndexes = [13, 17, 23, 27];
     @endphp
     @foreach ($sections['data'] as $index => $data)
-        @if (in_array($index, $subtotalIndexes))
-            {{-- Mostrar subtotales --}}
-            <tr>
-                <td colspan="2">
-                    <center><b>{{ $data['label'] }}</b></center>
-                </td>
-                <td><b>
-                    @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
-                        <label class="p2">{{ $data['comision'] }}</label>
-                    @else
-                        <label>{{ $data['comision'] }}</label>
-                    @endif
-                </b></td>
-            </tr>
-        @else
-            {{-- Datos normales --}}
-            <tr>
-                <td @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente'])) style="font-weight: bold" @elseif (in_array($data['label'], ['3. Calidad en la docencia'])) style="font-weight: bold" @elseif(in_array($data['label'], ['1.1 Años de experiencia docente en la institución', '2.1 Carga de trabajo docente frente a grupo'])) style="background-color: #A4DDED;" @endif>
-                    {{ $data['label'] }}
-                </td>
-                <td @if ($counter === 0 || $counter === 2 || $counter === 4) style="font-weight: bold" @endif class="p1">
-                    {{ $data['value'] }}
-                </td>
-                <td class="tdResaltado">
-                    @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
-                        <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
-                    @elseif (in_array($index, $subtotalIndexes))
-                        {{-- Este bloque maneja los subtotales y no les aplica el fondo amarillo --}}
-                        <span id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
-                    @else
-                        {{-- Aplicar fondo amarillo para todos los demás casos --}}
-                        <span style="background-color: #FFC72C;" id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
-                    @endif
-                </td>
-            </tr>
-        @endif
+    @if (in_array($index, $subtotalIndexes))
+    {{-- Mostrar subtotales --}}
+    <tr>
+    <td colspan="2">
+    <center><b>{{ $data['label'] }}</b></center>
+    </td>
+    <td><b>
+    @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
+        <label class="p2">{{ $data['comision'] }}</label>
+    @else
+        <label>{{ $data['comision'] }}</label>
+    @endif
+    </b></td>
+    </tr>
+    @else
+    {{-- Datos normales --}}
+    <tr>
+    <td @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente'])) style="font-weight: bold" @elseif (in_array($data['label'], ['3. Calidad en la docencia'])) style="font-weight: bold" @elseif(in_array($data['label'], ['1.1 Años de experiencia docente en la institución', '2.1 Carga de trabajo docente frente a grupo'])) style="background-color: #A4DDED;" @endif>
+    {{ $data['label'] }}
+    </td>
+    <td @if ($counter === 0 || $counter === 2 || $counter === 4) style="font-weight: bold" @endif class="p1">
+    {{ $data['value'] }}
+    </td>
+    <td class="tdResaltado">
+    @if (in_array($data['label'], ['1. Permanencia en las actividades de la docencia', '2. Dedicación en el desempeño docente', '3. Calidad en la docencia']))
+        <span id="{{ $data['id'] ?? '' }}" class="p2">{{ $data['comision'] }}</span>
+    @elseif (in_array($index, $subtotalIndexes))
+        {{-- Este bloque maneja los subtotales y no les aplica el fondo amarillo --}}
+        <span id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
+    @else
+        {{-- Aplicar fondo amarillo para todos los demás casos --}}
+        <span style="background-color: #FFC72C;" id="{{ $data['id'] ?? '' }}">{{ $data['comision'] }}</span>
+    @endif
+    </td>
+    </tr>
+    @endif
 
-        @php
-            $counter++; // Incrementamos el contador en cada iteración
-        @endphp
+    @php
+    $counter++; // Incrementamos el contador en cada iteración
+    @endphp
     @endforeach
-@endif
+    @endif
 
-@dd($sections);
-                                <tr>
+    @dd($sections);
+                <tr>
 
-                                    <td>
-                                        <center><b>Total logrado en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                    <td><label id="totalComision" for="" class="p2"></label></td>
-                                </tr>
-                               
-                                <tr>
-                                    <td>
-                                        <center><b>Total de puntaje obtenido en la evaluación</b></center>
-                                    </td>
-                                    <td></td>
-                                        <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
-                            
-                                <tr>
-                                    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
-                                    <th>Mínima de Calidad</th>
-                                    <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Mínima Total</th>
-                                    <th><b><span id="minimaTotal">{{ $minimaTotal }}</span></b></th>
-                                </tr>
-                            </thead>
-                            </table>
-                            <center>
-                                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
-                            </center>
-                            </div>
-                        </form>
+                    <td>
+                        <center><b>Total logrado en la evaluación</b></center>
+                    </td>
+                    <td></td>
+                    <td><label id="totalComision" for="" class="p2"></label></td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Total de puntaje obtenido en la evaluación</b></center>
+                    </td>
+                    <td></td>
+                        <td><b><label id="totalComisionRepetido" class="p2">{{ $totalComisionRepetido }}</label></b></td>
+            
+                <tr>
+                    <th>Nivel obtenido de acuerdo al artículo 10 del Reglamento</th> 
+                    <th>Mínima de Calidad</th>
+                    <th><b><span id="minimaCalidad">{{ $minimaCalidad }}</span></b></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Mínima Total</th>
+                    <th><b><span id="minimaTotal">{{ $minimaTotal }}</span></b></th>
+                </tr>
+            </thead>
+            </table>
+            <center>
+                <button type="submit" class="btn custom-btn buttonSignature">Enviar</button>
+            </center>
+            </div>
+        </form>
 
-                        <br>
-        </div>
-        </main>
-
-        <div>
-
-            <footer>
-                <div>
-                    <label id="convocatoriaPeriodoLabel" style="color:black;"></label>
-                </div>
-                @component('components.pie-pag', ['number' => '3'])
-                @endcomponent
-            </footer>
-
-        </div>
+        <br>
     </div>
+    </main>
+
+    <div>
+
+        <footer>
+            <div>
+                <label id="convocatoriaPeriodoLabel" style="color:black;"></label>
+            </div>
+            @component('components.pie-pag', ['number' => '3'])
+            @endcomponent
+        </footer>
+
     </div>
-    </div>
+</div>
+</div>
+</div>
 
     <script>
 

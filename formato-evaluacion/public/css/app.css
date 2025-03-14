@@ -150,6 +150,16 @@ body {
     outline: none !important;
 }
 
+.navbar-nav, .nav-link:hover {
+    color: #086375;
+}
+
+.navbar-nav, .nav-link {
+    color: white;
+    font-size: 1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
 .horasActv2 input:focus,
 .horasActv2 input:active {
     background-color: #c1cfd3;
@@ -684,7 +694,9 @@ form[id^="form3_"] {
         display: inline-block;
         width: auto;
         margin-bottom: 0;
-        box-shadow: 0.625rem 0.625rem 0.3125rem 0.75rem #afc7ce;
+        list-style: none;
+        font-size: larger;
+       
     }
 }
 

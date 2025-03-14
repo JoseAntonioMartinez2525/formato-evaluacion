@@ -20,47 +20,8 @@ $newLocale = str_replace('_', '-', $locale);
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
                 @if (Auth::check())
-                    <section role="region" aria-label="Response form">
-                        <form>
-                            @csrf
-                            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled enlaceSN" href="#">
-                                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                                        </a>
-                                    </li>
-                                    <li style="list-style: none; margin-right: 20px;">
-                                        <a class="enlaceSN" href="{{ route('login') }}">
-                                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                                        </a>
-                                    </li>
-                                </div>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('welcome')}}">Formato
-                                        Evaluación, apartados 1 y 2</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('rules')}}">Artículo 10
-                                        REGLAMENTO
-                                        PEDPD</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('docencia')}}">Actividades 3.
-                                        Calidad en la docencia</a>
-                                </li><br>
-                                <!--
-                                <li id="jsonDataLink" class="d-none">
-                                    <a href="{{ route('json-generator') }}" class="btn btn-primary">Mostrar datos de los
-                                        Usuarios</a>
-                                </li>-->
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('resumen_comision')}}">Resumen (A ser
-                                        llenado por la Comisión del PEDPD)</a>
-                                </li>
-                            </nav>
-                </form>@endif
-                </section>
+                    <x-nav-menu :user="Auth::user()" />
+                @endif
 
                 <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <x-general-header />
@@ -70,32 +31,32 @@ $newLocale = str_replace('_', '-', $locale);
 
             @endif
             </div>
-                @php
+@php
 $userType = Auth::user()->user_type;
     @endphp
             </div>
-<div class="container mt-4 printButtonClass">
+    <div class="container mt-4 printButtonClass">
 
-              @if ($userType != 'docente')
+    @if ($userType != 'docente')
  <!-- Select para usuario con user_type vacío seleccionando dictaminadores -->
-            <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
-            <select id="dictaminadorSelect" class="form-select">
-                <option value="">Seleccionar un dictaminador</option>
-                <!-- Aquí se llenarán los dictaminadores con JavaScript -->
-            </select>
-            @endif
-                </select>
-                                <button type="submit">Mostrar Datos</button>
-                    </div>
-
-            </form>
-                        <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="user_id" value="">
-                        <input type="hidden" name="email" value="">
-                        <input type="hidden" name="user_type" value="">
-            <div id="user-data">
-                <!-- Aquí se mostrará la información del usuario -->
+    <label for="dictaminadorSelect">Seleccionar Dictaminador:</label>
+    <select id="dictaminadorSelect" class="form-select">
+        <option value="">Seleccionar un dictaminador</option>
+        <!-- Aquí se llenarán los dictaminadores con JavaScript -->
+    </select>
+    @endif
+        </select>
+                        <button type="submit">Mostrar Datos</button>
             </div>
+
+    </form>
+                <input type="hidden" name="dictaminador_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="user_id" value="">
+                <input type="hidden" name="email" value="">
+                <input type="hidden" name="user_type" value="">
+    <div id="user-data">
+        <!-- Aquí se mostrará la información del usuario -->
+    </div>
 
             
 </body>
