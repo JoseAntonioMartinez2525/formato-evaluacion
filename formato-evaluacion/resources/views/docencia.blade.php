@@ -25,21 +25,22 @@ $userType = Auth::user()->user_type;
         @csrf
         @if (Auth::check())
 
-            <nav class="nav flex-column" style="padding-top: 50px; height: 900px; background-color: #afc7ce;">
-                <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
-                    <li class="nav-item">
-                        <a class="nav-link disabled enlaceSN" href="#">
-                            <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
-                        </a>
-                    </li>
-                    <li style="list-style: none; margin-right: 20px;">
-                        <a class="enlaceSN" href="{{ route('login') }}">
-                            <i class="fas fa-power-off" style="font-size: 24px;" name="cerrar_sesion"></i>
-                        </a>
-                    </li>
-                </div>
+            <nav class="nav flex-column"
+                style="padding-top: 50px; height: 900px; background: linear-gradient(90deg, #afc7ce, #4281a4); width:330px;">
+            <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">                        
+                        <li class="nav-item">
+                            <a class="nav-link disabled enlaceSN" style="color: white;"href="#">
+                                <i class="fa-solid fa-user"></i>{{ Auth::user()->email }}
+                            </a>
+                        </li>
+                        <li style="list-style: none; margin-right: 20px;">
+                            <a class="enlaceSN" href="{{ route('login') }}">
+                                <i class="fas fa-power-off" style="font-size: 24px;color:white" name="cerrar_sesion"></i>
+                            </a>
+                        </li>
+                    </div>
 
-           </li>
+               </li>
            @endif
             </li>
 
@@ -55,11 +56,17 @@ $userType = Auth::user()->user_type;
                 <a class="nav-link active enlaceSN" href="{{ route('resumen') }}">Resumen</a>  
             </li>
             @else
-            <li class="nav-item">
-                <a class="nav-link active enlaceSN" href="{{ route('welcome') }}">Formato Evaluación</a>
-            </li>
+                <li class=" nav-item">
+                <a class="nav-link active enlaceSN" aria-current="page" style="width: 200px;"
+                href="{{ route('rules') }}" title="Reglamento deacuerdo al artículo 10 de PEDPD"><i
+                class="fas fa-book"></i>&nbspReglamento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active enlaceSN" style="width: 300px;font-size: 20px;" href="{{ route('welcome') }}"
+                        title="Formato de Evaluación docente"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
+                </li>   
             @endif
-            <ul class="actv3">Actividades del apartado 3.<br>Calidad en la docencia:
+            <ul class="actv3"><i class="fas fa-chalkboard-teacher"></i>&nbspCalidad en la docencia:
                 <li><a href="#seccion3_1">3.1 Participación en actividades de diseño curricular</a></li>
                 <li><a href="#seccion3_2">3.2 Calidad del desempeño docente evaluada por el alumnado</a></li>
                 <li><a href="#seccion3_3">3.3 Publicaciones relacionadas con la docencia</a></li>
@@ -92,7 +99,7 @@ $userType = Auth::user()->user_type;
             </ul>
         </nav>
 
-        <body class="font-sans antialiased">
+        <body class="font-sans antialiased" style="margin-left: 300px;">
             <x-general-header />
             <button id="toggle-dark-mode" class="btn btn-secondary"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
@@ -134,7 +141,7 @@ $userType = Auth::user()->user_type;
                                         </tr>
                                         <!-- Sub-encabezados -->
                                         <tr>
-                                            <td class="p2" colspan="5">3.1 Participación en actividades de diseño curricular</td>
+                                            <td id="seccion3_1" class="p2" colspan="5">3.1 Participación en actividades de diseño curricular</td>
                                             <td id="score3_1"></td>
                                             <td colspan="6"></td>
                                         </tr>
