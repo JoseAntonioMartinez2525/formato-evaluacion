@@ -33,7 +33,16 @@ $existingFormNames = [];
         <div class="relative min-h-screen flex flex-col items-center justify-center">
 @if (Route::has('login'))
                 @if (Auth::check() && Auth::user()->user_type === '')
-                <x-rutas-secretaria/>
+                    <x-nav-menu :user="Auth::user()">
+                        <div>
+                            <ul style="list-style: none;"">
+                                <li class=" nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
+                                        title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </x-nav-menu>
                 @endif
                     <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
