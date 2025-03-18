@@ -20,7 +20,18 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
             @if (Auth::check())
-                <x-nav-menu :user="Auth::user()" />
+                <x-nav-menu :user="Auth::user()">
+                    <div>
+                        <ul style="list-style: none;"">
+                            <li class="nav-item">
+                                <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}" title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"title="Editar ó eliminar formulario" ><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
+                            </li>
+                            </ul>
+                        </div>   
+                </x-nav-menu>
             @endif
 
             </div>

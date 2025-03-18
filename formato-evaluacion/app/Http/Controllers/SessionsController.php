@@ -93,11 +93,13 @@ class SessionsController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        
+        \Log::info('Logout ejecutado correctamente.');
 
-        return redirect('/')
-        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-        ->header('Pragma', 'no-cache')
-        ->header('Expires', '0');
+        return redirect('/login') // Redirige a la vista de login
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
     public function welcome(Request $request)
     {

@@ -12,12 +12,9 @@
                     </a>
                 </li>
                 <li style="list-style: none; margin-right: 20px;">
-                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="enlaceSN" style="background: none; border: none; cursor: pointer;">
+                    <a href="{{ route('login') }}" style="display:inline;">
                             <i class="fas fa-power-off" style="font-size: 24px; color:white;" name="cerrar_sesion"></i>
-                        </button>
-                    </form>
+                    </a>
                 </li>
             </div><br>
             <div>
@@ -25,6 +22,12 @@
                     <li class="nav-item">
                         <a class="nav-link active enlaceSN" aria-current="page" style="width: 200px;" href="{{ route('rules') }}" title="Reglamento deacuerdo al artículo 10 de PEDPD"><i class="fas fa-book"></i>&nbspReglamento</a>
                     </li>
+                    @if($user->user_type === 'dictaminador')
+                        <li class="nav-item">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('comision_dictaminadora') }}" title="Formato de Evaluación docente"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
+                        </li>
+                    @endif
+                    @if($user->user_type != 'docente')
                     <li class="nav-item">
                         <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen') }}" title="A ser llenado por la Comisión del PEDPD""><i class="fas fa-list"></i>&nbspResumen</a>
                     </li><br>
@@ -32,11 +35,12 @@
                         <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}"><i class="fas fa-chart-bar"></i>Mostrar
                             Reporte</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         @if($user->user_type === 'dictaminador')
                             <a class="nav-link active enlaceSN" style="width: 200px;"
                                 href="{{ route('comision_dictaminadora') }}"><i class="fa-regular fa-folder-open"></i>&nbspSelección de Formatos</a>
-                        @else
+                        @elseif($user->user_type === '')
                             <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('secretaria') }}"><i class="fa-regular fa-folder-open"></i>&nbspSelección de
                                 Formatos</a>
                         @endif
