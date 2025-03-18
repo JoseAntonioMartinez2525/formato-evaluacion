@@ -173,28 +173,31 @@ $existingFormNames = [];
     function deleteForm() {
         var formId = document.getElementById('form_id').value;
         if (!formId) {
-        alert('Error: No form selected');
-        return;
+            alert('Error: No form selected');
+            return;
         }
-        
-        if (onfirm('Are you sure you want to delete this form?')) {
+
+        if (confirm('Are you sure you want to delete this form?')) {
             $.ajax({
                 url: `/forms/${formId}`,
                 type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
                 success: function (response) {
                     if (response.success) {
                         alert('Form deleted successfully');
-                        location.reload();
+                        window.location.href = "{{ route('edit_delete_form') }}";
+                    } else {
+                        alert('Error deleting form: ' + (response.message || 'Unknown error'));
                     }
                 },
                 error: function (xhr) {
-                    
-                    alert('Error deleting form: ' + xhr.responseJSON.message);
+                    alert('Error deleting form: ' + (xhr.responseJSON?.message || 'Unknown error'));
                 }
             });
         }
     }
-
     document.getElementById("editDeleteForm").addEventListener("submit", function (event) {
         event.preventDefault(); // Prevent default form submission
         const formId = document.getElementById('form_id').value;

@@ -281,27 +281,31 @@ class DynamicFormController extends Controller
             ], 422);
         }
     }
-    
 
-    public function destroy($formName)
+
+    public function destroy($formId)
     {
         try {
-            $this->checkAndUpdateForm($formName, [], 'delete');
-            /*
-            \Artisan::call('form:update', [
-                'action' => 'delete',
-                'formName' => $formName
-            ]);*/
+            $form = DynamicForm::find($formId);
+
+            if (!$form) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Formulario no encontrado.'
+                ], 404);
+            }
+
+            $form->delete();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Form deleted successfully'
+                'message' => 'Formulario eliminado correctamente.'
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting form: ' . $e->getMessage()
-            ], 422);
+                'message' => 'Error al eliminar el formulario: ' . $e->getMessage()
+            ], 500);
         }
     }
 
