@@ -28,13 +28,19 @@
                         </li>
                     @endif
                     @if($user->user_type != 'docente')
-                    <li class="nav-item">
-                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen') }}" title="A ser llenado por la Comisión del PEDPD""><i class="fas fa-list"></i>&nbspResumen</a>
-                    </li><br>
-                    <li id="reportLink" class="nav-item d-none">
-                        <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}"><i class="fas fa-chart-bar"></i>Mostrar
-                            Reporte</a>
-                    </li>
+                        @if($user->user_type === '')
+                        <li class="nav-item">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen') }}" title="A ser llenado por la Comisión del PEDPD""><i class="fas fa-list"></i>&nbspResumen</a>
+                        </li><br>
+                        <li id="reportLink" class="nav-item d-none">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('perfil') }}"><i class="fas fa-chart-bar"></i>Mostrar
+                                Reporte</a>
+                        </li>
+                        @else 
+                        <li class="nav-item">
+                            <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('resumen_comision') }}" title="A ser llenado por la Comisión del PEDPD""><i class="fas fa-list"></i>&nbspResumen</a>
+                        </li>  
+                        @endif   
                     @endif
                     <li class="nav-item">
                         @if($user->user_type === 'dictaminador')
