@@ -9,14 +9,14 @@
             id="navPrint">
             <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">
                 <li class="nav-item">
-                    <a class="nav-link disabled enlaceSN {{ $emailClass }}" style="font-size: medium; color: white;"
+                    <a class="nav-link disabled enlaceSN {{ $emailClass }}" style="font-size: large; color: white;padding-left: 50px;"
                         href="#">
                         <i class="fa-solid fa-user" style="color: white;"></i>&nbsp&nbsp{{ $user->email }}
                     </a>
                 </li>
             <li style="list-style: none; margin-right: 20px;">
-                <a href="{{ route('login') }}" style="display:inline;">
-                    <i class="fas fa-power-off" style="font-size: 24px; color:white;" name="cerrar_sesion"></i>
+                <a href="{{ route('login') }}" style="display:inline;" title="cerrar_sesion">
+                    <i class="fas fa-power-off" style="font-size: 20px; color:white;" name="cerrar_sesion"></i>
                 </a>
             </li>
             </div><br>
