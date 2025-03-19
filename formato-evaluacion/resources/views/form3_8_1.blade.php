@@ -30,12 +30,19 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 
 <body class="bg-gray-50 text-black/50">
+<div class="relative min-h-screen flex flex-col items-center justify-center">
+    @if (Route::has('login'))
+        @if (Auth::check())
+            <x-nav-menu :user="Auth::user()" />
 
-    <x-secretaria-headers />
+        @endif
+    @endif
+</div>
+<x-general-header />
 @php
-$user = Auth::user();
-$userType = $user->user_type;
-$user_identity = $user->id; 
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_identity = $user->id; 
 @endphp
 
     <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>

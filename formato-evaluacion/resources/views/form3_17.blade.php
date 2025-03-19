@@ -79,10 +79,6 @@ $newLocale = str_replace('_', '-', $locale);
     }
 
 
-    .page-number:after {
-        content: "Página " counter(page);
-    }
-
 }
    </style> 
 </head>

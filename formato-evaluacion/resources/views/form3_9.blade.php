@@ -133,6 +133,12 @@ $newLocale = str_replace('_', '-', $locale);
 
 }
 
+  .nav-max-content{
+
+      color: white;
+      width: max-content;
+
+  }
     </style>
 </head>
 
@@ -141,7 +147,7 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="relative min-h-screen flex flex-col items-center justify-center">
         @if (Route::has('login'))
             @if (Auth::check())
-                <x-nav-menu :user="Auth::user()" />
+                <x-nav-menu :user="Auth::user()" navClass="nav-max-content" />
             @endif
         @endif
     </div>

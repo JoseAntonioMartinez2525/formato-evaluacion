@@ -45,6 +45,9 @@ $newLocale = str_replace('_', '-', $locale);
     font-weight: bold;
 }
 
+body.dark-mode #obs1, body.dark-mode #comision1 {
+    color:black;
+}
     
 </style>
 <body class="bg-gray-50 text-black/50">
