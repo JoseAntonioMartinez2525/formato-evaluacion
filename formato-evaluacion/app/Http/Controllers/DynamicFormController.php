@@ -395,8 +395,56 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         
     }
 
-    
+    /*
+     public function getFormContent($selectedForm)
+    {
+        try {
+            $form = DynamicForm::where('form_name', $selectedForm)->first();
+            
+            if (!$form) {
+                return response()->json(['error' => 'Form not found'], 404);
+            }
+
+            // Get columns and values for this form
+            $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
+            $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
+
+            // Build the HTML table
+            $html = '<table class="table table-bordered">';
+            
+            // Add header row
+            $html .= '<thead><tr>';
+            foreach ($columns as $column) {
+                $html .= '<th>' . htmlspecialchars($column->column_name) . '</th>';
+            }
+            $html .= '</tr></thead>';
+            
+            // Add data rows
+            $html .= '<tbody>';
+            $groupedValues = $values->groupBy('dynamic_form_column_id');
+            
+            foreach ($groupedValues->first() as $rowIndex => $value) {
+                $html .= '<tr>';
+                foreach ($columns as $column) {
+                    $cellValue = $groupedValues[$column->id][$rowIndex]->value ?? '';
+                    $html .= '<td>' . htmlspecialchars($cellValue) . '</td>';
+                }
+                $html .= '</tr>';
+            }
+            $html .= '</tbody></table>';
+
+            return response()->json([
+                'html' => $html,
+                'formName' => $form->form_name,
+                'puntajeMaximo' => $form->puntaje_maximo
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }*/
 }
+    
+
 
 
     

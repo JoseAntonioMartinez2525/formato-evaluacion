@@ -267,6 +267,8 @@ Route::post('/toggle-dark-mode', [ThemeController::class, 'toggleDarkMode']);
 Route::post('/dynamic-form/store', [DynamicFormController::class, 'store'])->name('dynamic-form.store');
 
 Route::get('/dynamic-form/{formName}', [DynamicFormController::class, 'getFormByName']);
+    // Add this route with your other routes
+//Route::get('/get-form-content/{selectedForm}', [DynamicFormController::class, 'getFormContent']);
 
 Route::post('/update-page-counter', function (Request $request) {
     try {

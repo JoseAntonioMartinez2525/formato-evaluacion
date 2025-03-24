@@ -17,7 +17,7 @@
                 return 'VII';
             case (total >= 595 && total <= 649.99):
                  return 'VIII';
-            case (total >= 650 && $total <= 700):
+            case (total >= 650 && total <= 700):
                 return 'IX';
             default:
                 return 'FALSE';

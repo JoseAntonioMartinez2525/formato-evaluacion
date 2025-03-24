@@ -30,7 +30,9 @@ nav {
     overflow-y: auto;
     background-color: transparent;
     color: white;
+
 }
+
 
 .actv3 ul {
     list-style-type: none;
@@ -59,6 +61,7 @@ nav {
 
 .actv3::-webkit-scrollbar {
     width: 10px;
+    
 }
 
 .actv3::-webkit-scrollbar-track {
@@ -73,6 +76,7 @@ nav {
 .actv3::-webkit-scrollbar-thumb:hover {
     background: #333;
 }
+
 
 .userMenu{
         background-color: transparent;
