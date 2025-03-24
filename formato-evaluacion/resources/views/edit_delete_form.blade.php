@@ -159,6 +159,7 @@ $existingFormNames = [];
                         <label for="puntajeMaximo">Puntaje Máximo:</label>
                         <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
                     `;
+                    
 
                     } else {
                         alert('Error fetching form data.');

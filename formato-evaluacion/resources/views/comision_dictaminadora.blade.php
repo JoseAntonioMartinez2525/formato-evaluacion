@@ -1,6 +1,12 @@
 @php
-$locale = app()->getLocale() ?: 'en';
-$newLocale = str_replace('_', '-', $locale);
+    $locale = app()->getLocale() ?: 'en';
+    $newLocale = str_replace('_', '-', $locale);
+    $formType = request()->query('formType');
+    $formName = request()->query('formName');
+    use App\Models\DynamicForm; // Ensure to include the model
+
+    $forms = DynamicForm::all(); // Fetch all forms from the database
+    $existingFormNames = [];
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -23,51 +29,58 @@ $newLocale = str_replace('_', '-', $locale);
 </head>
 
 <body class="font-sans antialiased">
+
     @auth
-        @if(Auth::user()->user_type === 'dictaminador')
-        <x-nav-menu :user="Auth::user()"/>
-        <x-general-header />
-        <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass" style="margin-left: 100px;"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+                    @if(Auth::user()->user_type === 'dictaminador')
+                                            <x-nav-menu :user="Auth::user()"/>
+                                            <x-general-header />
+                                            <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass" style="margin-left: 100px;"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
-        <div class="container mt-4">
-            <!-- Selector para elegir el formulario -->
-            <label for="formSelect">Seleccionar Formulario:</label>
-            <select id="formSelect" class="form-select">
-                <option value=""></option>
-                <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                <option value="form3_1">  3.1 Participación en actividades de diseño curricular</option>
-                <option value="form3_2">  3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
-                <option value="form3_4">  3.4 Distinciones académicas recibidas por el docente</option>
-                <option value="form3_5">  3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                <option value="form3_6">  3.6 Capacitación y actualización pedagógica recibida</option>
-                <option value="form3_7">  3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                <option value="form3_8">  3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
-                capacitación docente</option>
-                <option value="form3_8_1"> 3.8.1 RSU</option>
-                <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
-                <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
-                <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
-                <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
-                <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
-                <option value="form3_14"> 3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
-                <option value="form3_15"> 3.15 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
-                <option value="form3_16"> 3.16 Registro de patentes y productos de investigación tecnológica y educativa</option>
-                <option value="form3_17"> 3.17 Actividades de arbitraje, revisión, correción y edición</option>
-                <option value="form3_18"> 3.18 Proyectos académicos de extensión y difusión</option>
-                <option value="form3_19"> 3.19 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente</option>
+                                            <div class="container mt-4">
+                                                <!-- Selector para elegir el formulario -->
+                                                <label for="formSelect">Seleccionar Formulario:</label>
+                                                <select id="formSelect" class="form-select">
+                                                    <option value=""></option>
+                                                    <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                                                    <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                                                    <option value="form3_1">  3.1 Participación en actividades de diseño curricular</option>
+                                                    <option value="form3_2">  3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                                                    <option value="form3_3">  3.3 Publicaciones relacionadas con la docencia</option>
+                                                    <option value="form3_4">  3.4 Distinciones académicas recibidas por el docente</option>
+                                                    <option value="form3_5">  3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                                                    <option value="form3_6">  3.6 Capacitación y actualización pedagógica recibida</option>
+                                                    <option value="form3_7">  3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
+                                                    <option value="form3_8">  3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y
+                                                    capacitación docente</option>
+                                                    <option value="form3_8_1"> 3.8.1 RSU</option>
+                                                    <option value="form3_9">  3.9 Trabajos dirigidos para la titulación de estudiantes</option>
+                                                    <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
+                                                    <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
+                                                    <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                                                    <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
+                                                    <option value="form3_14"> 3.14 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
+                                                    <option value="form3_15"> 3.15 Participación como ponente en congresos o eventos académicos del Área de Conocimiento o afines del docente</option>
+                                                    <option value="form3_16"> 3.16 Registro de patentes y productos de investigación tecnológica y educativa</option>
+                                                    <option value="form3_17"> 3.17 Actividades de arbitraje, revisión, correción y edición</option>
+                                                    <option value="form3_18"> 3.18 Proyectos académicos de extensión y difusión</option>
+                                                    <option value="form3_19"> 3.19 Organización de congresos o eventos institucionales del área de conocimiento de la o el Docente</option>
+                                                    <!-- Dynamic options -->
+                                                    @foreach($forms as $form)
+                                                        @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
+                                                            <option value="{{ $form->form_type }}">{{ $form->form_name }}</option>
+                                                            @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
-            </select>
-        </div>
+                                            <div id="formContainer">
+                                                <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                                                </div>
 
-        <div id="formContainer">
-            <!-- Aquí se cargará el contenido del formulario seleccionado -->
-            </div>
-
-        @else
-            <p>No tienes permisos para ver esta página.</p>
-        @endif
+                    @else
+                        <p>No tienes permisos para ver esta página.</p>
+                    @endif
     @else
         <p>Por favor, inicia sesión.</p>
     @endauth
