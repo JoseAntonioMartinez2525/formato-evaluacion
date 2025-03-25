@@ -610,6 +610,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             docenteSelect.addEventListener('change', async (event) => {
                 const email = event.target.value;
+                const dataContainer = document.getElementById('data'); // Get the tbody container
+
+                    if (dataContainer) {
+                    dataContainer.innerHTML = '';
+                }
+
+                // Reset form container display
+                const formContainer = document.getElementById('formContainer');
+                if (formContainer) {
+                    formContainer.style.display = 'none';
+                }
 
                 if (email) {
                     // Mantenemos la solicitud a /get-docente-data para obtener los datos del docente
@@ -617,7 +628,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const response = await axios.get('/get-docente-data', { params: { email } });
                     const data = response.data;
                     if(data){
-                    
+                                    formContainer.style.display = 'block';
                             let actividades = {};
 
                             //cambiar la logica para acceder a las comisiones desde el id del docente

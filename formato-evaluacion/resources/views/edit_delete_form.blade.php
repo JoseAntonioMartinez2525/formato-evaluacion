@@ -109,76 +109,104 @@ $existingFormNames = [];
      // Add this log
      console.log('Form Action After:', document.getElementById('editDeleteForm').action);
 
+     
      if (selectedForm) {
          fetch(`/get-form-data/${selectedForm}`)
              .then(response => response.json())
              .then(data => {
                  console.log('Returned Data:', data);
                  if (data.success) {
-                     // Limpiar el contenedor
+                     // Clear existing fields
                      formContainer.style.marginBottom = "1rem";
                      formContainer.innerHTML = '';
 
-                     // Crear estructura de la tabla
-                     let tableHTML = `
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Nombre de la Columna</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                     // Populate columns
+                     data.columns.forEach(column => {
+                         console.log('Column Data:', column); // Log each column data
 
-                     // Iterar sobre los valores y columnas para asegurarse de que están alineados
-                     let maxLength = Math.max(data.columns.length, data.values.length);
+                         formContainer.innerHTML += `
+                            <div class="form-group mb-3">
+                                <label for="column_name_${column.id}">Nombre de la Columna:</label>
 
-                     for (let i = 0; i < maxLength; i++) {
-                         const column = data.columns[i] || { column_name: '' };
-                         const value = data.values[i] || { value: '' };
 
-                         const isLastElement = i === maxLength - 1;
-                         const isRequired = isLastElement ? (value.value ? 'required' : '') : 'required';
 
-                         tableHTML += `
-                        <tr>
-                            <td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <input type="text" 
                                     class="form-control"
+                                    id="column_name_${column.id}" 
                                     name="column_name[]" 
                                     value="${column.column_name}">
-                            </td>
-                            <td>
+                            </div>
+                        `;
+                     });
+
+                     // Populate values
+                     data.values.forEach((value, index) => {
+                         const isLastElement = index === data.values.length - 1;
+                         const isRequired = isLastElement ? (value.value ? 'required' : '') : 'required';
+
+                         formContainer.innerHTML += `
+                            <div class="form-group mb-3">
+                                <label for="value_${value.id}">Valor:</label>
                                 <input type="text" 
                                     class="form-control"
+                                    id="value_${value.id}" 
                                     name="value[]" 
                                     value="${value.value}" 
                                     ${isRequired}>
-                            </td>
-                        </tr>
+                            </div>
+                        `;
+                     });
+
+                     // Set the maximum score
+                     formContainer.innerHTML += `
+                         <input type="hidden" name="form_name" value="${selectedForm}">
+                        <label for="puntajeMaximo">Puntaje Máximo:</label>
+                        <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
                     `;
-                     }
 
-                     tableHTML += `
-                        </tbody>
-                    </table>
-                    <input type="hidden" name="form_name" value="${selectedForm}">
-                    <label for="puntajeMaximo">Puntaje Máximo:</label>
-                    <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
-                `;
 
-                     formContainer.innerHTML = tableHTML;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                  } else {
                      alert('Error fetching form data.');
                  }
              })
              .catch(error => console.error('Error fetching form data:', error));
      } else {
-         formContainer.innerHTML = ''; // Limpiar el contenedor si no hay formulario seleccionado
+         formContainer.innerHTML = ''; // Clear the container if no form is selected
      }
-
-    });                   
+ });                     
                     
     function deleteForm() {
         var formId = document.getElementById('form_id').value;
