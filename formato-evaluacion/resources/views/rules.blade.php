@@ -100,6 +100,15 @@ $userType = Auth::user()->user_type;
       font-size: larger;
       color: white;
   }
+
+  body.dark-mode nav.nav.flex-column {
+    background: linear-gradient(90deg, rgb(14, 34, 69), rgb(13, 31, 63)) !important;
+}
+
+body.dark-mode nav.nav.flex-column a:hover {
+    color: rgb(122, 164, 237);
+}
+
   </style>
 
 </head>

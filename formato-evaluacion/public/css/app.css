@@ -289,6 +289,8 @@ header{
 }
 
 
+
+
 .input-header {
     background-color: #ced4da;
     margin-bottom: 3px;
@@ -912,6 +914,14 @@ body.dark-mode #obsDifusionInt, body.dark-mode #comisionRepDifusionExt, body.dar
 /* cantComOrgInt, cantComOrgNac, cantComOrgReg */
 body.dark-mode td.cantidad_form_3_18, body.dark-mode .form3_18_dark, body.dark-mode .form3_19_dark{
     color: black;
+}
+
+body.dark-mode nav.nav.flex-column {
+    background: linear-gradient(90deg, rgb(14, 34, 69), rgb(13, 31, 63)) !important;
+}
+
+body.dark-mode nav.nav.flex-column a:hover {
+    color: rgb(122, 164, 237);
 }
 
 

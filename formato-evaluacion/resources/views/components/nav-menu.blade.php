@@ -1,8 +1,12 @@
 {{-- filepath: resources/views/components/nav-menu.blade.php --}}
 @props(['user', 'navClass' => '', 'emailClass' => ''])
-
+<style>
+body.dark-mode .nav {
+    background: linear-gradient(90deg, #4a4a4a, #2c2c2c);
+}
+</style>
 <section role="region" aria-label="Response form">
-    <form class="printButtonClass">
+    <form class="printButtonClass" id="blackForm">
         @csrf
         <nav class="nav flex-column {{ $navClass }}" style="padding-top: 50px; height: 900px; background: linear-gradient(90deg, #afc7ce, #4281a4);" id="navPrint">
             <div class="nav-header" style="display: flex; align-items: center; padding-top: 50px;">

@@ -17,9 +17,17 @@ $newLocale = str_replace('_', '-', $locale);
     body.dark-mode span, body.dark-mode #horasPosgrado, body.dark-mode #horasSemestre, 
     body.dark-mode #comisionPosgrado,  body.dark-mode #comisionLic{
     background-color:transparent;
-    color: #ffffff;
+        color: #ffffff;
     }
-    
+
+body.dark-mode nav.nav.flex-column {
+    background: linear-gradient(90deg, rgb(14, 34, 69),  rgb(13, 31, 63)) !important;
+}
+
+body.dark-mode nav.nav.flex-column a:hover {
+   color:  rgb(122, 164, 237);
+}
+
 </style>    
 </head>
 
