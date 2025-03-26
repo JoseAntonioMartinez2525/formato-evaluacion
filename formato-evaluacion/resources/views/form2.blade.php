@@ -171,12 +171,6 @@ $user_identity = $user->id;
                         @endif
                             </div>
                         </td>
-                        <td>@if($userType != '')
-                            <button type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                        @else
-                            <span></span>
-                        @endif
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -191,6 +185,11 @@ $user_identity = $user->id;
                     </tr>
                 </thead>
             </table>
+            @if($userType != '')
+                <button type="submit" class="btn custom-btn printButtonClass" id="form2_1Button">Enviar</button>
+            @else
+                <span></span>
+            @endif
         </form>
     </main>
 

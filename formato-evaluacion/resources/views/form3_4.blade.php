@@ -94,6 +94,20 @@ body.dark-mode [id^="obs3_4_"]{
     color: black;
 }
 
+#btn3_4{
+    margin-left: 1100px;
+}
+
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
+
     </style>
 </head>
 
@@ -248,13 +262,12 @@ $user_identity = $user->id;
                     <tr><!--Tabla informativa Acreditacion Actividad 3.4-->
                         <td class="acreditacion" scope="col">Acreditacion: </td>
                         <td class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></td>
-                        <td>@if($userType != '')
-                            <button id="btn3_4" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                        @endif
-                        </td>
                     </tr>
                 </tbody>
             </table>
+            @if($userType != '')
+                <button id="btn3_4" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+            @endif
             </form>
     </main>
     <center>

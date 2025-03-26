@@ -13,6 +13,21 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
     <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
+<style>
+#btn3_7{
+    margin-left: 1250px;
+}
+
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
+</style>    
 </head>
 
 <body class="bg-gray-50 text-black/50">
@@ -116,16 +131,14 @@ $user_identity = $user->id;
                             <tr>
                                 <th class="acreditacion" scope="col">Acreditacion: </th>
                                 <th class="descripcion"><b>JD,CAAC, instancia que organiza</b></th>
-                                <th>
-                                    @if ($userType != '')
-                                        <button id="btn3_7" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                                    @endif
-                                </th>
                             </tr>
                         </thead>
                     </table>
                 </tbody>
             </table>
+            @if ($userType != '')
+                <button id="btn3_7" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+            @endif
             </form>
     </main>
     <center>

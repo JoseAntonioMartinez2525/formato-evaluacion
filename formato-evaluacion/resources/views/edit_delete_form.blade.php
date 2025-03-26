@@ -128,23 +128,6 @@ $existingFormNames = [];
                             <div class="form-group mb-3">
                                 <label for="column_name_${column.id}">Nombre de la Columna:</label>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 <input type="text" 
                                     class="form-control"
                                     id="column_name_${column.id}" 
@@ -178,25 +161,6 @@ $existingFormNames = [];
                         <label for="puntajeMaximo">Puntaje Máximo:</label>
                         <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
                     `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                  } else {
                      alert('Error fetching form data.');

@@ -238,6 +238,20 @@ body.dark-mode .comIncisoA, body.dark-mode .comIncisoB, body.dark-mode .comIncis
 body.dark-mode td.cantidad{
     color:white;
 }
+
+[id^="btn3_"]{
+    margin-left: 900px;
+}
+
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
     </style>
 </head>
 
@@ -461,14 +475,12 @@ $user_identity = $user->id;
             <th class="acreditacion" scope="col">Acreditacion: </th>
 
             <th class="descripcionCAAC"><b>CAAC, Instancia que la otorga</b></th>
-            <th>
-            @if ($userType != '')
-                <button id="btn3_3" type="submit" class="btn custom-btn printButtonClass">Enviar
-            @endif
-                </th>
         </tr>
     </thead>
 </table>
+    @if ($userType != '')
+        <button id="btn3_3" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+    @endif
 <div class="espaciadoConvocatoria">
 <div id="convocatoria2">
     <!-- Mostrar convocatoria -->

@@ -259,6 +259,16 @@ header{
 
 }
 
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
+
 #btn3_8{
     margin-right: -100px;
     border-radius: 90px 90px 90px 90px;
@@ -686,7 +696,21 @@ form[id^="form3_"] {
     
 }
 
-.menu{padding-top: 50px;height: 800px;}
+#form2_1Button{
+    margin-left: 950px;
+    width: 200px;
+    border-radius: 90px 90px 90px 90px;
+}
+body.dark-mode #btn1, body.dark-mode #form2_1Button, body.dark-mode #form2_2Button{
+    background-color: #456483;
+    color: floralwhite;
+}
+
+body.dark-mode #btn1:hover, body.dark-mode #form2_1Button:hover,
+body.dark-mode #form2_2Button:hover{
+    background-color: #6a5b9f;
+}
+.menu{padding-top: 50px; height: 800px;}
 
 @media (min-width: 768px) {
     .container {

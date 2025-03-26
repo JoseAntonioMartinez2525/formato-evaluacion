@@ -33,6 +33,20 @@ $newLocale = str_replace('_', '-', $locale);
     body.dark-mode [id^="obs3_5"]{
         color: black;
     }
+
+[id^="btn3_"]{
+    margin-left: 1200px;
+}
+
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
 </style>
 <body class="bg-gray-50 text-black/50">
 
@@ -156,14 +170,12 @@ $user_identity = $user->id;
                         <th class="acreditacion" scope="col">Acreditacion: </th>
             
                         <th class="descripcion"><b>JDA y CAAC</b>
-                        <th>
-                        @if($userType != '')    
-                            <button id="btn3_5" type="submit" class="btn custom-btn printButtonClass">Enviar
-                        @endif
-                        </th>
                     </tr>
                 </thead>
             </table>
+            @if($userType != '')
+                <button id="btn3_5" type="submit" class="btn custom-btn printButtonClass">Enviar
+            @endif
             </form>
     </main>
     <center>

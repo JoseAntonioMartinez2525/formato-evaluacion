@@ -99,6 +99,20 @@ $newLocale = str_replace('_', '-', $locale);
         color: black;
     }
 
+    [id^="btn3_"]{
+    margin-left: 900px;
+}
+
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
+
 </style>
 </head>
 

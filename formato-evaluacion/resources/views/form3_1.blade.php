@@ -252,7 +252,19 @@ body.dark-mode #comisionIncisoA, body.dark-mode #comisionIncisoB, body.dark-mode
 .table tr{
     height: auto !important;
 }
+[id^="btn3_"]{
+    margin-left: 900px;
+}
 
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
     </style>
 
 
@@ -478,14 +490,12 @@ $user_identity = $user->id;
             <th class="acreditacion" scope="col">Acreditacion: </th>
 
             <th class="descripcion" style="white-space: nowrap;"><b>H.CGU</b> puntos a,b y e; <b>CAAC</b> puntos d y e</th>
-            <th>
-            @if ($userType != '')
-                <button id="btn3_1" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-            @endif
-            </th>
-            </tr>
-                </thead>
+        </tr>
+    </thead>
             </table>
+        @if ($userType != '')
+            <button id="btn3_1" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+        @endif
 <!--Convocatoria 2-->
             <div class="avoid-page-break" style="display: flex; justify-content: space-between;padding-top: 15px;">
                 <div id="convocatoria2">

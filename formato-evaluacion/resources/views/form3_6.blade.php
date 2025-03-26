@@ -13,6 +13,20 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
     <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
+<style>
+#btn3_6{
+    margin-left: 280px;
+}    
+body.dark-mode [id^="btn3_"]{
+        background-color: #456483;
+        color: floralwhite;
+}
+
+body.dark-mode [id^="btn3_"]:hover {
+    background-color: #6a5b9f;
+    
+}
+</style>
 </head>
 
 <body class="bg-gray-50 text-black/50">
