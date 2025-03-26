@@ -121,16 +121,14 @@ continua o de formación y capacitación docente </td>
                                         institución y el convenio acuerdo con
                                         la
                                         UABCS.</b> </th>
-                                <th>
-                                    @if ($userType != '')
-                                        <button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                                    @endif
-                                </th>
                             </tr>
                         </thead>
                     </table>
                 </tbody>
             </table>
+            @if ($userType != '')
+                <button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+            @endif
             </form>
     </main>
 <center>

@@ -144,12 +144,12 @@ $user_identity = $user->id;
                     <th class="acreditacion" scope="col">Acreditacion: </th>
         
                     <th class="descripcion"><b>IMPI</b></th>
-                    @if($userType != '')
-                        <th><button id="btn3_15" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
-                    @endif
                 </tr>
             </thead>
         </table>
+        @if($userType != '')
+            <th><button id="btn3_15" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
+        @endif
         </form>
     </main>
     <center>

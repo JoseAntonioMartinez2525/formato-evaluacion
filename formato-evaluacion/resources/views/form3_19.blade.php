@@ -794,16 +794,13 @@ $page_counter = 28;
                             financiera de institución extranjera</th>
                         <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                         <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
-                        <th>
-                            @if ($userType != '')
-                                <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-
-                            @endif
-                        </th>
                     </tr>
                 </thead>
             </table>
+            @if ($userType != '')
+                <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
 
+            @endif
             <div style="display: flex; justify-content: space-between;padding-top: 200px;">
                 <div id="convocatoria3">
                     <!-- Mostrar convocatoria -->

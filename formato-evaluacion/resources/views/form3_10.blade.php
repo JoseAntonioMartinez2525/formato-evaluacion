@@ -152,15 +152,12 @@ $user_identity = $user->id;
 
                                 <th class="descripcion"><b>DDIE</b> </th>
 
-                                <th>
-                                    @if ($userType != '')
-                                        <button id="btn3_10" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
-                                    @endif
-                                    
-                                </th>
                             </tr>
                         </thead>
                     </table>
+                    @if ($userType != '')
+                        <button id="btn3_10" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
+                    @endif
             </form>
     </main>
     <center>

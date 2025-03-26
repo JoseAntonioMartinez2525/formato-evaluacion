@@ -260,21 +260,31 @@ header{
 }
 
 body.dark-mode [id^="btn3_"]{
-        background-color: #456483;
+        background-color: #456483 !important;
         color: floralwhite;
 }
 
 body.dark-mode [id^="btn3_"]:hover {
-    background-color: #6a5b9f;
+    background-color: #6a5b9f !important;
     
 }
 
 #btn3_8{
-    margin-right: -100px;
+    margin-left: 1000px;
     border-radius: 90px 90px 90px 90px;
 
     
 }
+
+#btn3_15, #btn3_19{
+    margin-left: 950px;
+}
+
+
+#btn3_10{
+margin-left: 900px;
+}
+
 
 #btn3_2{
     margin-left: -230px;
@@ -922,6 +932,7 @@ body.dark-mode #obsInicioInvInterno,
 body.dark-mode #obsReporteFinanciamExt,
 body.dark-mode #obsReporteInvInt{
     background-color: transparent;
+    color:white;
 }
 
 body.dark-mode #cantArbInt, body.dark-mode #cantArbNac, body.dark-mode #cantArbInt, body.dark-mode #cantPubInt, body.dark-mode #cantPubNac, body.dark-mode #cantRevInt, body.dark-mode #cantRevNac, body.dark-mode #cantRevista, body.dark-mode #comisionArbInt, 
@@ -947,6 +958,7 @@ body.dark-mode nav.nav.flex-column {
 body.dark-mode nav.nav.flex-column a:hover {
     color: rgb(122, 164, 237);
 }
+
 
 
 
