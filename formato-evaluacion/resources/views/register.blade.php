@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+Nombre del programador: José Antonio Martínez del Toro
+Objetivo: Implementación frontend del registro de usuarios
+Fecha de creación: 2024-06-03
+-->
 <html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
     data-assets-path="assets/" data-template="vertical-menu-template">
 
@@ -108,7 +113,7 @@
             console.log('Nombre:', document.getElementById('registerName').value);
             console.log('Usuario:', document.getElementById('registerUsertype').value);
             console.log('Email:', document.getElementById('registerEmail').value);
-            // Puedes agregar más campos según sea necesario
+           
         });
     </script>
 </body>

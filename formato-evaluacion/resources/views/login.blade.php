@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+Nombre del programador: José Antonio Martínez del Toro
+Objetivo: Implementación frontend de la gestion de usuarios
+Fecha de creación: 2024-06-03
+-->
 <html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
     data-assets-path="assets/" data-template="vertical-menu-template">
 

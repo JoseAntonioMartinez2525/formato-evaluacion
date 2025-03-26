@@ -1,5 +1,9 @@
 <?php
-
+/**
+ Nombre del programador: José Antonio Martínez del Toro
+Objetivo: Modelo de la tabla users, de los usuarios autentificados
+Fecha de creación: 2024-06-03
+ */
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;

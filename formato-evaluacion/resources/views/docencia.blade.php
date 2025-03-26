@@ -2,6 +2,11 @@
 $userType = Auth::user()->user_type;
 @endphp
 <!DOCTYPE html>
+<!--
+ * nombre del programador: Jose Antonio Martínez del Toro
+ * objetivo: Vista e implementacion del frontend de los formularios de convocatoria, actividades 1 y 2
+ * fecha: 2024-06-10
+-->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>

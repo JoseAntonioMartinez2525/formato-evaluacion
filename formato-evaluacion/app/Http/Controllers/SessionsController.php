@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * nombre del programador: Jose Antonio Martínez del Toro
+ * objetivo: Controlador de sesiones
+ * fecha: 2024-05-31
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

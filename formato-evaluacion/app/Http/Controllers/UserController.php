@@ -1,5 +1,9 @@
 <?php
-
+/**
+Nombre del programador: José Antonio Martínez del Toro
+objetivo: Controlador para la gestión de usuarios
+Fecha de creación: 2024-06-03
+ */
 namespace App\Http\Controllers;
 
 use App\Models\User; // Import the User model

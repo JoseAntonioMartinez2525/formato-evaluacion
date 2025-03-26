@@ -295,7 +295,7 @@ Route::get('/form/edit/{form_name}', [DynamicFormController::class, 'edit'])->na
 Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
 
 });
-Route::post('/logout', [SessionsController::class, 'logout'])->name('logout');
+Route::post('/logout', action: [SessionsController::class, 'logout'])->name('logout');
 
 Route::get('/test-dompdf', function () {
     try {
