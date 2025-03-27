@@ -179,7 +179,7 @@ $existingFormNames = [];
             return;
         }
 
-        if (confirm('Are you sure you want to delete this form?')) {
+        if (confirm('¿Está seguro de que desea eliminar este formulario?')) {
             $.ajax({
                 url: `/forms/${formId}`,
                 type: 'DELETE',
@@ -188,14 +188,14 @@ $existingFormNames = [];
                 },
                 success: function (response) {
                     if (response.success) {
-                        alert('Form deleted successfully');
-                        window.location.href = "{{ route('edit_delete_form') }}";
+                        alert('Formulario eliminado correctamente');
+                        window.location.href = "{{ route('secretaria') }}";
                     } else {
-                        alert('Error deleting form: ' + (response.message || 'Unknown error'));
+                        alert('Formulario no eliminado: ' + (response.message || 'Error desconocido'));
                     }
                 },
                 error: function (xhr) {
-                    alert('Error deleting form: ' + (xhr.responseJSON?.message || 'Unknown error'));
+                    alert('Error al eliminar formulario: ' + (xhr.responseJSON?.message || 'Error desconocido'));
                 }
             });
         }

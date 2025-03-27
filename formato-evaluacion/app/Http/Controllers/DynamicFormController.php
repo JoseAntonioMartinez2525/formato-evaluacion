@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF; 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;// Corrected line without extraneous character
 
 class DynamicFormController extends Controller
@@ -145,8 +146,28 @@ class DynamicFormController extends Controller
         return $score;
     }
 
-    public function showDynamicForm()
+    public function showDynamicForm(Request $request)
     {
+        \Log::info('Accessing showDynamicForm', [
+            'user' => Auth::user(),
+            'session' => $request->session()->all()
+        ]);
+
+        Log::info('User attempting to access edit_delete_form', [
+            'user_id' => Auth::id(),
+            'user_type' => Auth::user()->user_type
+        ]);
+        
+
+        // Verify user is authenticated and has correct type
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        if (Auth::user()->user_type !== '') {
+            Log::warning('Unauthorized user type attempted to access edit_delete_form');
+            return redirect()->route('login');
+        }
         
         $form = \DB::table('dynamic_forms')->first();
         if (!$form) {
@@ -158,17 +179,29 @@ class DynamicFormController extends Controller
 
         // Fetch all forms from the database
         $forms = DynamicForm::all();
+
+         // Check if there are any forms
+        if ($forms->isEmpty()) {
+            return redirect()->route('secretaria')
+            >with('message', 'No hay formularios disponibles. Por favor, cree un nuevo formulario.');
+    
+        }
+
         return view('edit_delete_form', [
             'form' => $form,
             'columns' => $columns,
             'values' => $values,
             'forms' => $forms // Pass the forms to the view
         ]);
-    }
+
+
+
+}
     public function showSecretaria()
     {
         $forms = DynamicForm::all(); // Fetch all forms from the database
         return view('secretaria', compact('forms')); // Pass the forms to the view
+    
     }
 
     public function edit($formName, $columnId)
@@ -297,17 +330,24 @@ class DynamicFormController extends Controller
 
             $form->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Formulario eliminado correctamente.'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al eliminar el formulario: ' . $e->getMessage()
-            ], 500);
-        }
+           // Check if there are any remaining forms
+        $remainingForms = DynamicForm::count();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Formulario eliminado correctamente.',
+            'remainingForms' => $remainingForms,
+            'redirectUrl' => $remainingForms === 0 ? route('secretaria') : null
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al eliminar el formulario: ' . $e->getMessage()
+        ], 500);
     }
+}
+    
 
     public function getColumns($formId)
     {
@@ -442,6 +482,11 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }*/
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 }
     
 
