@@ -359,7 +359,7 @@ class DynamicFormController extends Controller
     {
         $form = DynamicForm::where('form_name', $formName)->first();
         if ($form) {
-            $columns = DynamicFormColumn::where('id', $form->id)->get();
+            $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
             $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
 
             return response()->json([

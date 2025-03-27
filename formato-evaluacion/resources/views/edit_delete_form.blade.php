@@ -32,55 +32,55 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
 @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                    <x-nav-menu :user="Auth::user()">
-                        <div>
-                            <ul style="list-style: none;"">
-                                <li class=" nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
-                                        title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </x-nav-menu>
-                @endif
-                    <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
+                    @if (Auth::check() && Auth::user()->user_type === '')
+                        <x-nav-menu :user="Auth::user()">
+                            <div>
+                                <ul style="list-style: none;"">
+                                    <li class=" nav-item">
+                                        <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
+                                            title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </x-nav-menu>
+                    @endif
+                        <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
-                        <div class="container mt-4">
-                            <h3>Editar/Eliminar Formulario</h3>
+                            <div class="container mt-4">
+                                <h3>Editar/Eliminar Formulario</h3>
 
-                    <form id="editDeleteForm" method="POST">
-                        @csrf
-
-
-
-                                <input type="hidden" name="_method" id="formMethod">
-                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-                                <input type="hidden" name="form_id" id="form_id">
+                        <form id="editDeleteForm" method="POST">
+                            @csrf
 
 
-                               <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
 
-            <label for="formSelect">Seleccionar Formulario:</label>
-    <select id="formSelect" name="form_name">
-        <option value="">Selecciona un formulario</option>
-        @foreach($forms as $form)
-            <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
-        @endforeach
-    </select>
-         <br>
-        <div id="formContainer">
-            <!-- Here the form fields will be dynamically populated -->
-        </div>
-            <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+                                    <input type="hidden" name="_method" id="formMethod">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                    <input type="hidden" name="form_id" id="form_id">
 
-                                <div class="mt-4">
-                                    <button type="submit" class="btn btn-success" id="updateBtn">Guardar Cambios</button>
-                                    <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteForm()">Eliminar Formulario</button>
-                                </div>
-                            </form>
+
+                                   <!--cambiar el input por un select option, con todos los formularios de la base de datos-->
+
+                <label for="formSelect">Seleccionar Formulario:</label>
+        <select id="formSelect" name="form_name">
+            <option value="">Selecciona un formulario</option>
+            @foreach($forms as $form)
+                <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
+            @endforeach
+        </select>
+             <br>
+    <div id="dynamicTableContainer">
+
+    </div>
+                <!--Las columnas, valores, el puntaje_maximo deben de aparecer con celdas vacias y no ya con celdas pobladas-->
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-success" id="updateBtn">Guardar Cambios</button>
+                                        <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteForm()">Eliminar Formulario</button>
+                                    </div>
+                                </form>
 @endif
                 <script>
                     const formSelect = document.getElementById('formSelect');
@@ -95,7 +95,7 @@ $existingFormNames = [];
             document.getElementById('form_id').value = selectedFormId;
             document.getElementById('editDeleteForm').action = `/forms/${selectedFormId}`;
 
-        const formContainer = document.getElementById('formContainer');
+        const dynamicTableContainer = document.getElementById('dynamicTableContainer');
 
             console.log('Selected Form Type:', selectedForm); // Log the selected form type
 
@@ -117,58 +117,44 @@ $existingFormNames = [];
                  console.log('Returned Data:', data);
                  if (data.success) {
                      // Clear existing fields
-                     formContainer.style.marginBottom = "1rem";
-                     formContainer.innerHTML = '';
+                    const dynamicTableContainer = document.getElementById('dynamicTableContainer'); // Use the new ID
+                    dynamicTableContainer.innerHTML = '';
 
-                     // Populate columns
-                     data.columns.forEach(column => {
-                         console.log('Column Data:', column); // Log each column data
 
-                         formContainer.innerHTML += `
-                            <div class="form-group mb-3">
-                                <label for="column_name_${column.id}">Nombre de la Columna:</label>
+                // Create table structure
+                let tableHTML = '<table class="table table-bordered"><thead><tr>';
+                data.columns.forEach(column => {
+                    tableHTML += `<th>${column.column_name}</th>`;
+                });
+                tableHTML += '</tr></thead><tbody>';
 
-                                <input type="text" 
-                                    class="form-control"
-                                    id="column_name_${column.id}" 
-                                    name="column_name[]" 
-                                    value="${column.column_name}">
-                            </div>
-                        `;
-                     });
+                // Populate rows with values
+                data.values.forEach(value => {
+                    tableHTML += '<tr>';
+                    data.columns.forEach(column => {
+                        const cellValue = value.value; // Adjust this if necessary to match your data structure
+                        tableHTML += `<td>${cellValue}</td>`;
+                    });
+                    tableHTML += '</tr>';
+                });
+                tableHTML += '</tbody></table>';
 
-                     // Populate values
-                     data.values.forEach((value, index) => {
-                         const isLastElement = index === data.values.length - 1;
-                         const isRequired = isLastElement ? (value.value ? 'required' : '') : 'required';
+                // Append the table to the dynamicTableContainer
+                dynamicTableContainer.innerHTML = tableHTML;
 
-                         formContainer.innerHTML += `
-                            <div class="form-group mb-3">
-                                <label for="value_${value.id}">Valor:</label>
-                                <input type="text" 
-                                    class="form-control"
-                                    id="value_${value.id}" 
-                                    name="value[]" 
-                                    value="${value.value}" 
-                                    ${isRequired}>
-                            </div>
-                        `;
-                     });
-
-                     // Set the maximum score
-                     formContainer.innerHTML += `
-                         <input type="hidden" name="form_name" value="${selectedForm}">
-                        <label for="puntajeMaximo">Puntaje Máximo:</label>
-                        <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
-                    `;
-
-                 } else {
-                     alert('Error fetching form data.');
-                 }
+                // Set the maximum score
+                dynamicTableContainer.innerHTML += `
+                    <input type="hidden" name="form_name" value="${selectedForm}">
+                    <label for="puntajeMaximo">Puntaje Máximo:</label>
+                    <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
+                `;
+            } else {
+                alert('Error fetching form data.');
+            }
              })
              .catch(error => console.error('Error fetching form data:', error));
      } else {
-         formContainer.innerHTML = ''; // Clear the container if no form is selected
+         dynamicTableContainer.innerHTML = ''; // Clear the container if no form is selected
      }
  });                     
                     
