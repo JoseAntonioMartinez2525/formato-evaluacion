@@ -3796,7 +3796,6 @@ $userType = Auth::user()->user_type;
             'btn3_18': -230,
             'btn3_19': 240
             
-
         };
 
         // Function to adjust margin for a single button

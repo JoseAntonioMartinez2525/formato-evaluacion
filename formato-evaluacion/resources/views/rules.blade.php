@@ -154,6 +154,9 @@ body.dark-mode nav.nav.flex-column a:hover {
       <li><i class="fa-solid fa-laptop-code"></i>&nbspSistemas Computacionales</li>
       </ul>
       </div>
+
+      <br><br><br><br><br><br><br>
+
       </x-nav-menu>
 
   @endif
@@ -190,23 +193,23 @@ body.dark-mode nav.nav.flex-column a:hover {
       <td>I</td>
       </tr>
       <?php
-  $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
-  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-  for ($i = 0; $i < count($minima); $i += 2) {
+    $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
+    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-  }
+    }
       ?>
 
       </tbody>
       <?php
-  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-  $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
-  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+    $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
+    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">
