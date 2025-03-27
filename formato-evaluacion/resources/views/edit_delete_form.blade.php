@@ -70,7 +70,7 @@ $existingFormNames = [];
             <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
         @endforeach
     </select>
-            </select> <br>
+         <br>
         <div id="formContainer">
             <!-- Here the form fields will be dynamically populated -->
         </div>
