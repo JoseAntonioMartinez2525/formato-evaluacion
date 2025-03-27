@@ -13,6 +13,11 @@ $newLocale = str_replace('_', '-', $locale);
 
     <x-head-resources />
     <link href="{{ asset('css/onePage.css') }}" rel="stylesheet">
+    <style>
+        .descripcion{
+            width: fit-content;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-black/50">

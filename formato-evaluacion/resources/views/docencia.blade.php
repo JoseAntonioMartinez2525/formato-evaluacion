@@ -24,6 +24,8 @@ $userType = Auth::user()->user_type;
     #comisionIncisoB {
         margin-left: -10px;
     }
+
+
 </style>
 </head>
 @if (Route::has('login'))
@@ -844,14 +846,14 @@ $userType = Auth::user()->user_type;
                                                                 instituciones externas, presentar constancia de la
                                                                 institución y el convenio acuerdo con
                                                                 la
-                                                                UABCS.</b> </th>
-                                                        <th><button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar
+                                                                UABCS.</b> 
                                                         </th>
                                                     </tr>
                                                 </thead>
                                             </table>
                                         </tbody>
                                     </table>
+                                    <button id="btn3_8" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                                 </form>
                                 <form id="form3_8_1" method="POST" onsubmit="event.preventDefault(); submitForm('/store381', 'form3_8_1');">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -1798,7 +1800,7 @@ $userType = Auth::user()->user_type;
 
                                             <th class="descripcion"><b>CAAC, DIIP</b> </th>
 
-                                            <th><button id="btn3_12" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
+                                            <th><button id="btn3_13" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -2924,10 +2926,11 @@ $userType = Auth::user()->user_type;
                                                     financiera de institución extranjera</th>
                                                 <th class="acreditacion" style="padding-left: 100px;">Acreditacion:</th>
                                                 <th class="descripcion"><b>Institución que lo solicite, SG, CA, JD, DGAA</b></th>
-                                                <th><button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button></th>
+
                                             </tr>
                                         </thead>
                                     </table>
+                                    <button id="btn3_19" type="submit" class="btn custom-btn printButtonClass">Enviar</button>
                                     </form>
                                     <br>
 
@@ -3770,6 +3773,46 @@ $userType = Auth::user()->user_type;
         });
 
     document.addEventListener('DOMContentLoaded', function () {
+        // Define buttons and their additional margins
+        const buttons = {
+            'btn3_8': 190,
+            'btn3_8_1': 380,
+            'btn3_9': 70,
+            'btn3_1': 70,         
+            'btn3_2': 300,
+            'btn3_3': 160,
+            'btn3_4': 160,
+            'btn3_5': 330,
+            'btn3_6': 390,
+            'btn3_7': 130,
+            'btn3_10': -500,
+            'btn3_11': 350,
+            'btn3_12': 220,
+            'btn3_13': 330,
+            'btn3_14': 240,
+            'btn3_15': -560,
+            'btn3_16': -190,
+            'btn3_17': 300,
+            'btn3_18': -230,
+            'btn3_19': 240
+            
+
+        };
+
+        // Function to adjust margin for a single button
+        function adjustMargin(buttonId, additionalMargin) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                const currentStyle = window.getComputedStyle(button);
+                const currentMargin = parseInt(currentStyle.marginLeft);
+                button.style.marginLeft = (currentMargin + additionalMargin) + 'px';
+            }
+        }
+
+        // Apply margins to all buttons
+        Object.entries(buttons).forEach(([buttonId, margin]) => {
+            adjustMargin(buttonId, margin);
+        });
 
         const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
         if (toggleDarkModeButton) {
@@ -3779,6 +3822,8 @@ $userType = Auth::user()->user_type;
 
         toggleDarkMode();
     });
+
+
 
 
             </script>
