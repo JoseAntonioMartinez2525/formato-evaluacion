@@ -126,13 +126,18 @@ class DynamicFormController extends Controller
     }
 
     // Método para recuperar el formulario del usuario
-    public function getFormByName($formName)
-    {
-        $form = DynamicForm::where('form_name', $formName)->first();
-        if ($form) {
-            return response()->json([
-                'success' => true,
-                'form' => $form,
+public function getFormByName($formName)
+{
+    $form = DynamicForm::with('combinedData') // Assuming 'combinedData' is the relationship defined in the DynamicForm model
+        ->where('form_name', $formName)
+        ->first();
+
+    if ($form) {
+        return response()->json([
+            'success' => true,
+            'form' => $form,
+            'combined_data' => $form->combinedData // Include combined data in the response
+
             ]);
         } else {
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
@@ -470,11 +475,9 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
                     $html .= '<td>' . htmlspecialchars($cellValue) . '</td>';
                 }
                 $html .= '</tr>';
-            }
             $html .= '</tbody></table>';
 
             return response()->json([
-                'html' => $html,
                 'formName' => $form->form_name,
                 'puntajeMaximo' => $form->puntaje_maximo
             ]);
@@ -488,9 +491,3 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         $this->middleware('auth');
     }
 }
-    
-
-
-
-    
-

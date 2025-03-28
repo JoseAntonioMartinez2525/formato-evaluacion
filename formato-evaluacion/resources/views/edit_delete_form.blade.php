@@ -115,40 +115,87 @@ $existingFormNames = [];
              .then(response => response.json())
              .then(data => {
                  console.log('Returned Data:', data);
+                  console.log('Columns:', data.columns); // Log the columns
+                 console.log('Values:', data.values); // Log the values
                  if (data.success) {
-                     // Clear existing fields
-                    const dynamicTableContainer = document.getElementById('dynamicTableContainer'); // Use the new ID
-                    dynamicTableContainer.innerHTML = '';
+                     // Agrupar valores por columna
+                     const valuesByColumn = {};
+                     data.columns.forEach(column => {
+                         valuesByColumn[column.id] = [];
+                     });
 
+                     //encontrar el elemento apartir de los sub sub encabezados
+                     data.values.forEach(value => {
+                         if (valuesByColumn[value.dynamic_form_column_id]) {
+                             valuesByColumn[value.dynamic_form_column_id].push(value);
+                         }
+                     });
+ 
+                     // Crear la tabla
+                     let tableHTML = '<table class="table table-bordered">';
+                     // Encabezados principales
+                     tableHTML += '<thead><tr>';
+                     const puntajeColumnCount = data.columns.length > 0 ? 2 : 0; // Adjust based on your logic
+                     for (let i = 0; i < puntajeColumnCount; i++) {
+                         tableHTML += '<th>&nbsp</th>';
+                     }
+                     tableHTML += '<th>Puntaje a evaluar</th>';
+                     tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
+                     tableHTML += '<th>Observaciones</th>';
+                     tableHTML += '</tr>';
 
-                // Create table structure
-                let tableHTML = '<table class="table table-bordered"><thead><tr>';
-                data.columns.forEach(column => {
-                    tableHTML += `<th>${column.column_name}</th>`;
-                });
-                tableHTML += '</tr></thead><tbody>';
+                     // Subencabezado con el nombre del formulario
+                     tableHTML += '<tr>';
+                     tableHTML += `<th colspan="${data.columns.length}">${selectedForm}</th>`;
+                     tableHTML += '<th style="background-color: #0b5967; color: #ffff;">0</th>';
+                     tableHTML += '<th style="background-color: #ffcc6d;">0</th>';
+                     tableHTML += '<th></th>';
+                     tableHTML += '</tr>';
 
-                // Populate rows with values
-                data.values.forEach(value => {
-                    tableHTML += '<tr>';
-                    data.columns.forEach(column => {
-                        const cellValue = value.value; // Adjust this if necessary to match your data structure
-                        tableHTML += `<td>${cellValue}</td>`;
-                    });
-                    tableHTML += '</tr>';
-                });
-                tableHTML += '</tbody></table>';
+                     // Fila con los nombres de las columnas
+                     tableHTML += '<tr>';
+                     data.columns.forEach(column => {
+                         tableHTML += `<td>${column.column_name}</td>`;
+                     });
+                     tableHTML += '<td></td><td></td><td></td>';
+                     tableHTML += '</tr></thead><tbody>';
 
-                // Append the table to the dynamicTableContainer
-                dynamicTableContainer.innerHTML = tableHTML;
+                     // Determinar cuántas filas necesitamos (basado en la columna con más valores)
+                     let maxRows = 0;
+                     Object.values(valuesByColumn).forEach(values => {
+                         if (values.length > maxRows) {
+                             maxRows = values.length;
+                         }
+                     });
 
-                // Set the maximum score
-                dynamicTableContainer.innerHTML += `
+                     // Generar filas de datos
+                     for (let i = 0; i < maxRows; i++) {
+                         tableHTML += '<tr>';
+
+                         // Valores para cada columna
+                         data.columns.forEach(column => {
+                             const columnValues = valuesByColumn[column.id];
+                             const value = columnValues && columnValues[i] ? columnValues[i].value : '';
+                             tableHTML += `<td>${value}</td>`;
+                         });
+
+                         // Celdas para puntaje, comisión y observaciones
+                         tableHTML += '<td></td><td></td><td></td>';
+                         tableHTML += '</tr>';
+                     }
+
+                     tableHTML += '</tbody></table>';
+
+                     // Agregar la tabla al contenedor
+                     dynamicTableContainer.innerHTML = tableHTML;
+
+                     // Set the maximum score
+                     dynamicTableContainer.innerHTML += `
                     <input type="hidden" name="form_name" value="${selectedForm}">
                     <label for="puntajeMaximo">Puntaje Máximo:</label>
                     <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
                 `;
-            } else {
+                 } else {
                 alert('Error fetching form data.');
             }
              })
