@@ -150,16 +150,7 @@ $newLocale = str_replace('_', '-', $locale);
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="text" id="actividadPrincipal"
-                                placeholder="Ingrese la actividad principal"></td>
-                        <td style="background-color: #0b5967; color: #ffff;"><span
-                                id="puntajeAEvaluar">0</span></td>
-
-                        <td style="background-color: #ffcc6d"><span id="puntajeComision">0</span></td>
-                    </tr>
-                    <tr class="puntajes"><!-- Las filas dinámicas serán insertadas aquí --></tr>
-
+                
 
                 </tbody>
             </table>
@@ -531,53 +522,192 @@ $newLocale = str_replace('_', '-', $locale);
 
         return subheader;
     }
-    function generateTable() {
-        const numColumns = parseInt(document.getElementById('numColumns').value) || 0;
-        const numRows = parseInt(document.getElementById('numRows').value) || 0;
-        const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
-
-        // Limpia filas anteriores
-
-        const puntajesRow = tableBody.querySelector('tr.puntajes');
-        puntajesRow.innerHTML = '';
-
-        // Elimina subencabezados existentes si los hay
-        const subheaderRow = tableBody.querySelector('tr.subheader');
-        if (subheaderRow) subheaderRow.remove();
-
-
-        // Inserta los subencabezados antes de las filas dinámicas
-        const subheader = generateSubheaders(numColumns);
-        puntajesRow.insertAdjacentElement('beforebegin', subheader);
-
-        // Genera filas y columnas dinámicamente
-        for (let i = 0; i < numRows; i++) {
-            const row = document.createElement('tr');
-
-            // Primera columna: Nombre de la actividad
-            const activityCell = document.createElement('td');
-            activityCell.innerHTML = `<input type="text" placeholder="Nombre de la actividad">`;
-            row.appendChild(activityCell);
-
-            // Columnas dinámicas
-            for (let j = 0; j < numColumns; j++) {
-                const col = document.createElement('td');
-                col.innerHTML = `<input type="text" placeholder="Valor">`;
-                row.appendChild(col);
-            }
-
-            // Puntaje, comisión y observaciones
-            row.innerHTML += `
-        <td><input type="number" name="score[]" value="0"></td>
-        <td><input type="number" name="commission_score[]" value="0"></td>
-        <td><input type="text" name="observation[]" value=""></td> <!-- Set default value to empty string -->
-    `;
-
-            puntajesRow.insertAdjacentElement('afterend', row);
-        }
+   function generateTable() {
+    const numColumns = parseInt(document.getElementById('numColumns').value) || 0;
+    const numRows = parseInt(document.getElementById('numRows').value) || 0;
+    const puntajeMaximo = document.getElementById('puntajeMaximo').value || '0';
+    const formName = document.getElementById('formName').value || '';
+    
+    // Get the table container
+    const tableContainer = document.getElementById('dynamicTable').parentNode;
+    
+    // Create the separate Puntaje Máximo table
+    let existingPuntajeTable = document.getElementById('puntajeMaximoTable');
+    if (existingPuntajeTable) {
+        existingPuntajeTable.remove();
     }
+    
+    const puntajeTable = document.createElement('table');
+    puntajeTable.id = 'puntajeMaximoTable';
+    puntajeTable.className = 'table table-bordered mb-3 mt-5';
+    puntajeTable.style.width = 'auto';
+    puntajeTable.innerHTML = `
+        <tr>
+            <td><b>Puntaje máximo</b></td>
+            <td style="background-color: #000; color: #fff; width: 50px; text-align: center;">${puntajeMaximo}</td>
+        </tr>
+    `;
+    
+    // Insert the puntaje table before the main table
+    tableContainer.insertBefore(puntajeTable, document.getElementById('dynamicTable'));
+    
+    // Get the main table
+    const table = document.getElementById('dynamicTable');
+    
+    // Clear existing content
+    table.innerHTML = '';
+    
+    // Create the table header
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    
+    // Add Actividad header
+    const actividadHeader = document.createElement('th');
+    actividadHeader.textContent = 'Actividad';
+    headerRow.appendChild(actividadHeader);
+    
+    // Add dynamic subheader column headers
+    for (let i = 0; i < numColumns; i++) {
+        const th = document.createElement('th');
+        th.innerHTML = `<input type="text" placeholder="Subencabezado ${i+1}" class="form-control text-center">`;
+        headerRow.appendChild(th);
+    }
+    
+    // Add fixed column headers
+    const puntajeHeader = document.createElement('th');
+    puntajeHeader.textContent = 'Puntaje a evaluar';
+    puntajeHeader.style.fontWeight = 'bold';
+    headerRow.appendChild(puntajeHeader);
+    
+    const comisionHeader = document.createElement('th');
+    comisionHeader.textContent = 'Puntaje de la Comisión Dictaminadora';
+    comisionHeader.style.fontWeight = 'bold';
+    headerRow.appendChild(comisionHeader);
+    
+    const obsHeader = document.createElement('th');
+    obsHeader.textContent = 'Observaciones';
+    headerRow.appendChild(obsHeader);
+    
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Create table body
+    const tbody = document.createElement('tbody');
+    
+    // Add the main form activity row first
+    const mainActivityRow = document.createElement('tr');
+    
+    // First cell: form name
+    const formNameCell = document.createElement('td');
+    formNameCell.textContent = formName;
+    mainActivityRow.appendChild(formNameCell);
+    
+    // Add empty cells for dynamic columns
+    for (let i = 0; i < numColumns; i++) {
+        const emptyCell = document.createElement('td');
+        mainActivityRow.appendChild(emptyCell);
+    }
+    
+    // Add score cells
+    const mainScoreCell = document.createElement('td');
+    mainScoreCell.style.backgroundColor = '#0b5967';
+    mainScoreCell.style.color = 'white';
+    mainScoreCell.innerHTML = `<span>0</span>`;
+    mainScoreCell.className = 'text-center';
+    mainActivityRow.appendChild(mainScoreCell);
+    
+    const mainCommissionCell = document.createElement('td');
+    mainCommissionCell.style.backgroundColor = '#ffcc6d';
+    mainCommissionCell.innerHTML = `<span>0</span>`;
+    mainCommissionCell.className = 'text-center';
+    mainActivityRow.appendChild(mainCommissionCell);
+    
+    // Add empty observation cell
+    const mainObsCell = document.createElement('td');
+    mainActivityRow.appendChild(mainObsCell);
+    
+    tbody.appendChild(mainActivityRow);
+    
+    // Generate rows for data input
+    for (let i = 0; i < numRows; i++) {
+        const row = document.createElement('tr');
+        
+        // Activity name input
+        const activityCell = document.createElement('td');
+        activityCell.innerHTML = `<input type="text" placeholder="Nombre de la actividad" class="form-control">`;
+        row.appendChild(activityCell);
+        
+        // Add cells for each column
+        for (let j = 0; j < numColumns; j++) {
+            const valueCell = document.createElement('td');
+            valueCell.innerHTML = `<input type="text" placeholder="Valor" class="form-control text-center">`;
+            row.appendChild(valueCell);
+        }
+        
+        // Add score input (green background)
+        const scoreCell = document.createElement('td');
+        scoreCell.innerHTML = `<input type="number" name="score[]" value="0" class="form-control text-center">`;
+        row.appendChild(scoreCell);
+        
+        // Add commission score input (yellow background)
+        const commissionCell = document.createElement('td');
+        commissionCell.innerHTML = `<input type="number" name="commission_score[]" value="0" class="form-control text-center">`;
+        row.appendChild(commissionCell);
+        
+        // Add observations input
+        const obsCell = document.createElement('td');
+        obsCell.innerHTML = `<input type="text" name="observation[]" value="" class="form-control">`;
+        row.appendChild(obsCell);
+        
+        tbody.appendChild(row);
+    }
+    
+    // Add Acreditación row
+    const acreditacionRow = document.createElement('tr');
+    acreditacionRow.innerHTML = `
+        <td>Acreditación:</td>
+        <td colspan="${numColumns + 3}">
+            <input type="text" placeholder="Información sobre acreditación" class="form-control">
+        </td>
+    `;
+    tbody.appendChild(acreditacionRow);
+    
+    table.appendChild(tbody);
+    
+    // Add event listeners for score calculation
+    addScoreCalculationListeners();
+}
 
-    function updateSubheaderId(input, id) {
+// Function to add listeners to calculate scores
+function addScoreCalculationListeners() {
+    const scoreInputs = document.querySelectorAll('input[name="score[]"]');
+    
+    scoreInputs.forEach(input => {
+        input.addEventListener('input', updateTotalScores);
+    });
+    
+    // You can do the same for commission scores if needed
+}
+
+// Function to update the total scores
+function updateTotalScores() {
+    let totalScore = 0;
+    const scoreInputs = document.querySelectorAll('input[name="score[]"]');
+    
+    scoreInputs.forEach(input => {
+        totalScore += parseFloat(input.value) || 0;
+    });
+    
+    // Update the main activity row score cells
+    const mainScoreCell = document.querySelector('tbody tr:first-child td:nth-last-child(3) span');
+    if (mainScoreCell) {
+        mainScoreCell.textContent = totalScore;
+    }
+    
+    // Do the same for commission score if needed
+}
+   
+function updateSubheaderId(input, id) {
         const subheaderCell = document.getElementById(id);
         if (subheaderCell) {
             subheaderCell.id = input.value || id; // Update ID based on input value
