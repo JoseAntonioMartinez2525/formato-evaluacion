@@ -118,8 +118,10 @@ $existingFormNames = [];
                  console.log('Columns:', data.columns); // Log the columns
                  console.log('Values:', data.values); // Log the values
                  if (data.success) {
+
+                     dynamicTableContainer.innerHTML = '';
     // Mostrar el puntaje máximo en la parte superior con fondo negro
-    let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
+    let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <input style="background-color: #000; color: #fff; padding: 2px 10px;" placeholder="${data.puntaje_maximo}"></input></div>`;
     
     // Crear la tabla
     tableHTML += '<table class="table table-bordered">';
