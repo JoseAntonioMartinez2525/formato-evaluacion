@@ -731,10 +731,11 @@ function updateSubheaderId(input, id) {
                 const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
                 tableData.push(rowData);
             });
-
+            const headerInputs = document.querySelectorAll('#dynamicTable thead th input');
             // Declare and initialize columnNames
-            const columnNames = Array.from(document.querySelectorAll('#dynamicTable .subheader input')).map(input => input.value);
-
+            const columnNames = headerInputs.length > 0
+                ? Array.from(headerInputs).map(input => input.value || input.placeholder)
+                : ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
             const formData = {
                 form_name: formName,
                 form_type: formType, // Add this line
