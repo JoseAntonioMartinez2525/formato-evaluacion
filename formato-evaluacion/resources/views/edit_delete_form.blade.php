@@ -204,7 +204,7 @@ $existingFormNames = [];
                         // Agregar columnas dinámicas como encabezados
                         for (let i = 1; i < data.columns.length; i++) {
                             const columnId = Object.keys(columnNames)[i];
-                            tableHTML += `<th>${columnNames[columnId] || ''}</th>`;
+                            tableHTML += `<th><input value="${columnNames[columnId] || ''}"></input></th>`;
                         }
 
                         tableHTML += '<th>Puntaje a evaluar</th>';
@@ -232,14 +232,14 @@ $existingFormNames = [];
 
                         // Primera fila: formName y valores
                         tableHTML += '<tr>';
-                        tableHTML += `<td>${selectedForm}</td>`; // formName en la primera columna
+                        tableHTML += `<td><input value="${selectedForm}"></input></td>`; // formName en la primera columna
 
                         // Agregar celdas para cada columna dinámica
                         for (let i = 1; i < data.columns.length; i++) {
                             const columnId = columnIds[i];
                             const columnValues = valuesByColumn[columnId] || [];
                             const columnValue = columnValues.length > 0 ? columnValues[0].value : '';
-                            tableHTML += `<td>${columnValue}</td>`;
+                            tableHTML += `<td><input value="${columnValue}"</input></td>`;
                         }
 
                         // Celdas para puntaje a evaluar y comisión con estilos
@@ -275,7 +275,7 @@ $existingFormNames = [];
                         }
 
                         tableHTML += '<tr>';
-                        tableHTML += `<td>${secondRowValue}</td>`;
+                        tableHTML += `<td><input value="${secondRowValue}"></input></td>`;
 
                         // Celdas vacías para las columnas dinámicas
                         for (let i = 1; i < data.columns.length; i++) {
@@ -294,7 +294,7 @@ $existingFormNames = [];
 
                         // Celdas vacías para el resto de columnas
                         for (let i = 1; i < data.columns.length; i++) {
-                            tableHTML += '<td></td>';
+                            tableHTML += `<td><input value="${data.acreditacion}"></></td>`;
                         }
 
                         tableHTML += '<td></td>';

@@ -500,44 +500,9 @@ $newLocale = str_replace('_', '-', $locale);
         const input = document.getElementById(id);
         input.setAttribute('readonly', true);
         input.style.backgroundColor = '#353e4e';
-        // Fondo deshabilitado
-        /*
-        const puntajeMaximo = elemento.value;
-        elemento.style.backgroundColor = '#353e4e'; 
 
-        // Enviar el puntaje máximo al backend
-        // Enviar el puntaje máximo al backend
-        fetch('/update-puntaje-maximo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ puntajeMaximo }) // Usa el valor actualizado
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data.message);
-                puntajeMaximoGlobal = puntajeMaximo; // Actualiza el valor global
-                alert('El puntaje máximo ha sido actualizado: ' + puntajeMaximoGlobal);
-            })
-            .catch(error => {
-                console.error('Error al actualizar el puntaje máximo:', error);
-                alert('Hubo un error al actualizar el puntaje máximo.');
-            });*/
     }
-    /*
-                // Actualiza el puntaje máximo dinámicamente
-                function actualizarPuntajeMaximo(valor) {
-                    puntajeMaximoGlobal = valor;
-                    console.log('Puntaje máximo actualizado:', puntajeMaximoGlobal);
-                }
-    */
+
     // Genera los subencabezados dinámicamente
     function generateSubheaders(numColumns) {
         const subheader = document.createElement('tr');
