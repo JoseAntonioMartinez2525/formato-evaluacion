@@ -26,7 +26,8 @@ class DynamicFormController extends Controller
                 'user_id' => 'required|integer',
                 'email' => 'required|email',
                 'user_type' => 'nullable|string',
-                'column_names' => 'required|array', // Validate column names
+                'column_names' => 'required|array',
+                'acreditacion' => 'nullable|string', // Validate column names
             ]);
 
             // Procesar los datos (puedes guardar en la base de datos aquí)
@@ -37,6 +38,7 @@ class DynamicFormController extends Controller
                 'form_name' => $validatedData['form_name'],
                 'puntaje_maximo' => $validatedData['puntaje_maximo'],
                 'table_data' => json_encode($validatedData['table_data']),
+                'acreditacion' => $validatedData['acreditacion'] ?? null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -248,64 +250,7 @@ public function getFormByName($formName)
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
-            // Call the helper method for automatic execution
-            //$this->checkAndUpdateForm($request->form_name, $request->all(), 'update');
-
-            /*
-                        // Begin transaction
-                        \DB::beginTransaction();
-                        // Check if values have changed
-                    $hasChanges = $form->form_name !== $request->form_name ||
-                                 $form->puntajeMaximo !== $request->puntajeMaximo ||
-                                 json_encode($form->columns) !== json_encode($request->column_name) ||
-                                 json_encode($form->values) !== json_encode($request->value);
-                        
-                    if ($hasChanges) {
-                        $data = [
-                            'form_name' => $request->form_name,
-                            'puntajeMaximo' => $request->puntajeMaximo,
-                            'columns' => $request->column_name,
-                            'values' => $request->value
-                        ];
-
-                            $form->update([
-                            'form_name' => $request->form_name,
-                            'puntajeMaximo' => $request->puntajeMaximo,
-                            'columns' => $request->column_name,
-                            'values' => $request->value
-                        ]);
-
-                        // Execute the command with the same data
-                        $exitCode = \Artisan::call('form:update', [
-                            'action' => 'update',
-                            'formName' => $request->form_name,
-                            '--data' => [json_encode($data)]
-                        ]);
-
-                        // Check if the command executed successfully
-                        if ($exitCode !== 0) {
-                            \DB::rollBack();
-                            throw new \Exception('Command execution failed');
-                        }
-
-                        \DB::commit();
-
-
               
-                        return response()->json([
-                            'success' => true,
-                            'message' => 'Form updated successfully',
-                            'changes'=> true
-                        ]);
-                        
-                        } else {
-                            return response()->json([
-                                'success' => true,
-                                'message' => 'No changes detected',
-                                'changes'=> false
-                            ]);
-                        }*/
-            //$form->save();     
             $this->updateDynamicFormValues($id, $request->value);
             return response()->json([
             'success' => true,
