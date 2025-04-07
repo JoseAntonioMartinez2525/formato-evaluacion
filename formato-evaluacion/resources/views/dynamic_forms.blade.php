@@ -10,7 +10,8 @@ $newLocale = str_replace('_', '-', $locale);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Añadir nuevo Formulario</title>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
     <x-head-resources />
     <style>
         @media print {
@@ -61,6 +62,25 @@ $newLocale = str_replace('_', '-', $locale);
          body.dark-mode .btn-danger{
             background-color:rgb(218, 65, 81);
          }
+
+         body.dark-mode .not-active{
+            background-color: rgb(156, 185, 205);
+            border: 0;
+            border-radius: var(--bs-nav-pills-border-radius);
+            margin-left:50px;
+            height: fit-content;
+            
+
+         }
+         .no-active{
+            background-color: rgb(192, 206, 221);
+            text-transform: uppercase;
+            font-size: 14px;
+            border-radius: 0.5rem;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+         }
+         
     </style>
 
 </head>
@@ -72,99 +92,114 @@ $newLocale = str_replace('_', '-', $locale);
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                @if (Auth::check() && Auth::user()->user_type === '')
-                    <x-nav-menu :user="Auth::user()">
-                        <div>
-                            <ul style="list-style: none;"">
-                                <li class="nav-item">
-                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"
-                                        title="Editar ó eliminar formulario"><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </x-nav-menu>
-                @endif
+                                                                    @if (Auth::check() && Auth::user()->user_type === '')
+                                                                        <x-nav-menu :user="Auth::user()">
+                                                                            <div>
+                                                                                <ul style="list-style: none;"">
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"
+                                                                                            title="Editar ó eliminar formulario"><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </x-nav-menu>
+                                                                    @endif
 
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2"></div>
+                                                                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                                                                        <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                                                                        <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-@php
-    $user = Auth::user();
-    $userType = $user->user_type;
-    $user_identity = $user->id; 
-@endphp
-
-
-
-    <!--Llenado de los campos-->
-    <div class="container mt-4">
-        <!-- Título -->
-        <h3>Generador de Formulario Dinámico</h3>
-
-        <!-- Nombre del formulario -->
-        <form id="dynamicForm" method="POST">
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-            <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-            <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
-            @csrf
-            <label for="formName">Nombre del formulario:</label>
-            <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
-
-            <!-- Puntaje máximo -->
-            <div class="mt-3">
-                <h4>Puntaje máximo</h4>
-                @if($userType == '') <!-- usuario secretaria -->
-                    <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
-                    <button type="button" class="btn custom-btn"
-                        onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
-                    <button type="button" class="btn custom-btn"
-                        onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
-                @else
-                    <span id="puntajeMaximoLabel"></span>
-                @endif
-            </div>
-
-            <!-- Configuración dinámica -->
-            <div class="mt-4">
-                <h5>Configuración de la tabla</h5>
-                <label for="numColumns">Número de columnas:</label>
-                <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
-
-                <label for="numRows">Número de filas:</label>
-                <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
-
-                <button type="button" class="btn btn-primary" onclick="generateTable()">Generar
-                    Tabla</button>
-            </div>
-
-            <!-- Tabla dinámica -->
-            <table id="dynamicTable" class="table mt-4">
-                <thead>
-                    <tr id="defaultHeader">
-                        <th>Actividad</th>
-                        <th>Puntaje a evaluar</th>
-                        <th>Puntaje de la Comisión Dictaminadora</th>
-                        <th>Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-
-                </tbody>
-            </table>
-
-            <!-- Botones de acción -->
-            <div class="mt-4">
-                <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
-                <button type="reset" class="btn btn-danger">Eliminar</button>
-            </div>
-        </form>
-    </div>
+                                                    @php
+                $user = Auth::user();
+                $userType = $user->user_type;
+                $user_identity = $user->id; 
+                                                    @endphp
 
 
-    @endif
+
+                                                        <!--Llenado de los campos-->
+                                                        <div class="container mt-4">
+                                                            <!-- Add pill navigation -->
+                                                            <ul class="nav nav-pills nav-justified mb-3" id="formTabs" role="tablist">
+                                                                <li class="nav-item no-active" role="presentation">
+                                                                    <a class="nav-link" id="tab-new" data-mdb-pill-init role="tab" aria-controls="pills-new"
+                                                                        aria-selected="true">Añadir nuevo Formulario</a>
+                                                                </li>
+                                                                <li class="nav-item " role="presentation">
+                                                                    <a class="nav-link active" id="tab-edit" data-mdb-pill-init href="{{ route('edit_delete_form') }}" role="tab"
+                                                                        aria-controls="pills-edit" aria-selected="false">Editar/Eliminar Formulario</a>
+                                                                </li>
+                                                            </ul>
+                                                                <!-- Main form content starts here -->
+                                                                <div class="tab-content">
+                                                                    <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="tab-new">
+                                                                        <h3>Generador de Formulario Dinámico</h3>
+
+
+                                                            <!-- Nombre del formulario -->
+                                                            <form id="dynamicForm" method="POST">
+                                                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                                                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                                                                <input type="hidden" name="user_type" value="{{ auth()->user()->user_type }}">
+                                                                @csrf
+                                                                <label for="formName">Nombre del formulario:</label>
+                                                                <input type="text" id="formName" placeholder="Ingrese el nombre del formulario">
+
+                                                                <!-- Puntaje máximo -->
+                                                                <div class="mt-3">
+                                                                    <h4>Puntaje máximo</h4>
+                                                                    @if($userType == '') <!-- usuario secretaria -->
+                                                                        <input class="pmax text-white px-4 mt-3" id="puntajeMaximo" placeholder="0" readonly>
+                                                                        <button type="button" class="btn custom-btn"
+                                                                            onclick="habilitarEdicion('puntajeMaximo')">Editar</button>
+                                                                        <button type="button" class="btn custom-btn"
+                                                                            onclick="guardarEdicion('puntajeMaximo')">Guardar</button>
+                                                                    @else
+                                                                        <span id="puntajeMaximoLabel"></span>
+                                                                    @endif
+                                                                </div>
+
+                                                                <!-- Configuración dinámica -->
+                                                                <div class="mt-4">
+                                                                    <h5>Configuración de la tabla</h5>
+                                                                    <label for="numColumns">Número de columnas:</label>
+                                                                    <input type="number" id="numColumns" min="1" placeholder="Ingrese el número de columnas">
+
+                                                                    <label for="numRows">Número de filas:</label>
+                                                                    <input type="number" id="numRows" min="1" placeholder="Ingrese el número de filas">
+
+                                                                    <button type="button" class="btn btn-primary" onclick="generateTable()">Generar
+                                                                        Tabla</button>
+                                                                </div>
+
+                                                                <!-- Tabla dinámica -->
+                                                                <table id="dynamicTable" class="table mt-4">
+                                                                    <thead>
+                                                                        <tr id="defaultHeader">
+                                                                            <th>Actividad</th>
+                                                                            <th>Puntaje a evaluar</th>
+                                                                            <th>Puntaje de la Comisión Dictaminadora</th>
+                                                                            <th>Observaciones</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <!-- Botones de acción -->
+                                                                <div class="mt-4">
+                                                                    <button type="button" class="btn btn-success" onclick="guardarTabla()">Guardar</button>
+                                                                    <button type="reset" class="btn btn-danger">Eliminar</button>
+                                                                </div>
+                                                            </form>
+                                                            </div>
+                                                        </div>
+
+
+            @endif
 </div>
 </main>
 
