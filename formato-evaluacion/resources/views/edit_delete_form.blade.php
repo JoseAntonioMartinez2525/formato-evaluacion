@@ -196,13 +196,11 @@ $existingFormNames = [];
 
                         // Agregar los nombres de las columnas dinámicas
                         const columnNames = data.columns.map(column => column.column_name);
-                        // Usar solo los nombres de columna que NO son los encabezados fijos
-                        const dynamicColumnNames = columnNames.filter(name =>
-                            name !== 'Actividad' &&
-                            name !== 'Puntaje a evaluar' &&
-                            name !== 'Puntaje de la Comisión Dictaminadora' &&
-                            name !== 'Observaciones'
-                        );
+                        // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
+                        const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
+                        const dynamicColumnNames = data.columns
+                            .map(column => column.column_name)
+                            .filter(name => !fixedHeaders.includes(name));
                         // Agregar solo las columnas dinámicas (subencabezados)
                         dynamicColumnNames.forEach(columnName => {
                             tableHTML += `<th><input value="${columnName}" readonly /></th>`;
@@ -217,13 +215,9 @@ $existingFormNames = [];
                         // Agrupar valores por columna
                         const valuesByColumn = {};
                         data.columns.forEach(column => {
-                            valuesByColumn[column.id] = [];
-                        });
-
-                        data.values.forEach(value => {
-                            if (valuesByColumn[value.dynamic_form_column_id]) {
-                                valuesByColumn[value.dynamic_form_column_id].push(value);
-                            }
+                            valuesByColumn[column.id] = data.values.filter(value => 
+                                value.dynamic_form_column_id === column.id
+                            );
                         });
 
                         // Obtener los IDs de las columnas
@@ -237,17 +231,26 @@ $existingFormNames = [];
                         tableHTML += `<td><input value="${selectedForm}" readonly /></td>`; // formName en la primera columna
 
                         // Agregar celdas para cada columna dinámica
-                        for (let i = 1; i < data.columns.length; i++) {
-                            const columnId = columnIds[i];
-                            const columnValues = valuesByColumn[columnId] || [];
-                            const columnValue = columnValues.length > 0 ? columnValues[0].value : '';
-                            tableHTML += `<td><input value="${columnValue}"</input></td>`;
-                        }
+                        //(subencabezados)
+                        dynamicColumnNames.forEach(columnName => {
+                            // Buscar el ID de columna para este nombre
+                            const column = data.columns.find(c => c.column_name === columnName);
+                            if (column) {
+                                const columnId = column.id;
+                                const columnValues = valuesByColumn[columnId] || [];
+                                const columnValue = columnValues.length > 0 ? columnValues[0].value : '';
+                                tableHTML += `<td><input value="${columnValue}"></input></td>`;
+                            } else {
+                                tableHTML += '<td><input value=""></input></td>';
+                            }
+                        });
 
                         // Celdas para puntaje a evaluar y comisión con estilos
                         tableHTML += '<td style="background-color: #0b5967; color: #ffff;">0</td>';
                         tableHTML += '<td style="background-color: #ffcc6d;">0</td>';
-                        tableHTML += '<td>0</td>'; // Observaciones
+                        // Observaciones 
+                        tableHTML += '<td><input value="comentarios"></td>';
+                         
                         tableHTML += '</tr>';
 
                         // Segunda fila: valor dinámico (que no sea formName, nombre de columna, ni número)
@@ -276,15 +279,15 @@ $existingFormNames = [];
                         tableHTML += '<tr>';
                         tableHTML += `<td><input value="${secondRowValue}"></input></td>`;
 
-                        // Celdas vacías para las columnas dinámicas
-                        for (let i = 1; i < data.columns.length; i++) {
-                            tableHTML += '<td></td>';
-                        }
+                        // Celdas para cada columna dinámica
+                        dynamicColumnNames.forEach(() => {
+                            tableHTML += '<td><input value=""></input></td>';
+                        });
 
-                        // Celdas para puntaje y observaciones
-                        tableHTML += '<td>0</td>';
-                        tableHTML += '<td>0</td>';
-                        tableHTML += '<td></td>';
+                        // Celdas para puntaje y observaciones (ahora correctamente alineadas)
+                        tableHTML += '<td><input value="0"></td>';
+                        tableHTML += '<td><input value="0"></td>';
+                        tableHTML += '<td><input value="comentarios"></td>';
                         tableHTML += '</tr>';
 
                         // Tercera fila: Acreditación
@@ -305,11 +308,6 @@ $existingFormNames = [];
 
                         // Añadir el campo para editar el puntaje máximo
                         dynamicTableContainer.innerHTML += `
-        <div class="mt-3">
-            <label for="puntajeMaximo">Puntaje Máximo:</label>
-            <input type="number" id="puntajeMaximo" name="puntajeMaximo" value="${data.puntaje_maximo}" style="margin-bottom: 1rem;" required>
-            <input type="hidden" name="form_name" value="${selectedForm}">
-        </div>
     `;
                     } else {
                         alert('Error fetching form data.');
