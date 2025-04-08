@@ -211,7 +211,30 @@ $existingFormNames = [];
                         tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
                         tableHTML += '<th>Observaciones</th>';
                         tableHTML += '</tr></thead><tbody>';
+                        // Agrupar valores por actividad para mantener las filas juntas
+                        // Identificar actividades únicas (primera columna)
+                        const activities = [];
+                        const activityValues = {};
+                        // Filtrar valores de la columna de Actividad
+                        const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
 
+                        if (activityColumnId) {
+                            // Obtener todos los valores de actividad
+                            const activityData = data.values.filter(val => val.dynamic_form_column_id === activityColumnId);
+
+                            // Para cada actividad, obtener todos sus valores asociados
+                            activityData.forEach(activity => {
+                                if (!activities.includes(activity.value)) {
+                                    activities.push(activity.value);
+                                    activityValues[activity.value] = {
+                                        subheaders: {},
+                                        puntajeEvaluar: "0",
+                                        puntajeComision: "0",
+                                        observaciones: "comentarios"
+                                                                        };
+                                }
+                            });
+                        }
                         // Agrupar valores por columna
                         const valuesByColumn = {};
                         data.columns.forEach(column => {
