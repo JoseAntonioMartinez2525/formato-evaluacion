@@ -179,6 +179,8 @@ $existingFormNames = [];
                     console.log('Returned Data:', data);
                     console.log('Columns:', data.columns); // Log the columns
                     console.log('Values:', data.values); // Log the values
+                    console.log('Puntaje máximo:', data.puntaje_maximo);
+                    console.log('Acreditación:', data.acreditacion); // Log the acreditación
                     if (data.success) {
 
                         dynamicTableContainer.innerHTML = '';
@@ -192,20 +194,20 @@ $existingFormNames = [];
                         tableHTML += '<thead><tr>';
                         tableHTML += '<th>Actividad</th>';
 
-                        // Obtener los nombres de las columnas dinámicas
-                        const columnNames = {};
-                        data.columns.forEach(column => {
-                            columnNames[column.id] = column.column_name;
+                        // Agregar los nombres de las columnas dinámicas
+                        const columnNames = data.columns.map(column => column.column_name);
+                        // Usar solo los nombres de columna que NO son los encabezados fijos
+                        const dynamicColumnNames = columnNames.filter(name =>
+                            name !== 'Actividad' &&
+                            name !== 'Puntaje a evaluar' &&
+                            name !== 'Puntaje de la Comisión Dictaminadora' &&
+                            name !== 'Observaciones'
+                        );
+                        // Agregar solo las columnas dinámicas (subencabezados)
+                        dynamicColumnNames.forEach(columnName => {
+                            tableHTML += `<th><input value="${columnName}" readonly /></th>`;
                         });
 
-                        // Obtener todos los nombres de columnas como array para filtrarlos después
-                        const allColumnNames = Object.values(columnNames);
-
-                        // Agregar columnas dinámicas como encabezados
-                        for (let i = 1; i < data.columns.length; i++) {
-                            const columnId = Object.keys(columnNames)[i];
-                            tableHTML += `<th><input value="${columnNames[columnId] || ''}"></input></th>`;
-                        }
 
                         tableHTML += '<th>Puntaje a evaluar</th>';
                         tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
@@ -232,7 +234,7 @@ $existingFormNames = [];
 
                         // Primera fila: formName y valores
                         tableHTML += '<tr>';
-                        tableHTML += `<td><input value="${selectedForm}"></input></td>`; // formName en la primera columna
+                        tableHTML += `<td><input value="${selectedForm}" readonly /></td>`; // formName en la primera columna
 
                         // Agregar celdas para cada columna dinámica
                         for (let i = 1; i < data.columns.length; i++) {
@@ -255,14 +257,11 @@ $existingFormNames = [];
                         for (let i = 0; i < data.values.length; i++) {
                             const value = data.values[i].value;
 
-                            // Verificar si el valor no es igual al nombre del formulario,
-                            // no es un nombre de columna, no es puntaje_maximo y no es un número
                             if (
-                                value !== selectedForm &&
-                                !allColumnNames.includes(value) &&
-                                value !== data.puntaje_maximo &&
-                                isNaN(value) && // Verifica que no sea un número
-                                value.trim() !== '' // Verifica que no sea una cadena vacía
+                                value !== selectedForm && // No es el nombre del formulario
+                                !columnNames.includes(value) && // No es un nombre de columna
+                                value !== data.puntaje_maximo && // No es el puntaje máximo
+                                value.trim() !== '' // No es una cadena vacía
                             ) {
                                 secondRowValue = value;
                                 break;
@@ -292,14 +291,11 @@ $existingFormNames = [];
                         tableHTML += '<tr>';
                         tableHTML += '<td>Acreditación:</td>';
 
-                        // Celdas vacías para el resto de columnas
-                        for (let i = 1; i < data.columns.length; i++) {
-                            tableHTML += `<td><input value="${data.acreditacion}"></></td>`;
-                        }
-
-                        tableHTML += '<td></td>';
-                        tableHTML += '<td></td>';
-                        tableHTML += '<td></td>';
+                        // Calcular el número de columnas (incluye las dinámicas + las fijas)
+                        const totalColumnSpan = dynamicColumnNames.length + 3; // 3 = columnas fijas (Puntaje a evaluar, Comisión, Observaciones)
+                        tableHTML += `<td colspan="${totalColumnSpan}">`;
+                        tableHTML += `<input id="acreditacion" type="text" value="${data.acreditacion || ''}" placeholder="Información sobre acreditación" class="form-control">`;
+                        tableHTML += '</td>';
                         tableHTML += '</tr>';
 
                         tableHTML += '</tbody></table>';

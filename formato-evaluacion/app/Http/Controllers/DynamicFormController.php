@@ -311,12 +311,19 @@ public function getFormByName($formName)
         if ($form) {
             $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
             $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
-
+           
+            \Log::info('Datos del formulario:', [
+                'form_name' => $formName,
+                'acreditacion' => $form->acreditacion ?? 'No encontrado',
+            ]);
+            
             return response()->json([
                 'success' => true,
                 'columns' => $columns,
                 'values' => $values,
                 'puntaje_maximo' => $form->puntaje_maximo,
+                'acreditacion' => $form->acreditacion, // Asegúrate de incluir este campo
+
             ]);
         } else {
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
