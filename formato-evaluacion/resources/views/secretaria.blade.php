@@ -428,50 +428,37 @@ $existingFormNames = [];
             }
         });
 
+    // Este código debe reemplazar completamente el manejador de eventos change del select en secretaria.blade.php
     document.addEventListener('DOMContentLoaded', (event) => {
         const formSelect = document.getElementById('formSelect');
 
-        if ('{{ $formType }}' && '{{ $formName }}') {
-            const newOption = document.createElement('option');
-            newOption.value = '{{ $formType }}'; // Use the new form's type as the value
-            newOption.textContent = '{{ $formName }}'; // Display the new form's name
-            formSelect.appendChild(newOption);
-        }
-
-        formSelect.addEventListener('change', (event) => {
-            const selectedForm = event.target.value;
+        formSelect.addEventListener('change', function () {
+            const selectedForm = this.value;
             const formContainer = document.getElementById('formContainer');
 
             if (selectedForm) {
-                if (selectedForm === '{{ $formType }}') {
-                    // Redirect to the generic_form if the new option is selected
-                    window.location.href = `/generic_form?formType=${selectedForm}&formName=${encodeURIComponent('{{ $formName }} ')}`;
-                } else if (selectedForm.startsWith('form')) {
-                    // Handle other static form selections
+                if (selectedForm.startsWith('form')) {
+                    // Manejar formularios estáticos
                     window.location.href = `/${selectedForm}`;
-                    axios.get(`/get-form-content/${selectedForm}`)
-                        .then(response => {
-                            formContainer.innerHTML = response.data;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching form content:', error);
-                            formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
-                        });
                 } else {
                     // Esta parte es para formularios dinámicos
-                    console.log('Cargando formulario dinámico:', selectedForm); // Para depuración
-
                     fetch(`/get-form-data/${selectedForm}`)
-                        .then(response => {
-                            console.log('Respuesta recibida:', response);
-                            return response.json();
-                        })
+                        .then(response => response.json())
                         .then(data => {
-                            console.log('Datos recibidos:', data); // Para depuración
+                            console.log('Returned Data:', data);
+                            console.log('Columns:', data.columns);
+                            console.log('Values:', data.values);
+                            console.log('Puntaje máximo:', data.puntaje_maximo);
+                            console.log('Acreditación:', data.acreditacion);
 
                             if (data.success) {
+                                formContainer.innerHTML = '';
+
                                 // Mostrar el puntaje máximo en la parte superior
-                                let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
+                                let tableHTML = `<div style="margin-bottom: 10px;">
+                                <strong>Puntaje máximo</strong> 
+                                <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span>
+                            </div>`;
 
                                 // Crear la tabla
                                 tableHTML += '<table class="table table-bordered">';
@@ -480,114 +467,173 @@ $existingFormNames = [];
                                 tableHTML += '<thead><tr>';
                                 tableHTML += '<th>Actividad</th>';
 
-                                // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
+                                // Filtrar encabezados fijos
                                 const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
-                                const columnNames = data.columns.map(column => column.column_name);
-                                const dynamicColumnNames = columnNames.filter(name => !fixedHeaders.includes(name));
+                                const dynamicColumnNames = data.columns
+                                    .map(column => column.column_name)
+                                    .filter(name => !fixedHeaders.includes(name));
 
-                                // Agregar subencabezados
+                                // Agregar solo las columnas dinámicas (subencabezados)
                                 dynamicColumnNames.forEach(columnName => {
                                     tableHTML += `<th>${columnName}</th>`;
                                 });
 
-                                // Agregar encabezados fijos
                                 tableHTML += '<th>Puntaje a evaluar</th>';
                                 tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
                                 tableHTML += '<th>Observaciones</th>';
                                 tableHTML += '</tr></thead><tbody>';
 
-                                // Organizar los valores por filas
+                                // Identificar actividades únicas (primera columna)
+                                const activities = [];
+                                const activityValues = {};
+
+                                // Filtrar valores de la columna de Actividad
                                 const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
 
                                 if (activityColumnId) {
-                                    // Obtener todas las actividades
-                                    const activityValues = data.values.filter(val =>
-                                        val.dynamic_form_column_id === activityColumnId
-                                    );
+                                    // Obtener todos los valores de actividad
+                                    const activityData = data.values.filter(val => val.dynamic_form_column_id === activityColumnId);
 
-                                    // Para cada actividad, crear una fila
-                                    activityValues.forEach(activity => {
-                                        tableHTML += '<tr>';
-                                        tableHTML += `<td>${activity.value}</td>`;
+                                    // Para cada actividad, obtener todos sus valores asociados
+                                    activityData.forEach(activity => {
+                                        if (!activities.includes(activity.value)) {
+                                            activities.push(activity.value);
+                                            activityValues[activity.value] = {
+                                                subheaders: {},
+                                                puntajeEvaluar: "0",
+                                                puntajeComision: "0",
+                                                observaciones: ""
+                                            };
+                                        }
+                                    });
+                                }
 
-                                        // Agregar celdas para cada subencabezado dinámico
-                                        dynamicColumnNames.forEach(columnName => {
-                                            const columnId = data.columns.find(col => col.column_name === columnName)?.id;
-                                            let cellValue = '';
+                                // Si no hay actividades, usar el nombre del formulario como actividad
+                                if (activities.length === 0) {
+                                    activities.push(selectedForm);
+                                    activityValues[selectedForm] = {
+                                        subheaders: {},
+                                        puntajeEvaluar: "0",
+                                        puntajeComision: "0",
+                                        observaciones: ""
+                                    };
+                                }
 
-                                            if (columnId) {
-                                                // Buscar un valor para esta columna
-                                                const cellData = data.values.find(val =>
-                                                    val.dynamic_form_column_id === columnId
-                                                );
+                                // Agregar segunda actividad (como "Derechos de autor")
+                                fetch(`/get-first-non-numeric-value/${data.columns.find(col => col.column_name === 'Actividad')?.id || 0}`)
+                                    .then(response => response.json())
+                                    .then(secondData => {
+                                        let secondValue = "Derechos de autor";
+                                        if (secondData && secondData.success) {
+                                            secondValue = secondData.value || "Derechos de autor";
+                                        }
 
-                                                if (cellData) {
-                                                    cellValue = cellData.value;
-                                                }
-                                            }
+                                        if (activities.length < 2) {
+                                            activities.push(secondValue);
+                                            activityValues[secondValue] = {
+                                                subheaders: {},
+                                                puntajeEvaluar: "0",
+                                                puntajeComision: "0",
+                                                observaciones: ""
+                                            };
+                                        }
 
-                                            tableHTML += `<td>${cellValue}</td>`;
-                                        });
-
-                                        // Agregar celdas para puntajes y observaciones
+                                        // Obtener valores de puntaje y observaciones
                                         const puntajeEvaluarColumnId = data.columns.find(col => col.column_name === 'Puntaje a evaluar')?.id;
                                         const puntajeComisionColumnId = data.columns.find(col => col.column_name === 'Puntaje de la Comisión Dictaminadora')?.id;
                                         const observacionesColumnId = data.columns.find(col => col.column_name === 'Observaciones')?.id;
 
-                                        // Puntaje a evaluar con fondo verde (#0b5967)
-                                        let puntajeEvaluar = '0';
-                                        if (puntajeEvaluarColumnId) {
-                                            const puntajeData = data.values.find(val =>
-                                                val.dynamic_form_column_id === puntajeEvaluarColumnId
-                                            );
-                                            if (puntajeData) {
-                                                puntajeEvaluar = puntajeData.value;
+                                        // Asignar valores a las actividades
+                                        data.values.forEach(val => {
+                                            if (puntajeEvaluarColumnId && val.dynamic_form_column_id === puntajeEvaluarColumnId) {
+                                                // Asignar a la primera actividad por defecto
+                                                if (activities[0]) {
+                                                    activityValues[activities[0]].puntajeEvaluar = val.value;
+                                                }
                                             }
-                                        }
 
-                                        // Puntaje de la Comisión con fondo amarillo (#ffcc6d)
-                                        let puntajeComision = '0';
-                                        if (puntajeComisionColumnId) {
-                                            const comisionData = data.values.find(val =>
-                                                val.dynamic_form_column_id === puntajeComisionColumnId
-                                            );
-                                            if (comisionData) {
-                                                puntajeComision = comisionData.value;
+                                            if (puntajeComisionColumnId && val.dynamic_form_column_id === puntajeComisionColumnId) {
+                                                if (activities[0]) {
+                                                    activityValues[activities[0]].puntajeComision = val.value;
+                                                }
                                             }
-                                        }
 
-                                        // Observaciones
-                                        let observaciones = '';
-                                        if (observacionesColumnId) {
-                                            const obsData = data.values.find(val =>
-                                                val.dynamic_form_column_id === observacionesColumnId
-                                            );
-                                            if (obsData) {
-                                                observaciones = obsData.value;
+                                            if (observacionesColumnId && val.dynamic_form_column_id === observacionesColumnId) {
+                                                if (activities[0]) {
+                                                    activityValues[activities[0]].observaciones = val.value;
+                                                }
                                             }
-                                        }
 
-                                        tableHTML += `<td style="background-color: #0b5967; color: #ffff;">${puntajeEvaluar}</td>`;
-                                        tableHTML += `<td style="background-color: #ffcc6d;">${puntajeComision}</td>`;
-                                        tableHTML += `<td>${observaciones}</td>`;
+                                            // Asignar valores de subheaders
+                                            dynamicColumnNames.forEach((colName, index) => {
+                                                const colId = data.columns.find(col => col.column_name === colName)?.id;
+                                                if (colId && val.dynamic_form_column_id === colId) {
+                                                    if (activities[0]) {
+                                                        activityValues[activities[0]].subheaders[colName] = val.value;
+                                                    }
+                                                }
+                                            });
+                                        });
 
+                                        // Generar filas para cada actividad
+                                        activities.forEach(activity => {
+                                            tableHTML += '<tr>';
+                                            tableHTML += `<td>${activity}</td>`;
+
+                                            // Agregar valores para cada columna dinámica
+                                            dynamicColumnNames.forEach(colName => {
+                                                const value = activityValues[activity].subheaders[colName] || '';
+                                                tableHTML += `<td>${value}</td>`;
+                                            });
+
+                                            // Agregar puntajes y observaciones con estilos
+                                            tableHTML += `<td style="background-color: #0b5967; color: #fff;">${activityValues[activity].puntajeEvaluar}</td>`;
+                                            tableHTML += `<td style="background-color: #ffcc6d;">${activityValues[activity].puntajeComision}</td>`;
+                                            tableHTML += `<td>${activityValues[activity].observaciones}</td>`;
+                                            tableHTML += '</tr>';
+                                        });
+
+                                        // Agregar fila de acreditación
+                                        tableHTML += '<tr>';
+                                        tableHTML += '<td>Acreditación:</td>';
+                                        const totalColumnSpan = dynamicColumnNames.length + 3;
+                                        tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
                                         tableHTML += '</tr>';
+
+                                        tableHTML += '</tbody></table>';
+
+                                        formContainer.innerHTML = tableHTML;
+                                    })
+                                    .catch(error => {
+                                        console.error('Error getting second value:', error);
+                                        // Completar la tabla sin la segunda fila
+                                        activities.forEach(activity => {
+                                            tableHTML += '<tr>';
+                                            tableHTML += `<td>${activity}</td>`;
+
+                                            dynamicColumnNames.forEach(colName => {
+                                                const value = activityValues[activity].subheaders[colName] || '';
+                                                tableHTML += `<td>${value}</td>`;
+                                            });
+
+                                            tableHTML += `<td style="background-color: #0b5967; color: #fff;">${activityValues[activity].puntajeEvaluar}</td>`;
+                                            tableHTML += `<td style="background-color: #ffcc6d;">${activityValues[activity].puntajeComision}</td>`;
+                                            tableHTML += `<td>${activityValues[activity].observaciones}</td>`;
+                                            tableHTML += '</tr>';
+                                        });
+
+                                        tableHTML += '<tr>';
+                                        tableHTML += '<td>Acreditación:</td>';
+                                        const totalColumnSpan = dynamicColumnNames.length + 3;
+                                        tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
+                                        tableHTML += '</tr>';
+
+                                        tableHTML += '</tbody></table>';
+
+                                        formContainer.innerHTML = tableHTML;
                                     });
-                                }
-
-                                // Fila de acreditación
-                                tableHTML += '<tr>';
-                                tableHTML += '<td>Acreditación:</td>';
-                                const totalColumnSpan = dynamicColumnNames.length + 3; // +3 para las columnas fijas
-                                tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
-                                tableHTML += '</tr>';
-
-                                tableHTML += '</tbody></table>';
-
-                                // Agregar la tabla al contenedor
-                                formContainer.innerHTML = tableHTML;
                             } else {
-                                formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + data.message + '</p>';
+                                formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + (data.message || 'Formulario no encontrado') + '</p>';
                             }
                         })
                         .catch(error => {
@@ -600,8 +646,6 @@ $existingFormNames = [];
             }
         });
     });
-
-
     </script>
 
 </body>
