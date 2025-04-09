@@ -185,7 +185,7 @@ $existingFormNames = [];
 
                         dynamicTableContainer.innerHTML = '';
                         // Mostrar el puntaje máximo en la parte superior con fondo negro
-                        let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <input style="background-color: #000; color: #fff; padding: 2px 10px;" placeholder="${data.puntaje_maximo}"></input></div>`;
+                        let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <input value="${data.puntaje_maximo}" style="background-color: #000; color:#ffff; font-weight:bold; text-align:center; padding: 2px 10px;"></input></div>`;
 
                         // Crear la tabla
                         tableHTML += '<table class="table table-bordered">';
