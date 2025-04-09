@@ -294,7 +294,8 @@ Route::get('/form/edit/{form_name}', [DynamicFormController::class, 'edit'])->na
 
     Route::get('/get-form-content/{formId}', [DynamicFormController::class, 'showDynamicForm'])->name('get-form-content');
 
-Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
+//Route::get('/get-form-data/{formType}', [DynamicFormController::class, 'getFormData']);
+    Route::get('/get-form-data/{formName}', [DynamicFormController::class, 'getFormData'])->where('formName', '.*');
 
 });
 Route::post('/logout', action: [SessionsController::class, 'logout'])->name('logout');

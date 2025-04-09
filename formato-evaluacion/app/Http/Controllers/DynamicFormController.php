@@ -307,6 +307,9 @@ public function getFormByName($formName)
 
     public function getFormData($formName)
     {
+        // Agregar logs para depuración
+        \Log::info('Buscando formulario con nombre:', ['formName' => $formName]);
+
         $form = DynamicForm::where('form_name', $formName)->first();
         if ($form) {
             $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
@@ -314,6 +317,9 @@ public function getFormByName($formName)
            
             \Log::info('Datos del formulario:', [
                 'form_name' => $formName,
+                'columnas' => $columns->count(),
+                'valores' => $values->count(),
+                'puntaje_maximo' => $form->puntaje_maximo,
                 'acreditacion' => $form->acreditacion ?? 'No encontrado',
             ]);
             
@@ -326,9 +332,12 @@ public function getFormByName($formName)
 
             ]);
         } else {
+            \Log::info('Formulario no encontrado para:', ['formName' => $formName]);
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
         }
     }
+
+    
 
     public function getFormId($formName)
 {   // Extract only numbers and dots from formName using regex

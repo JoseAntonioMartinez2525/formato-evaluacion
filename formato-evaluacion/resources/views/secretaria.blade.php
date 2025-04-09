@@ -48,68 +48,68 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                                                @if (Auth::check() && Auth::user()->user_type === '')
-                                                    <x-nav-menu :user="Auth::user()">
-                                                        <div>
-                                                            <ul style="list-style: none;"">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}" title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"title="Editar ó eliminar formulario" ><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
-                                                                </li>
-                                                               </ul>
-                                                            </div>   
-                                                    </x-nav-menu>
-                                                @endif
+                                                                @if (Auth::check() && Auth::user()->user_type === '')
+                                                                    <x-nav-menu :user="Auth::user()">
+                                                                        <div>
+                                                                            <ul style="list-style: none;"">
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}" title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"title="Editar ó eliminar formulario" ><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
+                                                                                </li>
+                                                                               </ul>
+                                                                            </div>   
+                                                                    </x-nav-menu>
+                                                                @endif
 
-                                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                        <div class="flex lg:justify-center lg:col-start-2"></div>
+                                                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                                                        <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                                        <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                                                        <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                                    <div class="container mt-4">
-                                        <!-- Selector para elegir el formulario -->
-                                        <label for="formSelect">Seleccionar Formulario:</label>
-                                        <select id="formSelect" class="form-select">
-                                            <option value=""></option>
-                                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                                            <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
-                                            <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                                            <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
-                                            <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
-                                            <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                                            <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
-                                            <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                                            <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
-                                            <option value="form3_8_1">  3.8.1 RSU</option>
-                                            <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
-                                            <option value="form3_10">   3.10 Tutorías a estudiantes</option>
-                                            <option value="form3_11">   3.11 Asesoría a estudiantes</option>
-                                            <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
-                                            <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
-                                            <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
-                                            <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
-                                            <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
-                                            <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
-                                            <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
-                                            <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
-                <!-- Dynamic options -->
+                                                    <div class="container mt-4">
+                                                        <!-- Selector para elegir el formulario -->
+                                                        <label for="formSelect">Seleccionar Formulario:</label>
+                                                        <select id="formSelect" class="form-select">
+                                                            <option value=""></option>
+                                                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                                                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                                                            <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
+                                                            <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                                                            <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
+                                                            <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
+                                                            <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
+                                                            <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
+                                                            <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
+                                                            <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
+                                                            <option value="form3_8_1">  3.8.1 RSU</option>
+                                                            <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
+                                                            <option value="form3_10">   3.10 Tutorías a estudiantes</option>
+                                                            <option value="form3_11">   3.11 Asesoría a estudiantes</option>
+                                                            <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
+                                                            <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
+                                                            <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
+                                                            <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
+                                                            <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
+                                                            <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
+                                                            <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
+                                                            <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
+                                <!-- Dynamic options -->
                 @foreach($forms as $form)
                     @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
-                        <option value="{{ $form->form_type }}">{{ $form->form_name }}</option>
+                        <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
                         @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
                     @endif
                 @endforeach
-                                        </select>
-                                    </div>
+                                                        </select>
+                                                    </div>
 
-                                    <div id="formContainer">
-                                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                                    </div>
+                                                    <div id="formContainer">
+                                                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                                                    </div>
 
-                                </header>
+                                                </header>
             @endif
         </div>
         </main>
@@ -447,7 +447,7 @@ $existingFormNames = [];
                     // Redirect to the generic_form if the new option is selected
                     window.location.href = `/generic_form?formType=${selectedForm}&formName=${encodeURIComponent('{{ $formName }} ')}`;
                 } else if (selectedForm.startsWith('form')) {
-                    // Handle other form selections
+                    // Handle other static form selections
                     window.location.href = `/${selectedForm}`;
                     axios.get(`/get-form-content/${selectedForm}`)
                         .then(response => {
@@ -458,10 +458,17 @@ $existingFormNames = [];
                             formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
                         });
                 } else {
-                    // Esta parte es para formularios dinámicos creados en dynamic_forms.blade.php
+                    // Esta parte es para formularios dinámicos
+                    console.log('Cargando formulario dinámico:', selectedForm); // Para depuración
+
                     fetch(`/get-form-data/${selectedForm}`)
-                        .then(response => response.json())
+                        .then(response => {
+                            console.log('Respuesta recibida:', response);
+                            return response.json();
+                        })
                         .then(data => {
+                            console.log('Datos recibidos:', data); // Para depuración
+
                             if (data.success) {
                                 // Mostrar el puntaje máximo en la parte superior
                                 let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
@@ -593,7 +600,6 @@ $existingFormNames = [];
             }
         });
     });
-
 
 
     </script>
