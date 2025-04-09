@@ -90,6 +90,8 @@ Route::get('perfil', function () {return view('perfil'); })->name('perfil');
 Route::get('general', function () {return view('general');})->name('general');
 Route::get('edit_delete_form', [DynamicFormController::class, 'showSecretaria'])->name('edit_delete_form');
 
+Route::get('/get-first-non-numeric-value/{formId}', [DynamicFormController::class, 'getFirstNonNumericValue']);
+
 //formularios
 Route::get('form2', function () {return view('form2'); })->name('form2');
 Route::get('form2_2', function () {return view('form2_2'); })->name('form2_2');

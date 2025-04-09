@@ -249,20 +249,28 @@ $existingFormNames = [];
 
                         // Si hay una segunda actividad (como "Derechos de autor"), asegúrate de que tenga valores
                         if (activities.length < 2) {
-                            // Buscar un valor secundario en los datos
-                            const secondValue = data.values.find(val =>
-                                val.value !== selectedForm &&
-                                !columnNames.includes(val.value) &&
-                                val.value.trim() !== ''
-                            )?.value || "Derechos de autor";
+                            const formId = document.getElementById('form_id').value;
 
-                            activities.push(secondValue);
-                            activityValues[secondValue] = {
-                                subheaders: {},
-                                puntajeEvaluar: "0",
-                                puntajeComision: "0",
-                                observaciones: "comentarios"
-                            };
+                            fetch(`/get-first-non-numeric-value/${formId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        const secondValue = data.value || "No encontrado";
+                                        console.log('Primer valor no numérico:', secondValue);
+
+                                        // Usar el valor dinámico en tu lógica
+                                        activities.push(secondValue);
+                                        activityValues[secondValue] = {
+                                            subheaders: {},
+                                            puntajeEvaluar: "0",
+                                            puntajeComision: "0",
+                                            observaciones: "comentarios"
+                                        };
+                                    } else {
+                                        console.error('Error al obtener el valor:', data.message);
+                                    }
+                                })
+                                .catch(error => console.error('Error en la solicitud:', error));
                         }
 
 

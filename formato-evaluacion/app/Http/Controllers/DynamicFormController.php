@@ -438,6 +438,19 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         }
     }*/
 
+    public function getFirstNonNumericValue($formId)
+    {
+        $value = DynamicFormValue::where('dynamic_form_id', $formId)
+            ->whereRaw('value NOT REGEXP "^[0-9]+$"') // Excluir valores numéricos
+            ->where('value', '!=', '') // Excluir valores vacíos
+            ->orderBy('id', 'asc') // Ordenar por ID para obtener el primero
+            ->value('value'); // Obtener solo el valor
+
+        return response()->json([
+            'success' => true,
+            'value' => $value ?? 'No encontrado', // Retornar un valor predeterminado si no se encuentra
+        ]);
+    }
     public function __construct()
     {
         $this->middleware('auth');
