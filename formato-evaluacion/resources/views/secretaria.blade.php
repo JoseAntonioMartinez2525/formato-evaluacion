@@ -432,37 +432,170 @@ $existingFormNames = [];
         const formSelect = document.getElementById('formSelect');
 
         if ('{{ $formType }}' && '{{ $formName }}') {
-                const newOption = document.createElement('option');
-                newOption.value = '{{ $formType }}'; // Use the new form's type as the value
-                newOption.textContent = '{{ $formName }}'; // Display the new form's name
-                formSelect.appendChild(newOption);
-            }
-
-            formSelect.addEventListener('change', (event) => {
-                const selectedForm = event.target.value;
-                const formContainer = document.getElementById('formContainer');
-
-                if (selectedForm) {
-                    if (selectedForm === '{{ $formType }}') {
-                        // Redirect to the generic_form if the new option is selected
-                        window.location.href = `/generic_form?formType=${selectedForm}&formName=${encodeURIComponent('{{ $formName }} ')}`;
-            } else {
-                // Handle other form selections
-                window.location.href = `/${selectedForm}`;
-                axios.get(`/get-form-content/${selectedForm}`)
-                    .then(response => {
-                        formContainer.innerHTML = response.data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching form content:', error);
-                        formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
-                    });
-            }
-            } else {
-            formContainer.innerHTML = '';
+            const newOption = document.createElement('option');
+            newOption.value = '{{ $formType }}'; // Use the new form's type as the value
+            newOption.textContent = '{{ $formName }}'; // Display the new form's name
+            formSelect.appendChild(newOption);
         }
+
+        formSelect.addEventListener('change', (event) => {
+            const selectedForm = event.target.value;
+            const formContainer = document.getElementById('formContainer');
+
+            if (selectedForm) {
+                if (selectedForm === '{{ $formType }}') {
+                    // Redirect to the generic_form if the new option is selected
+                    window.location.href = `/generic_form?formType=${selectedForm}&formName=${encodeURIComponent('{{ $formName }} ')}`;
+                } else if (selectedForm.startsWith('form')) {
+                    // Handle other form selections
+                    window.location.href = `/${selectedForm}`;
+                    axios.get(`/get-form-content/${selectedForm}`)
+                        .then(response => {
+                            formContainer.innerHTML = response.data;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching form content:', error);
+                            formContainer.innerHTML = '<p style="margin-left: 120px;">Cargando formulario.....</p>';
+                        });
+                } else {
+                    // Esta parte es para formularios dinámicos creados en dynamic_forms.blade.php
+                    fetch(`/get-form-data/${selectedForm}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Mostrar el puntaje máximo en la parte superior
+                                let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
+
+                                // Crear la tabla
+                                tableHTML += '<table class="table table-bordered">';
+
+                                // Encabezados principales
+                                tableHTML += '<thead><tr>';
+                                tableHTML += '<th>Actividad</th>';
+
+                                // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
+                                const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
+                                const columnNames = data.columns.map(column => column.column_name);
+                                const dynamicColumnNames = columnNames.filter(name => !fixedHeaders.includes(name));
+
+                                // Agregar subencabezados
+                                dynamicColumnNames.forEach(columnName => {
+                                    tableHTML += `<th>${columnName}</th>`;
+                                });
+
+                                // Agregar encabezados fijos
+                                tableHTML += '<th>Puntaje a evaluar</th>';
+                                tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
+                                tableHTML += '<th>Observaciones</th>';
+                                tableHTML += '</tr></thead><tbody>';
+
+                                // Organizar los valores por filas
+                                const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
+
+                                if (activityColumnId) {
+                                    // Obtener todas las actividades
+                                    const activityValues = data.values.filter(val =>
+                                        val.dynamic_form_column_id === activityColumnId
+                                    );
+
+                                    // Para cada actividad, crear una fila
+                                    activityValues.forEach(activity => {
+                                        tableHTML += '<tr>';
+                                        tableHTML += `<td>${activity.value}</td>`;
+
+                                        // Agregar celdas para cada subencabezado dinámico
+                                        dynamicColumnNames.forEach(columnName => {
+                                            const columnId = data.columns.find(col => col.column_name === columnName)?.id;
+                                            let cellValue = '';
+
+                                            if (columnId) {
+                                                // Buscar un valor para esta columna
+                                                const cellData = data.values.find(val =>
+                                                    val.dynamic_form_column_id === columnId
+                                                );
+
+                                                if (cellData) {
+                                                    cellValue = cellData.value;
+                                                }
+                                            }
+
+                                            tableHTML += `<td>${cellValue}</td>`;
+                                        });
+
+                                        // Agregar celdas para puntajes y observaciones
+                                        const puntajeEvaluarColumnId = data.columns.find(col => col.column_name === 'Puntaje a evaluar')?.id;
+                                        const puntajeComisionColumnId = data.columns.find(col => col.column_name === 'Puntaje de la Comisión Dictaminadora')?.id;
+                                        const observacionesColumnId = data.columns.find(col => col.column_name === 'Observaciones')?.id;
+
+                                        // Puntaje a evaluar con fondo verde (#0b5967)
+                                        let puntajeEvaluar = '0';
+                                        if (puntajeEvaluarColumnId) {
+                                            const puntajeData = data.values.find(val =>
+                                                val.dynamic_form_column_id === puntajeEvaluarColumnId
+                                            );
+                                            if (puntajeData) {
+                                                puntajeEvaluar = puntajeData.value;
+                                            }
+                                        }
+
+                                        // Puntaje de la Comisión con fondo amarillo (#ffcc6d)
+                                        let puntajeComision = '0';
+                                        if (puntajeComisionColumnId) {
+                                            const comisionData = data.values.find(val =>
+                                                val.dynamic_form_column_id === puntajeComisionColumnId
+                                            );
+                                            if (comisionData) {
+                                                puntajeComision = comisionData.value;
+                                            }
+                                        }
+
+                                        // Observaciones
+                                        let observaciones = '';
+                                        if (observacionesColumnId) {
+                                            const obsData = data.values.find(val =>
+                                                val.dynamic_form_column_id === observacionesColumnId
+                                            );
+                                            if (obsData) {
+                                                observaciones = obsData.value;
+                                            }
+                                        }
+
+                                        tableHTML += `<td style="background-color: #0b5967; color: #ffff;">${puntajeEvaluar}</td>`;
+                                        tableHTML += `<td style="background-color: #ffcc6d;">${puntajeComision}</td>`;
+                                        tableHTML += `<td>${observaciones}</td>`;
+
+                                        tableHTML += '</tr>';
+                                    });
+                                }
+
+                                // Fila de acreditación
+                                tableHTML += '<tr>';
+                                tableHTML += '<td>Acreditación:</td>';
+                                const totalColumnSpan = dynamicColumnNames.length + 3; // +3 para las columnas fijas
+                                tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
+                                tableHTML += '</tr>';
+
+                                tableHTML += '</tbody></table>';
+
+                                // Agregar la tabla al contenedor
+                                formContainer.innerHTML = tableHTML;
+                            } else {
+                                formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + data.message + '</p>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            formContainer.innerHTML = '<p class="alert alert-danger">Error: ' + error.message + '</p>';
+                        });
+                }
+            } else {
+                formContainer.innerHTML = '';
+            }
+        });
     });
-    });
+
+
+
     </script>
 
 </body>

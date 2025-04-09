@@ -451,6 +451,32 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
             'value' => $value ?? 'No encontrado', // Retornar un valor predeterminado si no se encuentra
         ]);
     }
+
+    public function loadFormView($formType)
+    {
+        // Esta función maneja los formularios estáticos
+        return view($formType);
+    }
+
+    public function getDynamicFormForSecretaria($formName)
+    {
+        // Esta función es similar a getFormData pero con algunas modificaciones para secretaria
+        $form = DynamicForm::where('form_name', $formName)->first();
+        if ($form) {
+            $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
+            $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
+
+            return response()->json([
+                'success' => true,
+                'columns' => $columns,
+                'values' => $values,
+                'puntaje_maximo' => $form->puntaje_maximo,
+                'acreditacion' => $form->acreditacion,
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
+        }
+    }
     public function __construct()
     {
         $this->middleware('auth');
