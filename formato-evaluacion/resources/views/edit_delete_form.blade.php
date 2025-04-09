@@ -243,7 +243,7 @@ $existingFormNames = [];
                                 subheaders: {},
                                 puntajeEvaluar: "0",
                                 puntajeComision: "0",
-                                observaciones: ""
+                               
                             };
                         }
 
@@ -264,7 +264,7 @@ $existingFormNames = [];
                                             subheaders: {},
                                             puntajeEvaluar: "0",
                                             puntajeComision: "0",
-                                            observaciones: "comentarios"
+                                            
                                         };
                                     } else {
                                         console.error('Error al obtener el valor:', data.message);
@@ -303,24 +303,22 @@ $existingFormNames = [];
                                 const columnValue = columnValues.find(value => !isNaN(value.value) && parseFloat(value.value) > 0)?.value || '';
                                 
                                 
-                                tableHTML += `<td><input value="${columnValue}" class="form-control"/></td>`;
-                            } else {
-                                tableHTML += '<td><input value="" class="form-control"/></td>';
-                            }
+                                tableHTML += '<td></td>';
+                            } 
                         });
 
                         // Celdas para puntaje a evaluar y comisión con estilos
                         tableHTML += '<td style="background-color: #0b5967; color: #ffff;">0</td>';
                         tableHTML += '<td style="background-color: #ffcc6d;">0</td>';
                         // Observaciones 
-                        tableHTML += '<td><input value="comentarios" class="form-control"/></td>';
+                        tableHTML += '<td></td>';
                          
                         tableHTML += '</tr>';
 
                         // Segunda fila: valor dinámico (que no sea formName, nombre de columna, ni número)
                         // Encontrar un valor que no sea el nombre del formulario, ni nombre de columna, ni puntaje_maximo, ni un número
                         let secondRowValue = '';
-
+                        let dynamicValue = '';
                         for (let i = 0; i < data.values.length; i++) {
                             const value = data.values[i].value;
 
@@ -331,6 +329,12 @@ $existingFormNames = [];
                                 value.trim() !== '' // No es una cadena vacía
                             ) {
                                 secondRowValue = value;
+                                // Buscar el valor dinámico asociado a la columna
+                                const columnId = data.values[i].dynamic_form_column_id;
+                                const column = data.columns.find(c => c.id === columnId);
+                                if (column) {
+                                    dynamicValue = data.values.find(v => v.dynamic_form_column_id === column.id)?.value || '';
+                                }
                                 break;
                             }
                         }
@@ -344,8 +348,23 @@ $existingFormNames = [];
                         tableHTML += `<td><input value="${secondRowValue}" class="form-control"/></td>`;
 
                         // Celdas para cada columna dinámica
-                        dynamicColumnNames.forEach(() => {
-                            tableHTML += '<td><input value=""class="form-control"/></td>';
+                        dynamicColumnNames.forEach(columnName => {
+                            const column = data.columns.find(c => c.column_name === columnName);
+                            if (column) {
+                                const columnId = column.id;
+
+                                // Buscar el primer valor numérico diferente de 0 asociado a esta columna
+                                const columnValue = data.values
+                                    .filter(v => v.dynamic_form_column_id === columnId) // Filtrar valores de esta columna
+                                    .map(v => parseFloat(v.value)) // Convertir a números
+                                    .find(value => !isNaN(value) && value > 0) || ''; // Tomar el primer valor > 0 o dejar vacío
+
+                                // Agregar el valor dinámico a la celda
+                                tableHTML += `<td><input value="${columnValue}" class="form-control"/></td>`;
+                            } else {
+                                // Si no hay valor asociado, dejar la celda vacía
+                                tableHTML += '<td><input value="" class="form-control"/></td>';
+                            }
                         });
 
                         // Celdas para puntaje y observaciones (ahora correctamente alineadas)
