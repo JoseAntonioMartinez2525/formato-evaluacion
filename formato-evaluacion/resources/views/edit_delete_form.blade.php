@@ -203,7 +203,7 @@ $existingFormNames = [];
                             .filter(name => !fixedHeaders.includes(name));
                         // Agregar solo las columnas dinámicas (subencabezados)
                         dynamicColumnNames.forEach(columnName => {
-                            tableHTML += `<th><input value="${columnName}" readonly /></th>`;
+                            tableHTML += `<th><input value="${columnName}" readonly class="form-control"/></th>`;
                         });
 
 
@@ -235,6 +235,37 @@ $existingFormNames = [];
                                 }
                             });
                         }
+
+                        // Si no hay actividades, usar el nombre del formulario como actividad
+                        if (activities.length === 0) {
+                            activities.push(selectedForm);
+                            activityValues[selectedForm] = {
+                                subheaders: {},
+                                puntajeEvaluar: "0",
+                                puntajeComision: "0",
+                                observaciones: ""
+                            };
+                        }
+
+                        // Si hay una segunda actividad (como "Derechos de autor"), asegúrate de que tenga valores
+                        if (activities.length < 2) {
+                            // Buscar un valor secundario en los datos
+                            const secondValue = data.values.find(val =>
+                                val.value !== selectedForm &&
+                                !columnNames.includes(val.value) &&
+                                val.value.trim() !== ''
+                            )?.value || "Derechos de autor";
+
+                            activities.push(secondValue);
+                            activityValues[secondValue] = {
+                                subheaders: {},
+                                puntajeEvaluar: "0",
+                                puntajeComision: "0",
+                                observaciones: "comentarios"
+                            };
+                        }
+
+
                         // Agrupar valores por columna
                         const valuesByColumn = {};
                         data.columns.forEach(column => {
@@ -251,7 +282,7 @@ $existingFormNames = [];
 
                         // Primera fila: formName y valores
                         tableHTML += '<tr>';
-                        tableHTML += `<td><input value="${selectedForm}" readonly /></td>`; // formName en la primera columna
+                        tableHTML += `<td><input value="${selectedForm}" readonly class="form-control"/></td>`; // formName en la primera columna
 
                         // Agregar celdas para cada columna dinámica
                         //(subencabezados)
@@ -261,10 +292,12 @@ $existingFormNames = [];
                             if (column) {
                                 const columnId = column.id;
                                 const columnValues = valuesByColumn[columnId] || [];
-                                const columnValue = columnValues.length > 0 ? columnValues[0].value : '';
-                                tableHTML += `<td><input value="${columnValue}"></input></td>`;
+                                const columnValue = columnValues.find(value => !isNaN(value.value) && parseFloat(value.value) > 0)?.value || '';
+                                
+                                
+                                tableHTML += `<td><input value="${columnValue}" class="form-control"/></td>`;
                             } else {
-                                tableHTML += '<td><input value=""></input></td>';
+                                tableHTML += '<td><input value="" class="form-control"/></td>';
                             }
                         });
 
@@ -272,7 +305,7 @@ $existingFormNames = [];
                         tableHTML += '<td style="background-color: #0b5967; color: #ffff;">0</td>';
                         tableHTML += '<td style="background-color: #ffcc6d;">0</td>';
                         // Observaciones 
-                        tableHTML += '<td><input value="comentarios"></td>';
+                        tableHTML += '<td><input value="comentarios" class="form-control"/></td>';
                          
                         tableHTML += '</tr>';
 
@@ -300,17 +333,17 @@ $existingFormNames = [];
                         }
 
                         tableHTML += '<tr>';
-                        tableHTML += `<td><input value="${secondRowValue}"></input></td>`;
+                        tableHTML += `<td><input value="${secondRowValue}" class="form-control"/></td>`;
 
                         // Celdas para cada columna dinámica
                         dynamicColumnNames.forEach(() => {
-                            tableHTML += '<td><input value=""></input></td>';
+                            tableHTML += '<td><input value=""class="form-control"/></td>';
                         });
 
                         // Celdas para puntaje y observaciones (ahora correctamente alineadas)
-                        tableHTML += '<td><input value="0"></td>';
-                        tableHTML += '<td><input value="0"></td>';
-                        tableHTML += '<td><input value="comentarios"></td>';
+                        tableHTML += '<td><input value="0"class="form-control"/></td>';
+                        tableHTML += '<td><input value="0"class="form-control"/></td>';
+                        tableHTML += '<td><input value="comentarios"class="form-control"/></td>';
                         tableHTML += '</tr>';
 
                         // Tercera fila: Acreditación
