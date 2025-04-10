@@ -1,12 +1,12 @@
 @php
-$locale = app()->getLocale() ?: 'en';
-$newLocale = str_replace('_', '-', $locale);
-$formType = request()->query('formType');
-$formName = request()->query('formName');
-use App\Models\DynamicForm; // Ensure to include the model
+    $locale = app()->getLocale() ?: 'en';
+    $newLocale = str_replace('_', '-', $locale);
+    $formType = request()->query('formType');
+    $formName = request()->query('formName');
+    use App\Models\DynamicForm; // Ensure to include the model
 
-$forms = DynamicForm::all(); // Fetch all forms from the database
-$existingFormNames = [];
+    $forms = DynamicForm::all(); // Fetch all forms from the database
+    $existingFormNames = [];
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -29,18 +29,17 @@ $existingFormNames = [];
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
         .table {
             width: 100%;
             margin-bottom: 1rem;
         }
+
         .form-control {
             width: 100%;
             padding: 0.375rem 0.75rem;
         }
-
-
     </style>
-
 </head>
 
 <body class="font-sans antialiased">
@@ -48,171 +47,99 @@ $existingFormNames = [];
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
-                                                                @if (Auth::check() && Auth::user()->user_type === '')
-                                                                    <x-nav-menu :user="Auth::user()">
-                                                                        <div>
-                                                                            <ul style="list-style: none;"">
-                                                                                <li class="nav-item">
-                                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}" title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
-                                                                                </li>
-                                                                                <li class="nav-item">
-                                                                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('edit_delete_form')}}"title="Editar ó eliminar formulario" ><i class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
-                                                                                </li>
-                                                                               </ul>
-                                                                            </div>   
-                                                                    </x-nav-menu>
-                                                                @endif
+                @if (Auth::check() && Auth::user()->user_type === '')
+                    <x-nav-menu :user="Auth::user()">
+                        <div>
+                            <ul style="list-style: none;">
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
+                                        title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar
+                                        nuevo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active enlaceSN" style="width: 300px;"
+                                        href="{{route('edit_delete_form')}}" title="Editar ó eliminar formulario"><i
+                                            class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </x-nav-menu>
+                @endif
 
-                                                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                                                        <div class="flex lg:justify-center lg:col-start-2"></div>
+                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                    <div class="flex lg:justify-center lg:col-start-2"></div>
 
-                                                        <nav class="-mx-3 flex flex-1 justify-end"></nav>
+                    <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                                                    <div class="container mt-4">
-                                                        <!-- Selector para elegir el formulario -->
-                                                        <label for="formSelect">Seleccionar Formulario:</label>
-                                                        <select id="formSelect" class="form-select">
-                                                            <option value=""></option>
-                                                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
-                                                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
-                                                            <option value="form3_1">    3.1 Participación en actividades de diseño curricular</option>
-                                                            <option value="form3_2">    3.2 Calidad del desempeño docente evaluada por el alumnado</option>
-                                                            <option value="form3_3">    3.3 Publicaciones relacionadas con la docencia</option>
-                                                            <option value="form3_4">    3.4 Distinciones académicas recibidas por el docente</option>
-                                                            <option value="form3_5">    3.5 Asistencia, puntualidad y permanencia en el desempeño docente, evaluada por el JD y por CAAC</option>
-                                                            <option value="form3_6">    3.6 Capacitación y actualización pedagógica recibida</option>
-                                                            <option value="form3_7">    3.7 Cursos de actualización disciplinaria recibidos dentro de su área de conocimiento</option>
-                                                            <option value="form3_8">    3.8 Impartición de cursos, diplomados, seminarios, talleres extracurriculares, de educación, continua o de formación y capacitación docente</option>
-                                                            <option value="form3_8_1">  3.8.1 RSU</option>
-                                                            <option value="form3_9">    3.9 Trabajos dirigidos para la titulación de estudianteso</option>
-                                                            <option value="form3_10">   3.10 Tutorías a estudiantes</option>
-                                                            <option value="form3_11">   3.11 Asesoría a estudiantes</option>
-                                                            <option value="form3_12">   3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente</option>
-                                                            <option value="form3_13">   3.13 Proyectos académicos de investigación</option>
-                                                            <option value="form3_14">   3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente</option>
-                                                            <option value="form3_15">   3.15 Registro de patentes y productos de investigación tecnológica y educativa</option>
-                                                            <option value="form3_16">   3.16 Actividades de arbitraje, revisión, correción y edición</option>
-                                                            <option value="form3_17">   3.17 Proyectos académicos de extensión y difusión</option>
-                                                            <option value="form3_18">   3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
-                                                            <option value="form3_19">   3.19 Participación en cuerpos colegiados</option>
-                                <!-- Dynamic options -->
-                @foreach($forms as $form)
-                    @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
-                        <option value="{{ $form->form_name }}">{{ $form->form_name }}</option>
-                        @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
-                    @endif
-                @endforeach
-                                                        </select>
-                                                    </div>
+                    <div class="container mt-4">
+                        <!-- Selector para elegir el formulario -->
+                        <label for="formSelect">Seleccionar Formulario:</label>
+                        <select id="formSelect" class="form-select">
+                            <option value=""></option>
+                            <option value="form2">1. Permanencia en las actividades de la docencia</option>
+                            <option value="form2_2">2. Dedicación en el desempeño docente</option>
+                            <option value="form3_1"> 3.1 Participación en actividades de diseño curricular</option>
+                            <option value="form3_2"> 3.2 Calidad del desempeño docente evaluada por el alumnado</option>
+                            <option value="form3_3"> 3.3 Publicaciones relacionadas con la docencia</option>
+                            <option value="form3_4"> 3.4 Distinciones académicas recibidas por el docente</option>
+                            <option value="form3_5"> 3.5 Asistencia, puntualidad y permanencia en el desempeño docente,
+                                evaluada
+                                por el JD y por CAAC</option>
+                            <option value="form3_6"> 3.6 Capacitación y actualización pedagógica recibida</option>
+                            <option value="form3_7"> 3.7 Cursos de actualización disciplinaria recibidos dentro de su área
+                                de
+                                conocimiento</option>
+                            <option value="form3_8"> 3.8 Impartición de cursos, diplomados, seminarios, talleres
+                                extracurriculares, de educación, continua o de formación y capacitación docente</option>
+                            <option value="form3_8_1"> 3.8.1 RSU</option>
+                            <option value="form3_9"> 3.9 Trabajos dirigidos para la titulación de estudianteso</option>
+                            <option value="form3_10"> 3.10 Tutorías a estudiantes</option>
+                            <option value="form3_11"> 3.11 Asesoría a estudiantes</option>
+                            <option value="form3_12"> 3.12 Publicaciones de investigación relacionadas con el contenido de
+                                los
+                                PE que imparte el docente</option>
+                            <option value="form3_13"> 3.13 Proyectos académicos de investigación</option>
+                            <option value="form3_14"> 3.14 Participación como ponente en congresos o eventos académicos del
+                                área
+                                de conocimiento o afines del docente</option>
+                            <option value="form3_15"> 3.15 Registro de patentes y productos de investigación tecnológica y
+                                educativa</option>
+                            <option value="form3_16"> 3.16 Actividades de arbitraje, revisión, correción y edición</option>
+                            <option value="form3_17"> 3.17 Proyectos académicos de extensión y difusión</option>
+                            <option value="form3_18"> 3.18 Organización de congresos o eventos institucionales del área de
+                                conocimiento del Docente</option>
+                            <option value="form3_19"> 3.19 Participación en cuerpos colegiados</option>
+                            <!-- Dynamic options -->
+                            @foreach($forms as $form)
+                                @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
+                                    <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
+                                    @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
 
-                                                    <div id="formContainer">
-                                                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
-                                                    </div>
-
-                                                </header>
+                    <div id="dynamicTableContainer" class="mt-4">
+                        <!-- Aquí se cargará el contenido del formulario seleccionado -->
+                    </div>
+                </header>
             @endif
         </div>
-        </main>
-
-        <div>
-
-            <footer>
-                <div>
-
-                    <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
-                </div>
-
-            </footer>
-
-        </div>
     </div>
-    </div>
+
+    <div>
+        <footer>
+            <div>
+                <canvas id="convocatoriaCanvas" width="1500" height="500"></canvas>
+            </div>
+        </footer>
     </div>
 
     <script>
-
-       
-        function handleClick(event) {
-            var currentTarget = event.currentTarget;
-            // Use the event data here. 
-            console.log('Button clicked: ' + currentTarget.getAttribute('data-id'));
-        } document.addEventListener('DOMContentLoaded', onload);
-        function onChange() {
-            // Obtener los valores de los inputs
-            const puntajePosgrado = parseFloat(document.getElementById("horasPosgrado").value);
-            const puntajeSemestre = parseFloat(document.getElementById("horasSemestre").value);
-            const h = parseFloat(document.querySelector('#hoursText'));
-
-            // Realizar los cálculos
-            const dsePosgrado = puntajePosgrado * 8.5;
-            const dseSemestre = puntajeSemestre * 8.5;
-            const hora = (dsePosgrado + dseSemestre);
-
-            // Actualizar el contenido de las etiquetas <label>
-            document.getElementById("DSE").innerText = dsePosgrado;
-            document.getElementById("DSE2").innerText = dseSemestre;
-
-            // Mostrar los valores actualizados en la consola
-            console.log(dsePosgrado);
-            console.log(dseSemestre);
-
-            const minimo = minWithSum(dsePosgrado, dseSemestre);
-
-            document.getElementById("hoursText").innerText = minimo;
-            console.log(minimo);
-
-
-        }
-
-
-        function hayObservacion(indiceActividad) {
-            var selectEscala = document.getElementById('selectEscala' + indiceActividad);
-            var selectActividad = document.getElementById('selectActividad' + indiceActividad);
-            var inputObservacion = document.getElementById('observacion' + indiceActividad);
-            var mensajeObservacion = document.getElementById('mensajeObservacion' + indiceActividad);
-
-            if (selectActividad.value != 0 && selectEscala.value != 0) {
-                mensajeObservacion.textContent = 'Observación: ' + inputObservacion.value;
-                mensajeObservacion.style.display = 'block';
-                return true;
-            } else {
-                mensajeObservacion.style.display = 'none';
-                return false;
-            }
-        }
-
-
-        const nav = document.querySelector('nav');
-        let lastScrollLeft = 0; // Variable to store the last horizontal scroll position
-
-        window.addEventListener('scroll', () => {
-            let currentScrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-            // Check if scrolling to the right
-            if (currentScrollLeft > lastScrollLeft) {
-                // Scrolling to the right, hide the navigation
-                nav.style.display = 'none';
-            } else {
-                // Scrolling to the left or not horizontally, show the navigation
-                nav.style.display = 'block';
-            }
-
-            lastScrollLeft = currentScrollLeft <= 0 ? 0 : currentScrollLeft; // For Mobile or negative scrolling
-        });
-
-
-
-        // Function to check if there is an observation for a specific activity
-        function hayObservacion(actividad) {
-            const obs = document.querySelector(`#obs${actividad}`).value;
-            return obs.trim() !== '';
-        }
-
+        // Funciones de utilidad para cálculos
         function minWithSum(value1, value2) {
             const sum = value1 + value2;
             return Math.min(sum, 200);
-
-
         }
 
         function min40(...values) {
@@ -253,12 +180,10 @@ $existingFormNames = [];
         function minTutorias() {
             // convert the arguments object to an array
             const values = Array.from(arguments);
-
             // use reduce to sum the values
             const ms = values.reduce((acc, current) => {
                 return acc + current;
             }, 0);
-
             // return the minimum of ms and 200
             return Math.min(ms, 200);
         }
@@ -268,386 +193,245 @@ $existingFormNames = [];
             return Math.min(ms, 700);
         }
 
-        // Función para actualizar el objeto data con los valores de los campos del formulario
-        function actualizarData() {
-            data[this.id] = this.value;
-        }
+        // Manejo del formulario dinámico
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const formSelect = document.getElementById('formSelect');
+            console.log('Dropdown Options:', Array.from(formSelect.options).map(option => option.value)); // Log the dropdown options
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            async function submitForm(url, formId) {
-                // Get form data
-                let formData = {};
-                let gridOptions = {};
-                let form = document.getElementById(formId);
-                // Ensure the form element exists
-                if (!form) {
-                    console.error(`Form with id "${formId}" not found.`);
-                    return;
-                }
+            formSelect.addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                const selectedForm = selectedOption.getAttribute('value');
+                const selectedFormId = selectedOption.getAttribute('data-id');
+                const dynamicTableContainer = document.getElementById('dynamicTableContainer');
 
-                //Recoge los datos dependiendo del formulario actual
-                switch (formId) {
-                    case 'form1':
-                        formData['convocatoria'] = form.querySelector('input[name="convocatoria"]').value;
-                        formData['periodo'] = form.querySelector('input[name="periodo"]').value;
-                        formData['nombre'] = form.querySelector('input[name="nombre"]').value;
-                        formData['area'] = form.querySelector('select[name="area"]').selectedOptions[0].textContent;
-                        formData['departamento'] = form.querySelector('select[name="departamento"]').selectedOptions[0].textContent;
-                        break;
+                console.log('Selected Form:', selectedForm); // Log the selected form
+                console.log('Selected Form ID:', selectedFormId); // Log the selected form ID
 
-                    case 'form2':
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-                        formData['horasActv2'] = form.querySelector('input[name="horasActv2"]').value;
-                        formData['puntajeEvaluar'] = form.querySelector('input[name="puntajeEvaluar"]').value;
-                        //formData['comision1'] = form.querySelector('input[name="comision1"]').value;
-                        formData['obs1'] = form.querySelector('input[name="obs1"]').value;
-                        break;
+                if (selectedForm) {
+                    if (selectedForm.startsWith('form')) {
+                        // Manejar formularios estáticos
+                        window.location.href = `/${selectedForm}`;
+                    } else {
+                        // Formularios dinámicos
+                        fetch(`/get-form-data/${selectedForm}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Returned Data:', data);
+                                console.log('Columns:', data.columns); // Log the columns
+                                console.log('Values:', data.values); // Log the values
+                                console.log('Puntaje máximo:', data.puntaje_maximo);
+                                console.log('Acreditación:', data.acreditacion); // Log the acreditación
 
-                    case 'form2_2':
-                        formData['user_id'] = form.querySelector('input[name="user_id"]').value;
-                        formData['email'] = form.querySelector('input[name="email"]').value;
-                        let hoursLabel = form.querySelector('label[id="hoursText"]');
-                        //let actv2ComisionLabel = form.querySelector('td[id="actv2Comision"]');
+                                if (data.success) {
+                                    dynamicTableContainer.innerHTML = '';
 
-                        if (!hoursLabel) {
-                            console.error('Label with id "hoursText" not found.');
-                        } else {
-                            formData['hours'] = hoursLabel.innerText;
-                        }
+                                    // Mostrar el puntaje máximo en la parte superior con fondo negro
+                                    let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; font-weight: bold; text-align: center; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
 
+                                    // Crear la tabla
+                                    tableHTML += '<table class="table table-bordered">';
 
+                                    // Encabezados principales
+                                    tableHTML += '<thead><tr>';
+                                    tableHTML += '<th>Actividad</th>';
 
-                        formData['obs2'] = form.querySelector('input[name="obs2"]').value;
-                        formData['obs2_2'] = form.querySelector('input[name="obs2_2"]').value;
-                        break;
+                                    // Agregar los nombres de las columnas dinámicas
+                                    const columnNames = data.columns.map(column => column.column_name);
 
-                }
-                console.log('Form data:', formData);
+                                    // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
+                                    const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
+                                    const dynamicColumnNames = data.columns
+                                        .map(column => column.column_name)
+                                        .filter(name => !fixedHeaders.includes(name));
 
-
-                try {
-                    let response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
-                    });
-
-                    let responseText = await response.text(); // Obtener el texto de la respuesta
-                    console.log('Raw response from server:', responseText);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    let data = JSON.parse(responseText);
-                    console.log('Response received from server:', data);
-                } catch (error) {
-                    console.error('There was a problem with the fetch operation:', error);
-                }
-            }
-
-            window.submitForm = submitForm;
-        });
-
-
-        // Función para actualizar el label en el footer con la convocatoria y periodo de evaluación
-        function actualizarLabelConvocatoriaPeriodo(convocatoria, periodo) {
-            const label = document.getElementById('convocatoriaPeriodoLabel');
-            label.textContent = `Convocatoria: ${convocatoria}, Período: ${periodo}`;
-        }
-
-        // Captura la convocatoria y periodo de evaluación al enviar el formulario form1
-        document.addEventListener('DOMContentLoaded', function () {
-            const form1 = document.getElementById('form1');
-            form1.addEventListener('submit', function (event) {
-                event.preventDefault(); // Evita el envío del formulario para manejarlo con JavaScript
-
-                // Captura los valores del formulario form1
-                const convocatoria = document.getElementById('convocatoria').value;
-                const periodo = document.getElementById('periodo').value;
-
-                // Actualiza el label en el footer con los valores capturados
-                actualizarLabelConvocatoriaPeriodo(convocatoria, periodo);
-                console.log(label);
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the canvas element
-            var canvas = document.getElementById('convocatoriaCanvas');
-            var context = canvas.getContext('2d');
-
-            // Function to update the canvas with 'Convocatoria' value
-            function updateCanvas(text) {
-                // Clear the canvas
-                context.clearRect(200, 100, canvas.width, canvas.height);
-
-                // Set text properties
-                context.font = '20px Arial';
-                context.fillStyle = 'black';
-                context.textAlign = 'right';
-                context.textBaseline = 'middle';
-
-                // Draw the text
-                context.fillText(text, canvas.width / 2, canvas.height / 2);
-            }
-
-            // Get the input element with id 'convocatoria'
-            var convocatoriaInput = document.getElementById('convocatoria');
-            if (convocatoriaInput) {
-                // Update the canvas initially with the placeholder value or empty
-                updateCanvas(convocatoriaInput.placeholder);
-
-                // Listen for input events to dynamically update the canvas
-                convocatoriaInput.addEventListener('input', function () {
-                    var newValue = convocatoriaInput.value;
-                    updateCanvas(newValue);
-                });
-            }
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const userEmail = "{{ Auth::user()->email }}"; // Obtén el email del usuario desde Blade
-
-            const allowedEmails = [
-                'joma_18@alu.uabcs.mx',
-                'oa.campillo@uabcs.mx',
-                'rluna@uabcs.mx',
-                'v.andrade@uabcs.mx'
-            ];
-
-            // Verifica si el email está en la lista de correos permitidos
-            if (allowedEmails.includes(userEmail)) {
-                // Muestra el enlace
-                document.getElementById('jsonDataLink').classList.remove('d-none');
-            }
-        });
-
-    // Este código debe reemplazar completamente el manejador de eventos change del select en secretaria.blade.php
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const formSelect = document.getElementById('formSelect');
-
-        formSelect.addEventListener('change', function () {
-            const selectedForm = this.value;
-            const formContainer = document.getElementById('formContainer');
-
-            if (selectedForm) {
-                if (selectedForm.startsWith('form')) {
-                    // Manejar formularios estáticos
-                    window.location.href = `/${selectedForm}`;
-                } else {
-                    // Esta parte es para formularios dinámicos
-                    fetch(`/get-form-data/${selectedForm}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Returned Data:', data);
-                            console.log('Columns:', data.columns);
-                            console.log('Values:', data.values);
-                            console.log('Puntaje máximo:', data.puntaje_maximo);
-                            console.log('Acreditación:', data.acreditacion);
-
-                            if (data.success) {
-                                formContainer.innerHTML = '';
-
-                                // Mostrar el puntaje máximo en la parte superior
-                                let tableHTML = `<div style="margin-bottom: 10px;">
-                                <strong>Puntaje máximo</strong> 
-                                <span style="background-color: #000; color: #fff; padding: 2px 10px;">${data.puntaje_maximo}</span>
-                            </div>`;
-
-                                // Crear la tabla
-                                tableHTML += '<table class="table table-bordered">';
-
-                                // Encabezados principales
-                                tableHTML += '<thead><tr>';
-                                tableHTML += '<th>Actividad</th>';
-
-                                // Filtrar encabezados fijos
-                                const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
-                                const dynamicColumnNames = data.columns
-                                    .map(column => column.column_name)
-                                    .filter(name => !fixedHeaders.includes(name));
-
-                                // Agregar solo las columnas dinámicas (subencabezados)
-                                dynamicColumnNames.forEach(columnName => {
-                                    tableHTML += `<th>${columnName}</th>`;
-                                });
-
-                                tableHTML += '<th>Puntaje a evaluar</th>';
-                                tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
-                                tableHTML += '<th>Observaciones</th>';
-                                tableHTML += '</tr></thead><tbody>';
-
-                                // Identificar actividades únicas (primera columna)
-                                const activities = [];
-                                const activityValues = {};
-
-                                // Filtrar valores de la columna de Actividad
-                                const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
-
-                                if (activityColumnId) {
-                                    // Obtener todos los valores de actividad
-                                    const activityData = data.values.filter(val => val.dynamic_form_column_id === activityColumnId);
-
-                                    // Para cada actividad, obtener todos sus valores asociados
-                                    activityData.forEach(activity => {
-                                        if (!activities.includes(activity.value)) {
-                                            activities.push(activity.value);
-                                            activityValues[activity.value] = {
-                                                subheaders: {},
-                                                puntajeEvaluar: "0",
-                                                puntajeComision: "0",
-                                                observaciones: ""
-                                            };
-                                        }
+                                    // Agregar solo las columnas dinámicas (subencabezados)
+                                    dynamicColumnNames.forEach(columnName => {
+                                        tableHTML += `<th>${columnName}</th>`;
                                     });
-                                }
 
-                                // Si no hay actividades, usar el nombre del formulario como actividad
-                                if (activities.length === 0) {
-                                    activities.push(selectedForm);
-                                    activityValues[selectedForm] = {
-                                        subheaders: {},
-                                        puntajeEvaluar: "0",
-                                        puntajeComision: "0",
-                                        observaciones: ""
-                                    };
-                                }
+                                    tableHTML += '<th>Puntaje a evaluar</th>';
+                                    tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
+                                    tableHTML += '<th>Observaciones</th>';
+                                    tableHTML += '</tr></thead><tbody>';
 
-                                // Agregar segunda actividad (como "Derechos de autor")
-                                fetch(`/get-first-non-numeric-value/${data.columns.find(col => col.column_name === 'Actividad')?.id || 0}`)
-                                    .then(response => response.json())
-                                    .then(secondData => {
-                                        let secondValue = "Derechos de autor";
-                                        if (secondData && secondData.success) {
-                                            secondValue = secondData.value || "Derechos de autor";
-                                        }
-
-                                        if (activities.length < 2) {
-                                            activities.push(secondValue);
-                                            activityValues[secondValue] = {
-                                                subheaders: {},
-                                                puntajeEvaluar: "0",
-                                                puntajeComision: "0",
-                                                observaciones: ""
-                                            };
-                                        }
-
-                                        // Obtener valores de puntaje y observaciones
-                                        const puntajeEvaluarColumnId = data.columns.find(col => col.column_name === 'Puntaje a evaluar')?.id;
-                                        const puntajeComisionColumnId = data.columns.find(col => col.column_name === 'Puntaje de la Comisión Dictaminadora')?.id;
-                                        const observacionesColumnId = data.columns.find(col => col.column_name === 'Observaciones')?.id;
-
-                                        // Asignar valores a las actividades
-                                        data.values.forEach(val => {
-                                            if (puntajeEvaluarColumnId && val.dynamic_form_column_id === puntajeEvaluarColumnId) {
-                                                // Asignar a la primera actividad por defecto
-                                                if (activities[0]) {
-                                                    activityValues[activities[0]].puntajeEvaluar = val.value;
-                                                }
-                                            }
-
-                                            if (puntajeComisionColumnId && val.dynamic_form_column_id === puntajeComisionColumnId) {
-                                                if (activities[0]) {
-                                                    activityValues[activities[0]].puntajeComision = val.value;
-                                                }
-                                            }
-
-                                            if (observacionesColumnId && val.dynamic_form_column_id === observacionesColumnId) {
-                                                if (activities[0]) {
-                                                    activityValues[activities[0]].observaciones = val.value;
-                                                }
-                                            }
-
-                                            // Asignar valores de subheaders
-                                            dynamicColumnNames.forEach((colName, index) => {
-                                                const colId = data.columns.find(col => col.column_name === colName)?.id;
-                                                if (colId && val.dynamic_form_column_id === colId) {
-                                                    if (activities[0]) {
-                                                        activityValues[activities[0]].subheaders[colName] = val.value;
-                                                    }
-                                                }
-                                            });
+                                    // Obtener los valores de actividad
+                                    const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
+                                    const activityValues = [];
+                                    
+                                    if (activityColumnId) {
+                                        // Obtener todos los valores de actividad en orden
+                                        const activityData = data.values
+                                            .filter(val => val.dynamic_form_column_id === activityColumnId)
+                                            .sort((a, b) => a.id - b.id); // Ordenar por ID
+                                            
+                                        activityData.forEach(activity => {
+                                            activityValues.push(activity.value);
                                         });
-
-                                        // Generar filas para cada actividad
-                                        activities.forEach(activity => {
-                                            tableHTML += '<tr>';
-                                            tableHTML += `<td>${activity}</td>`;
-
-                                            // Agregar valores para cada columna dinámica
-                                            dynamicColumnNames.forEach(colName => {
-                                                const value = activityValues[activity].subheaders[colName] || '';
-                                                tableHTML += `<td>${value}</td>`;
+                                    }
+                                    
+                                    // Si no hay actividades, usar el nombre del formulario como primera actividad
+                                    if (activityValues.length === 0) {
+                                        activityValues.push(selectedForm);
+                                    }
+                                    
+                                    // Obtener valores para cada columna
+                                    const valuesByColumn = {};
+                                    data.columns.forEach(column => {
+                                        valuesByColumn[column.column_name] = data.values
+                                            .filter(val => val.dynamic_form_column_id === column.id)
+                                            .sort((a, b) => a.id - b.id); // Ordenar por ID
+                                    });
+                                    
+                                    // Primera fila
+                                    tableHTML += '<tr>';
+                                    // Primera actividad
+                                    tableHTML += `<td>${activityValues[0] || selectedForm}</td>`;
+                                    
+                                    // Buscar qué valores corresponden a cada columna dinámica en la primera fila
+                                    dynamicColumnNames.forEach(colName => {
+                                        const colValues = valuesByColumn[colName] || [];
+                                        const firstValue = colValues.length > 0 ? colValues[0].value : '';
+                                        tableHTML += `<td id="celdaVacia"></td>`;
+                                    });
+                                    
+                                    // Buscar valores para puntajes y observaciones
+                                    const puntajeEvalValues = valuesByColumn['Puntaje a evaluar'] || [];
+                                    const puntajeComisionValues = valuesByColumn['Puntaje de la Comisión Dictaminadora'] || [];
+                                    const observacionesValues = valuesByColumn['Observaciones'] || [];
+                                    
+                                    // Primera fila - puntajes y observaciones
+                                    tableHTML += `<td style="background-color: #0b5967; color: #ffff;">${puntajeEvalValues.length > 0 ? puntajeEvalValues[0].value : '0'}</td>`;
+                                    tableHTML += `<td style="background-color: #ffcc6d;">${puntajeComisionValues.length > 0 ? puntajeComisionValues[0].value : '0'}</td>`;
+                                    tableHTML += `<td>${observacionesValues.length > 0 ? observacionesValues[0].value : ''}</td>`;
+                                    tableHTML += '</tr>';
+                                    
+                                    // Segunda fila - Si no tenemos una segunda actividad o valor no numérico, lo buscamos
+                                    if (activityValues.length < 2) {
+                                        fetch(`/get-first-non-numeric-value/${selectedFormId}`)
+                                            .then(response => response.json())
+                                            .then(secondData => {
+                                                if (secondData.success && secondData.value) {
+                                                    const secondActivity = secondData.value;
+                                                    addSecondRow(secondActivity);
+                                                }
+                                                finalizarTabla();
+                                            })
+                                            .catch(error => {
+                                                console.error('Error al obtener segunda actividad:', error);
+                                                finalizarTabla();
                                             });
-
-                                            // Agregar puntajes y observaciones con estilos
-                                            tableHTML += `<td style="background-color: #0b5967; color: #fff;">${activityValues[activity].puntajeEvaluar}</td>`;
-                                            tableHTML += `<td style="background-color: #ffcc6d;">${activityValues[activity].puntajeComision}</td>`;
-                                            tableHTML += `<td>${activityValues[activity].observaciones}</td>`;
-                                            tableHTML += '</tr>';
+                                    } else {
+                                        // Ya tenemos una segunda actividad, podemos usarla directamente
+                                        addSecondRow(activityValues[1]);
+                                        finalizarTabla();
+                                    }
+                                    
+                                    function addSecondRow(secondActivity) {
+                                        // Agregar segunda fila con el segundo valor de actividad
+                                        tableHTML += '<tr>';
+                                        tableHTML += `<td id="inicioActividad">${secondActivity}</td>`;
+                                        
+                                        // Valores para columnas dinámicas en segunda fila
+                                        dynamicColumnNames.forEach(colName => {
+                                            const colValues = valuesByColumn[colName] || [];
+                                            const secondValue = colValues.length > 1 ? colValues[1].value : '';
+                                            tableHTML += `<td id="PrimerValorNumerico">${secondValue}</td>`;
                                         });
-
+                                        
+                                        // Segunda fila - puntajes y observaciones
+                                        tableHTML += `<td>${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
+                                        tableHTML += `<td>${puntajeComisionValues.length > 1 ? puntajeComisionValues[1].value : '0'}</td>`;
+                                        tableHTML += `<td></td>`;
+                                        tableHTML += '</tr>';
+                                    }
+                                    
+                                    function finalizarTabla() {
                                         // Agregar fila de acreditación
                                         tableHTML += '<tr>';
                                         tableHTML += '<td>Acreditación:</td>';
-                                        const totalColumnSpan = dynamicColumnNames.length + 3;
-                                        tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
+                                        
+                                        // Colspan para las columnas restantes
+                                        const totalColumns = dynamicColumnNames.length + 3; // +3 por puntajes y observaciones
+                                        tableHTML += `<td colspan="${totalColumns}">${data.acreditacion || ''}</td>`;
                                         tableHTML += '</tr>';
-
+                                        
                                         tableHTML += '</tbody></table>';
-
-                                        formContainer.innerHTML = tableHTML;
-                                    })
-                                    .catch(error => {
-                                        console.error('Error getting second value:', error);
-                                        // Completar la tabla sin la segunda fila
-                                        activities.forEach(activity => {
-                                            tableHTML += '<tr>';
-                                            tableHTML += `<td>${activity}</td>`;
-
-                                            dynamicColumnNames.forEach(colName => {
-                                                const value = activityValues[activity].subheaders[colName] || '';
-                                                tableHTML += `<td>${value}</td>`;
-                                            });
-
-                                            tableHTML += `<td style="background-color: #0b5967; color: #fff;">${activityValues[activity].puntajeEvaluar}</td>`;
-                                            tableHTML += `<td style="background-color: #ffcc6d;">${activityValues[activity].puntajeComision}</td>`;
-                                            tableHTML += `<td>${activityValues[activity].observaciones}</td>`;
-                                            tableHTML += '</tr>';
-                                        });
-
-                                        tableHTML += '<tr>';
-                                        tableHTML += '<td>Acreditación:</td>';
-                                        const totalColumnSpan = dynamicColumnNames.length + 3;
-                                        tableHTML += `<td colspan="${totalColumnSpan}">${data.acreditacion || ''}</td>`;
-                                        tableHTML += '</tr>';
-
-                                        tableHTML += '</tbody></table>';
-
-                                        formContainer.innerHTML = tableHTML;
-                                    });
-                            } else {
-                                formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + (data.message || 'Formulario no encontrado') + '</p>';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            formContainer.innerHTML = '<p class="alert alert-danger">Error: ' + error.message + '</p>';
-                        });
+                                        dynamicTableContainer.innerHTML = tableHTML;
+                                    }
+                                } else {
+                                    dynamicTableContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + (data.message || 'Formulario no encontrado') + '</p>';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                dynamicTableContainer.innerHTML = '<p class="alert alert-danger">Error: ' + error.message + '</p>';
+                            });
+                    }
+                } else {
+                    dynamicTableContainer.innerHTML = '';
                 }
-            } else {
-                formContainer.innerHTML = '';
-            }
+            });
         });
-    });
+
+        // Mantener las funciones existentes que podrían ser utilizadas en otras partes
+        function onChange() {
+            // Obtener los valores de los inputs
+            const puntajePosgrado = parseFloat(document.getElementById("horasPosgrado").value);
+            const puntajeSemestre = parseFloat(document.getElementById("horasSemestre").value);
+            const h = parseFloat(document.querySelector('#hoursText'));
+
+            // Realizar los cálculos
+            const dsePosgrado = puntajePosgrado * 8.5;
+            const dseSemestre = puntajeSemestre * 8.5;
+            const hora = (dsePosgrado + dseSemestre);
+
+            // Actualizar el contenido de las etiquetas <label>
+            document.getElementById("DSE").innerText = dsePosgrado;
+            document.getElementById("DSE2").innerText = dseSemestre;
+
+            // Mostrar los valores actualizados en la consola
+            console.log(dsePosgrado);
+            console.log(dseSemestre);
+
+            const minimo = minWithSum(dsePosgrado, dseSemestre);
+
+            document.getElementById("hoursText").innerText = minimo;
+            console.log(minimo);
+        }
+
+        function hayObservacion(indiceActividad) {
+            var selectEscala = document.getElementById('selectEscala' + indiceActividad);
+            var selectActividad = document.getElementById('selectActividad' + indiceActividad);
+            var inputObservacion = document.getElementById('observacion' + indiceActividad);
+            var mensajeObservacion = document.getElementById('mensajeObservacion' + indiceActividad);
+
+            if (selectActividad.value != 0 && selectEscala.value != 0) {
+                mensajeObservacion.textContent = 'Observación: ' + inputObservacion.value;
+                mensajeObservacion.style.display = 'block';
+                return true;
+            } else {
+                mensajeObservacion.style.display = 'none';
+                return false;
+            }
+        }
+
+        const nav = document.querySelector('nav');
+        let lastScrollLeft = 0; // Variable to store the last horizontal scroll position
+
+        window.addEventListener('scroll', () => {
+            let currentScrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+            // Check if scrolling to the right
+            if (currentScrollLeft > lastScrollLeft) {
+                // Scrolling to the right, hide the navigation
+                nav.style.display = 'none';
+            } else {
+                // Scrolling to the left or not horizontally, show the navigation
+                nav.style.display = 'block';
+            }
+
+            lastScrollLeft = currentScrollLeft <= 0 ? 0 : currentScrollLeft; // For Mobile or negative scrolling
+        });
     </script>
-
 </body>
-
 </html>

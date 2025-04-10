@@ -68,6 +68,10 @@ $existingFormNames = [];
             top: 20px;
             right: 20px;
         }
+
+        #acreditacion{
+            font-weight: bold;
+        }
     </style>
 </head>
 
