@@ -53,11 +53,25 @@ $existingFormNames = [];
             background-color: #d6fff7;
             
         }
+
+        body.dark-mode #puntajeComisionValues, body.dark-mode #observacionesNForm{
+            color: black;
+        }
+        /* Botón de modo oscuro */
+        .dark-mode-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 
 <body class="font-sans antialiased">
     <x-general-header />
+        <!-- Botón de modo oscuro (fuera del flujo normal) -->
+        <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass dark-mode-button">
+            <i class="fa-solid fa-moon"></i>&nbspModo Obscuro
+        </button>
     <div class="bg-gray-50 text-black/50">
         <div class="relative min-h-screen flex flex-col items-center justify-center">
             @if (Route::has('login'))
@@ -445,6 +459,16 @@ $existingFormNames = [];
             }
 
             lastScrollLeft = currentScrollLeft <= 0 ? 0 : currentScrollLeft; // For Mobile or negative scrolling
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {
+            const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+            if (toggleDarkModeButton) {
+                const widthDarkButton = window.outerWidth - 230;
+                toggleDarkModeButton.style.marginLeft = `${widthDarkButton}px`;
+            }
+
+            toggleDarkMode();
         });
     </script>
 </body>
