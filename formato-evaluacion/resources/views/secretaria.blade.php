@@ -1,12 +1,12 @@
 @php
-    $locale = app()->getLocale() ?: 'en';
-    $newLocale = str_replace('_', '-', $locale);
-    $formType = request()->query('formType');
-    $formName = request()->query('formName');
-    use App\Models\DynamicForm; // Ensure to include the model
+$locale = app()->getLocale() ?: 'en';
+$newLocale = str_replace('_', '-', $locale);
+$formType = request()->query('formType');
+$formName = request()->query('formName');
+use App\Models\DynamicForm; // Ensure to include the model
 
-    $forms = DynamicForm::all(); // Fetch all forms from the database
-    $existingFormNames = [];
+$forms = DynamicForm::all(); // Fetch all forms from the database
+$existingFormNames = [];
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -38,6 +38,20 @@
         .form-control {
             width: 100%;
             padding: 0.375rem 0.75rem;
+        }
+        .dataAcreditacion{
+            font-weight: bold;
+        }
+        .puntajeValues{
+            text-align: right;
+        }
+        #PrimerValorNumerico{
+            text-align: center;
+        }
+
+        #puntajeComisionValues, #observacionesNForm{
+            background-color: #d6fff7;
+            
         }
     </style>
 </head>
@@ -71,7 +85,7 @@
 
                     <nav class="-mx-3 flex flex-1 justify-end"></nav>
 
-                    <div class="container mt-4">
+                    <div class="container mt-4 printButtonClass">
                         <!-- Selector para elegir el formulario -->
                         <label for="formSelect">Seleccionar Formulario:</label>
                         <select id="formSelect" class="form-select">
@@ -300,8 +314,8 @@
                                     const observacionesValues = valuesByColumn['Observaciones'] || [];
                                     
                                     // Primera fila - puntajes y observaciones
-                                    tableHTML += `<td style="background-color: #0b5967; color: #ffff;">${puntajeEvalValues.length > 0 ? puntajeEvalValues[0].value : '0'}</td>`;
-                                    tableHTML += `<td style="background-color: #ffcc6d;">${puntajeComisionValues.length > 0 ? puntajeComisionValues[0].value : '0'}</td>`;
+                                    tableHTML += `<td style="background-color: #0b5967; color: #ffff; text-align:center; font-weight:bold;">${puntajeEvalValues.length > 0 ? puntajeEvalValues[0].value : '0'}</td>`;
+                                    tableHTML += `<td style="background-color: #ffcc6d; text-align:center;font-weight:bold;">${puntajeComisionValues.length > 0 ? puntajeComisionValues[0].value : '0'}</td>`;
                                     tableHTML += `<td>${observacionesValues.length > 0 ? observacionesValues[0].value : ''}</td>`;
                                     tableHTML += '</tr>';
                                     
@@ -339,9 +353,9 @@
                                         });
                                         
                                         // Segunda fila - puntajes y observaciones
-                                        tableHTML += `<td>${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
-                                        tableHTML += `<td>${puntajeComisionValues.length > 1 ? puntajeComisionValues[1].value : '0'}</td>`;
-                                        tableHTML += `<td></td>`;
+                                        tableHTML += `<td class="puntajeValues">${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
+                                        tableHTML += `<td id="puntajeComisionValues" class="puntajeValues">${puntajeComisionValues.length > 1 ? puntajeComisionValues[1].value : '0'}</td>`;
+                                        tableHTML += `<td id="observacionesNForm"></td>`;
                                         tableHTML += '</tr>';
                                     }
                                     
@@ -352,7 +366,7 @@
                                         
                                         // Colspan para las columnas restantes
                                         const totalColumns = dynamicColumnNames.length + 3; // +3 por puntajes y observaciones
-                                        tableHTML += `<td colspan="${totalColumns}">${data.acreditacion || ''}</td>`;
+                                        tableHTML += `<td class="dataAcreditacion" colspan="${totalColumns}">${data.acreditacion || ''}</td>`;
                                         tableHTML += '</tr>';
                                         
                                         tableHTML += '</tbody></table>';
