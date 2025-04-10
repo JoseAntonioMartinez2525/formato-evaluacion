@@ -200,6 +200,8 @@ Route::post('/generate-pdf', [ResponseForm3_19Controller::class, 'generatePdf'])
 Route::post('/asignar-docentes/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'asignarDocentes'])
     ->name('asignar.docentes');
 
+
+Route::post('/update-form/{formId}', [DynamicFormController::class, 'updateFormData']);
 // Ruta para agregar un solo docente a un dictaminador
 Route::post('/agregar-docente/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'agregarDocente'])
     ->name('agregar.docente');

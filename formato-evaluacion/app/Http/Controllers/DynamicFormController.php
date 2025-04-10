@@ -490,4 +490,38 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
     {
         $this->middleware('auth');
     }
+
+    public function updateFormData(Request $request, $formId)
+    {
+        try {
+            $form = DynamicForm::findOrFail($formId);
+
+            // Validar los datos enviados
+            $validatedData = $request->validate([
+                '*' => 'nullable|string|max:255', // Valida todos los campos como cadenas opcionales
+            ]);
+
+            // Actualizar los valores en la base de datos
+            foreach ($validatedData as $columnName => $value) {
+                $column = DynamicFormColumn::where('dynamic_form_id', $formId)
+                    ->where('column_name', $columnName)
+                    ->first();
+
+                if ($column) {
+                    $formValue = DynamicFormValue::where('dynamic_form_id', $formId)
+                        ->where('dynamic_form_column_id', $column->id)
+                        ->first();
+
+                    if ($formValue) {
+                        $formValue->value = $value;
+                        $formValue->save();
+                    }
+                }
+            }
+
+            return response()->json(['success' => true, 'message' => 'Formulario actualizado correctamente.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
 }

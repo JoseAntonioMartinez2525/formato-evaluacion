@@ -360,8 +360,7 @@ $existingFormNames = [];
                                     tableHTML += '</tr>';
 
                                     tableHTML += '</tbody></table>';
-                                    tableHTML += `<button type="button" class="btn btn-primary" onclick="">Enviar</button>`;
-                                    tableHTML += '</form>';
+                                    tableHTML += `<button type="button" class="btn btn-primary" onclick="submitFormData('${selectedFormId}')">Enviar</button>`;                                    tableHTML += '</form>';
                                     formContainer.innerHTML = tableHTML;
                                 }
                             } else {
@@ -560,6 +559,42 @@ $existingFormNames = [];
 
             toggleDarkMode(); 
         });
+
+        function submitFormData(formId) {
+                const formData = {};
+                const formContainer = document.getElementById('formContainer');
+                const inputs = formContainer.querySelectorAll('input, select, textarea');
+
+                // Recopilar los datos del formulario
+                inputs.forEach(input => {
+                    formData[input.id] = input.value;
+                });
+
+                // Agregar el CSRF token
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Enviar los datos al servidor
+                fetch(`/update-form/${formId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Formulario actualizado correctamente.');
+                        } else {
+                            alert('Error al actualizar el formulario: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al enviar los datos.');
+                    });
+            }
     </script>
 
 </body>
