@@ -228,9 +228,9 @@ $existingFormNames = [];
 
                             if (data.success) {
                                 formContainer.innerHTML = '';
-
+                                let tableHTML = `<form id="${selectedFormId}" method="POST">`;
                                 // Mostrar el puntaje máximo en la parte superior con fondo negro
-                                let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; font-weight: bold; text-align: center; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
+                                tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; font-weight: bold; text-align: center; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
 
                                 // Crear la tabla
                                 tableHTML += '<table class="table table-bordered">';
@@ -360,6 +360,8 @@ $existingFormNames = [];
                                     tableHTML += '</tr>';
 
                                     tableHTML += '</tbody></table>';
+                                    tableHTML += `<button type="button" class="btn btn-primary" onclick="">Enviar</button>`;
+                                    tableHTML += '</form>';
                                     formContainer.innerHTML = tableHTML;
                                 }
                             } else {
