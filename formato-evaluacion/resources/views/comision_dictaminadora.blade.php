@@ -24,6 +24,41 @@ $existingFormNames = [];
                 content: "1";
             }
         }
+        #formContainer{
+            margin-left:200px;
+            margin-top:100px;
+        }
+
+        #inputValues{
+            text-align: right;
+            width: max-content;
+            border: none;
+            outline: none;
+        }
+
+        #inputObservaciones{
+            width: max-content;
+            border: none;
+            outline: none;    
+        }
+        #puntajeComisionValues, #observacionesNForm, #inputValues, #observacionesNForm input {
+            background-color: #d6fff7;
+            
+        }
+
+        body.dark-mode #puntajeComisionValues, body.dark-mode #observacionesNForm, body.dark-mode #inputValues , body.dark-mode #observacionesNForm input {
+            color: black;
+        }
+
+        body.dark-mode #inputValues , body.dark-mode #observacionesNForm input {
+            border:none;
+        }
+        /* Botón de modo oscuro */
+        .dark-mode-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 
 </head>
@@ -64,13 +99,15 @@ $existingFormNames = [];
                     <option value="form3_17"> 3.17 Proyectos académicos de extensión y difusión</option>
                     <option value="form3_18"> 3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</option>
                     <option value="form3_19"> 3.19 Participación en cuerpos colegiados</option>
+                    
                     <!-- Dynamic options -->
                     @foreach($forms as $form)
                         @if(!in_array($form->form_name, $existingFormNames)) <!-- Check for duplicates -->
-                            <option value="{{ $form->form_type }}">{{ $form->form_name }}</option>
+                            <option value="{{ $form->form_name }}" data-id="{{ $form->id }}">{{ $form->form_name }}</option>
                             @php $existingFormNames[] = $form->form_name; @endphp <!-- Add to existing names -->
                         @endif
                     @endforeach
+
                 </select>
             </div>
 
@@ -160,25 +197,185 @@ $existingFormNames = [];
 
 
 
-    document.getElementById('formSelect').addEventListener('change', (event) => {
-            const selectedForm = event.target.value;
+         // Manejo del formulario dinámico
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const formSelect = document.getElementById('formSelect');
+        console.log('Dropdown Options:', Array.from(formSelect.options).map(option => option.value)); // Log the dropdown options
+
+        formSelect.addEventListener('change', function () {
+            const selectedOption = this.options[this.selectedIndex];
+            const selectedForm = selectedOption.getAttribute('value');
+            const selectedFormId = selectedOption.getAttribute('data-id');
             const formContainer = document.getElementById('formContainer');
 
+            console.log('Selected Form:', selectedForm); // Log the selected form
+            console.log('Selected Form ID:', selectedFormId); // Log the selected form ID
+
             if (selectedForm) {
-                 window.location.href = `/${selectedForm}`;
-                axios.get(`/get-form-content/${selectedForm}`)
-                    .then(response => {
-                        formContainer.innerHTML = response.data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching form content:', error);
-                        formContainer.innerHTML = '<p style="margin-left: 150px;">Cargando formulario.....</p>';
-                    });
+                if (selectedForm.startsWith('form')) {
+                    // Manejar formularios estáticos
+                    window.location.href = `/${selectedForm}`;
+                } else {
+                    // Formularios dinámicos
+                    fetch(`/get-form-data/${selectedForm}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Returned Data:', data);
+                            console.log('Columns:', data.columns); // Log the columns
+                            console.log('Values:', data.values); // Log the values
+                            console.log('Puntaje máximo:', data.puntaje_maximo);
+                            console.log('Acreditación:', data.acreditacion); // Log the acreditación
+
+                            if (data.success) {
+                                formContainer.innerHTML = '';
+
+                                // Mostrar el puntaje máximo en la parte superior con fondo negro
+                                let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <span style="background-color: #000; color: #fff; font-weight: bold; text-align: center; padding: 2px 10px;">${data.puntaje_maximo}</span></div>`;
+
+                                // Crear la tabla
+                                tableHTML += '<table class="table table-bordered">';
+
+                                // Encabezados principales
+                                tableHTML += '<thead><tr>';
+                                tableHTML += '<th>Actividad</th>';
+
+                                // Agregar los nombres de las columnas dinámicas
+                                const columnNames = data.columns.map(column => column.column_name);
+
+                                // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
+                                const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
+                                const dynamicColumnNames = data.columns
+                                    .map(column => column.column_name)
+                                    .filter(name => !fixedHeaders.includes(name));
+
+                                // Agregar solo las columnas dinámicas (subencabezados)
+                                dynamicColumnNames.forEach(columnName => {
+                                    tableHTML += `<th>${columnName}</th>`;
+                                });
+
+                                tableHTML += '<th>Puntaje a evaluar</th>';
+                                tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
+                                tableHTML += '<th>Observaciones</th>';
+                                tableHTML += '</tr></thead><tbody>';
+
+                                // Obtener los valores de actividad
+                                const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
+                                const activityValues = [];
+
+                                if (activityColumnId) {
+                                    // Obtener todos los valores de actividad en orden
+                                    const activityData = data.values
+                                        .filter(val => val.dynamic_form_column_id === activityColumnId)
+                                        .sort((a, b) => a.id - b.id); // Ordenar por ID
+
+                                    activityData.forEach(activity => {
+                                        activityValues.push(activity.value);
+                                    });
+                                }
+
+                                // Si no hay actividades, usar el nombre del formulario como primera actividad
+                                if (activityValues.length === 0) {
+                                    activityValues.push(selectedForm);
+                                }
+
+                                // Obtener valores para cada columna
+                                const valuesByColumn = {};
+                                data.columns.forEach(column => {
+                                    valuesByColumn[column.column_name] = data.values
+                                        .filter(val => val.dynamic_form_column_id === column.id)
+                                        .sort((a, b) => a.id - b.id); // Ordenar por ID
+                                });
+
+                                // Primera fila
+                                tableHTML += '<tr>';
+                                // Primera actividad
+                                tableHTML += `<td>${activityValues[0] || selectedForm}</td>`;
+
+                                // Buscar qué valores corresponden a cada columna dinámica en la primera fila
+                                dynamicColumnNames.forEach(colName => {
+                                    const colValues = valuesByColumn[colName] || [];
+                                    const firstValue = colValues.length > 0 ? colValues[0].value : '';
+                                    tableHTML += `<td id="celdaVacia"></td>`;
+                                });
+
+                                // Buscar valores para puntajes y observaciones
+                                const puntajeEvalValues = valuesByColumn['Puntaje a evaluar'] || [];
+                                const puntajeComisionValues = valuesByColumn['Puntaje de la Comisión Dictaminadora'] || [];
+                                const observacionesValues = valuesByColumn['Observaciones'] || [];
+
+                                // Primera fila - puntajes y observaciones
+                                tableHTML += `<td style="background-color: #0b5967; color: #ffff; text-align:center; font-weight:bold;">${puntajeEvalValues.length > 0 ? puntajeEvalValues[0].value : '0'}</td>`;
+                                tableHTML += `<td style="background-color: #ffcc6d; text-align:center;font-weight:bold;">${puntajeComisionValues.length > 0 ? puntajeComisionValues[0].value : '0'}</td>`;
+                                tableHTML += `<td>${observacionesValues.length > 0 ? observacionesValues[0].value : ''}</td>`;
+                                tableHTML += '</tr>';
+
+                                // Segunda fila - Si no tenemos una segunda actividad o valor no numérico, lo buscamos
+                                if (activityValues.length < 2) {
+                                    fetch(`/get-first-non-numeric-value/${selectedFormId}`)
+                                        .then(response => response.json())
+                                        .then(secondData => {
+                                            if (secondData.success && secondData.value) {
+                                                const secondActivity = secondData.value;
+                                                addSecondRow(secondActivity);
+                                            }
+                                            finalizarTabla();
+                                        })
+                                        .catch(error => {
+                                            console.error('Error al obtener segunda actividad:', error);
+                                            finalizarTabla();
+                                        });
+                                } else {
+                                    // Ya tenemos una segunda actividad, podemos usarla directamente
+                                    addSecondRow(activityValues[1]);
+                                    finalizarTabla();
+                                }
+
+                                function addSecondRow(secondActivity) {
+                                    // Agregar segunda fila con el segundo valor de actividad
+                                    tableHTML += '<tr>';
+                                    tableHTML += `<td id="inicioActividad">${secondActivity}</td>`;
+
+                                    // Valores para columnas dinámicas en segunda fila
+                                    dynamicColumnNames.forEach(colName => {
+                                        const colValues = valuesByColumn[colName] || [];
+                                        const secondValue = colValues.length > 1 ? colValues[1].value : '';
+                                        tableHTML += `<td id="PrimerValorNumerico">${secondValue}</td>`;
+                                    });
+
+                                    // Segunda fila - puntajes y observaciones
+                                    tableHTML += `<td class="puntajeValues">${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
+                                    tableHTML += `<td id="puntajeComisionValues" class="puntajeValues"><input id="inputValues" type="number" placeholder="0"></td>`;
+                                    tableHTML += `<td id="observacionesNForm"><input id="inputObservaciones" placeholder="escriba aqui los comentarios"></td>`;
+                                    tableHTML += '</tr>';
+                                }
+
+                                function finalizarTabla() {
+                                    // Agregar fila de acreditación
+                                    tableHTML += '<tr>';
+                                    tableHTML += '<td>Acreditación:</td>';
+
+                                    // Colspan para las columnas restantes
+                                    const totalColumns = dynamicColumnNames.length + 3; // +3 por puntajes y observaciones
+                                    tableHTML += `<td class="dataAcreditacion" colspan="${totalColumns}">${data.acreditacion || ''}</td>`;
+                                    tableHTML += '</tr>';
+
+                                    tableHTML += '</tbody></table>';
+                                    formContainer.innerHTML = tableHTML;
+                                }
+                            } else {
+                                formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + (data.message || 'Formulario no encontrado') + '</p>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            formContainer.innerHTML = '<p class="alert alert-danger">Error: ' + error.message + '</p>';
+                        });
+                }
             } else {
-                
                 formContainer.innerHTML = '';
             }
         });
+    });
 
 
 
