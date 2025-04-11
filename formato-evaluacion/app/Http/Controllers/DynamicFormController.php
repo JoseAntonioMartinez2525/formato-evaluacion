@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\DynamicFormCommission;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use App\Models\DynamicForm;
@@ -523,5 +524,41 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
+    }
+
+public function updateCommissionData(Request $request, $formId)
+{
+    try {
+        $form = DynamicForm::findOrFail($formId);
+
+        // Validar los datos enviados
+        $validatedData = $request->validate([
+            'rows' => 'required|array', // Cada fila de datos
+            'rows.*.row_identifier' => 'nullable|string',
+            'rows.*.puntaje_comision' => 'nullable|numeric',
+            'rows.*.observaciones' => 'nullable|string',
+            'rows.*.dynamic_form_value_id' => 'nullable|integer', // Relación con dynamic_form_values
+        ]);
+
+        foreach ($validatedData['rows'] as $row) {
+            DynamicFormCommission::updateOrCreate(
+                [
+                    'dynamic_form_id' => $formId,
+                    'row_identifier' => $row['row_identifier'] ?? null,
+                ],
+                [
+                    'dynamic_form_column_id' => $row['dynamic_form_column_id'] ?? null,
+                    'dynamic_form_value_id' => $row['dynamic_form_value_id'] ?? null,
+                    'puntaje_comision' => $row['puntaje_comision'] ?? null,
+                    'observaciones' => $row['observaciones'] ?? null,
+                ]
+            );
+        }
+
+        return response()->json(['success' => true, 'message' => 'Datos actualizados correctamente.']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+    }
+
     }
 }

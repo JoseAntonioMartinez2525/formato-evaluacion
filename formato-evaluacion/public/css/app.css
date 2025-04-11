@@ -259,12 +259,12 @@ header{
 
 }
 
-body.dark-mode [id^="btn3_"]{
+body.dark-mode [id^="btn3_"], body.dark-mode .dynamicBtn{
         background-color: #456483 !important;
         color: floralwhite;
 }
 
-body.dark-mode [id^="btn3_"]:hover {
+body.dark-mode [id^="btn3_"]:hover , body.dark-mode .dynamicBtn:hover{
     background-color: #6a5b9f !important;
     
 }
@@ -959,6 +959,12 @@ body.dark-mode nav.nav.flex-column a:hover {
     color: rgb(122, 164, 237);
 }
 
+.dynamicBtn {
+    margin-left: calc(100vw - 740px);
+    padding: 0 100px  0 100px; 
+    text-align: center;
+    border-radius: 90px 90px 90px 90px;
+}
 
 
 

@@ -360,7 +360,8 @@ $existingFormNames = [];
                                     tableHTML += '</tr>';
 
                                     tableHTML += '</tbody></table>';
-                                    tableHTML += `<button type="button" class="btn btn-primary" onclick="submitFormData('${selectedFormId}')">Enviar</button>`;                                    tableHTML += '</form>';
+                                    tableHTML += ` <button button type = "submit" class="btn custom-btn printButtonClass dynamicBtn" onclick = "submitDynamicFormData('${selectedFormId}')"> Enviar</button >`;
+                                    tableHTML += '</form>';
                                     formContainer.innerHTML = tableHTML;
                                 }
                             } else {
@@ -595,6 +596,53 @@ $existingFormNames = [];
                         alert('Ocurrió un error al enviar los datos.');
                     });
             }
+
+    function submitDynamicFormData(formId) {
+        const rows = [];
+        const formContainer = document.getElementById('formContainer');
+        const tableRows = formContainer.querySelectorAll('table tbody tr');
+
+        // Recorrer cada fila de la tabla
+        tableRows.forEach((row, rowIndex) => {
+            const puntajeComisionInput = row.querySelector('input[id="inputValues"]');
+            const observacionesInput = row.querySelector('input[id="inputObservaciones"]');
+            const dynamicFormValueId = row.getAttribute('data-value-id'); // Asegúrate de incluir este atributo en las filas
+
+            rows.push({
+                row_identifier: `row_${rowIndex}`, // Identificador único para la fila
+                dynamic_form_value_id: dynamicFormValueId || null, // ID del valor relacionado
+                puntaje_comision: puntajeComisionInput ? puntajeComisionInput.value : null,
+                observaciones: observacionesInput ? observacionesInput.value : null,
+            });
+        });
+
+        // Agregar el CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Enviar los datos al servidor
+        fetch(`/update-commission-data/${formId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+            body: JSON.stringify({ rows }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Datos enviados correctamente.');
+                } else {
+                    alert('Error al enviar los datos: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al enviar los datos.');
+            });
+    } 
+
+    
     </script>
 
 </body>
