@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DynamicFormCommission;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use App\Models\DynamicForm;
@@ -569,5 +570,11 @@ public function updateCommissionData(Request $request, $formId)
         return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
     }
 
+    }
+
+    public function getDocentesOtrosForm()
+    {
+        $docentes = User::where('user_type', 'docente')->get(['id', 'email']);
+        return response()->json($docentes);
     }
 }

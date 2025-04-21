@@ -199,6 +199,29 @@ $existingFormNames = [];
 
          // Manejo del formulario dinámico
     document.addEventListener('DOMContentLoaded', (event) => {
+
+        const docenteDynamicSelect = document.getElementById('docenteDynamicSelect');
+
+        // Función para cargar los docentes
+        async function loadDocentes() {
+            try {
+                const response = await fetch('/get-docentes');
+                const docentes = await response.json();
+
+                // Limpiar las opciones existentes
+                docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
+
+                // Agregar las opciones de los docentes
+                docentes.forEach(docente => {
+                    const option = document.createElement('option');
+                    option.value = docente.email;
+                    option.textContent = `${docente.name} (${docente.email})`;
+                    docenteSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error al cargar los docentes:', error);
+            }
+        }
         const formSelect = document.getElementById('formSelect');
         console.log('Dropdown Options:', Array.from(formSelect.options).map(option => option.value)); // Log the dropdown options
 
@@ -364,6 +387,8 @@ $existingFormNames = [];
                                     tableHTML += '</form>';
                                     formContainer.innerHTML = tableHTML;
                                 }
+
+                                loadDocentes();
                             } else {
                                 formContainer.innerHTML = '<p class="alert alert-danger">Error al cargar el formulario: ' + (data.message || 'Formulario no encontrado') + '</p>';
                             }
@@ -641,6 +666,29 @@ $existingFormNames = [];
                 alert('Ocurrió un error al enviar los datos.');
             });
     } 
+
+    // Manejar la selección de un docente
+        docenteDynamicSelect.addEventListener('change', (event) => {
+            const selectedDocenteEmail = event.target.value;
+
+            if (selectedDocenteEmail) {
+                console.log('Docente seleccionado:', selectedDocenteEmail);
+
+                // Aquí puedes realizar acciones adicionales, como cargar datos del docente
+                fetch(`/get-docente-data?email=${selectedDocenteEmail}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Datos del docente:', data);
+
+                        // Manejar los datos del docente
+                        // ...
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos del docente:', error);
+                    });
+            }
+        });
+    
 
     
     </script>
