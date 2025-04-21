@@ -535,10 +535,15 @@ public function updateCommissionData(Request $request, $formId)
         $validatedData = $request->validate([
             'rows' => 'required|array', // Cada fila de datos
             'rows.*.row_identifier' => 'nullable|string',
+            'rows.*.puntaje_input_values' => 'nullable|numeric',
             'rows.*.puntaje_comision' => 'nullable|numeric',
             'rows.*.observaciones' => 'nullable|string',
             'rows.*.dynamic_form_value_id' => 'nullable|integer', // Relación con dynamic_form_values
-        ]);
+            'user_id' => 'required|integer', // Validar user_id
+            'email' => 'required|email',    // Validar email
+            'user_type' => 'nullable|string', // Validar user_type
+
+            ]);
 
         foreach ($validatedData['rows'] as $row) {
             DynamicFormCommission::updateOrCreate(
@@ -549,8 +554,12 @@ public function updateCommissionData(Request $request, $formId)
                 [
                     'dynamic_form_column_id' => $row['dynamic_form_column_id'] ?? null,
                     'dynamic_form_value_id' => $row['dynamic_form_value_id'] ?? null,
+                    'puntaje_input_values' => $row['puntaje_input_values'] ?? null,
                     'puntaje_comision' => $row['puntaje_comision'] ?? null,
                     'observaciones' => $row['observaciones'] ?? null,
+                    'user_id' => $validatedData['user_id'],
+                    'email_docente' => $validatedData['email'], // Aquí se asigna
+                    'user_type' => $validatedData['user_type'] ?? null, // Asignar user_type si está presente
                 ]
             );
         }

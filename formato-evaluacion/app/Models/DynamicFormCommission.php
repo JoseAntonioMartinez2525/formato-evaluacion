@@ -12,7 +12,11 @@ class DynamicFormCommission extends Model
         'dynamic_form_id',
         'dynamic_form_column_id',
         'dynamic_form_value_id',
+        'user_id',
+        'email_docente',
+        'user_type',
         'row_identifier',
+        'puntaje_input_values',
         'puntaje_comision',
         'observaciones',
     ];

@@ -132,7 +132,7 @@ Route::get('/get-docente-data', [DictaminatorController::class, 'getDocenteData'
 Route::get('/get-dictaminadores', [FormsController::class, 'getdictaminadores'])->name('getdictaminadores');
 Route::get('/form4', [ConsolidatedResponseController::class, 'showResumen'])->name('form4');
 Route::get('/get-dictaminador-data', [FormsController::class, 'getDictaminadorData'])->name('getDictaminadorData');
-
+Route::get('otros_formularios', function () {return view('otros_formularios'); })->name('otros_formularios');
 
 Route::get('/resumen-comision', [ResumenComisionController::class, 'getDictaminadorFinalData']);
 // routes/web.php
