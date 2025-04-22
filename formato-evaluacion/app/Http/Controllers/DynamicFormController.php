@@ -577,4 +577,68 @@ public function updateCommissionData(Request $request, $formId)
         $docentes = User::where('user_type', 'docente')->get(['id', 'email']);
         return response()->json($docentes);
     }
+
+
+    /**
+     * Obtiene los datos de un formulario específico para un docente
+     * 
+     * Este método carga los datos de un formulario dinámico junto con
+     * cualquier evaluación de comisión existente para un docente específico
+     */
+    public function getTeacherFormData($email, $formName)
+    {
+        // Verificar si el email es válido
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json(['success' => false, 'message' => 'Email inválido']);
+        }
+
+        try {
+            // Buscar el formulario
+            $form = DynamicForm::where('form_name', $formName)->first();
+            if (!$form) {
+                return response()->json(['success' => false, 'message' => 'Formulario no encontrado']);
+            }
+
+            // Buscar información del docente
+            $docente = User::where('email', $email)
+                ->where('user_type', 'docente')
+                ->first();
+            if (!$docente) {
+                return response()->json(['success' => false, 'message' => 'Docente no encontrado']);
+            }
+
+            // Obtener las columnas y valores del formulario
+            $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
+            $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
+
+            // Obtener datos de comisión existentes para este docente y formulario
+            $commissionData = DynamicFormCommission::where('dynamic_form_id', $form->id)
+                ->where('email_docente', $email)
+                ->get();
+
+            \Log::info('Datos cargados para el docente y formulario', [
+                'docente' => $email,
+                'form_name' => $formName,
+                'commission_data_count' => $commissionData->count()
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'form_id' => $form->id,
+                'columns' => $columns,
+                'values' => $values,
+                'commission_data' => $commissionData,
+                'puntaje_maximo' => $form->puntaje_maximo,
+                'acreditacion' => $form->acreditacion,
+                'teacher' => [
+                    'id' => $docente->id,
+                    'name' => $docente->name,
+                    'email' => $docente->email
+                ]
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener datos del formulario para docente: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }

@@ -207,6 +207,7 @@ Route::post('/agregar-docente/{dictaminador_id}', [DictaminatorForm2_Controller:
     ->name('agregar.docente');
 
 //Ruta para la tabla fragmentada de comision de formularios dinamicos
+Route::get('/get-teacher-form-data/{email}/{formName}', [DynamicFormController::class, 'getTeacherFormData']);
 Route::post('/update-commission-data/{formId}', [DynamicFormController::class, 'updateCommissionData']);
 //GET formularios
 Route::get('/get-data1', [ResponseController::class, 'getData1'])->name('getData1');
