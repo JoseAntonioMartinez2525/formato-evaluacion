@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             docentes.forEach(docente => {
                 const option = document.createElement('option');
                 option.value = docente.email;
-                option.textContent = `${docente.name} (${docente.email})`;
+                option.textContent = docente.email;
                 docenteSelect.appendChild(option);
             });
         })
@@ -453,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Segunda fila - puntajes y observaciones
+                        const puntajeInputValue = segundaFilaComision?.puntaje_input_values || '';
             tableHTML += `<td class="puntajeValues">${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
             
             // Agregar los campos de comisión con valores guardados si existen
