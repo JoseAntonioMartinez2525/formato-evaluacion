@@ -527,50 +527,7 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         }
     }
 
-public function updateCommissionData(Request $request, $formId)
-{
-    try {
-        $form = DynamicForm::findOrFail($formId);
 
-        // Validar los datos enviados
-        $validatedData = $request->validate([
-            'rows' => 'required|array', // Cada fila de datos
-            'rows.*.row_identifier' => 'nullable|string',
-            'rows.*.puntaje_input_values' => 'nullable|numeric',
-            'rows.*.puntaje_comision' => 'nullable|numeric',
-            'rows.*.observaciones' => 'nullable|string',
-            'rows.*.dynamic_form_value_id' => 'nullable|integer', // Relación con dynamic_form_values
-            'user_id' => 'required|integer', // Validar user_id
-            'email' => 'required|email',    // Validar email
-            'user_type' => 'nullable|string', // Validar user_type
-
-            ]);
-
-        foreach ($validatedData['rows'] as $row) {
-            DynamicFormCommission::updateOrCreate(
-                [
-                    'dynamic_form_id' => $formId,
-                    'row_identifier' => $row['row_identifier'] ?? null,
-                ],
-                [
-                    'dynamic_form_column_id' => $row['dynamic_form_column_id'] ?? null,
-                    'dynamic_form_value_id' => $row['dynamic_form_value_id'] ?? null,
-                    'puntaje_input_values' => $row['puntaje_input_values'] ?? null,
-                    'puntaje_comision' => $row['puntaje_comision'] ?? null,
-                    'observaciones' => $row['observaciones'] ?? null,
-                    'user_id' => $validatedData['user_id'],
-                    'email_docente' => $validatedData['email'], // Aquí se asigna
-                    'user_type' => $validatedData['user_type'] ?? null, // Asignar user_type si está presente
-                ]
-            );
-        }
-
-        return response()->json(['success' => true, 'message' => 'Datos actualizados correctamente.']);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-    }
-
-    }
 
     public function getDocentesOtrosForm()
     {
@@ -584,6 +541,50 @@ public function updateCommissionData(Request $request, $formId)
      * 
      * Este método carga los datos de un formulario dinámico junto con
      * cualquier evaluación de comisión existente para un docente específico
+     */
+    public function updateCommissionData(Request $request, $formId)
+    {
+        try {
+            $form = DynamicForm::findOrFail($formId);
+
+            // Validar los datos enviados
+            $validatedData = $request->validate([
+                'rows' => 'required|array',
+                'rows.*.row_identifier' => 'required|string',
+                'rows.*.puntaje_comision' => 'nullable|numeric',
+                'rows.*.puntaje_input_values' => 'nullable|string', // Validación para puntaje_input_values
+                'rows.*.observaciones' => 'nullable|string',
+                'user_id' => 'required|integer',
+                'email' => 'required|email',
+                'user_type' => 'required|string',
+            ]);
+
+            foreach ($validatedData['rows'] as $row) {
+                DynamicFormCommission::updateOrCreate(
+                    [
+                        'dynamic_form_id' => $formId,
+                        'row_identifier' => $row['row_identifier'],
+                        'email_docente' => $validatedData['email'],
+                    ],
+                    [
+                        'user_id' => $validatedData['user_id'],
+                        'user_type' => $validatedData['user_type'],
+                        'puntaje_comision' => $row['puntaje_comision'] ?? null,
+                        'puntaje_input_values' => $row['puntaje_input_values'] ?? null, // Guardar puntaje_input_values
+                        'observaciones' => $row['observaciones'] ?? null,
+                    ]
+                );
+            }
+
+            return response()->json(['success' => true, 'message' => 'Datos actualizados correctamente.']);
+        } catch (\Exception $e) {
+            \Log::error('Error al actualizar datos de comisión: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Obtiene los datos de un formulario específico para un docente
      */
     public function getTeacherFormData($email, $formName)
     {
@@ -616,10 +617,12 @@ public function updateCommissionData(Request $request, $formId)
                 ->where('email_docente', $email)
                 ->get();
 
+            // Registrar la operación en los logs para debugging
             \Log::info('Datos cargados para el docente y formulario', [
                 'docente' => $email,
                 'form_name' => $formName,
-                'commission_data_count' => $commissionData->count()
+                'commission_data_count' => $commissionData->count(),
+                'commission_data' => $commissionData->toArray() // Mostrar los datos para debugging
             ]);
 
             return response()->json([

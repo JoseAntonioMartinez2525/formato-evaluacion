@@ -211,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formSelect = document.getElementById('formSelect');
     const formContainer = document.getElementById('formContainer');
     const docenteSelect = document.getElementById('teacherSelect');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     // Cargar la lista de docentes 
     fetch('/get-docentes')
@@ -219,11 +220,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Limpiar opciones existentes
             docenteSelect.innerHTML = '<option value="">Seleccionar un docente</option>';
             
-            // Agregar opciones para cada docente
+            // CORREGIDO: Solo mostrar el email del docente como texto de la opción
             docentes.forEach(docente => {
                 const option = document.createElement('option');
                 option.value = docente.email;
-                option.textContent = docente.email;
+                option.textContent = docente.email; // Solo el email, sin mostrar "undefined"
                 docenteSelect.appendChild(option);
             });
         })
@@ -297,7 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function cargarFormularioConDatosDocente(formName, formId, docenteEmail) {
         formContainer.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"></div><p>Cargando datos del docente...</p></div>';
         
-        // Verificar si existe la ruta para obtener datos específicos del docente 
         fetch(`/get-teacher-form-data/${docenteEmail}/${formName}`)
             .then(response => {
                 if (!response.ok) {
@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si hay datos del docente, mostrarlos
         if (docenteEmail && data.teacher) {
             tableHTML += `<div class="alert alert-info mb-3">
-                <p><strong>Docente:</strong> ${data.teacher.name}</p>
-                <p><strong>Email:</strong> ${data.teacher.email}</p>
+                <p><strong>Docente:</strong> ${data.teacher.name || ''}</p>
+                <p><strong>Email:</strong> ${data.teacher.email || ''}</p>
             </div>`;
         }
         
@@ -441,6 +441,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 c.row_identifier === rowId || c.row_identifier === secondActivity
             ) : null;
             
+            // CORREGIDO: Obtener el valor de puntaje_input_values si existe
+            const puntajeInputValue = segundaFilaComision ? segundaFilaComision.puntaje_input_values || '' : '';
+            
             // Agregar segunda fila con el segundo valor de actividad
             tableHTML += '<tr data-row-id="' + rowId + '">';
             tableHTML += `<td id="inicioActividad">${secondActivity}</td>`;
@@ -453,10 +456,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Segunda fila - puntajes y observaciones
-                        const puntajeInputValue = segundaFilaComision?.puntaje_input_values || '';
             tableHTML += `<td class="puntajeValues">${puntajeEvalValues.length > 1 ? puntajeEvalValues[1].value : '0'}</td>`;
             
-            // Agregar los campos de comisión con valores guardados si existen
+            // CORREGIDO: Agregar el campo hidden con el valor de puntaje_input_values
             tableHTML += `<td id="puntajeComisionValues" class="puntajeValues">
                 <input id="inputValues" 
                        type="number" 
@@ -464,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
                        data-row-id="${rowId}" 
                        value="${segundaFilaComision ? segundaFilaComision.puntaje_comision : ''}" 
                        placeholder="0">
+                <input type="hidden" id="puntaje_input_values" name="puntaje_input_values" value="${puntajeInputValue}">
             </td>`;
             
             tableHTML += `<td id="observacionesNForm">
@@ -489,9 +492,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             tableHTML += '</tbody></table>';
             
-            // Si hay un docente seleccionado, agregar botón para guardar evaluación
+            // CORREGIDO: Estilo del botón para que sea como los demás botones de la app
             if (docenteEmail) {
-                tableHTML += `<button type="submit" class="btn custom-btn printButtonClass dynamicBtn" id="btnGuardarEvaluacion"> Enviar</button>`;
+                tableHTML += `<button type="submit" class="btn custom-btn printButtonClass dynamicBtn" id="btnGuardarEvaluacion">Enviar</button>`;
             } else {
                 tableHTML += `<div class="alert alert-warning mt-3">
                     <p>Para evaluar este formulario, seleccione un docente primero.</p>
@@ -504,7 +507,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Agregar evento al botón de guardar
             const btnGuardar = document.getElementById('btnGuardarEvaluacion');
             if (btnGuardar) {
-                btnGuardar.addEventListener('click', function() {
+                btnGuardar.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevenir el envío del formulario
                     guardarDatosComision(formId, docenteEmail);
                 });
             }
@@ -513,58 +517,33 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Función para guardar los datos de comisión
     function guardarDatosComision(formId, docenteEmail) {
+        // Obtener el token CSRF
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
-        // Obtener todos los inputs de puntaje y observaciones
-        const puntajeInputs = document.querySelectorAll('.puntaje-comision');
-        const observacionesInputs = document.querySelectorAll('.observaciones');
+        // Obtener los valores de los campos
+        const puntajeInput = document.getElementById('inputValues');
+        const observacionesInput = document.getElementById('inputObservaciones');
+        const puntajeInputValues = document.getElementById('puntaje_input_values');
         
-        // Validar que haya datos para guardar
-        if (puntajeInputs.length === 0 && observacionesInputs.length === 0) {
-            alert('No hay datos para guardar');
+        if (!puntajeInput || !observacionesInput) {
+            alert('Error: No se encontraron los campos para guardar');
             return;
         }
         
         // Preparar datos para enviar
         const formData = {
-            rows: [],
+            rows: [
+                {
+                    row_identifier: 'row_2',
+                    puntaje_comision: puntajeInput.value,
+                    puntaje_input_values: puntajeInputValues ? puntajeInputValues.value : '',
+                    observaciones: observacionesInput.value
+                }
+            ],
             user_id: {{ Auth::id() }},
             email: docenteEmail,
             user_type: 'dictaminador'
         };
-        
-        // Recolectar datos de cada input de puntaje
-        puntajeInputs.forEach(input => {
-            if (input.value) {
-                const rowData = {
-                    row_identifier: input.dataset.rowId || 'row_2',
-                    puntaje_comision: input.value
-                };
-                formData.rows.push(rowData);
-            }
-        });
-        
-        // Recolectar datos de cada input de observaciones
-        observacionesInputs.forEach(input => {
-            let rowExiste = false;
-            const rowId = input.dataset.rowId || 'row_2';
-            
-            // Buscar si ya existe una fila con este rowId
-            formData.rows.forEach(row => {
-                if (row.row_identifier === rowId) {
-                    row.observaciones = input.value;
-                    rowExiste = true;
-                }
-            });
-            
-            // Si no existe, crear una nueva fila
-            if (!rowExiste && input.value) {
-                formData.rows.push({
-                    row_identifier: rowId,
-                    observaciones: input.value
-                });
-            }
-        });
         
         // Enviar datos al servidor
         fetch(`/update-commission-data/${formId}`, {
@@ -592,7 +571,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-        document.addEventListener('DOMContentLoaded', function () {
+
+
+document.addEventListener('DOMContentLoaded', function () {
             
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             async function submitForm(url, formId) {
