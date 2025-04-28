@@ -11,7 +11,7 @@ use App\Models\DynamicFormValue;
 use Illuminate\Http\Request;
 use App\Models\DynamicFormItem;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade as PDF; 
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;// Corrected line without extraneous character
 
@@ -121,7 +121,7 @@ class DynamicFormController extends Controller
                 'success' => true,
                 'form_type' => $formType,
                 'form_name' => $validatedData['form_name'],
-                'vaue_id'=> $valueId
+                'vaue_id' => $valueId
             ]);
         } catch (\Exception $e) {
             // Captura errores y retorna un mensaje JSON
@@ -130,17 +130,17 @@ class DynamicFormController extends Controller
     }
 
     // Método para recuperar el formulario del usuario
-public function getFormByName($formName)
-{
-    $form = DynamicForm::with('combinedData') // Assuming 'combinedData' is the relationship defined in the DynamicForm model
-        ->where('form_name', $formName)
-        ->first();
+    public function getFormByName($formName)
+    {
+        $form = DynamicForm::with('combinedData') // Assuming 'combinedData' is the relationship defined in the DynamicForm model
+            ->where('form_name', $formName)
+            ->first();
 
-    if ($form) {
-        return response()->json([
-            'success' => true,
-            'form' => $form,
-            'combined_data' => $form->combinedData // Include combined data in the response
+        if ($form) {
+            return response()->json([
+                'success' => true,
+                'form' => $form,
+                'combined_data' => $form->combinedData // Include combined data in the response
 
             ]);
         } else {
@@ -166,7 +166,7 @@ public function getFormByName($formName)
             'user_id' => Auth::id(),
             'user_type' => Auth::user()->user_type
         ]);
-        
+
 
         // Verify user is authenticated and has correct type
         if (!Auth::check()) {
@@ -177,7 +177,7 @@ public function getFormByName($formName)
             Log::warning('Unauthorized user type attempted to access edit_delete_form');
             return redirect()->route('login');
         }
-        
+
         $form = \DB::table('dynamic_forms')->first();
         if (!$form) {
             return redirect()->route('edit_delete_form')->with('error', 'Formulario no encontrado.');
@@ -189,11 +189,11 @@ public function getFormByName($formName)
         // Fetch all forms from the database
         $forms = DynamicForm::all();
 
-         // Check if there are any forms
+        // Check if there are any forms
         if ($forms->isEmpty()) {
             return redirect()->route('secretaria')
-            >with('message', 'No hay formularios disponibles. Por favor, cree un nuevo formulario.');
-    
+                > with('message', 'No hay formularios disponibles. Por favor, cree un nuevo formulario.');
+
         }
 
         return view('edit_delete_form', [
@@ -205,12 +205,12 @@ public function getFormByName($formName)
 
 
 
-}
+    }
     public function showSecretaria()
     {
         $forms = DynamicForm::all(); // Fetch all forms from the database
         return view('secretaria', compact('forms')); // Pass the forms to the view
-    
+
     }
 
     public function edit($formName, $columnId)
@@ -219,7 +219,7 @@ public function getFormByName($formName)
             ->where('form_name', $formName)
             ->firstOrFail();
 
-        $column = $form->columns->where('id', $columnId)->firstOrFail();        
+        $column = $form->columns->where('id', $columnId)->firstOrFail();
         $value = $form->values->where('dynamic_form_column_id', $columnId)->first();
 
 
@@ -232,9 +232,9 @@ public function getFormByName($formName)
     {
         $form = DynamicForm::find($id);
 
-            if (!$form) {
-                return response()->json(['success' => false, 'message' => 'Formulario no encontrado'], 404);
-            }
+        if (!$form) {
+            return response()->json(['success' => false, 'message' => 'Formulario no encontrado'], 404);
+        }
         // Debugging: Log the incoming request data
         \Log::info('Updating Form:', $request->all());
         // Get the values first
@@ -252,13 +252,13 @@ public function getFormByName($formName)
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
-              
+
             $this->updateDynamicFormValues($id, $request->value);
             return response()->json([
-            'success' => true,
-            'message' => 'Form updated successfully',
-            'changes'=> true
-        ]);
+                'success' => true,
+                'message' => 'Form updated successfully',
+                'changes' => true
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -282,24 +282,24 @@ public function getFormByName($formName)
 
             $form->delete();
 
-           // Check if there are any remaining forms
-        $remainingForms = DynamicForm::count();
+            // Check if there are any remaining forms
+            $remainingForms = DynamicForm::count();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Formulario eliminado correctamente.',
-            'remainingForms' => $remainingForms,
-            'redirectUrl' => $remainingForms === 0 ? route('secretaria') : null
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Formulario eliminado correctamente.',
+                'remainingForms' => $remainingForms,
+                'redirectUrl' => $remainingForms === 0 ? route('secretaria') : null
+            ]);
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Error al eliminar el formulario: ' . $e->getMessage()
-        ], 500);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el formulario: ' . $e->getMessage()
+            ], 500);
+        }
     }
-}
-    
+
 
     public function getColumns($formId)
     {
@@ -316,7 +316,7 @@ public function getFormByName($formName)
         if ($form) {
             $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
             $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
-           
+
             \Log::info('Datos del formulario:', [
                 'form_name' => $formName,
                 'columnas' => $columns->count(),
@@ -324,7 +324,7 @@ public function getFormByName($formName)
                 'puntaje_maximo' => $form->puntaje_maximo,
                 'acreditacion' => $form->acreditacion ?? 'No encontrado',
             ]);
-            
+
             return response()->json([
                 'success' => true,
                 'columns' => $columns,
@@ -339,38 +339,38 @@ public function getFormByName($formName)
         }
     }
 
-    
+
 
     public function getFormId($formName)
-{   // Extract only numbers and dots from formName using regex
+    {   // Extract only numbers and dots from formName using regex
         $formId = preg_replace('/[^0-9.]/', '', $formName);
 
-    if (!$formId) {
+        if (!$formId) {
             return response()->json([
                 'success' => false,
                 'message' => 'Formulario no encontrado.'
             ]);
-    }
-    
-    return $formId;
-}
+        }
 
-//transfer the update functionality, directly 
-protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
-{
+        return $formId;
+    }
+
+    //transfer the update functionality, directly 
+    protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
+    {
 
         // Add logging
         \Log::info("Checking and updating form: {$formName}, Action: {$action}");
-   try {
-        // Add your conditions here if needed
-        if (isset($data['user_type']) && $data['user_type'] === '') {
+        try {
+            // Add your conditions here if needed
+            if (isset($data['user_type']) && $data['user_type'] === '') {
                 \Log::debug("Executing Artisan command for form update");
 
                 $exitCode = Artisan::call('form:update', [
-                'action' => $action,
-                'formName' => $formName,
-                '--data' => $action === 'update' ? [json_encode($data)] : []
-            ]);
+                    'action' => $action,
+                    'formName' => $formName,
+                    '--data' => $action === 'update' ? [json_encode($data)] : []
+                ]);
                 if ($exitCode !== 0) {
                     throw new \Exception("Artisan command failed with exit code: {$exitCode}");
                 }
@@ -386,7 +386,7 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
         // Obtener los registros existentes de dynamic_form_values para este formulario
         $existingValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
         $existingScore = DynamicForm::find($formId);
-        
+
         // Recorrer los nuevos valores y actualizar los registros correspondientes
         foreach ($newValues as $index => $newValue) {
             if (isset($existingValues[$index])) {
@@ -400,7 +400,7 @@ protected function checkAndUpdateForm($formName, $data = [], $action = 'update')
             $existingScore->puntaje_maximo = request('puntajeMaximo'); // Obtener el nuevo puntaje del request
             $existingScore->save();
         }
-        
+
     }
 
     /*

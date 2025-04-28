@@ -601,19 +601,23 @@ $existingFormNames = [];
         function submitDynamicFormData(formId) {
             const rows = [];
             const formContainer = document.getElementById('formContainer');
-            const tableRows = formContainer.querySelectorAll('table tbody tr');
+            const tableRows = formContainer.querySelectorAll('table tbody tr:not(:last-child)');
 
             // Recorrer cada fila de la tabla
             tableRows.forEach((row, rowIndex) => {
                 const inputPuntajeValues = row.querySelector('input[id="inputPuntajeValues"]');
-                const dynamicFormValueId = row.getAttribute('data-value-id'); // Asegúrate de incluir este atributo en las filas
+                puntajeEvalCell = row.querySelector('td.puntajeValues');
+                const dynamicFormValueId = row.getAttribute('data-value-id');
 
-                rows.push({
-                    row_identifier: `row_${rowIndex}`, // Identificador único para la fila
-                    dynamic_form_value_id: dynamicFormValueId || null, // ID del valor relacionado          
-                    puntaje_input_values: inputPuntajeValues ? inputPuntajeValues.value : null,
-                    
-                });
+                // Solo procesar filas que tengan campos de entrada
+                if (inputPuntajeValues || puntajeEvalCell) {
+                    rows.push({
+                        row_identifier: `row_${rowIndex + 1}`,
+                        dynamic_form_value_id: dynamicFormValueId || null,
+                        puntaje_input_values: inputPuntajeValues ? inputPuntajeValues.value : null,
+                        puntaje_evaluar: puntajeEvalCell ? puntajeEvalCell.textContent : null
+                    });
+                }
             });
 
             const userId = userData.getAttribute('data-user-id');

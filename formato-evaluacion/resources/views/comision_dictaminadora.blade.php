@@ -856,7 +856,39 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     
+function guardarDatosComision(formId, docenteEmail) {
+    const rows = [];
+    document.querySelectorAll('tr[id^="commission_row_"]').forEach(row => {
+        const comisionId = row.querySelector('.puntaje-comision').dataset.commissionId;
+        rows.push({
+            row_identifier: row.id,
+            puntaje_comision: row.querySelector('.puntaje-comision').value,
+            observaciones: row.querySelector('.observaciones').value,
+            id: comisionId // Para actualizar registros existentes
+        });
+    });
 
+    // Enviar datos al servidor
+    fetch(`/update-commission-data/${formId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+            rows,
+            email: docenteEmail,
+            user_type: 'dictaminador'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Evaluación guardada correctamente');
+            cargarFormularioConDatosDocente(formName, formId, docenteEmail);
+        }
+    });
+}
     
     </script>
 
