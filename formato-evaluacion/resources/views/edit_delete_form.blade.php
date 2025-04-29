@@ -185,6 +185,7 @@ $existingFormNames = [];
                     console.log('Values:', data.values); // Log the values
                     console.log('Puntaje máximo:', data.puntaje_maximo);
                     console.log('Acreditación:', data.acreditacion); // Log the acreditación
+                    console.log('Activities:', data.activities); // Log actividades
                     if (data.success) {
 
                         dynamicTableContainer.innerHTML = '';
@@ -278,6 +279,7 @@ $existingFormNames = [];
                         }
 
 
+                        
                         // Agrupar valores por columna
                         const valuesByColumn = {};
                         data.columns.forEach(column => {

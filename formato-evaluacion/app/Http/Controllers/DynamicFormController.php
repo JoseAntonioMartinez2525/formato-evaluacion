@@ -315,7 +315,26 @@ class DynamicFormController extends Controller
         $form = DynamicForm::where('form_name', $formName)->first();
         if ($form) {
             $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
-            $values = DynamicFormValue::where('dynamic_form_id', $form->id)->get();
+            $values = DynamicFormValue::where('dynamic_form_id', $form->id)
+                ->orderBy('id') // Ordenar por ID para mantener el orden original
+                ->get();
+            // Extraer y agrupar todas las actividades (primeras filas)
+            $activityColumnId = $columns->where('column_name', 'Actividad')->first()->id ?? null;
+            $activities = [];
+
+            if ($activityColumnId) {
+                $activityValues = $values->where('dynamic_form_column_id', $activityColumnId);
+                foreach ($activityValues as $activityValue) {
+                    $activities[] = $activityValue->value;
+                }
+
+                // Registrar las actividades encontradas para depuración
+                \Log::info('Actividades encontradas:', [
+                    'count' => count($activities),
+                    'activities' => $activities
+                ]);
+            }
+
 
             \Log::info('Datos del formulario:', [
                 'form_name' => $formName,
@@ -331,7 +350,7 @@ class DynamicFormController extends Controller
                 'values' => $values,
                 'puntaje_maximo' => $form->puntaje_maximo,
                 'acreditacion' => $form->acreditacion, // Asegúrate de incluir este campo
-
+                'activities' => $activities // Incluir actividades en la respuesta
             ]);
         } else {
             \Log::info('Formulario no encontrado para:', ['formName' => $formName]);
@@ -381,26 +400,53 @@ class DynamicFormController extends Controller
         }
     }
 
-    protected function updateDynamicFormValues($formId, $newValues)
+    protected function updateDynamicFormValues($formId, $values)
     {
+
+        // Registrar los valores recibidos para depuración
+        \Log::info('Valores a actualizar:', ['formId' => $formId, 'valuesCount' => count($values)]);
+        // Obtener columnas para el formulario
+        $columns = DynamicFormColumn::where('dynamic_form_id', $formId)->get();
+        $columnMap = [];
+        foreach ($columns as $column) {
+            $columnMap[$column->column_name] = $column->id;
+        }
         // Obtener los registros existentes de dynamic_form_values para este formulario
         $existingValues = DynamicFormValue::where('dynamic_form_id', $formId)->get();
         $existingScore = DynamicForm::find($formId);
 
-        // Recorrer los nuevos valores y actualizar los registros correspondientes
-        foreach ($newValues as $index => $newValue) {
-            if (isset($existingValues[$index])) {
-                $existingValue = $existingValues[$index];
-                $existingValue->value = $newValue;
-                $existingValue->save();
+        // Procesar cada fila de valores
+        foreach ($existingValues as $rowId => $rowValues) {
+            foreach ($rowValues as $colName => $value) {
+                // Obtener el ID de la columna
+                $columnId = $columnMap[$colName] ?? null;
+
+                if ($columnId) {
+                    // Buscar si ya existe un valor para este formulario, columna y rowId
+                    $existingValue = DynamicFormValue::where([
+                        'dynamic_form_id' => $formId,
+                        'dynamic_form_column_id' => $columnId,
+                        'row_identifier' => $rowId
+                    ])->first();
+
+                    if ($existingValue) {
+                        // Actualizar valor existente
+                        $existingValue->value = $value;
+                        $existingValue->save();
+                    } else {
+                        // Crear nuevo valor
+                        DynamicFormValue::create([
+                            'dynamic_form_id' => $formId,
+                            'dynamic_form_column_id' => $columnId,
+                            'value' => $value,
+                            'row_identifier' => $rowId
+                        ]);
+                    }
+                }
             }
         }
-        // Actualizar el puntaje máximo si el modelo existe
-        if ($existingScore) {
-            $existingScore->puntaje_maximo = request('puntajeMaximo'); // Obtener el nuevo puntaje del request
-            $existingScore->save();
-        }
 
+        return true;
     }
 
     /*
