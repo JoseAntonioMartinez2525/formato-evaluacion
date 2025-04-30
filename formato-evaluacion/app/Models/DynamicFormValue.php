@@ -11,6 +11,7 @@ class DynamicFormValue extends Model
     protected $fillable = [
         'dynamic_form_id',
         'dynamic_form_column_id',
+        'row_index',
         'value',
         'puntaje_maximo',
         'created_at',

@@ -17,6 +17,8 @@ class DynamicForm extends Model
         'user_type',
         'table_data',
         'acreditacion',
+        'filas', 
+        'columnas', 
     ];
 
     protected $casts = [

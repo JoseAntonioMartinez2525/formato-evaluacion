@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;// Corrected line without extraneous ch
 
 class DynamicFormController extends Controller
 {
-    public function store(Request $request)
+public function store(Request $request)
     {
         // Valida los datos
         try {
@@ -28,9 +28,16 @@ class DynamicFormController extends Controller
                 'user_id' => 'required|integer',
                 'email' => 'required|email',
                 'user_type' => 'nullable|string',
-                'column_names' => 'required|array',
-                'acreditacion' => 'nullable|string', // Validate column names
+                'column_names' => 'required|array', // Assuming column_names are still sent for column creation
+                'acreditacion' => 'nullable|string',
+                'filas' => 'required|integer|min:0', // Validate incoming filas
+                'columnas' => 'required|integer|min:0', // Validate incoming columnas
             ]);
+
+            // Filas and columnas are now taken directly from validated data
+            $filas = $validatedData['filas'];
+            $columnas = $validatedData['columnas'];
+
 
             // Procesar los datos (puedes guardar en la base de datos aquí)
             $formId = \DB::table('dynamic_forms')->insertGetId([
@@ -41,10 +48,13 @@ class DynamicFormController extends Controller
                 'puntaje_maximo' => $validatedData['puntaje_maximo'],
                 'table_data' => json_encode($validatedData['table_data']),
                 'acreditacion' => $validatedData['acreditacion'] ?? null,
+                'filas' => $filas, // Save the received number of rows
+                'columnas' => $columnas, // Save the received number of columns
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
+            // ... (rest of your store method, including inserting into dynamic_form_columns and dynamic_form_values with row_index) ...
             // Inserta cada elemento en dynamic_form_items
             foreach ($validatedData['table_data'] as $key => $value) {
                 \DB::table('dynamic_form_items')->insert([
@@ -56,78 +66,100 @@ class DynamicFormController extends Controller
                     'updated_at' => now(),
                 ]);
             }
-
-            // Inserta cada columna dinámica en dynamic_form_columns
+             // Inserta cada columna dinámica en dynamic_form_columns
             $columnIds = [];
-            foreach ($validatedData['column_names'] as $columnName) {
-                $validatedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $columnName); // Replace invalid characters
-                $validatedColumnName = is_numeric($validatedColumnName[0]) ? '_' . $validatedColumnName : $validatedColumnName;
+            $columnNamesMap = []; // To map column names to their IDs
+            $frontendColumnNames = $validatedData['column_names']; // Get the column names sent from the frontend
 
-                $columnId = \DB::table('dynamic_form_columns')->insertGetId([
-                    'dynamic_form_id' => $formId,
-                    'column_name' => $validatedColumnName,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-                $columnIds[] = $columnId;
+            // Ensure fixed headers are included in the ordered list of column names for mapping
+            $orderedColumnNames = array_merge(['Actividad'], $frontendColumnNames, ['Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones']);
+
+            // Assuming column_names are sent and match the keys in table_data rows
+             foreach ($orderedColumnNames as $columnName) {
+               $validatedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $columnName); // Replace invalid characters
+               $validatedColumnName = is_numeric($validatedColumnName[0] ?? '') ? '_' . $validatedColumnName : $validatedColumnName; // Use ?? '' for safety
+
+               // Check if a column with this name already exists for this form to avoid duplicates on potential re-runs
+               $existingColumn = \DB::table('dynamic_form_columns')
+                                    ->where('dynamic_form_id', $formId)
+                                    ->where('column_name', $validatedColumnName)
+                                    ->first();
+
+               if (!$existingColumn) {
+                   $columnId = \DB::table('dynamic_form_columns')->insertGetId([
+                       'dynamic_form_id' => $formId,
+                       'column_name' => $validatedColumnName,
+                       'created_at' => now(),
+                       'updated_at' => now(),
+                   ]);
+                    $columnNamesMap[$validatedColumnName] = $columnId; // Store the mapping for newly created column
+               } else {
+                    $columnNamesMap[$validatedColumnName] = $existingColumn->id; // Use the existing column's ID
+               }
             }
 
-            // Inserta cada valor en dynamic_form_values
-            foreach ($validatedData['table_data'] as $index => $row) {
-                foreach ($row as $key => $value) {
-                    $columnId = $columnIds[array_search($key, array_keys($validatedData['table_data'][0]))];
-                    // Use insertGetId to get the valueId
-                    $valueId = \DB::table('dynamic_form_values')->insertGetId([
-                        'dynamic_form_id' => $formId,
-                        'dynamic_form_column_id' => $columnId,
-                        'value' => $value ?? '', // Replace null values with an empty string
-                        'puntaje_maximo' => $validatedData['puntaje_maximo'],
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
+                      // Inserta cada valor en dynamic_form_values with row_index
+           // Only attempt to insert if there are rows in table_data
+           if (!empty($validatedData['table_data'])) { // Use empty check for safety
+                // Assuming table_data is an array of rows, and each row is an indexed array
+                foreach ($validatedData['table_data'] as $rowIndex => $rowValues) { // $rowValues is the indexed array for a row
+                    // Ensure $rowValues is an array before iterating
+                    if (is_array($rowValues)) {
+                        foreach ($rowValues as $colIndex => $value) { // Iterate using numerical index
+                            // Use the numerical index to get the column name from the ordered list
+                             $columnName = $orderedColumnNames[$colIndex] ?? null;
+
+                             if ($columnName) {
+                                 // Sanitize column name to match how it's stored (again, for safety)
+                                 $sanitizedColumnName = preg_replace('/[^a-zA-Z0-9_]/', '_', $columnName);
+                                 $sanitizedColumnName = is_numeric($sanitizedColumnName[0] ?? '') ? '_' . $sanitizedColumnName : $sanitizedColumnName; // Use ?? '' for safety
+
+                                 $columnId = $columnNamesMap[$sanitizedColumnName] ?? null;
+
+                                 if ($columnId) { // Ensure columnId was found
+                                     \DB::table('dynamic_form_values')->insert([
+                                         'dynamic_form_id' => $formId,
+                                         'dynamic_form_column_id' => $columnId,
+                                         'row_index' => $rowIndex, // <--- Assign the row_index from the outer loop index
+                                         'value' => $value ?? '', // Replace null values with an empty string
+                                         'puntaje_maximo' => $validatedData['puntaje_maximo'],
+                                         'created_at' => now(),
+                                         'updated_at' => now(),
+                                     ]);
+                                      // Note: The dynamic_form_combined logic that was here before
 
 
-                    // Fetch the form_name from dynamic_form_items using key 0
-                    $formName = \DB::table('dynamic_form_values')
-                        ->where('id', $valueId) // Use the unique id from dynamic_form_values
-                        ->value('value'); // Fetch the specific value based on the unique id
-
-                    // Insert into dynamic_form_combined using the auto-generated valueId
-                    $formTypeMatch = preg_match('/^([\d.]+(_[\d.]+)*)?(?=\s|$)/', $formName, $matches);
-                    $formType = $formTypeMatch ? 'form' . $matches[0] : 'form'; // Construct the form type
-
-                    // Insert into dynamic_form_combined using the auto-generated valueId
-                    \DB::table('dynamic_form_combined')->updateOrInsert(
-                        [
-                            'dynamic_form_id' => $formId,
-                            'dynamic_form_column_id' => $columnId,
-                            'dynamic_form_value_id' => $valueId,
-                        ],
-                        [
-                            'form_name' => $formName, // Use the fetched form_name
-                            'puntaje_maximo' => $validatedData['puntaje_maximo'],
-                            'form_type' => $formType,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]
-                    );
+                                 } else {
+                                     \Log::warning('Store: Column ID not found for ordered column name:', ['column_name' => $columnName, 'sanitized_column_name' => $sanitizedColumnName, 'row_index' => $rowIndex, 'col_index' => $colIndex, 'value' => $value, 'columnNamesMap' => $columnNamesMap]);
+                                 }
+                             } else {
+                                 \Log::warning('Store: Column name not found for column index in ordered list:', ['col_index' => $colIndex, 'row_index' => $rowIndex, 'value' => $value, 'orderedColumnNames' => $orderedColumnNames]);
+                             }
+                        }
+                    } else {
+                         \Log::warning('Store: Expected row to be an array, but received:', ['row_values' => $rowValues, 'row_index' => $rowIndex]);
+                    }
                 }
-            }
-
+           }
+   
 
 
             // Responder al cliente
             return response()->json([
                 'success' => true,
-                'form_type' => $formType,
-                'form_name' => $validatedData['form_name'],
-                'vaue_id' => $valueId
+                'message' => 'Formulario guardado exitosamente.',
+                'form_id' => $formId // Return the new form ID
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+             Log::error('Validation Error al guardar el formulario:', ['errors' => $e->errors(), 'request' => $request->all()]);
+             return response()->json(['success' => false, 'message' => 'Error de validación.', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
-            // Captura errores y retorna un mensaje JSON
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            // Captura otros errores y retorna un mensaje JSON
+             Log::error('Error al guardar el formulario: ' . $e->getMessage(), ['request' => $request->all()]);
+            return response()->json(['success' => false, 'message' => 'Error interno del servidor al guardar el formulario: ' . $e->getMessage()], 500);
         }
     }
+    
 
     // Método para recuperar el formulario del usuario
     public function getFormByName($formName)
@@ -251,13 +283,20 @@ class DynamicFormController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
+            $validatedData = $validator->validated();
+
+            // Calculate filas and columnas from updated table_data
+            $filas = count($validatedData['table_data']);
+            // Assuming table_data is an array of rows, and the first row
+            // is representative of the number of columns
+            $columnas = count($validatedData['table_data'][0] ?? []); // Use ?? [] for safety if table_data is empty
 
 
             $this->updateDynamicFormValues($id, $request->value);
             return response()->json([
                 'success' => true,
                 'message' => 'Form updated successfully',
-                'changes' => true
+                'changes' => true,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -316,20 +355,23 @@ class DynamicFormController extends Controller
         if ($form) {
             $columns = DynamicFormColumn::where('dynamic_form_id', $form->id)->get();
             $values = DynamicFormValue::where('dynamic_form_id', $form->id)
-                ->orderBy('id') // Ordenar por ID para mantener el orden original
+                ->orderBy('row_index') // <--- Change from orderBy('id') to orderBy('row_index')
                 ->get();
             // Extraer y agrupar todas las actividades (primeras filas)
             $activityColumnId = $columns->where('column_name', 'Actividad')->first()->id ?? null;
             $activities = [];
 
             if ($activityColumnId) {
-                $activityValues = $values->where('dynamic_form_column_id', $activityColumnId);
-                foreach ($activityValues as $activityValue) {
-                    $activities[] = $activityValue->value;
-                }
+                // Fetch activity values specifically, ordered by row_index to match the main values query
+                $activityValues = DynamicFormValue::where('dynamic_form_id', $form->id)
+                    ->where('dynamic_form_column_id', $activityColumnId)
+                    ->orderBy('row_index') // Order activity values by row_index
+                    ->pluck('value') // Get only the values
+                    ->toArray();
+                $activities = $activityValues; // activities array now ordered by row_index
 
                 // Registrar las actividades encontradas para depuración
-                \Log::info('Actividades encontradas:', [
+                \Log::info('Actividades encontradas (ordenadas por row_index):', [
                     'count' => count($activities),
                     'activities' => $activities
                 ]);
@@ -338,26 +380,30 @@ class DynamicFormController extends Controller
 
             \Log::info('Datos del formulario:', [
                 'form_name' => $formName,
-                'columnas' => $columns->count(),
+                'columns' => $columns->count(),
                 'valores' => $values->count(),
                 'puntaje_maximo' => $form->puntaje_maximo,
                 'acreditacion' => $form->acreditacion ?? 'No encontrado',
+                'filas' => $form->filas ?? 'No calculado', // Include filas and columnas in the response
+                'columnas' => $form->columnas ?? 'No calculado',
             ]);
 
             return response()->json([
                 'success' => true,
+                'form_id' => $form->id, // Include form_id in the response
                 'columns' => $columns,
-                'values' => $values,
+                'values' => $values, // Values are now ordered by row_index
                 'puntaje_maximo' => $form->puntaje_maximo,
-                'acreditacion' => $form->acreditacion, // Asegúrate de incluir este campo
-                'activities' => $activities // Incluir actividades en la respuesta
+                'acreditacion' => $form->acreditacion,
+                'activities' => $activities, // Activities array is now ordered by row_index
+                'filas' => $form->filas, // Pass filas and columnas to the frontend
+                'columnas' => $form->columnas,
             ]);
         } else {
             \Log::info('Formulario no encontrado para:', ['formName' => $formName]);
             return response()->json(['success' => false, 'message' => 'Formulario no encontrado.']);
         }
     }
-
 
 
     public function getFormId($formName)

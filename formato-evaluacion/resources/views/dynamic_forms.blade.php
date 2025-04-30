@@ -714,41 +714,79 @@ function updateSubheaderId(input, id) {
     }
 
     async function guardarTabla() {
-        try {
-            const formName = document.getElementById('formName').value;
-            const puntajeMaximo = document.getElementById('puntajeMaximo').value;
-            let acreditacion = '';
-            const acreditacionInput = document.querySelector('tr input#acreditacion');
-            if (acreditacionInput) {
-                acreditacion = acreditacionInput.value;
-            } const formTypeMatch = formName.match(/^([\d.]+(_[\d.]+)*)?(?=\s|$)/); // Matches the numeric part with dots
-            const formType = formTypeMatch ? 'form' + formTypeMatch[0] : 'form'; // Construct formType
+        const formName = document.getElementById('formName').value;
+        const puntajeMaximo = document.getElementById('puntajeMaximo').value;
+        const acreditacion = document.getElementById('acreditacion').value; // Capture acreditacion
+        const formType = 'form' + formName.split(' ')[0].replace(/\./g, '_'); // Example formType generation
 
-            
-            const rows = document.querySelectorAll('#dynamicTable tbody tr');
-            tableData.length = 0;
-            rows.forEach((row) => {
-                const rowData = Array.from(row.querySelectorAll('input')).map((input) => input.value);
-                tableData.push(rowData);
+        // Capture the values from the input fields for rows and columns
+        const numRows = document.getElementById('numRows').value;
+        const numColumns = document.getElementById('numColumns').value;
+
+        // --- Start: Collect Table Data in the Correct Format ---
+        const tableData = [];
+        const columnNames = [];
+        const table = document.getElementById('dynamicTable'); // Assuming your dynamic table has this ID
+
+        if (table) {
+            const headerRow = table.querySelector('thead tr');
+            const headerCells = headerRow.querySelectorAll('th input'); // Get the input elements in the header
+
+            // Collect column names from the header inputs
+            headerCells.forEach(headerInput => {
+                columnNames.push(headerInput.value);
             });
-            const headerInputs = document.querySelectorAll('#dynamicTable thead th input');
-            // Declare and initialize columnNames
-            const columnNames = headerInputs.length > 0
-                ? Array.from(headerInputs).map(input => input.value || input.placeholder)
-                : ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
-            const formData = {
-                form_name: formName,
-                form_type: formType, // Add this line
-                puntaje_maximo: puntajeMaximo,
-                table_data: tableData,
-                column_names: columnNames, // Include column names
-                user_id: document.querySelector('input[name="user_id"]').value,
-                email: document.querySelector('input[name="email"]').value,
-                user_type: document.querySelector('input[name="user_type"]').value,
-                acreditacion: acreditacion,
-                
-            };
 
+            const dataRows = table.querySelectorAll('tbody tr'); // Get all data rows in the tbody
+
+            dataRows.forEach(row => {
+                const rowData = {};
+                const cells = row.querySelectorAll('td input'); // Get all input elements in the data cells
+
+                cells.forEach((cellInput, index) => {
+                    // Use the column name from the header corresponding to the cell's index
+                    const columnName = columnNames[index];
+                    if (columnName) {
+                        rowData[columnName] = cellInput.value;
+                    }
+                });
+                // Only add the row if it's not the special accreditation row
+                // You might need a more robust way to identify the accreditation row
+                if (!row.querySelector('td').textContent.includes('Acreditación')) {
+                    tableData.push(rowData);
+                }
+            });
+        }
+
+        console.log('Collected tableData:', tableData);
+        console.log('Collected columnNames:', columnNames);
+        // --- End: Collect Table Data in the Correct Format ---
+
+
+        // Basic validation
+        if (!formName || !puntajeMaximo || tableData.length === 0) {
+            alert('Por favor, complete todos los campos y genere la tabla con datos.');
+            return;
+        }
+
+
+        const formData = {
+            form_name: formName,
+            puntaje_maximo: parseFloat(puntajeMaximo),
+            table_data: tableData, // This is now an array of objects with column names as keys
+            user_id: {{ Auth::id() }}, // Assuming user is authenticated
+            email: '{{ Auth::user()->email }}', // Assuming user email is available
+            user_type: document.querySelector('input[name="user_type"]').value, // Assuming user_type is in an input
+            acreditacion: acreditacion,
+            filas: parseInt(numRows), // Add the captured number of rows
+            columnas: parseInt(numColumns), // Add the captured number of columns
+            column_names: columnNames // Send the collected column names
+        };
+
+        console.log('Datos a enviar:', formData); // Log data being sent
+
+
+        try {
             const response = await fetch('/dynamic-form/store', {
                 method: 'POST',
                 headers: {
@@ -761,6 +799,7 @@ function updateSubheaderId(input, id) {
             if (!response.ok) {
                 const errorData = await response.json();
                 const errorMessage = errorData.message || 'Error al guardar el formulario.';
+                console.error('Server response error:', errorData); // Log the server error response
                 throw new Error(errorMessage);
             }
 
@@ -774,18 +813,20 @@ function updateSubheaderId(input, id) {
                     puntajeMaximo,
                     tableData,
                     acreditacion,
+                    numRows, // Log the captured values
+                    numColumns
                 });
 
+                // Redirect or update UI as needed
                 window.location.href = `{{ route('secretaria') }}?formType=${formType}&formName=${encodeURIComponent(formName)}`;
             } else {
-                alert('Error al guardar el formulario.');
+                alert('Error al guardar el formulario: ' + (data.message || 'Error desconocido.'));
             }
         } catch (error) {
             console.error('Error:', error);
             alert(`Error al guardar el formulario: ${error.message}`);
         }
     }
-    
 </script>
 
 </body>

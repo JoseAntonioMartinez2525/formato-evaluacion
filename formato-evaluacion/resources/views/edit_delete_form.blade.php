@@ -164,15 +164,12 @@ $existingFormNames = [];
         const dynamicTableContainer = document.getElementById('dynamicTableContainer');
 
         console.log('Selected Form Type:', selectedForm); // Log the selected form type
-
-        // Add these logs
         console.log('Selected Form ID:', selectedFormId);
         console.log('Form Action Before:', document.getElementById('editDeleteForm').action);
 
         document.getElementById('form_id').value = selectedFormId;
         document.getElementById('editDeleteForm').action = `/forms/${selectedFormId}`;
 
-        // Add this log
         console.log('Form Action After:', document.getElementById('editDeleteForm').action);
 
 
@@ -182,13 +179,13 @@ $existingFormNames = [];
                 .then(data => {
                     console.log('Returned Data:', data);
                     console.log('Columns:', data.columns); // Log the columns
-                    console.log('Values:', data.values); // Log the values
+                    console.log('Values:', data.values); // Log the values received from the backend (should have row_index)
                     console.log('Puntaje máximo:', data.puntaje_maximo);
                     console.log('Acreditación:', data.acreditacion); // Log the acreditación
-                    console.log('Activities:', data.activities); // Log actividades
-                    if (data.success) {
 
+                    if (data.success) {
                         dynamicTableContainer.innerHTML = '';
+
                         // Mostrar el puntaje máximo en la parte superior con fondo negro
                         let tableHTML = `<div style="margin-bottom: 10px;"><strong>Puntaje máximo</strong> <input value="${data.puntaje_maximo}" style="background-color: #000; color:#ffff; font-weight:bold; text-align:center; padding: 2px 10px;"></input></div>`;
 
@@ -200,192 +197,118 @@ $existingFormNames = [];
                         tableHTML += '<th>Actividad</th>';
 
                         // Agregar los nombres de las columnas dinámicas
-                        const columnNames = data.columns.map(column => column.column_name);
-                        // Filtrar solo subencabezados dinámicos (excluyendo los fijos)
                         const fixedHeaders = ['Actividad', 'Puntaje a evaluar', 'Puntaje de la Comisión Dictaminadora', 'Observaciones'];
                         const dynamicColumnNames = data.columns
                             .map(column => column.column_name)
                             .filter(name => !fixedHeaders.includes(name));
+
+                        // Create a map from column ID to column name for easier lookup
+                        const columnIdToNameMap = data.columns.reduce((acc, column) => {
+                            acc[column.id] = column.column_name;
+                            return acc;
+                        }, {});
+
+                        console.log('Column ID to Name Map:', columnIdToNameMap); // Log the column map
+
+
                         // Agregar solo las columnas dinámicas (subencabezados)
                         dynamicColumnNames.forEach(columnName => {
                             tableHTML += `<th><input value="${columnName}" readonly class="form-control"/></th>`;
                         });
 
-
                         tableHTML += '<th>Puntaje a evaluar</th>';
                         tableHTML += '<th>Puntaje de la Comisión Dictaminadora</th>';
                         tableHTML += '<th>Observaciones</th>';
                         tableHTML += '</tr></thead><tbody>';
-                        // Agrupar valores por actividad para mantener las filas juntas
-                        // Identificar actividades únicas (primera columna)
-                        const activities = [];
-                        const activityValues = {};
-                        // Filtrar valores de la columna de Actividad
-                        const activityColumnId = data.columns.find(col => col.column_name === 'Actividad')?.id;
 
-                        if (activityColumnId) {
-                            // Obtener todos los valores de actividad
-                            const activityData = data.values.filter(val => val.dynamic_form_column_id === activityColumnId);
-
-                            // Para cada actividad, obtener todos sus valores asociados
-                            activityData.forEach(activity => {
-                                if (!activities.includes(activity.value)) {
-                                    activities.push(activity.value);
-                                    activityValues[activity.value] = {
-                                        subheaders: {},
-                                        puntajeEvaluar: "0",
-                                        puntajeComision: "0",
-                                        observaciones: "comentarios"
-                                                                        };
+                        // Group values by row_index
+                        const valuesByRow = data.values.reduce((acc, valueItem) => {
+                            // Ensure valueItem has a row_index and a valid column ID
+                            if (valueItem.row_index !== undefined && valueItem.row_index !== null && valueItem.dynamic_form_column_id) {
+                                const rowIndex = valueItem.row_index;
+                                if (!acc[rowIndex]) {
+                                    acc[rowIndex] = {};
+                                    // Initialize all expected columns for this row to ensure structure
+                                    fixedHeaders.forEach(header => {
+                                        acc[rowIndex][header] = '';
+                                    });
+                                    dynamicColumnNames.forEach(dynamicColName => {
+                                        acc[rowIndex][dynamicColName] = '';
+                                    });
+                                    acc[rowIndex]['row_index'] = rowIndex; // Store the row index in the row object
                                 }
-                            });
-                        }
+                                const columnName = columnIdToNameMap[valueItem.dynamic_form_column_id];
 
-                        // Si no hay actividades, usar el nombre del formulario como actividad
-                        if (activities.length === 0) {
-                            activities.push(selectedForm);
-                            activityValues[selectedForm] = {
-                                subheaders: {},
-                                puntajeEvaluar: "0",
-                                puntajeComision: "0",
-                               
-                            };
-                        }
+                                if (columnName) {
+                                    acc[rowIndex][columnName] = valueItem.value;
+                                    console.log(`Assigned value "${valueItem.value}" to row ${rowIndex}, column "${columnName}" (ID: ${valueItem.dynamic_form_column_id})`);
+                                } else {
+                                    console.warn(`No column name found for column ID ${valueItem.dynamic_form_column_id} in row ${rowIndex}. Value: "${valueItem.value}"`);
+                                }
+                            } else {
+                                console.warn('Value item missing row_index or column ID, skipping:', valueItem);
+                            }
+                            return acc;
+                        }, {});
 
-                        // Si hay una segunda actividad (como "Derechos de autor"), asegúrate de que tenga valores
-                        if (activities.length < 2) {
-                            const formId = document.getElementById('form_id').value;
+                        console.log('Values Grouped by Row:', valuesByRow); // Log the grouped values
 
-                            fetch(`/get-first-non-numeric-value/${formId}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        const secondValue = data.value || "No encontrado";
-                                        console.log('Primer valor no numérico:', secondValue);
-
-                                        // Usar el valor dinámico en tu lógica
-                                        activities.push(secondValue);
-                                        activityValues[secondValue] = {
-                                            subheaders: {},
-                                            puntajeEvaluar: "0",
-                                            puntajeComision: "0",
-                                            
-                                        };
-                                    } else {
-                                        console.error('Error al obtener el valor:', data.message);
-                                    }
-                                })
-                                .catch(error => console.error('Error en la solicitud:', error));
-                        }
-
-
-                        
-                        // Agrupar valores por columna
-                        const valuesByColumn = {};
-                        data.columns.forEach(column => {
-                            valuesByColumn[column.id] = data.values.filter(value => 
-                                value.dynamic_form_column_id === column.id
-                            );
-                        });
-
-                        // Obtener los IDs de las columnas
-                        const columnIds = Object.keys(valuesByColumn);
-
-                        // Obtener todos los valores como un array plano para filtrar después
-                        const allValues = data.values.map(item => item.value);
-
-                        // Primera fila: formName y valores
+                        // Add the first row with the form name (special case as per your example)
                         tableHTML += '<tr>';
-                        tableHTML += `<td><input value="${selectedForm}" readonly class="form-control"/></td>`; // formName en la primera columna
+                        tableHTML += `<td><input value="${selectedForm}" readonly class="form-control"/></td>`; // formName in the first column
 
-                        // Agregar celdas para cada columna dinámica
-                        //(subencabezados)
+                        // Add empty cells for dynamic columns in the first row
                         dynamicColumnNames.forEach(columnName => {
-                            // Buscar el ID de columna para este nombre
-                            const column = data.columns.find(c => c.column_name === columnName);
-                            if (column) {
-                                const columnId = column.id;
-                                const columnValues = valuesByColumn[columnId] || [];
-                                const columnValue = columnValues.find(value => !isNaN(value.value) && parseFloat(value.value) > 0)?.value || '';
-                                
-                                
-                                tableHTML += '<td></td>';
-                            } 
+                            tableHTML += '<td></td>';
                         });
 
-                        // Celdas para puntaje a evaluar y comisión con estilos
+                        // Add default values for fixed columns in the first row with styles
                         tableHTML += '<td style="background-color: #0b5967; color: #ffff;">0</td>';
                         tableHTML += '<td style="background-color: #ffcc6d;">0</td>';
-                        // Observaciones 
-                        tableHTML += '<td></td>';
-                         
+                        tableHTML += '<td></td>'; // Empty cell for observations
                         tableHTML += '</tr>';
 
-                        // Segunda fila: valor dinámico (que no sea formName, nombre de columna, ni número)
-                        // Encontrar un valor que no sea el nombre del formulario, ni nombre de columna, ni puntaje_maximo, ni un número
-                        let secondRowValue = '';
-                        let dynamicValue = '';
-                        for (let i = 0; i < data.values.length; i++) {
-                            
-                            const value = data.values[i].value;
 
-                            if (
-                                value !== selectedForm && // No es el nombre del formulario
-                                !columnNames.includes(value) && // No es un nombre de columna
-                                value !== data.puntaje_maximo && // No es el puntaje máximo
-                                value.trim() !== '' // No es una cadena vacía
-                            ) {
-                                secondRowValue = value;
-                                // Buscar el valor dinámico asociado a la columna
-                                const columnId = data.values[i].dynamic_form_column_id;
-                                const column = data.columns.find(c => c.id === columnId);
-                                if (column) {
-                                    dynamicValue = data.values.find(v => v.dynamic_form_column_id === column.id)?.value || '';
-                                }
-                                break;
+                        // Iterate through grouped rows (sorted by row_index) and create table rows
+                        // Use Object.keys to get row indices and sort them numerically
+                        Object.keys(valuesByRow).sort((a, b) => a - b).forEach(rowIndex => {
+                            const row = valuesByRow[rowIndex];
+
+                            // Basic check to ensure the row has an 'Actividad' value before rendering as a data row
+                            // You might refine this condition based on your specific data
+                            if (!row['Actividad'] || row['Actividad'] === selectedForm) { // Added check to skip if Actividad is empty or matches form name
+                                console.warn(`Skipping row ${rowIndex} as it does not have a valid Actividad value:`, row);
+                                return;
                             }
-                        }
 
-                        // Si no encontramos un valor adecuado, usar un valor predeterminado
-                        if (!secondRowValue) {
-                            secondRowValue = 'Valor adicional';
-                        }
 
-                        tableHTML += '<tr>';
-                        tableHTML += `<td><input value="${secondRowValue}" class="form-control"/></td>`;
+                            tableHTML += '<tr>';
 
-                        // Celdas para cada columna dinámica
-                        dynamicColumnNames.forEach(columnName => {
-                            const column = data.columns.find(c => c.column_name === columnName);
-                            if (column) {
-                                const columnId = column.id;
+                            // Add cell for 'Actividad'
+                            tableHTML += `<td><input value="${row['Actividad'] || ''}" class="form-control"/></td>`;
 
-                                // Buscar el primer valor numérico diferente de 0 asociado a esta columna
-                                const columnValue = data.values
-                                    .filter(v => v.dynamic_form_column_id === columnId) // Filtrar valores de esta columna
-                                    .map(v => parseFloat(v.value)) // Convertir a números
-                                    .find(value => !isNaN(value) && value > 0) || ''; // Tomar el primer valor > 0 o dejar vacío
+                            // Add cells for dynamic columns
+                            dynamicColumnNames.forEach(columnName => {
+                                const cellValue = row[columnName] || '';
+                                tableHTML += `<td><input value="${cellValue}" class="form-control"/></td>`;
+                            });
 
-                                // Agregar el valor dinámico a la celda
-                                tableHTML += `<td><input value="${columnValue}" class="form-control"/></td>`;
-                            } else {
-                                // Si no hay valor asociado, dejar la celda vacía
-                                tableHTML += '<td><input value="" class="form-control"/></td>';
-                            }
+                            // Add cells for fixed columns
+                            // Use values from the reconstructed row, defaulting to '0' or '' if not present
+                            tableHTML += `<td><input value="${row['Puntaje a evaluar'] || '0'}" class="form-control"/></td>`;
+                            tableHTML += `<td><input value="${row['Puntaje de la Comisión Dictaminadora'] || '0'}" class="form-control"/></td>`;
+                            tableHTML += `<td><input value="${row['Observaciones'] || ''}" class="form-control"/></td>`;
+
+                            tableHTML += '</tr>';
                         });
 
-                        // Celdas para puntaje y observaciones (ahora correctamente alineadas)
-                        tableHTML += '<td><input value="0"class="form-control"/></td>';
-                        tableHTML += '<td><input value="0"class="form-control"/></td>';
-                        tableHTML += '<td><input value="comentarios"class="form-control"/></td>';
-                        tableHTML += '</tr>';
 
-                        // Tercera fila: Acreditación
+                        // Acreditación row
                         tableHTML += '<tr>';
                         tableHTML += '<td>Acreditación:</td>';
 
-                        // Calcular el número de columnas (incluye las dinámicas + las fijas)
-                        const totalColumnSpan = dynamicColumnNames.length + 3; // 3 = columnas fijas (Puntaje a evaluar, Comisión, Observaciones)
+                        // Calculate the number of columns (includes dynamic + fixed)
+                        const totalColumnSpan = dynamicColumnNames.length + 3; // 3 = fixed columns (Puntaje a evaluar, Comisión, Observaciones)
                         tableHTML += `<td colspan="${totalColumnSpan}">`;
                         tableHTML += `<input id="acreditacion" type="text" value="${data.acreditacion || ''}" placeholder="Información sobre acreditación" class="form-control">`;
                         tableHTML += '</td>';
@@ -396,9 +319,6 @@ $existingFormNames = [];
                         // Agregar la tabla al contenedor
                         dynamicTableContainer.innerHTML = tableHTML;
 
-                        // Añadir el campo para editar el puntaje máximo
-                        dynamicTableContainer.innerHTML += `
-    `;
                     } else {
                         alert('Error fetching form data.');
                     }
@@ -408,7 +328,7 @@ $existingFormNames = [];
             dynamicTableContainer.innerHTML = ''; // Clear the container if no form is selected
         }
     });
-
+    
     function deleteForm() {
         var formId = document.getElementById('form_id').value;
         if (!formId) {
