@@ -111,14 +111,14 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
                     @endforeach
 
                 </select>
-                <!--Funcionalidad en caso de nuevos formularios
-                <div class="container mt-3">
+                <!--Funcionalidad en caso de nuevos formularios-->
+                <div class="container mt-3" style="display: none;">
                     <label for="teacherSelect">Seleccionar Docente:</label>
                     <select id="teacherSelect" class="form-select">
                         <option value="">Seleccionar un docente</option>
                     </select>
                 </div>
-                -->
+                
             </div>
 
             <div id="formContainer">
@@ -837,7 +837,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Ocurrió un error al enviar los datos.');
             });
     } 
-
+/*
     // Manejar la selección de un docente en formularios dinámicos
         docenteDynamicSelect.addEventListener('change', (event) => {
             const selectedDocenteEmail = event.target.value;
@@ -859,6 +859,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
             }
         });
+        */
+        
     
 function guardarDatosComision(formId, docenteEmail) {
     const rows = [];
