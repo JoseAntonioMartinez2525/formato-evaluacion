@@ -831,17 +831,16 @@ $user_identity = $user->id;
             formData['comisionIncisoB'] = form.querySelector('input[id="comisionIncisoB"]').value;
             formData['comisionIncisoC'] = form.querySelector('input[id="comisionIncisoC"]').value;
             formData['comisionIncisoD'] = form.querySelector('input[id="comisionIncisoD"]').value;   
-            formData['comisionIncisoE'] = form.querySelector('input[id="comisionIncisoE"]').value;                      
-            const scores = document.querySelectorAll('.score3_1'); // Selecciona todos los elementos con la clase 'score3_1'
+            formData['comisionIncisoE'] = form.querySelector('input[id="comisionIncisoE"]').value;  
+            
+            // Selecciona todos los elementos con la clase 'score3_1' 
+                const score3_1Element = document.querySelector('.score3_1');                formData['score3_1'] = score3_1Element ? score3_1Element.textContent : null;
 
-            scores.forEach((element, index) => {
-                formData[`score3_1_${index}`] = element.textContent; // Asigna los valores dinámicamente con un índice
-            });
+                formData['score3_1'] = score3_1Element ? score3_1Element.textContent : null;
 
-            const actv3ComisionElements = document.querySelectorAll('.actv3Comision');
-            actv3ComisionElements.forEach((element, index) => {
-                formData[`actv3Comision_${index}`] = element.textContent; // Asigna los valores dinámicamente con un índice
-            });
+
+             const actv3ComisionElement = document.querySelector('.actv3Comision');
+                formData['actv3Comision'] = actv3ComisionElement ? actv3ComisionElement.textContent : null;
 
             // Observations
             formData['obs3_1_1'] = form.querySelector('input[name="obs3_1_1"]').value;
