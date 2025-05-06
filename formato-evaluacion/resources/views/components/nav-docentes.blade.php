@@ -33,12 +33,14 @@
                             <i class="fas fa-chalkboard-teacher"></i>&nbspCalidad en la docencia
                         </a>
                     </li>
+                    <!--Funcionalidad en caso de nuevos formularios
                     <li class="nav-item">
                         {{-- Incluir formularios dinamicos deacuerdo a aquellos creados por el user = '' de dynamic_forms.blade.php y redirigirlos a la ruta de otros_formularios.blade.php --}}
                         <a class="nav-link active enlaceSN" style="width: 200px;" href="{{ route('otros_formularios') }}"
                             title="Otros formularios"><i class="fa-solid fa-folder-open"></i>&nbspOtros formularios</a>
 
                     </li>
+                    -->
                 </ul>
             </div>
 

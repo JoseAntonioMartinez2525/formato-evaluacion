@@ -3,6 +3,7 @@ $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
 $formType = request()->query('formType');
 $formName = request()->query('formName');
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 use App\Models\DynamicForm; // Ensure to include the model
 
 $forms = DynamicForm::all(); // Fetch all forms from the database
@@ -15,7 +16,8 @@ $existingFormNames = [];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Formato de Evaluación docente</title>
+    <link rel="icon" href="{{ $logo }}" type="image/png">
+    <title>Evaluación docente</title>
 
     <x-head-resources />
     <style>
@@ -78,6 +80,7 @@ $existingFormNames = [];
                 @if (Auth::check() && Auth::user()->user_type === '')
                     <x-nav-menu :user="Auth::user()">
                         <div>
+                            <!--Funcionalidad en caso de que se requiera un nuevo formulario
                             <ul style="list-style: none;">
                                 <li class="nav-item">
                                     <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
@@ -90,6 +93,7 @@ $existingFormNames = [];
                                             class="fa-solid fa-user-pen"></i>&nbspEditar/Eliminar</a>
                                 </li>
                             </ul>
+                            -->
                         </div>
                     </x-nav-menu>
                 @endif

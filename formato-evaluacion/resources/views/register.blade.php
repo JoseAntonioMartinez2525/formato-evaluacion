@@ -1,3 +1,6 @@
+@php
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
+@endphp
 <!DOCTYPE html>
 <!--
 Nombre del programador: José Antonio Martínez del Toro
@@ -11,11 +14,11 @@ Fecha de creación: 2024-06-03
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Registro</title>
+    <link rel="icon" href="{{ $logo }}" type="image/png">
+    <title>Evaluación docente</title>   
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 5" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
     <link rel="canonical" href="https://1.envato.market/vuexy_admin">
-    <!--<link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

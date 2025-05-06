@@ -966,6 +966,14 @@ body.dark-mode nav.nav.flex-column a:hover {
     border-radius: 90px 90px 90px 90px;
 }
 
+.logo-icon {
+    width: 32px;
+    /* Tamaño pequeño como un emoji */
+    height: 32px;
+    margin-right: 10px;
+    /* Espacio entre el logo y el texto */
+}
+
 
 
 

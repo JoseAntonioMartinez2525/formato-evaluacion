@@ -24,6 +24,7 @@
                     (A ser
                     llenado por la Comisión del PEDPD)</a>
             </li>
+            <!-- Funcionalidad en caso de nuevos formularios
             <li class="nav-item">
                 <a class="nav-link active enlaceSN" style="width: 200px;" href="{{route('dynamic_forms')}}">Ingresar
                     Nuevo formulario</a>
@@ -31,7 +32,10 @@
             <li class="nav-item">
                 <a class="nav-link active enlaceSN" style="width: 200px;"
                     href="{{route('edit_delete_form')}}">Editar/Eliminar formulario</a>
-            </li><br>
+            </li>
+    -->
+            <br>
+
         </nav>
     </form>
 </section>

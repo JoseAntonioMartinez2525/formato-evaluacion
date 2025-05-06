@@ -1,5 +1,6 @@
 @php
 $userType = Auth::user()->user_type;
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 @endphp
 <!DOCTYPE html>
 <!--
@@ -13,7 +14,8 @@ $userType = Auth::user()->user_type;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Formato de Evaluación docente</title>
+    <link rel="icon" href="{{ $logo }}" type="image/png">
+    <title>Evaluación docente</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"

@@ -2,6 +2,7 @@
 $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
 $existingFormNames = [];
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -10,7 +11,8 @@ $existingFormNames = [];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Editar/Eliminar Formulario</title>
+    <link rel="icon" href="{{ $logo }}" type="image/png">
+    <title>Evaluación docente</title> 
     <x-head-resources />
     <link href="{{ asset('css/edit_delete_form.css') }}" rel="stylesheet">
     <style>

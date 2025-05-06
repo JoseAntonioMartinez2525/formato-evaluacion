@@ -1,5 +1,6 @@
 @php
 $userType = Auth::user()->user_type;
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -8,7 +9,8 @@ $userType = Auth::user()->user_type;
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>FORMATO DE EVALUACION</title>
+  <link rel="icon" href="{{ $logo }}" type="image/png">
+  <title>Evaluación docente</title>
 
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -129,13 +131,14 @@ body.dark-mode nav.nav.flex-column a:hover {
       <a class="nav-link active enlaceSN" style="width: 250px;font-size: 20px;"  title="Formato de Evaluación docente"href="{{ route('welcome') }}"><i class="fa-solid fa-align-justify"></i>&nbspEvaluación</a>
       @endif
       </li>
-
+    <!-- Fucntionalidad en caso de necesitar realizar un nuevo formulario 
       @if(Auth::user()->user_type === '')
       <li class="nav-item">
       <a class="nav-link active enlaceSN" style="width: 300px;" href="{{route('dynamic_forms')}}"
       title="Ingresar nuevo formulario"><i class="fa-solid fa-folder-plus"></i>&nbspIngresar nuevo</a>
       </li>
       @endif
+      -->
       </ul>
       <ul class="deptos"><h5><i class="fa-solid fa-brain"></i>&nbspÁreas de Conocimiento:</h5>
       <li><i class="fa-solid fa-seedling"></i>&nbspAgropecuarias</li>
@@ -159,7 +162,7 @@ body.dark-mode nav.nav.flex-column a:hover {
 
       </x-nav-menu>
 
-  @endif
+    @endif
 
 
     <body class="font-sans antialiased">
@@ -193,23 +196,23 @@ body.dark-mode nav.nav.flex-column a:hover {
       <td>I</td>
       </tr>
       <?php
-    $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
-    $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-    for ($i = 0; $i < count($minima); $i += 2) {
+  $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
+  $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  for ($i = 0; $i < count($minima); $i += 2) {
     echo '<tr>';
     for ($j = 0; $j < 2; $j++) {
       echo '<td>' . $minima[$i + $j] . '</td>';
     }
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
-    }
+  }
       ?>
 
       </tbody>
       <?php
-    $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
-    $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
-    $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
+  $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
+  $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
       ?>
 
       <table class="table table-bordered table-container2">

@@ -1,13 +1,14 @@
 @php
 $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 @endphp
 <!DOCTYPE html>
 <html lang="">
 
 <head>
-    <title>Tutorías a estudiantes</title>
-    <meta charset="utf-10">
+    <link rel="icon" href="{{ $logo }}" type="image/png">
+    <title>Evaluación docente</title>    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

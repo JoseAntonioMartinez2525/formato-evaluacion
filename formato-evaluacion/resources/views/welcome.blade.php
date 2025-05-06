@@ -1,6 +1,7 @@
 @php
 $locale = app()->getLocale() ?: 'en';
 $newLocale = str_replace('_', '-', $locale);
+$logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $newLocale }}">
@@ -9,8 +10,9 @@ $newLocale = str_replace('_', '-', $locale);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Formato de Evaluación docente</title>
-
+  <link rel="icon" href="{{ $logo }}" type="image/png">
+  <title>Evaluación docente</title> 
+  
   <x-head-resources />
 <style>
   @media print {
