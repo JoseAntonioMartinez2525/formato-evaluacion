@@ -19,6 +19,8 @@ class DictaminatorForm3_1Controller extends TransferController
         
         
         try {
+            \Log::info('Inicio de storeform31');
+
             $validatedData = $request->validate([
                 'dictaminador_id' => 'required|numeric',
                 'user_id' => 'required|exists:users,id',
@@ -48,6 +50,8 @@ class DictaminatorForm3_1Controller extends TransferController
                 'user_type' => 'required|in:user,docente,dictaminator',
             ]);
 
+            \Log::info('Datos validados:', $validatedData);
+
             $validatedData['form_type'] = 'form3_1';
             
             if (!isset($validatedData['score3_1'])) {
@@ -60,9 +64,11 @@ class DictaminatorForm3_1Controller extends TransferController
             $validatedData['obs3_1_5'] = $validatedData['obs3_1_5'] ?? 'sin comentarios';
 
             
-                $response = DictaminatorsResponseForm3_1::create($validatedData);
+            $response = DictaminatorsResponseForm3_1::create($validatedData);
+            \Log::info('Datos guardados en DictaminatorsResponseForm3_1:', $response->toArray());
 
             $this->updateUserResponseComision($validatedData['user_id'], $validatedData['actv3Comision']);
+            \Log::info('updateUserResponseComision ejecutado');
 
             DB::table('dictaminador_docente')->insert([
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
@@ -72,26 +78,35 @@ class DictaminatorForm3_1Controller extends TransferController
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-                    $this->checkAndTransfer('DictaminatorsResponseForm3_1');
+
+            \Log::info('Datos insertados en dictaminador_docente');
+
+            $this->checkAndTransfer('DictaminatorsResponseForm3_1');
+            \Log::info('checkAndTransfer ejecutado');
 
             event(new EvaluationCompleted($validatedData['user_id']));
+            \Log::info('Evento EvaluationCompleted disparado');
+
             return response()->json([
                 'success' => true,
                 'message' => 'Data successfully saved',
                 'data' => $validatedData,
             ], 200);
         } catch (ValidationException $e) {
+            \Log::error('ValidationException:', $e->errors());
             return response()->json([
                 'success' => false,
                 'message' => 'Validation failed',
                 'errors' => $e->errors()
             ], 422);
         } catch (QueryException $e) {
+            \Log::error('QueryException:', ['message' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => 'Database error: ' . $e->getMessage(),
             ], 500);
         } catch (\Exception $e) {
+            \Log::error('Exception:', ['message' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => 'An unexpected error occurred: ' . $e->getMessage(),
@@ -127,11 +142,17 @@ class DictaminatorForm3_1Controller extends TransferController
     private function updateUserResponseComision($userId, $comisionValue)
     {
         // Buscar el registro de UsersResponseForm2 correspondiente y actualizar comision1
+        \Log::info('Buscando registro en UsersResponseForm3_1 para user_id: ' . $userId);
+
         $userResponse = UsersResponseForm3_1::where('user_id', $userId)->first();
 
         if ($userResponse) {
             $userResponse->actv3Comision = $comisionValue;
             $userResponse->save();
+            \Log::info('Registro actualizado en UsersResponseForm3_1 para user_id: ' . $userId);
+
+        } else {
+            \Log::warning('No se encontró registro en UsersResponseForm3_1 para user_id: ' . $userId);
         }
     }
 

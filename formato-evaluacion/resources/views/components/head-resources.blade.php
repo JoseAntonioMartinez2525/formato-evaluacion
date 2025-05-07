@@ -17,6 +17,7 @@
 <script src="{{ asset('js/minimos.js') }}"></script>
 <script src="{{ asset('js/privileges.js') }}"></script>
 <script src="{{ asset('js/puntajeMaximo3_8_1.js') }}"></script>
+<script src="{{ asset('js/messages.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/polyfills.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>

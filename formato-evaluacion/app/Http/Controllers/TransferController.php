@@ -43,7 +43,7 @@ class TransferController extends Controller
             case 'DictaminatorsResponseForm2_2':
                 return DB::table('dictaminators_response_form2_2')->whereNotNull('actv2Comision')->exists();
             case 'DictaminatorsResponseForm3_1':
-                return DB::table('dictaminators_response_form3_1')->whereNotNull('actv2Comision')->exists();
+                return DB::table('dictaminators_response_form3_1')->whereNotNull('actv3Comision')->exists();
             case 'DictaminatorsResponseForm3_2':
                 return DB::table('dictaminators_response_form3_2')->whereNotNull('comision3_2')->exists();
             case 'DictaminatorsResponseForm3_3':
