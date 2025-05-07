@@ -920,7 +920,10 @@ $user_identity = $user->id;
             }
 
             formData['score3_18'] = document.querySelector('.score3_18').textContent;
-            formData['comision3_18'] = document.querySelector('.comision3_18').textContent;
+            
+            // Comision
+            const comisionElement = document.querySelector('.comision3_18');
+            formData['comision3_18'] = comisionElement ? comisionElement.textContent : '0';
 
             // Observations
 

@@ -711,6 +711,7 @@ $user_identity = $user->id;
 
 
             formData['score3_16'] = document.querySelector('.score3_19').textContent;
+            
             formData['comision3_16'] = document.querySelector('.comision3_19').textContent;
 
             // Observations

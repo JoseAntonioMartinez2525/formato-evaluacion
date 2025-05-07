@@ -1263,7 +1263,11 @@ $page_counter = 28;
             }
 
             formData['score3_19'] = document.querySelector('.score3_19').textContent;
-            formData['comision3_19'] = document.querySelector('.comision3_19').textContent;
+            
+            // Comision
+            const comisionElement = document.querySelector('.comision3_19');
+            formData['comision3_19'] = comisionElement ? comisionElement.textContent : '0';
+
 
             // Observations
 
@@ -1275,6 +1279,8 @@ $page_counter = 28;
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json', 
+
                     },
                     body: JSON.stringify(formData),
                 });

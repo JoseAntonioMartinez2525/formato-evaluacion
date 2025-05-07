@@ -311,7 +311,11 @@ function onActv3Comision3_16(){
   //Comision minimo Resultante
   const comision3_16 = min30(comisionArbInt,comisionArbNac,comisionPubInt,comisionPubNac,comisionRevInt,comisionRevNac,comisionRevista);
 
-  document.getElementById("comision3_16").innerHTML = comision3_16;
+  // Actualizar todos los elementos con la clase "comision3_19"
+  document.querySelectorAll('.comision3_16').forEach(element => {
+      element.textContent = comision3_16.toFixed(2);
+  });
+  
   console.log("Minimo Resultante de Comision 3.16: ", comision3_16);
 
 
@@ -358,7 +362,11 @@ function onActv3Comision3_18(){
     comisionComApoyoNac,comisionComApoyoReg,comisionCicloComOrgInt,comisionCicloComOrgNac, 
     comisionCicloComOrgReg,comisionCicloComApoyoInt,comisionCicloComApoyoNac,comisionCicloComApoyoReg);
 
-  document.getElementById("comision3_18").innerHTML = comision3_18;
+    // Actualizar todos los elementos con la clase "comision3_19"
+    document.querySelectorAll('.comision3_18').forEach(element => {
+        element.textContent = comision3_18.toFixed(2);
+    });
+
   console.log("Minimo Resultante de Comision 3.18: ", comision3_18);
 
 
@@ -394,8 +402,12 @@ function onActv3Comision3_19(){
     comCAACintegCom, comComDepart, comComPEDPD, comComPartPos, comRespPos, comRespCarrera, comRespProd, comRespLab, 
     comExamProf, comExamAcademicos, comPRODEPformResp, comPRODEPformInteg, comPRODEPenconsResp, comPRODEPenconsInteg, comPRODEPconsResp, comPRODEPconsInteg);
 
-  document.getElementById("comision3_19").innerHTML = comision3_19;
-  console.log("Minimo Resultante de Comision 3.19: ", comision3_19);
+    // Actualizar todos los elementos con la clase "comision3_19"
+    document.querySelectorAll('.comision3_19').forEach(element => {
+        element.textContent = comision3_19.toFixed(2);
+    });
+
+        console.log("Minimo Resultante de Comision 3.19: ", comision3_19);
 
   
 }
