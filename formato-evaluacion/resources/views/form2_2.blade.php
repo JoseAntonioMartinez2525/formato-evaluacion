@@ -378,6 +378,12 @@ $user_identity = $user->id;
 
             let responseData = await response.json();
             console.log('Response received from server:', responseData);
+            
+            if (responseData.success) {
+                showMessage('Formulario enviado', 'green');
+            } else {
+                showMessage('Formulario no enviado', 'red');
+            }
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }

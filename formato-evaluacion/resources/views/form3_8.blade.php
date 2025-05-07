@@ -408,6 +408,13 @@ async function agregarDocente(dictaminadorId, docenteEmail) {
 
                 const responseData = await response.json();
                 console.log('Response received from server:', responseData);
+
+                                //Mensaje al usuario
+                if (responseData.success) {
+                    showMessage('Formulario enviado', 'green');
+                } else {
+                    showMessage('Formulario no enviado', 'red');
+                }
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }

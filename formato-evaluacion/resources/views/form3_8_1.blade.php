@@ -41,9 +41,9 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 </div>
 <x-general-header />
 @php
-    $user = Auth::user();
-    $userType = $user->user_type;
-    $user_identity = $user->id; 
+$user = Auth::user();
+$userType = $user->user_type;
+$user_identity = $user->id; 
 @endphp
 
     <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
@@ -410,9 +410,18 @@ async function submitForm(url, formId) {
 
         if (!response.ok) {
             showNotification('Formulario enviado con éxito', 'success');
-            const responseData = await response.json();
-            console.log('Response received from server:', responseData);
+            
+        }
+        const responseData = await response.json();
+        console.log('Response received from server:', responseData);
+
+        //Mensaje al usuario
+        if (responseData.success) {
+            showMessage('Formulario enviado', 'green');
         } else {
+            showMessage('Formulario no enviado', 'red');
+        }
+        else {
             showNotification('Formulario no enviado', 'error');
         }
     } catch (error) {

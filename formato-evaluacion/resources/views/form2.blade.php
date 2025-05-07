@@ -413,6 +413,15 @@ $user_identity = $user->id;
                     throw new Error('Network response was not ok');
                 }
 
+                const responseData = await response.json();
+            console.log('Response received from server:', responseData);
+
+                if (responseData.success) {
+                    showMessage('Formulario enviado', 'green');
+                } else {
+                    showMessage('Formulario no enviado', 'red');
+                }
+
                 let responseData = JSON.parse(text);
                 console.log('Response received from server:', responseData);
                  await agregarDocentes(user_identity, formData['email']);
