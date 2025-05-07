@@ -3673,12 +3673,19 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
                             const responseText = await response.text(); // Obtener la respuesta como texto
                             console.log('Raw response from server:', responseText); // Ver qué se devuelve
 
+                            if (responseText.success) {
+                                showMessage('Formulario no enviado', 'red');
+                            } else {
+                                showMessage('Formulario enviado', 'green'); 
+                            }
+
                             if (!response.ok) {
                                 throw new Error('Network response was not ok ' + response.statusText);
                             }
 
-                            let data = await response.json(); // Esto será seguro de usar si estás seguro de que la respuesta es JSON
+                            let data = await response.json(); // si la respuesta es JSON
                             console.log('Response received from server:', data);
+
                         } catch (error) {
                             console.error('There was a problem with the fetch operation:', error);
                         }
@@ -3797,7 +3804,7 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
             'btn3_17': 300,
             'btn3_18': -230,
             'btn3_19': 240
-            
+
         };
 
         // Function to adjust margin for a single button

@@ -418,9 +418,7 @@ async function submitForm(url, formId) {
         //Mensaje al usuario
         if (responseData.success) {
             showMessage('Formulario enviado', 'green');
-        } else {
-            showMessage('Formulario no enviado', 'red');
-        }
+        } 
         else {
             showNotification('Formulario no enviado', 'error');
         }

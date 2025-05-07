@@ -230,8 +230,11 @@ const comisionWeb = parseFloat(document.querySelector('input[id^="comisionWeb"]'
 
   //minimo resultante Comision
   const comision3_12 = Math.min(sumaCom3_12,150);
-  document.getElementById("comision3_12").innerHTML = comision3_12;
-  console.log("Minimo Resultante de Comision 3.12: ", comision3_12);
+  
+  // Actualizar todos los elementos con la clase "comision3_12"
+    document.querySelectorAll('.comision3_12').forEach(element => {
+        element.textContent = comision3_12.toFixed(2);
+    });  console.log("Minimo Resultante de Comision 3.12: ", comision3_12);
 
 
   

@@ -45,7 +45,7 @@ class DictaminatorForm3_15Controller extends TransferController
             // Actualizar automáticamente el modelo docente con la comision
             $this->updateUserResponseComision($validatedData['user_id'], $validatedData['comision3_15']);
             DB::table('dictaminador_docente')->insert([
-                'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
+                //'dictaminador_form_id' => $response->id, // Asegúrate de que este ID exista
                 'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
                 'dictaminador_id' => $response->dictaminador_id,
                 'form_type' => 'form3_15', // O el tipo de formulario correspondiente
