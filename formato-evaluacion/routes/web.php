@@ -190,11 +190,11 @@ Route::post('/store-form311', [DictaminatorForm3_11Controller::class, 'storeform
 Route::post('/store-form312', [DictaminatorForm3_12Controller::class, 'storeform312'])->withoutMiddleware('auth');
 Route::post('/store-form313', [DictaminatorForm3_13Controller::class, 'storeform313'])->withoutMiddleware('auth');
 Route::post('/store-form314', [DictaminatorForm3_14Controller::class, 'storeform314'])->withoutMiddleware('auth');
-Route::post('/store-form315', [DictaminatorForm3_15Controller::class, 'store315'])->withoutMiddleware('auth');
-Route::post('/store-form316', [DictaminatorForm3_16Controller::class, 'store316'])->withoutMiddleware('auth');
-Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'store317'])->withoutMiddleware('auth');
-Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'store318'])->withoutMiddleware('auth');
-Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'store319'])->withoutMiddleware('auth');
+Route::post('/store-form315', [DictaminatorForm3_15Controller::class, 'storeform315'])->withoutMiddleware('auth');
+Route::post('/store-form316', [DictaminatorForm3_16Controller::class, 'storeform316'])->withoutMiddleware('auth');
+Route::post('/store-form317', [DictaminatorForm3_17Controller::class, 'storeform317'])->withoutMiddleware('auth');
+Route::post('/store-form318', [DictaminatorForm3_18Controller::class, 'storeform318'])->withoutMiddleware('auth');
+Route::post('/store-form319', [DictaminatorForm3_19Controller::class, 'storeform319'])->withoutMiddleware('auth');
 Route::post('/generate-pdf', [ResponseForm3_19Controller::class, 'generatePdf'])->name('generate.pdf');
 // Ruta para asignar varios docentes a un dictaminador
 Route::post('/asignar-docentes/{dictaminador_id}', [DictaminatorForm2_Controller::class, 'asignarDocentes'])

@@ -710,9 +710,9 @@ $user_identity = $user->id;
             formData['obsRevista'] = form.querySelector('input[id="obsRevista"]').value;
 
 
-            formData['score3_16'] = document.querySelector('.score3_19').textContent;
+            formData['score3_16'] = document.querySelector('.score3_16').textContent;
             
-            formData['comision3_16'] = document.querySelector('.comision3_19').textContent;
+            formData['comision3_16'] = document.querySelector('.comision3_16').textContent;
 
             // Observations
 
@@ -724,6 +724,7 @@ $user_identity = $user->id;
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json', 
                     },
                     body: JSON.stringify(formData),
                 });
