@@ -35,9 +35,9 @@ class ResponseForm2_2Controller extends Controller
         $validatedData['obs2'] = $validatedData['obs2'] ?? 'sin comentarios';
         $validatedData['obs2_2'] = $validatedData['obs2_2'] ?? 'sin comentarios';
 
-        $horasSemestre = $validatedData['horasSemestre'] ?? 0.0;
-        $horasPosgrado = $validatedData['horasPosgrado'] ?? 0.0;
-
+            $validatedData['horasSemestre'] = (float) $validatedData['horasSemestre'] ?? 0.0;
+            $validatedData['horasPosgrado'] = (float) $validatedData['horasPosgrado'] ?? 0.0;
+            
             // Consulta de datos con unión
             $docenteData = DB::table('dictaminators_response_form2_2')
                 ->where('user_id', $validatedData['user_id'])

@@ -422,8 +422,8 @@ $user_identity = $user->id;
                     showMessage('Formulario no enviado', 'red');
                 }
 
-                let responseData = JSON.parse(text);
-                console.log('Response received from server:', responseData);
+                let responseData2 = JSON.parse(text);
+                console.log('Response received from server:', responseData2);
                  await agregarDocentes(user_identity, formData['email']);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
