@@ -80,10 +80,10 @@ $user_identity = $user->id;
     @endif
 </div>
 
-<form class="mostrar">
+<div class="mostrar">
     <main class="container">
         <!-- Form for Part 2 -->
-        <form id="form2" method="POST" onsubmit="event.preventDefault(); submitForm('/store-form2', 'form2');">
+        <form id="form2" method="POST">
             @csrf
             <div><br>
              <div class="datosConvocatoria">
@@ -195,7 +195,7 @@ $user_identity = $user->id;
         </form>
     </main>
 
-    </form>
+    </div>
     <center>
     <footer>
         <center>
@@ -405,9 +405,6 @@ $user_identity = $user->id;
                     body: JSON.stringify(formData),
                 });
 
-                const text = await response.text();
-                console.log('Status Code:', response.status);
-                console.log('Raw response:', text);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -433,11 +430,11 @@ $user_identity = $user->id;
         document.addEventListener('DOMContentLoaded', function () {
             const form2 = document.getElementById('form2');
             if (form2) {
-                form2.onsubmit = function (event) {
+                form2.addEventListener('submit', async function (event) {
                     event.preventDefault();
-                    submitForm('/store-form2', 'form2');
+                    await submitForm('/store-form2', 'form2'); // Llama a la función asincrónica
                     
-                };
+                });
             }
         });
 
