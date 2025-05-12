@@ -43,7 +43,7 @@ class DictaminatorForm2_2Controller extends TransferController
         try {
             $response = DictaminatorsResponseForm2_2::create($validatedData);
                 // Actualizar automáticamente el modelo docente con la comision
-                $this->updateUserResponseComision($validatedData['user_id'], $validatedData['comision2_2']);
+                $this->updateUserResponseComision($validatedData['user_id'], $validatedData['actv2Comision']);
                 DB::table('dictaminador_docente')->insert([
                     'user_id' => $validatedData['user_id'], // Asegúrate de que este ID exista
                     'dictaminador_id' => $response->dictaminador_id,
