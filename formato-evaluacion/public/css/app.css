@@ -689,6 +689,35 @@ margin-bottom: 20px;
         border: none;
         /* Remove border for print, if desired */
     }
+
+        body {
+            margin: 0;
+            /* Elimina márgenes adicionales */
+            padding: 0;
+            font-size: 10px;
+            /* Tamaño de letra base para impresión */
+        }
+    
+        #form2 {
+            margin-bottom: 0;
+            /* Elimina margen inferior del formulario */
+        }
+    
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            /* Ajusta el tamaño de letra del footer */
+        }
+    
+        main {
+            font-size: 10px;
+            /* Tamaño de letra reducido para el contenido principal */
+        }
+
 }
 
 form[id^="form3_"] {
@@ -973,6 +1002,10 @@ body.dark-mode nav.nav.flex-column a:hover {
     margin-right: 10px;
     /* Espacio entre el logo y el texto */
 }
+
+
+
+
 
 
 

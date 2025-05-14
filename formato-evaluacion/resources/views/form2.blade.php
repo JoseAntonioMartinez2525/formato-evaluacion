@@ -466,6 +466,59 @@ $user_identity = $user->id;
         toggleDarkMode();
     });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            // Evento antes de imprimir
+            window.addEventListener('beforeprint', function () {
+                const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+                const isScale100 = window.matchMedia('(resolution: 96dpi)').matches; // Verifica si la escala es 100%
+                const form = document.getElementById('form2');
+                const footer = document.querySelector('footer');
+                const main = document.querySelector('main');
+
+                if (form && footer && isLandscape && isScale100) {
+                    // Tamaño del papel en píxeles para Letter (8.5 x 11 pulgadas) a 96 DPI
+                    const paperHeight = isLandscape ? 816 : 1056; // 816px (horizontal), 1056px (vertical)
+                    const formRect = form.getBoundingClientRect();
+                    const formStyles = window.getComputedStyle(form);
+                    const formMarginBottom = parseFloat(formStyles.marginBottom);
+
+                    // Calcula la posición del footer
+                    const footerTop = formRect.bottom + formMarginBottom + 20; // Incluye margen inferior
+                    if (footerTop + footer.offsetHeight <= paperHeight) {
+                        // Si el footer cabe en la misma página
+                        footer.style.position = 'absolute';
+                        footer.style.top = `${footerTop}px`;
+                    } else {
+                        // Si no cabe, reduce el tamaño de letra dentro del formulario y main
+                        if (main) {
+                            main.style.setProperty('font-size', '9px', 'important'); // Ajusta el tamaño de letra
+                        }
+                        if (form) {
+                            form.style.setProperty('font-size', '9px', 'important'); // Ajusta el tamaño de letra
+                        }
+                    }
+                }
+            });
+
+            // Evento después de imprimir
+            window.addEventListener('afterprint', function () {
+                const footer = document.querySelector('footer');
+                const main = document.querySelector('main');
+                const form = document.getElementById('form2');
+
+                if (footer) {
+                    // Restaura los estilos originales del footer
+                    footer.style.position = '';
+                    footer.style.top = '';
+                }
+                if (main) {
+                    main.style.fontSize = ''; // Restaura el tamaño de letra original
+                }
+                if (form) {
+                    form.style.fontSize = ''; // Restaura el tamaño de letra original
+                }
+            });
+        });
     </script>
 </body>
 
