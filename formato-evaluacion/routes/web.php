@@ -259,6 +259,7 @@ Route::post('/update-puntaje-maximo', [PuntajeMaximosController::class, 'updateP
 Route::get('/form3_8_1', [PuntajeMaximosController::class, 'showForm3_8_1']);
 Route::get('/get-puntaje-maximo', [ResponseForm3_8_1Controller::class, 'getPuntajeMaximo']);
 Route::get('/docencia', [ResponseForm3_8_1Controller::class, 'showForm3_8_1'])->name('showForm3_8_1');
+Route::get('/get-total-docencia', [DictaminatorForm3_1Controller::class, 'getTotalDocencia']);
 Route::get('/test-event/{user_id}', function ($user_id) {
     event(new \App\Events\EvaluationCompleted($user_id));
     return 'Evento disparado para user_id: ' . $user_id;

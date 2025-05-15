@@ -184,6 +184,55 @@ class DictaminatorForm3_1Controller extends TransferController
             $canvas->page_text(520, 820, "Page $pageNumber of $totalPages", null, 31, array(0, 0, 0));
         }
     }
+
+    public function getTotalDocencia(Request $request)
+    {
+        $user_id = $request->input('user_id');
+        $consolidatedResponses = DB::table('consolidated_responses')->where('user_id', $user_id)->get();
+
+        $subtotal3_1To3_8_1 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry
+                + ($response->actv3Comision ?? 0)
+                + ($response->comision3_2 ?? 0)
+                + ($response->comision3_3 ?? 0)
+                + ($response->comision3_4 ?? 0)
+                + ($response->comision3_5 ?? 0)
+                + ($response->comision3_6 ?? 0)
+                + ($response->comision3_7 ?? 0)
+                + ($response->comision3_8 ?? 0)
+                + ($response->comision3_8_1 ?? 0);
+        }, 0);
+
+        $subtotal3_9To3_11 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry
+                + ($response->comision3_9 ?? 0)
+                + ($response->comision3_10 ?? 0)
+                + ($response->comision3_11 ?? 0);
+        }, 0);
+
+        $subtotal3_12To3_16 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry
+                + ($response->comision3_12 ?? 0)
+                + ($response->comision3_13 ?? 0)
+                + ($response->comision3_14 ?? 0)
+                + ($response->comision3_15 ?? 0)
+                + ($response->comision3_16 ?? 0);
+        }, 0);
+
+        $subtotal3_17To3_19 = $consolidatedResponses->reduce(function ($carry, $response) {
+            return $carry
+                + ($response->comision3_17 ?? 0)
+                + ($response->comision3_18 ?? 0)
+                + ($response->comision3_19 ?? 0);
+        }, 0);
+
+        $total = min(
+            $subtotal3_1To3_8_1 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19,
+            700
+        );
+
+        return response()->json(['totalDocencia' => $total]);
+    }
 }
 
 

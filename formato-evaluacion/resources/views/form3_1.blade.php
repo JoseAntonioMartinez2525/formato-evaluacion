@@ -321,7 +321,7 @@ $user_identity = $user->id;
     <x-table-header />
     <tr>
         <td colspan="5"><b>3. Calidad en la docencia</b></td>
-        <td id="docencia"></td>
+        <td id="docencia2"></td>
         <td class="actv3Comision" style="background-color: #ffcc6d; text-align: center; border: none; font-weight: bold;"></td>
         <td></td>
     </tr>
@@ -604,6 +604,21 @@ $user_identity = $user->id;
                                         } else {
                                             console.error('Elemento con ID "convocatoria" no encontrado.');
                                         }
+
+                                        const user_id = data.form3_1.user_id; 
+                                        axios.get('/get-total-docencia', { params: { user_id } })
+                                            .then(response => {
+                                                document.querySelectorAll('#docencia, #docencia2').forEach(el => {
+                                                    el.textContent = response.data.totalDocencia ?? '0';
+                                                });
+
+                                            })
+                                            .catch(error => {
+                                                document.querySelectorAll('#docencia, #docencia2').forEach(el => {
+                                                    el.textContent = '0';
+                                                });
+                                                console.error('Error obteniendo total docencia:', error);
+                                            });
                                     })
                                     .catch(error => {
                                         console.error('Error fetching docente data:', error);
@@ -659,6 +674,21 @@ $user_identity = $user->id;
                                                 }
                                             }
                                         }
+                                        const user_id = data.form3_1.user_id; 
+                                        axios.get('/get-total-docencia', { params: { user_id } })
+                                            .then(response => {
+                                                document.querySelectorAll('#docencia, #docencia2').forEach(el => {
+                                                    el.textContent = response.data.totalDocencia ?? '0';
+                                                });
+
+                                            })
+                                            .catch(error => {
+                                                document.querySelectorAll('#docencia, #docencia2').forEach(el => {
+                                                    el.textContent = '0';
+                                                });
+                                                console.error('Error obteniendo total docencia:', error);
+                                            });
+
                                     });
                                 // Lógica para obtener datos de DictaminatorsResponseForm2
                                 try {
