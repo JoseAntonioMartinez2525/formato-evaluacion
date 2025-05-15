@@ -21,10 +21,9 @@
     .instrucciones{
         width:700px;
         font-size: .8rem;
-        margin-left: 200px;
+        margin-left: 100px;
     }
 }
-
 
 
 @media print {
