@@ -888,17 +888,12 @@ input[id^="rc"]{
 }
 
 
-#convocatoria2, #nombre2{
+#convocatoria2, #nombre2, #periodo2,
+#area2,
+#departamento2{
     margin-left: 30px;
 }
 
-#departamento2{
-margin-left: 220px;
-}
-
-#periodo2, #area2{
-    margin-left: 250px;
-}
 
 .form3_1LabelActv{
     height:84px; width: 170px;
@@ -1003,7 +998,38 @@ body.dark-mode nav.nav.flex-column a:hover {
     /* Espacio entre el logo y el texto */
 }
 
+.datosConvocatoria {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    /* Ajusta el ancho de la columna de los labels */
+    gap: 2px 0;
+}
 
+.datosConvocatoria .row {
+    display: contents;
+    /* Permite que los hijos usen el grid del padre */
+}
+
+.datosConvocatoria label {
+    text-align: left;
+    align-self: start;
+    margin-bottom: 2px;
+}.datosConvocatoria .valor {
+    display: flex;
+    align-items: center;
+}
+
+.datosConvocatoria .input-header {
+    background-color: #ced4da;
+    margin-bottom: 2px;
+    margin-left: 0;
+    display: inline;
+    /* Solo el texto tiene fondo */
+    width: auto;
+    /* El fondo solo abarca el texto */
+    min-width: 0;
+    max-width: 100%;
+}
 
 
 

@@ -166,3 +166,38 @@
         display: inline-block;
     }
 }
+
+@media print {
+    .datosConvocatoria {
+        display: grid;
+        grid-template-columns: 220px auto;
+        gap: 4px 0;
+    }
+
+    .datosConvocatoria .row {
+        display: contents;
+    }
+
+    .datosConvocatoria label {
+        text-align: left;
+        align-self: start;
+        margin-bottom: 3px;
+    }
+
+    .datosConvocatoria .valor {
+        /* Hace que el contenido solo ocupe el espacio del texto */
+        display: flex;
+        align-items: center;
+    }
+
+        .datosConvocatoria .input-header {
+            background-color: #ced4da;
+            margin-bottom: 3px;
+            margin-left: 0;
+            display: block;
+            /* Cambia a block */
+            width: 100%;
+            /* Ocupa todo el ancho de la columna */
+            min-width: 0;
+            max-width: 100%;   }
+}

@@ -86,22 +86,28 @@ $user_identity = $user->id;
         <form id="form2" method="POST">
             @csrf
             <div><br>
-             <div class="datosConvocatoria">
-                <label for="convocatoria">Convocatoria:</label>
-                <span class="input-header" id="convocatoria2"></span><br>
-
-                <label for="periodo">Periodo de evaluación:</label>
-                <span id="periodo2" type="text" class="input-header"></span><br>
-
-                <label for="nombre">Nombre del personal académico:</label>
-                <span id="nombre2" class="input-header"></span><br>
-
-                <label for="area">Área de Conocimiento:</label>
-                <span id="area2" class="input-header"></span><br>
-
-                <label for="departamento">Departamento Académico:</label>
-                <span id="departamento2" class="input-header"></span>
-             </div><br>   
+            <div class="datosConvocatoria">
+                <div class="row">
+                    <label for="convocatoria">Convocatoria:</label>
+                    <div class="valor"><span class="input-header" id="convocatoria2"></span></div>
+                </div>
+                <div class="row">
+                    <label for="periodo">Periodo de evaluación:</label>
+                    <div class="valor"><span id="periodo2" class="input-header"></span></div>
+                </div>
+                <div class="row">
+                    <label for="nombre">Nombre del personal académico:</label>
+                    <div class="valor"><span id="nombre2" class="input-header"></span></div>
+                </div>
+                <div class="row">
+                    <label for="area">Área de Conocimiento:</label>
+                    <div class="valor"><span id="area2" class="input-header"></span></div>
+                </div>
+                <div class="row">
+                    <label for="departamento">Departamento Académico:</label>
+                    <div class="valor"><span id="departamento2" class="input-header"></span></div>
+                </div>
+            </div><br>   
             
             
             <center class="printCenter"><h5>Instrucciones</h5></center>
