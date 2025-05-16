@@ -112,6 +112,28 @@ body.dark-mode img.imgFirma{
     background-color: transparent;
     filter: invert(0.92) brightness(2);;
 }
+
+@media print {
+    #footerForm3_4 {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background: white;
+        text-align: center;
+        font-size: 14px;
+        border-top: 1px solid #ccc;
+        z-index: 9999;
+        display: block !important;
+        visibility: visible !important;
+    }
+    #footerForm3_4::after {
+        content: "Página " counter(31) " de " counter(33);
+        display: block;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+}
 </style>
 <body class="bg-gray-50 text-black/50">
 
@@ -183,23 +205,6 @@ body.dark-mode img.imgFirma{
             </thead>
             </tbody>
             </table>
-            <footer >
-                <center>
-                    <div id="convocatoria2">
-                        <!-- Mostrar convocatoria -->
-                        @if(isset($convocatoria))
-
-                            <div style="margin-right: -700px;">
-                                <h1>Convocatoria: {{ $convocatoria->convocatoria }}</h1>
-                            </div>
-                        @endif
-                    </div>
-                </center>
-
-                <div id="piedepagina2" style="margin-left: 500px;margin-top:10px;">
-                    Página 32 de 33
-                </div>
-            </footer>
                 </div>
 
             </form>
@@ -813,6 +818,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     row.appendChild(comisionCell);
                                     dataContainer.appendChild(row);
 
+                                    /*
+                                    // Crear el pie de página después de la fila 16
                                     if (i === 16) {
                                         const footerRow = document.createElement('tfoot');
                                         footerRow.className = 'datosConvocatoria print-only';
@@ -856,7 +863,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         // Agregar al contenedor de datos
                                         dataContainer.appendChild(footerRow);
                                     }
-
+                                */
 
                                 });
 

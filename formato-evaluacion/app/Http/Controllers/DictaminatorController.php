@@ -25,6 +25,7 @@ use App\Models\UsersResponseForm3_7;
 use App\Models\UsersResponseForm3_8;
 use App\Models\UsersResponseForm3_8_1;
 use App\Models\UsersResponseForm3_9;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
 
@@ -122,6 +123,35 @@ class DictaminatorController extends Controller
         } else {
             return response()->json(['error' => 'User not found'], 404);
         }
+    }
+
+    public function generarPDF(Request $request)
+    {
+        $email = $request->query('email');
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Obtener datos igual que en getDocenteData
+        $form1 = UsersResponseForm1::where('user_id', $user->id)->first();
+        $convocatoria = $form1->convocatoria;
+
+        // Puedes calcular el número de página inicial y total aquí si lo necesitas
+        $pagina_inicio = 31;
+        $pagina_total = 33;
+
+        // Renderiza la vista Blade para el PDF
+        $pdf = SnappyPdf::loadView('resumen_comision_pdf', [
+            'user' => $user,
+            'form1' => $form1,
+            'convocatoria' => $convocatoria,
+            'pagina_inicio' => $pagina_inicio,
+            'pagina_total' => $pagina_total,
+        ]);
+
+        return $pdf->download('resumen_comision.pdf');
     }
 
 
