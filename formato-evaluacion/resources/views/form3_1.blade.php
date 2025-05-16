@@ -653,7 +653,19 @@ $user_identity = $user->id;
                                 axios.get('/get-docente-data', { params: { email } })
                                     .then(response => {
                                         const data = response.data;
+                                        const formularios = [
+                                            data.form3_1, data.form3_2, data.form3_3, data.form3_4, data.form3_5, data.form3_6, data.form3_7,
+                                            data.form3_8, data.form3_8_1, data.form3_9, data.form3_10, data.form3_11, data.form3_12,
+                                            data.form3_13, data.form3_14, data.form3_15, data.form3_16, data.form3_17, data.form3_18, data.form3_19
+                                        ];
 
+                                        let user_id = '';
+                                        for (const form of formularios) {
+                                            if (form && form.user_id) {
+                                                user_id = form.user_id;
+                                                break;
+                                            }
+                                        }
                                         // Actualizar convocatoria
 
                                         // Verifica si la respuesta contiene los datos esperados
@@ -674,7 +686,7 @@ $user_identity = $user->id;
                                                 }
                                             }
                                         }
-                                        const user_id = data.form3_1.user_id; 
+                                        // const user_id = data.form3_1.user_id; 
                                         axios.get('/get-total-docencia', { params: { user_id } })
                                             .then(response => {
                                                 document.querySelectorAll('#docencia, #docencia2').forEach(el => {
@@ -696,6 +708,8 @@ $user_identity = $user->id;
                                     const dictaminatorResponses = await response.json();
                                     // Filtrar la entrada correspondiente al email seleccionado
                                     const selectedResponseForm3_1 = dictaminatorResponses.form3_1.find(res => res.email === email);
+                                    // const unSelectedResponse = dictaminatorResponses.form1.find(res => res.email === email);
+                                    
                                     if (selectedResponseForm3_1) {
  
                                         document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_1.dictaminador_id || '0';
@@ -734,7 +748,9 @@ $user_identity = $user->id;
                                         document.querySelector('label[id="obs3_1_5"]').textContent = selectedResponseForm3_1.obs3_1_5 || 'sin comentarios';
 
                                     } else {
-
+                                        document.querySelectorAll('#docencia, #docencia2').forEach(el => {
+                                            el.textContent = '0';
+                                        });
                                         console.error('No form3_1 data found for the selected dictaminador.');
                                         // Reset input values if no data found
                                         document.querySelector('input[name="dictaminador_id"]').value = '0';
