@@ -125,10 +125,10 @@ body.dark-mode img.imgFirma{
                 <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
 
         @php
-            $user = Auth::user();
-            $userType = $user->user_type;
-            $user_email = $user->email;
-            $user_identity = $user->id; 
+    $user = Auth::user();
+    $userType = $user->user_type;
+    $user_email = $user->email;
+    $user_identity = $user->id; 
         @endphp
             <div class="container mt-4" id="seleccionDocente">
             @if($userType !== 'docente')
@@ -744,15 +744,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 subtotales.forEach(({ range, position }) => {
                                     let subtotal = 0;
                                     for (let i = range[0]; i <= range[1]; i++) {
-                                        subtotal += parseInt(comisiones[i]) || 0;
+                                        subtotal += parseFloat(comisiones[i]) || 0;
                                     }
                                     comisiones[position] = subtotal;
                                     
                                 });
 
-                                const sumaComision3 = Math.min(comisiones[14] + comisiones[19] + comisiones[26] + comisiones[31], 700);
+                                const sumaComision3 = Math.min(
+                                    parseFloat(comisiones[14]) +
+                                    parseFloat(comisiones[19]) +
+                                    parseFloat(comisiones[26]) +
+                                    parseFloat(comisiones[31]),
+                                    700
+                                );
 
-                                comisiones[4] = sumaComision3;
+                                comisiones[4] = parseFloat(sumaComision3).toFixed(2);
                                 comisiones[35] = comisiones[4];
 
                                 let tLogrado = parseFloat(comisiones[1]) + parseFloat(comisiones[3]) + parseFloat(comisiones[4]);
@@ -785,6 +791,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     if (![0, 2, 4, 14, 15, 19, 20, 26, 27, 31, 32, 36].includes(i)) {
                                         comisionCell.style.backgroundColor = '#f6c667';
                                         comisionCell[i] = comisiones[i].toString();
+                                        comisionCell.innerHTML = parseFloat(comisiones[i]).toFixed(2);
                                     }
 
                                     if ([0, 2, 4, 14, 19, 26, 31, 36].includes(i)) {
@@ -796,7 +803,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     }
 
                                     // Insertar valores específicos
-                                    if (i === 4) comisionCell.textContent = sumaComision3.toString();
+                                    if (i === 4) comisionCell.textContent = parseFloat(sumaComision3).toFixed(2);
                                     if ([14, 19, 26, 31].includes(i)) comisionCell.textContent = comisiones[i];
                                     if (i === 32 || i===36 || i===37) comisionCell.textContent = totalLogrado.toString();
 
@@ -886,7 +893,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision; // Asignación estándar
                                             break;
                                         case 4:
-                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
+                                            comisionCell.innerHTML = parseFloat(sumaComision3).toFixed(2); // Valor calculado
                                             break;
                                         case 5:
                                             comisionCell.innerHTML = comisiones[i] || data.form3_1?.actv3Comision || '0'; // comision3_1
@@ -969,7 +976,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         case 34: comisionCell.innerHTML = comisiones[i] || data.form2_2?.actv2Comision;
                                             break;
                                         case 35:
-                                            comisionCell.innerHTML = sumaComision3.toString(); // Valor calculado
+                                            comisionCell.innerHTML = parseFloat(sumaComision3).toFixed(2); // Valor calculado
                                             break;
                                         case 36:
                                             comisionCell.innerHTML = totalLogrado.toString(); // Valor calculado

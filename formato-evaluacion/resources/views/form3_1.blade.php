@@ -608,8 +608,9 @@ $user_identity = $user->id;
                                         const user_id = data.form3_1.user_id; 
                                         axios.get('/get-total-docencia', { params: { user_id } })
                                             .then(response => {
+                                                const total = parseFloat(response.data.totalDocencia ?? '0');
                                                 document.querySelectorAll('#docencia, #docencia2').forEach(el => {
-                                                    el.textContent = response.data.totalDocencia ?? '0';
+                                                    el.textContent = total.toFixed(2);                                                
                                                 });
 
                                             })
@@ -689,8 +690,10 @@ $user_identity = $user->id;
                                         // const user_id = data.form3_1.user_id; 
                                         axios.get('/get-total-docencia', { params: { user_id } })
                                             .then(response => {
+                                                const total = parseFloat(response.data.totalDocencia ?? '0');
+                                                // Actualiza el contenido de los elementos con ID 'docencia' y 'docencia2'
                                                 document.querySelectorAll('#docencia, #docencia2').forEach(el => {
-                                                    el.textContent = response.data.totalDocencia ?? '0';
+                                                    el.textContent = total.toFixed(2);
                                                 });
 
                                             })
