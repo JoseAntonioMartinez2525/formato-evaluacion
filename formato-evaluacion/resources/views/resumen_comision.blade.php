@@ -113,27 +113,9 @@ body.dark-mode img.imgFirma{
     filter: invert(0.92) brightness(2);;
 }
 
-@media print {
-    #footerForm3_4 {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        background: white;
-        text-align: center;
-        font-size: 14px;
-        border-top: 1px solid #ccc;
-        z-index: 9999;
-        display: block !important;
-        visibility: visible !important;
-    }
-    #footerForm3_4::after {
-        content: "Página " counter(31) " de " counter(33);
-        display: block;
-        margin-top: 5px;
-        font-weight: bold;
-    }
-}
+
+
+
 </style>
 <body class="bg-gray-50 text-black/50">
 
@@ -1095,6 +1077,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             
                                             }
 
+                                            // Justo después de cargar y mostrar los datos del docente y las firmas
+                                            const pdfButtonContainer = document.getElementById('pdfButtonContainer');
+                                            pdfButtonContainer.innerHTML = `
+                                            <a href="/reporte_pdf?email=${encodeURIComponent(email)}" target="_blank" class="btn btn-primary">
+                                                Ver PDF de Resumen de Comisión
+                                            </a>
+                                        `;
+
                                         } else {
                                             console.error('Evaluator signature not found');
                                         }
@@ -1197,6 +1187,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Si el envío es exitoso, recarga las firmas
             await loadSignatures();
 
+
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
@@ -1297,6 +1288,24 @@ window.submitForm = submitForm;
     <!-- Contenido del enlace de reporte -->
 </div>
 <div id="messageContainer" class="message-container" style="display: none;"></div>
+{{-- Footer dinámico para Snappy/wkhtmltopdf --}}
+{{-- ...contenido del PDF... --}}
+<script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script('
+            $font = $fontMetrics->get_font("Arial", "normal");
+            $size = 10;
+            $convocatoria = "' . addslashes($convocatoria) . '";
+            $pagina_inicio = ' . intval($pagina_inicio) . ';
+            $pagina_total = ' . intval($pagina_total) . ';
+            $y = 820; // posición vertical del footer
+            $pdf->text(40, $y, "Programa de estímulos al desempeño del Personal docente: " . $convocatoria, $font, $size);
+            $pdf->text(500, $y, "Página " . ($PAGE_NUM + $pagina_inicio - 1) . " de " . $pagina_total, $font, $size);
+        ');
+    }
+</script>
+
+<div id="pdfButtonContainer" style="text-align: center; margin-top: 40px;"></div>
 </body>
 
 </html>

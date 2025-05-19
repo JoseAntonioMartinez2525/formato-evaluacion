@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EvaluatorSignature;
 use App\Models\UsersResponseForm1;
 use App\Models\UsersResponseForm2;
 use App\Models\UsersResponseForm2_2;
@@ -134,24 +135,115 @@ class DictaminatorController extends Controller
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
 
-        // Obtener datos igual que en getDocenteData
+        // 1. Obtener la convocatoria
         $form1 = UsersResponseForm1::where('user_id', $user->id)->first();
-        $convocatoria = $form1->convocatoria;
+        $convocatoria = $form1 ? $form1->convocatoria : '';
 
-        // Puedes calcular el número de página inicial y total aquí si lo necesitas
-        $pagina_inicio = 31;
-        $pagina_total = 33;
+        // 2. Obtener las comisiones del usuario
+        $comisiones = \DB::table('consolidated_responses')->where('user_id', $user->id)->first();
 
-        // Renderiza la vista Blade para el PDF
-        $pdf = SnappyPdf::loadView('resumen_comision_pdf', [
-            'user' => $user,
-            'form1' => $form1,
+        if (!$comisiones) {
+            return response()->json(['error' => 'No hay datos de comisiones para este usuario'], 404);
+        }
+
+        // 3. Calcular subtotales y totales igual que en tu ConsolidatedResponseController
+        $subtotal3_1To3_8_1 = $comisiones->actv3Comision + $comisiones->comision3_2 + $comisiones->comision3_3 + $comisiones->comision3_4 + $comisiones->comision3_5 + $comisiones->comision3_6 + $comisiones->comision3_7 + $comisiones->comision3_8 + $comisiones->comision3_8_1;
+        $subtotal3_9To3_11 = $comisiones->comision3_9 + $comisiones->comision3_10 + $comisiones->comision3_11;
+        $subtotal3_12To3_16 = $comisiones->comision3_12 + $comisiones->comision3_13 + $comisiones->comision3_14 + $comisiones->comision3_15 + $comisiones->comision3_16;
+        $subtotal3_17To3_19 = $comisiones->comision3_17 + $comisiones->comision3_18 + $comisiones->comision3_19;
+
+        $total = min(
+            $subtotal3_1To3_8_1 + $subtotal3_9To3_11 + $subtotal3_12To3_16 + $subtotal3_17To3_19,
+            700
+        );
+
+        $totalComision1 = $comisiones->comision1 ?? 0;
+        $totalComision2 = $comisiones->actv2Comision ?? 0;
+        $totalComision3 = $total;
+        $totalComisionRepetido = min($totalComision1 + $totalComision2 + $totalComision3, 1000);
+
+        // 4. Calcular mínima calidad y mínima total usando los mismos métodos
+        $minimaCalidad = $this->evaluarCalidad($total);
+        $minimaTotal = $this->evaluarTotal($totalComisionRepetido);
+        // Agrega esta línea para obtener la firma del evaluador:
+        $evaluatorSignature = EvaluatorSignature::where('user_id', $user->id)->first();
+        // 5. Pasar todo a la vista PDF
+        $pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('reporte_pdf', [
             'convocatoria' => $convocatoria,
-            'pagina_inicio' => $pagina_inicio,
-            'pagina_total' => $pagina_total,
+            'comisiones' => $comisiones,
+            'subtotal3_1To3_8_1' => $subtotal3_1To3_8_1,
+            'subtotal3_9To3_11' => $subtotal3_9To3_11,
+            'subtotal3_12To3_16' => $subtotal3_12To3_16,
+            'subtotal3_17To3_19' => $subtotal3_17To3_19,
+            'total' => $total,
+            'minimaCalidad' => $minimaCalidad,
+            'minimaTotal' => $minimaTotal,
+            'totalComisionRepetido' => $totalComisionRepetido,
+            'evaluator_name' => $evaluatorSignature->evaluator_name ?? '',
+            'evaluator_name_2' => $evaluatorSignature->evaluator_name_2 ?? '',
+            'evaluator_name_3' => $evaluatorSignature->evaluator_name_3 ?? '',
+            'signature_path' => $evaluatorSignature->signature_path ? asset('storage/' . $evaluatorSignature->signature_path) : '',
+            'signature_path_2' => $evaluatorSignature->signature_path_2 ? asset('storage/' . $evaluatorSignature->signature_path_2) : '',
+            'signature_path_3' => $evaluatorSignature->signature_path_3 ? asset('storage/' . $evaluatorSignature->signature_path_3) : '',
+            'pagina_inicio' => 31,
+            'pagina_total' => 33,
         ]);
 
-        return $pdf->download('resumen_comision.pdf');
+        
+        return $pdf->stream('reporte_pdf.pdf');
+    }
+
+    // Copia los métodos de evaluación de ConsolidatedResponseController:
+    private function evaluarCalidad($total)
+    {
+        switch (true) {
+            case ($total >= 210 && $total <= 264.99):
+                return 'I';
+            case ($total >= 265 && $total <= 319.99):
+                return 'II';
+            case ($total >= 320 && $total <= 374.99):
+                return 'III';
+            case ($total >= 375 && $total <= 429.99):
+                return 'IV';
+            case ($total >= 430 && $total <= 484.99):
+                return 'V';
+            case ($total >= 485 && $total <= 539.99):
+                return 'VI';
+            case ($total >= 540 && $total <= 594.99):
+                return 'VII';
+            case ($total >= 595 && $total <= 649.99):
+                return 'VIII';
+            case ($total >= 650 && $total <= 700):
+                return 'IX';
+            default:
+                return 'FALSE';
+        }
+    }
+
+    private function evaluarTotal($totalComisionRepetido)
+    {
+        switch (true) {
+            case ($totalComisionRepetido >= 301 && $totalComisionRepetido <= 377.99):
+                return 'I';
+            case ($totalComisionRepetido >= 378 && $totalComisionRepetido <= 455.99):
+                return 'II';
+            case ($totalComisionRepetido >= 456 && $totalComisionRepetido <= 533.99):
+                return 'III';
+            case ($totalComisionRepetido >= 534 && $totalComisionRepetido <= 611.99):
+                return 'IV';
+            case ($totalComisionRepetido >= 612 && $totalComisionRepetido <= 689.99):
+                return 'V';
+            case ($totalComisionRepetido >= 690 && $totalComisionRepetido <= 767.99):
+                return 'VI';
+            case ($totalComisionRepetido >= 768 && $totalComisionRepetido <= 845.99):
+                return 'VII';
+            case ($totalComisionRepetido >= 846 && $totalComisionRepetido <= 923.99):
+                return 'VIII';
+            case ($totalComisionRepetido >= 924 && $totalComisionRepetido <= 1000):
+                return 'IX';
+            default:
+                return 'FALSE';
+        }
     }
 
 

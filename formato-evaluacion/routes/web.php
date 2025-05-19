@@ -119,6 +119,7 @@ Route::get('form4', function () {return view('form4'); })->name('form4');
 Route::get('form5', function () {return view('form5'); })->name('form5');
 Route::get('resumen_comision', function () {return view('resumen_comision'); })->name('resumen_comision');
 
+Route::get('reporte_pdf', [App\Http\Controllers\DictaminatorController::class, 'generarPDF'])->name('reporte_pdf');
 Route::get('comision_dictaminadora', function () {return view('comision_dictaminadora'); })->name('comision_dictaminadora');
 Route::get('dynamic_forms', function () {return view('dynamic_forms'); })->name('dynamic_forms');
 
