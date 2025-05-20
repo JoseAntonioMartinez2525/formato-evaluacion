@@ -38,6 +38,12 @@ return [
         'binary' => env('WKHTMLTOPDF_BINARY', 'C:\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'),        'env'     => [],
         'options' => [
             'enable-local-file-access' => true,
+            'no-images' => false,
+            'load-error-handling' => 'ignore',
+            'load-media-error-handling' => 'ignore',
+            'disable-smart-shrinking' => true,
+            
+
         ],
     ],
     

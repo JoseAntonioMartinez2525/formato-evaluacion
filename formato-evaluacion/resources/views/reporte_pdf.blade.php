@@ -292,36 +292,38 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="text-align:center;">
-                {{ $evaluator_name ?? '' }}
-            </td>
-            <td style="text-align:center;">
-                @if(!empty($signature_path))
-                    <img src="{{ $signature_path }}" alt="Firma 1" style="max-width:200px; height:100px;">
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">
-                {{ $evaluator_name_2 ?? '' }}
-            </td>
-            <td style="text-align:center;">
-                @if(!empty($signature_path_2))
-                    <img src="{{ $signature_path_2 }}" alt="Firma 2" style="max-width:200px; height:100px;">
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">
-                {{ $evaluator_name_3 ?? '' }}
-            </td>
-            <td style="text-align:center;">
-                @if(!empty($signature_path_3))
-                    <img src="{{ $signature_path_3 }}" alt="Firma 3" style="max-width:200px; height:100px;">
-                @endif
-            </td>
-        </tr>
+    <tr>
+    <td style="text-align:center;">
+        {{ $evaluator_name ?? '' }}
+    </td>
+    <td style="text-align:center;">
+        @if(!empty($signature_path))
+{!! file_get_contents(public_path('storage/' . pathinfo($signature_path, PATHINFO_FILENAME) . '.svg')) !!}
+        @endif
+    </td>
+</tr>
+
+<tr>
+    <td style="text-align:center;">
+        {{ $evaluator_name_2 ?? '' }}
+    </td>
+    <td style="text-align:center;">
+        @if(!empty($signature_path_2))
+{!! file_get_contents(public_path('storage/' . pathinfo($signature_path_2, PATHINFO_FILENAME) . '.svg')) !!}
+        @endif
+    </td>
+</tr>
+
+<tr>
+    <td style="text-align:center;">
+        {{ $evaluator_name_3 ?? '' }}
+    </td>
+    <td style="text-align:center;">
+        @if(!empty($signature_path_3))
+{!! file_get_contents(public_path('storage/' . pathinfo($signature_path_3, PATHINFO_FILENAME) . '.svg')) !!}
+        @endif
+    </td>
+</tr>
     </tbody>
 </table>
 

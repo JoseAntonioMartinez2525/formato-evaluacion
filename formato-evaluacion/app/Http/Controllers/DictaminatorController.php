@@ -29,6 +29,9 @@ use App\Models\UsersResponseForm3_9;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
+use Barryvdh\DomPDF\Facade\Pdf; // Importar DomPDF
+use Svg\Document;
+use Svg\Nodes\EmbeddedImage;
 
 class DictaminatorController extends Controller
 {
@@ -166,15 +169,46 @@ class DictaminatorController extends Controller
         $minimaCalidad = $this->evaluarCalidad($total);
         $minimaTotal = $this->evaluarTotal($totalComisionRepetido);
         // Agrega esta línea para obtener la firma del evaluador:
-        $evaluatorSignature = EvaluatorSignature::where('user_id', $user->id)->first();
-        // 5. Pasar todo a la vista PDF
-        $pdf = \Barryvdh\Snappy\Facades\SnappyPdf::loadView('reporte_pdf', [
+        $evaluatorSignature = EvaluatorSignature::where('user_id', $user->id)->first() ?? new EvaluatorSignature();
+
+        $signaturePaths = [
+            'signature_path' => storage_path('app/public/' . $evaluatorSignature->signature_path),
+            'signature_path_2' => storage_path('app/public/' . $evaluatorSignature->signature_path_2),
+            'signature_path_3' => storage_path('app/public/' . $evaluatorSignature->signature_path_3)
+        ];
+
+        $svgPaths = [];
+
+        //dd($signaturePaths, $svgPaths);
+        
+
+        foreach ($signaturePaths as $key => $inputImage) {
+            if (file_exists($inputImage)) {
+                $outputSvg = storage_path('app/public/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg');
+
+                $svgContent = '<?xml version="1.0" encoding="UTF-8"?>
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+                    <image href="' . $inputImage . '" x="0" y="0" width="200" height="100"/>
+                </svg>';
+
+                file_put_contents($outputSvg, $svgContent);
+                //  Guardar la ruta en el array
+                $svgPaths[$key] = 'storage/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg';
+
+
+                // Verifica si el archivo se generó
+                if (!file_exists($outputSvg)) {
+                    dd("Error: El archivo {$outputSvg} no se ha creado correctamente.");
+                }
+            }
+        }
+
+        
+
+        // Variables para la vista PDF
+        $data = [
             'convocatoria' => $convocatoria,
             'comisiones' => $comisiones,
-            'subtotal3_1To3_8_1' => $subtotal3_1To3_8_1,
-            'subtotal3_9To3_11' => $subtotal3_9To3_11,
-            'subtotal3_12To3_16' => $subtotal3_12To3_16,
-            'subtotal3_17To3_19' => $subtotal3_17To3_19,
             'total' => $total,
             'minimaCalidad' => $minimaCalidad,
             'minimaTotal' => $minimaTotal,
@@ -182,14 +216,30 @@ class DictaminatorController extends Controller
             'evaluator_name' => $evaluatorSignature->evaluator_name ?? '',
             'evaluator_name_2' => $evaluatorSignature->evaluator_name_2 ?? '',
             'evaluator_name_3' => $evaluatorSignature->evaluator_name_3 ?? '',
-            'signature_path' => $evaluatorSignature->signature_path ? asset('storage/' . $evaluatorSignature->signature_path) : '',
-            'signature_path_2' => $evaluatorSignature->signature_path_2 ? asset('storage/' . $evaluatorSignature->signature_path_2) : '',
-            'signature_path_3' => $evaluatorSignature->signature_path_3 ? asset('storage/' . $evaluatorSignature->signature_path_3) : '',
+            'signature_path' => asset('storage/' . pathinfo($evaluatorSignature->signature_path, PATHINFO_FILENAME) . '.svg'),
+            'signature_path_2' => asset('storage/' . pathinfo($evaluatorSignature->signature_path_2, PATHINFO_FILENAME) . '.svg'),
+            'signature_path_3' => asset('storage/' . pathinfo($evaluatorSignature->signature_path_3, PATHINFO_FILENAME) . '.svg'),
             'pagina_inicio' => 31,
             'pagina_total' => 33,
-        ]);
+        ];
 
+        //dd($data);
+
+        // Para asegurarte de que la ejecución no llegue al PDF
+        //dd("SVGPaths generados correctamente:", $svgPaths);
+
+        // 5. Pasar todo a la vista PDF
+        $pdf = Pdf::loadView('reporte_pdf', $data);
+
+           
         
+
+        //dd($evaluatorSignature->signature_path, $evaluatorSignature->signature_path_2, $evaluatorSignature->signature_path_3);
+        $pdf->setOption('enable-local-file-access', true);
+        $pdf->setOption('disable-smart-shrinking', true);
+        
+
+
         return $pdf->stream('reporte_pdf.pdf');
     }
 
