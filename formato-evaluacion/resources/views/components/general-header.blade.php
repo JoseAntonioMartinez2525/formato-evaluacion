@@ -1,6 +1,6 @@
 <style>
 
-  img #logoUniv{
+  #logoUniv{
     width: 150px; height: auto; margin-bottom: 10px;margin-left: -550px; margin-top: 30px;
     }
     
