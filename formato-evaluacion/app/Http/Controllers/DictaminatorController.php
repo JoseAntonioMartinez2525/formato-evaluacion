@@ -133,6 +133,9 @@ class DictaminatorController extends Controller
     {
         $email = $request->query('email');
         $user = User::where('email', $email)->first();
+        $logoPath = public_path('../storage/logo_uabcs.png');
+        $logoBase64 = base64_encode(file_get_contents($logoPath));
+        //'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png'; // Or from a configuration
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
@@ -177,36 +180,52 @@ class DictaminatorController extends Controller
             'signature_path_3' => storage_path('app/public/' . $evaluatorSignature->signature_path_3)
         ];
 
-        $svgPaths = [];
-
-        //dd($signaturePaths, $svgPaths);
-        
-
-        foreach ($signaturePaths as $key => $inputImage) {
-            if (file_exists($inputImage)) {
-                $outputSvg = storage_path('app/public/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg');
-
-                $svgContent = '<?xml version="1.0" encoding="UTF-8"?>
-                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
-                    <image href="' . $inputImage . '" x="0" y="0" width="200" height="100"/>
-                </svg>';
-
-                file_put_contents($outputSvg, $svgContent);
-                //  Guardar la ruta en el array
-                $svgPaths[$key] = 'storage/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg';
-
-
-                // Verifica si el archivo se generó
-                if (!file_exists($outputSvg)) {
-                    dd("Error: El archivo {$outputSvg} no se ha creado correctamente.");
-                }
+        // Validación básica para evitar errores si la firma no existe
+        foreach ($signaturePaths as $key => $path) {
+            if (!file_exists($path)) {
+                $signaturePaths[$key] = null; // O podrías asignar una imagen por defecto si gustas
             }
         }
+    /*
+        $svgPaths = [];
 
-        
+        if (!file_exists(public_path('storage/' . $evaluatorSignature->signature_path))) {
+            dd('Firma no encontrada:', public_path('storage/' . $evaluatorSignature->signature_path));
+        }
+        //dd($signaturePaths, $svgPaths);
 
+
+        foreach ($signaturePaths as $key => $inputImage) {
+            if (!file_exists($inputImage)) {
+                //dd("Archivo no encontrado en storage_path: {$inputImage}");
+            }
+
+            $outputSvg = storage_path('app/public/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg');
+
+            $svgContent = '<?xml version="1.0" encoding="UTF-8"?>
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="100">
+                <image href="' . asset('storage/' . basename($inputImage)) . '" x="0" y="0" width="200" height="100"/>
+            </svg>';
+
+            file_put_contents($outputSvg, $svgContent);
+
+            if (!file_exists($outputSvg)) {
+                dd("Error: El archivo {$outputSvg} no se ha creado correctamente.");
+            }
+
+            $svgPaths[$key] = 'storage/' . pathinfo($inputImage, PATHINFO_FILENAME) . '.svg';
+        }
+
+
+
+*/
         // Variables para la vista PDF
+
+        $signature_path = storage_path('app/public/signatures/' . basename($evaluatorSignature->signature_path));
+        $signature_path_2 = storage_path('app/public/signatures/' . basename($evaluatorSignature->signature_path_2));
+        $signature_path_3 = storage_path('app/public/signatures/' . basename($evaluatorSignature->signature_path_3));
         $data = [
+            'logoBase64' => $logoBase64,
             'convocatoria' => $convocatoria,
             'comisiones' => $comisiones,
             'total' => $total,
@@ -216,9 +235,9 @@ class DictaminatorController extends Controller
             'evaluator_name' => $evaluatorSignature->evaluator_name ?? '',
             'evaluator_name_2' => $evaluatorSignature->evaluator_name_2 ?? '',
             'evaluator_name_3' => $evaluatorSignature->evaluator_name_3 ?? '',
-            'signature_path' => asset('storage/' . pathinfo($evaluatorSignature->signature_path, PATHINFO_FILENAME) . '.svg'),
-            'signature_path_2' => asset('storage/' . pathinfo($evaluatorSignature->signature_path_2, PATHINFO_FILENAME) . '.svg'),
-            'signature_path_3' => asset('storage/' . pathinfo($evaluatorSignature->signature_path_3, PATHINFO_FILENAME) . '.svg'),
+            'signature_path' => $signature_path,
+            'signature_path_2' => $signature_path_2,
+            'signature_path_3' => $signature_path_3,
             'pagina_inicio' => 31,
             'pagina_total' => 33,
         ];

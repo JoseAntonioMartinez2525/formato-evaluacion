@@ -53,7 +53,7 @@
 
 <body>
     
- <img src="https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png" id="logoUniv" alt="Logo UABCS">
+<img id="logoUniv" src="data:image/png;base64,{{ $logoBase64 }}"  alt="Logo UABCS">
     <h1 class="center">Secretaría General</h1>
     <h3 class="center">Programa de Estímulos al Desempeño del Personal Docente</h3>
    
@@ -297,9 +297,9 @@
         {{ $evaluator_name ?? '' }}
     </td>
     <td style="text-align:center;">
-        @if(!empty($signature_path))
-{!! file_get_contents(public_path('storage/' . pathinfo($signature_path, PATHINFO_FILENAME) . '.svg')) !!}
-        @endif
+    @if(!empty($signature_path) && file_exists($signature_path))
+    <img src="{{ $signature_path }}" alt="Firma" style="height:100px;">
+    @endif
     </td>
 </tr>
 
@@ -308,10 +308,10 @@
         {{ $evaluator_name_2 ?? '' }}
     </td>
     <td style="text-align:center;">
-        @if(!empty($signature_path_2))
-{!! file_get_contents(public_path('storage/' . pathinfo($signature_path_2, PATHINFO_FILENAME) . '.svg')) !!}
-        @endif
-    </td>
+    @if(!empty($signature_path_2) && file_exists($signature_path_2))
+    <img src="{{ $signature_path_2 }}" alt="Firma 2" style="height:100px;">
+@endif
+</td>
 </tr>
 
 <tr>
@@ -319,10 +319,10 @@
         {{ $evaluator_name_3 ?? '' }}
     </td>
     <td style="text-align:center;">
-        @if(!empty($signature_path_3))
-{!! file_get_contents(public_path('storage/' . pathinfo($signature_path_3, PATHINFO_FILENAME) . '.svg')) !!}
-        @endif
-    </td>
+    @if(!empty($signature_path_3) && file_exists($signature_path_3))
+    <img src="{{ $signature_path_3 }}" alt="Firma" style="height:100px;">
+@endif
+</td>
 </tr>
     </tbody>
 </table>
