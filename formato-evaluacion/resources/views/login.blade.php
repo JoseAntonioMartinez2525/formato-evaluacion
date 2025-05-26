@@ -25,6 +25,14 @@ Fecha de creación: 2024-06-03
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;ampdisplay=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+<style>
+    @keyframes onAutoFillStart {}
+input:-webkit-autofill {
+    animation-name: onAutoFillStart;
+    animation-duration: 0.01s;
+    animation-iteration-count: 1;
+}
+</style>
 </head>
 
 <body>
@@ -106,16 +114,40 @@ Fecha de creación: 2024-06-03
     <!-- Scripts de MDB Bootstrap -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
     <script>
-        document.getElementById('email').addEventListener('blur', function () {
-                const allowedEmails = ['joma_18@alu.uabcs.mx', 'oa.campillo@uabcs.mx', 'rluna@uabcs.mx', 'v.andrade@uabcs.mx'];
-                if (allowedEmails.includes(this.value)) {
-                    document.getElementById('no_password_required').value = 'true';
-                    document.getElementById('password-group').style.display = 'none';
-                } else {
-                    document.getElementById('no_password_required').value = 'false';
-                    document.getElementById('password-group').style.display = 'block';
-                }
-            });
+    function checkAllowedEmail() {
+        const allowedEmails = [
+            'joma_18@alu.uabcs.mx',
+            'oa.campillo@uabcs.mx',
+            'rluna@uabcs.mx',
+            'v.andrade@uabcs.mx'
+        ];
+        const emailInput = document.getElementById('email');
+        if (!emailInput) return;
+        const email = emailInput.value.trim().toLowerCase();
+        if (allowedEmails.includes(email)) {
+            document.getElementById('no_password_required').value = 'true';
+            document.getElementById('password-group').style.display = 'none';
+        } else {
+            document.getElementById('no_password_required').value = 'false';
+            document.getElementById('password-group').style.display = 'block';
+        }
+    }
+
+    // Detectar cambios manuales y por autocompletado
+    document.getElementById('email').addEventListener('input', checkAllowedEmail);
+    document.getElementById('email').addEventListener('change', checkAllowedEmail);
+    window.addEventListener('DOMContentLoaded', function () {
+        checkAllowedEmail();
+        // Esperar un poco por si el navegador autocompleta
+        setTimeout(checkAllowedEmail, 500);
+    });
+
+    // Opcional: detectar autocompletado con CSS animation (hack avanzado)
+    document.getElementById('email').addEventListener('animationstart', function (e) {
+        if (e.animationName === 'onAutoFillStart') {
+            checkAllowedEmail();
+        }
+    });
     </script>
 </body>
 

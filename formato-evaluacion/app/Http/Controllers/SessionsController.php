@@ -26,7 +26,7 @@ class SessionsController extends Controller
 
     public function login(Request $request)
     {
-        $email = $request->input('email');
+        $email = strtolower(trim($request->input('email')));
         $password = $request->input('password');
 
 
