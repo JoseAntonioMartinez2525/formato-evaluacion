@@ -135,14 +135,20 @@ class DictaminatorController extends Controller
     {
         $email = $request->query('email');
         $user = User::where('email', $email)->first();
-        $logoPath = storage_path('logo_uabcs.png');
-        $logoImageContent = file_get_contents($logoPath);
+        $logoPath = public_path('logo_uabcs.png');
+        if (!file_exists($logoPath)) {
+            // Si no existe en public, intenta en storage como respaldo
+            $logoPath = storage_path('logo_uabcs.png');
+        }
+        $logoImageContent = file_exists($logoPath) ? file_get_contents($logoPath) : '';
         $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
 
-        
-        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoImageContent);
-        //'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png'; // Or from a configuration
 
+        $logoBase64 = $logoImageContent
+            ? 'data:image/' . $logoType . ';base64,' . base64_encode($logoImageContent)
+            : '';
+
+        //'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png'; // Or from a configuration
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
