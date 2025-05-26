@@ -53,7 +53,7 @@
 
 <body>
     
-<img id="logoUniv" src="data:image/png;base64,{{ $logoBase64 }}"  alt="Logo UABCS">
+<img id="logoUniv" src="{{ $logoBase64 }}"  alt="Logo UABCS">
     <h1 class="center">Secretaría General</h1>
     <h3 class="center">Programa de Estímulos al Desempeño del Personal Docente</h3>
    

@@ -27,11 +27,13 @@ use App\Models\UsersResponseForm3_8;
 use App\Models\UsersResponseForm3_8_1;
 use App\Models\UsersResponseForm3_9;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Dompdf\Exception;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener el modelo User
 use Barryvdh\DomPDF\Facade\Pdf; // Importar DomPDF
 use Svg\Document;
 use Svg\Nodes\EmbeddedImage;
+use Intervention\Image\Facades\Image;
 
 class DictaminatorController extends Controller
 {
@@ -133,8 +135,12 @@ class DictaminatorController extends Controller
     {
         $email = $request->query('email');
         $user = User::where('email', $email)->first();
-        $logoPath = public_path('../storage/logo_uabcs.png');
-        $logoBase64 = base64_encode(file_get_contents($logoPath));
+        $logoPath = storage_path('logo_uabcs.png');
+        $logoImageContent = file_get_contents($logoPath);
+        $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
+
+        
+        $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoImageContent);
         //'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png'; // Or from a configuration
 
         if (!$user) {
@@ -313,6 +319,55 @@ class DictaminatorController extends Controller
             default:
                 return 'FALSE';
         }
+    }
+
+    function resizeAndEncodeBase64($path, $newWidth = 200)
+    {
+        list($width, $height, $type) = getimagesize($path);
+
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                $srcImage = imagecreatefromjpeg($path);
+                $mime = 'jpeg';
+                break;
+            case IMAGETYPE_PNG:
+                $srcImage = imagecreatefrompng($path);
+                $mime = 'png';
+                break;
+            case IMAGETYPE_GIF:
+                $srcImage = imagecreatefromgif($path);
+                $mime = 'gif';
+                break;
+            default:
+                throw new Exception('Unsupported image type');
+        }
+
+        $newHeight = intval(($newWidth / $width) * $height);
+        $resized = imagecreatetruecolor($newWidth, $newHeight);
+
+        // Soporte para transparencia si es PNG
+        if ($type == IMAGETYPE_PNG) {
+            imagealphablending($resized, false);
+            imagesavealpha($resized, true);
+        }
+
+        imagecopyresampled($resized, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+        ob_start();
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($resized, null, 85);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($resized, null, 8);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($resized);
+                break;
+        }
+        $imageData = ob_get_clean();
+
+        return 'data:image/' . $mime . ';base64,' . base64_encode($imageData);
     }
 
 
