@@ -244,6 +244,10 @@ class DictaminatorController extends Controller
             'minimaCalidad' => $minimaCalidad,
             'minimaTotal' => $minimaTotal,
             'totalComisionRepetido' => $totalComisionRepetido,
+            'subtotal3_1To3_8_1' => $subtotal3_1To3_8_1,
+            'subtotal3_9To3_11' => $subtotal3_9To3_11,
+            'subtotal3_12To3_16' => $subtotal3_12To3_16,
+            'subtotal3_17To3_19' => $subtotal3_17To3_19,
             'evaluator_name' => $evaluatorSignature->evaluator_name ?? '',
             'evaluator_name_2' => $evaluatorSignature->evaluator_name_2 ?? '',
             'evaluator_name_3' => $evaluatorSignature->evaluator_name_3 ?? '',
@@ -261,6 +265,7 @@ class DictaminatorController extends Controller
 
         // 5. Pasar todo a la vista PDF
         $pdf = Pdf::loadView('reporte_pdf', $data);
+        $pdf->setPaper('A4', 'landscape'); // <-- Esta línea establece la orientación horizontal
 
            
         

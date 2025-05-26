@@ -4,12 +4,12 @@ $filas = [
     [
         'actividad' => '1. Permanencia en las actividades de la docencia',
         'maximo' => 100,
-        'puntaje' => $comisiones->comision1 ?? '0.00'
+        'puntaje' => $comisiones->comision1 ?? ''
     ],
     [
         'actividad' => '1.1 Años de experiencia docente en la institución',
         'maximo' => 100,
-        'puntaje' => $comisiones->comision1_1 ?? '0.00'
+        'puntaje' => $comisiones->comision1 ?? '0.00'
     ],
     [
         'actividad' => '2. Dedicación en el desempeño docente',
@@ -24,7 +24,7 @@ $filas = [
     [
         'actividad' => '3. Calidad en la docencia',
         'maximo' => 700,
-        'puntaje' => $comisiones->total ?? '0.00'
+        'puntaje' => $total ?? '0.00' // <-- Cambia esto
     ],
     [
         'actividad' => '3.1 Participación en actividades de diseño curricular',
@@ -112,6 +112,28 @@ $filas = [
         'puntaje' => $comisiones->comision3_16 ?? '0.00'
     ],
 ];
+$data = [
+    'logoBase64' => $logoBase64,
+    'convocatoria' => $convocatoria,
+    'comisiones' => $comisiones,
+    'total' => $total,
+    'minimaCalidad' => $minimaCalidad,
+    'minimaTotal' => $minimaTotal,
+    'totalComisionRepetido' => $totalComisionRepetido,
+    'subtotal3_1To3_8_1' => $subtotal3_1To3_8_1,
+    'subtotal3_9To3_11' => $subtotal3_9To3_11,
+    'subtotal3_12To3_16' => $subtotal3_12To3_16,
+    'subtotal3_17To3_19' => $subtotal3_17To3_19,
+    '$total' => $total,
+    'evaluator_name' => $evaluatorSignature->evaluator_name ?? '',
+    'evaluator_name_2' => $evaluatorSignature->evaluator_name_2 ?? '',
+    'evaluator_name_3' => $evaluatorSignature->evaluator_name_3 ?? '',
+    'signature_path' => $signature_path,
+    'signature_path_2' => $signature_path_2,
+    'signature_path_3' => $signature_path_3,
+    'pagina_inicio' => 31,
+    'pagina_total' => 32,
+];
 @endphp
 <!DOCTYPE html>
 <html lang="es">
@@ -141,14 +163,36 @@ $filas = [
         }
 
         .puntaje {
-            background: #f7c873;
+        background: #f7c873;
+        text-align: center;
+        padding-right: 10px;
+        font-weight: normal; /* Sin negritas */
+    }
+        .puntaje-principal {
             font-weight: bold;
-            text-align: right;
+            text-align: center;
+            padding-right: 10px;
+            background: none;
+        }
+
+        .puntaje_total {
+            text-align: center;
+        }
+
+        .puntaje-subtotal {
+            font-weight: bold;
+            text-align: center;
+            
+        }
+
+        .valorMaximo{
+            text-align: center;
         }
 
         .subtotal {
             font-weight: bold;
             background: #f8f8f8;
+            text-align: center;
         }
 
         .page-break {
@@ -186,6 +230,10 @@ $filas = [
             width: 100%;
             margin-top: 40px;
         }
+        .pie-pag{
+            margin-top: 20px; 
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -214,39 +262,40 @@ $filas = [
     @include('components.fila-headers')
         <tbody>
         @foreach($filas as $i => $fila)
-        @include('components.filas-pdf', [
-        'actividad' => $fila['actividad'],
-        'maximo' => $fila['maximo'],
-        'puntaje' => $fila['puntaje']
-    ])
-        {{-- Inserta subtotales y títulos en el orden correcto --}}
-        @if($i == 13)
-            <tr>
-                <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
-                <td class="puntaje">{{ $subtotal3_1To3_8_1 ?? '0.00' }}</td>
-            </tr>
-            <tr>
-                <td colspan="1" class="center"><strong>Tutorías</strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-        @elseif($i == 16)
-            <tr>
-                <td colspan="2" class="subtotal">Subtotal</td>
-                <td class="puntaje">{{ $subtotal3_9To3_11 ?? '0.00' }}</td>
-            </tr>
-            <tr>
-                <td colspan="1" class="center"><strong>Investigación</strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-        @elseif($i == 21)
-            <tr>
-                <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
-                <td class="puntaje">{{ $subtotal3_12To3_16 ?? '0.00' }}</td>
-            </tr>
-        @endif
-    @endforeach
+                @include('components.filas-pdf', [
+                    'actividad' => $fila['actividad'],
+                    'maximo' => $fila['maximo'],
+                    'puntaje' => $fila['puntaje'],
+                    'esPrincipal' => in_array($i, [0, 2, 4])
+                ])
+            {{-- Inserta subtotales y títulos en el orden correcto --}}
+            @if($i == 13)
+                <tr>
+                    <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
+                    <td class="puntaje-subtotal">{{ $subtotal3_1To3_8_1 ?? '0.00' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="center"><strong>Tutorías</strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @elseif($i == 16)
+                <tr>
+                    <td colspan="2" class="subtotal">Subtotal</td>
+                    <td class="puntaje-subtotal">{{ $subtotal3_9To3_11 ?? '0.00' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="center"><strong>Investigación</strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @elseif($i == 21)
+                <tr>
+                    <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
+                    <td class="puntaje-subtotal">{{ $subtotal3_12To3_16 ?? '0.00' }}</td>
+                </tr>
+            @endif
+        @endforeach
             <tr>
                 <td colspan="3" class="center">
                     <strong>Convocatoria:</strong> {{ $convocatoria }}
@@ -254,6 +303,7 @@ $filas = [
             </tr>
         </tbody>
     </table>
+    <div class="pie-pag">página 31 de 32</div>
 
     <table>
     @include('components.fila-headers')
@@ -265,47 +315,47 @@ $filas = [
         </tr>
         <tr>
             <td>3.17 Proyectos académicos de extensión y difusión</td>
-            <td>50</td>
+            <td class="valorMaximo">50</td>
             <td class="puntaje">{{ $comisiones->comision3_17 ?? '0.00' }}</td>
         </tr>
         <tr>
             <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
-            <td>40</td>
+            <td class="valorMaximo">40</td>
             <td class="puntaje">{{ $comisiones->comision3_18 ?? '0.00' }}</td>
         </tr>
         <tr>
             <td>3.19 Participación en cuerpos colegiados</td>
-            <td>40</td>
+            <td class="valorMaximo">40</td>
             <td class="puntaje">{{ $comisiones->comision3_19 ?? '0.00' }}</td>
         </tr>
         <tr>
             <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
-            <td class="puntaje">{{ $subtotal3_17To3_19 ?? '0.00' }}</td>
+            <td class="puntaje-subtotal">{{ $subtotal3_17To3_19 ?? '0.00' }}</td>
         </tr>
         {{-- Total logrado en la evaluación --}}
         <tr>
-            <td colspan="2" class="subtotal"><strong>Total logrado en la evaluación</strong></td>
-            <td class="puntaje">{{ $total ?? '0.00' }}</td>
+            <td colspan="2" class="puntaje-subtotal"><strong>Total logrado en la evaluación</strong></td>
+            <td class="puntaje_total">{{ $totalComisionRepetido ?? '0.00' }}</td>
         </tr>
         {{-- Detalle de los tres rubros principales --}}
         <tr>
             <td>1. Permanencia en las actividades de la docencia</td>
-            <td>100</td>
+            <td class="valorMaximo">100</td>
             <td class="puntaje">{{ $comisiones->comision1 ?? '0.00' }}</td>
         </tr>
         <tr>
             <td>2. Dedicación en el desempeño docente</td>
-            <td>200</td>
+            <td class="valorMaximo">200</td>
             <td class="puntaje">{{ $comisiones->actv2Comision ?? '0.00' }}</td>
         </tr>
         <tr>
             <td>3. Calidad en la docencia</td>
-            <td>700</td>
-            <td class="puntaje">{{ $comisiones->total ?? '0.00' }}</td>
+            <td class="valorMaximo">700</td>
+            <td class="puntaje">{{ $total ?? '0.00' }}</td>
         </tr>
         <tr>
             <td colspan="2" class="subtotal"><strong>Total de puntaje obtenido en la evaluación</strong></td>
-            <td class="puntaje">{{ $totalComisionRepetido ?? '0.00' }}</td>
+            <td class="puntaje-subtotal">{{ $totalComisionRepetido ?? '0.00' }}</td>
         </tr>
         <tr>
             <td colspan="2" class="center"><strong>Nivel obtenido de acuerdo al artículo 10 del Reglamento</strong></td>
@@ -367,6 +417,12 @@ $filas = [
     </tr>
     </tbody>
 </table>
+
+<div style="margin-top: 20px; text-align: center;">
+    <strong>Convocatoria:</strong> {{ $convocatoria }}
+</div>
+
+<div class="pie-pag">página 32 de 32</div>
 
     {{-- Footer dinámico para Snappy/wkhtmltopdf --}}
     <script type="text/php">
