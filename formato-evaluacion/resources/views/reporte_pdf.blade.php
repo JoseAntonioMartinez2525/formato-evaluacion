@@ -1,6 +1,6 @@
 {{-- resources/views/reporte_pdf.blade.php --}}
 @php
-$filas = [
+$filas1To3_8_1 = [
     [
         'actividad' => '1. Permanencia en las actividades de la docencia',
         'maximo' => 100,
@@ -71,6 +71,10 @@ $filas = [
         'maximo' => 40,
         'puntaje' => $comisiones->comision3_8_1 ?? '0.00'
     ],
+
+];
+
+$filas3_9To3_19 = [
     [
         'actividad' => '3.9 Trabajos dirigidos para la titulación de estudiantes',
         'maximo' => 200,
@@ -87,30 +91,46 @@ $filas = [
         'puntaje' => $comisiones->comision3_11 ?? '0.00'
     ],
     [
-        'actividad' => '3.12 Publicaciones de investigación relacionadas con el contenido de los PE que imparte el docente',
-        'maximo' => 150,
+        'actividad' => '3.12 Proyectos de investigación',
+        'maximo' => 100,
         'puntaje' => $comisiones->comision3_12 ?? '0.00'
     ],
     [
-        'actividad' => '3.13 Proyectos académicos de investigación',
-        'maximo' => 130,
+        'actividad' => '3.13 Publicaciones científicas',
+        'maximo' => 100,
         'puntaje' => $comisiones->comision3_13 ?? '0.00'
     ],
     [
-        'actividad' => '3.14 Participación como ponente en congresos o eventos académicos del área de conocimiento o afines del docente',
-        'maximo' => 40,
+        'actividad' => '3.14 Participación en proyectos de investigación',
+        'maximo' => 100,
         'puntaje' => $comisiones->comision3_14 ?? '0.00'
     ],
     [
-        'actividad' => '3.15 Registro de patentes y productos de investigación tecnológica y educativa',
-        'maximo' => 60,
+        'actividad' => '3.15 Participación en redes académicas',
+        'maximo' => 100,
         'puntaje' => $comisiones->comision3_15 ?? '0.00'
     ],
     [
-        'actividad' => '3.16 Actividades de arbitraje, revisión, corrección y edición',
-        'maximo' => 30,
+        'actividad' => '3.16 Participación en proyectos de vinculación',
+        'maximo' => 100,
         'puntaje' => $comisiones->comision3_16 ?? '0.00'
     ],
+    [
+        'actividad' => '3.17 Proyectos académicos de extensión y difusión',
+        'maximo' => 50,
+        'puntaje' => $comisiones->comision3_17 ?? '0.00'
+    ],
+    [
+        'actividad' => '3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente',
+        'maximo' => 40,
+        'puntaje' => $comisiones->comision3_18 ?? '0.00'
+    ],
+    [
+        'actividad' => '3.19 Participación en cuerpos colegiados',
+        'maximo' => 40,
+        'puntaje' => $comisiones->comision3_19 ?? '0.00'
+    ],
+
 ];
 $data = [
     'logoBase64' => $logoBase64,
@@ -231,8 +251,13 @@ $data = [
             margin-top: 40px;
         }
         .pie-pag{
+            margin-bottom: 50px; 
+            text-align: right;
+        }
+        .pie-pag2{
             margin-top: 20px; 
             text-align: right;
+            margin-left: 920px;   
         }
     </style>
 </head>
@@ -261,25 +286,47 @@ $data = [
     <table>
     @include('components.fila-headers')
         <tbody>
-        @foreach($filas as $i => $fila)
+        @foreach($filas1To3_8_1 as $i => $fila)
                 @include('components.filas-pdf', [
-                    'actividad' => $fila['actividad'],
-                    'maximo' => $fila['maximo'],
-                    'puntaje' => $fila['puntaje'],
-                    'esPrincipal' => in_array($i, [0, 2, 4])
-                ])
+        'actividad' => $fila['actividad'],
+        'maximo' => $fila['maximo'],
+        'puntaje' => $fila['puntaje'],
+        'esPrincipal' => in_array($i, [0, 2, 4])
+    ])
             {{-- Inserta subtotales y títulos en el orden correcto --}}
-            @if($i == 13)
+        @endforeach
                 <tr>
                     <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
                     <td class="puntaje-subtotal">{{ $subtotal3_1To3_8_1 ?? '0.00' }}</td>
                 </tr>
-                <tr>
-                    <td colspan="1" class="center"><strong>Tutorías</strong></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            @elseif($i == 16)
+                
+            <tr>
+                <td colspan="3" class="center">
+                    <strong>Convocatoria:</strong> {{ $convocatoria }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pie-pag">página 31 de 33</div>
+
+    <table>
+    @include('components.fila-headers')
+        <tbody>
+        {{-- Tutorias --}}
+        <tr>
+            <td colspan="1" class="center"><strong>Tutorías</strong></td>
+            <td></td>
+          <td></td>
+        </tr>
+        @foreach($filas3_9To3_19 as $i => $fila)
+            @include('components.filas-pdf', [
+        'actividad' => $fila['actividad'],
+        'maximo' => $fila['maximo'],
+        'puntaje' => $fila['puntaje'],
+        'esPrincipal' => $esPrincipal ?? false
+
+    ])
+            @if($i == 2)
                 <tr>
                     <td colspan="2" class="subtotal">Subtotal</td>
                     <td class="puntaje-subtotal">{{ $subtotal3_9To3_11 ?? '0.00' }}</td>
@@ -289,45 +336,18 @@ $data = [
                     <td></td>
                     <td></td>
                 </tr>
-            @elseif($i == 21)
+            @elseif($i == 7)
                 <tr>
-                    <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
+                    <td colspan="2" class="subtotal">Subtotal</td>
                     <td class="puntaje-subtotal">{{ $subtotal3_12To3_16 ?? '0.00' }}</td>
+                </tr>
+                {{-- Cuerpos colegiados --}}
+                <tr>
+                    <td colspan="1" class="center"><strong>Cuerpos colegiados</strong></td>
+                    <td></td>
                 </tr>
             @endif
         @endforeach
-            <tr>
-                <td colspan="3" class="center">
-                    <strong>Convocatoria:</strong> {{ $convocatoria }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="pie-pag">página 31 de 32</div>
-
-    <table>
-    @include('components.fila-headers')
-        <tbody>
-        {{-- Cuerpos colegiados --}}
-        <tr>
-            <td colspan="1" class="center"><strong>Cuerpos colegiados</strong></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>3.17 Proyectos académicos de extensión y difusión</td>
-            <td class="valorMaximo">50</td>
-            <td class="puntaje">{{ $comisiones->comision3_17 ?? '0.00' }}</td>
-        </tr>
-        <tr>
-            <td>3.18 Organización de congresos o eventos institucionales del área de conocimiento del Docente</td>
-            <td class="valorMaximo">40</td>
-            <td class="puntaje">{{ $comisiones->comision3_18 ?? '0.00' }}</td>
-        </tr>
-        <tr>
-            <td>3.19 Participación en cuerpos colegiados</td>
-            <td class="valorMaximo">40</td>
-            <td class="puntaje">{{ $comisiones->comision3_19 ?? '0.00' }}</td>
-        </tr>
         <tr>
             <td colspan="2" class="subtotal"><strong>Subtotal</strong></td>
             <td class="puntaje-subtotal">{{ $subtotal3_17To3_19 ?? '0.00' }}</td>
@@ -371,8 +391,15 @@ $data = [
             <td class="center"><strong>Mínima Total</strong></td>
             <td class="center"><strong>{{ $minimaTotal ?? '' }}</strong></td>
         </tr>
+        <tr>
+            <td colspan="3" class="center">
+                <strong>Convocatoria:</strong> {{ $convocatoria }}
+                
+            </td>
+        </tr>
         </tbody>           
     </table>
+    <span class="pie-pag2">página 32 de 33</span>
 
 {{-- Salto de página 
 <div style="page-break-before: always;"></div> --}}
@@ -418,11 +445,11 @@ $data = [
     </tbody>
 </table>
 
-<div style="margin-top: 20px; text-align: center;">
+<div style="margin-top: 200px; text-align: center;">
     <strong>Convocatoria:</strong> {{ $convocatoria }}
 </div>
 
-<div class="pie-pag">página 32 de 32</div>
+<div class="pie-pag">página 33 de 33</div>
 
     {{-- Footer dinámico para Snappy/wkhtmltopdf --}}
     <script type="text/php">
