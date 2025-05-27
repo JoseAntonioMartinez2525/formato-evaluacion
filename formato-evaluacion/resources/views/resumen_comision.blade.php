@@ -340,10 +340,10 @@ body.dark-mode img.imgFirma{
                     @endif
                 </div>
             </center>
-    
-            <div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
-                Página 33 de 33
-            </div>
+    {{-- -<div id="piedepagina" style="margin-left: 500px;margin-top:10px;">
+        Página 33 de 33
+    </div> --}}
+
         </footer>
     </center>
         </main>
@@ -1080,7 +1080,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             // Justo después de cargar y mostrar los datos del docente y las firmas
                                             const pdfButtonContainer = document.getElementById('pdfButtonContainer');
                                             pdfButtonContainer.innerHTML = `
-                                            <a href="/reporte_pdf?email=${encodeURIComponent(email)}" target="_blank" class="btn btn-primary">
+                                            <a href="/reporte_pdf?email=${encodeURIComponent(email)}" target="_blank" class="btn custom-btn">
                                                 Ver PDF de Resumen de Comisión
                                             </a>
                                         `;

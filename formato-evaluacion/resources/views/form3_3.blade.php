@@ -186,7 +186,7 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
     }
 
     .page-number:before {
-  content: "Página " counter(page) " de 32";
+  content: "Página " counter(page) " de 33";
 }
 
 .secretaria-style {
@@ -386,14 +386,14 @@ $user_identity = $user->id;
                     <h1>Convocatoria: </h1>
                 </span>
                 <span id="piedepagina1" style="display: none; margin-left: 20px;">
-                    Página 3 de 32
+                    Página 3 de 33
                 </span>
             @endif
         @endif
     </div>
 <div colspan="8">
     @if($userType == 'dictaminador')
-        <span id="piedepagina1" style="display: none;margin-left:800px;">Página 6 de 32</span>
+        <span id="piedepagina1" style="display: none;margin-left:800px;">Página 6 de 33</span>
     @endif
 </div>
 </div><br><br>
@@ -496,7 +496,7 @@ $user_identity = $user->id;
 
 <div id="piedepagina2"
     class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-    Página 7 de 32
+    Página 7 de 33
 </div>
 
 </div>            
@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                             if (!existingSpan) {
                                                 const piedepaginaSpan = document.createElement('span');
                                                 piedepaginaSpan.id = 'piedepagina1';
-                                                piedepaginaSpan.textContent = ' Página 6 de 32';
+                                                piedepaginaSpan.textContent = ' Página 6 de 33';
                                                 convocatoriaElement.appendChild(piedepaginaSpan);
                                             }
                                             convocatoriaElement.firstChild.textContent = data.docente.convocatoria;

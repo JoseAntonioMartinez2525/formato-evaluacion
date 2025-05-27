@@ -457,7 +457,7 @@ $user_identity = $user->id;
         const footers = document.querySelectorAll('#piedepagina');
         footers.forEach((footer, index) => {
             const pageNumberElement = footer.querySelector('.page-number');
-            pageNumberElement.textContent = index + 1;
+            pageNumberElement.textContent = "página "+ (index + 1) + " de 33";
         });
     });
 

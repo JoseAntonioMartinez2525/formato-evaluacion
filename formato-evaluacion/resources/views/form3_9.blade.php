@@ -89,7 +89,7 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 
 
     .page-number:before {
-  content: "Página " counter(page) " de 32";
+  content: "Página " counter(page) " de 33";
 }
 
 .secretaria-style {
@@ -367,7 +367,7 @@ $user_identity = $user->id;
                 </div>
                     <div id="piedepagina1"
                         class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-                        Página 14 de 32
+                        Página 14 de 33
                     </div>                
             </div>
     
@@ -637,7 +637,7 @@ $user_identity = $user->id;
 
         <div id="piedepagina2"
             class="{{ $userType === 'dictaminador' ? 'dictaminador-style' : ($userType === '' ? 'secretaria-style' : '') }}">
-            Página 15 de 32
+            Página 15 de 33
         </div>
 </div>
         </form>
