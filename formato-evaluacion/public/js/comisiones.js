@@ -435,6 +435,16 @@ function onActv3Comision3_19(){
               } else {
                   element.textContent = value;
               }
+              
+              // Si el ID del elemento comienza con "obs" y el valor es vacío, aplica color de fondo
+              if (element && element.id.startsWith("obs") && (value === "" || value === null || value === undefined)) {
+                element.style.backgroundColor = "rgb(214, 255, 247)";
+                element.style.padding = "15px 25px"; 
+                element.style.display = "inline-block"; 
+                element.style.minHeight = "30px";
+              }
+
+
           } else {
               console.warn(`Elemento no encontrado: ${selector}`);
           }

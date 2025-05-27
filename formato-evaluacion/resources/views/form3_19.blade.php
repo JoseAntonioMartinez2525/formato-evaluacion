@@ -262,7 +262,8 @@ $page_counter = 28;
                                 <input class="table-header" type="text" id="obsCGUtitular" name="obsCGUtitular">
                             @else
                                 <span id="obsCGUtitular" name="obsCGUtitular" class="form3_19_dark"></span>
-                            @endif                          </td>
+                            @endif 
+                        </td>
                     </tr>
                     <tr>
                         <td>b)</td>
@@ -1168,45 +1169,26 @@ $page_counter = 28;
                                     } else {
                                         console.error('No form3_19 data found for the selected dictaminador.');
 
-                                        // Reset input values if no data found
-                                        document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                        document.querySelector('input[name="user_id"]').value = '0';
-                                        document.querySelector('input[name="email"]').value = '';
-                                        document.querySelector('input[name="user_type"]').value = '';
+                                        // Reset input values
+                                        setValue('input[name="dictaminador_id"]', '0');
+                                        setValue('input[name="user_id"]', '0');
+                                        setValue('input[name="email"]', '');
+                                        setValue('input[name="user_type"]', '');
 
-                                        document.querySelector('.score3_19').textContent = '0';
+                                        setValue('.score3_19', '0');
+                                        setValue('.comision3_19', '0');
 
                                         // Reset cantidad values
-                                        for (let i = 0; i < cant3_19.length; i++) {
-                                            const cantidad = cant3_19[i];
-                                            document.querySelector(`input[name="${cantidad}"]`).value = '0';
-                                        }
+                                        cant3_19.forEach(cantidad => setValue(`#${cantidad}`, '0'));
 
                                         // Reset subtotal values
-                                        for (let j = 0; j < subtotal3_19.length; j++) {
-                                            const subtotal = subtotal3_19[j];
-                                            document.querySelector(`input[name="${subtotal}"]`).value = '0';
-                                        }
+                                        subtotal3_19.forEach(subtotal => setValue(`#${subtotal}`, '0'));
 
                                         // Reset comision values
-                                        for (let k = 0; k < comision3_19.length; k++) {
-                                            const comision = comision3_19[k];
-                                            const element = document.querySelector(`input[name="${comision}"]`);
-                                            if (element) {
-                                                element.textContent = '0';
-                                            }
-                                        }
+                                        comision3_19.forEach(comision => setValue(`#${comision}`, '0'));
 
                                         // Reset observation values
-                                        for (let l = 0; l < obs3_19.length; l++) {
-                                            const obs = obs3_19[l];
-                                            const element = document.querySelector(`input[name="${obs}"]`);
-                                            if (element) {
-                                                element.textContent = ''; // Asignar un valor vacío
-                                            }
-                                        }
-
-                                        document.querySelector('.comision3_19').textContent = '0';
+                                        obs3_19.forEach(obs => setValue(`#${obs}`, ''));
                                     }
                                 } catch (error) {
                                     console.error('Error fetching dictaminators responses:', error);
