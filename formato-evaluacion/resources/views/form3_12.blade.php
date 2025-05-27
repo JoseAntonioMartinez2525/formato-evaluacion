@@ -634,58 +634,58 @@ $user_identity = $user->id;
                                     const selectedResponseForm3_12 = dictaminatorResponses.form3_12.find(res => res.email === email);
                                     if (selectedResponseForm3_12) {
 
-                                        document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_12.dictaminador_id || '0';
-                                        document.querySelector('input[name="user_id"]').value = selectedResponseForm3_12.user_id || '';
-                                        document.querySelector('input[name="email"]').value = selectedResponseForm3_12.email || '';
-                                        document.querySelector('input[name="user_type"]').value = selectedResponseForm3_12.user_type || '';
+                                        document.querySelector('input[name="dictaminador_id"]').value = selectedResponseForm3_12.dictaminador_id ?? '0';
+                                        document.querySelector('input[name="user_id"]').value = selectedResponseForm3_12.user_id ?? '';
+                                        document.querySelector('input[name="email"]').value = selectedResponseForm3_12.email ?? '';
+                                        document.querySelector('input[name="user_type"]').value = selectedResponseForm3_12.user_type ?? '';
 
                                         // Cantidades
-                                        document.getElementById('cantCientifico').textContent = selectedResponseForm3_12.cantCientifico || '0';
-                                        document.getElementById('cantDivulgacion').textContent = selectedResponseForm3_12.cantDivulgacion || '0';
-                                        document.getElementById('cantTraduccion').textContent = selectedResponseForm3_12.cantTraduccion || '0';
-                                        document.getElementById('cantArbitrajeInt').textContent = selectedResponseForm3_12.cantArbitrajeInt || '0';
-                                        document.getElementById('cantArbitrajeNac').textContent = selectedResponseForm3_12.cantArbitrajeNac || '0';
-                                        document.getElementById('cantSinInt').textContent = selectedResponseForm3_12.cantSinInt || '0';
-                                        document.getElementById('cantSinNac').textContent = selectedResponseForm3_12.cantSinNac || '0';
-                                        document.getElementById('cantAutor').textContent = selectedResponseForm3_12.cantAutor || '0';
-                                        document.getElementById('cantEditor').textContent = selectedResponseForm3_12.cantEditor || '0';
-                                        document.getElementById('cantWeb').textContent = selectedResponseForm3_12.cantWeb || '0';
+                                        document.getElementById('cantCientifico').textContent = selectedResponseForm3_12.cantCientifico ?? '0';
+                                        document.getElementById('cantDivulgacion').textContent = selectedResponseForm3_12.cantDivulgacion ?? '0';
+                                        document.getElementById('cantTraduccion').textContent = selectedResponseForm3_12.cantTraduccion ?? '0';
+                                        document.getElementById('cantArbitrajeInt').textContent = selectedResponseForm3_12.cantArbitrajeInt ?? '0';
+                                        document.getElementById('cantArbitrajeNac').textContent = selectedResponseForm3_12.cantArbitrajeNac ?? '0';
+                                        document.getElementById('cantSinInt').textContent = selectedResponseForm3_12.cantSinInt ?? '0';
+                                        document.getElementById('cantSinNac').textContent = selectedResponseForm3_12.cantSinNac ?? '0';
+                                        document.getElementById('cantAutor').textContent = selectedResponseForm3_12.cantAutor ?? '0';
+                                        document.getElementById('cantEditor').textContent = selectedResponseForm3_12.cantEditor ?? '0';
+                                        document.getElementById('cantWeb').textContent = selectedResponseForm3_12.cantWeb ?? '0';
 
                                         // Subtotales
-                                        document.getElementById('subtotalCientificos').textContent = selectedResponseForm3_12.subtotalCientificos || '0';
-                                        document.getElementById('subtotalDivulgacion').textContent = selectedResponseForm3_12.subtotalDivulgacion || '0';
-                                        document.getElementById('subtotalTraduccion').textContent = selectedResponseForm3_12.subtotalTraduccion || '0';
-                                        document.getElementById('subtotalArbitrajeInt').textContent = selectedResponseForm3_12.subtotalArbitrajeInt || '0';
-                                        document.getElementById('subtotalArbitrajeNac').textContent = selectedResponseForm3_12.subtotalArbitrajeNac || '0';
-                                        document.getElementById('subtotalSinInt').textContent = selectedResponseForm3_12.subtotalSinInt || '0';
-                                        document.getElementById('subtotalSinNac').textContent = selectedResponseForm3_12.subtotalSinNac || '0';
-                                        document.getElementById('subtotalAutor').textContent = selectedResponseForm3_12.subtotalAutor || '0';
-                                        document.getElementById('subtotalEditor').textContent = selectedResponseForm3_12.subtotalEditor || '0';
-                                        document.getElementById('subtotalWeb').textContent = selectedResponseForm3_12.subtotalWeb || '0';
+                                        document.getElementById('subtotalCientificos').textContent = selectedResponseForm3_12.subtotalCientificos ?? '0';
+                                        document.getElementById('subtotalDivulgacion').textContent = selectedResponseForm3_12.subtotalDivulgacion ?? '0';
+                                        document.getElementById('subtotalTraduccion').textContent = selectedResponseForm3_12.subtotalTraduccion ?? '0';
+                                        document.getElementById('subtotalArbitrajeInt').textContent = selectedResponseForm3_12.subtotalArbitrajeInt ?? '0';
+                                        document.getElementById('subtotalArbitrajeNac').textContent = selectedResponseForm3_12.subtotalArbitrajeNac ?? '0';
+                                        document.getElementById('subtotalSinInt').textContent = selectedResponseForm3_12.subtotalSinInt ?? '0';
+                                        document.getElementById('subtotalSinNac').textContent = selectedResponseForm3_12.subtotalSinNac ?? '0';
+                                        document.getElementById('subtotalAutor').textContent = selectedResponseForm3_12.subtotalAutor ?? '0';
+                                        document.getElementById('subtotalEditor').textContent = selectedResponseForm3_12.subtotalEditor ?? '0';
+                                        document.getElementById('subtotalWeb').textContent = selectedResponseForm3_12.subtotalWeb ?? '0';
 
                                         // Comisiones
-                                        document.querySelector('#comisionCientificos').textContent = selectedResponseForm3_12.comisionCientificos || '0';
-                                        document.querySelector('#comisionDivulgacion').textContent = selectedResponseForm3_12.comisionDivulgacion || '0';
-                                        document.querySelector('#comisionTraduccion').textContent = selectedResponseForm3_12.comisionTraduccion || '0';
-                                        document.querySelector('#comisionArbitrajeInt').textContent = selectedResponseForm3_12.comisionArbitrajeInt || '0';
-                                        document.querySelector('#comisionArbitrajeNac').textContent = selectedResponseForm3_12.comisionArbitrajeNac || '0';
-                                        document.querySelector('#comisionSinInt').textContent = selectedResponseForm3_12.comisionSinInt || '0';
-                                        document.querySelector('#comisionSinNac').textContent = selectedResponseForm3_12.comisionSinNac || '0';
-                                        document.querySelector('#comisionAutor').textContent = selectedResponseForm3_12.comisionAutor || '0';
-                                        document.querySelector('#comisionEditor').textContent = selectedResponseForm3_12.comisionEditor || '0';
-                                        document.querySelector('#comisionWeb').textContent = selectedResponseForm3_12.comisionWeb || '0';
+                                        document.querySelector('#comisionCientificos').textContent = selectedResponseForm3_12.comisionCientificos ?? '0';
+                                        document.querySelector('#comisionDivulgacion').textContent = selectedResponseForm3_12.comisionDivulgacion ?? '0';
+                                        document.querySelector('#comisionTraduccion').textContent = selectedResponseForm3_12.comisionTraduccion ?? '0';
+                                        document.querySelector('#comisionArbitrajeInt').textContent = selectedResponseForm3_12.comisionArbitrajeInt ?? '0';
+                                        document.querySelector('#comisionArbitrajeNac').textContent = selectedResponseForm3_12.comisionArbitrajeNac ?? '0';
+                                        document.querySelector('#comisionSinInt').textContent = selectedResponseForm3_12.comisionSinInt ?? '0';
+                                        document.querySelector('#comisionSinNac').textContent = selectedResponseForm3_12.comisionSinNac ?? '0';
+                                        document.querySelector('#comisionAutor').textContent = selectedResponseForm3_12.comisionAutor ?? '0';
+                                        document.querySelector('#comisionEditor').textContent = selectedResponseForm3_12.comisionEditor ?? '0';
+                                        document.querySelector('#comisionWeb').textContent = selectedResponseForm3_12.comisionWeb ?? '0';
 
                                         // Observaciones
-                                        document.querySelector('#obsCientificos').textContent = selectedResponseForm3_12.obsCientificos || '';
-                                        document.querySelector('#obsDivulgacion').textContent = selectedResponseForm3_12.obsDivulgacion || '';
-                                        document.querySelector('#obsTraduccion').textContent = selectedResponseForm3_12.obsTraduccion || '';
-                                        document.querySelector('#obsArbitrajeInt').textContent = selectedResponseForm3_12.obsArbitrajeInt || '';
-                                        document.querySelector('#obsArbitrajeNac').textContent = selectedResponseForm3_12.obsArbitrajeNac || '';
-                                        document.querySelector('#obsSinInt').textContent = selectedResponseForm3_12.obsSinInt || '';
-                                        document.querySelector('#obsSinNac').textContent = selectedResponseForm3_12.obsSinNac || '';
-                                        document.querySelector('#obsAutor').textContent = selectedResponseForm3_12.obsAutor || '';
-                                        document.querySelector('#obsEditor').textContent = selectedResponseForm3_12.obsEditor || '';
-                                        document.querySelector('#obsWeb').textContent = selectedResponseForm3_12.obsWeb || '';
+                                        document.querySelector('#obsCientificos').textContent = selectedResponseForm3_12.obsCientificos ?? '';
+                                        document.querySelector('#obsDivulgacion').textContent = selectedResponseForm3_12.obsDivulgacion ?? '';
+                                        document.querySelector('#obsTraduccion').textContent = selectedResponseForm3_12.obsTraduccion ?? '';
+                                        document.querySelector('#obsArbitrajeInt').textContent = selectedResponseForm3_12.obsArbitrajeInt ?? '';
+                                        document.querySelector('#obsArbitrajeNac').textContent = selectedResponseForm3_12.obsArbitrajeNac ?? '';
+                                        document.querySelector('#obsSinInt').textContent = selectedResponseForm3_12.obsSinInt ?? '';
+                                        document.querySelector('#obsSinNac').textContent = selectedResponseForm3_12.obsSinNac ?? '';
+                                        document.querySelector('#obsAutor').textContent = selectedResponseForm3_12.obsAutor ?? '';
+                                        document.querySelector('#obsEditor').textContent = selectedResponseForm3_12.obsEditor ?? '';
+                                        document.querySelector('#obsWeb').textContent = selectedResponseForm3_12.obsWeb ?? '';
 
                                         // Update all elements with the class 'score3_12'
                                         const scoreElements = document.querySelectorAll('.score3_12');
@@ -699,50 +699,31 @@ $user_identity = $user->id;
                                             element.textContent = selectedResponseForm3_12.comision3_12 || '0';
                                         });
 
-                                    } else {
+                                    }else {
+    console.error('No form3_12 data found for the selected dictaminador.');
 
-                                        console.error('No form3_12 data found for the selected dictaminador.');
+    // Reset input values
+    setValue('dictaminador_id', '0');
+    setValue('user_id', '0');
+    setValue('email', '');
+    setValue('user_type', '');
 
-                                        // Reset input values if no data found
-                                        document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                        document.querySelector('input[name="user_id"]').value = '0';
-                                        document.querySelector('input[name="email"]').value = '';
-                                        document.querySelector('input[name="user_type"]').value = '';
+    setValue('score3_12', '0');
+    setValue('comision3_12', '0');
 
-                                        document.querySelector('.score3_12').textContent = '0';
+    // Reset cantidad values
+    cant3_12.forEach(cantidad => setValue(cantidad, '0'));
 
-                                        // Reset cantidad values
-                                        for (let i = 0; i < cant3_12.length; i++) {
-                                            const cantidad = cant3_12[i];
-                                            document.querySelector(`input[name="${cantidad}"]`).value = '0';
-                                        }
+    // Reset subtotal values
+    subtotal3_12.forEach(subtotal => setValue(subtotal, '0'));
 
-                                        // Reset subtotal values
-                                        for (let j = 0; j < subtotal3_12.length; j++) {
-                                            const subtotal = subtotal3_12[j];
-                                            document.querySelector(`input[name="${subtotal}"]`).value = '0';
-                                        }
+    // Reset comision values
+    comision3_12.forEach(comision => setValue(comision, '0'));
 
-                                        // Reset comision values
-                                        for (let k = 0; k < comision3_12.length; k++) {
-                                            const comision = comision3_12[k];
-                                            const element = document.querySelector(`input[name="${comision}"]`);
-                                            if (element) {
-                                                element.textContent = '0';
-                                            }
-                                        }
+    // Reset observation values
+    obs3_12.forEach(obs => setValue(obs, ''));
+}
 
-                                        // Reset observation values
-                                        for (let l = 0; l < obs3_12.length; l++) {
-                                            const obs = obs3_12[l];
-                                            const element = document.querySelector(`input[name="${obs}"]`);
-                                            if (element) {
-                                                element.textContent = ''; // Asignar un valor vacío
-                                            }
-                                        }
-
-                                        document.querySelector('.comision3_12').textContent = '0';
-                                    }
                                 } catch (error) {
                                     console.error('Error fetching dictaminators responses:', error);
                                 }

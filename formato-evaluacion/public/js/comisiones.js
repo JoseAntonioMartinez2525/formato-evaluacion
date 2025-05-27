@@ -411,3 +411,31 @@ function onActv3Comision3_19(){
 
   
 }
+
+        // Función para asignar valores solo si el elemento existe
+        function setValue(selector, value) {
+          let element;
+      
+          // Verificar si el selector usa "name="
+          if (selector.startsWith('input[name="')) {
+              element = document.querySelector(selector);
+          } else if (selector.startsWith('span[name="')) {
+              element = document.querySelector(selector); // Caso especial para `span[name=""]`
+          } else {
+              element = document.getElementById(selector); // Para `id`
+              if (!element) {
+                  element = document.querySelector(selector); // Para `class` y otros selectores válidos
+              }
+          }
+      
+          // Si el elemento existe, asigna el valor correctamente
+          if (element) {
+              if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                  element.value = value;
+              } else {
+                  element.textContent = value;
+              }
+          } else {
+              console.warn(`Elemento no encontrado: ${selector}`);
+          }
+      }

@@ -553,16 +553,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         axios.get('/get-docente-data', { params: { email } })
                             .then(response => {
                                 const data = response.data; 
-                                document.getElementById('score3_3').textContent = data.form3_3.score3_3 || '0';
-                                document.getElementById('score3_3_copy').textContent = data.form3_3.score3_3 || '0';
-                                document.getElementById('rc1').textContent = data.form3_3.rc1 || '0';
-                                document.getElementById('rc2').textContent = data.form3_3.rc2 || '0';
-                                document.getElementById('rc3').textContent = data.form3_3.rc3 || '0';
-                                document.getElementById('rc4').textContent = data.form3_3.rc4 || '0';
-                                document.getElementById('stotal1').textContent = data.form3_3.stotal1 || '0';
-                                document.getElementById('stotal2').textContent = data.form3_3.stotal2 || '0';
-                                document.getElementById('stotal3').textContent = data.form3_3.stotal3 || '0';
-                                document.getElementById('stotal4').textContent = data.form3_3.stotal4 || '0';
+                                console.log("Valor de score3_3:", data.form3_3?.score3_3);
+                                document.getElementById('score3_3').textContent = data.form3_3.score3_3 ?? '0';
+                                document.getElementById('score3_3_copy').textContent = data.form3_3.score3_3 ?? '0';
+                                document.getElementById('rc1').textContent = data.form3_3.rc1 ?? '0';
+                                document.getElementById('rc2').textContent = data.form3_3.rc2 ?? '0';
+                                document.getElementById('rc3').textContent = data.form3_3.rc3 ?? '0';
+                                document.getElementById('rc4').textContent = data.form3_3.rc4 ?? '0';
+                                document.getElementById('stotal1').textContent = data.form3_3.stotal1 ?? '0';
+                                document.getElementById('stotal2').textContent = data.form3_3.stotal2 ?? '0';
+                                document.getElementById('stotal3').textContent = data.form3_3.stotal3 ?? '0';
+                                document.getElementById('stotal4').textContent = data.form3_3.stotal4 ?? '0';
 
                                 // Populate hidden inputs
                                 document.querySelector('input[name="user_id"]').value = data.form3_3.user_id || '';
@@ -659,58 +660,71 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 document.querySelector('input[name="email"]').value = selectedResponseForm3_3.email || '';
                                 document.querySelector('input[name="user_type"]').value = selectedResponseForm3_3.user_type || '';
 
-                                document.getElementById('score3_3').textContent = selectedResponseForm3_3.score3_3 || '0';
-                                document.getElementById('score3_3_copy').textContent = selectedResponseForm3_3.score3_3 || '0';
-                                document.getElementById('rc1').textContent = selectedResponseForm3_3.rc1 || '0';
-                                document.getElementById('rc2').textContent = selectedResponseForm3_3.rc2 || '0';
-                                document.getElementById('rc3').textContent = selectedResponseForm3_3.rc3 || '0';
-                                document.getElementById('rc4').textContent = selectedResponseForm3_3.rc4 || '0';
-                                document.getElementById('stotal1').textContent = selectedResponseForm3_3.stotal1 || '0';
-                                document.getElementById('stotal2').textContent = selectedResponseForm3_3.stotal2 || '0';
-                                document.getElementById('stotal3').textContent = selectedResponseForm3_3.stotal3 || '0';
-                                document.getElementById('stotal4').textContent = selectedResponseForm3_3.stotal4 || '0';
-                                document.querySelector('.comision3_3').textContent = selectedResponseForm3_3.comision3_3 || '0';
-                                document.querySelector('.comision3_3_copy').textContent = selectedResponseForm3_3.comision3_3 || '0';
+                                document.getElementById('score3_3').textContent = selectedResponseForm3_3?.score3_3 ?? '0';
+                                document.getElementById('score3_3_copy').textContent = selectedResponseForm3_3?.score3_3 ?? '0';
+                                document.getElementById('rc1').textContent = selectedResponseForm3_3?.rc1 ?? '0';
+                                document.getElementById('rc2').textContent = selectedResponseForm3_3?.rc2 ?? '0';
+                                document.getElementById('rc3').textContent = selectedResponseForm3_3?.rc3 ?? '0';
+                                document.getElementById('rc4').textContent = selectedResponseForm3_3?.rc4 ?? '0';
+                                document.getElementById('stotal1').textContent = selectedResponseForm3_3?.stotal1 ?? '0';
+                                document.getElementById('stotal2').textContent = selectedResponseForm3_3?.stotal2 ?? '0';
+                                document.getElementById('stotal3').textContent = selectedResponseForm3_3?.stotal3 ?? '0';
+                                document.getElementById('stotal4').textContent = selectedResponseForm3_3?.stotal4 ?? '0';
+                                document.querySelector('.comision3_3').textContent = selectedResponseForm3_3?.comision3_3 ?? '0';
+                                document.querySelector('.comision3_3_copy').textContent = selectedResponseForm3_3?.comision3_3 ?? '0';
 
-                                document.querySelector('span[class="comIncisoA"]').textContent = selectedResponseForm3_3.comIncisoA || '0';
-                                document.querySelector('span[class="comIncisoB"]').textContent = selectedResponseForm3_3.comIncisoB || '0';
-                                document.querySelector('span[class="comIncisoC"]').textContent = selectedResponseForm3_3.comIncisoC || '0';
-                                document.querySelector('span[class="comIncisoD"]').textContent = selectedResponseForm3_3.comIncisoD || '0';
-                                document.querySelector('span[class="obs3_3_1"]').textContent = selectedResponseForm3_3.obs3_3_1 || '';
-                                document.querySelector('span[class="obs3_3_2"]').textContent = selectedResponseForm3_3.obs3_3_2 || '';
-                                document.querySelector('span[class="obs3_3_3"]').textContent = selectedResponseForm3_3.obs3_3_3 || '';
-                                document.querySelector('span[class="obs3_3_4"]').textContent = selectedResponseForm3_3.obs3_3_4 || '';
+
+                                document.querySelector('span[class="comIncisoA"]').textContent = selectedResponseForm3_3.comIncisoA ?? '0';
+                                document.querySelector('span[class="comIncisoB"]').textContent = selectedResponseForm3_3.comIncisoB ?? '0';
+                                document.querySelector('span[class="comIncisoC"]').textContent = selectedResponseForm3_3.comIncisoC ?? '0';
+                                document.querySelector('span[class="comIncisoD"]').textContent = selectedResponseForm3_3.comIncisoD ?? '0';
+                                document.querySelector('span[class="obs3_3_1"]').textContent = selectedResponseForm3_3.obs3_3_1 ?? '';
+                                document.querySelector('span[class="obs3_3_2"]').textContent = selectedResponseForm3_3.obs3_3_2 ?? '';
+                                document.querySelector('span[class="obs3_3_3"]').textContent = selectedResponseForm3_3.obs3_3_3 ?? '';
+                                document.querySelector('span[class="obs3_3_4"]').textContent = selectedResponseForm3_3.obs3_3_4 ?? '';
 
 
                             } else {
 
                                 console.error('No form3_3 data found for the selected dictaminador.');
-                                // Reset input values if no data found
-                                document.querySelector('input[name="dictaminador_id"]').value = '0';
-                                document.querySelector('input[name="user_id"]').value = '0';
-                                document.querySelector('input[name="email"]').value = '';
-                                document.querySelector('input[name="user_type"]').value = '';
+                                console.log("Ejecutando el bloque else, asignando valores por defecto...");
 
-                                document.getElementById('score3_3').textContent = '0';
-                                document.getElementById('score3_3_copy').textContent = '0';
-                                document.getElementById('rc1').value = '0';
-                                document.getElementById('rc2').value = '0';
-                                document.getElementById('rc3').value = '0';
-                                document.getElementById('rc4').value = '0';
-                                document.getElementById('stotal1').value = '0';
-                                document.getElementById('stotal2').value = '0';
-                                document.getElementById('stotal3').value = '0';
-                                document.getElementById('stotal4').value = '0';
-                                document.querySelector('.comision3_3').value = '0';
-                                document.querySelector('.comision3_3_copy').value = '0';
-                                document.querySelector('span[name="comIncisoA"]').value = '0';
-                                document.querySelector('span[name="comIncisoB"]').value = '0';
-                                document.querySelector('span[name="comIncisoC"]').value = '0';
-                                document.querySelector('span[name="comIncisoD"]').value = '0';
-                                document.querySelector('span[name="obs3_3_1"]').textContent = '';
-                                document.querySelector('span[name="obs3_3_2"]').textContent = '';
-                                document.querySelector('span[name="obs3_3_3"]').textContent = '';
-                                document.querySelector('span[name="obs3_3_4"]').textContent = '';
+                                // Reset input values if no data found
+                                const dictaminadorInput = document.querySelector('input[name="dictaminador_id"]');
+                                if (dictaminadorInput) dictaminadorInput.value = '0';
+
+                                const userIdInput = document.querySelector('input[name="user_id"]');
+                                if (userIdInput) userIdInput.value = '0';
+
+                                const emailInput = document.querySelector('input[name="email"]');
+                                if (emailInput) emailInput.value = '';
+
+                                const userTypeInput = document.querySelector('input[name="user_type"]');
+                                if (userTypeInput) userTypeInput.value = '';
+
+                                // Aplicación de valores
+                                setValue('#score3_3', '0');
+                                setValue('#score3_3_copy', '0');
+                                setValue('#rc1', '0');
+                                setValue('#rc2', '0');
+                                setValue('#rc3', '0');
+                                setValue('#rc4', '0');
+                                setValue('#stotal1', '0');
+                                setValue('#stotal2', '0');
+                                setValue('#stotal3', '0');
+                                setValue('#stotal4', '0');
+                                setValue('.comision3_3', '0');
+                                setValue('.comision3_3_copy', '0');
+                                setValue('span[name="comIncisoA"]', '0');
+                                setValue('.comIncisoB', '0');
+                                setValue('.comIncisoC', '0');
+                                setValue('.comIncisoD', '0');
+                                setValue('.obs3_3_1', '');
+                                setValue('.obs3_3_2', '');
+                                setValue('.obs3_3_3', '');
+                                setValue('.obs3_3_4', '');
+
+
                             }
                         } catch (error) {
                             console.error('Error fetching dictaminators responses:', error);
@@ -845,6 +859,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
         }
+
+        // Función para asignar valores solo si el elemento existe
+            function setValue(selector, value) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                        element.value = value;
+                    } else {
+                        element.textContent = value;
+                    }
+                } else {
+                    console.warn(`Elemento no encontrado: ${selector}`);
+                }
+            }
+
 
     document.addEventListener('DOMContentLoaded', function () {
 
