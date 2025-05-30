@@ -17,12 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-../example-app/*
-../Captura_primer_proyecto_laravel.png*
-../crud-laravel/*
 ../google-sheets-evaluacion/*
- ../proyecto/*
-../renta-autos.zip
-../renta-autos/*
 ../test/*
 
