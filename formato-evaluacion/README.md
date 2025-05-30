@@ -114,3 +114,7 @@ Para cualquier duda o problema durante el despliegue, por favor contactar a:
 Para una comprensión más profunda del sistema y su operación, consulte los siguientes recursos:
 
 * **Presentación del Proyecto (PowerPoint):** [Ver Presentación General del Sistema](https://drive.google.com/drive/folders/1Ex0b_5KNvih1n3aIxfc4zKocpvNtfn8E?usp=sharing)
+
+* **Base de datos del Proyecto (SQL):** [Ver Base de datos](https://drive.google.com/file/d/1XQU2OWx69FWvAmLJk1gIEleSjHaqSdrG/view?usp=drive_link)
+
+* **Base de datos con datos de prueba, del Proyecto (SQL):** [Ver Base de datos de Pruebas](https://drive.google.com/file/d/1_gmt3IKNhVWch0oVGoOkS5R9zxm-z-oq/view?usp=drive_link)
