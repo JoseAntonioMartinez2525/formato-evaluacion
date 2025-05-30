@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ℹ️ Requisitos de Despliegue para el Sistema de Evaluación Docente
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este documento detalla los requisitos del entorno de servidor y los pasos necesarios para desplegar la aplicación "Sistema de Evaluación Docente".
 
-## About Laravel
+## 1. Información General del Proyecto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* **Framework de Desarrollo:** Laravel (versión 10/11)
+* **Lenguaje Principal:** PHP
+* **Gestor de Dependencias PHP:** Composer
+* **Gestor de Dependencias Frontend:** Node.js y NPM (o Yarn)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 2. Requisitos del Servidor
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Asegúrese de que el servidor cumpla con las siguientes especificaciones:
 
-## Learning Laravel
+### 2.1. Sistema Operativo
+* Preferentemente: Ubuntu Server 22.04 LTS (o similar distribución basada en Debian/Ubuntu).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2.2. Servidor Web
+* Apache (con módulo `mod_rewrite` habilitado) o Nginx.
+* **Configuración:** La raíz del documento (Document Root) para el dominio de la aplicación debe apuntar a la carpeta `public` del proyecto Laravel. (Ejemplo de configuración Nginx/Apache proporcionada en la carpeta `.` o `docs/`).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2.3. PHP
+* Versión mínima: PHP 8.3 (Laravel 12.x requiere PHP >= 8.3).
+* **Extensiones PHP requeridas (confirmadas por `composer show`):**
+    * `bcmath` (Utilizada para operaciones aritméticas de precisión arbitraria)
+    * `ctype` (Para funciones de clasificación de caracteres)
+    * `curl` (Para realizar solicitudes HTTP a servicios externos, como CloudConvert)
+    * `dom` (Crucial para la manipulación de documentos HTML/XML y la generación de PDFs con Dompdf)
+    * `fileinfo` (Para la detección de tipos MIME de archivos, por ejemplo, al subir archivos)
+    * `filter` (Para el filtrado de datos)
+    * `gd` (Requerida por Intervention/Image para la manipulación de imágenes. Si se usa ImageMagick, se necesitaría la extensión `imagick` en su lugar.)
+    * `json` (Para la codificación y decodificación de datos JSON)
+    * `mbstring` (Para el manejo de cadenas de caracteres multibyte, esencial para Unicode)
+    * `mysqlnd` (Controlador Nativo de MySQL para PHP, recomendado para `pdo_mysql`)
+    * `openssl` (Para criptografía y conexiones seguras)
+    * `pdo_mysql` (Extensión PHP Data Objects para conexiones a bases de datos MySQL)
+    * `tokenizer` (Utilizada para el análisis de código PHP)
+    * `xml` (Para el análisis y manipulación de documentos XML)
+    * `zip` (Si la aplicación maneja archivos ZIP)
+    * `exif` (Si Intervention/Image necesita leer datos EXIF de imágenes)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2.4. Base de Datos
+* **Tipo:** MySQL (versión 8.0 o superior recomendada).
+* **Nombre de la Base de Datos:** `evaluacion`
+* **Herramienta de Gestión:** phpMyAdmin (si bien la aplicación se conecta directamente, esta herramienta puede ser usada para la gestión manual de la base de datos).
+* **Acceso para la Aplicación:** Se necesita un usuario de base de datos dedicado para la conexión de la aplicación.
+    * **Nombre de Usuario:** `secretaria`
+    * **Contraseña:** (Actualmente vacía, **se recomienda encarecidamente establecer una contraseña robusta para entornos de producción por seguridad.**)
+    * **Privilegios Requeridos para el Usuario `secretaria`:** `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `ALTER`, `INDEX` (además de `CREATE VIEW`, `SHOW VIEW`, `EXECUTE`, `TRIGGER`, `EVENT` si este usuario también se usará para tareas de desarrollo/administración de BD).
 
-## Laravel Sponsors
+### 2.5. Node.js y NPM
+* Versión mínima: Node.js v18+
+* NPM (viene con Node.js) o Yarn.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2.6. `wkhtmltopdf`
+* Este es un programa externo que la aplicación utiliza para la generación de PDFs a partir de HTML (vía `barryvdh/laravel-snappy`).
+* Debe estar instalado en el servidor.
+* **Versión recomendada:** 0.12.6 o superior.
+* **Ruta esperada del ejecutable:** `/usr/local/bin/wkhtmltopdf` (o verificar la ruta exacta de instalación en el servidor).
 
-### Premium Partners
+## 3. Pasos de Despliegue 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Estos son los pasos generales que se espera que el equipo de IT siga para el despliegue del código:
 
-## Contributing
+1.  **Clonar o Copiar el Repositorio:**
+    `git clone <URL_del_repositorio_Git> /ruta/a/tu/aplicacion`
+    (O copiar el contenido del archivo `zip` en la carpeta `/ruta/a/tu/aplicacion`)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2.  **Configuración del `.env`:**
+    * Copiar `.env.example` a `.env`: `cp .env.example .env`
+    * Editar el archivo `.env` con las credenciales y URLs específicas del entorno de producción/staging (APP_URL, DB_*, MAIL_*, etc.).
 
-## Code of Conduct
+3.  **Instalar Dependencias de PHP:**
+    `composer install --no-dev --optimize-autoloader`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4.  **Instalar y Compilar Dependencias de Frontend:**
+    `npm install`
+    `npm run build`
 
-## Security Vulnerabilities
+5.  **Generar la `APP_KEY` de Laravel (si no está en el `.env` o es la primera vez):**
+    `php artisan key:generate`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6.  **Ejecutar Migraciones de Base de Datos:**
+    `php artisan migrate --force`
+    (Si se usan seeders para datos iniciales: `php artisan db:seed`)
 
-## License
+7.  **Establecer Permisos de Archivos:**
+    Asegurar que los directorios `storage` y `bootstrap/cache` sean escribibles por el usuario del servidor web.
+    `sudo chown -R www-data:www-data /ruta/a/tu/aplicacion`
+    `sudo chmod -R 775 /ruta/a/tu/aplicacion/storage /ruta/a/tu/aplicacion/bootstrap/cache`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8.  **Limpiar Cachés de Laravel:**
+    `php artisan config:cache`
+    `php artisan route:cache`
+    `php artisan view:cache`
+    `php artisan event:cache`
+
+9.  **Configurar el Servidor Web (Apache/Nginx):**
+    Asegurarse de que el Virtual Host apunta a `/ruta/a/tu/aplicacion/public`.
+
+10. **Reiniciar el Servidor Web/PHP-FPM:**
+    `sudo systemctl restart apache2` (o `nginx`)
+    `sudo systemctl restart php8.1-fpm` (ajustar la versión de PHP)
+
+## 4. Contacto
+
+Para cualquier duda o problema durante el despliegue, por favor contactar a:
+[José Antonio martínez del Toro]
+[joma_18@alu.uabcs.mx]
+
+## 5 Documentación Adicional
+
+Para una comprensión más profunda del sistema y su operación, consulte los siguientes recursos:
+
+* **Presentación del Proyecto (PowerPoint):** [Ver Presentación General del Sistema](https://drive.google.com/drive/folders/1Ex0b_5KNvih1n3aIxfc4zKocpvNtfn8E?usp=sharing)
