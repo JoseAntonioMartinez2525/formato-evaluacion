@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('consolidated_responses', function (Blueprint $table) {
-            $table->json('user_email')->nullable(); // Añadir la columna como JSON para manejar múltiples correos
-        });
+        if (!Schema::hasColumn('consolidated_responses', 'user_email')) {
+            Schema::table('consolidated_responses', function (Blueprint $table) {
+                $table->json('user_email')->nullable();
+            });
+        }
+
     }
 
     public function down(): void

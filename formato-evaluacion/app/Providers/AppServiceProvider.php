@@ -28,21 +28,23 @@ class AppServiceProvider extends ServiceProvider
         DB::listen(function ($query) {
             \Log::info($query->sql, $query->bindings);
         });
+
         Schema::defaultStringLength(255);
 
-        //convocatoria
-         
+        // Convocatoria
         if (auth()->check()) {
-            $convocatoria = UsersResponseForm1::where('user_id', auth()->id())->latest()->first();
+            $convocatoria = \App\Models\UsersResponseForm1::where('user_id', auth()->id())->latest()->first();
             if ($convocatoria) {
                 view()->share('convocatoria', $convocatoria->convocatoria);
             }
         }
 
-        // Puntaje máximo global
-        View::share('puntajeMaximoGlobal', DB::table('puntajes_maximos')
-            ->where('clave', 'puntajeMaximo')
-            ->value('valor'));
-        
+        // Puntaje máximo global SOLO si la tabla existe
+        if (Schema::hasTable('puntajes_maximos')) {
+            View::share('puntajeMaximoGlobal', DB::table('puntajes_maximos')
+                ->where('clave', 'puntajeMaximo')
+                ->value('valor'));
+        }
     }
+
 }
