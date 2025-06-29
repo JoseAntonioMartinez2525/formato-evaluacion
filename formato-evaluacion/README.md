@@ -113,4 +113,20 @@ Para cualquier duda o problema durante el despliegue, por favor contactar a:
 
 Para una comprensión más profunda del sistema y su operación, consulte los siguientes recursos:
 
+* **Identificadores para la Base de Datos (SQL): en modo Producción** [
+    usuario: incogni1_formato_docente
+    contraseña:Formato_Docente
+]
+
+* **Administrador de archivos: en modo Produccion** [incognitoarquitectura.com](https://www.incognitoarquitectura.com:52229/cpsess7797644560/frontend/jupiter/filemanager/index.html)
+
+* **Hosting temporal del sistema**
+([https://incognitoarquitectura.com/])
+
+* **Base de Datos: en modo Producción** [phpMyAdmin](https://www.incognitoarquitectura.com:52229/cpsess7797644560/3rdparty/phpMyAdmin/index.php?route=/sql&pos=0&db=incogni1_formato_docente&table=dictaminators_response_form3_12)
+
 * **Presentación del Proyecto (PowerPoint):** [Ver Presentación General del Sistema](https://drive.google.com/drive/folders/1Ex0b_5KNvih1n3aIxfc4zKocpvNtfn8E?usp=sharing)
+
+* **Base de datos del Proyecto (SQL): en modo local** [Ver Base de datos](https://drive.google.com/file/d/1XQU2OWx69FWvAmLJk1gIEleSjHaqSdrG/view?usp=drive_link)
+
+* **Base de datos con datos de prueba, del Proyecto (SQL): en modo local** [Ver Base de datos de Pruebas](https://drive.google.com/file/d/1_gmt3IKNhVWch0oVGoOkS5R9zxm-z-oq/view?usp=drive_link)
