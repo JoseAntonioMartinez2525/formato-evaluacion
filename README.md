@@ -4,6 +4,11 @@ Proyecto para el servicio social
 ## hosting temporal del sistema
 ([https://incognitoarquitectura.com/])
 
+## Usuarios de prueba para el acceso:
+  docente: email= imaz@uabcs.mx contraseña= 123456
+  dictaminador: email= marcos@uabcs.mx contraseña= 123456
+  secretaria: email= joma_18@alu.uabcs.mx
+
 ## Requisitos del Sistema para la Aplicacion web de Evaluación docente
 ([https://github.com/JoseAntonioMartinez2525/formato-evaluacion/tree/main/formato-evaluacion](https://github.com/JoseAntonioMartinez2525/formato-evaluacion/tree/main/formato-evaluacion#%E2%84%B9%EF%B8%8F-requisitos-de-despliegue-para-el-sistema-de-evaluaci%C3%B3n-docente))
 
