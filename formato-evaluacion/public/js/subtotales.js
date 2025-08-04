@@ -1224,7 +1224,7 @@ console.log("l)  Ciclo de conferencias, simposio, coloquio, etc. Internacional, 
 function onActv3SubTotal3_19(){
   //Puntaje
 
-  const puntajeCGU = parseFloat(document.getElementById("puntajeCGUespecial").textContent);
+  const puntajeCGU = parseFloat(document.getElementById("puntajeCGUtitular").textContent);
   const puntajeCGUespecial =  parseFloat(document.getElementById("puntajeCGUespecial").textContent);
   const puntajeCGUpermanente = parseFloat(document.getElementById("puntajeCGUpermanente").textContent);
   const puntajeCAACtitular =  parseFloat(document.getElementById("puntajeCAACtitular").textContent);

@@ -100,7 +100,7 @@ class EvaluatorSignatureController1 extends Controller
     public function getEvaluatorSignature(Request $request)
     {
         Log::info('Received request for evaluator signature', $request->all());
-
+        
         // Validación de los campos del request
         $request->validate([
             'user_id' => 'exists:users,id',
