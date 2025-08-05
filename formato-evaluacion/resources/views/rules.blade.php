@@ -21,6 +21,7 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
   <link href="{{ asset('css/darkmode.css') }}" rel="stylesheet">
   <script src="https://kit.fontawesome.com/e72e299160.js" crossorigin="anonymous"></script>
   <style>
+    
     body {
       margin-left: 200px;
       margin-bottom: 600px;
@@ -48,21 +49,24 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
     .deptos ul {
       list-style-type: none;
       padding: 0;
+      
     }
+
 
     .deptos li {
       margin-bottom: 10px;
       margin-left: 20px;
       list-style-type: none;
+      color: white;
     }
 
-    table {
-      border-collapse: collapse;
-      width: calc(100% - 300px);
-      margin: auto;
-      margin-left: -900px;
-      border: 4px solid black !important;
-    }
+table {
+  border-collapse: collapse;
+  min-width: 320px;
+  border: 4px solid black !important;
+  background: white;
+  margin: 0;
+}
 
     .borderless th {
       border: none;
@@ -77,23 +81,37 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 
     }
 
-    .table-container {
-      display: flex;
-      justify-content: space-between;
-    }
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  width: 100%;
+  margin-top: 60px;
+  margin-left: -350px;
+  
+  
+}
 
     .table-container2 {
       margin-bottom: 100px;
       justify-content: space-between;
-      margin-left: 60px;
+      margin-left: 0px;
     }
 
-  .nav-max-content{
-      height: max-content !important;
-      color: white;
-      width: max-content;
-
-  }
+.nav-max-content {
+  min-width: 300px;
+  z-index: 2;
+}
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 40px 0 0 16px;
+  min-width: 0;
+}
   .nav-max-content a{
       color: white;
       font-size: larger;
@@ -109,6 +127,10 @@ $logo = 'https://www.uabcs.mx/transparencia/assets/images/logo_uabcs.png';
 
 body.dark-mode nav.nav.flex-column a:hover {
     color: rgb(122, 164, 237);
+}
+.main-layout {
+  display: flex;
+  min-height: 100vh;
 }
 
   </style>
@@ -167,35 +189,36 @@ body.dark-mode nav.nav.flex-column a:hover {
 
     <body class="font-sans antialiased">
       <x-general-header />
-    <div class="bg-gray-50 text-black/50">
-    <div class="relative min-h-screen flex flex-col items-center justify-center">
-      <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-      <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-      <div class="flex lg:justify-center lg:col-start-2"></div>
-
-      <nav class="-mx-3 flex flex-1 justify-end"></nav>
-      <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass" style="margin-right: 100px;"><i class="fa-solid fa-moon"></i>&nbspModo Obscuro</button>
-      <div class="table-container">
-      <table class="table table-bordered" style="margin-top: 200px;">
+  <div class="main-layout">
+    
+    <div class="content-area">
+    <button id="toggle-dark-mode" class="btn btn-secondary printButtonClass"
+      style="margin-right: 100px; margin-top: 30px;">
+      <i class="fa-solid fa-moon"></i>&nbspModo Obscuro
+    </button>
+    <div class="table-container">
+      <!-- Aquí van las tablas -->
+      <table class="table table-bordered" style="margin-top: 40px;">
+      <!-- ... thead y tbody de la primera tabla... -->
       <thead>
-      <tr class="borderless">
-      <th style="border-left: solid 1px;">&nbsp</th>
-      <th>Artículo 10 REGLAMENTO PEDPD</th>
-      <th style="border-right: solid 1px;">&nbsp</th>
-      </tr>
-      <tr>
-      <th>PUNTUACIÓN TOTAL MÍNIMA</th>
-      <th>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</th>
-      <th>NIVEL</th>
-      </tr>
+        <tr class="borderless">
+        <th style="border-left: solid 1px;">&nbsp</th>
+        <th>Artículo 10 REGLAMENTO PEDPD</th>
+        <th style="border-right: solid 1px;">&nbsp</th>
+        </tr>
+        <tr>
+        <th>PUNTUACIÓN TOTAL MÍNIMA</th>
+        <th>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</th>
+        <th>NIVEL</th>
+        </tr>
       </thead>
       <tbody>
-      <tr>
-      <td>301</td>
-      <td>377.99</td>
-      <td>I</td>
-      </tr>
-      <?php
+        <tr>
+        <td>301</td>
+        <td>377.99</td>
+        <td>I</td>
+        </tr>
+        <?php
   $minima = [378, 455.99, 456, 533.99, 534, 611.99, 612, 689.99, 690, 767.99, 768, 845.99, 846, 923.99, 924, 1000];
   $nivel = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
   for ($i = 0; $i < count($minima); $i += 2) {
@@ -206,38 +229,33 @@ body.dark-mode nav.nav.flex-column a:hover {
     echo '<td>' . $nivel[$i / 2] . '</td>';
     echo '</tr>';
   }
-      ?>
-
+            ?>
       </tbody>
-      <?php
+      </table>
+      <table class="table table-bordered table-container2" style="margin-top: 40px;">
+      <thead>
+        <tr>
+        <th>PUNTUACIÓN MÍNIMA DE CALIDAD</th>
+        <th>NIVEL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
   $puntuacion_minima = [210, 265, 320, 375, 430, 485, 540, 595, 650];
   $puntuacion_maxima = [264.99, 319.99, 374.99, 429.99, 484.99, 539.99, 594.99, 649.99, 704];
   $nivel = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-      ?>
-
-      <table class="table table-bordered table-container2">
-      <thead>
-      <tr>
-      <th>PUNTUACIÓN MÍNIMA DE CALIDAD</th>
-      <th>NIVEL</th>
-      </tr>
-      </thead>
-      <tbody>
-      <?php  for ($i = 0; $i < count($puntuacion_minima); $i++): ?>
-      <tr>
-      <td><?php    echo $puntuacion_minima[$i]; ?> - <?php    echo $puntuacion_maxima[$i]; ?></td>
-      <td><?php    echo $nivel[$i]; ?></td>
-      </tr>
-      <?php  endfor; ?>
+  for ($i = 0; $i < count($puntuacion_minima); $i++) {
+    echo '<tr>';
+    echo '<td>' . $puntuacion_minima[$i] . ' - ' . $puntuacion_maxima[$i] . '</td>';
+    echo '<td>' . $nivel[$i] . '</td>';
+    echo '</tr>';
+  }
+            ?>
       </tbody>
       </table>
-      </div>
-      </main>
-
-      <footer></footer>
-      </div>
     </div>
     </div>
+  </div>
 
     <script>
 

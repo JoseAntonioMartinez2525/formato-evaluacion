@@ -1,7 +1,7 @@
 <style>
 
   #logoUniv{
-    width: 150px; height: auto; margin-bottom: 10px;margin-left: -550px; margin-top: 30px;
+    width: 150px; height: auto; margin-bottom: 10px;margin-right: 500px; margin-top: 30px;
     }
     
        
