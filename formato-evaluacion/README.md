@@ -4,7 +4,7 @@ Este documento detalla los requisitos del entorno de servidor y los pasos necesa
 
 ## 1. Información General del Proyecto
 
-* **Framework de Desarrollo:** Laravel (versión 10/11)
+* **Framework de Desarrollo:** Laravel (versión 12)
 * **Lenguaje Principal:** PHP
 * **Gestor de Dependencias PHP:** Composer
 * **Gestor de Dependencias Frontend:** Node.js y NPM (o Yarn)
